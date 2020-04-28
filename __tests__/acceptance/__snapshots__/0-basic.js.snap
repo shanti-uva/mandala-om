@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`click advanced search it welcomes the user 1`] = `
+"
+	ADVANCEDSEARCHMandala   The Shinjé Yapyum Cham is performedOne of the most common sacred masked dances performed during religious festivals in Bhutan is the Shinjé Yapyum Cham. The dance is often performed early during a festival’s program as it is believed to subdue negative spirits and harmful influences. Although known as the Shinjé Yapyum Cham, or the Dance of the Male and Female Lords of Death, it represents the male and female Yamāntaka is the Destroyer of Death...View Resource    ITEM TYPE    All  PLACES   FEATURES   SUBJECTS   TERMS   COLLECTIONS   LANGUAGES   USERS   RECENT SEARCHESShow Boolean controls?  
+
+
+
+	let suiSite=\\"Mandala\\";																		// Assume Mandala
+	let url=window.location.search;						   										// Get query string
+	if (url && url.match(/^\\\\?b/i))	suiSite=\\"Bhutan\\";											// Bhutan
+	else if (url && url.match(/^\\\\?c/i))	suiSite=\\"CU\\";											// Comtemplative University
+	var sui=new SearchUI(suiSite,url && url.match(/prod/i));									// Alloc main program, prod or dev
+	if (suiSite == \\"Bhutan\\") 	sui.ss.project_filter=\\"kmapid: (places-427 subjects-8260)\\"		// Site specific constant query
+	else if (suiSite == \\"CU\\")	;
+	sui.pages=new Pages();																		// Alloc pages 
+	if (url && url.match(/^\\\\?.e/i))	sui.pages.editing=true;										// 'e' turns on editing
+	if (suiSite != \\"CU\\") DrawLandingPage();														// Draw Mandala/Bhutan landing
+
+	function DrawLandingPage()																// DRAW SITE SPECIFIC LANDING PAGE
+	{
+		if (suiSite == \\"CU\\") {	
+			$(\\"#sui-search\\").focus();															// Focus on search input
+			return;
+			}
+		let title=\\"Mandala\\"; 
+		if (suiSite == \\"Bhutan\\")	title=\\"Bhutan Cultural Library\\";							// Set title
+		$(\\"#sui-results\\").css({ display:\\"block\\", top:\\"52px\\" });									// Hide results page	
+		$(\\"#sui-headLeft\\").html(\`<div style='margin-top:8px'>\${title}</div>\`);					// Set left header
+		$(\\"#sui-footer\\").html(\\"\\");																// Clear footer
+		$(\\"#sui-footer\\").css(\\"background-color\\",\\"#ddd\\");										// Gray
+		$(\\"#sui-header\\").css(\\"background-color\\",\\"#4d59ca\\");										// Blue
+		$(\\"#sui-results\\").html(\\"\\");																// Clear pages
+		$(\\"#sui-results\\").css({\\"background-size\\":\\"100% auto\\", \\"background-repeat\\":\\"no-repeat\\", \\"background-image\\": \\"url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg')\\"});
+		let str=\`<div style='text-align:center;width:66%;max-width:800px;margin:12px auto 12px auto'>
+		<div style='color:#fff;font-size:24px;margin-bottom:8px;font-weight:700'>
+		BHUTAN: A LIVING ARCHIVE</div>
+		<div style='font-size:20px;font-family:\\"EB Garamond\\",serif,shanticon; font-weight:400;color:#fff'>
+			The Kingdom of Bhutan has vibrant oral and embodied cultures across its mountainous landscape, 
+			which are now under pressure from globalization. 
+			This project aims to carry out an extensive audio-visual documentation to support local communities.
+		</div></div>\`;
+		$(\\"#results\\").append(str.replace(/\\\\t|\\\\n|\\\\r/g,\\"\\"));									// Remove format and add to div	
+		sui.pages.DrawCarousel();
+		str=\`<div style='position:absolute;top:calc(100% - 100px); width:66%;max-width:800px;margin:24px auto 12px auto;color:#fff'>	
+				<i>The Bhutan Cultural Library is made possible through the contributions and efforts of local individuals 
+				and communities in Bhutan in collaboration with Loden Foundation (formerly Shejun Agency) and the University of Virginia. 
+				The team gratefully acknowledges the generous support offered by Arcadia throughout the project.</i>
+				</div>
+			</div>\`;
+		$(\\"#results\\").append(str.replace(/\\\\t|\\\\n|\\\\r/g,\\"\\"));									// Remove format and add to div	
+		sui.ClearQuery();																		// Clear query
+//		sui.DrawAdvanced();																		// Refresh advanced search
+		$(\\"#sui-search\\").focus();																// Focus on search input
+	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// HELPERS
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	$(\\"#sui-header\\").on(\\"click\\",(e)=> { if (!e.altKey) return;
+		sui.GeoLocate();
+	});
+
+	function trace(msg, p1, p2, p3, p4)														// CONSOLE 
+	{
+		if (p4 != undefined)
+			console.log(msg,p1,p2,p3,p4);
+		else if (p3 != undefined)
+			console.log(msg,p1,p2,p3);
+		else if (p2 != undefined)
+			console.log(msg,p1,p2);
+		else if (p1 != undefined)
+			console.log(msg,p1);
+		else
+			console.log(msg);
+	}
+
+
+
+
+"
+`;
+
+exports[`visit homepage it welcomes the user 1`] = `
+"
+	ADVANCEDSEARCHMandala   The Shinjé Yapyum Cham is performedOne of the most common sacred masked dances performed during religious festivals in Bhutan is the Shinjé Yapyum Cham. The dance is often performed early during a festival’s program as it is believed to subdue negative spirits and harmful influences. Although known as the Shinjé Yapyum Cham, or the Dance of the Male and Female Lords of Death, it represents the male and female Yamāntaka is the Destroyer of Death...View Resource    ITEM TYPE    All  PLACES   FEATURES   SUBJECTS   TERMS   COLLECTIONS   LANGUAGES   USERS   RECENT SEARCHESShow Boolean controls?  
+
+
+
+	let suiSite=\\"Mandala\\";																		// Assume Mandala
+	let url=window.location.search;						   										// Get query string
+	if (url && url.match(/^\\\\?b/i))	suiSite=\\"Bhutan\\";											// Bhutan
+	else if (url && url.match(/^\\\\?c/i))	suiSite=\\"CU\\";											// Comtemplative University
+	var sui=new SearchUI(suiSite,url && url.match(/prod/i));									// Alloc main program, prod or dev
+	if (suiSite == \\"Bhutan\\") 	sui.ss.project_filter=\\"kmapid: (places-427 subjects-8260)\\"		// Site specific constant query
+	else if (suiSite == \\"CU\\")	;
+	sui.pages=new Pages();																		// Alloc pages 
+	if (url && url.match(/^\\\\?.e/i))	sui.pages.editing=true;										// 'e' turns on editing
+	if (suiSite != \\"CU\\") DrawLandingPage();														// Draw Mandala/Bhutan landing
+
+	function DrawLandingPage()																// DRAW SITE SPECIFIC LANDING PAGE
+	{
+		if (suiSite == \\"CU\\") {	
+			$(\\"#sui-search\\").focus();															// Focus on search input
+			return;
+			}
+		let title=\\"Mandala\\"; 
+		if (suiSite == \\"Bhutan\\")	title=\\"Bhutan Cultural Library\\";							// Set title
+		$(\\"#sui-results\\").css({ display:\\"block\\", top:\\"52px\\" });									// Hide results page	
+		$(\\"#sui-headLeft\\").html(\`<div style='margin-top:8px'>\${title}</div>\`);					// Set left header
+		$(\\"#sui-footer\\").html(\\"\\");																// Clear footer
+		$(\\"#sui-footer\\").css(\\"background-color\\",\\"#ddd\\");										// Gray
+		$(\\"#sui-header\\").css(\\"background-color\\",\\"#4d59ca\\");										// Blue
+		$(\\"#sui-results\\").html(\\"\\");																// Clear pages
+		$(\\"#sui-results\\").css({\\"background-size\\":\\"100% auto\\", \\"background-repeat\\":\\"no-repeat\\", \\"background-image\\": \\"url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg')\\"});
+		let str=\`<div style='text-align:center;width:66%;max-width:800px;margin:12px auto 12px auto'>
+		<div style='color:#fff;font-size:24px;margin-bottom:8px;font-weight:700'>
+		BHUTAN: A LIVING ARCHIVE</div>
+		<div style='font-size:20px;font-family:\\"EB Garamond\\",serif,shanticon; font-weight:400;color:#fff'>
+			The Kingdom of Bhutan has vibrant oral and embodied cultures across its mountainous landscape, 
+			which are now under pressure from globalization. 
+			This project aims to carry out an extensive audio-visual documentation to support local communities.
+		</div></div>\`;
+		$(\\"#results\\").append(str.replace(/\\\\t|\\\\n|\\\\r/g,\\"\\"));									// Remove format and add to div	
+		sui.pages.DrawCarousel();
+		str=\`<div style='position:absolute;top:calc(100% - 100px); width:66%;max-width:800px;margin:24px auto 12px auto;color:#fff'>	
+				<i>The Bhutan Cultural Library is made possible through the contributions and efforts of local individuals 
+				and communities in Bhutan in collaboration with Loden Foundation (formerly Shejun Agency) and the University of Virginia. 
+				The team gratefully acknowledges the generous support offered by Arcadia throughout the project.</i>
+				</div>
+			</div>\`;
+		$(\\"#results\\").append(str.replace(/\\\\t|\\\\n|\\\\r/g,\\"\\"));									// Remove format and add to div	
+		sui.ClearQuery();																		// Clear query
+//		sui.DrawAdvanced();																		// Refresh advanced search
+		$(\\"#sui-search\\").focus();																// Focus on search input
+	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// HELPERS
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	$(\\"#sui-header\\").on(\\"click\\",(e)=> { if (!e.altKey) return;
+		sui.GeoLocate();
+	});
+
+	function trace(msg, p1, p2, p3, p4)														// CONSOLE 
+	{
+		if (p4 != undefined)
+			console.log(msg,p1,p2,p3,p4);
+		else if (p3 != undefined)
+			console.log(msg,p1,p2,p3);
+		else if (p2 != undefined)
+			console.log(msg,p1,p2);
+		else if (p1 != undefined)
+			console.log(msg,p1);
+		else
+			console.log(msg);
+	}
+
+
+
+
+"
+`;

@@ -1,0 +1,28 @@
+{
+  "name": "mandala-om",
+  "version": "1.0.0",
+  "description": "This tool is implelemented in Javascript as a module to search for resources using  the Solr index.",
+  "main": "index.js",
+  "jest": {
+    "testTimeout": 10000
+  },
+  "scripts": {
+    "test": "jest --verbose --watch",
+    "coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shanti-uva/mandala-om.git"
+  },
+  "author": "Yuji Shinozaki, Bill Ferster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shanti-uva/mandala-om/issues"
+  },
+  "homepage": "https://github.com/shanti-uva/mandala-om#readme",
+  "devDependencies": {
+    "jest": "^25.4.0",
+    "jquery": "^3.5.0",
+    "nightmare": "^3.0.2"
+  }
+}
