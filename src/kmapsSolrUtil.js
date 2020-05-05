@@ -666,4 +666,6 @@ class KmapsSolrUtil {
     }
 
 
-}
+};
+
+module.exports = KmapsSolrUtil;

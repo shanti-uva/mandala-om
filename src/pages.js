@@ -554,3 +554,5 @@ class Pages  {
 
 	
 } // Pages class closure
+
+module.exports = Pages;

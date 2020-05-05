@@ -18,13 +18,15 @@ describe('visit homepage', function () {
 describe('click advanced search', function () {
     test('it welcomes the user', async function () {
         let wd = process.cwd();
-        let page = Nightmare({show: true})
+        let page = await Nightmare({show: false})
             .goto("file://" + wd + "/src/index.html")
             .type('#sui-search', 'lhasa')
             .click('#sui-searchgo')
             .wait('.sui-advHeader')
-            .click('#sui-advHeader-places');
-        await page.catch( error => console.error(error));
-        expect(text).toMatchSnapshot();
+            .click('#sui-advHeader-places')
+            .wait('.sui-adv')
+            .end()
+            .catch( error => console.error(error));
+        expect(document.body).toMatchSnapshot();
     });
 });

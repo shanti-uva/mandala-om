@@ -20,7 +20,7 @@
 
 *********************************************************************************************************************************************/
 
-class Subjects  {																					
+class Subjects  {
 
 	constructor()   																		// CONSTRUCTOR
 	{
@@ -382,3 +382,5 @@ subs="(TBD)"
 		}
 
 } // CLASS CLOSURE
+
+module.exports = Subjects;

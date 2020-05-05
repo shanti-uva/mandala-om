@@ -1401,3 +1401,5 @@ class SearchUI  {
 	}
 
 } // SearchUI class closure
+
+module.exports = SearchUI;
