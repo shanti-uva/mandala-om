@@ -300,10 +300,10 @@ class AdvancedToggle extends React.Component {
     }
 
     render() {
-        const label = (this.props.advanced)?ADVANCED_LABEL:BASIC_LABEL;
+        const label = (this.props.advanced)?BASIC_LABEL:ADVANCED_LABEL;
         return (
             <div onClick={this.toggleAdvanced} id='sui-mode' className='sui-search5'
-                 title='Advanced search'>{label}</div>
+                 title='{label}'>{label}</div>
         )
     }
 }
