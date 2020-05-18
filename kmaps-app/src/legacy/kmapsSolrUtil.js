@@ -9,15 +9,19 @@ Usage:
     createBasicQuery(state) uses a populated "state" object and returns the appropriate url as a String.
 
  */
+/* eslint-disable */
+
+import $ from 'jquery';
+
 
 const DEBUG = false;
 
-class KmapsSolrUtil {
+export default class KmapsSolrUtil {
 
     constructor(overrideDefaultState) {
-        // check to make sure that jQuery is available
-        if (typeof jQuery !== "function")
-            $ = jQuery;
+        // // check to make sure that jQuery is available
+        // if (typeof $ !== "function")
+        //     $ = jQuery;
 
         if (typeof $ === "undefined") {
             throw("This libraries requires jQuery");
@@ -624,14 +628,14 @@ class KmapsSolrUtil {
 
         for ( var lvl = lvlb + 1; lvl > lvla; lvl--) {
             var short_path = path.split("/").slice(0,lvl-1).join("/");
-            console.log("shorty: " + lvl +": " + JSON.stringify(short_path));
+            // console.log("shorty: " + lvl +": " + JSON.stringify(short_path));
             let path_filter = (short_path.length)?" AND " + ancestorField + ":" + short_path: "";
             level_fqlist.push("(" + levelField + ":" + (lvl - 1) + path_filter +")");
         }
         const level_fqs = level_fqlist.join(" ");  // space separated list (OR)
         let top_path = path.split("/").slice(0,lvla).join("/");
-        console.dir(level_fqs);
-        console.log("top_path = " + top_path)
+        // console.dir(level_fqs);
+        // console.log("top_path = " + top_path)
 
         var req_url =
             termIndexRoot + "/select?" +
@@ -667,5 +671,3 @@ class KmapsSolrUtil {
 
 
 };
-
-module.exports = KmapsSolrUtil;

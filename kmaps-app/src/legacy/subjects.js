@@ -19,43 +19,73 @@
 	Dependents:	pages.js, searchui.js								// JS modules called
 
 *********************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
 
-class Subjects  {
+export default class Subjects  {
 
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+
+		this.sui=sui;
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 		this.content=["...loading","...loading"];												// Content pages for relateds
 		this.content2=["<br>","<br>"];
 		this.kmap=null;																			// Holds kmap
 		this.relatedPlaceData=null;																// Holds related places
 		this.relatedSubjectData=null;															// Holds related subjects
-		}
+	}
 
+	// CALLS this.GetSubjectData(),
+	// CALLS this.DrawContent()
+	// CALLS sui.pages.DrawRelatedAssets();
+	// ACCESSES this.sui
+	// SIDE-EFFECT sets this.kmap
 	Draw(o, related)																			// DRAW SOURCE PAGE FROM KMAP
 	{
-		this.kmap=o;																			// Save kmap
-		$("#sui-results").css({ "padding-left":"12px", width:"calc(100% - 24px"});				// Reset to normal size
+		console.error("subjects.Draw() called ");
+		console.dir(arguments);
+
+		const sui = this.sui;
+		this.kmap=o;																		// Save kmap
+		$("#sui-legacy").css({ "padding-left":"12px", width:"calc(100% - 24px"});				// Reset to normal size
 		this.GetSubjectData(o);																	// Get related subjects content	
 		this.DrawContent(o,related);															// Draw content
 		sui.pages.DrawRelatedAssets(o);															// Draw related assets menu
 	}
 
+	// USES this.sui (sui.assets)
+	// CALLS this.ShowTab()
+	// CALLS sui.pages.DrawTabMenu()
+	// CALLS this.GetPlaceData(o)
+	// OUTPUT this.div
 	DrawContent(o, related)																	// DRAW CONTENT
 	{
-		let str=`<div class='sui-subjects' id='sui-subConDiv'>
+		const sui = this.sui;
+		let str = `<div class='sui-subjects' id='sui-subConDiv'>
 		<div><span class='sui-subIcon'>${sui.assets[o.asset_type].g}</span>
 		<span class='sui-subText'>${o.title[0]}</span>
 		<hr style='border-top: 1px solid ${sui.assets[o.asset_type].c}'>`;
-		if (o.caption)	str+="<p id='sui-spCap'>"+o.caption+"</p></div>";
-		if (related == 1) 		str="<div style='margin-left:192px'>"+sui.pages.DrawTabMenu(["SUBJECT CONTEXT","RELATED SUBJECTS"]);  // If subjects, add tab menu
-		else if (related == 2)	str="<div id='sui-topCon' style='margin-left:216px'>"+this.GetPlaceData(o);							  // If places, get data
-		$(this.div).html(str+"</div>".replace(/\t|\n|\r/g,""));									// Remove format and add to div				
-		;
-		$("[id^=sui-tabTab]").on("click", (e)=> {												// ON TAB CLICK
-			var id=e.currentTarget.id.substring(10);											// Get index of tab	
+		if (o.caption) {
+			str += "<p id='sui-spCap'>" + o.caption + "</p></div>";
+		}
+		if (related == 1) {
+			str = "<div style='margin-left:192px'>"
+				+ sui.pages.DrawTabMenu(["SUBJECT CONTEXT", "RELATED SUBJECTS"]);
+		} 																						// If subjects, add tab menu
+		else if (related == 2) {
+			str = "<div id='sui-topCon' style='margin-left:216px'>"
+				+ this.GetPlaceData(o);
+		} 																						// If places, get data
+
+		// OUTPUT
+		$(this.div).html(str + "</div>".replace(/\t|\n|\r/g, ""));									// Remove format and add to div
+
+		// HANDLERS
+		$("[id^=sui-tabTab]").on("click", (e) => {												// ON TAB CLICK
+			var id = e.currentTarget.id.substring(10);											// Get index of tab
 			this.ShowTab(id);																	// Draw it
-			});
+		});
 	}
 
 	ShowTab(which) 																			// SHOW TAB
@@ -71,7 +101,7 @@ class Subjects  {
 		$("#sui-tabTab"+which).css({"background-color":"#eee",color:"#000"});					// Active tab
 		$("#sui-tabContent").html(this.content[which]);											// Set content
 		if (which == 0)	{																		// If SUBJECT CONTEXT
-			$("#sui-spLab-"+this.kmap.uid).css({ "font-weight":"bold", "text-decoration": "underline"  });	// Highlight current one	
+			$("#sui-spLab-"+this.kmap.uid).css({ "font-weight":"bold", "text-decoration": "underline"  });	// Highlight current one
 			$("[id^=sui-spLab-]").on("click", function(e) {return false;	});					// ON CONTEXT LINE CLICK, INHIBIT
 			$("[id^=sui-spDot-]").on("click", function(e) {										// ON RELATIONSHIP TREE DOT CLICK
 				let path=e.currentTarget.id.substring(10);										// Get id
@@ -109,6 +139,8 @@ class Subjects  {
 		return "Loading...";																	// Say we're loading...
 	}	
 			
+
+
 	DrawRelatedPlaces(mode, sortMode)														// DRAW RELATED PLACES
 	{			
 		let i,j,id,tops=[];
@@ -123,7 +155,7 @@ class Subjects  {
 		<span class='sui-advEditBut' style='color:${mode != "tree" ? "#668eec" : "#666"}'
 		id='sui-rpList' title='List view'>&#xe61f</span>`;
 		if (mode != "tree") {																	// If drawing as a list
-			j=$("#sui-footer").offset().top-$("#sui-results").offset().top-150;					// Fill space
+			j=$("#sui-footer").offset().top-$("#sui-legacy").offset().top-150;					// Fill space
 			str+=` | <span class='sui-advEditBut' id='sui-rpSort' title='Sort'>
 			${(sortMode == 1) ? "&#xe653" : "&#xe652"}</span>		
 			</p><div class='sui-rpList' style='height:${j}px'>`;								// Add container			
@@ -131,23 +163,37 @@ class Subjects  {
 			for (i=0;i<d.length;++i) {															// For each related place
 				str+=`<div id='sui-rpLine-${i}' style='width:300px' title='${d[i].ancestors_txt.join("/")}'>${d[i].title}</div>`; 	// Add line
 				}
+
+			// OUTPUT TO SUI-TOPCON
 			$("#sui-topCon").html(str+"</div>");												// Draw as list
-			$("#sui-rpTree").on("click", ()=> {	this.DrawRelatedPlaces("tree",sortMode); });	// HANDLE TREE CLICK
-			$("#sui-rpSort").on("click", ()=> {	this.DrawRelatedPlaces("list",sortMode*-1);	});	// HANDLE SORT
+
+
+			// HANDLERS
+			$("#sui-rpTree").on("click", ()=> {
+				this.DrawRelatedPlaces("tree",sortMode);
+			});	// HANDLE TREE CLICK
+			$("#sui-rpSort").on("click", ()=> {
+				this.DrawRelatedPlaces("list",sortMode*-1);
+			});	// HANDLE SORT
 			$("#sui-rpSearch").on("keydown",(e)=> {												// ON SEARCH
 				let line;
 				let r=$("#sui-rpSearch").val();													// Get filter text
-				if ((e.keyCode > 31) && (e.keyCode < 91)) 	r+=e.key;							// Add current key if a-Z
-				if ((e.keyCode == 8) && r.length)			r=r.slice(0,-1);					// Remove last char on backspace
+				if ((e.keyCode > 31) && (e.keyCode < 91)) 	 {
+					r+=e.key;
+				}							// Add current key if a-Z
+				if ((e.keyCode == 8) && r.length) {			r=r.slice(0,-1);	}				// Remove last char on backspace
 				r=RegExp(r,"i");																// Turn into regex
 				for (i=0;i<d.length;++i) {														// For each item
-					line=$("#sui-rpLine-"+i);													// Point at line
-					if (line.text().match(r))	line.css("display","block");					// Show item if it matches
-					else						line.css("display","none");						// Hide
+					line = $("#sui-rpLine-" + i);													// Point at line
+					if (line.text().match(r)) {
+						line.css("display", "block");					// Show item if it matches
+					} else {
+						line.css("display", "none");						// Hide
 					}
-				});
+				}
+			});
 			return;																				// Quit
-			}
+		}
 		str+=` | <span class='sui-advEditBut' style='vertical-align:0' 
 		id='sui-togCatA' title='Expand all'<b>&#x2295</b></span> | 
 		<span class='sui-advEditBut' style='vertical-align:0'
@@ -235,7 +281,7 @@ class Subjects  {
 			let i,container;
 			for (i=0;i<n;++i) {																	// For each place	
 				container=$("#sui-rpDot-"+tops[i].id).parent();									// Point a container
-				$("#sui-rpDot-"+tops[i].id).html("&ndash;");									// If not a loner, change label 
+				$("#sui-rpDot-"+tops[i].id).html("&ndash;");									// If not a loner, change label
 				container.parent().css("display","block");										// Show	parent ul
 				container.css("display","block");												// Show	
 				}
@@ -256,41 +302,48 @@ class Subjects  {
 		$("#sui-togCatN").trigger("click");														// Collapse to starting point
 	}
 
+
+
+
+	//  LOOK THIS OVER CAREFULLY!
 	GetSubjectData(o)																		// GET TAB DATA FOR CONTEXT
 	{
-		sui.GetRelatedFromID(o.uid,(data)=> { 													// Load data
-			let d,i,k=0,str="<table>";
-			if (!data)	return;																	// Quit if no data
-			this.relatedSubjectData=data;														// Save subject data
-				if (data[0].illustration_external_url && data[0].illustration_external_url[0]) { // If an image spec'd
-				$("#sui-relatedImg").addClass("sui-relatedImg");								// Set style
-				$("#sui-relatedImg").prop("src",data[0].illustration_external_url[0]);			// Show it
-				}
-			else if (data[0].illustration_mms_url && data[0].illustration_mms_url[0]) {			// If an image spec'd
-				$("#sui-relatedImg").addClass("sui-relatedImg");								// Set style
-				$("#sui-relatedImg").prop("src",data[0].illustration_mms_url[0]);				// Show it
-				}
+		const sui = this.sui;
+		sui.GetRelatedFromID(o.uid, (data) => { 													// Load data
+			let d, i, k = 0, str = "<table>";
+			if (!data) return;																	// Quit if no data
+			this.relatedSubjectData = data;														// Save subject data
+
+			// THIS SHOULDN'T BE HAPPENING AND CERTAINLY NOT HERE
+			// if (data[0].illustration_external_url && data[0].illustration_external_url[0]) { // If an image spec'd
+			// 	$("#sui-relatedImg").addClass("sui-relatedImg");								// Set style
+			// 	$("#sui-relatedImg").prop("src", data[0].illustration_external_url[0]);			// Show it
+			// } else if (data[0].illustration_mms_url && data[0].illustration_mms_url[0]) {			// If an image spec'd
+			// 	$("#sui-relatedImg").addClass("sui-relatedImg");								// Set style
+			// 	$("#sui-relatedImg").prop("src", data[0].illustration_mms_url[0]);				// Show it
+			// }
+
 			if (data[0].summary_eng && data[0].summary_eng[0]) 									// If an summary spec'd
-			$("#sui-spCap").html(data[0].summary_eng[0]);										// Replace caption
+				$("#sui-spCap").html(data[0].summary_eng[0]);										// Replace caption
 			if (o.names_txt && o.names_txt.length) {											// If names
-				for (i=0;i<o.names_txt.length;++i) 												// For each name
+				for (i = 0; i < o.names_txt.length; ++i) 												// For each name
 					if (o.names_txt[i].match(/lang="bo"/i))										// Language id - bo
-						str+="<tr><td style='color:#000099;font-size:20px'><b>"+o.names_txt[i]+"</b>&nbsp;&nbsp;&nbsp;</td><td span='2'><i>Dzongkha, Tibetan script, Original</i></td></tr>";	// Add it
-				}
-			for (i=0;i<data.length;++i) {														// For each doc
-				d=data[i];																		// Point at it
-				if (d.block_child_type != "related_names")	continue;							// Not a name
-				if (!k) d.related_names_level_i=0;
-				str+=`<tr><td style='padding-left:${d.related_names_level_i*16}px'>
+						str += "<tr><td style='color:#000099;font-size:20px'><b>" + o.names_txt[i] + "</b>&nbsp;&nbsp;&nbsp;</td><td span='2'><i>Dzongkha, Tibetan script, Original</i></td></tr>";	// Add it
+			}
+			for (i = 0; i < data.length; ++i) {														// For each doc
+				d = data[i];																		// Point at it
+				if (d.block_child_type != "related_names") continue;							// Not a name
+				if (!k) d.related_names_level_i = 0;
+				str += `<tr><td style='padding-left:${d.related_names_level_i * 16}px'>
 				${k++ ? ">&nbsp;" : ""}
 				<b>${d.related_names_header_s}&nbsp;&nbsp;&nbsp;</b></td><td>
 				<i>${d.related_names_language_s}, ${d.related_names_writing_system_s}, ${d.related_names_relationship_s}
 				</i></td></tr>`;																// Add it
-				}
-			str+="</table><br>";		
-			$("#sui-subConDiv").append(str.replace(/\t|\n|\r/g,""));							// Remove format and add to div				
-			this.AddRelatedSubjects(o,data);													// Add related subjects html
-			this.AddSubjectContext(o,data);														// Add context html
+			}
+			str += "</table><br>";
+			$("#sui-subConDiv").append(str.replace(/\t|\n|\r/g, ""));							// Remove format and add to div
+			this.AddRelatedSubjects(o, data);													// Add related subjects html
+			this.AddSubjectContext(o, data);														// Add context html
 		});
 	}
 
@@ -334,7 +387,8 @@ class Subjects  {
 	}
 
 	AddSubjectContext(o,d)																	// ADD SUNJECYCONTEXT TAB CONTENTS 	
-	{	
+	{
+		const sui = this.sui;
 		let i,n=0,subs=0;
 		for (i=0;i<d.length;++i) {																// For each child
 			subs+=d[i].child_count.numFound;													// Add children
@@ -382,5 +436,3 @@ subs="(TBD)"
 		}
 
 } // CLASS CLOSURE
-
-module.exports = Subjects;

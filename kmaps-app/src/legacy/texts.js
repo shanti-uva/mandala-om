@@ -16,22 +16,29 @@
 	Dependents:	pages.js, searchui.js								// JS modules called
 
 ******************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
+export default class Texts  {
 
-class Texts  {																					
-
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
-		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		this.sui=sui;
+		this.div=sui.pages.div;															// Div to hold page (same as Pages class)
 		this.content=["...loading","...loading","...loading"];									// Content pages
 	}
 
 	Draw(o)																					// DRAW TEXTS PAGE FROM KMAP
 	{
+		console.error("texts.Draw()");
+		const sui = this.sui;
 		let _this=this;
 		if (!$(".shanti-texts-section-content").length)											// No CSS yet
 			$("<link/>", { rel:"stylesheet", type:"text/css", href:"https://texts-dev.shanti.virginia.edu/sites/all/themes/shanti_sarvaka_texts/css/shanti_texts.css" }).appendTo("head"); 	// Load CSS
 		var url=o.url_ajax.replace(/node_ajax/i,"node_embed")+"?callback=pfunc";				// Make url
-		$(this.div).html();																		// Clear page	
+		$(this.div).html();// Clear page
 		var str=`<div id='sui-textCon' class='sui-texts'></div>
 		<div style='display:inline-block;width:calc(34% + 3px);margin-left:-8px;vertical-align:top'>
 		<div class='sui-textTop' id='sui-textTop'>
@@ -41,12 +48,14 @@ class Texts  {
 		</div>
 		<div class='sui-textContent' id='sui-textContent'></div></div>`;
 		$(this.div).html(str.replace(/\t|\n|\r/g,""));											// Remove format and add to div	
-		sui.pages.DrawRelatedAssets(o);															// Draw related assets menu if active
+
+		// sui.pages.DrawRelatedAssets(o);															// Draw related assets menu if active
 
 		sui.LoadingIcon(true,64);																// Show loading icon
+
 		$.ajax( { url:url, dataType:'jsonp'}).done((data)=> {									// Get json
 			sui.LoadingIcon(false);																// Hide loading icon
-			$("#sui-textCon").html(data);														// Add text content															
+			$("#sui-textCon").html(data);														// Add text content
 			$("#shanti-texts-container").height($("#sui-left").height()-80);					// Reset text height
 			$("#shanti-texts-body").height($("#sui-left").height()-110);						// Reset text height
 			this.content[0]=$("#shanti-texts-toc").html();										// Save TOC
@@ -113,7 +122,7 @@ class Texts  {
 				try { str+=this.DrawItem("&copy;","RIGHTS", d.field_dc_rights_general.und,"sui-pageLab"); }			catch(e) {}
 				str+="</table>"
 				this.content[1]=str.replace(/\t|\n|\r/g,"");									// Set view content
-				try{ content[2]+="<p>&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='"+d.field_pdf_version.und[0].url+"'>&#xe678&nbsp;&nbsp;View as PDF</a></p>"; } catch(e) {}
+				try{ this.content[2]+="<p>&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='"+d.field_pdf_version.und[0].url+"'>&#xe678&nbsp;&nbsp;View as PDF</a></p>"; } catch(e) {}
 			});
 			
 			$("[id^=sui-textTab]").on("click", (e)=> {											// ON TAB CLICK

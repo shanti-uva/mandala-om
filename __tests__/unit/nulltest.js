@@ -3,7 +3,7 @@ const expect = require('expect');
 const fs = require('fs');
 const path = require('path');
 const $ = require('jquery');
-const html = fs.readFileSync(path.resolve(__dirname, '../../src/index.html'), 'utf8');
+const html = fs.readFileSync(path.resolve(__dirname, '../../legacy/index.html'), 'utf8');
 
 jest
     .dontMock('fs')

@@ -5,7 +5,7 @@ describe('visit homepage', function () {
     test('it welcomes the user', async function () {
         let wd = process.cwd();
         let page = Nightmare({show: false})
-            .goto("file://" + wd + "/src/index.html")
+            .goto("file://" + wd + "/legacy/index.html")
             .wait( 3000 );
         await page.catch( error => console.error(error));
         let text = await page.evaluate(() => document.body.textContent)
@@ -19,7 +19,7 @@ describe('click advanced search', function () {
     test('it welcomes the user', async function () {
         let wd = process.cwd();
         let page = await Nightmare({show: false})
-            .goto("file://" + wd + "/src/index.html")
+            .goto("file://" + wd + "/legacy/index.html")
             .type('#sui-search', 'lhasa')
             .click('#sui-searchgo')
             .wait('.sui-advHeader')

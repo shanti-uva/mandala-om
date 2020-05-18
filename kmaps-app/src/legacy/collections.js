@@ -11,17 +11,23 @@
 	Dependents:	pages.js, searchui.js								// JS modules called
 
 *********************************************************************************************************************************************/
+import $ from 'jquery';
 
-class Collections  {																					
+export default class Collections  {
 
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 		this.content=["",""," "];																// Content pages
+		this.sui=sui;
 	}
 
 	Draw(o)																					// DRAW SOURCE PAGE FROM KMAP
 	{
+		const sui = this.sui;
 		let a=sui.assets[o.asset_subtype.toLowerCase()];
 		var str=`<div id='sui-topCon' style='margin-left:192px'>
 		<div class='sui-sources'  id='sui-collections'>
@@ -53,6 +59,7 @@ class Collections  {
 	
 	AddTabContent(o)																		// GET TAB CONTENTS
 	{
+		const sui = this.sui;
 		let i,a,tab=0;
 		this.content[0]="<br>";
 		let base=o.asset_subtype.toLowerCase()+"-collection-";									// Collections base id

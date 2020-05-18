@@ -20,7 +20,7 @@
 .sui-search4 	{	display:inline-block; background-color:#ddd; font-size:16px; color:#999; border-radius: 0 16px 16px 0; border: 1px solid #999;
 					height:23px; width:27px; padding:5px 0 0 7px; cursor:pointer; vertical-align:top; }
 					.sui-search4:hover { opacity:.66; }
-.sui-search5 	{	display:inline-block; font-size:10px; cursor:pointer; color:#666; width:auto;text-align:center; padding: 5px 0 0 12px; line-height:10px; width:60px;}
+.sui-search5 	{	display:inline-block; font-size:10px; cursor:pointer; color:#666; width:auto;text-align:center; padding: 5px 0 0 12px; line-height:10px; width:60px;  text-transform: uppercase;}
 					.sui-search5:hover{ color:#668eec; }
 
 /* HAMBURGER MENU */	
@@ -33,6 +33,7 @@
 				}
 
 .sui-header 	{	height:52px; width:100%;  user-select:none; background-color: #888; color:#fff;	}
+
 .sui-headLeft 	{	user-select:none; height:100%; float:left; padding:6px 12px 0 22px; font-size:20px; line-height:20px; width:100%; max-width:calc(100% - 80px);	}				
 .sui-type 		{	background-color:#fff; font-size:12px; color:#666; border-radius:8px; display:inline-block; 
 					width:207px; border: 1px solid #999; height:23px; line-height:18px; cursor:pointer; 	}	
@@ -46,7 +47,7 @@
 					border: 1px solid #999; padding:12px; border: 1px solid #999; }
 					.sui-typeItem:hover { background-color: #dee7f1	}
 .sui-left 		{	position:absolute; left:0; top:43px; width:100%; height:calc(100% - 73px); background-color:#fff; 
-					display:none; overflow-y:auto;	}				
+					display:block; overflow-y:auto;	}
 .sui-results	{ 	position:absolute; left:0; top:52; min-height:calc(100% - 77px); width:calc(100% - 24px); background-color:#ddd; overflow-x:hidden; padding:12px; }
 .sui-resDisplay {	cursor:pointer; display:inline-block; margin:0 12px; }
 .sui-footer 	{ 	position:absolute; left:0; top:calc(100% - 31px); width:100%; height:25px; background-color: #888;	
@@ -159,7 +160,7 @@
 #plc-infoDiv input{	border: none; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px; }
 
 /* RELATED */
-.sui-related	 {	position:absolute; top:0; left:0; width:168px; background-color:#ddd; border-left:12px solid transparent; padding:18px 0 0 12px; color:#000; }
+.sui-related	 {	position:absolute; top:52px; left:0; width:168px; background-color:#ddd; border-left:12px solid transparent; padding:18px 0 0 12px; color:#000; }
 .sui-relatedImg  {	width:150px; margin:12px 0 12px 0; outline:1px solid #999; outline-offset:4px;	}
 .sui-relatedList {	font-size:14px; color:#222; padding:0;	}
 .sui-relatedItem {  cursor:pointer; padding: 6px 3px 3px 6px; border-radius:4px; color:#000; font-weight:normal } 	
@@ -297,3 +298,22 @@ a { text-decoration:none; }
 .sui-noA { border-bottom:hidden; cursor:default; color:#333 }
 
 #router { float: left; }
+
+
+/* ys2n: action css */
+.open { display: block; }
+.closed { display: none; }
+
+/* custom site styles */
+.mandala.sui-header{ background-color:#4d59ca; }
+.mandala.sui-results {
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
+}
+
+.mandala > .sui-headLeft > div {
+	margin-top: .5em;
+}
+
+

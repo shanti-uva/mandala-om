@@ -15,16 +15,21 @@
 	Dependents:	pages.js, searchui.js								// JS modules called
 
 **********************************************************************************************************************************************/
-
-class Images  {																					
-
-	constructor()   																		// CONSTRUCTOR
+/* eslint-disable */
+import $ from 'jquery';
+export default class Images  {
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		this.sui = sui;
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 	}
 
 	Draw(o)																					// DRAW IMAGE PAGE FROM KMAP
 	{
+		const sui = this.sui;
 		var i,j,mid;
 		var asp=o.url_thumb_height/o.url_thumb_width;
 		var w=$(this.div).width()/2;
@@ -42,11 +47,11 @@ class Images  {
 		<div class='sui-imageGal'id='sui-imageGal'>`;
 		for (i=0;i<mid;++i) 																	// For each image up mid point
 			if (sui.curResults[i].asset_type == "images")
-				str+=`<div class='sui-pageThumb'><img id='sui-pageThumb-${i}' src='${sui.curResults[i].url_thumb}' style='height:100%'></div>`;	
+				str+=`<div class='sui-pageThumb'><img id='sui-pageThumb-${i}' src='${sui.curResults[i].url_thumb}' style='height:100%'></div>`;
 		str+=`<div class='sui-pageThumb' style=' border-color:#fff'><img id='sui-pageThumb-${mid}' src='${o.url_thumb}' style='height:100%'></div>`;	
 		for (i=mid+1;i<sui.curResults.length;++i) 												// For each after mid point
 			if (sui.curResults[i].asset_type == "images")
-				str+=`<div class='sui-pageThumb'><img id='sui-pageThumb-${i}' src='${sui.curResults[i].url_thumb}' style='height:100%'></div>`;	
+				str+=`<div class='sui-pageThumb'><img id='sui-pageThumb-${i}' src='${sui.curResults[i].url_thumb}' style='height:100%'></div>`;
 		str+="</div></div>";
 		
 		sui.GetJSONFromKmap(o, (d)=> { drawDetails(d); });										// Load detaill from JSON
@@ -103,7 +108,7 @@ class Images  {
 
 		var d=this.DrawItem;																	// Point at this item drawer
 		function drawDetails(j) {	
-			trace(j)
+			// trace(j)
 			str+="<div class='sui-images'>";
 			str+="<div style='width:calc(49% - 24px);display:inline-block;margin-right:16px;vertical-align:top;height:100%;'><table style='width:100%'>";
 				try{ str+=d(sui.assets[o.asset_type].g,"CAPTION",o.caption,"Untitled"); } catch(e){}
@@ -154,7 +159,7 @@ class Images  {
 					<p><i>Right-click and select "Download/Save Linked File"</i></p>
 					</div>
 				</p></div></div></div>`;
-				$(sui.pages.div).append(str.replace(/\t|\n|\r/g,""));								// Remove format and add to div	
+				$(sui.pages.div).append(str.replace(/\t|\n|\r/g,""));								// Remove format and add to div
 				
 				$("#sui-imgCol").on("click",()=> {													// ON COLLECTION CLICK
 					sui.GetKmapFromID(o.collection_uid_s,(kmap)=>{ sui.SendMessage("",kmap); });	// Get kmap and show page
@@ -169,10 +174,10 @@ class Images  {
 
 		$("#sui-picEnlarge").on("click",()=> {														// ON RESIZE PIC
 			let sx,sy,px,py;
-			let pic=$("#sui-results")[0];															// Point at image
+			let pic=$("#sui-legacy")[0];															// Point at image
 			let h=$(this.div).width()/2*asp;														// Make heighr
 			$("#sui-imagesBox").css({"padding-top":"12px"});										// Thinner top
-			$("#sui-imageDiv").css({width:"100%", height:$("#sui-results").height()+"px"});			// Full screen
+			$("#sui-imageDiv").css({width:"100%", height:$("#sui-legacy").height()+"px"});			// Full screen
 			if ($("#sui-picEnlarge").html().match(/Zoom/)) {										// If zoomed already
 				$("#sui-picEnlarge").html("&#xe650");												// Restore icon
 				$("#sui-thisPic").offset($("#sui-imageDiv").offset());								// Restore offset

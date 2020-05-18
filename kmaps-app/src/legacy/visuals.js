@@ -12,16 +12,22 @@
 	Dependents:	pages.js, searchui.js								// JS modules called
 
 ********************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
+export default class Visuals  {
 
-class Visuals  {																					
-
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		this.sui = sui;
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 	}
 
 	Draw(o)																			// DRAW VISUAL PAGE FROM KMAP
 	{
+		const sui = this.sui;
 		sui.GetJSONFromKmap(o, (d)=> { drawDetails(d); });										// Gert JSON
 		var url="//visuals.shanti.virginia.edu/sites/all/libraries/SHIVA/go.htm?m=//visuals.shanti.virginia.edu/data/json/";
 		url+=o.id;																				// Full url
@@ -48,7 +54,7 @@ class Visuals  {
 				str+=(o.node_user) ? o.node_user : ""; str+="</span>"; } catch(e) {}
 				if (j.field_kmaps_subjects && j.field_kmaps_subjects.und) {							// If subjects
 					str+="<p class='sui-pageLab'>SUBJECTS:&nbsp;&nbsp;";							// Add header
-					for (i=0;i<j.field_kmaps_subjects.und.length;++i) {								// For each item
+					for (let i=0;i<j.field_kmaps_subjects.und.length;++i) {								// For each item
 						str+=j.field_kmaps_subjects.und[i].header;									// Add name
 						str+=sui.pages.AddPop(j.field_kmaps_subjects.und[i].domain+"-"+j.field_kmaps_subjects.und[i].id);	// Add drop
 						if (i < j.field_kmaps_subjects.und.length-1)	str+=", ";					// Add separator
@@ -57,7 +63,7 @@ class Visuals  {
 					}
 				if (j.field_kmaps_places && j.field_kmaps_places.und) {								// If places
 					str+="<p class='sui-pageLab'>TERMS:&nbsp;&nbsp;";								// Add header
-					for (i=0;i<j.field_kmaps_places.und.length;++i) {								// For each item
+					for (let i=0;i<j.field_kmaps_places.und.length;++i) {								// For each item
 						str+=j.field_kmaps_places.und[i].header;									// Add name
 						str+=sui.pages.AddPop(j.field_kmaps_places.und[i].domain+"-"+j.field_kmaps_places.und[i].id);	// Add drop
 						if (i < j.field_kmaps_places.und.length-1)	str+=", ";						// Add separator
@@ -66,7 +72,7 @@ class Visuals  {
 					}
 				if (j.field_kmap_terms && j.field_kmap_terms.und) {									// If terms
 					str+="<p class='sui-pageLab'>TERMS:&nbsp;&nbsp;";								// Add TERMS header
-					for (i=0;i<j.field_kmap_terms.und.length;++i) {									// For each item
+					for (let i=0;i<j.field_kmap_terms.und.length;++i) {									// For each item
 						str+=j.field_kmap_terms.und[i].header;										// Add name
 						str+=sui.pages.AddPop(j.field_kmap_terms.und[i].domain+"-"+j.field_kmap_terms.und[i].id);	// Add drop
 						if (i < j.field_kmap_terms.und.length-1)	str+=", ";						// Add separator
@@ -94,7 +100,7 @@ class Visuals  {
 				if (id == "1")		$("#sui-resShare").html(url);								// Link
 				else if (id == "2")	$("#sui-resShare").html(`[iframe src="${url}" width="${wid}" height="${hgt}"]`);		// Wordpress embed code
 				else if (id == "3")	$("#sui-resShare").html(`&lt;iframe src="${url}" width="${wid}" height="${hgt}"&gt;`);	// Iframe
-				$("#sui-resShare").show();														// Toggle state	
+				$("#sui-resShare").show();														// Toggle state
 				});
 			}
 	}

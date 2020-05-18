@@ -21,11 +21,16 @@
 	Globals:	Looks for sui and sui.pages
 
 *************************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
+export default class AudioVideo  {
 
-class AudioVideo  {																					
-
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		this.sui = sui;
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 		this.content=["...loading","...loading","...loading"];									// Content pages
 		this.inPlay=false;																		// If AV is in play
@@ -40,6 +45,7 @@ class AudioVideo  {
 
 	Draw(o)																					// DRAW AUDIO/VIDEO PAGE
 	{
+		const sui = this.sui;
 		let i,f,wid=100;
 		const _this=this;																		// Context
 		var partnerId="381832";																	// Kaltura partner id
@@ -51,7 +57,7 @@ class AudioVideo  {
 		$(this.div).html("<div id='sui-av'></div>");											// Clear screen
 		sui.pages.DrawRelatedAssets(o);															// Draw related assets menu if active
 		this.kmap=o;																			// Save kmap
-		if (typeof kWidget != "undefined") 	kWidget.destroy("sui-kplayer");						// If Kaltura player already initted yet, kill it
+		if (typeof window.kWidget != "undefined") 	window.kWidget.destroy("sui-kplayer");						// If Kaltura player already initted yet, kill it
 		
 		sui.LoadingIcon(true,64);																// Show loading icon
 		sui.GetJSONFromKmap(o, (d)=> {															// Get details from JSON
@@ -107,11 +113,11 @@ class AudioVideo  {
 			this.DrawTranscript(o,"#sui-trans");												// Draw transcript in div
 			str=`//cdnapi.kaltura.com/p/${partnerId}/sp/${partnerId}00/embedIframeJs/uiconf_id/${uiConfId}/partner_id/${partnerId}`;
 			$.ajax(	{ url:str, dataType:"script" }).done((e)=> { 
-				kWidget.embed({
-					targetId:"sui-kplayer",  wid:"_"+partnerId,				uiconf_id:uiConfId,    
+				window.kWidget.embed({
+					targetId:"sui-kplayer",  wid:"_"+partnerId,				uiconf_id:uiConfId,
 					entry_id:entryId,		 flashvars:{ autoPlay:false},	params:{ "wmode": "transparent"} 
 					});
-				kWidget.addReadyCallback(()=> {													// When ready, add icon callback
+				window.kWidget.addReadyCallback(()=> {													// When ready, add icon callback
 					let kdp=document.getElementById("sui-kplayer");								// Get div
 					if (typeof(kdp) != "object")	return;										// Quit if no player ready yet
 					kdp.kBind("doPlay.__tests__", ()=> {	$("#sui-transTab1").html("&#xe681"); this.inPlay=true; this.PlayAV(); });	// Pause icon
@@ -119,7 +125,7 @@ class AudioVideo  {
 					});
 				});
 				sui.LoadingIcon(false);															// Hide loading icon
-				if (typeof kWidget != "undefined") kWidget.embed({ entry_id:entryId });			// If Kaltura player already inittted yet
+				if (typeof window.kWidget != "undefined") window.kWidget.embed({ entry_id:entryId });			// If Kaltura player already inittted yet
 				this.DrawMetaData(o,d);															// Draw metadata content
 				showTab(0);																		// Open details
 
@@ -132,13 +138,14 @@ class AudioVideo  {
 					$("[id^=sui-tabTab]").css({"background-color":"#999",color:"#fff" });		// Reset all tabs
 					$("#sui-tabContent").css({display:"block","background-color":"#fff"});		// Show content
 					$("#sui-tabTab"+which).css({"background-color":"#fff",color:"#000"});		// Active tab
-					$("#sui-tabContent").html(_this.content[which]);							// Set content
+					$("#sui-tabContent").html(_this.content[which]);						// Set content
 					}
 			});
 	}
 
 	DrawMetaData(o,d)																			// DRAW TABBED METADATA
 	{
+		const sui = this.sui;
 		let i,t,v,f;
 		let	str="";																					// Start fresh on tab 0
 		try{ if (o.title) str+="<p title='Title'><b>TITLE</b>:&nbsp;&nbsp;"+o.title+"</p>"; } catch(e) {}
@@ -289,6 +296,7 @@ class AudioVideo  {
 		$("#sui-transSrcF").on("click",    ()=>{ curHit=Math.min(hits.length-1,curHit+1); show(); });	// ON NEXT
 		
 		function show() {																		// SHOW STATUS
+			const sui = this.sui;
 			var t=hits.length ? curHit+1 : 0;													// Current number
 			$("#sui-transSrcN").html(t+" of "+hits.length);										// Set number found
 			if (hits.length) {																	// If somthing
@@ -301,7 +309,7 @@ class AudioVideo  {
 		onclick='$("#sui-transOps").slideToggle()'>&#xe60f</span></div>
 		<div class='sui-transLab'>LANGUAGES</div>`;
 		for (var lang in res.languages)															// Add each language found in transcript
-			str+="<div class='sui-transRow' id='sui-transLan-"+lang+"'>- "+lang+"<span id='sui-transLang-"+lang+"' class='sui-transCheck' style='color:#58aab4'>&#xe60e</span></div>";	
+			str+="<div class='sui-transRow' id='sui-transLan-"+lang+"'>- "+lang+"<span id='sui-transLang-"+lang+"' class='sui-transCheck' style='color:#58aab4'>&#xe60e</span></div>";
 		str+=`<div class='sui-transLab'>SPEAKERS</div>
 		<div class='sui-transRow'>- Tibetan<span id='sui-transS1' class='sui-transCheck' style='color:#58aab4'>&#xe60e</span></div>	
 		<div class='sui-transLab'>LAYOUTS</div>
@@ -338,7 +346,10 @@ class AudioVideo  {
 		$("#sui-transTab1").on("click", ()=> {												// ON PLAY CLICK
 			clearInterval(this.transTimer);													// Kill timer
 			if (this.inPlay) $("#sui-kplayer")[0].sendNotification("doPause");				// Pause
-			else			 this.PlayAV(),$("#sui-kplayer")[0].sendNotification("doPlay"); // Play
+			else {
+				this.PlayAV();
+				$("#sui-kplayer")[0].sendNotification("doPlay"); // Play
+			}
 			});						
 
 		$("#sui-transTab2").on("click", ()=> {												// ON PLAY PREVIOUS SEG CLICK
@@ -442,14 +453,14 @@ class AudioVideo  {
 		var i;
 		var res=this.transRes;																	// Point at res
 		clearInterval(this.transTimer);															// Kill timer
-		this.scrollStart=$("#sui-trans").scrollTop();											// Scroll 
-		if (start != undefined)	$("#sui-kplayer")[0].sendNotification("doSeek",start);			// Seek to start 
+		this.scrollStart=$("#sui-trans").scrollTop();											// Scroll
+		if (start != undefined)	$("#sui-kplayer")[0].sendNotification("doSeek",start);			// Seek to start
 		if (end)				this.playEnd=end;												// Set ending point 
 		this.transTimer=setInterval((e)=> {														// Set interval and handler
 			var now=$("#sui-kplayer")[0].evaluate("{video.player.currentTime}");				// Get current player time
 			if ((this.playEnd) && (now >= this.playEnd)) {										// An end set and past it
 				clearInterval(this.transTimer);													// Kill timer
-				$("#sui-kplayer")[0].sendNotification("doPause");								// Pause video	
+				$("#sui-kplayer")[0].sendNotification("doPause");								// Pause video
 				this.playEnd=0;																	// Clear end
 				return;																			// Quit
 				}
@@ -471,9 +482,9 @@ class AudioVideo  {
 		$("[id^=sui-transSeg-]").css("background-color","#ddd");								// All backgrounds off
 		$("[id^=sui-transMinSeg-]").css("border-color","#fff");									// All borders off
 		$("[id^=sui-transMinSeg-]").css("background-color","#fff");								// All backgrounds off
-		$("#sui-transMinSeg-"+num).css("border-color","#999");									// Hilite active one				
-		$("#sui-transMinSeg-"+num).css("background-color","#eee");								// Hilite active one				
-		$("#sui-transSeg-"+num).css("background-color","#aaa");									// Hilite active one				
+		$("#sui-transMinSeg-"+num).css("border-color","#999");									// Hilite active one
+		$("#sui-transMinSeg-"+num).css("background-color","#eee");								// Hilite active one
+		$("#sui-transSeg-"+num).css("background-color","#aaa");									// Hilite active one
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -482,13 +493,20 @@ class AudioVideo  {
 
 	TimecodeToSeconds(timecode) 															// CONVERT TIMECODE TO SECONDS
 	{
-		var h=0,m=0;
-		var v=(""+timecode).split(":");															// Split by colons
-		var s=v[0];																				// Add them
-		if (v.length == 2)																		// Just minutes, seconds
-			s=v[1],m=v[0];																		// Add them
-		else if (v.length == 3)																	// Hours, minutes, seconds
-			s=v[2],m=v[1],h=v[0];																// Add them
+		var h = 0, m = 0;
+		var v = ("" + timecode).split(":");															// Split by colons
+		var s = v[0];																				// Add them
+		if (v.length == 2) {
+			// Just minutes, seconds
+			s = v[1];
+			m = v[0];
+	}// Add them
+		else if (v.length == 3) {															// Hours, minutes, seconds
+			s = v[2];
+			m = v[1];
+			h = v[0];
+			// Add them
+		}
 		return(Number(h*3600)+Number(m*60)+Number(s));											// Convert
 	}
 	

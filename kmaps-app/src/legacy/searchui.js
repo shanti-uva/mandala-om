@@ -19,21 +19,25 @@
 	JS:			ECMA-6												// Uses lambda (arrow) functions
 	Images:		loading.gif, gradient.jpg, treebuts.png
 	Globals:	sui													// Needs to be declared globally!
-	Usage: 		var sui=new SearchUI();								// Allocs SearchUI class (fully encapsulated)							
+	Usage: 		var sui=new SearchUI();								// Allocs SearchUI class (fully encapsulated)
 	Messages: 	sui=page|url ->										// Hides search and send url to direct Drupal to display
 				sui=open|searchState ->								// Tells Drupal search page is open w/ current search state (ss object)
 				sui=query|searchState ->							// Asks Drupul to turn search state (JSON) into SOLR query string
 				sui=close ->										// Tells Drupal search page is closed
 				-> sui=open|[searchState] 							// Open search page is to search state
-				-> sui=close										// Close search page   
+				-> sui=close										// Close search page
 
 **********************************************************************************************************************************************/
+/* eslint-disable */
 
-class SearchUI  {																					
+import $ from 'jquery';
+import KmapsSolrUtil from './kmapsSolrUtil';
+
+export default class SearchUI  {
 
 	constructor(site, useProdIndex)   															// CONSTRUCTOR
 	{
-		sui=this;																					// Save ref to class as global
+		this.sui = this;
 		this.curResults="";																			// Returns results
 		this.numItems=0;																			// Number of items																						
 		this.AND="AND";	this.OR="OR";	this.NOT="NOT";												// Boolean display names
@@ -79,144 +83,150 @@ class SearchUI  {
 		this.ss.numResults=0;																		// Number of resulrts found
 		this.solrUtil=new KmapsSolrUtil( {solrUrl: this.ss.solrUrl });			// Alloc Yuji's search class and pass defaultState
 		this.ClearQuery();																			// Cleae our all search elements in query
-		this.AddFrame();																			// Add div framework
+		// this.AddFrame();																			// Add div framework
 		
-		if (!location.hash)	{ 																		// Normal startup
-			this.Draw(); 																			// Draw
-			}										
+		// if (!window.location.hash)	{																	// Normal startup
+		// 	this.Draw(); 																			// Draw
+		// }
+		// window.onresize=()=> { 																		// ON RESIZE
+		// 	if (this.ss.mode == "advanced") 														// Advanced search
+		// 		$("#sui-left").css({ width:$("#sui-main").width()-$("#sui-adv").width() });			// Size results area
+		// };
 		
-		window.onresize=()=> { 																		// ON RESIZE
-			if (this.ss.mode == "advanced") 														// Advanced search
-				$("#sui-left").css({ width:$("#sui-main").width()-$("#sui-adv").width() });			// Size results area
-		};
-		
-		window.addEventListener("popstate", (h)=> { 												// ON PAGE STATE CHANGE
-			let state=h.state;																		// Get state
-			if (!state)	state=location.hash;														// If no state, get directly from hash
-			this.PageRouter(state); 																// Route on state
-			});					
+		// window.addEventListener("popstate", (h)=> { 												// ON PAGE STATE CHANGE
+		// 	let state=h.state;																		// Get state
+		// 	if (!state)	state=window.location.hash;														// If no state, get directly from hash
+		// 	this.PageRouter(state); 																// Route on state
+		// 	});
 		}
 	
-	AddFrame()																					// ADD DIV FRAMEWORK FOR APP
-	{
-		let key;
-		this.showBool=this.GetCookie("showBool") == "true";
-		var str="";
-		if (this.site != "CU") str+=`<div class='sui-topBar'><img src='img/bhutanleft.gif' style='cursor:pointer' onclick='DrawLandingPage()' title='Home page'></div>
-			<div id='sui-top' class='sui-top'>
-			<div style='display:inline-block'>
-			<div class='sui-search1'>
-					<input type='text' id='sui-search' class='sui-search2' placeholder='Enter Search'>
-					<div id='sui-clear' class='sui-search3'>&#xe610</div>
-				</div>
-				<div id='sui-searchgo' class='sui-search4'>&#xe623</div>
-				<div id='sui-mode' class='sui-search5' title='Advanced search'>ADVANCED<br>SEARCH</div>
-				<div id='sui-hamBut' class='sui-hamBut' title='Help + options'>&#xe627</div>	
-				</div>
-			</div>
-		<div>`;
-		str+=`<div id='sui-left' class='sui-left'>
-			<div id='sui-header' class='sui-header'>
-				<div id='sui-headLeft' class='sui-headLeft'></div>
-			</div>
-			<div id='sui-results' class='sui-results scrollbar' style='color:#000'></div>
-		</div>
-		<div id='sui-adv' class='sui-adv'>`;
-		for (key in this.facets) { 
-				str+=`<div class='sui-advBox' id='sui-advBox-${key}'>
-				<div class='sui-advHeader' id='sui-advHeader-${key}'>	
-					${this.facets[key].icon}&nbsp;&nbsp;${key.toUpperCase()}
-					<span id='sui-advPlus-${key}' style='float:right'>&#xe669 </span></div>
-					<div class='sui-advTerm' id='sui-advTerm-${key}'></div>
-				<div class='sui-advEdit' style='display:none' id='sui-advEdit-${key}'></div></div>`;
-				if ((key == "terms") || (key == "users")) str+="<hr style='border-top:8px solid #ddd;margin:16px 0 16px 12px'>";
-				}
-		str+=`<div class='sui-advBox' id='sui-advBox-recent'>
-			<div class='sui-advHeader' id='sui-advHeader-recent'>&#xe62e&nbsp;&nbsp;RECENT SEARCHES
-			<span id='sui-advPlus-recent' style='float:right'>&#xe669</span></div>
-			<div class='sui-advTerm'></div>
-			<div class='sui-advEdit' style='display:none' id='sui-advEdit-recent'></div></div>
-			<div style='margin-top:4px;float:right;font-size:13px'>
-				<div>Show Boolean controls? &nbsp;<input type='checkbox' id='sui-showBool' ${this.showBool ? "checked" : ""}></div>
-				<!-- div class='sui-geoLocate' id='sui-geoLocate'>Geo-Locate</div-->
-			</div>
-		</div>
-		<div id='sui-footer' class='sui-footer'></div></div>
-		<div class='sui-hamburger' id='sui-hamburger'></div>`;
-	
-		$("#sui-main").html(str.replace(/\t|\n|\r/g,""));											// Remove formatting and add framework to main div
-		$("#sui-advHeader-assets").html($("#sui-advHeader-assets").html().replace(/Assets/i,"ITEM TYPE"));  // Rename assets
-		$("#sui-clear, sui-clear2").on("mouseover",function() { $(this).html("&#xe60d"); });		// Highlight						
-		$("#sui-clear, sui-clear2").on("mouseout", function() { $(this).html("&#xe610"); });		// Normal						
-		$("#sui-clear, sui-clear2").on("click",()=> { 												// ON ERASE
-			$("#sui-search").val("");	this.ClearQuery(); 											// Clear input and query												
-			this.Query(); 																			// Load and redraw
-			});					
-		
-		$("#sui-search").on("change", (e)=> { 														// ON SEARCH CHANGE
-			this.ss.query.text=$("#"+e.currentTarget.id).val(); 									// Get query
-			$("#sui-search").val(this.ss.query.text);												// Set top search
-			if ((this.ss.mode == "input") || (this.ss.mode == "related")) this.ss.mode="simple";	// Toggle simple mode
-			if (this.ActiveSearch(false)) this.ss.mode="advanced";									// Some advanced search items set, open advanced search							
-			this.ss.page=0;																			// Start at beginning
-			this.Query(); 																			// Load and redraw
-			});	
-
-		$("#sui-searchgo, #sui-searchgo2").on("click", (e)=> { 										// ON SEARCH BUTTON CLCK
-			if ((this.ss.mode == "input") || (this.ss.mode == "related") ) this.ss.mode="simple";	// Toggle simple mode
-			if (this.ActiveSearch(false)) this.ss.mode="advanced";									// Some advanced search items set, open advanced search							
-			this.ss.page=0;																			// Start at beginning
-			this.Query(); 																			// Load and redraw
-			});	
-		
-		$("#sui-mode").on("click",()=> { 															// ON CHANGE MODE
-			this.ShowAdvanced((this.ss.mode == "advanced") ? false : true);							// Toggle advanced menu
-			});	
-
-		$("#sui-showBool").on("click",()=> { 														// ON CHANGE BOOLEAN
-			this.showBool=!this.showBool;															// Toggle flag
-			this.SetCookie("showBool", this.showBool);												// Set cookie
-			this.DrawAdvanced();																	// Draw search UI 
-			});	
-		$("#sui-geoLocate").on("click",()=> { 														// ON GEO LOCATE
-			this.GeoLocate();																		// Show geolocation	
-			});	
-					
-		$("[id^=sui-advHeader-]").on("click",(e)=> {												// ON FACET HEADER CLICK
-			var id=e.currentTarget.id.substring(14);												// Get facet name		
-			$(".sui-advEdit").slideUp(400, ()=> {													// Close any open tree or lists
-				$("[id^=sui-advHeaderBox-]").css("border","solid")									// Reset them all to closed
-			$("[id^=sui-advPlus-]").html("&#xe669");												// Reset them all to closed
-			if ($("#sui-advEdit-"+id).css("display") != "none")	{									// If open
-				$("#sui-advPlus-"+id).html("&#xe66a");												// Show open
-				$("#sui-advHeaderBox-"+id).css("border-top-style","hidden")							// Hide border
-				}
-			});
-			$("#sui-advPlus-"+id).html("&#xe66a");													// Show open
-
-			for (var key in this.facets)															// For each facet
-				if (this.facets[key] == "list")														// If a list
-					$("#sui-advEdit-"+key).html("");												// Erase contents
-			this.DrawFacetItems(id);																// Draw appropriate tree, list, or input
-			});
-
-		$("#sui-main").on("click",(e)=>{															// ON CLICK OF RESULTS PAGE 
-			this.pages.ClearPopover();																// Clear popover	
-			if (e.target.id != "sui-hamBut") $("#sui-hamburger").slideUp();							// Hide hanburderv menu if open
-			});
-		$("#sui-hamBut").on("click",()=>{ this.ShowHamburger() });									// SHOW HAMBURGER MENU
-		if (this.noTop)	$("#sui-left").css({ top:0, height:"calc(100% - 30px)" });
-	}
+	// AddFrame()																					// ADD DIV FRAMEWORK FOR APP
+	// {
+	// 	alert("addFrame()");
+	// 	console.error("AddFrame() called!");
+	// 	return;
+	//
+	// 	let key;
+	// 	this.showBool=this.GetCookie("showBool") == "true";
+	// 	var str="";
+	// 	if (this.site != "CU") str+=`<div class='sui-topBar'><img src='img/bhutanleft.gif' style='cursor:pointer' onclick='alert("draw landing page")' title='Home page'></div>
+	// 		<div id='sui-top' class='sui-top'>
+	// 		<div style='display:inline-block'>
+	// 		<div class='sui-search1'>
+	// 				<input type='text' id='sui-search' class='sui-search2' placeholder='Enter Search'>
+	// 				<div id='sui-clear' class='sui-search3'>&#xe610</div>
+	// 			</div>
+	// 			<div id='sui-searchgo' class='sui-search4'>&#xe623</div>
+	// 			<div id='sui-mode' class='sui-search5' title='Advanced search'>ADVANCED<br>SEARCH</div>
+	// 			<div id='sui-hamBut' class='sui-hamBut' title='Help + options'>&#xe627</div>
+	// 			</div>
+	// 		</div>
+	// 	<div>`;
+	// 	str+=`<div id='sui-left' class='sui-left'>
+	// 		<div id='sui-header' class='sui-header'>
+	// 			<div id='sui-headLeft' class='sui-headLeft'></div>
+	// 		</div>
+	// 		<div id='sui-legacy' class='sui-legacy scrollbar' style='color:#000'></div>
+	// 	</div>
+	// 	<div id='sui-adv' class='sui-adv'>`;
+	// 	for (key in this.facets) {
+	// 			str+=`<div class='sui-advBox' id='sui-advBox-${key}'>
+	// 			<div class='sui-advHeader' id='sui-advHeader-${key}'>
+	// 				${this.facets[key].icon}&nbsp;&nbsp;${key.toUpperCase()}
+	// 				<span id='sui-advPlus-${key}' style='float:right'>&#xe669 </span></div>
+	// 				<div class='sui-advTerm' id='sui-advTerm-${key}'></div>
+	// 			<div class='sui-advEdit' style='display:none' id='sui-advEdit-${key}'></div></div>`;
+	// 			if ((key == "terms") || (key == "users")) str+="<hr style='border-top:8px solid #ddd;margin:16px 0 16px 12px'>";
+	// 			}
+	// 	str+=`<div class='sui-advBox' id='sui-advBox-recent'>
+	// 		<div class='sui-advHeader' id='sui-advHeader-recent'>&#xe62e&nbsp;&nbsp;RECENT SEARCHES
+	// 		<span id='sui-advPlus-recent' style='float:right'>&#xe669</span></div>
+	// 		<div class='sui-advTerm'></div>
+	// 		<div class='sui-advEdit' style='display:none' id='sui-advEdit-recent'></div></div>
+	// 		<div style='margin-top:4px;float:right;font-size:13px'>
+	// 			<div>Show Boolean controls? &nbsp;<input type='checkbox' id='sui-showBool' ${this.showBool ? "checked" : ""}></div>
+	// 			<!-- div class='sui-geoLocate' id='sui-geoLocate'>Geo-Locate</div-->
+	// 		</div>
+	// 	</div>
+	// 	<div id='sui-footer' class='sui-footer'></div></div>
+	// 	<div class='sui-hamburger' id='sui-hamburger'></div>`;
+	//
+	// 	$("#sui-main").html(str.replace(/\t|\n|\r/g,""));											// Remove formatting and add framework to main div
+	// 	// $("#sui-advHeader-assets").html($("#sui-advHeader-assets").html().replace(/Assets/i,"ITEM TYPE"));  // Rename assets
+	// 	$("#sui-clear, sui-clear2").on("mouseover",function() { $(this).html("&#xe60d"); });		// Highlight
+	// 	$("#sui-clear, sui-clear2").on("mouseout", function() { $(this).html("&#xe610"); });		// Normal
+	// 	$("#sui-clear, sui-clear2").on("click",()=> { 												// ON ERASE
+	// 		$("#sui-search").val("");	this.ClearQuery(); 											// Clear input and query
+	// 		this.Query(); 																			// Load and redraw
+	// 		});
+	//
+	// 	$("#sui-search").on("change", (e)=> { 														// ON SEARCH CHANGE
+	// 		this.ss.query.text=$("#"+e.currentTarget.id).val(); 									// Get query
+	// 		$("#sui-search").val(this.ss.query.text);												// Set top search
+	// 		if ((this.ss.mode == "input") || (this.ss.mode == "related")) this.ss.mode="simple";	// Toggle simple mode
+	// 		if (this.ActiveSearch(false)) this.ss.mode="advanced";									// Some advanced search items set, open advanced search
+	// 		this.ss.page=0;																			// Start at beginning
+	// 		this.Query(); 																			// Load and redraw
+	// 		});
+	//
+	// 	$("#sui-searchgo, #sui-searchgo2").on("click", (e)=> { 										// ON SEARCH BUTTON CLCK
+	// 		if ((this.ss.mode == "input") || (this.ss.mode == "related") ) this.ss.mode="simple";	// Toggle simple mode
+	// 		if (this.ActiveSearch(false)) this.ss.mode="advanced";									// Some advanced search items set, open advanced search
+	// 		this.ss.page=0;																			// Start at beginning
+	// 		this.Query(); 																			// Load and redraw
+	// 		});
+	//
+	// 	$("#sui-mode").on("click",()=> { 															// ON CHANGE MODE
+	// 		this.ShowAdvanced((this.ss.mode == "advanced") ? false : true);							// Toggle advanced menu
+	// 		});
+	//
+	// 	$("#sui-showBool").on("click",()=> { 														// ON CHANGE BOOLEAN
+	// 		this.showBool=!this.showBool;															// Toggle flag
+	// 		this.SetCookie("showBool", this.showBool);												// Set cookie
+	// 		this.DrawAdvanced();																	// Draw search UI
+	// 		});
+	// 	$("#sui-geoLocate").on("click",()=> { 														// ON GEO LOCATE
+	// 		this.GeoLocate();																		// Show geolocation
+	// 		});
+	//
+	// 	$("[id^=sui-advHeader-]").on("click",(e)=> {												// ON FACET HEADER CLICK
+	// 		var id=e.currentTarget.id.substring(14);												// Get facet name
+	// 		$(".sui-advEdit").slideUp(400, ()=> {													// Close any open tree or lists
+	// 			$("[id^=sui-advHeaderBox-]").css("border","solid")									// Reset them all to closed
+	// 		$("[id^=sui-advPlus-]").html("&#xe669");												// Reset them all to closed
+	// 		if ($("#sui-advEdit-"+id).css("display") != "none")	{									// If open
+	// 			$("#sui-advPlus-"+id).html("&#xe66a");												// Show open
+	// 			$("#sui-advHeaderBox-"+id).css("border-top-style","hidden")							// Hide border
+	// 			}
+	// 		});
+	// 		$("#sui-advPlus-"+id).html("&#xe66a");													// Show open
+	//
+	// 		for (var key in this.facets)															// For each facet
+	// 			if (this.facets[key] == "list")														// If a list
+	// 				$("#sui-advEdit-"+key).html("");												// Erase contents
+	// 		this.DrawFacetItems(id);																// Draw appropriate tree, list, or input
+	// 		});
+	//
+	// 	$("#sui-main").on("click",(e)=>{															// ON CLICK OF RESULTS PAGE
+	// 		this.pages.ClearPopover();																// Clear popover
+	// 		if (e.target.id != "sui-hamBut") $("#sui-hamburger").slideUp();							// Hide hanburderv menu if open
+	// 		});
+	// 	$("#sui-hamBut").on("click",()=>{ this.ShowHamburger() });									// SHOW HAMBURGER MENU
+	// 	if (this.noTop)	$("#sui-left").css({ top:0, height:"calc(100% - 30px)" });
+	// }
 
 	Draw(mode)																					// DRAW SEARCH COMPONENTS
 	{
+		console.error("Draw called!");
+		console.error("searchui.Draw called with " + JSON.stringify(arguments));
 		if (mode) this.ss.mode=mode;																// If mode spec'd, use it
-		this.DrawResults();																			// Draw results page if active
-		this.DrawAdvanced();																		// Draw search UI if active
+		this.DrawResults();																		// Draw results page if active
+		// this.DrawAdvanced();																		// Draw search UI if active
 	}
 
 	ShowAdvanced(mode)																			// HIDE/SHOW ADVANCED MENU
 	{
+		throw new Error("ShowAdvanced");
 		this.ss.mode=(mode) ? "advanced" : "simple";												// Set mode
 		$("#sui-adv").css({ display:mode ? "block" : "none"});										// Hide/show adv ui
 		if (mode) $("#sui-left").css({ width:($("#sui-main").width()-$("#sui-adv").width())+"px"});	// Size results area to fit advanced
@@ -230,7 +240,7 @@ class SearchUI  {
 		<span id='sui-home' class='sui-hamItem'>&#xe60b&nbsp;&nbsp;HOME</span>`;
 		$("#sui-hamburger").html(str.replace(/\t|\n|\r/g,""));										// Remove formatting and add to menu
 		$("#sui-hamburger").slideToggle();															// Open or close
-		$("#sui-home").on("click",()=>{  DrawLandingPage()});										// Go home
+		$("#sui-home").on("click",()=>{  alert("DrawLandingPage()"); });										// Go home
 		$("#sui-help").on("click",()=>{ window.open("//confluence.its.virginia.edu/display/KB/Mandala+Suite+of+Tools","_blank"); });	// Show help
 		$("#sui-hamburger").on("click",()=>{$("#sui-hamburger").slideUp() });						// Close
 	}
@@ -254,41 +264,56 @@ class SearchUI  {
 	SetState(state)																				// SET PAGE STATE
 	{
 		const here=window.location.href.split("#")[0];												// Remove any hashes
-		history.pushState("#"+state,"Mandala",here+(state ? "#"+state : ""));						// Show current state search bar
+		window.history.pushState("#"+state,"Mandala",here+(state ? "#"+state : ""));						// Show current state search bar
 	}
 
 	PageRouter(hash)																			// ROUTE PAGE BASED ON QUERY HASH OR BACK BUTTON													
 	{
-		const here=window.location.href.split("#")[0];												// Remove any hashes
+		this.alert("PageRouter called.");
+		const sui = this.sui;
+		const here = window.location.href.split("#")[0];												// Remove any hashes
 		let id;
-		if ((id=hash.match(/#p=(.+)/))) {															// If a page
-			id=id[1].toLowerCase();																	// Isolate kmap id
+		if ((id = hash.match(/#p=(.+)/))) {															// If a page
+			id = id[1].toLowerCase();																	// Isolate kmap id
 			setupPage();																			// Prepare page's <div> environment
-			this.GetKmapFromID(id,(kmap)=>{  this.pages.Draw(kmap,true); });						// Get kmap and show page
-			}	
-		else if ((id=hash.match(/#r=(.+)/))) {														// If showing related results
+			this.alert("======== PAGEROUTER: " + hash + " Handling p: Drawing " + id);
+			this.log("	PAGEROUTER: calling pages.Draw() with id=" + id);
+			this.GetKmapFromID(id, (kmap) => {
+				this.log("	PAGEROUTER: calling pages.Draw() with kmap=" + kmap.uid);
+				this.pages.Draw(kmap, true);
+			});						// Get kmap and show page
+		} else if ((id = hash.match(/#r=(.+)/))) {														// If showing related results
 			setupPage();																			// Prepare page's <div> environment
-			let v=id[1].replace(/\%20/g," ").split("=");											// Get ids	
-			sui.pages.relatedId=v[0]; 	sui.pages.relatedType=v[2];									// Set factors
-			this.GetKmapFromID(v[3],(kmap)=>{  sui.pages.relatedBase=kmap; this.pages.DrawRelatedResults(kmap,true); });		// Get kmap and show page
-			}
-		else if ((id=hash.match(/#s=(.+)/))) {														// If showing search results
+			let v = id[1].replace(/\%20/g, " ").split("=");											// Get ids
+			this.pages.relatedId = v[0];
+			this.pages.relatedType = v[2];// Set factors
+			this.alert("======== PAGEROUTER: " + hash + " Handling r: calling getKmapFromID with id = " + v[3] + " this.pages.relatedId=" + this.pages.relatedId + " this.pages.relatedType=" + this.pages.relatedType   );
+			this.GetKmapFromID(v[3], (kmap) => {
+				this.pages.relatedBase = kmap;
+				console.error("	PAGEROUTER handling callback.  calling pages.DrawRelatedResults with kmap uid = " + kmap.uid);
+				this.pages.DrawRelatedResults(kmap, true);
+			});		// Get kmap and show page
+		} else if ((id = hash.match(/#s=(.+)/))) {														// If showing search results
 			setupPage();																			// Prepare page's <div> environment
-			id=id[1].replace(/\%20/g," ");															// Get ids	
-			this.ParseQuery(id);																	// Get query
+			id = id[1].replace(/\%20/g, " ");															// Get ids
+			this.ParseQuerystring(id);																	// Get query
+			this.alert("======== PAGEROUTER: " + hash + " Handling s: Parsing querystring: " + id + " set ss.query.text to " + ss.query.text) ;
 			$("#sui-search").val(this.ss.query.text);												// Set top search
 			this.Query(true);																		// Run query
-			}	
-		function setupPage() {																		// PREPARES <DIV> TO DRAW NEW PAGE
-			sui.ss.mode="simple";																	// Simple display mode	
-			sui.ss.page=0;																			// Start at beginning
-			$("#sui-results").scrollTop(0);															// Scroll to top
+		}
+
+		function setupPage() {
+			// PREPARES <DIV> TO DRAW NEW PAGE
+			sui.ss.mode = "simple";																	// Simple display mode
+			sui.ss.page = 0;																			// Start at beginning
+			$("#sui-legacy").scrollTop(0);															// Scroll to top
 			$("#sui-left").scrollTop(0);															// Scroll to top
 			$("#plc-infoDiv").remove();																// Remove map buttons
-			$("#sui-left").css({ width:"100%", display:"inline-block" });							// Size and show results area
-			$("#sui-adv").css({ display:"none"});													// Hide search ui
-			$("#sui-results").css({ display:"block"});												// Show page
-			sui.DrawHeader(true);		sui.DrawFooter();											// Redraw header and footer
+			$("#sui-left").css({width: "100%", display: "inline-block"});							// Size and show results area
+			$("#sui-adv").css({display: "none"});													// Hide search ui
+			$("#sui-legacy").css({display: "block"});												// Show page
+			sui.DrawHeader(true);
+			sui.DrawFooter();											// Redraw header and footer
 		}
 	}
 
@@ -306,22 +331,24 @@ class SearchUI  {
 		return str.slice(0,-1);																		// Remove last '+'
 	}
 
-	ParseQuery(qString)																			// PARSE QUERY FROM STRING
+	ParseQuerystring(qString)																			// PARSE QUERY FROM STRING
 	{
-		let i,v,o;
-		let fs=qString.split("=");																	// Split parts
+		let i, v, o;
+		let fs = qString.split("=");																	// Split parts
 		this.ClearQuery();																			// Clear search query
-		this.ss.query.assets=[];																	// Clear assets ********************************** ASSETS1
-		for (i=0;i<fs.length;++i) {																	// For each term
-			if (fs[i].match(/^text/))	this.ss.query.text=fs[i].substr(5);							// Get text
-			else{																					// Get all other facets
-				v=fs[i].split(":");																	// Get parts
-				o={ title:v[1], id:v[2], bool:v[3] };												// Make search item
+		this.ss.query.assets = [];																	// Clear assets ********************************** ASSETS1
+		for (i = 0; i < fs.length; ++i) {																	// For each term
+			if (fs[i].match(/^text/)) {
+				this.ss.query.text = fs[i].substr(5);
+			}							// Get text
+			else {																					// Get all other facets
+				v = fs[i].split(":");																	// Get parts
+				o = {title: v[1], id: v[2], bool: v[3]};												// Make search item
 				this.ss.query[v[0]].push(o);														// Add	
-				}
-			}			
-		this.ss.query.assets=[ this.ss.query.assets[0] ];											// Keep only 1st asset *************************** ASSETS1
+			}
 		}
+		this.ss.query.assets = [this.ss.query.assets[0]];											// Keep only 1st asset *************************** ASSETS1
+	}
 
 /*	QUERY TOOLS //////////////////////////////////////////////////////////////////////////////////
 
@@ -359,43 +386,82 @@ class SearchUI  {
 			};																
 	}
 
+
+	//
+
+
+	//
 	Query(fromHistory, collectionId)															// QUERY AND UPDATE RESULTS
 	{
+		console.error("Query() called with fromHistory = " + fromHistory + " collectionId =  " + collectionId);
 		let url;
-		this.LoadingIcon(true,64);																	// Show loading icon
+		this.LoadingIcon(true, 64);																	// Show loading icon
+
 		if (collectionId) {																			// If getting collection members
-			let ts=JSON.parse(JSON.stringify(this.ss));												// Clone search
-			ts.query={ text:"", places:[], assets:[{ id:this.pages.relatedType, bool:"AND"}], languages:[],	features:[],subjects:[],															
-					  terms:[], relationships:[], users:[], perspectives:[],	
-					  collections:[{ title:"all", id:collectionId, bool: "AND" }] };				// Set new search
-			url=this.solrUtil.buildAssetQuery(ts);													// Set url
-			}
-		else if (this.ss.mode == "related")		url=this.solrUtil.createKmapQuery(this.pages.relatedId.toLowerCase(),this.pages.relatedType.toLowerCase(),this.ss.page,this.ss.pageSize);		// Get assets related to relatedId
-		else									url=this.solrUtil.buildAssetQuery(this.ss);			// Get assets that match query
-		if ((this.ss.mode != "related") && !fromHistory) 											// These set their own states and not from history API
-			this.SetState("s="+this.SerializeQuery(this.ss));										// Save search state	
+			console.error("	SearchUI.Query: collection mode");
+			let ts = JSON.parse(JSON.stringify(this.ss));												// Clone search
+			ts.query = {
+				text: "",
+				places: [],
+				assets: [{id: this.pages.relatedType, bool: "AND"}],
+				languages: [],
+				features: [],
+				subjects: [],
+				terms: [],
+				relationships: [],
+				users: [],
+				perspectives: [],
+				collections: [{title: "all", id: collectionId, bool: "AND"}]
+			};				// Set new search
+			url = this.solrUtil.buildAssetQuery(ts); // Set url
+		} else if (this.ss.mode == "related") {
+			console.error("	SearchUI.Query: related mode");
+			url = this.solrUtil.createKmapQuery(this.pages.relatedId.toLowerCase(), this.pages.relatedType.toLowerCase(), this.ss.page, this.ss.pageSize);
+		}	// Get assets related to relatedId
+		else {
+			console.error("	SearchUI.Query: asset mode");
+			url = this.solrUtil.buildAssetQuery(this.ss);
+		}			// Get assets that match query
+		if ((this.ss.mode != "related") && !fromHistory) { 											// These set their own states and not from history API
+			console.error("	SearchUI.Query: default mode");
+			this.SetState("s=" + this.SerializeQuery(this.ss));										// Save search state
+		}
 		$("#sui-relatedAssets").remove();															// Remove related assets panel
 		if (this.ActiveSearch()) {																	// If an active search
-			this.searches.filter( (s,i)=> {															// Check to see if it already exists in list
+			this.searches.filter((s, i) => {															// Check to see if it already exists in list
 				if (JSON.stringify(s.query) === JSON.stringify(this.ss.query)) 						// It does
-					this.searches.splice(i,1);														// Remove old one
-				});
+					this.searches.splice(i, 1);														// Remove old one
+			});
 			this.searches.push(JSON.parse(JSON.stringify(this.ss)));								// Add to recent searches
-			}
-		$.ajax( { url: url,  dataType: 'jsonp', jsonp: 'json.wrf' }).done((data)=> {				// Get data from SOLR
-			this.curResults=this.MassageKmapData(data.response.docs);								// Normalize for display
-			this.GetFacetData(data);																// Get facet data counts
+		}
+		$.ajax({url: url, dataType: 'jsonp', jsonp: 'json.wrf'}).done((data) => {				// Get data from SOLR
+			console.error ("	SearchUI.Query: got data back from SOLR query: " + url);
+			console.dir(data);
+			this.curResults = this.MassageKmapData(data.response.docs);								// Normalize for display
+			this.ParseFacetData(data);																// Get facet data counts
 			this.LoadingIcon(false);																// Hide loading icon
 			this.DrawResults();																		// Draw results page if active
-			this.DrawAdvanced();																	// Draw advanced search if active
-			}).fail((msg)=> { console.log(msg); this.LoadingIcon(false);  this.Popup("Query error"); });	// Failure message
-		}
+			// this.DrawAdvanced();																	// Draw advanced search if active
+		}).fail((msg) => {
+			console.log(msg);
+			this.LoadingIcon(false);
+			this.Popup("Query error");
+		});	// Failure message
+	}
+
 
 	GetKmapFromID(id, callback)																	// GET KMAP FROM ID
 	{
-		var url=this.ss.solrUrl+"?q=uid:"+id.toLowerCase()+"&wt=json";								// Set query url
+		console.error("GetKmapFromID() called with id=" + id);
+		var url=this.ss.solrUrl+"?q=uid:"+id.toLowerCase()+"&wt=json";
+		console.error("url = " + url);// Set query url
 		$.ajax( { url:url, dataType:'jsonp', jsonp:'json.wrf' }).done((data)=> {					// Get kmap
-			data=this.MassageKmapData(data.response.docs[0]);										// Normalize kmap
+
+			try {
+				data = this.MassageKmapData(data.response.docs[0]);										// Normalize kmap
+			} catch ( error) {
+				data.error = error;
+			}
 			callback(data);																			// Return kmap
 			}).fail((msg)=> { console.log(msg); });													// Failure message
 	}
@@ -411,19 +477,24 @@ class SearchUI  {
 
 	GetRelatedFromID(id, callback)																// GET RELATED THINGS FROM ID
 	{
+		this.log("GetRelatedFromID() called with arguments");
+		console.log(JSON.stringify(arguments));
 		let url=`${this.solrBase}kmterms${this.solrId}/query`;										// Base url
 		url+="?child_count.fq=related_kmaps_node_type:child&child_count.fl=uid&fq=!related_kmaps_node_type:parent";
 		url+="&child_count.rows=0&fl=child_count:[subquery],*&child_count.q={!child%20of='block_type:parent'}";
 		url+="{!term%20f=uid%20v=$row.related_subjects_id_s}&rows=2000&q=id:"+id+"%20OR%20{!child%20of=block_type:parent}id:"+id+"%20&sort=block_type%20DESC,%20related_subjects_header_s%20ASC";
+		this.log("GetRelatedFromID():  query = " + url);
 		$.ajax( { url:url, dataType:'jsonp', jsonp:'json.wrf' }).done((data)=> {					// Get kmap
+			this.log("GetRelatedFromID() returns " + data);
+			console.dir(data);
 			callback(data.response.docs);															// Return data
-		}).fail((msg)=> { console.log(msg); });														// Failure message
+		}).fail((msg)=> { console.error(msg); });														// Failure message
 	}
 	
 	GetRelatedPlaces(id, callback)																// GET RELATED THINGS FROM ID
 	{
 		this.LoadingIcon(true,64);																	// Show loading icon
-		url=this.solrUtil.createKmapQuery(id,"places",0,10000);										// Make query url
+		var url=this.solrUtil.createKmapQuery(id,"places",0,10000);										// Make query url
 		$.ajax( { url: url,  dataType: 'jsonp', jsonp: 'json.wrf' }).done((data)=> {				// Get data from SOLR
 			data=this.MassageKmapData(data.response.docs);											// Normalize for display
 			this.LoadingIcon(false);																// Hide loading icon
@@ -449,6 +520,7 @@ class SearchUI  {
 
 	GetTreeChildren(facet, path, callback)														// GET CHILDREN OF TREE LIMB
 	{
+		const sui = this.sui;
 		let base=`${this.solrBase}kmterms${this.solrId}`;											// Base url
 		let lvla=Math.max(path.split("/").length+1,2);												// Set level
 		if ((facet == "features") ||  (facet == "languages")) facet="subjects";						// Features and languages are in subjects
@@ -498,7 +570,7 @@ class SearchUI  {
 		return data;
 	}
 
-	GetFacetData(data)																			// GET FACET COUNTS
+	ParseFacetData(data)																			// GET FACET COUNTS
 	{
 		let i,f,val,buckets,n=0;
 		for (f in this.assets)	this.assets[f].n=0;													// Zero them out
@@ -543,9 +615,12 @@ class SearchUI  {
 
 	DrawResults(noRefresh)																		// DRAW RESULTS SECTION
 	{
-		$("#sui-left").scrollTop(0); 		$("#sui-results").scrollTop(0);							// Scroll to top
-		$("#sui-results").css({ "background-image":""});											// Remove any backgeound image										
-		$("#sui-results").css({ display:"block" });													// Show results page	
+		this.log("DrawResults() called",arguments);
+
+		$("#sui-left").scrollTop(0);
+		$("#sui-legacy").scrollTop(0);							// Scroll to top
+		$("#sui-legacy").css({ "background-image":""});											// Remove any backgeound image
+		$("#sui-legacy").css({ display:"block" });													// Show results page
 		$("#plc-infoDiv").remove();																	// Remove map buttons
 
 		if (this.ss.mode == "related")		this.numItems=this.assets[this.pages.relatedType].n;	// Set number of items based on related type
@@ -554,9 +629,9 @@ class SearchUI  {
 			$("#sui-header").css({ display:"none"});												// Show header
 			$("#sui-header").css({display:"inline-block","background-color":"#4d59ca"} );			// Show header
 			$("#sui-left").css({ display:"block",width:"100%" });									// Size and show left side
+
 			$("#sui-adv").css({ display:"none"});													// Hide search ui
-			$("#sui-results").css({ display:"none" });												// Hide results page	
-			$("#sui-adv").css({ display:"none" });													// Hide adv search ui
+			$("#sui-legacy").css({ display:"none" });												// Hide results page
 			return;																					// Quit
 			}
 		else if (this.ss.mode == "simple") {														// Simple search
@@ -570,7 +645,7 @@ class SearchUI  {
 			$("#sui-left").css({ width:$("#sui-main").width()-$("#sui-adv").width() });				// Size results area to fit advanced
 			}
 		$("#sui-mode").prop({"title": this.ss.mode == "advanced" ? "Basic search" : "Advanced search" } );	// Set tooltip
-		$("#sui-mode").html(this.ss.mode == "advanced" ? "BASIC<br>SEARCH" : "ADVANCED<br>SEARCH" );		// Set mode icon	
+		$("#sui-mode").html(this.ss.mode == "advanced" ? "BASIC<br>SEARCH" : "ADVANCED<br>SEARCH" );		// Set mode icon
 		$("#sui-header").css({display:"block"} );													// Show header
 		if (noRefresh)	return;																		// Don't refresh page
 		this.DrawHeader();																			// Draw header
@@ -580,6 +655,8 @@ class SearchUI  {
 
 	DrawHeader()																				// DRAW RESULTS HEADER
 	{
+		// alert("pages.DrawHeader called()");
+		console.error("pages.Drawheader called!");
 		if (this.ss.mode == "related") 	return;														// Quit for special search modes
 		var lastPage=Math.floor(this.numItems/this.ss.pageSize);									// Calc last page
 		var s=this.ss.page*this.ss.pageSize+1;														// Starting item number
@@ -593,7 +670,10 @@ class SearchUI  {
 			title='Enter page, then press Return'> OF ${lastPage+1}</div>
 			<div id='sui-pageNT' class='sui-resDisplay' title='Go to next page'>&#xe63e</div>
 			<div id='sui-pageLT' class='sui-resDisplay' title='Go to last page'>&#xe63d</div>
-			</div>`;	
+			</div>`;
+
+
+
 		$("#sui-headLeft").html(str.replace(/\t|\n|\r/g,""));										// Remove format and add to div
 		$("#sui-header").css("background-color","#888");											// Set b/g color
 
@@ -685,12 +765,16 @@ class SearchUI  {
 			});							
 	}
 
+	// CALLS DrawCardItem(), DrawGridItem() or DrawListItem()
+	// CALLS this.pages.DrawRelatedAssets()
+
 	DrawItems()																					// DRAW RESULT ITEMS
 	{
+		console.log("SearchUI.DrawItems()");
 		var i,str="";
-		$("#sui-results").css({ "background-color":(this.ss.view == "List") ? "#fff" : "#ddd" }); 	// White b/g for list only
-		if (this.ss.mode == "related")  $("#sui-results").css({ "padding-left": "204px", width:"calc(100% - 216px"});	// Shrink page
-		else  		 					$("#sui-results").css({ "padding-left":"12px", width:"calc(100% - 24px"});	// Reset to normal size
+		$("#sui-legacy").css({ "background-color":(this.ss.view == "List") ? "#fff" : "#ddd" }); 	// White b/g for list only
+		if (this.ss.mode == "related")  $("#sui-legacy").css({ "padding-left": "204px", width:"calc(100% - 216px"});	// Shrink page
+		else  		 					$("#sui-legacy").css({ "padding-left":"12px", width:"calc(100% - 24px"});	// Reset to normal size
 
 		for (i=0;i<this.curResults.length;++i) {													// For each result
 			if (this.ss.view == "Card")			str+=this.DrawCardItem(i);							// Draw if shoing as cards
@@ -699,9 +783,14 @@ class SearchUI  {
 			}	
 		if (!this.curResults.length)																// No results
 			str="<br><br><br><div style='text-align:center;color:#666'>Sorry, there were no items found<br>Try broadening your search</div>";
-		$("#sui-results").html(str.replace(/\t|\n|\r/g,""));										// Remove format and add to div
+
+		// OUTPUT
+		$("#sui-legacy").html(str.replace(/\t|\n|\r/g,""));										// Remove format and add to div
+
+		// CALL
 		if (this.ss.mode == "related") this.pages.DrawRelatedAssets();								// Draw related assets menu
 
+		// HANDLERS
 		$(".sui-itemIcon").on("click",(e)=> { 														// ON ICON BUTTON CLICK
 			var num=e.currentTarget.id.substring(13);												// Get index of result	
 			if (e.originalEvent.metaKey) window.open("#p="+this.curResults[num].uid,"_blank");		// Open in new window
@@ -743,7 +832,9 @@ class SearchUI  {
 			this.ShowItemMore(e.currentTarget.id.substring(13));									// Show more info below
 			});
 	}	
-		
+
+	// NO SIDE EFFECTS
+	// PASSED FROM CONTEXT:  this.curResults
 	DrawListItem(num)																			// DRAW A LIST ITEM
 	{
 		var i;
@@ -777,6 +868,7 @@ class SearchUI  {
 		return str+"</div>";																		// Return items markup
 	}
 
+	// MORE EXPANDER
 	ShowItemMore(num)																			// SHOW MORE INFO
 	{
 		var j,o,s1,str="";
@@ -839,6 +931,8 @@ class SearchUI  {
 			});
 		}
 
+	// NO SIDE EFFECTS
+	// PASSED FROM CONTEXT this.curResults
 	DrawGridItem(num)																			// DRAW GRID ITEM
 	{
 		var str="<div class='sui-grid'>";
@@ -855,6 +949,8 @@ class SearchUI  {
 		return str+"</div>";																		// Return grid markup
 	}
 
+	// NO SIDE EFFECTS
+	// PASSED FROM CONTEXT:   this.curResults
 	DrawCardItem(num)																			// DRAW CARD ITEM
 	{
 		let i,o=this.curResults[num];																// Point at item
@@ -898,6 +994,10 @@ class SearchUI  {
 
 	DrawAdvanced()																				// DRAW SEARCH UI SECTION
 	{
+
+		this.log("searchui.DrawAdvanced() short circuit");
+		return; // short circuit
+
 		let i,o,str;
 		let _this=this;
 		if (this.noTop)	$("#sui-adv").css({ top:0, height:"calc(100% - 50px)" })					// Scale to fit
@@ -947,7 +1047,7 @@ class SearchUI  {
 			this.Query();																			// Run query and show results
 			});
 		}
-	
+
 	DrawFacetItems(facet, open)																	// DRAW FACETS ITEMS
 	{
 		if ((facet == "assets") && !this.curResults) 	this.Query();								// If no results, run query
@@ -969,10 +1069,11 @@ class SearchUI  {
 		return activeSearch;
 	}
 
+	// SIDE EFFECTS
 	DrawInput(facet)																			// DRAW INPUT FACET PICKER
 	{
 		if ($("#sui-advEdit-"+facet).css("display") != "none") {									// If open
-			$("#sui-advEdit-"+facet).slideUp();														// Close it 
+			$("#sui-advEdit-"+facet).slideUp();														// Close it
 			return;																			
 			}
 		var tot=934;
@@ -989,10 +1090,11 @@ class SearchUI  {
 			});
 	}
 
+	// SELF-CONTAINED
 	RecentSearches()																			// SHOW RECENT SEARCHES
 	{
 		if ($("#sui-advEdit-recent").css("display") != "none") {									// If open
-			$("#sui-advEdit-recent").slideUp();														// Close it 
+			$("#sui-advEdit-recent").slideUp();														// Close it
 			return;																					// Quit														
 			}
 		let i,j,f,str="<i>Click below to recall a previous search</i><hr><div class='sui-advEditList'>"; // Enclosing div
@@ -1023,6 +1125,7 @@ class SearchUI  {
 		$("#sui-advEdit-recent").slideDown();														// Show it
 	}
 
+	//
 	ResetFacetList(facet)																		// RESET FACET LIST UI
 	{
 		var i,k,str="";
@@ -1056,83 +1159,86 @@ class SearchUI  {
 		$("#sui-advListNum").html((n < 300) ? n : "300+");											// Set number
 	}
 
+	// NEEDS ANALYSIS
 	DrawFacetList(facet, open, searchItem)														// DRAW LIST FACET PICKER
 	{
-		let i,sorted=0;
-		if (!open && ($("#sui-advEdit-"+facet).css("display") != "none")) {							// If open
-			$("#sui-advEdit-"+facet).slideUp();														// Close it 
-			return;																			
-			}
+		let i, sorted = 0;
+		if (!open && ($("#sui-advEdit-" + facet).css("display") != "none")) {							// If open
+			$("#sui-advEdit-" + facet).slideUp();														// Close it
+			return;
+		}
 		this.QueryFacets(facet);																	// Get initial list	
-		this.facets[facet].mode="list";																// List mode active
-		var str=`<input id='sui-advEditFilter-${facet}' placeholder='Search this list' value='${searchItem ? searchItem : ""}' 
+		this.facets[facet].mode = "list";																// List mode active
+		var str = `<input id='sui-advEditFilter-${facet}' placeholder='Search this list' value='${searchItem ? searchItem : ""}' 
 		style='width:90px;border:1px solid #999;border-radius:12px;font-size:11px;padding-left:6px'> &nbsp; `;
 		if (this.facets[facet].type == "tree") {
-			str+=`<div class='sui-advEditBut' id='sui-advListMap-${facet}' title='Tree view'>&#xe638</div> | 
+			str += `<div class='sui-advEditBut' id='sui-advListMap-${facet}' title='Tree view'>&#xe638</div> | 
 			<div class='sui-advEditBut' id='sui-advTreeMap-${facet}' title='List view'>&#xe61f</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`;
-			}
+		}
 		if (facet != "assets")
-			str+=`<div class='sui-advEditBut' id='sui-advEditSort-${facet}' title='Sort'>&#xe652</div>`;
-		str+=`<div class='sui-advEditNums'> <span id='sui-advListNum'></span> ${facet}`;
-		str+=`</div><hr style='border: .5px solid #a4baec'>
+			str += `<div class='sui-advEditBut' id='sui-advEditSort-${facet}' title='Sort'>&#xe652</div>`;
+		str += `<div class='sui-advEditNums'> <span id='sui-advListNum'></span> ${facet}`;
+		str += `</div><hr style='border: .5px solid #a4baec'>
 		<div class='sui-advEditList' id='sui-advEditList-${facet}'></div>`;
-		$("#sui-advEdit-"+facet).html(str.replace(/\t|\n|\r/g,""));									// Add to div
-		$("#sui-advEdit-"+facet).slideDown();														// Show it
-		$("#sui-advTreeMap-"+facet).css({ color: "#668eec" });										// Highlight list
+		$("#sui-advEdit-" + facet).html(str.replace(/\t|\n|\r/g, ""));									// Add to div
+		$("#sui-advEdit-" + facet).slideDown();														// Show it
+		$("#sui-advTreeMap-" + facet).css({color: "#668eec"});										// Highlight list
 
 		$("[id^=sui-advEditFilter-]").off("click");													// KILL OLD HANDLER
-		$("#sui-advEditFilter-"+facet).on("keydown",(e)=> {											// ON FILTER CHANGE
+		$("#sui-advEditFilter-" + facet).on("keydown", (e) => {											// ON FILTER CHANGE
 			let line;
-			var n=Math.min(300,this.facets[facet].data.length);										// Cap at 300
-			let r=$("#sui-advEditFilter-"+facet).val();												// Get filter text
-			if ((e.keyCode > 31) && (e.keyCode < 91)) r+=e.key;										// Add current key if a-Z
-			if ((e.keyCode == 8) && r.length)	r=r.slice(0,-1);									// Remove last char on backspace
-			r=RegExp(r,"i");																		// Turn into regex
-			for (i=0;i<n;++i) {																		// For each item
-				line=$("#sui-advEditLine-"+i);														// Point at line
-				if (line.text().match(r))	line.css("display","block");							// Show item if it matches
-				else						line.css("display","none");								// Hide
-				}
-			});
+			var n = Math.min(300, this.facets[facet].data.length);										// Cap at 300
+			let r = $("#sui-advEditFilter-" + facet).val();												// Get filter text
+			if ((e.keyCode > 31) && (e.keyCode < 91)) r += e.key;										// Add current key if a-Z
+			if ((e.keyCode == 8) && r.length) r = r.slice(0, -1);									// Remove last char on backspace
+			r = RegExp(r, "i");																		// Turn into regex
+			for (i = 0; i < n; ++i) {																		// For each item
+				line = $("#sui-advEditLine-" + i);														// Point at line
+				if (line.text().match(r)) line.css("display", "block");							// Show item if it matches
+				else line.css("display", "none");								// Hide
+			}
+		});
 
 		$("[id^=sui-advEditSort-]").off("click");													// KILL OLD HANDLER
-		$("#sui-advEditSort-"+facet).on("click",()=> {												// ON SORT BUTTON CLICK
-			str="";
-			let items=this.facets[facet].data;														// Point at items
-			let i,k,n=Math.min(300,items.length);													// Cap at 300
-			sorted=1-sorted;																		// Toggle flag	
+		$("#sui-advEditSort-" + facet).on("click", () => {												// ON SORT BUTTON CLICK
+			str = "";
+			let items = this.facets[facet].data;														// Point at items
+			let i, k, n = Math.min(300, items.length);													// Cap at 300
+			sorted = 1 - sorted;																		// Toggle flag
 			if (!sorted) {																			// If not sorted
-				$("#sui-advEditList-"+facet).empty();												// Remove items from list
-				for (i=0;i<n;++i) {																	// For each one
-					k=this.facets[facet].data[i].n;													// Number of assets
-					if (k > 1000)	k=Math.floor(k/1000)+"K";										// Shorten
-					str+=`<div class='sui-advEditLine' id='sui-advEditLine-${i}'>`;
-					str+=`${items[i].title} (${k})${this.pages.AddPop(items[i].id,true)}</div>`;	// Add item to list
-					}
-				$("#sui-advEditList-"+facet).html(str);												// Add back
-				$("#sui-advEditSort-"+facet).css("color","#666");									// Off
-				return;																				// Quit
+				$("#sui-advEditList-" + facet).empty();												// Remove items from list
+				for (i = 0; i < n; ++i) {																	// For each one
+					k = this.facets[facet].data[i].n;													// Number of assets
+					if (k > 1000) k = Math.floor(k / 1000) + "K";										// Shorten
+					str += `<div class='sui-advEditLine' id='sui-advEditLine-${i}'>`;
+					str += `${items[i].title} (${k})${this.pages.AddPop(items[i].id, true)}</div>`;	// Add item to list
 				}
-			let itms=$(".sui-advEditLine");															// Items to sort
-			itms.sort(function(a,b) {																// Sort
-				var an=$(a).text();																	// A name
-				var bn=$(b).text();																	// B
-				if (an > bn) 		return 1;														// Higher
-				else if (an < bn) 	return -1;														// Lower
-				else				return 0;														// The same
-				});
-			$("#sui-advEditList-"+facet).html(itms);
-			$("#sui-advEditSort-"+facet).css("color","#668eec");									// On	
-			});                  
-		
-		$("[id^=sui-advListMap-]").off("click");													// KILL OLD HANDLER
-		$("#sui-advListMap-"+facet).on("click", ()=> {												// ON CLICK TREE BUTTON
-			this.DrawFacetTree(facet,1,$("#sui-advEditFilter-"+facet).val());						// Close it and open as tree
-			});      
-		$("#sui-advEditList-"+facet).css("max-height",$("#sui-main").height()-$("#sui-advTerm-"+facet).offset().top-$("#sui-advTerm-"+facet).height()-102+"px");	// Fill space
-		}
+				$("#sui-advEditList-" + facet).html(str);												// Add back
+				$("#sui-advEditSort-" + facet).css("color", "#666");									// Off
+				return;																				// Quit
+			}
+			let itms = $(".sui-advEditLine");															// Items to sort
+			itms.sort(function (a, b) {																// Sort
+				var an = $(a).text();																	// A name
+				var bn = $(b).text();																	// B
+				if (an > bn) return 1;														// Higher
+				else if (an < bn) return -1;														// Lower
+				else return 0;														// The same
+			});
+			$("#sui-advEditList-" + facet).html(itms);
+			$("#sui-advEditSort-" + facet).css("color", "#668eec");									// On
+		});
 
+		$("[id^=sui-advListMap-]").off("click");													// KILL OLD HANDLER
+		$("#sui-advListMap-" + facet).on("click", () => {												// ON CLICK TREE BUTTON
+			this.DrawFacetTree(facet, 1, $("#sui-advEditFilter-" + facet).val());						// Close it and open as tree
+		});
+		$("#sui-advEditList-" + facet).css("max-height", $("#sui-main").height() - $("#sui-advTerm-" + facet).offset().top - $("#sui-advTerm-" + facet).height() - 102 + "px");	// Fill space
+	}
+
+
+	// SIDE EFFECTS!
 	AddNewFilter(title, id, bool, facet)														// ADD NEW TERM TO SEARCH STATE
 	{
 		let o=this.ss.query[facet];																	// Point at facet
@@ -1153,11 +1259,13 @@ class SearchUI  {
 // TREE 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+	// ANALYZE
 	DrawFacetTree(facet, open, searchItem)  													// DRAW FACET TREE
 	{
 		var _this=this;																				// Save context
 		if (!open && ($("#sui-advEdit-"+facet).css("display") != "none")) {							// If open
-			$("#sui-advEdit-"+facet).slideUp();														// Close it 
+			$("#sui-advEdit-"+facet).slideUp();														// Close it
 			return;																			
 			}
 		this.facets[facet].mode="tree";																// Tree mode active
@@ -1193,7 +1301,7 @@ class SearchUI  {
 		$('.sui-advViewTreePage').off("click");														// Kill old handlers
 		$('.sui-advViewTreePage').on("click", (e)=> {												// ON CLICK VIEW BUTTON
 			var v=e.target.id.split("-");															// Get id
-			sui.GetKmapFromID(v[1]+"-"+v[2],(kmap)=>{ sui.SendMessage("",kmap); });					// Get kmap and show page
+			this.GetKmapFromID(v[1]+"-"+v[2],(kmap)=>{ sui.SendMessage("",kmap); });					// Get kmap and show page
 			e.stopPropagation();																	// Stop propagation
 			});      
 
@@ -1201,6 +1309,7 @@ class SearchUI  {
 		$("#sui-advEdit-"+facet).slideDown();														// Show it
 	}
 
+	// SIDE EFFECTS?
 	GetTopRow(div, facet)																			// GET TOP-MOST TREE LEVEL
 	{
 		var _this=this;																					// Save context
@@ -1257,9 +1366,11 @@ class SearchUI  {
 				}
 			}
 	}
-	
+
+	// SIDE EFFECTS?
 	LazyLoad(div, row, facet, init) 																		// ADD NEW NODES TO TREE
 	{
+		const sui = this.sui;
 		var path;
 		var _this=this;																					// Save context
 		if (init || row.parent().children().length == 1) {												// If no children, lazy load 
@@ -1304,7 +1415,7 @@ class SearchUI  {
 				$('.sui-advViewTreePage').off("click");													// Kill old handlers
 				$('.sui-advViewTreePage').on("click", (e)=> {											// ON CLICK VIEW BUTTON
 					var v=e.target.id.split("-");														// Get id
-					sui.GetKmapFromID(v[1]+"-"+v[2],(kmap)=>{ sui.SendMessage("",kmap); });				// Get kmap and show page
+					this.GetKmapFromID(v[1]+"-"+v[2],(kmap)=>{ sui.SendMessage("",kmap); });				// Get kmap and show page
 					e.stopPropagation();																// Stop propagation
 					});      
 				});
@@ -1353,7 +1464,7 @@ class SearchUI  {
 			return;																					// Quit
 			}
 		var str="<img src='loading.gif' width='"+size+"' ";											// Img
-		str+="id='sui-loadingIcon' style='position:absolute;top:calc(50% - "+size/2+"px);left:calc(50% - "+size/2+"px);z-index:5000'>";	
+		str+="id='sui-loadingIcon' style='position:absolute;top:calc(50% - "+size/2+"px);left:calc(50% - "+size/2+"px);z-index:5000'>";
 		$("#sui-main").append(str);																	// Add icon to results
 	}
 
@@ -1368,8 +1479,8 @@ class SearchUI  {
 		$("#sui-popupDiv").remove();																// Kill old one, if any
 		str+="<div id='sui-popupDiv' class='sui-gridPopup' style='left:"+x+"px;top:"+y+"px'>"; 		// Add div
 		str+=msg+"</div>"; 																			// Add content
-		$("#sui-main").append(str);																	// Add to div 
-		$("#sui-popupDiv").fadeIn(500).delay(time ? time*1000 : 3000).fadeOut(500);					// Animate in and out		
+		$("#sui-main").append(str);																	// Add to div
+		$("#sui-popupDiv").fadeIn(500).delay(time ? time*1000 : 3000).fadeOut(500);					// Animate in and out
 	}
 
 	ShortenString(str, len, middle)																// SHORTEN A STRING TO LENGTH
@@ -1400,6 +1511,19 @@ class SearchUI  {
 		document.cookie=`${cname}=${value}; expires=${d};`;											// Set cookie
 	}
 
-} // SearchUI class closure
 
-module.exports = SearchUI;
+	log(message, debugObject, showAlert) {
+		console.error(message);
+		if (debugObject) {
+			console.dir(debugObject);
+		}
+		if (showAlert) {
+			alert(message, debugObject);
+		}
+	}
+
+	alert(message, debugObject) {
+		this.log(message,debugObject,true);
+	}
+
+} // SearchUI class closure

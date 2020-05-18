@@ -26,12 +26,18 @@
 
 	
 *********************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
 
-class Terms  {																					
+export default class Terms  {
 
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
-		sui.trm=this;																			// Save context
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		// sui.trm=this;																			// Save context
+		this.sui = sui;
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 		this.recordingGroup=0;																	// Which group
 		this.tabs=[];																			// Tab contents
@@ -41,6 +47,7 @@ class Terms  {
 
 	Draw(o)																					// DRAW TERM PAGE FROM KMAP
 	{
+		const sui = this.sui;
 		let audioURLs=[""];
 		this.kmap=o;
 		var str=`<div class='sui-terms' id='sui-terms' style=''>
@@ -50,7 +57,7 @@ class Terms  {
 		<p id='sui-termNames'>Names</p>
 		<div id='sui-player' style='display:none'>
 		<p><div class='sui-termPlay' id='sui-termPlay'>&#xe60a</div>
-		<select class='sui-termSpeak' id='sui-termGroup'><option>AMDO GROUP</option></select></p></div>`;
+		<select class='sui-termSpeak unpopulated' id='sui-termGroup'><option>AMDO GROUP</option></select></p></div>`;
 		str+="<div id='sui-termDetails'></div>";												// Add div for details
 
 		str+="<div id='sui-termDefs' class='sui-termOther'></div>";								// Add div for primary defs
@@ -60,27 +67,34 @@ class Terms  {
 		this.tabs=[];																			// Start fresh
 		this.SetTabContent(o);																	// Fill tab contents
 
-		$("#sui-termPlay").on("click", (e)=>{													// ON TERM PLAY
-			let snd=new Audio();																// Init audio object
-			snd=new Audio(audioURLs[this.recordingGroup]);										// Load it				
+		/*
+		 * REFACTOR:  Audio Player
+		 */
+		$("#sui-termPlay").off("click").on("click", (e)=>{										// ON TERM PLAY
+			// let snd=new Audio();															// Init audio object
+			let snd=new Audio(audioURLs[this.recordingGroup]);										// Load it
 			snd.play();																			// Play it
 			});
 
-		$("#sui-termGroup").on("change", (e)=>{													// ON GROUP SET
+		$("#sui-termGroup").off("change").on("change", (e)=>{													// ON GROUP SET
 			this.recordingGroup=$("#sui-termGroup").prop('selectedIndex');						// Get group
 			});
 
 		sui.GetAudioFromID(o.id, (d)=>{ 														// Get audio info
 			audioURLs=d; 																		// Get urls
 			if (d.length)		$("#sui-player").slideDown();									// If any recording, show structure
-			if (d.length > 1)	$("#sui-termGroup").append("<option>KHAM-HOR GROUP</option>");	// Add 2nd group if there
-			if (d.length > 2)	$("#sui-termGroup").append("<option>CENTRAL TIBET DIALECT</option>");	// Add 3rd group if there
-			});											
+			if (d.length > 1)	$("#sui-termGroup.unpopulated").append("<option>KHAM-HOR GROUP</option>");	// Add 2nd group if there
+			if (d.length > 2)	$("#sui-termGroup.unpopulated").append("<option>CENTRAL TIBET DIALECT</option>");	// Add 3rd group if there
+			$("#sui-termGroup.unpopulated").removeClass("unpopulated");
+		});
+		/* END REFACTOR:   Audio Player */
+
 		sui.pages.DrawRelatedAssets(o);															// Draw related assets menu
 	}
 
 	SetTabContent(o)																		// FILL TABS																
 	{
+		const sui = this.sui;
 		sui.GetChildDataFromID(o.uid,(odata)=> { 												// LOAD CHILD DATA
 			let i,k=1,l=0,t;
 			let str="<br>",str2="";
@@ -132,10 +146,13 @@ class Terms  {
 						</i></td></tr>`;														// Add it
 						str+="</table><br>";		
 						}
+
+					// Todo: REFACTOR TabContent OUTPUT
 					$("#sui-termNames").html(str4+"</table>");									// Add names
 					$("#sui-termTitle").html(`${firstName}&nbsp;&nbsp;&nbsp;${o.title[0]}`);	// Add first
+					// END REFACTOR
 					}
-				} catch(e) {trace(e)}
+				} catch(e) { throw (e)}
 
 			function drawAssetButton(facet, defNum, num) {
 				let str=`<div id='sui-termAssetBut-${defNum}-${facet}'
@@ -185,14 +202,14 @@ class Terms  {
 				});
 
 			str3="<table style='width:100%'><tr>"												// Add subject types
-			addSubjects("PHONEME",o.data_phoneme_ss);											
-			addSubjects("GRAMMARS",o.data_grammars_ss);											
+			addSubjectsPopover("PHONEME",o.data_phoneme_ss);											
+			addSubjectsPopover("GRAMMARS",o.data_grammars_ss);											
 			str3+="</tr><tr>"
-			addSubjects("TOPICS",o.data_tibet_and_himalayas_ss);											
-			addSubjects("LITERARY PERIOD",o.data_literary_period_ss);							
+			addSubjectsPopover("TOPICS",o.data_tibet_and_himalayas_ss);											
+			addSubjectsPopover("LITERARY PERIOD",o.data_literary_period_ss);							
 			str3+="</tr><tr>"
-			addSubjects("REGISTER",o.data_register_ss);											
-			addSubjects("LANGUAGE CONTEXT",o.data_language_context_ss);
+			addSubjectsPopover("REGISTER",o.data_register_ss);											
+			addSubjectsPopover("LANGUAGE CONTEXT",o.data_language_context_ss);
 			str3+="</tr></table>";
 			if (odata.etymologies_ss && odata.etymologies_ss.length) {							// If etymologies
 				str3+="<br><b>Etymology</b><br><div class='sui-termDefs'>";						// Add header
@@ -201,11 +218,11 @@ class Terms  {
 				str+="</div>";																	// Close div
 				}
 			$("#sui-termDetails").html(str3+"<br>");											// Add Details
-			$("#sui-termDefs").html(str2.replace(/\t|\n|\r/g,""));								// Remove format and add primary defs to div	
-			$("#sui-termOther").html(str.replace(/\t|\n|\r/g,""));								// Remove format and add others to div	
+			$("#sui-termDefs").html(str2.replace(/\t|\n|\r/g,""));								// Remove format and add primary defs to div
+			$("#sui-termOther").html(str.replace(/\t|\n|\r/g,""));								// Remove format and add others to div
 			for (i=0;i<l;++i) this.ShowTab(i,0)													// Open 1st tab	in each def	
 			
-			function addSubjects(title, val) {													// ADD SUBJECTS
+			function addSubjectsPopover(title, val) {											// ADD SUBJECTS
 				let i=0;
 				if (!val)	return;																// Quit if nothing there
 				if (o.kmapid_subjects_idfacet) {												// No facet data
@@ -214,7 +231,10 @@ class Terms  {
 							break;																// Quit
 					i=Math.min(o.kmapid_subjects_idfacet.length-1,i);							// Cap
 					}
-				str3+=`<td>${title}: <i>${val}</i>`;											// Add title
+				str3+=`<td>${title}: <i>${val}</i>`; // Add title
+
+
+				// WARNING: changes str3 via context
 				if (o.kmapid_subjects_idfacet)													// If data
 					str3+=sui.pages.AddPop(o.kmapid_subjects_idfacet[i].split("|")[1])+"</td>";	// Add popover
 				else
@@ -236,13 +256,14 @@ class Terms  {
 
 	ShowTab(num, which) 																	// SHOW TAB
 	{
+		const sui = this.sui;
 		$("[id^=sui-tabTab-"+num).css({"background-color":"#999",color:"#fff","border-top":"1px solid #999"});	// Reset all tabs
 		$("#sui-tabContent-"+num).css({display:"block","background-color":"#eee"});				// Show content
 		$("#sui-tabTab-"+num+"-"+which).css({"background-color":"#eee",color:"#000","border-top":"1px solid #a2733f"});	// Active tab
 		$("#sui-tabContent-"+num).html(this.tabs[num][which]);									// Set content
 
 		$("[id^=sui-tabTab]").off();															// Kill old handlers
-		$("[id^=sui-termAssetBut-]").off();														
+		$("[id^=sui-termAssetBut-]").off();
 	
 		$("[id^=sui-termAssetBut-]").on("click", (e)=> {										// ON TAGGED BUTTON CLICK
 			let i,v=e.currentTarget.id.substring(17).split("-");								// Get def and facet type

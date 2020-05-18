@@ -11,16 +11,22 @@
 	Dependents:	pages.js, searchui.js								// JS modules called
 
 *********************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
+export default class Sources  {
 
-class Sources  {																					
-
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		this.sui = sui;
 		this.div=sui.pages.div;																	// Div to hold page (same as Pages class)
 	}
 
 	Draw(o)																					// DRAW SOURCE PAGE FROM KMAP
 	{
+		const sui = this.sui;
 		var i;
 		var str=`<div class='sui-sources' id='sui-sources'>
 		<span style='font-size:24px;color:${sui.assets[o.asset_type].c};vertical-align:-4px'>${sui.assets[o.asset_type].g}</span>

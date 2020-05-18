@@ -29,11 +29,17 @@
 	opt: 		Bitmapped: 1=Scale | 2=Search| 4=3D | 8=Base | 16=Layers | 32=Legend | 64=Sketch | 128=Bookmarks
 
 *******************************************************************************************************************************************/
+/* eslint-disable */
+import $ from 'jquery';
 
-class Places  {																					
+export default class Places  {
 
-	constructor()   																		// CONSTRUCTOR
+	constructor(sui)   																		// CONSTRUCTOR
 	{
+		if (!sui) {
+			throw new Error("SearchUI must be passed to constructor");
+		}
+		this.sui = sui;
 		this.app=null;
 		this.kmap=null;
 		this.extent=null;
@@ -47,9 +53,12 @@ class Places  {
 
 	Draw(kmap, related, popovers)															// DRAW MAP PAGE
 	{
+		console.error("places.Draw() called with arguments: ");
+		console.dir(arguments);
+		const sui = this.sui;
 		var _this=this;																			// Save context
 		this.popovers=popovers;																	// Add data for any popovers
-		$("#sui-results").css({ "padding-left":"12px", width:"calc(100% - 24px"});				// Reset to normal size
+		$("#sui-legacy").css({ "padding-left":"12px", width:"calc(100% - 24px"});				// Reset to normal size
 		this.kmap=kmap;																			// Save kmap
 		this.DrawMetadata(related);																// Draw metadata
 		sui.LoadingIcon(true,64);																// Show loading icon
@@ -63,18 +72,18 @@ class Places  {
 			div: this.div								
 	   		};
 	
-/*		app.kml=`http://www.thlib.org:8080/thdl-geoserver/wms
-			?LAYERS=thl:roman_popular_poly,thl:roman_popular_pt,thl:roman_popular_line
-			&TRANSPARENT=TRUE&SPHERICALMERCATOR=true&PROJECTION=EPSG:900913&UNITS=m
-			&GEOSERVERURL=http://www.thlib.org:8080/thdl-geoserver
-			&STYLES=thl_noscale,thl_noscale,thl_noscale
-			&CQL_FILTER=fid=${id};fid=${id};fid==${id}
-			&SERVICE=WMS&SRS=EPSG:900913&FORMAT=kml&VERSION=1.1.1
-			&BBOX=3159514.209965,-1447629.9642176,20066161.87184,9001617.5490246
-			&WIDTH=864&HEIGHT=53
-			&REQUEST=GetMap`.replace(/\t|\n|\r|/g,"")
-			app.kml="https://viseyes.org/visualeyes/projects/test.kml"
-*/
+		// app.kml=`http://www.thlib.org:8080/thdl-geoserver/wms
+		// 	?LAYERS=thl:roman_popular_poly,thl:roman_popular_pt,thl:roman_popular_line
+		// 	&TRANSPARENT=TRUE&SPHERICALMERCATOR=true&PROJECTION=EPSG:900913&UNITS=m
+		// 	&GEOSERVERURL=http://www.thlib.org:8080/thdl-geoserver
+		// 	&STYLES=thl_noscale,thl_noscale,thl_noscale
+		// 	&CQL_FILTER=fid=${id};fid=${id};fid==${id}
+		// 	&SERVICE=WMS&SRS=EPSG:900913&FORMAT=kml&VERSION=1.1.1
+		// 	&BBOX=3159514.209965,-1447629.9642176,20066161.87184,9001617.5490246
+		// 	&WIDTH=864&HEIGHT=53
+		// 	&REQUEST=GetMap`.replace(/\t|\n|\r|/g,"")
+		// 	app.kml="https://viseyes.org/visualeyes/projects/test.kml"
+
 
 		this.app=app;	   
 		
@@ -83,9 +92,9 @@ class Places  {
 		if (app.opt&8)	 app.reqs.push("esri/widgets/BasemapGallery");							// Basepicker 
 		if (app.opt&16)	 app.reqs.push("esri/widgets/LayerList");								// Layerlist 
 		if (app.opt&32)  app.reqs.push("esri/widgets/Legend");									// Legend
-		if (app.opt&64)	 app.reqs.push("esri/widgets/Sketch"),app.reqs.push("esri/layers/GraphicsLayer");	// Sketch
+		if (app.opt&64)	 { app.reqs.push("esri/widgets/Sketch"); app.reqs.push("esri/layers/GraphicsLayer"); }	// Sketch
 		if (app.opt&128) app.reqs.push("esri/widgets/Bookmarks");								// Bookmarks 
-
+	/*
 		require(app.reqs, function() {														// LOAD ArcGIS MODULES
 			var i,key;
 			var Map,WebMap,MapView,SceneView,Graphic,FeatureLayer,KMLLayer,Extent;
@@ -117,22 +126,22 @@ class Places  {
 				<img   class="esri-component esri-widget--button esri-widget esri-interactive" type="button" style="display:none" id="plc-layer-btn"  src="layericon.png"    title="Show list of layers" />
 				<img   class="esri-component esri-widget--button esri-widget esri-interactive" type="button" style="display:none" id="plc-legend-btn" src="legendicon.gif"   title="Show legend" />
 				<img   class="esri-component esri-widget--button esri-widget esri-interactive" type="button" style="display:none" id="plc-sketch-btn" src="sketchicon.gif"   title="Show sketch" />
-				<img   class="esri-component esri-widget--button esri-widget esri-interactive" type="button" style="display:none" id="plc-book-btn"   src="bookmarkicon.gif" title="Show bookmarks" />		
+				<img   class="esri-component esri-widget--button esri-widget esri-interactive" type="button" style="display:none" id="plc-book-btn"   src="bookmarkicon.gif" title="Show bookmarks" />
 				</div>`;
 			$("#plc-main").append(str);
 
 		app.ShowOptions=function() {															// SHOW ACTIVE OPTIONS
 			document.getElementById("plc-switch-btn").style.display=(app.opt&4) ? "block" : "none";	// Hide/show icons
-			document.getElementById("plc-base-btn").style.display=(app.opt&8) ? "block" : "none";							
-			document.getElementById("plc-layer-btn").style.display=(app.opt&16 && (app.map.portalItem || app.kml)) ? "block" : "none";							
-			document.getElementById("plc-legend-btn").style.display=(app.opt&32 && app.map.portalItem)  ? "block" : "none";						
-			document.getElementById("plc-sketch-btn").style.display=(app.opt&64) ? "block" : "none";						
-			document.getElementById("plc-book-btn").style.display=(app.opt&128 && app.map.bookmarks) ? "block" : "none";							
+			document.getElementById("plc-base-btn").style.display=(app.opt&8) ? "block" : "none";
+			document.getElementById("plc-layer-btn").style.display=(app.opt&16 && (app.map.portalItem || app.kml)) ? "block" : "none";
+			document.getElementById("plc-legend-btn").style.display=(app.opt&32 && app.map.portalItem)  ? "block" : "none";
+			document.getElementById("plc-sketch-btn").style.display=(app.opt&64) ? "block" : "none";
+			document.getElementById("plc-book-btn").style.display=(app.opt&128 && app.map.bookmarks) ? "block" : "none";
 			if (app.opt&16  && app.show&16) 	setOption(app.layers);								// Layers
 			if (app.opt&32  && app.show&32) 	setOption(app.legend);								// Legend
 			if (app.opt&64  && app.show&64) 	setOption(app.sketch);								// Sketch
 			if (app.opt&128 && app.show&128) 	setOption(app.bookmarks);							// Bookmarks
-			
+
 			function setOption(option) {															// SET OPTION ON
 				app.mapView.ui.add(option,"top-right");												// Show
 				option.visible=true;																// Show it's on
@@ -143,9 +152,9 @@ class Places  {
 		app.activeView=app.mapView=new MapView({													// 2D view
 			container: app.container, map: app.map 													// Primary view
 			});
-		app.ShowOptions();																			// Hide/show options		
-			
-		if (app.kml) {																				// Add KML/KMZ if spec'd	
+		app.ShowOptions();																			// Hide/show options
+
+		if (app.kml) {																				// Add KML/KMZ if spec'd
 			app.kml=new KMLLayer({ url:app.kml });													// Make new layer
 			app.map.add(app.kml);																	// Add it to map
 			app.mapView.whenLayerView(app.kml).then(function(layerView) {
@@ -162,34 +171,34 @@ class Places  {
 				});
 			}
 
-// POPOVERS			
+// POPOVERS
 
 		function AddPopovers(data) 																	// ADD POPOVERS
 		{
-/*			app.fl=new FeatureLayer({
-				fields:[{ name:"ObjectID", alias:"ObjectID", type:"oid" },
-				  		{ name:"Name", alias:"Name", type:"string" },
-				  		{ name:"kmid",	alias:"kmid", type:"string" }],
-				objectIdField:"ObjectID", geometryType:"point",
-				spatialReference:{ wkid: 4326 }, source: [], 
-				renderer: { type: "simple", symbol: {
-							type: "web-style", // autocasts as new WebStyleSymbol()
-							styleName: "Esri2DPointSymbolsStyle",
-							name: "landmark" }
-					},
-			  popupTemplate: {  title: "{Name}"	}
-			  });
-			app.map.add(app.fl);
-*/
+// 			app.fl=new FeatureLayer({
+// 				fields:[{ name:"ObjectID", alias:"ObjectID", type:"oid" },
+// 				  		{ name:"Name", alias:"Name", type:"string" },
+// 				  		{ name:"kmid",	alias:"kmid", type:"string" }],
+// 				objectIdField:"ObjectID", geometryType:"point",
+// 				spatialReference:{ wkid: 4326 }, source: [],
+// 				renderer: { type: "simple", symbol: {
+// 							type: "web-style", // autocasts as new WebStyleSymbol()
+// 							styleName: "Esri2DPointSymbolsStyle",
+// 							name: "landmark" }
+// 					},
+// 			  popupTemplate: {  title: "{Name}"	}
+// 			  });
+// 			app.map.add(app.fl);
+//
 			$("#sui-headLeft").html("<div style='margin-top:12px'>&#xe61a&nbsp;&nbspGeo-Locate</div>")	// Header text
 			$("#sui-footer").html("");																// Footer text
 			$("#sui-header").css("background-color","#6faaf1");										// Color header
 			$("#sui-footer").css("background-color","#6faaf1");										// Color footer
-			$("#plc-infoDiv").css("left","25px");	
+			$("#plc-infoDiv").css("left","25px");
 
 			let i,graphic;
 			let minLat=999999,minLon=999999,maxLat=-999999,maxLon=-999999;
-	
+
 			for (i=0;i<data.length;i++) {															// For each element
 				if (data[i].lat < minLat)	minLat=data[i].lat;										// Get min lat
 				if (data[i].lat > maxLat)	maxLat=data[i].lat;										// Get max lat
@@ -201,13 +210,13 @@ class Places  {
 					attributes:data[i]																// Raw data
 				});
 				app.gl.add(graphic);																// Add to layer
-				}	
-			
+				}
+
 			_this.extent={ 																			// Set extent based on minimax of popovers
 				spatialReference:4326, 																// In lat/lon coord space
 				xmax:maxLon, xmin:minLon,															// Longitude
 				ymax:maxLat, ymin:minLat															// Latitude
-				}	
+				}
 
 			app.mapView.on("pointer-move", function(event) {										// HANDLE HOVER
 				var screenPoint={ x: event.x, y: event.y };											// Format pos
@@ -218,27 +227,27 @@ class Places  {
 						sui.pages.ShowPopover(id, event)
 				 		}
 					});
-			   });		
+			   });
 			}
-	
-// ADD WIDGETS 
+
+// ADD WIDGETS
 
 		if (app.opt&1)  app.mapView.ui.add(new ScaleBar({ view:app.mapView }), "bottom-left");		// Add scale widget
 		if (app.opt&2)  app.mapView.ui.add(new Search({ view:app.mapView }), "top-right");			// Add Search widget
 		if (app.opt&4)	document.getElementById("plc-switch-btn").addEventListener("click", function() { app.SwitchView();  });// 3D
 		if (app.opt&8) {																			// Add basemap picker
-			app.basePick=new BasemapGallery({ view:app.mapView, source: { portal: { url:"https://www.arcgis.com", useVectorBasemaps: true } }, visible:false }); 
+			app.basePick=new BasemapGallery({ view:app.mapView, source: { portal: { url:"https://www.arcgis.com", useVectorBasemaps: true } }, visible:false });
 			document.getElementById("plc-base-btn").addEventListener("click", function() { app.ToggleOption(app.basePick); });	 // Add button handler
 			}
 		if (app.opt&16) {																			// Layer list
-			app.layers=new LayerList({ view:app.mapView, visible:false });							// Add widget							
+			app.layers=new LayerList({ view:app.mapView, visible:false });							// Add widget
 				document.getElementById("plc-layer-btn").addEventListener("click", function() { app.ToggleOption(app.layers);  });	// Add button handler
 			}
 		if (app.opt&32) {																			// Legend
-			app.legend=new Legend({ view:app.mapView, visible:false });								// Add widget					
+			app.legend=new Legend({ view:app.mapView, visible:false });								// Add widget
 			document.getElementById("plc-legend-btn").addEventListener("click", function() { app.ToggleOption(app.legend); });	// Add button handler
 			}
-		if (app.opt&64) {																			// Sketch 
+		if (app.opt&64) {																			// Sketch
 			app.gl=new GraphicsLayer();  app.map.add(app.gl);										// Add new graphics layer to map
 			app.sketch=new Sketch({ view:app.mapView, visible:false, layer:app.gl });				// Add widget
 			document.getElementById("plc-sketch-btn").addEventListener("click", function() { app.ToggleOption(app.sketch); });	// Add button handler
@@ -247,37 +256,37 @@ class Places  {
 			app.bookmarks=new Bookmarks({ view:app.mapView, visible:false });						// Add widget
 			document.getElementById("plc-book-btn").addEventListener("click", function() { app.ToggleOption(app.bookmarks); });	 // Add button handler
 			}
-			
+
 // POSITION
 
 		app.mapView.when(function() { 																// When 2D map loads
 			if (_this.popovers)				AddPopovers(_this.popovers);							// Add popovers if any
-			if (_this.extent)				app.GoToExtent(_this.extent);							// If an extent given			
-			else if (!app.map.portalItem) 	app.mapView.goTo({ center:app.center, zoom:app.zoom });	// Center	
+			if (_this.extent)				app.GoToExtent(_this.extent);							// If an extent given
+			else if (!app.map.portalItem) 	app.mapView.goTo({ center:app.center, zoom:app.zoom });	// Center
 			sui.LoadingIcon(false);																	// Hide loading icon
-			_this.showing=true;																		// Been shown	
+			_this.showing=true;																		// Been shown
 			});
 		app.sceneView.when(function() { app.sceneView.goTo({ tilt:80 }); });						// When 3D loads, tilt
-/*
-		app.DrawFooter=function()																	// DRAW MAP FOOTER
-		{
-			str=`<div style='float:left;font-size:18px'>
-				<div id='plc-customMap' class='sui-resDisplay' title='Custom/normal map'>&#xe625</div></div>				
-				<div style='float:right;font-size:14px;margin-right:16px'>PLACE ID: ${kmap.id}</div>`;
-			$("#sui-footer").html(str);
-			$("#plc-customMap").on("click", ()=> {
-				if ($("#plc-infoDiv").length) {
-					$("#plc-infoDiv").remove();
-					var h=$(app.div).height()-4;
-					var link="https://www.thlib.org/places/maps/interactive_ajax/#fid:"+kmap.id;
-					$(app.div).html("<iframe frameborder='0' src='"+link+"' style='height:"+h+"px;width:100%'></iframe>");
-					}
-				else sui.plc.Draw(kmap);
-				});
-		}
 
-	app.DrawFooter();																				// Draw footer
-*/
+	// 	app.DrawFooter=function()																	// DRAW MAP FOOTER
+	// 	{
+	// 		str=`<div style='float:left;font-size:18px'>
+	// 			<div id='plc-customMap' class='sui-resDisplay' title='Custom/normal map'>&#xe625</div></div>
+	// 			<div style='float:right;font-size:14px;margin-right:16px'>PLACE ID: ${kmap.id}</div>`;
+	// 		$("#sui-footer").html(str);
+	// 		$("#plc-customMap").on("click", ()=> {
+	// 			if ($("#plc-infoDiv").length) {
+	// 				$("#plc-infoDiv").remove();
+	// 				var h=$(app.div).height()-4;
+	// 				var link="https://www.thlib.org/places/maps/interactive_ajax/#fid:"+kmap.id;
+	// 				$(app.div).html("<iframe frameborder='0' src='"+link+"' style='height:"+h+"px;width:100%'></iframe>");
+	// 				}
+	// 			else sui.plc.Draw(kmap);
+	// 			});
+	// 	}
+	//
+	// app.DrawFooter();																				// Draw footer
+
 
 // HELPER FUNCTIONS //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -292,23 +301,25 @@ class Places  {
 			};
 
 		app.SwitchView=function() { 																// SWITCH 2D/3D MODE
-			var is3D=app.activeView.type === "3d";													// Current mode												
+			var is3D=app.activeView.type === "3d";													// Current mode
 			var activeViewpoint=app.activeView.viewpoint.clone();									// Clone viewport
 			app.activeView.container=null;															// Hide current one
-			
+
 			if (is3D) {																				// If 3D now
 				app.activeView=app.mapView;															// Use 2D view
 				document.getElementById("plc-switch-btn").value="3D";								// Set button
-				} 
+				}
 			else{																					// If 2D now
 				app.activeView=app.sceneView;														// Use 2D view
 				document.getElementById("plc-switch-btn").value="2D";								// Set button
 				}
 			app.activeView.viewpoint=activeViewpoint;												// Set viewport
 			app.activeView.container=app.container;													// Set container
-			};		
+			};
 
 		});																							// Require closure
+
+		*/
 	}																								// End Draw()
 
 	GeoLocate()																				// GET EXTENT FROM PLACE PATH TREE IN KMAP
@@ -335,6 +346,7 @@ class Places  {
 
 	DrawContent()																		// DRAW TABS AND CAPTION INFO
 	{
+		const sui = this.sui;
 		let str="<div id='sui-topCon' style='margin-left:192px'>";								// Top content div
 		if (this.kmap.caption) str+="<div style='margin:5px 0 13px 0' class='sui-sourceText'>"+this.kmap.caption+"</div>";	// Add caption
 		str+=sui.pages.DrawTabMenu(["MAP","NAMES","LOCATION"]);									// Add tab menu
@@ -348,9 +360,11 @@ class Places  {
 
 	DrawMetadata(related)																	// SHOW PLACES METADATA
 	{
+		const sui = this.sui;
+
 		if (this.popovers) {																	// Has popovers
 			$(this.div).html("<div class='plc-main' id='plc-main'></div>");						// Add to div
-			$("#plc-main").css({ "margin":0, "width":"100%", "height":$("#sui-results").height()+"px"});	// Resize map area															
+			$("#plc-main").css({ "margin":0, "width":"100%", "height":$("#sui-legacy").height()+"px"});	// Resize map area
 			return;																				// Don't need any metadata or tabs
 			}
 		this.GeoLocate();																		// Get extent
@@ -394,7 +408,7 @@ class Places  {
 			});
 	
 		sui.GetRelatedFromID(this.kmap.uid,(data)=> { 											// Load data
-			if (data[0].illustration_external_url && data.illustration_external_url[0]) {		// If an image spec'd
+			if (data[0].illustration_external_url && data[0].illustration_external_url) {		// If an image spec'd
 				$("#sui-relatedImg").addClass("sui-relatedImg");								// Set style
 				$("#sui-relatedImg").prop("src",data[0].illustration_external_url[0]);			// Show it
 				}
@@ -409,7 +423,8 @@ class Places  {
 	}	
 
 	ShowTab(which)																			// OPEN TAB
-	{	
+	{
+		const sui = this.sui;
 		let _this=this;
 		$("[id^=sui-tabTab]").css({"background-color":"#999",color:"#fff" });					// Reset all tabs
 		$("#sui-tabContent").css({display:"block","background-color":"#eee"});					// Show content
@@ -432,11 +447,13 @@ class Places  {
 				$(this).parent().find('ul').slideToggle();            							// Slide into place
 				});
 			}
-		$("#sui-spLab-"+this.kmap.uid).css({ "font-weight":"bold", "text-decoration": "underline" });	// Highlight current one	
+		$("#sui-spLab-"+this.kmap.uid).css({ "font-weight":"bold", "text-decoration": "underline" });	// Highlight current one
 	}
 
 	AddRelatedTabs()																		// ADD TAB CONTROLS FOR RELATED PLACES/SUBJECTS
 	{
+		const sui = this.sui;
+		const _this = this;
 		let str=drawTabB(["PLACE CONTEXT","RELATED PLACES"]);									// Add tab menu
 		this.content[4]=str.replace(/\t|\n|\r|/g,"");											// Set content for related places
 		$("[id^=sui-tabTabB]").on("click", (e)=> {												// ON TAB CLICK
@@ -493,7 +510,8 @@ class Places  {
 		}
 
 	AddRelatedPlaces(o, d, content)																// ADD RELATED PLACES CONTENTS 
-	{	
+	{
+		const sui = this.sui;
 		let n=0,sups=0;
 		if (d[0].ancestors && d[0].ancestors.length > 2) sups=d[0].ancestors.length-2;
 		let str=`<br><div class='sui-spHead'>Places related to ${o.title}</div>
@@ -539,7 +557,8 @@ class Places  {
 		}
 
 	AddRelatedContext(o, c, content)															// ADD PLACE CONTEXT CONTENT 	
-	{	
+	{
+			const sui = this.sui;
 			let f,i,s=[],n=0;
 			for (i=0;i<c.length;++i) {																// For each subject get data as 's=[category[{title,id}]]' 
 				if (c[i].block_child_type != "related_places") continue;							// Add only related places
@@ -589,7 +608,8 @@ class Places  {
 	
 
 	AddRelatedSubjects(o,c)																		// ADD RELATED SUBJECTS CONTENT 	
-	{	
+	{
+		const sui = this.sui;
 		let i,s=[],ss;
 		let str=`<div style='width:50%;vertical-align:top'>
 			<div class='sui-spHead'>Subjects related to ${o.title}</div>`;
