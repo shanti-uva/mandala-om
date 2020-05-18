@@ -69,6 +69,8 @@ export default class Terms  {
 
 		/*
 		 * REFACTOR:  Audio Player
+		 * Todo:  Refactor Audio-Player into a more React-friendly form...
+		 *
 		 */
 		$("#sui-termPlay").off("click").on("click", (e)=>{										// ON TERM PLAY
 			// let snd=new Audio();															// Init audio object
@@ -128,8 +130,11 @@ export default class Terms  {
 								t[1]+=": <i>"+data[i]["related_definitions_branch_subjects-185_subjects_headers_t"]+"</i>";				// Add value
 								t[1]+=sui.pages.AddPop(data[i]["related_definitions_branch_subjects-185_subjects_uids_t"][0])+"<br>";	// Add popover
 								}
-							t[1]+="LANGUAGE: <i>"+data[i].related_definitions_language_s+"</i>";	
-							t[1]+=sui.pages.AddPop(data[i]["related_definitions_branch_subjects-184_subjects_uids_t"][0])+"<br>";		// Add popover
+							t[1]+="LANGUAGE: <i>"+data[i].related_definitions_language_s+"</i>";
+
+							if (data[i]["related_definitions_branch_subjects-184_subjects_uids_t"]) {
+								t[1] += sui.pages.AddPop(data[i]["related_definitions_branch_subjects-184_subjects_uids_t"][0]) + "<br>";		// Add popover
+							}
 							if (data[i]["related_definitions_branch_subjects-5855_header_s"]) {	// If a header
 								t[1]+=data[i]["related_definitions_branch_subjects-5855_header_s"].toUpperCase();						// Add label
 								t[1]+=": <i>"+data[i]["related_definitions_branch_subjects-5855_subjects_headers_t"]+"</i>";			// Add value
