@@ -47,13 +47,13 @@ export default class Terms  {
 
 	Draw(o)																					// DRAW TERM PAGE FROM KMAP
 	{
-		const sui = this.sui;
+		const LEGACY_SUI = this.sui;
 		let audioURLs=[""];
 		this.kmap=o;
 		var str=`<div class='sui-terms' id='sui-terms' style=''>
-		<span class='sui-termIcon'>${sui.assets[o.asset_type].g}</span>&nbsp;&nbsp;&nbsp;
+		<span class='sui-termIcon'>${LEGACY_SUI.assets[o.asset_type].g}</span>&nbsp;&nbsp;&nbsp;
 		<span class='sui-termTitle' id='sui-termTitle'>${o.title[0]}</span>
-		<hr style='border-top: 1px solid ${sui.assets[o.asset_type].c}'>
+		<hr style='border-top: 1px solid ${LEGACY_SUI.assets[o.asset_type].c}'>
 		<p id='sui-termNames'>Names</p>
 		<div id='sui-player' style='display:none'>
 		<p><div class='sui-termPlay' id='sui-termPlay'>&#xe60a</div>
@@ -82,7 +82,7 @@ export default class Terms  {
 			this.recordingGroup=$("#sui-termGroup").prop('selectedIndex');						// Get group
 			});
 
-		sui.GetAudioFromID(o.id, (d)=>{ 														// Get audio info
+		LEGACY_SUI.GetAudioFromID(o.id, (d)=>{ 														// Get audio info
 			audioURLs=d; 																		// Get urls
 			if (d.length)		$("#sui-player").slideDown();									// If any recording, show structure
 			if (d.length > 1)	$("#sui-termGroup.unpopulated").append("<option>KHAM-HOR GROUP</option>");	// Add 2nd group if there
@@ -91,13 +91,13 @@ export default class Terms  {
 		});
 		/* END REFACTOR:   Audio Player */
 
-		sui.pages.DrawRelatedAssets(o);															// Draw related assets menu
+		LEGACY_SUI.pages.DrawRelatedAssets(o);															// Draw related assets menu
 	}
 
 	SetTabContent(o)																		// FILL TABS																
 	{
-		const sui = this.sui;
-		sui.GetChildDataFromID(o.uid,(odata)=> { 												// LOAD CHILD DATA
+		const LEGACY_SUI = this.sui;
+		LEGACY_SUI.GetChildDataFromID(o.uid,(odata)=> { 												// LOAD CHILD DATA
 			let i,k=1,l=0,t;
 			let str="<br>",str2="";
 			let str3="<div style='height:2px'/>";												// Spacer
@@ -128,17 +128,17 @@ export default class Terms  {
 							if (data[i]["related_definitions_branch_subjects-185_header_s"]) {	// If a header
 								t[1]+=data[i]["related_definitions_branch_subjects-185_header_s"].toUpperCase();						// Add label
 								t[1]+=": <i>"+data[i]["related_definitions_branch_subjects-185_subjects_headers_t"]+"</i>";				// Add value
-								t[1]+=sui.pages.AddPop(data[i]["related_definitions_branch_subjects-185_subjects_uids_t"][0])+"<br>";	// Add popover
+								t[1]+=LEGACY_SUI.pages.AddPop(data[i]["related_definitions_branch_subjects-185_subjects_uids_t"][0])+"<br>";	// Add popover
 								}
 							t[1]+="LANGUAGE: <i>"+data[i].related_definitions_language_s+"</i>";
 
 							if (data[i]["related_definitions_branch_subjects-184_subjects_uids_t"]) {
-								t[1] += sui.pages.AddPop(data[i]["related_definitions_branch_subjects-184_subjects_uids_t"][0]) + "<br>";		// Add popover
+								t[1] += LEGACY_SUI.pages.AddPop(data[i]["related_definitions_branch_subjects-184_subjects_uids_t"][0]) + "<br>";		// Add popover
 							}
 							if (data[i]["related_definitions_branch_subjects-5855_header_s"]) {	// If a header
 								t[1]+=data[i]["related_definitions_branch_subjects-5855_header_s"].toUpperCase();						// Add label
 								t[1]+=": <i>"+data[i]["related_definitions_branch_subjects-5855_subjects_headers_t"]+"</i>";			// Add value
-								t[1]+=sui.pages.AddPop(data[i]["related_definitions_branch_subjects-5855_subjects_uids_t"][0])+"<br>";	// Add popover
+								t[1]+=LEGACY_SUI.pages.AddPop(data[i]["related_definitions_branch_subjects-5855_subjects_uids_t"][0])+"<br>";	// Add popover
 								}
 							t[1]+="<br>";
 							this.tabs.push(t);													// Add tab data for this def
@@ -161,13 +161,13 @@ export default class Terms  {
 
 			function drawAssetButton(facet, defNum, num) {
 				let str=`<div id='sui-termAssetBut-${defNum}-${facet}'
-					class='sui-termAssetBut' style='background-color:${sui.assets[facet].c}'>
-					<span style='font-size:20px; vertical-align:-4px'>${sui.assets[facet].g}&nbsp;</span>${facet}&nbsp;&nbsp;
+					class='sui-termAssetBut' style='background-color:${LEGACY_SUI.assets[facet].c}'>
+					<span style='font-size:20px; vertical-align:-4px'>${LEGACY_SUI.assets[facet].g}&nbsp;</span>${facet}&nbsp;&nbsp;
 					(${num})</div>`;
 					return str.replace(/\t|\n|\r/g,"");
 				}
 				
-			sui.GetDefinitionAssets(o.uid, (data)=> {											// MAKE TAGGED RESOUCES BUTTONS
+			LEGACY_SUI.GetDefinitionAssets(o.uid, (data)=> {											// MAKE TAGGED RESOUCES BUTTONS
 				let i,j,d,s,def,t=[];
 				if (!data) 			return "";													// Quit if nothing tagged
 				if (!data.length) 	return "";													// Quit if nothing tagged
@@ -241,9 +241,9 @@ export default class Terms  {
 
 				// WARNING: changes str3 via context
 				if (o.kmapid_subjects_idfacet)													// If data
-					str3+=sui.pages.AddPop(o.kmapid_subjects_idfacet[i].split("|")[1])+"</td>";	// Add popover
+					str3+=LEGACY_SUI.pages.AddPop(o.kmapid_subjects_idfacet[i].split("|")[1])+"</td>";	// Add popover
 				else
-					str3+=sui.pages.AddPop(o.related_uid_ss[i])+"</td>";						// Add popover
+					str3+=LEGACY_SUI.pages.AddPop(o.related_uid_ss[i])+"</td>";						// Add popover
 				}	
 		});
 	}
@@ -261,7 +261,7 @@ export default class Terms  {
 
 	ShowTab(num, which) 																	// SHOW TAB
 	{
-		const sui = this.sui;
+		const LEGACY_SUI = this.sui;
 		$("[id^=sui-tabTab-"+num).css({"background-color":"#999",color:"#fff","border-top":"1px solid #999"});	// Reset all tabs
 		$("#sui-tabContent-"+num).css({display:"block","background-color":"#eee"});				// Show content
 		$("#sui-tabTab-"+num+"-"+which).css({"background-color":"#eee",color:"#000","border-top":"1px solid #a2733f"});	// Active tab
@@ -272,19 +272,19 @@ export default class Terms  {
 	
 		$("[id^=sui-termAssetBut-]").on("click", (e)=> {										// ON TAGGED BUTTON CLICK
 			let i,v=e.currentTarget.id.substring(17).split("-");								// Get def and facet type
-			sui.ss.mode="related";																// Go to related mode
+			LEGACY_SUI.ss.mode="related";																// Go to related mode
 			if (v[1] == "audio")	v[1]="audio-video";											// Compensate for extra '-'
-			sui.pages.relatedType=v[1];															// Set asset type
-			sui.pages.relatedBase=this.kmap;													// Set base									
-			sui.pagesrelatedId=sui.pages.relatedBase.asset_type+"-"+sui.pages.relatedBase.id;	// Set id
-			if (v[1] == "all")	sui.curResults=this.tagged[v[0]];								// Show all
+			LEGACY_SUI.pages.relatedType=v[1];															// Set asset type
+			LEGACY_SUI.pages.relatedBase=this.kmap;													// Set base									
+			LEGACY_SUI.pagesrelatedId=LEGACY_SUI.pages.relatedBase.asset_type+"-"+LEGACY_SUI.pages.relatedBase.id;	// Set id
+			if (v[1] == "all")	LEGACY_SUI.curResults=this.tagged[v[0]];								// Show all
 			else {																				// Just one
-				sui.curResults=[];																// Clear
+				LEGACY_SUI.curResults=[];																// Clear
 				for (i=0;i<this.tagged[v[0]].length;++i)										// For each asset
 					if (this.tagged[v[0]][i].asset_type == v[1])								// If it matches
-						sui.curResults.push(this.tagged[v[0]][i]);								// Add it
+						LEGACY_SUI.curResults.push(this.tagged[v[0]][i]);								// Add it
 				}
-			sui.DrawResults();																	// Draw results
+			LEGACY_SUI.DrawResults();																	// Draw results
 			});
 
 		$("[id^=sui-tabTab]").on("click", (e)=> {												// ON TAB CLICK

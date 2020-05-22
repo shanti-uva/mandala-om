@@ -299,6 +299,9 @@ a { text-decoration:none; }
 
 #router { float: left; }
 
+.shanticon-terms:before {
+	content: "\e635";
+}
 
 /* ys2n: action css */
 .open { display: block; }
@@ -316,4 +319,17 @@ a { text-decoration:none; }
 	margin-top: .5em;
 }
 
+/* facetbox open/close sui-advEdit (part of sui-advBox) */
+/* TODO: refactor to "sliding" effect css */
 
+/* override plain .open .closed to customize effect
+   TODO: add slide-in/out css transition
+*/
+
+.sui-adv.open {
+	display: block;
+}
+
+.sui-adv.closed {
+	display: none;
+}
