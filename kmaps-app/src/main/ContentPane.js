@@ -1,9 +1,9 @@
 import React from "react";
 import {ContentHeader} from "./ContentHeader";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {AssetViewer} from "./ShowAsset";
+import {AssetViewer, ShowAsset} from "./ShowAsset";
 
-export class SearchLeft extends React.Component {
+export class ContentPane extends React.Component {
 
     constructor(props) {
         super(props);
@@ -36,19 +36,13 @@ export class SearchLeft extends React.Component {
         const title = this.props.title || "Untitled";
         const siteClass = this.props.site || "defauit";
         const left =
-            <div id='sui-left' className='sui-left'>
+            <div id='sui-content' className='sui-content'>
                 <ContentHeader siteClass={siteClass} title={title} sui={this.props.sui} kmap={this.props.kmap}/>
                 {/*<Display siteClass={siteClass} />*/}
                 <div id={"sui-results"}>
-                    <Router>
-                        <Switch>
-                            <Route path="/view">
-                                <AssetViewer sui={this.props.sui} kmap={this.props.kmap}
-                                             kmapchild={this.props.kmapchild}
-                                             onStateChange={this.handleStateChange}/>
-                            </Route>
-                        </Switch>
-                    </Router>
+                    <ShowAsset sui={this.props.sui} kmap={this.props.kmap}
+                                 kmapchild={this.props.kmapchild}
+                                 onStateChange={this.handleStateChange}/>
                 </div>
                 {/*<div id={'sui-legacy'} className={'legacy sui-legacy'}></div>*/}
                 {/*<div id={'sui-legacy-related'} className={'legacy sui-legacy-related'}></div>*/}

@@ -145,7 +145,7 @@ exports[`page submit lhasa search 1`] = `
 		let title="Mandala"; 
 		if (suiSite == "Bhutan")	title="Bhutan Cultural Library";							// Set title
 		$("#sui-results").css({ display:"block", top:"52px" });									// Hide results page	
-		$("#sui-headLeft").html(\`&lt;div style='margin-top:8px'&gt;\${title}&lt;/div&gt;\`);					// Set left header
+		$("#sui-contentHead").html(\`&lt;div style='margin-top:8px'&gt;\${title}&lt;/div&gt;\`);					// Set left header
 		$("#sui-footer").html("");																// Clear footer
 		$("#sui-footer").css("background-color","#ddd");										// Gray
 		$("#sui-header").css("background-color","#4d59ca");										// Blue

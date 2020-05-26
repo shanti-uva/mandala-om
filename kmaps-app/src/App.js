@@ -31,35 +31,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <Router>
-                {/*<div id={'router'}>*/}
-                {/*    <ul>*/}
-                {/*        <li><Link to={"/"}>Home</Link></li>*/}
-                {/*        <li><Link to={"/counter"}>Counter</Link></li>*/}
-                {/*        <li><Link to={"/headspace"}>Head Space</Link></li>*/}
-                {/*    </ul>*/}
-                {/*</div>*/}
-                <Switch>
-                    <Route path="/counter">
-                        <CounterPage/>
-                    </Route>
-                    <Route path="/headspace">
-                        <HeadSpace/>
-                    </Route>
-                    <Route path="/home">
-                        <Main sui={this.sui}/>
-                    </Route>
-                    <Route path={"/view"}>
-                        <Main sui={this.sui}/>
-                    </Route>
-                    <Route exact path="/">
-                        <Redirect to={"/home"}/>
-                    </Route>
-                    <Route path="*">
-                        <Error404/>
-                    </Route>
-                </Switch>
-            </Router>
+            <Main sui={this.sui}/>
         );
     };
 }

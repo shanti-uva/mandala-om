@@ -1,13 +1,14 @@
 import React from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 
 import {TopBar} from "./TopBar";
 import {Home} from "./Home";
-import {SearchLeft} from "./SearchLeft";
+import {ContentPane} from "./ContentPane";
 import {Hamburger} from "./Hamburger";
 
 import {SearchBar} from "../search/SearchBar";
 import {SearchAdvanced} from "../search/SearchAdvanced";
+import {Error404} from "../App";
 
 export class Main extends React.Component {
     constructor(props) {
@@ -15,36 +16,48 @@ export class Main extends React.Component {
 
         this.state = {
             advanced: false,
+            // Start with faked kmap
             kmap: {
                 header: "Mandala",
                 title: ["Mandala"],
                 uid: "mandala",
             },
-            sui: this.props.sui
+            sui: this.props.sui  // the legacy sui SearchUI object
         };
         this.handleStateChange = this.handleStateChange.bind(this);
     }
 
     render() {
         const main =
-            <div id={'sui-main'} className={'sui-main'}>
-                <div>
-                    <TopBar/>
-                    <SearchBar onStateChange={this.handleStateChange}/>
-                    <Router>
-                        <Route path={"/home"}>
-                            <Home/>
-                        </Route>
-                        <Route path={"/view"}>
-                            <SearchLeft site={'mandala'} mode={'development'} title={'Mandala'} sui={this.state.sui}
-                                        kmap={this.state.kmap} kmapchild={this.state.kmapchild}
-                                        onStateChange={this.handleStateChange}/>
-                        </Route>
-                    </Router>
-                    <SearchAdvanced advanced={this.state.advanced}/>
-                    <Hamburger hamburgerOpen={this.state.hamburgerOpen}/>
+            <Router>
+                <div id={'sui-main'} className={'sui-main'}>
+                    <div>
+                        <TopBar/>
+                        <SearchBar onStateChange={this.handleStateChange}/>
+                        <Switch>
+                            <Route path={"/home"}>
+                                <Home/>
+                            </Route>
+                            <Route exact path={"/"}>
+                                <Redirect to={"/home"} />
+                            </Route>
+                            <Route path={"/view"}>
+                                <ContentPane site={'mandala'} mode={'development'} title={'Mandala'}
+                                             sui={this.state.sui}
+                                             kmap={this.state.kmap} kmapchild={this.state.kmapchild}
+                                             onStateChange={this.handleStateChange}/>
+                            </Route>
+                            <Route path={"*"}>
+                                <Error404/>
+                                <Home/>
+                            </Route>
+                        </Switch>
+                        <SearchAdvanced advanced={this.state.advanced}/>
+                        <Hamburger hamburgerOpen={this.state.hamburgerOpen}/>
+                    </div>
                 </div>
-            </div>
+            </Router>
+
         return main;
     }
 

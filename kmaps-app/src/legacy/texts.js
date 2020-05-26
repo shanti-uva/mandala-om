@@ -56,8 +56,8 @@ export default class Texts  {
 		$.ajax( { url:url, dataType:'jsonp'}).done((data)=> {									// Get json
 			sui.LoadingIcon(false);																// Hide loading icon
 			$("#sui-textCon").html(data);														// Add text content
-			$("#shanti-texts-container").height($("#sui-left").height()-80);					// Reset text height
-			$("#shanti-texts-body").height($("#sui-left").height()-110);						// Reset text height
+			$("#shanti-texts-container").height($("#sui-content").height()-80);					// Reset text height
+			$("#shanti-texts-body").height($("#sui-content").height()-110);						// Reset text height
 			this.content[0]=$("#shanti-texts-toc").html();										// Save TOC
 			$("#shanti-texts-sidebar").remove();												// Remove original sidebar
 			showTab(0);																			// Show TOC
@@ -85,7 +85,7 @@ export default class Texts  {
 				try { s=`<a title='Collection' id='sui-txtCol' href='#p=${o.collection_uid_s}'>${o.collection_title}</a>${sui.pages.AddPop(o.collection_uid_s)}`;
 				if (o.collection_title)	str+=this.DrawItem("&#xe633","COLLECTION",s) }		 catch(e) {}
 				str+=this.DrawItem("&#xe67c","VISIBILITY","Public - accessible to all site users");
-				if (o.summary) str+="<tr><hr><td colspan='2' style='max-width:"+$("#sui-left").width()/4+"px'>"+o.summary+"<hr><td></tr>";		// Add summary
+				if (o.summary) str+="<tr><hr><td colspan='2' style='max-width:"+$("#sui-content").width()/4+"px'>"+o.summary+"<hr><td></tr>";		// Add summary
 				try { str+=this.DrawItem("&#xe600","AUTHOR",d.field_book_author.und,"","sui-pageLab"); } 													catch(e) {}
 				try { str+=this.DrawItem("&#xe675","EDITOR",d.field_book_editor.und,"","sui-pageLab"); }													catch(e) {}
 				try { str+=this.DrawItem("&#xe633","YEAR&nbsp;PUBLISHED", d.field_dc_date_publication_year.und[0].value.substr(0,4),"sui-pageLab"); }		catch(e) {}

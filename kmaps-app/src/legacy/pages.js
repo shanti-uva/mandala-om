@@ -341,7 +341,7 @@ export default class Pages  {
 			sk = o.asset_subtype.toLowerCase();													// Get asset sub-type
 		}
 
-		$("#sui-left").scrollTop(0);
+		$("#sui-content").scrollTop(0);
 		$(this.div).scrollTop(0);							// Scroll to top
 		k = o.asset_type;																			// Get this asset type
 		str += `<div class='sui-related' style='border-color:${sui.ss.mode == "related" ? sui.assets[k].c : "transparent"};
@@ -477,7 +477,7 @@ export default class Pages  {
 		console.error("EXAMINE sui");
 		console.dir(sui);
 
-		$("#sui-headLeft").html(str.replace(/\t|\n|\r/g,""));								// Remove format and add to div
+		$("#sui-contentHead").html(str.replace(/\t|\n|\r/g,""));								// Remove format and add to div
 		$("#sui-footer").html(`<div style='float:right;font-size:14px;margin-right:16px'>${o.asset_type.toUpperCase()} ID: ${o.id}</div>`);	// Set footer
 		$("#sui-header").css("background-color",sui.assets[o.asset_type].c);					// Color header
 		$("#sui-footer").css("background-color",sui.assets[o.asset_type].c);					// Color footer

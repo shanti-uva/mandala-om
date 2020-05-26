@@ -1,32 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import searchAPI from "../../logic/searchapi";
+
+
+
+
+export const fetchAssetById = createAsyncThunk(
+    'search/assetDoc',
+    async (assetId, thunkAPI) => {
+      const response = await searchAPI.getAsset(assetId);
+      return response.data
+    });
+
 
 export const kmassetSlice = createSlice({
-  name: 'kmap',
-  initialState: {
-    kmapid: "",
-    data: {}
-  },
-  reducers: {
-    nextPage: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.page += 1;
+    name: 'kmap',
+    initialState: {
+        assetId: "",
+        docs: {}
     },
-    prevPage: state => {
-      state.page -= 1;
+    reducers: {
+
+
+
+
     },
-    gotoPage: ( state, action ) => {
-      state.page = action.payload;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    },
-  },
+    extraReducers: {
+        [fetchAssetById.fulfilled]: (state, action) => {
+            console.log("fulfilled", action);
+            state.docs = action.payload;
+        },
+        [fetchAssetById.rejected]: (state, action) => {
+            alert("ouch");
+            console.log("rejected! ", action);
+        },
+        [fetchAssetById.pending]: (state, action) => {
+            console.log("pending....", action);
+
+        }
+    }
 });
 
-export const { nextPage, prevPage, gotoPage,  } = kmassetSlice.actions;
+export const {} = kmassetSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -41,6 +55,7 @@ export const { nextPage, prevPage, gotoPage,  } = kmassetSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const selectCount = state => state.counter.value;
+export const selectDocs = state => state.docs;
 
 export default kmassetSlice.reducer;
+

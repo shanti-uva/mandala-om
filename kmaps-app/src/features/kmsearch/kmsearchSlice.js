@@ -41,6 +41,7 @@ function validateFilter(state, filter) {
     return true;
 }
 
+
 // THUNKS
 // generated action types:  'search/fetchResultsDoc/(pending|fulfilled|rejected)'
 export const fetchResultsDocByParams = createAsyncThunk(

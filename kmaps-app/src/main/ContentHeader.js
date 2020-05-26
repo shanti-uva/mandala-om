@@ -24,7 +24,7 @@ export class ContentHeader extends React.Component {
         console.log("ContentHeader render() with " + JSON.stringify(this.props.kmap));
         const cheader =
             <div id='sui-header' className={`sui-header legacy ${this.props.siteClass}`}>
-                <div id='sui-headLeft' className='sui-headLeft legacy'>
+                <div id='sui-contentHead' className='sui-contentHead legacy'>
                     <div>
                         <span>{this.props.kmap.title}</span>
                         <span>({this.props.kmap.uid})</span>

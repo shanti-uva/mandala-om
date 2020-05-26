@@ -190,7 +190,7 @@ export default class Places  {
 // 			  });
 // 			app.map.add(app.fl);
 //
-			$("#sui-headLeft").html("<div style='margin-top:12px'>&#xe61a&nbsp;&nbspGeo-Locate</div>")	// Header text
+			$("#sui-contentHead").html("<div style='margin-top:12px'>&#xe61a&nbsp;&nbspGeo-Locate</div>")	// Header text
 			$("#sui-footer").html("");																// Footer text
 			$("#sui-header").css("background-color","#6faaf1");										// Color header
 			$("#sui-footer").css("background-color","#6faaf1");										// Color footer

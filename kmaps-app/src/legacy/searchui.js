@@ -90,7 +90,7 @@ export default class SearchUI  {
 		// }
 		// window.onresize=()=> { 																		// ON RESIZE
 		// 	if (this.ss.mode == "advanced") 														// Advanced search
-		// 		$("#sui-left").css({ width:$("#sui-main").width()-$("#sui-adv").width() });			// Size results area
+		// 		$("#sui-content").css({ width:$("#sui-main").width()-$("#sui-adv").width() });			// Size results area
 		// };
 		
 		// window.addEventListener("popstate", (h)=> { 												// ON PAGE STATE CHANGE
@@ -122,9 +122,9 @@ export default class SearchUI  {
 	// 			</div>
 	// 		</div>
 	// 	<div>`;
-	// 	str+=`<div id='sui-left' class='sui-left'>
+	// 	str+=`<div id='sui-content' class='sui-content'>
 	// 		<div id='sui-header' class='sui-header'>
-	// 			<div id='sui-headLeft' class='sui-headLeft'></div>
+	// 			<div id='sui-contentHead' class='sui-contentHead'></div>
 	// 		</div>
 	// 		<div id='sui-legacy' class='sui-legacy scrollbar' style='color:#000'></div>
 	// 	</div>
@@ -212,7 +212,7 @@ export default class SearchUI  {
 	// 		if (e.target.id != "sui-hamBut") $("#sui-hamburger").slideUp();							// Hide hanburderv menu if open
 	// 		});
 	// 	$("#sui-hamBut").on("click",()=>{ this.ShowHamburger() });									// SHOW HAMBURGER MENU
-	// 	if (this.noTop)	$("#sui-left").css({ top:0, height:"calc(100% - 30px)" });
+	// 	if (this.noTop)	$("#sui-content").css({ top:0, height:"calc(100% - 30px)" });
 	// }
 
 	Draw(mode)																					// DRAW SEARCH COMPONENTS
@@ -229,8 +229,8 @@ export default class SearchUI  {
 		throw new Error("ShowAdvanced");
 		this.ss.mode=(mode) ? "advanced" : "simple";												// Set mode
 		$("#sui-adv").css({ display:mode ? "block" : "none"});										// Hide/show adv ui
-		if (mode) $("#sui-left").css({ width:($("#sui-main").width()-$("#sui-adv").width())+"px"});	// Size results area to fit advanced
-		else	 $("#sui-left").css({ width:$("#sui-main").width()+"px" });							// 100%
+		if (mode) $("#sui-content").css({ width:($("#sui-main").width()-$("#sui-adv").width())+"px"});	// Size results area to fit advanced
+		else	 $("#sui-content").css({ width:$("#sui-main").width()+"px" });							// 100%
 		this.DrawAdvanced();																		// Draw search UI if active
 	}
 	
@@ -307,9 +307,9 @@ export default class SearchUI  {
 			sui.ss.mode = "simple";																	// Simple display mode
 			sui.ss.page = 0;																			// Start at beginning
 			$("#sui-legacy").scrollTop(0);															// Scroll to top
-			$("#sui-left").scrollTop(0);															// Scroll to top
+			$("#sui-content").scrollTop(0);															// Scroll to top
 			$("#plc-infoDiv").remove();																// Remove map buttons
-			$("#sui-left").css({width: "100%", display: "inline-block"});							// Size and show results area
+			$("#sui-content").css({width: "100%", display: "inline-block"});							// Size and show results area
 			$("#sui-adv").css({display: "none"});													// Hide search ui
 			$("#sui-legacy").css({display: "block"});												// Show page
 			sui.DrawHeader(true);
@@ -617,7 +617,7 @@ export default class SearchUI  {
 	{
 		this.log("DrawResults() called",arguments);
 
-		$("#sui-left").scrollTop(0);
+		$("#sui-content").scrollTop(0);
 		$("#sui-legacy").scrollTop(0);							// Scroll to top
 		$("#sui-legacy").css({ "background-image":""});											// Remove any backgeound image
 		$("#sui-legacy").css({ display:"block" });													// Show results page
@@ -628,21 +628,21 @@ export default class SearchUI  {
 		if (this.ss.mode == "input") {																// Just the search box
 			$("#sui-header").css({ display:"none"});												// Show header
 			$("#sui-header").css({display:"inline-block","background-color":"#4d59ca"} );			// Show header
-			$("#sui-left").css({ display:"block",width:"100%" });									// Size and show left side
+			$("#sui-content").css({ display:"block",width:"100%" });									// Size and show left side
 
 			$("#sui-adv").css({ display:"none"});													// Hide search ui
 			$("#sui-legacy").css({ display:"none" });												// Hide results page
 			return;																					// Quit
 			}
 		else if (this.ss.mode == "simple") {														// Simple search
-			$("#sui-left").css({ width:"100%" });													// Size and show results area
+			$("#sui-content").css({ width:"100%" });													// Size and show results area
 			$("#sui-adv").css({ display:"none"});													// Hide search ui
-			$("#sui-left").slideDown();																// Slide down
-			$("#sui-left").css({ width:$("#sui-main").width() });									// Size and results area 100%
+			$("#sui-content").slideDown();																// Slide down
+			$("#sui-content").css({ width:$("#sui-main").width() });									// Size and results area 100%
 			}
 		else if (this.ss.mode == "advanced") {														// Advanced search
 			$("#sui-adv").css({ display:"block" });													// Show search ui
-			$("#sui-left").css({ width:$("#sui-main").width()-$("#sui-adv").width() });				// Size results area to fit advanced
+			$("#sui-content").css({ width:$("#sui-main").width()-$("#sui-adv").width() });				// Size results area to fit advanced
 			}
 		$("#sui-mode").prop({"title": this.ss.mode == "advanced" ? "Basic search" : "Advanced search" } );	// Set tooltip
 		$("#sui-mode").html(this.ss.mode == "advanced" ? "BASIC<br>SEARCH" : "ADVANCED<br>SEARCH" );		// Set mode icon
@@ -674,7 +674,7 @@ export default class SearchUI  {
 
 
 
-		$("#sui-headLeft").html(str.replace(/\t|\n|\r/g,""));										// Remove format and add to div
+		$("#sui-contentHead").html(str.replace(/\t|\n|\r/g,""));										// Remove format and add to div
 		$("#sui-header").css("background-color","#888");											// Set b/g color
 
 		$("#sui-typePageT").val(this.ss.page+1);													// Set page number
