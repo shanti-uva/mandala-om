@@ -333,3 +333,43 @@ a { text-decoration:none; }
 .sui-adv.closed {
 	display: none;
 }
+
+.sui-nameEntry span {
+	margin-right: .2em;
+}
+
+.sui-nameEntry {
+	list-style-type: none;
+}
+
+.sui-nameEntry li:before {
+	content: "> ";
+	margin-right: 0em;
+}
+
+.sui-nameEntry li:last-child {
+	margin-bottom: .5em;
+}
+
+.sui-nameEntry-header {
+	font-weight: bolder;
+}
+
+.sui-nameEntry-meta {
+	font-style: italic;
+	font-weight: lighter;
+}
+
+.sui-nameEntry-writing-system:before {
+	content: "(";
+}
+
+.sui-nameEntry-writing-system:after {
+	content: ")";
+}
+
+.sui-audioPlayer button {
+	font-family: 'shanticon';
+	padding: .3em;
+}
+
