@@ -342,6 +342,23 @@ a { text-decoration:none; }
 	list-style-type: none;
 }
 
+.sui-definitionEntry {
+	list-style-type: none;
+}
+
+.sui-definitionEntry-other {
+	list-style-type: square;
+}
+
+.sui-definitionEntry-other li {
+	margin-bottom: 1em;
+}
+
+.sui-definitionEntry-term {
+	margin-bottom: 1em;
+
+}
+
 .sui-nameEntry li:before {
 	content: "> ";
 	margin-right: 0em;

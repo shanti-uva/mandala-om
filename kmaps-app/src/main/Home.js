@@ -21,8 +21,10 @@ export function Home(props) {
         <h3>Work-in-Progress</h3>
         <ul>
             <li><Link to={'/view/terms/terms-12434'}>/view/terms/terms-12434</Link></li>
-            <li><Link to={'/view/terms/terms-12434'}>/view/terms/terms-85193</Link></li>
+            <li><Link to={'/view/terms/terms-45057'}>/view/terms/terms-45057</Link></li>
+            <li><Link to={'/view/terms/terms-85193'}>/view/terms/terms-85193</Link></li>
             <li><Link to={'/view/terms/places-16408'}>/view/terms/places-16408</Link></li>
+
         </ul>
     </div>
 }

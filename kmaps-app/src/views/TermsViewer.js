@@ -3,6 +3,9 @@ import {Link, withRouter} from 'react-router-dom';
 // import $ from "jquery";
 import _ from 'lodash';
 import * as PropTypes from "prop-types";
+import Definitions from './TermsViewer_Definitions.js';
+import {buildNestedDocs} from "./utils";
+import Card from "react-bootstrap/Card";
 
 function NodeHeader(props) {
     return <div className={"sui-nodeHeader"}>
@@ -93,6 +96,7 @@ class TermsViewer extends React.Component {
                         <Definitions kmapchild={this.props.kmapchild}/>
                         <RelatedTerms kmapchild={this.props.kmapchild}/>
                     </div>
+                    {/*<pre>{JSON.stringify(this.props.kmapchild, undefined, 2)}</pre>*/}
                 </div>;
         }
 
@@ -104,68 +108,16 @@ class TermsViewer extends React.Component {
 
         // }
 
-
-        function buildNestedDocs(docs, child_type, path_field) {
-
-            path_field = (path_field) ? path_field : child_type + "_path_s";
-
-            const base = {};
-            docs = _.filter(docs, (x) => {
-                return x.block_child_type === child_type;
-            });
-            docs = _.sortBy(docs, (x) => [path_field]);
-
-            console.log("buildNestedDocs: ", docs)
-
-            _.forEach(docs, (doc) => {
-                console.log("buildNestedDocs: pathField = " + path_field);
-                const path = doc[path_field].split('/');
-                console.log("buildNestedDocs path = " + path);
-
-                console.log("buildNestedDocs path.length == " + path.length);
-                if (path.length === 1) {
-                    // this is a "root doc", push it on the base list
-                    base[path[0]] = doc;
-                } else {
-                    // this is a "nested doc"
-                    // this is a "nested doc"
-
-                    // check for each "ancestor"
-                    // create  "fake ancestor", if it doesn't exist
-                    // add the doc to its parent in _nestedDoc_ field
-                    //      created _nestedDoc_ field if it doesn't exist
-                    //      if it already exists (it might have been faked earlier), populate fields
-                    console.log("buildNestedDocs: nested path = ", path);
-                    var curr = base;
-                    for (let i = 0; i < path.length; i++) {
-                        console.log("buildNestedDocs segment: " + path.slice(0, i + 1).join("/"));
-                        if (!curr[path[i]]) {
-                            curr[path[i]] = {};
-                        }
-                        if (i === path.length - 1) {
-                            curr[path[i]] = doc;
-                        }
-                        if (!curr[path[i]]._nested_) {
-                            curr[path[i]]._nested_ = {};
-                        }
-                        curr = curr[path[i]]._nested_;
-                    }
-
-                }
-            })
-            console.log("buildNestedDocs:", base);
-            return base;
-        }
-
-
         function TermNames(props) {
 
             console.log("calling buildNestedDocs");
             const namesTree = buildNestedDocs(props.kmapchild._childDocuments_, "related_names");
 
-            let output = <div><h3>Names</h3>
-                <ul className={"sui-nameEntry"}><NameEntry names={namesTree}/></ul>
-            </div>
+            let output = <Card>
+                <Card.Body><Card.Title>Names</Card.Title>
+                    <ul className={"sui-nameEntry"}><NameEntry names={namesTree}/></ul>
+                </Card.Body>
+            </Card>
             return output;
 
         }
@@ -186,7 +138,8 @@ class TermsViewer extends React.Component {
                         <span className={"sui-nameEntry-meta"}>
                             <span className={"sui-nameEntry-language"}>{entry.related_names_language_s}</span>
                             <span className={"sui-nameEntry-relationship"}>{entry.related_names_relationship_s}</span>
-                            <span className={"sui-nameEntry-writing-system"}>{entry.related_names_writing_system_s}</span>
+                            <span
+                                className={"sui-nameEntry-writing-system"}>{entry.related_names_writing_system_s}</span>
                         </span>
                         <ul>
                             <NameEntry names={entry._nested_}/>
@@ -215,35 +168,28 @@ class TermsViewer extends React.Component {
                 setAudioUrl(e.target.value)
             }
 
-
-            if (!audioUrl) {
-                return <div/>
-            }
-
-            return <div className={"sui-audioPlayer"}>
-                <audio src={audioUrl} ref={ref => player.current = ref}/>
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    return false;
-                }}>
-                    <h3>Audio</h3>
+            const playButton = (audioUrl) ? <>
                     <button onClick={() => {
                         player.current.play();
-                    }}><span>{ '\ue60a' }</span>
+                    }}><span>{'\ue60a'}</span>
                     </button>
-                    <select onChange={e => handleSelect(e)}>{option_list}></select>
-                    {/*<pre>{JSON.stringify(audioRefs, undefined, 2)}</pre>*/}
-                </form>
-            </div>
-        }
+                    <select onChange={e => handleSelect(e)}>{option_list}></select></>
+                : "No Audio Available";
 
-        function Definitions(props) {
-
-            const definitions = buildNestedDocs(props.kmapchild._childDocuments_, "related_definitions");
-
-            return <div><h3>Definitions:</h3>
-                <pre>{JSON.stringify(definitions, undefined, 3)}</pre>
-            </div>
+            return <Card>
+                <div className={"sui-audioPlayer"}>
+                    <audio src={audioUrl} ref={ref => player.current = ref}/>
+                    <form onSubmit={(event) => {
+                        event.preventDefault();
+                        return false;
+                    }}>
+                        <Card.Body>
+                            <Card.Title>Audio</Card.Title>
+                            {playButton}
+                        </Card.Body>
+                    </form>
+                </div>
+            </Card>
         }
 
         function RelatedTerms(props) {
