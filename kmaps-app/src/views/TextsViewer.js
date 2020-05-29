@@ -46,7 +46,6 @@ export class TextsViewer extends React.Component {
             }
         });
 
-
         return <div className={"texts legacy"} >TEXTS LEGACY { JSON.stringify(this.props.sui.state) }</div>
 
     }
