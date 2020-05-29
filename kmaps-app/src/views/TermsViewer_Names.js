@@ -1,4 +1,4 @@
-import {buildNestedDocs} from "./utils";
+import {buildNestedDocs} from "./common/utils";
 import Card from "react-bootstrap/Card";
 import React from "react";
 
@@ -41,7 +41,8 @@ export function NameEntry(props) {
                     <NameEntry names={entry._nested_}/>
                 </ul>
             </li>
-        )
+        );
+        return true;
     });
     const output = <React.Fragment>{outlist}</React.Fragment>
     return output;

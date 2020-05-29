@@ -1,19 +1,13 @@
 import React from "react";
 
-export class Hamburger extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const helpIcon = "\ue67e";
-        const homeIcon = "\ue60b";
-        const openclass = this.props.hamburgerOpen ? "open" : "closed";
-        const hamburger =
-            <div className={`sui-hamburger ${openclass}`} id='sui-hamburger'>
-                <span id='sui-help' className='sui-hamItem'>{helpIcon}&nbsp;&nbsp;HELP GUIDE</span>
-                <span id='sui-home' className='sui-hamItem'>{homeIcon}&nbsp;&nbsp;HOME</span>
-            </div>
-        return hamburger;
-    }
+export function Hamburger(props) {
+    const helpIcon = "\ue67e";
+    const homeIcon = "\ue60b";
+    const openclass = props.hamburgerOpen ? "open" : "closed";
+    const hamburger =
+        <div className={`sui-hamburger ${openclass}`} id='sui-hamburger'>
+            <span id='sui-help' className='sui-hamItem'>{helpIcon}&nbsp;&nbsp;HELP GUIDE</span>
+            <span id='sui-home' className='sui-hamItem'>{homeIcon}&nbsp;&nbsp;HOME</span>
+        </div>
+    return hamburger;
 }

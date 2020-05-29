@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
 
 export class ImagesViewer extends React.Component {
 
@@ -36,7 +34,7 @@ export class ImagesViewer extends React.Component {
     }
 
     render() {
-        return <div class={"images legacy"} >IMAGES LEGACY { JSON.stringify(this.props) }</div>
+        return <div class={"images legacy"} >NOT YET IMPLEMENTED IMAGES LEGACY { JSON.stringify(this.props) }</div>
     }
 
 

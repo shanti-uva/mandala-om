@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
 import { Parser } from 'html-to-react';
 import $ from 'jquery';
 
@@ -40,12 +38,12 @@ export class AudioVideoViewer extends React.Component {
     }
 
     render() {
-        const parser = new Parser();
 
-        console.log("SKEEEP");
+        // TODO: markup issues
+        const parser = new Parser();
         console.dir(this.sui.pages.div.html());
         const output = parser.parse($(this.sui.pages.div).html());
-        return <div> POPOP{ output }</div>;
+        return <div> { output }</div>;
     }
 
 

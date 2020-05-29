@@ -5,7 +5,7 @@ import TermNames from "./TermsViewer_Names";
 import TermAudioPlayer from "./TermsViewer_AudioPlayer";
 import RelatedTerms from "./TermsViewer_RelatedTerms";
 
-import {buildNestedDocs} from "./utils";
+import {buildNestedDocs} from "./common/utils";
 import NodeHeader from "./common/NodeHeader";
 
 // Bootstrap

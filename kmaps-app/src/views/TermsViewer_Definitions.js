@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {buildNestedDocs} from "./utils";
+import {buildNestedDocs} from "./common/utils";
 import Tab from "react-bootstrap/Tab";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
@@ -27,7 +27,6 @@ function Definition(props) {
 
     console.log("Definition: ", props);
     Object.entries(props.definitions).map(([id, entry]) => {
-
         const otherSource = entry.related_definitions_source_s;
         if (otherSource) {
             // push the Other Dictionaries Header
@@ -53,14 +52,13 @@ function Definition(props) {
                     <Definition definitions={entry._nested_} kmapchild={props.kmapchild}/>
                 </ul>
             }
-            ;
-
             primaryList.push(
                 <li className={"sui-definitionEntry"}>
                     <DefinitionEntry data={entry} kmapchild={props.kmapchild} nested={nested}/>
                 </li>
             )
         }
+        return true;
     });
 
     // assemble otherList from otherSort
@@ -70,6 +68,7 @@ function Definition(props) {
                 <OtherDefinitionEntry data={entry} kmapchild={props.kmapchild}/>
             </li>
         )
+        return true;
     });
 
 
@@ -161,7 +160,6 @@ function DefinitionEntry(props) {
                 </Collapse>
 
                 <Card.Body>
-                    {/*<Card.Title>Definition {props.data.order}</Card.Title>*/}
                     <Card.Text>
                         <dl>
                             <dt className={"sui-definitionEntry-term"}>{props.kmapchild.name_latin[0]}:</dt>
@@ -180,7 +178,6 @@ function DefinitionEntry(props) {
                             <Collapse in={details}>
                                 <div>
                                     {definitionDetails}
-                                    {/*<pre>{JSON.stringify(props.data, undefined, 3)}</pre>*/}
                                 </div>
                             </Collapse>
                         </dl>
@@ -191,22 +188,10 @@ function DefinitionEntry(props) {
                 </Card.Body>
             </Card>
         </Card>
-
-        {/*<Collapse in={!open}>*/}
-        {/*    <Card>*/}
-        {/*        <Card.Body>{props.kmapchild.name_latin[0]}: {definitionConverted}</Card.Body>*/}
-        {/*    </Card>*/}
-        {/*</Collapse>*/}
     </div>
 
-
-    {/*</Card>*/
-    }
-
-    {/*<pre>{JSON.stringify(props.kmapchild, undefined, 3)}</pre>*/
-    }
-    {/*<pre>{JSON.stringify(props.data, undefined, 3)}</pre>*/
-    }
+    {/*<pre>{JSON.stringify(props.kmapchild, undefined, 3)}</pre>*/}
+    {/*<pre>{JSON.stringify(props.data, undefined, 3)}</pre>*/}
 }
 
 

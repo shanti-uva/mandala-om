@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
 import {Parser} from "html-to-react";
 import $ from "jquery";
 import {withRouter} from "react-router-dom";

@@ -1,4 +1,4 @@
-import {buildNestedDocs} from "./utils";
+import {buildNestedDocs} from "./common/utils";
 import React from "react";
 
 function RelatedTerms(props) {

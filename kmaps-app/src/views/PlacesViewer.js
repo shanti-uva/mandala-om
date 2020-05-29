@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
 
 export class PlacesViewer extends React.Component {
 
@@ -36,7 +34,7 @@ export class PlacesViewer extends React.Component {
     }
 
     render() {
-        return <div class={"places legacy"} >PLACES LEGACY { JSON.stringify(this.props) }</div>
+        return <div class={"places legacy"} >NOT YET IMPLEMENTED PLACES LEGACY { JSON.stringify(this.props) }</div>
     }
 
 

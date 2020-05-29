@@ -1,4 +1,3 @@
-import React from "react";
 import _ from "lodash";
 
 export function buildNestedDocs(docs, child_type, path_field) {

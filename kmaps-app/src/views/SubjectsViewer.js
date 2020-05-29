@@ -1,7 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
-import $ from 'jquery';
 
 export class SubjectsViewer extends React.Component {
 

@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
 
 export class CollectionsViewer extends React.Component {
 

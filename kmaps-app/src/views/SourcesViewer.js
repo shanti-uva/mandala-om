@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchUI from '../legacy/searchui.js';
-import Pages from '../legacy/pages.js';
 
 export class SourcesViewer extends React.Component {
 
@@ -36,7 +34,7 @@ export class SourcesViewer extends React.Component {
     }
 
     render() {
-        return <div class={"sources legacy"} >SOURCES LEGACY { JSON.stringify(this.props) }</div>
+        return <div class={"sources legacy"} >NOT YET IMPLEMENTED SOURCES LEGACY { JSON.stringify(this.props) }</div>
     }
 
 

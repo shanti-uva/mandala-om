@@ -20,9 +20,9 @@ export const kmassetSlice = createSlice({
     },
     reducers: {
 
+        bogus: {
 
-
-
+        }
     },
     extraReducers: {
         [fetchAssetById.fulfilled]: (state, action) => {
