@@ -12,11 +12,11 @@ class LegacyViewer extends React.Component {
 
         const id = this.props.id || this.props.match.params.id;
 
-        this.sui.GetKmapFromID(id, (kmap) => {
-            console.log("LegacyViewer: kmap = ", kmap );
-            if ( !this.state || !this.state.kmap || kmap.uid && kmap.uid !== this.state.kmap.uid) {
-                this.state={ kmap: kmap, id:id };
-                this.sui.pages.Draw(this.state.kmap, false);
+        this.sui.GetKmapFromID(id, (kmasset) => {
+            console.log("LegacyViewer: kmasset = ", kmasset );
+            if ( !this.state || !this.state.kmasset || kmasset.uid && kmasset.uid !== this.state.kmasset.uid) {
+                this.state={ kmasset: kmasset, id:id };
+                this.sui.pages.Draw(this.state.kmasset, false);
                 this.props.onStateChange( this.state );
                 console.log("LegacyViewer: whoop")
             }

@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import {selectText} from "../features/kmsearch/kmsearchSlice";
+import {selectText} from "../slices/kmsearch/kmsearchSlice";
 import * as PropTypes from "prop-types";
 
 export function BasicSearch(props) {

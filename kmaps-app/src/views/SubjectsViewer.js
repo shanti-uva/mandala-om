@@ -24,10 +24,10 @@ export class SubjectsViewer extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMount");
-        this.sui.GetKmapFromID(this.props.id, (kmap) => {
-            console.log("calling pages.Draw() with kmap=" + kmap.uid);
-            this.props.onStateChange( { kmap: kmap });
-            this.sui.pages.Draw(kmap, true);
+        this.sui.GetKmapFromID(this.props.id, (kmasset) => {
+            console.log("calling pages.Draw() with kmasset=" + kmasset.uid);
+            this.props.onStateChange( { kmasset: kmasset });
+            this.sui.pages.Draw(kmasset, true);
         });
     }
 
@@ -40,10 +40,10 @@ export class SubjectsViewer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.sui.GetKmapFromID(this.props.id, (kmap) => {
-            console.log(" calling pages.Draw() with kmap=" + kmap.uid);
-            this.props.onStateChange( { kmap: kmap });
-            this.sui.pages.Draw(kmap, true);
+        this.sui.GetKmapFromID(this.props.id, (kmasset) => {
+            console.log(" calling pages.Draw() with kmasset=" + kmasset.uid);
+            this.props.onStateChange( { kmasset: kmasset });
+            this.sui.pages.Draw(kmasset, true);
         });
     }
 

@@ -7,8 +7,8 @@ function NodeHeader(props) {
         &nbsp;&nbsp;&nbsp;
         <span className="sui-termTitle sui-nodeTitle"
               id="sui-termTitle"><span
-            className={"sui-nodeTitle-item tibt"}>{props.kmap.name_tibt[0]}</span>&nbsp;&nbsp;&nbsp;<span
-            className={"sui-nodeTitle-item latin"}>{props.kmap.name_latin[0]}</span></span>
+            className={"sui-nodeTitle-item tibt"}>{props.kmasset.name_tibt[0]}</span>&nbsp;&nbsp;&nbsp;<span
+            className={"sui-nodeTitle-item latin"}>{props.kmasset.name_latin[0]}</span></span>
         <hr style={{"borderTop": "1px solid rgb(162, 115, 63)"}}/>
     </div>;
 }

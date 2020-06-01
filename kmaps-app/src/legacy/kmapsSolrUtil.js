@@ -299,11 +299,11 @@ export default class KmapsSolrUtil {
             fq_array.push(this.buildFq(state.query.terms, "kmapid"));
         }
 
-        // features
+        // slices
         if (state.query.features && state.query.features.length) {
 
             // console.error("FEATURES!");
-            // console.dir(state.query.features);
+            // console.dir(state.query.slices);
             fq_array.push(this.buildFq(state.query.features, "feature_types_ss", "title"));
         }
 

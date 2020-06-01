@@ -3,7 +3,7 @@ import React, {useRef, useState} from "react";
 import Card from "react-bootstrap/Card";
 
 function TermAudioPlayer(props) {
-    const audioRefs = _.filter(props.kmapchild._childDocuments_, (x) => {
+    const audioRefs = _.filter(props.kmterm._childDocuments_, (x) => {
         return x.block_child_type === "terms_recording"
     });
 

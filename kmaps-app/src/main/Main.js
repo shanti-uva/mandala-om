@@ -17,7 +17,7 @@ export class Main extends React.Component {
         this.state = {
             advanced: false,
             // Start with faked kmap
-            kmap: {
+            kmasset: {
                 header: "Mandala",
                 title: ["Mandala"],
                 uid: "mandala",
@@ -44,7 +44,8 @@ export class Main extends React.Component {
                             <Route path={"/view"}>
                                 <ContentPane site={'mandala'} mode={'development'} title={'Mandala'}
                                              sui={this.state.sui}
-                                             kmap={this.state.kmap} kmapchild={this.state.kmapchild}
+                                             kmasset={this.state.kmasset}
+                                             kmterm={this.state.kmterm}
                                              onStateChange={this.handleStateChange}/>
                             </Route>
                             <Route path={"*"}>
@@ -63,7 +64,7 @@ export class Main extends React.Component {
 
     handleStateChange(newstate) {
         console.log("Uber State Change requested: " + JSON.stringify(newstate));
-        if (newstate.kmap && (newstate.kmap.id === this.state.kmap.id)) {
+        if (newstate.kmasset && (newstate.kmasset.id === this.state.kmasset.id)) {
             return;
         }
         this.setState(newstate);

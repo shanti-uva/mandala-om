@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {selectQuery} from "../features/kmsearch/kmsearchSlice";
+import {selectQuery} from "../slices/kmsearch/kmsearchSlice";
 import {FacetBox} from "./FacetBox";
 import React from "react";
 

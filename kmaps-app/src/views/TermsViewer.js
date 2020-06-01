@@ -29,12 +29,16 @@ class TermsViewer extends React.Component {
         }
 
         // TODO: refactor into a Thunk
-        this.sui.GetKmapFromID(id, (kmap) => {
-            if (!this.state || !this.state.kmap || kmap.uid && kmap.uid !== this.state.kmap.uid) {
-                this.state = {kmap: kmap};
-                this.sui.GetChildDataFromID(id, (kmapchild) => {
-                    if (!this.state || !this.state.kmapchild || kmapchild.uid && kmapchild.uid !== this.state.kmapchild.uid) {
-                        this.state = {kmap: kmap, kmapchild: kmapchild};
+
+
+        console.error("Trying to get get kmap from id: id = " + id);
+
+        this.sui.GetKmapFromID(id, (kmasset) => {
+            if (!this.state || !this.state.kmasset || kmasset.uid && kmasset.uid !== this.state.kmasset.uid) {
+                this.state = {kmap: kmasset};
+                this.sui.GetChildDataFromID(id, (kmterm) => {
+                    if (!this.state || !this.state.kmterm || kmterm.uid && kmterm.uid !== this.state.kmterm.uid) {
+                        this.state = {kmasset: kmasset, kmterm: kmterm};
                         this.props.onStateChange(this.state);
                     }
                 })
@@ -68,17 +72,17 @@ class TermsViewer extends React.Component {
             Loading...
         </div>;
 
-        if (this.props.kmap && this.props.kmap.asset_type) {
+        if (this.props.kmasset && this.props.kmasset.asset_type) {
             output =
                 <div className={'termsviewer'}>
                     <div className={"sui-terms"}>
-                        <NodeHeader kmap={this.props.kmap}/>
-                        <TermNames kmapchild={this.props.kmapchild}/>
-                        <TermAudioPlayer kmapchild={this.props.kmapchild}/>
-                        <Definitions kmapchild={this.props.kmapchild}/>
-                        <RelatedTerms kmapchild={this.props.kmapchild}/>
+                        <NodeHeader kmasset={this.props.kmasset}/>
+                        <TermNames kmterm={this.props.kmterm}/>
+                        <TermAudioPlayer kmterm={this.props.kmterm}/>
+                        <Definitions kmterm={this.props.kmterm}/>
+                        <RelatedTerms kmterm={this.props.kmterm}/>
                     </div>
-                    {/*<pre>{JSON.stringify(this.props.kmapchild, undefined, 2)}</pre>*/}
+                    {/*<pre>{JSON.stringify(this.props.kmterm, undefined, 2)}</pre>*/}
                 </div>;
         }
 

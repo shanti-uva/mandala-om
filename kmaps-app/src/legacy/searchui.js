@@ -532,7 +532,7 @@ export default class SearchUI  {
 	
 	GetAudioFromID(id, callback)																// GET AUDIO FILE FROM ID
 	{
-		$.getJSON("//terms.kmaps.virginia.edu/features/"+id+"/recordings", (d)=> {			// Get info
+		$.getJSON("//terms.kmaps.virginia.edu/slices/"+id+"/recordings", (d)=> {			// Get info
 			let i,r=[];
 			try{ for (i=0;i<d.recordings.length;++i)												// For each recording
 					r.push(d.recordings[i].audio_file);												// Add to array

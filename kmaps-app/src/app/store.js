@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import kmapReducer from '../features/kmap/kmapSlice';
-import kmassetReducer from '../features/kmasset/kmassetSlice';
-import kmsearchReducer from '../features/kmsearch/kmsearchSlice';
+import counterReducer from '../slices/counter/counterSlice';
+import kmapReducer from '../slices/kmap/kmapSlice';
+import kmassetReducer from '../slices/kmasset/kmassetSlice';
+import kmsearchReducer from '../slices/kmsearch/kmsearchSlice';
 
 export default configureStore({
   reducer: {

@@ -29,13 +29,12 @@ export class AssetViewer extends React.PureComponent {
 
     render() {
         return <Switch>
-            // I don't understand why you need to do this
             <Route path="/view/:asset/:id">
-                <ShowAsset sui={this.props.sui} kmap={this.props.kmap}
+                <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset}
                            onStateChange={this.handleStateChange}/>
             </Route>
             <Route path="/view/:asset">
-                <ShowAsset sui={this.props.sui} kmap={this.props.kmap} kmapchild={this.props.kmapchild}
+                <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset} kmterm={this.props.kmterm}
                            onStateChange={this.props.onStateChange}/>
             </Route>
             <Route path={"*"}>
@@ -50,8 +49,8 @@ export function ShowAsset(props) {
     console.log("ShowAsset: id = " + id);
 
     const sui = props.sui;
-    const kmap = props.kmap;
-    const kmapchild = props.kmapchild;
+    const kmasset = props.kmasset;
+    const kmterm = props.kmterm;
     if (!sui) {
         throw new Error("This is no sui!")
     }
@@ -83,7 +82,7 @@ export function ShowAsset(props) {
             <LegacyViewer id={id} sui={sui} onStateChange={props.onStateChange}/>
         </Route>
         <Route path={"/view/terms/:id"}>
-            <TermsViewer kmap={kmap} kmapchild={kmapchild} sui={sui} onStateChange={props.onStateChange}  />
+            <TermsViewer kmasset={kmasset} kmterm={kmterm} sui={sui} onStateChange={props.onStateChange}  />
         </Route>
         <Route path="/view/collections/:id">
             <CollectionsViewer id={id} sui={sui} onStateChange={props.onStateChange}/>
