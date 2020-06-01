@@ -45,7 +45,7 @@ export class Main extends React.Component {
                                 <ContentPane site={'mandala'} mode={'development'} title={'Mandala'}
                                              sui={this.state.sui}
                                              kmasset={this.state.kmasset}
-                                             kmterm={this.state.kmterm}
+                                             kmap={this.state.kmap}
                                              onStateChange={this.handleStateChange}/>
                             </Route>
                             <Route path={"*"}>

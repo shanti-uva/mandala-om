@@ -9,12 +9,12 @@ import _ from 'lodash';
 import {Parser} from "html-to-react";
 
 function Definitions(props) {
-    const definitionsTree = buildNestedDocs(props.kmterm._childDocuments_, "related_definitions");
+    const definitionsTree = buildNestedDocs(props.kmap._childDocuments_, "related_definitions");
     console.log("Definition: nested doc = ", definitionsTree);
     let output = <Card>
         <Card.Body><Card.Title>Definitions</Card.Title>
             <ul className={"sui-definitionEntry"}><Definition definitions={definitionsTree}
-                                                              kmterm={props.kmterm}/></ul>
+                                                              kmap={props.kmap}/></ul>
         </Card.Body>
     </Card>
     return output;
@@ -29,10 +29,6 @@ function Definition(props) {
     Object.entries(props.definitions).map(([id, entry]) => {
         const otherSource = entry.related_definitions_source_s;
         if (otherSource) {
-            // push the Other Dictionaries Header
-            if (_.isEmpty(otherList)) {
-                otherList.push(<hr/>, <h5>Other Dictionaries</h5>);
-            }
 
             // find or create the dictionary
             let otherDict = otherSort[otherSource];
@@ -49,12 +45,12 @@ function Definition(props) {
             let nested = "";
             if (!_.isEmpty(entry._nested_)) {
                 nested = <ul>
-                    <Definition definitions={entry._nested_} kmterm={props.kmterm}/>
+                    <Definition definitions={entry._nested_} kmap={props.kmap}/>
                 </ul>
             }
             primaryList.push(
                 <li className={"sui-definitionEntry"}>
-                    <DefinitionEntry data={entry} kmterm={props.kmterm} nested={nested}/>
+                    <DefinitionEntry data={entry} kmap={props.kmap} nested={nested}/>
                 </li>
             )
         }
@@ -65,14 +61,26 @@ function Definition(props) {
     Object.entries(otherSort).map(([id, entry]) => {
         otherList.push(
             <li className={"sui-definitionEntry"}>
-                <OtherDefinitionEntry data={entry} kmterm={props.kmterm}/>
+                <OtherDefinitionEntry data={entry} kmap={props.kmap}/>
             </li>
         )
         return true;
     });
 
 
-    const output = [<React.Fragment>{primaryList}</React.Fragment>, <React.Fragment>{otherList}</React.Fragment>]
+    // Add the Primary Definitions to the output.
+    let output = [<React.Fragment>{primaryList}</React.Fragment>];
+
+    // Add an "Other Dictionaries" section if there are other dictionaries.
+    if (otherList.length) {
+        output.push(
+            <React.Fragment>
+                <hr/>
+                <h5>Other Dictionaries</h5>
+            </React.Fragment>,
+            <React.Fragment>{otherList}</React.Fragment>);
+    }
+
     return output;
 }
 
@@ -126,8 +134,6 @@ function DefinitionEntry(props) {
         return <div>
             <h6>Details</h6>
             {detailsMarkup}
-            {/*<pre>{JSON.stringify(details, undefined, 3)}</pre>*/}
-            {/*<pre>{JSON.stringify(junk, undefined,3)}</pre>*/}
         </div>
 
 
@@ -162,7 +168,7 @@ function DefinitionEntry(props) {
                 <Card.Body>
                     <Card.Text>
                         <dl>
-                            <dt className={"sui-definitionEntry-term"}>{props.kmterm.name_latin[0]}:</dt>
+                            <dt className={"sui-definitionEntry-term"}>{props.kmap.name_latin[0]}:</dt>
                             <dd>{definitionUnescaped}</dd>
 
                             <Collapse in={open}>
@@ -189,9 +195,6 @@ function DefinitionEntry(props) {
             </Card>
         </Card>
     </div>
-
-    {/*<pre>{JSON.stringify(props.kmterm, undefined, 3)}</pre>*/}
-    {/*<pre>{JSON.stringify(props.data, undefined, 3)}</pre>*/}
 }
 
 
@@ -209,7 +212,7 @@ function OtherDefinitionEntry(props) {
                 {props.data.name}
             </Card.Header>
             <Card.Body>
-                <div className={"sui-definitionEntry-term"}>{props.kmterm.name_latin[0]}</div>
+                <div className={"sui-definitionEntry-term"}>{props.kmap.name_latin[0]}</div>
                 <ol className={"sui-definitionEntry-other"}>
                     {definitions}
                 </ol>

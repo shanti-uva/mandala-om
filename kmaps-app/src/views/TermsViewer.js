@@ -28,17 +28,13 @@ class TermsViewer extends React.Component {
             this.state = {id: id};
         }
 
-        // TODO: refactor into a Thunk
-
-
         console.error("Trying to get get kmap from id: id = " + id);
-
         this.sui.GetKmapFromID(id, (kmasset) => {
             if (!this.state || !this.state.kmasset || kmasset.uid && kmasset.uid !== this.state.kmasset.uid) {
-                this.state = {kmap: kmasset};
-                this.sui.GetChildDataFromID(id, (kmterm) => {
-                    if (!this.state || !this.state.kmterm || kmterm.uid && kmterm.uid !== this.state.kmterm.uid) {
-                        this.state = {kmasset: kmasset, kmterm: kmterm};
+                this.state = {kmasset: kmasset};
+                this.sui.GetChildDataFromID(id, (kmap) => {
+                    if (!this.state || !this.state.kmap || kmap.uid && kmap.uid !== this.state.kmap.uid) {
+                        this.state = {kmasset: kmasset, kmap: kmap};
                         this.props.onStateChange(this.state);
                     }
                 })
@@ -72,17 +68,20 @@ class TermsViewer extends React.Component {
             Loading...
         </div>;
 
+
+        console.log("TermsViewer: Render(): props = ", this.props);
+
         if (this.props.kmasset && this.props.kmasset.asset_type) {
             output =
                 <div className={'termsviewer'}>
                     <div className={"sui-terms"}>
                         <NodeHeader kmasset={this.props.kmasset}/>
-                        <TermNames kmterm={this.props.kmterm}/>
-                        <TermAudioPlayer kmterm={this.props.kmterm}/>
-                        <Definitions kmterm={this.props.kmterm}/>
-                        <RelatedTerms kmterm={this.props.kmterm}/>
+                        <TermNames kmap={this.props.kmap}/>
+                        <TermAudioPlayer kmap={this.props.kmap}/>
+                        <Definitions kmap={this.props.kmap}/>
+                        <RelatedTerms kmap={this.props.kmap}/>
                     </div>
-                    {/*<pre>{JSON.stringify(this.props.kmterm, undefined, 2)}</pre>*/}
+                    {/*<pre>{JSON.stringify(this.props.kmap, undefined, 2)}</pre>*/}
                 </div>;
         }
 

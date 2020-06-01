@@ -1,7 +1,6 @@
 import React from "react";
 import {ContentHeader} from "./ContentHeader";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {AssetViewer, ShowAsset} from "./ShowAsset";
+import {ShowAsset} from "./ShowAsset";
 
 export class ContentPane extends React.Component {
 
@@ -41,7 +40,7 @@ export class ContentPane extends React.Component {
                 {/*<Display siteClass={siteClass} />*/}
                 <div id={"sui-results"}>
                     <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset}
-                                 kmterm={this.props.kmterm}
+                                 kmap={this.props.kmap}
                                  onStateChange={this.handleStateChange}/>
                 </div>
                 {/*<div id={'sui-legacy'} className={'legacy sui-legacy'}></div>*/}

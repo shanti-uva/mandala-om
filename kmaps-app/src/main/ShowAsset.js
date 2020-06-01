@@ -13,36 +13,36 @@ import TermsViewer from "../views/TermsViewer";
 import {CollectionsViewer} from "../views/CollectionsViewer";
 import {Error404} from "../App";
 
-export class AssetViewer extends React.PureComponent {
-
-    constructor(props) {
-        super(props);
-        this.handleStateChange = this.handleStateChange.bind(this);
-    }
-
-    handleStateChange(newstate) {
-        if (!this.state || newstate.id !== this.state.id) {
-            this.setState(newstate);
-        }
-        this.props.onStateChange(newstate);
-    }
-
-    render() {
-        return <Switch>
-            <Route path="/view/:asset/:id">
-                <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset}
-                           onStateChange={this.handleStateChange}/>
-            </Route>
-            <Route path="/view/:asset">
-                <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset} kmterm={this.props.kmterm}
-                           onStateChange={this.props.onStateChange}/>
-            </Route>
-            <Route path={"*"}>
-                <h2>Unknown params</h2>
-            </Route>
-        </Switch>
-    }
-}
+// export class AssetViewer extends React.PureComponent {
+//
+//     constructor(props) {
+//         super(props);
+//         this.handleStateChange = this.handleStateChange.bind(this);
+//     }
+//
+//     handleStateChange(newstate) {
+//         if (!this.state || newstate.id !== this.state.id) {
+//             this.setState(newstate);
+//         }
+//         this.props.onStateChange(newstate);
+//     }
+//
+//     render() {
+//         return <Switch>
+//             <Route path="/view/:asset/:id">
+//                 <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset}
+//                            onStateChange={this.handleStateChange}/>
+//             </Route>
+//             <Route path="/view/:asset">
+//                 <ShowAsset sui={this.props.sui} kmasset={this.props.kmasset} kmap={this.props.kmap}
+//                            onStateChange={this.props.onStateChange}/>
+//             </Route>
+//             <Route path={"*"}>
+//                 <h2>Unknown params</h2>
+//             </Route>
+//         </Switch>
+//     }
+// }
 
 export function ShowAsset(props) {
     const {id} = useParams();
@@ -50,7 +50,7 @@ export function ShowAsset(props) {
 
     const sui = props.sui;
     const kmasset = props.kmasset;
-    const kmterm = props.kmterm;
+    const kmap = props.kmap;
     if (!sui) {
         throw new Error("This is no sui!")
     }
@@ -82,7 +82,8 @@ export function ShowAsset(props) {
             <LegacyViewer id={id} sui={sui} onStateChange={props.onStateChange}/>
         </Route>
         <Route path={"/view/terms/:id"}>
-            <TermsViewer kmasset={kmasset} kmterm={kmterm} sui={sui} onStateChange={props.onStateChange}  />
+            <RelatedsViewer id={id} sui={sui} onStateChange={props.onStateChange}/>
+            <TermsViewer kmasset={kmasset} kmap={kmap} sui={sui} onStateChange={props.onStateChange}  />
         </Route>
         <Route path="/view/collections/:id">
             <CollectionsViewer id={id} sui={sui} onStateChange={props.onStateChange}/>
