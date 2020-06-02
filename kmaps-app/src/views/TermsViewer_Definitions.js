@@ -25,7 +25,9 @@ function Definition(props) {
     let otherSort = {};
     let otherList = [];
 
-    // console.log("Definition: ", props);
+    // TODO: Review whether this collation of "Other Definitions" should be part of view logic or business logic.
+    //  Right now, I'm thinking it should stay as view logic.
+
     Object.entries(props.definitions).map(([id, entry]) => {
         const otherSource = entry.related_definitions_source_s;
         if (otherSource) {
@@ -41,6 +43,7 @@ function Definition(props) {
             otherDict.definitions.push(entry.related_definitions_content_s)
 
         } else {
+
             // only recurse if the _nested_ attribute is populated
             let nested = "";
             if (!_.isEmpty(entry._nested_)) {
@@ -71,7 +74,7 @@ function Definition(props) {
     // Add the Primary Definitions to the output.
     let output = [<React.Fragment>{primaryList}</React.Fragment>];
 
-    // Add an "Other Dictionaries" section if there are other dictionaries.
+    // Add an "Other Dictionaries" Header if there are other dictionaries.
     if (otherList.length) {
         output.push(
             <React.Fragment>
@@ -96,8 +99,8 @@ function DefinitionEntry(props) {
 
 
     // TODO: NEED TO comb out naughty markup in the data. e.g. <p>'s need to be converted to <div>'s
-    // See htmlToReactParser.parseWithInstructions() at https://www.npmjs.com/package/html-to-react
-    // I think one could intercept those <p>'s (and any other offending markup and rewrite them.
+    //  See htmlToReactParser.parseWithInstructions() at https://www.npmjs.com/package/html-to-react
+    //  I think one could intercept those <p>'s (and any other offending markup) and rewrite them.
 
     const parser = new Parser();
     const definitionUnescaped = parser.parse(props.data.related_definitions_content_s);
@@ -105,7 +108,8 @@ function DefinitionEntry(props) {
     const definitionDetails = parseDetails(props.data);
 
 
-    // TODO: need to refactor this logic out of the Component and into middleware/business logic
+    // TODO: need to refactor this logic out of the Component and into middleware/business logic.
+    //  Just haven't decided where it should go yet.
     function parseDetails(d) {
 
         let branches = {};
@@ -134,6 +138,7 @@ function DefinitionEntry(props) {
             details.push(deets);
         });
 
+        // The markup code below should stay in the Viewer
 
         // render the markup list
         let detailsMarkup = [];
@@ -157,7 +162,8 @@ function DefinitionEntry(props) {
     //
     // I also introduced mouseover/mouseleave mechanics, which I personally find more clear since it hides the
     // tabbed interface when casually browsing.  These mechanics need to be reviewed to handle the case where
-    // sub-defintion are within the same div as the parent.   I think when you are moused
+    // sub-defintion are within the same div as the parent.  Currently the parent definition is expanded still
+    // when you mouseover a sub-definition.  That maybe okay,  I'm just not sure.
     //
     return <div>
         <Card>
