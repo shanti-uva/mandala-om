@@ -25,7 +25,7 @@ function Definition(props) {
     let otherSort = {};
     let otherList = [];
 
-    console.log("Definition: ", props);
+    // console.log("Definition: ", props);
     Object.entries(props.definitions).map(([id, entry]) => {
         const otherSource = entry.related_definitions_source_s;
         if (otherSource) {
@@ -49,7 +49,7 @@ function Definition(props) {
                 </ul>
             }
             primaryList.push(
-                <li className={"sui-definitionEntry"}>
+                <li key={entry.uid} className={"sui-definitionEntry"}>
                     <DefinitionEntry data={entry} kmap={props.kmap} nested={nested}/>
                 </li>
             )
@@ -60,7 +60,7 @@ function Definition(props) {
     // assemble otherList from otherSort
     Object.entries(otherSort).map(([id, entry]) => {
         otherList.push(
-            <li className={"sui-definitionEntry"}>
+            <li key={ entry.uid } className={"sui-definitionEntry"}>
                 <OtherDefinitionEntry data={entry} kmap={props.kmap}/>
             </li>
         )
@@ -94,72 +94,87 @@ function DefinitionEntry(props) {
     const [open, setOpen] = useState(false);
     const [details, setDetails] = useState(false);
 
+
+    // TODO: NEED TO comb out naughty markup in the data. e.g. <p>'s need to be converted to <div>'s
+    // See htmlToReactParser.parseWithInstructions() at https://www.npmjs.com/package/html-to-react
+    // I think one could intercept those <p>'s (and any other offending markup and rewrite them.
+
     const parser = new Parser();
     const definitionUnescaped = parser.parse(props.data.related_definitions_content_s);
 
     const definitionDetails = parseDetails(props.data);
 
+
+    // TODO: need to refactor this logic out of the Component and into middleware/business logic
     function parseDetails(d) {
 
-        let junk = {};
+        let branches = {};
         let details = [];
 
-        Object.entries(d).map(([key, value]) => {
+        // collect data by "branch"
+        Object.entries(d).forEach(([key, value]) => {
             if (key.startsWith('related_definitions_branch_subjects')) {
                 const [match, uid, field] = key.match(/related_definitions_branch_(subjects-\d+)_(\S+)/);
-                if (!junk[uid]) {
-                    junk[uid] = {};
+                if (!branches[uid]) {
+                    branches[uid] = {};
                 }
-                junk[uid][field] = value;
+                branches[uid][field] = value;
             }
         });
 
-        Object.entries(junk).map(([uid, entry]) => {
+        // reorganize by "branch" subject
+        Object.entries(branches).forEach(([uid, entry]) => {
             let subjects = [];
             for (let i = 0; i < entry.subjects_uids_t.length; i++) {
                 const sub = {header: entry.subjects_headers_t[i], uid: entry.subjects_uids_t[i]}
                 subjects.push(sub);
             }
             const deets = {header: entry.header_s, uid: uid, values: subjects};
-            console.log("Deeting: ", deets);
+            // console.log("Deeting: ", deets);
             details.push(deets);
         });
 
+
+        // render the markup list
         let detailsMarkup = [];
-        _.forEach(details, e => {
+        _.forEach(details, (e,i) => {
+            // TODO: refactor the href's into ...  <Link>'s?
             const valuesList = _.map(e.values, x => <a href={"#" + x.uid}>{x.header}</a>)
-            detailsMarkup.push(<li><span><a href={"#" + e.uid}>{e.header}</a></span>: <span>{valuesList}</span></li>);
+            detailsMarkup.push(<li key={i} ><span><a href={"#" + e.uid}>{e.header}</a></span>: <span>{valuesList}</span></li>);
         });
 
+        // render the div
         return <div>
             <h6>Details</h6>
             {detailsMarkup}
         </div>
 
-
     }
 
-
+    // TODO: review whether this could/should be simplified to use <Tabs>/<Tab>/<TabPane> instead.
+    // ys2n: I couldn't get the markup to look right when <Tabs>'s were nested in other Bootstrap components.
+    // So I went with this more-complicated implementation.
+    //
+    // I also introduced mouseover/mouseleave mechanics, which I personally find more clear since it hides the
+    // tabbed interface when casually browsing.  These mechanics need to be reviewed to handle the case where
+    // sub-defintion are within the same div as the parent.   I think when you are moused
+    //
     return <div>
-
         <Card>
-            <Card onMouseEnter={() => {
-                setOpen(true)
-            }} onMouseLeave={() => {
-                setOpen(false)
-            }}>
+            <Card onMouseEnter={() => {setOpen(true)}}
+                  onMouseLeave={() => {setOpen(false)}}>
                 <Collapse in={open}>
                     <Card.Header>
                         <Nav variant="tabs" defaultActiveKey="definition">
                             <Nav.Item>
-                                <Nav.Link eventKey={"definition"} onSelect={() => {
-                                    setDetails(false)
-                                }}>Definition</Nav.Link>
+                                <Nav.Link eventKey={"definition"} onSelect={() => {setDetails(false)}}>
+                                    Definition
+                                </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey={"details"} onSelect={() => {
-                                    setDetails(true)
-                                }}>Other Info</Nav.Link>
+                                <Nav.Link eventKey={"details"} onSelect={() => { setDetails(true)}}>
+                                    Other Info
+                                </Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Card.Header>
@@ -173,9 +188,11 @@ function DefinitionEntry(props) {
 
                             <Collapse in={open}>
                                 <ul className={"list-group list-group-horizontal-sm justify-content-end"}>
-                                    <li className={"list-group-item border-0"}><span>Definition Language:</span>
+                                    <li key='lang' className={"list-group-item border-0"}>
+                                        <span>Definition Language:</span>
                                         <span>{props.data.related_definitions_language_s}</span></li>
-                                    <li className={"list-group-item border-0"}><span>Definition Author:</span>
+                                    <li key='author' className={"list-group-item border-0"}>
+                                        <span>Definition Author:</span>
                                         <span>{props.data.related_definitions_author_s}</span></li>
                                 </ul>
                             </Collapse>
@@ -200,10 +217,10 @@ function DefinitionEntry(props) {
 
 function OtherDefinitionEntry(props) {
 
-    const definitions = props.data.definitions.map((x) => {
+    const definitions = props.data.definitions.map((x,i) => {
         const parser = new Parser();
         const out = parser.parse(x);
-        return <li className={"sui-definitionEntry-other"}>{out}</li>;
+        return <li key={i} className={"sui-definitionEntry-other"}>{out}</li>;
     });
 
     const entry = <>

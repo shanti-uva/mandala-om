@@ -29,7 +29,7 @@ export function NameEntry(props) {
 
     Object.entries(props.names).map(([id, entry]) => {
         outlist.push(
-            <li className={"sui-nameEntry"}>
+            <li id={id} key={id} className={"sui-nameEntry"}>
                 <span className={"sui-nameEntry-header"}>{entry.related_names_header_s}</span>
                 <span className={"sui-nameEntry-meta"}>
                             <span className={"sui-nameEntry-language"}>{entry.related_names_language_s}</span>

@@ -9,15 +9,15 @@ export function buildNestedDocs(docs, child_type, path_field) {
         return x.block_child_type === child_type;
     });
 
-    console.log("buildNestedDocs: ", docs)
+    // console.log("buildNestedDocs: ", docs)
 
     _.forEach(docs, (doc,i) => {
-        console.log("buildNestedDocs: i=" +i);
-        console.log("buildNestedDocs: pathField = " + path_field);
+        // console.log("buildNestedDocs: i=" +i);
+        // console.log("buildNestedDocs: pathField = " + path_field);
         const path = doc[path_field].split('/');
-        console.log("buildNestedDocs path = " + path);
+        // console.log("buildNestedDocs path = " + path);
         doc.order=i;
-        console.log("buildNestedDocs path.length == " + path.length);
+        // console.log("buildNestedDocs path.length == " + path.length);
         if (path.length === 1) {
             // this is a "root doc", push it on the base list
             base[path[0]] = doc;
@@ -30,10 +30,10 @@ export function buildNestedDocs(docs, child_type, path_field) {
             // add the doc to its parent in _nestedDoc_ field
             //      created _nestedDoc_ field if it doesn't exist
             //      if it already exists (it might have been faked earlier), populate fields
-            console.log("buildNestedDocs: nested path = ", path);
+            // console.log("buildNestedDocs: nested path = ", path);
             var curr = base;
             for (let i = 0; i < path.length; i++) {
-                console.log("buildNestedDocs segment: " + path.slice(0, i + 1).join("/"));
+                // console.log("buildNestedDocs segment: " + path.slice(0, i + 1).join("/"));
                 if (!curr[path[i]]) {
                     curr[path[i]] = {};
                 }
@@ -48,6 +48,6 @@ export function buildNestedDocs(docs, child_type, path_field) {
 
         }
     })
-    console.log("buildNestedDocs:", base);
+    // console.log("buildNestedDocs:", base);
     return base;
 }

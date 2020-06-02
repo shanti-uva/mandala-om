@@ -12,7 +12,8 @@ function TermAudioPlayer(props) {
 
     const [audioUrl, setAudioUrl] = useState(defRecordingUrl);
 
-    const option_list = _.map(audioRefs, (x) => <option
+    const option_list = _.map(audioRefs, (x,i) => <option
+        key={i}
         value={x.recording_url}>{x.recording_dialect_s}</option>);
     const handleSelect = (e) => {
         setAudioUrl(e.target.value)

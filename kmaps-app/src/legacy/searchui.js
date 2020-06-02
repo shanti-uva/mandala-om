@@ -217,8 +217,8 @@ export default class SearchUI  {
 
 	Draw(mode)																					// DRAW SEARCH COMPONENTS
 	{
-		console.error("Draw called!");
-		console.error("searchui.Draw called with " + JSON.stringify(arguments));
+		console.log("Draw called!");
+		console.log("searchui.Draw called with " + JSON.stringify(arguments));
 		if (mode) this.ss.mode=mode;																// If mode spec'd, use it
 		this.DrawResults();																		// Draw results page if active
 		// this.DrawAdvanced();																		// Draw search UI if active
@@ -290,7 +290,7 @@ export default class SearchUI  {
 			this.alert("======== PAGEROUTER: " + hash + " Handling r: calling getKmapFromID with id = " + v[3] + " this.pages.relatedId=" + this.pages.relatedId + " this.pages.relatedType=" + this.pages.relatedType   );
 			this.GetKmapFromID(v[3], (kmap) => {
 				this.pages.relatedBase = kmap;
-				console.error("	PAGEROUTER handling callback.  calling pages.DrawRelatedResults with kmap uid = " + kmap.uid);
+				console.log("	PAGEROUTER handling callback.  calling pages.DrawRelatedResults with kmap uid = " + kmap.uid);
 				this.pages.DrawRelatedResults(kmap, true);
 			});		// Get kmap and show page
 		} else if ((id = hash.match(/#s=(.+)/))) {														// If showing search results
@@ -393,12 +393,12 @@ export default class SearchUI  {
 	//
 	Query(fromHistory, collectionId)															// QUERY AND UPDATE RESULTS
 	{
-		console.error("Query() called with fromHistory = " + fromHistory + " collectionId =  " + collectionId);
+		console.log("Query() called with fromHistory = " + fromHistory + " collectionId =  " + collectionId);
 		let url;
 		this.LoadingIcon(true, 64);																	// Show loading icon
 
 		if (collectionId) {																			// If getting collection members
-			console.error("	SearchUI.Query: collection mode");
+			console.log("	SearchUI.Query: collection mode");
 			let ts = JSON.parse(JSON.stringify(this.ss));												// Clone search
 			ts.query = {
 				text: "",
@@ -415,15 +415,15 @@ export default class SearchUI  {
 			};				// Set new search
 			url = this.solrUtil.buildAssetQuery(ts); // Set url
 		} else if (this.ss.mode == "related") {
-			console.error("	SearchUI.Query: related mode");
+			console.log("	SearchUI.Query: related mode");
 			url = this.solrUtil.createKmapQuery(this.pages.relatedId.toLowerCase(), this.pages.relatedType.toLowerCase(), this.ss.page, this.ss.pageSize);
 		}	// Get assets related to relatedId
 		else {
-			console.error("	SearchUI.Query: asset mode");
+			console.log("	SearchUI.Query: asset mode");
 			url = this.solrUtil.buildAssetQuery(this.ss);
 		}			// Get assets that match query
 		if ((this.ss.mode != "related") && !fromHistory) { 											// These set their own states and not from history API
-			console.error("	SearchUI.Query: default mode");
+			console.log("	SearchUI.Query: default mode");
 			this.SetState("s=" + this.SerializeQuery(this.ss));										// Save search state
 		}
 		$("#sui-relatedAssets").remove();															// Remove related assets panel
@@ -435,7 +435,7 @@ export default class SearchUI  {
 			this.searches.push(JSON.parse(JSON.stringify(this.ss)));								// Add to recent searches
 		}
 		$.ajax({url: url, dataType: 'jsonp', jsonp: 'json.wrf'}).done((data) => {				// Get data from SOLR
-			console.error ("	SearchUI.Query: got data back from SOLR query: " + url);
+			console.log ("	SearchUI.Query: got data back from SOLR query: " + url);
 			console.dir(data);
 			this.curResults = this.MassageKmapData(data.response.docs);								// Normalize for display
 			this.ParseFacetData(data);																// Get facet data counts
@@ -452,9 +452,9 @@ export default class SearchUI  {
 
 	GetKmapFromID(id, callback)																	// GET KMAP FROM ID
 	{
-		console.error("GetKmapFromID() called with id=" + id);
+		console.log("GetKmapFromID() called with id=" + id);
 		var url=this.ss.solrUrl+"?q=uid:"+id.toLowerCase()+"&wt=json";
-		console.error("url = " + url);// Set query url
+		console.log("url = " + url);// Set query url
 		$.ajax( { url:url, dataType:'jsonp', jsonp:'json.wrf' }).done((data)=> {					// Get kmap
 
 			try {
@@ -488,7 +488,7 @@ export default class SearchUI  {
 			this.log("GetRelatedFromID() returns " + data);
 			console.dir(data);
 			callback(data.response.docs);															// Return data
-		}).fail((msg)=> { console.error(msg); });														// Failure message
+		}).fail((msg)=> { console.log(msg); });														// Failure message
 	}
 	
 	GetRelatedPlaces(id, callback)																// GET RELATED THINGS FROM ID
@@ -656,7 +656,7 @@ export default class SearchUI  {
 	DrawHeader()																				// DRAW RESULTS HEADER
 	{
 		// alert("pages.DrawHeader called()");
-		console.error("pages.Drawheader called!");
+		console.log("pages.Drawheader called!");
 		if (this.ss.mode == "related") 	return;														// Quit for special search modes
 		var lastPage=Math.floor(this.numItems/this.ss.pageSize);									// Calc last page
 		var s=this.ss.page*this.ss.pageSize+1;														// Starting item number
@@ -1513,7 +1513,7 @@ export default class SearchUI  {
 
 
 	log(message, debugObject, showAlert) {
-		console.error(message);
+		console.log(message);
 		if (debugObject) {
 			console.dir(debugObject);
 		}
