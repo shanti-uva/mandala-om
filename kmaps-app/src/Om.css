@@ -414,8 +414,8 @@ a { text-decoration:none; }
 
 .zoom > img {
 	object-fit: cover;
-	height: 15rem;
-	max-height: 15rem;
-	max-width: 15rem;
-	width: 15rem;
+	height: 99%;
+	max-height: 14rem;
+	max-width: 19rem;
+	width: 99%;
 }
