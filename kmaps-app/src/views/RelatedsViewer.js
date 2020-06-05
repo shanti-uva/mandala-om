@@ -1,12 +1,52 @@
 import React from 'react';
-import {Parser} from "html-to-react";
-import $ from "jquery";
+import {Link} from "react-router-dom";
 
 export function RelatedsViewer(props) {
 
-        const parser = new Parser();
-        const relateds = parser.parse($(props.sui.pages.reldiv).html())
-        console.log("relateds div parsed ", relateds);
-        return <div className={"relatedsviewer"} >{ relateds }</div>
+    console.log("Relateds props = ", props);
 
+    function RelatedCount(p) {
+        const count = (p.relateds?.assets) ? p.relateds.assets[p.type]?.count : 0;
+
+        // assign shanticon class according to type.  "all" type should get the "mandala" icon.
+        const iconClass = "shanticon-" + ((p.type === "all") ? "logo-shanti" : p.type);
+
+        return count ?
+            <Link to={"/view/" + p.baseType + "/" + p.baseUid + "/related/" + p.type}>
+            <span className={"sui-relatedItem"} id={"sui-rl-" + p.type} href="#">
+                <span className={"sui-color-" + p.type + " " + iconClass}></span>
+                <span className={"sui-relatedItem-label"}> {p.type}</span>
+                &nbsp;(<span id="sui-rln-places">{count}</span>)
+            </span>
+            </Link>
+            : null;
+    }
+
+    const baseArgs = {baseType: "terms", baseUid: props.id, relateds: props.relateds}
+
+    return <div className={"relatedsviewer"}>
+        <div className="sui-related">
+            RELATED RESOURCES
+            <hr/>
+            <div className="sui-relatedList">
+
+                <Link to={"/view/" + baseArgs.baseType + "/" + baseArgs.baseUid}>
+                    <div className="sui-relatedItem  sui-color-terms" id="sui-rl-Home">
+                        <span className={'sui-relatedItem-icon'}></span> <b>Home</b>
+                    </div>
+                </Link>
+
+                <RelatedCount type={"all"} {...baseArgs}/>
+                <RelatedCount type={"places"} {...baseArgs}/>
+                <RelatedCount type={"audio-video"} {...baseArgs}/>
+                <RelatedCount type={"images"} {...baseArgs}/>
+                <RelatedCount type={"sources"} {...baseArgs}/>
+                <RelatedCount type={"texts"} {...baseArgs}/>
+                <RelatedCount type={"visuals"} {...baseArgs}/>
+                <RelatedCount type={"subjects"} {...baseArgs}/>
+                <RelatedCount type={"terms"} {...baseArgs}/>
+                <RelatedCount type={"collections"} {...baseArgs}/>
+            </div>
+        </div>
+    </div>
 }

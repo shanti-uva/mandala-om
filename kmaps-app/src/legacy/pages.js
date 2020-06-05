@@ -357,7 +357,7 @@ export default class Pages  {
 			str += "<span style='font-size:18px; vertical-align:-3px; color:" + sui.assets[k].c + "'>" + sui.assets[k].g + "</span> ";
 			str += k.charAt(0).toUpperCase() + k.substr(1) + " (<span id='sui-rln-" + k.toLowerCase() + "'>0</span>)</a>";
 		}
-		if (browse && p) {																		// If browsing
+		if (false && browse && p) {																		// If browsing
 			str += "<img id='sui-relatedImg'></div>";												// Image, if available
 			str += "RECENTLY VIEWED<hr style='margin:8px 0 12px 0'>";								// Add label
 			str += "<div class='sui-relatedRecent' id='sui-relatedRecent'>";						// Div to recent entries

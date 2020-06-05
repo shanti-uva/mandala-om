@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import searchAPI from '../../logic/searchapi';
+import { search } from "../../logic/searchapi";
 import _ from 'lodash';
 
 const INITIALSTATE = {
@@ -47,7 +47,7 @@ function validateFilter(state, filter) {
 export const fetchResultsDocByParams = createAsyncThunk(
     'search/fetchResultsDoc',
     async (searchParams, thunkAPI) => {
-        const response = await searchAPI.search(searchParams)
+        const response = await search(searchParams)
         return response.data
     });
 

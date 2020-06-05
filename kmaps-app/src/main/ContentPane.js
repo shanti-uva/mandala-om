@@ -50,7 +50,7 @@ export function ContentPane(props) {
                         <RelatedsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                         <LegacyViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
-                    <Route path={`${path}/terms/:id`}>
+                    <Route path={[`${path}/terms/:id/related/:relatedType`,`${path}/terms/:id`]}>
                         <KmapContext sui={props.sui}>
                             <RelatedsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                             <TermsViewer onStateChange={props.onStateChange}/>

@@ -27,6 +27,7 @@ export default function TermNames(props) {
 export function NameEntry(props) {
     let outlist = [];
 
+    console.log("NameEntry: props.names=", props.names)
     Object.entries(props.names).map(([id, entry]) => {
         outlist.push(
             <li id={id} key={id} className={"sui-nameEntry"}>

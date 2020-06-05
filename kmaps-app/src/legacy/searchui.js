@@ -454,7 +454,7 @@ export default class SearchUI  {
 	{
 		console.log("GetKmapFromID() called with id=" + id);
 		var url=this.ss.solrUrl+"?q=uid:"+id.toLowerCase()+"&wt=json";
-		console.log("url = " + url);// Set query url
+		console.log("SOLR QUERY GetKmapFromID() = " + url);// Set query url
 		$.ajax( { url:url, dataType:'jsonp', jsonp:'json.wrf' }).done((data)=> {					// Get kmap
 
 			try {
@@ -483,7 +483,7 @@ export default class SearchUI  {
 		url+="?child_count.fq=related_kmaps_node_type:child&child_count.fl=uid&fq=!related_kmaps_node_type:parent";
 		url+="&child_count.rows=0&fl=child_count:[subquery],*&child_count.q={!child%20of='block_type:parent'}";
 		url+="{!term%20f=uid%20v=$row.related_subjects_id_s}&rows=2000&q=id:"+id+"%20OR%20{!child%20of=block_type:parent}id:"+id+"%20&sort=block_type%20DESC,%20related_subjects_header_s%20ASC";
-		this.log("GetRelatedFromID():  query = " + url);
+		this.log("SOLR QUERY GetRelatedFromID():  query = " + url);
 		$.ajax( { url:url, dataType:'jsonp', jsonp:'json.wrf' }).done((data)=> {					// Get kmap
 			this.log("GetRelatedFromID() returns " + data);
 			console.dir(data);
@@ -513,6 +513,7 @@ export default class SearchUI  {
 	GetChildDataFromID(uid, callback) 															// GET CHILD DATA FROM ID
 	{
 		let url=`${this.solrBase}kmterms${this.solrId}/query?q=uid:${uid}&wt=json&fl=*,[child%20parentFilter=block_type:parent%20limit=300]`;
+		console.log("SOLR QUERY GetChildDataFromID = " + url);
 		$.ajax( { url:url, dataType:'jsonp', jsonp:'json.wrf' }).done((data)=> {					// Get kmap
 			callback(data.response.docs[0]);														// Return data
 			}).fail((msg)=> { console.log(msg); });													// Failure message

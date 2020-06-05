@@ -1,16 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import searchAPI from "../../logic/searchapi";
-
-
-
+import { search } from "../../logic/searchapi";
 
 export const fetchAssetById = createAsyncThunk(
     'search/assetDoc',
     async (assetId, thunkAPI) => {
-      const response = await searchAPI.getAsset(assetId);
+      const response = await search.getAsset(assetId);
       return response.data
     });
-
 
 export const kmassetSlice = createSlice({
     name: 'kmap',
