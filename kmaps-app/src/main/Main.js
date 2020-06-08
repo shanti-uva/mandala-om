@@ -29,7 +29,7 @@ export class Main extends React.Component {
 
     render() {
         const main =
-            <Router>
+            <Router basename={"/mandala-om"}>
                 <div id={'sui-main'} className={'sui-main'}>
                     <div>
                         <TopBar/>
