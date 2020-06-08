@@ -1,6 +1,7 @@
 import KmapsSolrUtil from '../legacy/kmapsSolrUtil';
 import axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
+import _ from 'lodash';
 
 export async function search(searchstate) {
     // TODO:  need to pass configuration.   Otherwise dev defaults are used.
@@ -22,7 +23,7 @@ export async function search(searchstate) {
 
 function getCached(request) {
     let data = null;
-    if (sessionStorage) {
+    if (false && sessionStorage) {
         try {
             const cached = sessionStorage.getItem(JSON.stringify(request));
             if (cached) {
@@ -128,7 +129,7 @@ export function getFullKmapDataPromise(kmapid) {
         console.log("getFullKmapDataPromise(): Calling axios:")
         axios.request(request).then((res) => {
             console.log("getFullKmapDataPromise(): Yay! axios call succeeded!", res);
-            const data = res.data.response.docs[0];
+            const data = cleanKmapData(res.data.response.docs[0]);
             setCache(request,data);
             resolve(data);
         }).catch(reason => {
@@ -142,6 +143,13 @@ export function getFullKmapDataPromise(kmapid) {
 }
 
 
+
+function cleanKmapData( data ) {
+
+    console.log("clean kmap data = ", data);
+
+    return data;
+}
 
 
 
@@ -206,8 +214,12 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
         console.log("unpacking assets: ", res.data.response.docs);
         const docs = res.data.response.docs;
 
+
+
+
         docs.forEach( (x) => {
-           asset_counts[ x.asset_type ].docs.push(x);
+           const y =  cleanAssetData(x);
+           asset_counts[ x.asset_type ].docs.push(y);
         });
 
         return { uid: kmapid, start: start, rows: rows, type: type, stateKey: [kmapid,type,start,rows].join("/"), assets: asset_counts };
@@ -232,4 +244,23 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
     });
     return promise;
 
+}
+
+function cleanAssetData( data ) {
+
+    const asset_type = data.asset_type;
+    switch (asset_type) {
+        case 'texts':
+        case 'sources':
+        case 'subjects':
+        case 'places':
+        case 'terms':
+            data.url_thumb = "/mandala-om/gradient.jpg";
+            break;
+    }
+
+    console.log("clean thumb = " , data.url_thumb);
+
+    console.log("returning clean: ", data);
+    return data;
 }

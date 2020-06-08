@@ -435,8 +435,42 @@ a { text-decoration:none; }
 
 .zoom > img {
 	object-fit: cover;
-	height: 99%;
+	height: 9rem;
 	max-height: 14rem;
 	max-width: 19rem;
 	width: 99%;
 }
+
+
+ /*CARD SIZE ADJUSTMENTS*/
+.card .h1 {
+		font-size: 1.5rem;
+}
+
+.card .h2 {
+	font-size: 1.4rem;
+}
+
+.card .h3 {
+	font-size: 1.3rem;
+}
+
+.card .h4 {
+	font-size: 1.1rem;
+}
+
+.card .h5 {
+	font-size: 0.8rem;
+	font-weight: bold;
+}
+
+
+.kmap-entry.card .h5 {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.card .h6 {
+	font-size: 0.5rem;
+}
+

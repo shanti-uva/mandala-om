@@ -9,7 +9,7 @@ export default function TermNames(props) {
     // TODO: Refactor so that Redux delivers the rebuilt nested docs instead of leaving it up to the Components.
     const namesTree = buildNestedDocs(props.kmap._childDocuments_, "related_names");
 
-    let output = <Card>
+    let output = <Card className={"kmap-entry"}>
         <Card.Body><Card.Title>Names</Card.Title>
             <ul className={"sui-nameEntry"}><NameEntry names={namesTree}/></ul>
         </Card.Body>

@@ -6,10 +6,10 @@ import * as PropTypes from "prop-types";
 import React from "react";
 
 export function FeatureCard(props) {
-    return <Card className={"m-1 p-2 zoom"}>
+    return <Card className={"m-2 zoom"}>
         <Card.Img variant="top" src={props.doc.url_thumb}/>
         <Card.Body>
-            <Card.Title className={"sm"}>{props.doc.title[0]}</Card.Title>
+            <Card.Title>{props.doc.title[0]}</Card.Title>
             <Card.Text>
                 {!_.isEmpty(props.doc.caption) ? props.doc.caption : props.doc.summary}
             </Card.Text>
