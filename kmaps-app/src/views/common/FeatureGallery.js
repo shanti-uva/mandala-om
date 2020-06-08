@@ -14,9 +14,9 @@ export function FeatureGallery(props) {
     // The length of the Rows at each Break Point
     const BP_SIZES = {
         sm: 2,
-        md: 3,
-        lg: 4,
-        xl: 5
+        md: 4,
+        lg: 6,
+        xl: 8
     }
     const {relatedType} = useParams(); // USES PARAMS from React Router  Refactor?
 

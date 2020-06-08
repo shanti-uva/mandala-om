@@ -25,7 +25,7 @@ export function FeatureGalleryPager(props) {
 
 
         <span className={"float-right"}>
-            <span>page size:</span>
+            <span>items per page:</span>
             <InputNumber
                 aria-label="Set number of items per page"
                 min={1}
