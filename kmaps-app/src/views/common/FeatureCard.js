@@ -15,16 +15,16 @@ export function FeatureCard(props) {
             </Card.Text>
             {/*<Button variant="primary">Go somewhere</Button>*/}
 
-            <Accordion>
-                <Accordion.Toggle as={Button} eventKey="0">
-                    Item JSON
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                        <pre>
-                            {JSON.stringify(props.doc, undefined, 2)}
-                        </pre>
-                </Accordion.Collapse>
-            </Accordion>
+            {/*<Accordion>*/}
+            {/*    <Accordion.Toggle as={Button} eventKey="0">*/}
+            {/*        Item JSON*/}
+            {/*    </Accordion.Toggle>*/}
+            {/*    <Accordion.Collapse eventKey="0">*/}
+            {/*            <pre>*/}
+            {/*                {JSON.stringify(props.doc, undefined, 2)}*/}
+            {/*            </pre>*/}
+            {/*    </Accordion.Collapse>*/}
+            {/*</Accordion>*/}
         </Card.Body>
     </Card>;
 }

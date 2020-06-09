@@ -205,10 +205,11 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
         const buckets = res.data.facets.asset_counts.buckets;
 
         let asset_counts = {
-            "all" : { "count" : res.data.facets.count, "docs": res.data.response.docs }
+            "all" : { "count" : 0, "docs": res.data.response.docs }
         };
         buckets.forEach( (x) => {
             asset_counts[x.val] = { count: x.count, docs: [] };
+            asset_counts["all"].count += x.count;
         });
 
         console.log("unpacking assets: ", res.data.response.docs);
