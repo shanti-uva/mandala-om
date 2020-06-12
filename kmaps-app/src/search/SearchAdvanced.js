@@ -1,10 +1,8 @@
-import {useSelector} from "react-redux";
-import {selectQuery} from "../slices/kmsearch/kmsearchSlice";
 import {FacetBox} from "./FacetBox";
 import React from "react";
 
 export function SearchAdvanced(props) {
-    const query = useSelector(selectQuery);
+    const query = "";
     console.log("SearchAdvanced: query = ", query);
     const openclass = props.advanced ? "open" : "closed";
     const advanced =

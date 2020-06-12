@@ -269,7 +269,7 @@ export default class SearchUI  {
 
 	PageRouter(hash)																			// ROUTE PAGE BASED ON QUERY HASH OR BACK BUTTON													
 	{
-		this.alert("PageRouter called.");
+		console.log ("PageRouter called.");
 		const sui = this.sui;
 		const here = window.location.href.split("#")[0];												// Remove any hashes
 		let id;
@@ -1524,7 +1524,7 @@ export default class SearchUI  {
 	}
 
 	alert(message, debugObject) {
-		this.log(message,debugObject,true);
+		this.log(message,debugObject,false);
 	}
 
 } // SearchUI class closure

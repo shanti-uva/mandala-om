@@ -5,24 +5,10 @@ export function RelatedsViewer(props) {
 
     console.log("Relateds props = ", props);
 
-    function RelatedCount(p) {
-        const count = (p.relateds?.assets) ? p.relateds.assets[p.type]?.count : 0;
-
-        // assign shanticon class according to type.  "all" type should get the "mandala" icon.
-        const iconClass = "shanticon-" + ((p.type === "all") ? "logo-shanti" : p.type);
-
-        return count ?
-            <Link to={"/view/" + p.baseType + "/" + p.baseUid + "/related/" + p.type}>
-            <span className={"sui-relatedItem"} id={"sui-rl-" + p.type} href="#">
-                <span className={"sui-color-" + p.type + " " + iconClass}></span>
-                <span className={"sui-relatedItem-label"}> {p.type}</span>
-                &nbsp;(<span id="sui-rln-places">{count}</span>)
-            </span>
-            </Link>
-            : null;
-    }
-
     const baseArgs = {baseType: "terms", baseUid: props.id, relateds: props.relateds}
+    if (!props.id) {
+        return null;
+    }
 
     return <div className={"relatedsviewer"}>
         <div className="sui-related">
@@ -49,4 +35,22 @@ export function RelatedsViewer(props) {
             </div>
         </div>
     </div>
+}
+
+function RelatedCount(p) {
+    const count = (p.relateds?.assets) ? p.relateds.assets[p.type]?.count : 0;
+
+    // assign shanticon class according to type.  "all" type should get the "shanticon-logo-shanti" icon.
+    const iconClass = "shanticon-" + ((p.type === "all") ? "logo-shanti" : p.type);
+
+    // return null if the count doesn't exist or is === 0
+    return count ?
+        <Link to={"/view/" + p.baseType + "/" + p.baseUid + "/related/" + p.type}>
+            <span className={"sui-relatedItem"} id={"sui-rl-" + p.type} href="#">
+                <span className={"sui-color-" + p.type + " " + iconClass}></span>
+                <span className={"sui-relatedItem-label"}> {p.type}</span>
+                &nbsp;(<span id="sui-rln-places">{count}</span>)
+            </span>
+        </Link>
+        : null;
 }

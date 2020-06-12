@@ -9,8 +9,17 @@ import Container from "react-bootstrap/Container";
 import CardDeck from "react-bootstrap/CardDeck";
 import {FeatureGalleryPager} from "./FeatureGalleryPager";
 
-export function FeatureGallery(props) {
 
+export function RelatedsGallery(props) {
+    const {relatedType: type} = useParams(); // USES PARAMS from React Router  Refactor?
+    const allAssets = props.relateds?.assets;
+    const assets = (allAssets)?allAssets[type]:null;
+    const docs = assets?.docs;
+    return <FeatureGallery docs={ docs } pager={ props.pager } />
+}
+
+export function FeatureGallery(props) {
+    const docs = props.docs;
     // The length of the Rows at each Break Point
     const BP_SIZES = {
         sm: 2,
@@ -18,50 +27,49 @@ export function FeatureGallery(props) {
         lg: 4,
         xl: 6
     }
-    const {relatedType} = useParams(); // USES PARAMS from React Router  Refactor?
 
     let DEBUG_PRE = [];
     let LIST = [];
-
-    if (props.relateds?.assets && props.relateds.assets[relatedType]) {
-        console.log("RelatedsGallery: looking at ", props.relateds.assets[relatedType]);
-        LIST = props.relateds.assets[relatedType].docs?.map((doc, i) => {
+    if (docs) {
+        console.log("FeatureGallery: looking at ", docs);
+        LIST = docs?.map((doc, i) => {
             let ret = [];
-
-            const fcard = <FeatureCard doc={doc}/>;
+            const featureCard = <FeatureCard doc={doc} key={ i }/>;
 
             // Insert breakpoints for various window sizes
             if (i !== 0) {
                 if (i % BP_SIZES.sm === 0) {
-                    ret.push(<div className="w-100 d-none d-sm-block d-md-none"></div>)
+                    ret.push(<div className="w-100 d-none d-sm-block d-md-none" key={ "x" + i }></div>)
                 }
                 if (i % BP_SIZES.md === 0) {
-                    ret.push(<div className="w-100 d-none d-md-block d-lg-none"></div>)
+                    ret.push(<div className="w-100 d-none d-md-block d-lg-none" key={"y987" + i}></div>)
                 }
                 if (i % BP_SIZES.lg === 0) {
-                    ret.push(<div className="w-100 d-none d-lg-block d-xl-none"></div>)
+                    ret.push(<div className="w-100 d-none d-lg-block d-xl-none" key={"z" + i}></div>)
                 }
                 if (i % BP_SIZES.xl === 0) {
-                    ret.push(<div className="w-100 d-none d-xl-block"></div>)
+                    ret.push(<div className="w-100 d-none d-xl-block" key={"w" + i}></div>)
                 }
             }
-            ret.push(fcard);
+            ret.push(featureCard);
             return ret;
         });
         let REMAINDER = rowFiller(LIST.length, BP_SIZES);
         LIST.push(...REMAINDER);
 
+        console.log("FeatureGallery LIST = ", LIST);
+
         DEBUG_PRE =
             <Accordion>
                 <Accordion.Toggle as={Button} eventKey="0">Full JSON</Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
-                    <pre>{JSON.stringify(props.relateds.assets[relatedType].docs, undefined, 1)}</pre>
+                    <pre>{JSON.stringify(docs, undefined, 1)}</pre>
                 </Accordion.Collapse>
             </Accordion>
     }
 
     const output = <React.Fragment>
-        <h5 className={"sui-relatedHeader"}>Related {relatedType}</h5>
+        {/*<h5 className={"sui-relatedHeader"}>Related {type}</h5>*/}
         <FeatureGalleryPager pager={props.pager}/>
         <Container>
             <CardDeck>
@@ -85,14 +93,14 @@ function rowFiller(length, bp_sizes) {
     for (let i = 0; i < maxLength; i++) {
         let remClasses = ["m-1", "p-2", "d-none"];  // TODO: need to get / set defaults from someplace...
         for (let [type, size] of Object.entries(bp_sizes)) {
-            console.log(`${type}: ${size}`);
+            // console.log(`${type}: ${size}`);
             if (length % size !== 0 && i < size - (length % size)) {
                 remClasses.push(`d-${type}-block ${remainVisible}`);
             } else {
                 remClasses.push(`d-${type}-none`);
             }
         }
-        const remainderCard = <Card className={remClasses.join(" ")}>
+        const remainderCard = <Card className={remClasses.join(" ")} key= { "fill" + i }>
             <Card.Text>
                 {/* for debugging */}
                 <pre>{remClasses.join("\n")}</pre>

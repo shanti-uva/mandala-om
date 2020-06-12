@@ -13,13 +13,14 @@ export function FeatureGalleryPager(props) {
                 style={{width: "4em"}}
                 value={props.pager.getPage() + 1}
                 onChange={(pg) => {
+                    console.log("FeatureGalleryPager pg = " + pg + " maxPage = " + props.pager.getMaxPage() );
                     props.pager.setPage(pg - 1);
                 }}
                 onPressEnter={(evt) => {
                     evt.target.blur();
                 }}
                 readOnly={false}
-                disabled={false}xw
+                disabled={false}
             /> of {props.pager.getMaxPage() + 1}
         </span>
 

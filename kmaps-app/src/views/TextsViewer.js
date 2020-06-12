@@ -1,52 +1,15 @@
 import React from 'react';
 
-export class TextsViewer extends React.Component {
+export function TextsViewer(props) {
+    // This has been passed props from <KmapContext> which currently wraps it
+    const kmap = props.kmaps;
+    const kmasset = props.kmasset;
 
-    constructor(props) {
-        super(props);
 
-        console.error(typeof props.sui);
-        if (typeof props.sui !== 'object') {
-            throw new Error("sui must be passed as a property to the component!");
-        }
+    let output = [ <div>I am TextViewer, hear me roar.</div> ];
+    output.push(<div>I have been passed the properties: <pre>{ JSON.stringify(props, undefined, 2)} </pre></div>);
 
-        if (typeof props.sui.pages !== 'object') {
-            throw new Error("sui.pages must be passed as part of the sui passed to the constructor!");
-        }
 
-        this.sui = props.sui;
-        this.props = props;
-    }
-
-    componentDidMount() {
-    }
-
-    componentDidCatch(error, errorInfo) {
-    }
-
-    componentWillUnmount() {
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-    }
-
-    render() {
-        this.sui.GetKmapFromID(this.props.id, (kmap) => {
-            console.dir(kmap);
-            if (kmap.uid) {
-                console.log("	PAGEROUTER: calling pages.Draw() with kmap=" + kmap.uid);
-                this.sui.pages.Draw(kmap, true);
-            } else {
-                alert("kmap.uid was null");
-            }
-        });
-
-        return <div className={"texts legacy"} >TEXTS LEGACY { JSON.stringify(this.props.sui.state) }</div>
-
-    }
-
+    return output
 
 }

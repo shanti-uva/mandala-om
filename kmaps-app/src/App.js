@@ -5,9 +5,7 @@ import Pages from "./legacy/pages";
 
 import './Om.css';
 import './shanticon.css';
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-import {CounterPage} from "./misc/CounterPage";
-import {HeadSpace} from "./misc/HeadSpace";
+// import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import {Main} from "./main/Main";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

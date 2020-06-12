@@ -18,7 +18,7 @@ export class SearchBar extends React.Component {
             <div id='sui-top' className='sui-top'>
                 {/*<form onSubmit={this.handleSubmit}>*/}
                 <div style={{display: 'inline-block'}}>
-                    <BasicSearch onSubmit={this.handleSubmit}/>
+                    <BasicSearch onSubmit={this.handleSubmit} onChange={this.handleInputChange}/>
                     <AdvancedToggle onStateChange={this.handleStateChange} advanced={this.state.advanced}/>
                     <HamburgerToggle onStateChange={this.handleStateChange}
                                      hamburgerOpen={this.state.hamburgerOpen}/>
@@ -35,7 +35,7 @@ export class SearchBar extends React.Component {
 
     handleSubmit(value) {
         console.log("Submit: " + value);
-        alert("Submit: " + value);
+        // alert("Submit: " + value);
         // this is a "fake" submit
     }
 
