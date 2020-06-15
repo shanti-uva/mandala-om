@@ -1,29 +1,18 @@
-import KmapsSolrUtil from '../legacy/kmapsSolrUtil';
 import axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
-import _ from 'lodash';
 
 export async function search(searchstate) {
-    // TODO:  need to pass configuration.   Otherwise dev defaults are used.
-    const ksolr = new KmapsSolrUtil();
 
-    function adaptState(searchstate) {
-        // adjust state if necessary
-        const adaptedState = searchstate.map(x => x);
-        return adaptedState;
-    }
+    return await getAssetSearchPromise(searchstate);
 
-    const adaptedState = adaptState(searchstate);
-    const solrQueryUrl = ksolr.createBasicQuery(adaptedState);
-
-    await fetch(solrQueryUrl)
-        .then(res => (res.ok ? res : Promise.reject(res)))
-        .then(res => res.json())
+    // TODO:  need to pass configuration.   dev defaults are used now.
 }
 
+//  TODO: Maybe refactor to use declarative caching instead...?
 function getCached(request) {
     let data = null;
-    if (false && sessionStorage) {
+    // TODO: Need explicit cache controls and timeouts, etc.
+    if (sessionStorage) {
         try {
             const cached = sessionStorage.getItem(JSON.stringify(request));
             if (cached) {
@@ -49,51 +38,191 @@ function setCache(request, data) {
     }
 }
 
-export function getAssetDataPromise(kmapid) {
+export function clearCache() {
+    sessionStorage.clear();
+}
 
-        const host = 'ss251856-us-east-1-aws.measuredsearch.com';
-        const index = 'kmassets_dev';
-        const selectUrl = 'https://' + host + '/solr/' + index + '/select';
-        const startRec = 0;
-        const rowsRec = 1;
+export function getAssetSearchPromise(search) {
 
-        const request = {
-            'adapter': jsonpAdapter,
-            'callbackParamName': 'json.wrf',
-            'url': selectUrl,
-            'params': {
-                'fl': '*',
-                'wt': 'json',
-                'echoParams': 'explicit',
-                'indent': 'true',
-                'start': startRec,
-                'rows': rowsRec,
-                'q': 'uid:${kmapid}',
-                'kmapid': kmapid
+    // TODO: parameterize the use of facets
+    // TODO: parameterize constructTextQuery
+
+    console.log("UNPACKING search: ", search);
+    const  { page, query }  = search;
+
+    console.log("UNPACKING page: ", page);
+    console.log("UNPACKING query: ", query);
+
+    const host = 'ss251856-us-east-1-aws.measuredsearch.com';
+    const index = 'kmassets_dev';
+    const selectUrl = 'https://' + host + '/solr/' + index + '/select';
+    const startRec = page.start || 0;
+    const rowsRec = page.rows || 10;
+
+    const jsonFacet = {
+        asset_count: {
+            type: "terms",
+            field: "asset_type",
+            limit: 500
+        },
+        related_subjects: {
+            type: "terms",
+            field: "kmapid_subjects_idfacet",
+            limit: 500
+        },
+        related_terms: {
+            type: "terms",
+            field: "kmapid_terms_idfacet",
+            limit: 500
+        },
+        "feature_types": {
+            "limit": 300,
+            "type": "terms",
+            "field": "feature_types_idfacet"
+        },
+        "languages": {
+            "limit": 300,
+            "type": "terms",
+            "field": "node_lang"
+        },
+        "collections": {
+            "limit": 300,
+            "type": "terms",
+            "field": "collection_idfacet"
+        },
+
+        "collection_nid": {
+            "limit": 300,
+            "type": "terms",
+            "field": "collection_nid"
+        },
+        "collection_uid": {
+            "limit": 300,
+            "type": "terms",
+            "field": "collection_uid_s"
+        },
+        "asset_subtype": {
+            "limit": 300,
+            "type": "terms",
+            "field": "asset_subtype",
+            "facet": {
+                "parent_type": {
+                    "limit": 1,
+                    "type": "terms",
+                    "field": "asset_type"
+                }
             }
+        },
+        "node_user": {
+            "limit": 300,
+            "type": "terms",
+            "field": "user_name_full_s"
+        },
+        "creator": {
+            "limit": 300,
+            "type": "terms",
+            "field": "creator"
+        }
+    };
+
+    let params = {
+        'fl': '*',
+        'wt': 'json',
+        'echoParams': 'explicit',
+        'indent': 'true',
+        'start': startRec,
+        'rows': rowsRec,
+        // eslint-disable-next-line
+        // 'q': 'text:${text}',
+        // 'text': search.query.searchText,
+        'json.facet': JSON.stringify(
+            jsonFacet
+        )
+    };
+
+    const queryParams = constructTextQuery(search.query.searchText);
+
+    params = { ...params, ...queryParams }
+
+
+
+    const request = {
+        'adapter': jsonpAdapter,
+        'callbackParamName': 'json.wrf',
+        'url': selectUrl,
+        'params': params
+    }
+
+    const promise = new Promise((resolve, reject) => {
+        let data = getCached(request);
+        if (false && data) {
+            resolve(data);
+            return;
         }
 
-        const promise = new Promise((resolve, reject) => {
-            let data = getCached(request);
-            if (data) {
-                resolve(data);
-                return;
+        console.log("getAssetSearchPromise(): Calling axios:");
+        axios.request(request).then((res) => {
+            console.log("getAssetSearchPromise():  Yay! axios call succeeded!", res);
+            console.log("getAssetSearchPromise(): res = ", res);
+            const data = {
+                numFound: res.data.response.numFound,
+                docs: res.data.response.docs,
+                facets: res.data.facets
             }
-
-            console.log("getAssetDataPromise(): Calling axios:");
-            axios.request(request).then((res) => {
-                console.log("getAssetDataPromise():  Yay! axios call succeeded!", res);
-                const data = res.data.response.docs[0];
-                setCache(request, data);
-                resolve(data);
-            }).catch(reason => {
-                console.log("gertAssetDataPromise(): OUCH axios call failed!", reason);
-                reject(reason);
-            });
+            setCache(request, data);
+            resolve(data);
+        }).catch(reason => {
+            console.log("getAssetSearchPromise(): OUCH axios call failed!", reason);
+            reject(reason);
         });
-        return promise;
+    });
+    return promise;
+}
 
+export function getAssetDataPromise(kmapid) {
 
+    const host = 'ss251856-us-east-1-aws.measuredsearch.com';
+    const index = 'kmassets_dev';
+    const selectUrl = 'https://' + host + '/solr/' + index + '/select';
+    const startRec = 0;
+    const rowsRec = 1;
+
+    const request = {
+        'adapter': jsonpAdapter,
+        'callbackParamName': 'json.wrf',
+        'url': selectUrl,
+        'params': {
+            'fl': '*',
+            'wt': 'json',
+            'echoParams': 'explicit',
+            'indent': 'true',
+            'start': startRec,
+            'rows': rowsRec,
+            // eslint-disable-next-line
+            'q': 'uid:${kmapid}',
+            'kmapid': kmapid
+        }
+    }
+
+    const promise = new Promise((resolve, reject) => {
+        let data = getCached(request);
+        if (data) {
+            resolve(data);
+            return;
+        }
+
+        console.log("getAssetDataPromise(): Calling axios:");
+        axios.request(request).then((res) => {
+            console.log("getAssetDataPromise():  Yay! axios call succeeded!", res);
+            const data = res.data.response.docs[0];
+            setCache(request, data);
+            resolve(data);
+        }).catch(reason => {
+            console.log("gertAssetDataPromise(): OUCH axios call failed!", reason);
+            reject(reason);
+        });
+    });
+    return promise;
 }
 
 export function getFullKmapDataPromise(kmapid) {
@@ -109,12 +238,13 @@ export function getFullKmapDataPromise(kmapid) {
         'callbackParamName': 'json.wrf',
         'url': selectUrl,
         'params': {
-            'fl':'*,[child parentFilter=block_type:parent limit=1000]',
+            'fl': '*,[child parentFilter=block_type:parent limit=1000]',
             'wt': 'json',
             'echoParams': 'explicit',
             'indent': 'true',
             'start': startRec,
             'rows': rowsRec,
+            // eslint-disable-next-line
             'q': 'uid:${kmapid}',
             'kmapid': kmapid
         }
@@ -130,7 +260,7 @@ export function getFullKmapDataPromise(kmapid) {
         axios.request(request).then((res) => {
             console.log("getFullKmapDataPromise(): Yay! axios call succeeded!", res);
             const data = cleanKmapData(res.data.response.docs[0]);
-            setCache(request,data);
+            setCache(request, data);
             resolve(data);
         }).catch(reason => {
             console.log("getFullKmapDataPromise(): OUCH axios call failed!", reason);
@@ -143,30 +273,26 @@ export function getFullKmapDataPromise(kmapid) {
 }
 
 
-
-function cleanKmapData( data ) {
+function cleanKmapData(data) {
 
     console.log("clean kmap data = ", data);
-
     return data;
 }
 
+export function getRelatedAssetsPromise(kmapid, type, start, rows) {
 
-
-export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
-
-    console.log( "getRelatedAssetsPromise() Promising: ", arguments);
+    console.log("getRelatedAssetsPromise() Promising: ", arguments);
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
     const selectUrl = 'https://' + host + '/solr/' + index + '/select';
     const defaultStart = 0;
     const defaultRows = 100;
 
-    const ALL = ["audio-video","images","texts","visuals","sources","subjects","places","terms"];
+    const ALL = ["audio-video", "images", "texts", "visuals", "sources", "subjects", "places", "terms"];
 
-    const asset_types = (typeof type ==="undefined" || type === "all" )?ALL:[ type ];
-    const startRec = (typeof start === "undefined" )?defaultStart:start;
-    const rowsRec = (typeof rows === "undefined")?defaultRows:rows;
+    const asset_types = (typeof type === "undefined" || type === "all") ? ALL : [type];
+    const startRec = (typeof start === "undefined") ? defaultStart : start;
+    const rowsRec = (typeof rows === "undefined") ? defaultRows : rows;
 
     console.log("getRelatedAssetsPromise: start = " + startRec + " rows = " + rowsRec);
 
@@ -180,22 +306,25 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
         }
     });
 
+    let params = {
+        'fl': '*',
+        'wt': 'json',
+        'echoParams': 'explicit',
+        'indent': 'true',
+        'start': startRec,
+        'rows': rowsRec,
+        'json.facet': facetJson,
+        // eslint-disable-next-line
+        'q': '(uid:${kmapid}^100+kmapid:${kmapid})',
+        'kmapid': kmapid,
+        'fq': '{!tag=ast}asset_type:( ' + asset_types.join(' ') + ')'
+    };
+
     const request = {
         'adapter': jsonpAdapter,
         'callbackParamName': 'json.wrf',
         'url': selectUrl,
-        'params': {
-            'fl': '*',
-            'wt': 'json',
-            'echoParams': 'explicit',
-            'indent': 'true',
-            'start': startRec,
-            'rows': rowsRec,
-            'json.facet': facetJson,
-            'q': '(uid:${kmapid}^100+kmapid:${kmapid})',
-            'kmapid': kmapid,
-            'fq': '{!tag=ast}asset_type:( ' + asset_types.join(' ') + ')'
-        }
+        'params': params
     }
 
     const unpackResponse = (res) => {
@@ -205,24 +334,30 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
         const buckets = res.data.facets.asset_counts.buckets;
 
         let asset_counts = {
-            "all" : { "count" : res.data.facets.count, "docs": res.data.response.docs }
+            "all": {"count": 0, "docs": res.data.response.docs}
         };
-        buckets.forEach( (x) => {
-            asset_counts[x.val] = { count: x.count, docs: [] };
+        buckets.forEach((x) => {
+            asset_counts[x.val] = {count: x.count, docs: []};
+            asset_counts["all"].count += x.count;
         });
 
         console.log("unpacking assets: ", res.data.response.docs);
         const docs = res.data.response.docs;
 
 
-
-
-        docs.forEach( (x) => {
-           const y =  cleanAssetData(x);
-           asset_counts[ x.asset_type ].docs.push(y);
+        docs.forEach((x) => {
+            const y = cleanAssetData(x);
+            asset_counts[x.asset_type].docs.push(y);
         });
 
-        return { uid: kmapid, start: start, rows: rows, type: type, stateKey: [kmapid,type,start,rows].join("/"), assets: asset_counts };
+        return {
+            uid: kmapid,
+            start: start,
+            rows: rows,
+            type: type,
+            stateKey: [kmapid, type, start, rows].join("/"),
+            assets: asset_counts
+        };
     };
 
     const promise = new Promise((resolve, reject) => {
@@ -235,7 +370,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
         axios.request(request).then((res) => {
             console.log("getRelatedAssetsPromise():  Yay! axios call succeeded!", res);
             const data = unpackResponse(res);
-            setCache(request,data);
+            setCache(request, data);
             resolve(data);
         }).catch(reason => {
             console.log("getRelatedAssetsPromise(): OUCH axios call failed!", reason);
@@ -246,7 +381,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows ) {
 
 }
 
-function cleanAssetData( data ) {
+function cleanAssetData(data) {
 
     const asset_type = data.asset_type;
     switch (asset_type) {
@@ -257,10 +392,61 @@ function cleanAssetData( data ) {
         case 'terms':
             data.url_thumb = "/mandala-om/gradient.jpg";
             break;
+        default:
+            break;
     }
 
-    console.log("clean thumb = " , data.url_thumb);
+    console.log("clean thumb = ", data.url_thumb);
 
     console.log("returning clean: ", data);
     return data;
+}
+
+
+function constructTextQuery(searchString) {
+
+    let searchstring = escapeSearchString(searchString || "");
+
+    // console.log (JSON.stringify(state));
+    let starts = (searchstring.length) ? searchstring + "*" : "*";
+    let search = (searchstring.length) ? "*" + searchstring + "*" : "*";
+    let slashy = searchstring + "/";
+    if (!searchString || searchstring.length === 0) {
+        searchstring = search = slashy = "*";
+    }
+
+    var basic_req = {
+        // search: tweak for scoping later
+        "q": "(" +
+            " title:${xact}^100" +
+            " title:${slashy}^100" +
+            " names_txt:${xact}^90" +
+            " title:${starts}^80" +
+            " names_txt:${starts}^70" +
+            " title:${search}^10" +
+            " caption:${search}" +
+            " summary:${search}" +
+            " names_txt:${search}" +
+            ")",
+
+        // search strings
+        "xact": searchstring,
+        "starts": starts,
+        "search": search,
+        "slashy": slashy,
+    };
+
+    return basic_req;
+}
+
+function escapeSearchString(str) {
+    str = str.replace(/ /g, '\\ '); // escape spaces
+    str = str.replace('(', '\\(');
+    str = str.replace(')', '\\)');
+    str = str.replace(':', '\\:');
+    str = str.replace('+', '\\+');
+    str = str.replace('-', '\\-');
+    str = str.replace('"', '\\\"');
+    str = str.replace('?', '\\?');
+    return str;
 }

@@ -1,8 +1,6 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import {useParams} from "react-router";
-import axios from 'axios';
 import {getRelatedAssetsPromise, getAssetDataPromise, getFullKmapDataPromise} from "../logic/searchapi";
-import {createInitialStateFactory} from "@reduxjs/toolkit";
 import _ from 'lodash';
 
 /**
@@ -22,6 +20,7 @@ export default function KmapContext(props) {
 
     console.log("KmapContext: props=", props);
 
+    // eslint-disable-next-line
     const [kmapId, setKmapId] = useState("");
     const [kmasset, setKmAsset] = useState({});
     const [relateds, setRelateds] = useState({});
@@ -75,34 +74,13 @@ export default function KmapContext(props) {
         getPageSize: () => {
             return pageSize;
         },
-        // next: () => {
-        //     console.log("check relateds: ", relateds);
-        //     const maxCount = relateds.assets[relatedType].count;
-        //     if ((relatedPage + 1) * pageSize < maxCount) {
-        //         setRelatedPage((last) => (last + 1))
-        //     }
-        // },
-        // prev: () => {
-        //     if ((relatedPage - 1) >= 0) {
-        //         setRelatedPage((last) => (last - 1))
-        //     }
-        // }
+
     }
 
     if (!props.children) {
         let output = <h2>No Children?</h2>;
         return output;
     } else {
-        if (typeof props.sui !== 'object') {
-            throw new Error("sui must be passed as a property to the component!");
-        }
-        if (typeof props.sui.pages !== 'object') {
-            throw new Error("sui.pages must be passed as part of the sui passed to the constructor!");
-        }
-
-        // if (id) {
-        //     setKmapId(id);
-        // }
 
         let changed = false;
 
@@ -121,13 +99,14 @@ export default function KmapContext(props) {
             const {status: relateds_status, value: new_relateds} = relateds_result;
 
             let kmprops = {};
-            if (kmap_status === 'fulfilled' && kmap.uid !== new_kmap.uid) {
+
+            if (new_kmap && (kmap_status === 'fulfilled') && kmap.uid !== new_kmap.uid) {
                 kmprops.kmap = new_kmap;
                 setKmap(new_kmap);
                 setKmapId(id);
                 changed = true;
             }
-            if (kmasset_status === 'fulfilled' && kmasset.uid !== new_kmasset.uid) {
+            if (new_kmasset && kmasset_status === 'fulfilled' && kmasset.uid !== new_kmasset.uid) {
                 kmprops.kmasset = new_kmasset;
                 setKmAsset(new_kmasset);
                 changed = true;

@@ -1,22 +1,24 @@
-import React, {useRef, useState} from "react";
-import {useSelector} from "react-redux";
-import {selectText} from "../slices/kmsearch/kmsearchSlice";
+import React, {useRef} from "react";
 import * as PropTypes from "prop-types";
+import _ from "lodash";
 
 export function BasicSearch(props) {
     const inputEl = useRef(null);
-    const currText = useSelector(selectText);
-    const [state, setState] = useState({searchString: {currText}});
+    const currText="";
+    // const [state, setState] = useState({searchString: {currText}});
     const clearInput = () => {
         inputEl.current.value = "";
+        props.onSubmit(inputEl.current.value);
     };
     const handleSubmit = () => {
         props.onSubmit(inputEl.current.value);
     }
-    const handleChange = () => {
+    const handleChange =
         // To be used for completions if desired
-        // console.log("handleChange: ",inputEl.current.value);
-    }
+        _.debounce(() => {
+            console.log("handleChange: ",inputEl.current.value);
+        }, 300)
+
     const handleKey = (x) => {
         // submit on return
         if (x.keyCode === 13) {

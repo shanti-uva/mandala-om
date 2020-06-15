@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router";
-import axios from 'axios';
+import React from 'react';
 
 export function TextsViewer(props) {
-    const params = useParams();
-    const tid = params.id;
-    const tnum = tid.split('-').pop();
-    const tembedpath = 'https://texts-stage.shanti.virginia.edu/shanti_texts/node_embed/' + tnum;
-    const [txthtml, setData] = useState({ data: '' });
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios( tembedpath );
-            setData(result);
-        };
-        fetchData();
-    }, []);
-    console.log(txthtml);
+    // This has been passed props from <KmapContext> which currently wraps it
+    const kmap = props.kmaps;
+    const kmasset = props.kmasset;
 
-    function createMarkup(customhtml) {
-        return {__html: customhtml };
-    }
 
-    return (
-        <div dangerouslySetInnerHTML={createMarkup(txthtml.data)} />
-    );
+    let output = [ <div>I am TextViewer, hear me roar.</div> ];
+    output.push(<div>I have been passed the properties: <pre>{ JSON.stringify(props, undefined, 2)} </pre></div>);
+
+
+    return output;
+
 }
-

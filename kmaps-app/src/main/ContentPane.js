@@ -11,13 +11,18 @@ import {SubjectsViewer} from "../views/SubjectsViewer";
 import {RelatedsViewer} from "../views/RelatedsViewer";
 import LegacyViewer from "../views/LegacyViewer";
 import TermsViewer from "../views/TermsViewer";
+import {SearchViewer} from "../views/SearchViewer";
 import {CollectionsViewer} from "../views/CollectionsViewer";
 import {Error404} from "../App";
 import KmapContext from "../context/KmapContext";
+import SearchContext from "../context/SearchContext";
 
 export function ContentPane(props) {
 
-    let {path, url} = useRouteMatch();
+
+    console.log("ContentPanel: props =  ", props);
+
+    let {path} = useRouteMatch();
     const title = props.title || "Untitled";
     const siteClass = props.site || "defauit";
     const left =
@@ -32,7 +37,9 @@ export function ContentPane(props) {
                         <ImagesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={`${path}/texts/:id`}>
-                        <TextsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
+                        <KmapContext>
+                            <TextsViewer onStateChange={props.onStateChange}/>
+                        </KmapContext>
                     </Route>
                     <Route path={`${path}/sources/:id`}>
                         <SourcesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
@@ -47,17 +54,22 @@ export function ContentPane(props) {
                         <SubjectsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={`${path}/assets/:id`}>
-                        <RelatedsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
+                        <RelatedsViewer id={props.id} onStateChange={props.onStateChange}/>
                         <LegacyViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={[`${path}/terms/:id/related/:relatedType`,`${path}/terms/:id`]}>
-                        <KmapContext sui={props.sui}>
-                            <RelatedsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
+                        <KmapContext>
+                            <RelatedsViewer id={props.id} onStateChange={props.onStateChange}/>
                             <TermsViewer onStateChange={props.onStateChange}/>
                         </KmapContext>
                     </Route>
                     <Route path={`${path}/collections/:id`}>
                         <CollectionsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
+                    </Route>
+                    <Route path={`${path}/search`}>
+                        <SearchContext>
+                            <SearchViewer />
+                        </SearchContext>
                     </Route>
                     <Route path="*">
                         <Error404/>

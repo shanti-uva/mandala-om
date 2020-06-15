@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 
 import {TopBar} from "./TopBar";
@@ -9,69 +9,61 @@ import {Hamburger} from "./Hamburger";
 import {SearchBar} from "../search/SearchBar";
 import {SearchAdvanced} from "../search/SearchAdvanced";
 import {Error404} from "../App";
+import SearchContext from "../context/SearchContext";
 
-export class Main extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            advanced: false,
-            // Start with faked kmap
-            kmasset: {
-                header: "Mandala",
-                title: ["Mandala"],
-                uid: "mandala",
-            },
-            sui: this.props.sui  // the legacy sui SearchUI object
-        };
-        this.handleStateChange = this.handleStateChange.bind(this);
+const stateDefault = {
+    kmasset: {
+        header: "Mandala",
+        title: ["Mandala"],
+        uid: "mandala",
+    }
+};
+
+export function Main(props) {
+
+    const [state, setState] = useState(stateDefault);
+    const handleStateChange = (new_state) => {
+
+        console.log("Setting state with: ", new_state);
+        console.log("Old state = ", state);
+
+        setState({...state, ...new_state});
+
+        console.log("New state = ", state);
+
+        console.log("Main() state = ", state);
     }
 
-    render() {
-        const main =
-            <Router basename={"/mandala-om"}>
-                <div id={'sui-main'} className={'sui-main'}>
-                    <div>
-                        <TopBar/>
-                        <SearchBar onStateChange={this.handleStateChange}/>
-                        <Switch>
-                            <Route path={"/home"}>
-                                <Home/>
-                            </Route>
-                            <Route exact path={"/"}>
-                                <Redirect to={"/home"} />
-                            </Route>
-                            <Route path={"/view"}>
-                                <ContentPane site={'mandala'} mode={'development'} title={'Mandala'}
-                                             sui={this.state.sui}
-                                             kmasset={this.state.kmasset}
-                                             kmap={this.state.kmap}
-                                             onStateChange={this.handleStateChange}/>
-                            </Route>
-                            <Route path={"*"}>
-                                <Error404/>
-                                <Home/>
-                            </Route>
-                        </Switch>
-                        <SearchAdvanced advanced={this.state.advanced}/>
-                        <Hamburger hamburgerOpen={this.state.hamburgerOpen}/>
-                    </div>
+    const main =
+        <Router basename={"/mandala-om"}>
+            <div id={'sui-main'} className={'sui-main'}>
+                <div>
+                    <TopBar/>
+                        <SearchBar onStateChange={handleStateChange}/>
+                    <Switch>
+                        <Route path={"/home"}>
+                            <Home/>
+                        </Route>
+                        <Route exact path={"/"}>
+                            <Redirect to={"/home"}/>
+                        </Route>
+                        <Route path={"/view"}>
+                            <ContentPane site={'mandala'} mode={'development'} title={'Mandala'}
+                                         sui={props.sui}
+                                         kmasset={state.kmasset}
+                                         kmap={state.kmap}
+                                         onStateChange={handleStateChange}/>
+                        </Route>
+                        <Route path={"*"}>
+                            <Error404/>
+                            <Home/>
+                        </Route>
+                    </Switch>
+                    <SearchAdvanced advanced={state.advanced}/>
+                    <Hamburger hamburgerOpen={state.hamburgerOpen}/>
                 </div>
-            </Router>
-
-        return main;
-    }
-
-    handleStateChange(newstate) {
-        console.log("Uber State Change requested: " + JSON.stringify(newstate));
-        if (newstate.kmasset && (newstate.kmasset.id === this.state.kmasset.id)) {
-            return;
-        }
-        this.setState(newstate);
-    }
-
-    componentDidMount() {
-        // this.props.fetchKmapData()
-    }
-
+            </div>
+        </Router>;
+    return main;
 }

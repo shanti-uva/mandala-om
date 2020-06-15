@@ -39,7 +39,7 @@ export default class Images  {
 
 		var str=`<div class='sui-imagesBox' id='sui-imagesBox' style='margin:${(sui.ss.mode == "related") ? "-12px 0 0 0" : "-12px -12px 0 -12px"}'>
 		<div id='sui-picEnlarge' style='cursor:pointer;font-size:18px' title='Click to enlarge and pan'>&#xe650</div></p>
-		<div id='sui-imageDiv' class='sui-imageDiv' style='height:${h}px'>
+		<div id='sui-imageDiv' class='sui-imageDiv' >
 			<img id='sui-thisPic' src='${o.url_thumb.replace(/200,200/,"2000,2000")}' style='width:100%'> 
 		</div><br>
 		<div><span style='max-width:900px;font-size:20px;vertical-align:-2px;color:#ccc'>&#xe62a&nbsp;&nbsp;${o.title[0]}</span></div>
@@ -57,7 +57,7 @@ export default class Images  {
 		sui.GetJSONFromKmap(o, (d)=> { drawDetails(d); });										// Load detaill from JSON
 		$(this.div).html(str.replace(/\t|\n|\r/g,""));											// Remove format and add to div	
 		sui.pages.DrawRelatedAssets();															// Draw related assets menu if active
-		$("#sui-imageGal").scrollLeft($("#sui-pageThumb-"+mid).offset().left-w+25);				// Scroll to center
+		// $("#sui-imageGal").scrollLeft($("#sui-pageThumb-"+mid).offset().left-w+25);				// Scroll to center
 
 		let s, places=[],subjects=[],terms=[];
 		try{

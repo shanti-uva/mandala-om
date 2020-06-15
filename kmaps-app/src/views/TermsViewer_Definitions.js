@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {buildNestedDocs} from "./common/utils";
-import Tab from "react-bootstrap/Tab";
+// import Tab from "react-bootstrap/Tab";
 import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
-import Fade from "react-bootstrap/Fade";
+// import Fade from "react-bootstrap/Fade";
 import Nav from "react-bootstrap/Nav";
 import _ from 'lodash';
 import {Parser} from "html-to-react";
@@ -118,6 +118,7 @@ function DefinitionEntry(props) {
         // collect data by "branch"
         Object.entries(d).forEach(([key, value]) => {
             if (key.startsWith('related_definitions_branch_subjects')) {
+                // eslint-disable-next-line
                 const [match, uid, field] = key.match(/related_definitions_branch_(subjects-\d+)_(\S+)/);
                 if (!branches[uid]) {
                     branches[uid] = {};
