@@ -1,52 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router";
+import axios from 'axios';
 
-export class TextsViewer extends React.Component {
+export function TextsViewer(props) {
+    const params = useParams();
+    const tid = params.id;
+    const tnum = tid.split('-').pop();
+    const tembedpath = 'https://texts-stage.shanti.virginia.edu/shanti_texts/node_embed/' + tnum;
+    const [txthtml, setData] = useState({ data: '' });
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios( tembedpath );
+            setData(result);
+        };
+        fetchData();
+    }, []);
+    console.log(txthtml);
 
-    constructor(props) {
-        super(props);
-
-        console.error(typeof props.sui);
-        if (typeof props.sui !== 'object') {
-            throw new Error("sui must be passed as a property to the component!");
-        }
-
-        if (typeof props.sui.pages !== 'object') {
-            throw new Error("sui.pages must be passed as part of the sui passed to the constructor!");
-        }
-
-        this.sui = props.sui;
-        this.props = props;
+    function createMarkup(customhtml) {
+        return {__html: customhtml };
     }
 
-    componentDidMount() {
-    }
-
-    componentDidCatch(error, errorInfo) {
-    }
-
-    componentWillUnmount() {
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-    }
-
-    render() {
-        this.sui.GetKmapFromID(this.props.id, (kmap) => {
-            console.dir(kmap);
-            if (kmap.uid) {
-                console.log("	PAGEROUTER: calling pages.Draw() with kmap=" + kmap.uid);
-                this.sui.pages.Draw(kmap, true);
-            } else {
-                alert("kmap.uid was null");
-            }
-        });
-
-        return <div className={"texts legacy"} >TEXTS LEGACY { JSON.stringify(this.props.sui.state) }</div>
-
-    }
-
-
+    return (
+        <div dangerouslySetInnerHTML={createMarkup(txthtml.data)} />
+    );
 }
+
