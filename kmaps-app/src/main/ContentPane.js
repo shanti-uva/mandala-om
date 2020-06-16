@@ -37,9 +37,12 @@ export function ContentPane(props) {
                         <ImagesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={`${path}/texts/:id`}>
+                        {/* Not necessary for texts because ID is in url do not need to call kmaps API
                         <KmapContext>
                             <TextsViewer onStateChange={props.onStateChange}/>
                         </KmapContext>
+                        */}
+                        <TextsViewer onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={`${path}/sources/:id`}>
                         <SourcesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
