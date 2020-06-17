@@ -16,6 +16,7 @@ import {CollectionsViewer} from "../views/CollectionsViewer";
 import {Error404} from "../App";
 import KmapContext from "../context/KmapContext";
 import SearchContext from "../context/SearchContext";
+import MdlAssetContext from "../context/MdlAssetContext";
 
 export function ContentPane(props) {
 
@@ -37,12 +38,15 @@ export function ContentPane(props) {
                         <ImagesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={`${path}/texts/:id`}>
-                        {/* Not necessary for texts because ID is in url do not need to call kmaps API
+                        {/* Was:
                         <KmapContext>
                             <TextsViewer onStateChange={props.onStateChange}/>
                         </KmapContext>
                         */}
-                        <TextsViewer onStateChange={props.onStateChange}/>
+                        <MdlAssetContext assettype={'texts'}>
+                            <TextsViewer onStateChange={props.onStateChange}/>
+                        </MdlAssetContext>
+
                     </Route>
                     <Route path={`${path}/sources/:id`}>
                         <SourcesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>

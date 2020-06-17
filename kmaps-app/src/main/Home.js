@@ -12,11 +12,11 @@ export function Home(props) {
             <li><Link to={'/view/terms/places-16408'}>/view/terms/places-16408</Link></li>
         </ul>
 
-        <h3>Semi-functional legacy viewer</h3>
+        <h3>Semi-functional Asset Viewers</h3>
         <ul>
-            <li><Link to={'/view/assets/terms-85193'}>/view/assets/terms-85193</Link></li>
+            <li><Link to={'/view/assets/terms-85193'}>/view/assets/terms-85193</Link> (Legacy)</li>
             <li><Link
-                to={'/view/assets/texts-dev_shanti_virginia_edu-16202'}>/view/assets/texts-dev_shanti_virginia_edu-16202</Link>
+                to={'/view/texts/texts-dev_shanti_virginia_edu-16202'}>/view/texts/texts-dev_shanti_virginia_edu-16202</Link>
             </li>
         </ul>
 

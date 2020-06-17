@@ -1,0 +1,1208 @@
+.content-section #shanti-texts-body a{
+  border-bottom: 1px solid transparent !important;
+}
+.content-section #shanti-texts-body a:hover{
+  border-bottom: 1px solid #df3d26 !important; /* color was rgba(153, 186, 251, 0.56) */
+}
+.content-section #shanti-texts-body a:active{
+  border-bottom: 1px solid #99bafb !important;
+}
+
+.tab-pane.main-col > div,
+.page-node-devel .tab-pane.main-col > div {
+    margin-bottom: 0;
+}
+
+#shanti-texts-container {
+    height: 739px;
+    margin: 0 auto;
+}
+
+.astviewer.texts.no-sidebars article.main-col {
+  padding: 0;
+}
+
+
+.astviewer.texts section.content-section {
+  padding: 0;
+  margin: 0;
+}
+
+.astviewer.texts .content-section {
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.astviewer.texts #shanti-texts-container{ width:100%; }
+
+.shanti-texts-search-hit {
+  background-color: #ffc;
+}
+
+
+
+.shanti-texts-section {
+  /*border-bottom: 3px double #eee;*/
+  padding-bottom: 1em;
+  margin-top: -1rem;
+}
+
+.shanti-texts-section.text-level-3,
+.shanti-texts-section.text-level-4,
+.shanti-texts-section.text-level-5,
+.shanti-texts-section.text-level-6,
+.shanti-texts-section.text-level-7{
+  background: white;
+  padding-right: 1rem;
+}
+
+.shanti-texts-section.text-level-3{
+  /*margin-top: -2rem;*/
+  padding-left:2.4rem;
+  padding-right: 0;
+}
+
+.shanti-texts-section.text-level-4,
+.shanti-texts-section.text-level-5,
+.shanti-texts-section.text-level-6,
+.shanti-texts-section.text-level-7{
+  /*margin-top: -1.5rem;*/
+  padding-left: 2.4rem;
+  padding-right:1rem;
+}
+
+.shanti-texts-section h1,
+.shanti-texts-section h2,
+.shanti-texts-section h3,
+.shanti-texts-section h4,
+.shanti-texts-section h5,
+.shanti-texts-section h6{
+  /*font-size: 0.88em;*/
+}
+
+.shanti-texts-section h4,
+.shanti-texts-section h5,
+.shanti-texts-section h6{
+  margin-top:30px;
+  margin-bottom:5px;
+}
+
+
+
+
+.shanti-texts-section-title {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  margin-bottom: 0;
+  font-weight: normal;
+  font-weight: 500;
+  line-height: 2.75rem;
+  color:#000;
+}
+
+.shanti-texts-section-title.text-level-2 {
+  margin-bottom: 1rem;
+  font-size: 1.68em;
+  margin-left: 2.75rem;
+  color:#333;
+}
+
+.shanti-texts-section-title.text-level-3,
+.shanti-texts-section-title.text-level-4,
+.shanti-texts-section-title.text-level-5,
+.shanti-texts-section-title.text-level-6,
+.shanti-texts-section-title.text-level-7{
+  font-size: 1.18em;
+  background: #f4f4f4;
+  padding: 1.5rem 1rem 1.5rem 3.5rem;
+  line-height: 1.5em;
+  margin-bottom: 0;
+  margin-left: -1rem;
+  font-weight: bold;
+  letter-spacing: 0.0375rem;
+  color: #444;
+      border-top: .5rem solid white;
+      border-bottom: .5rem solid white;
+      box-shadow: inset 0 2px 0.1rem 0 #ddd;
+          box-shadow: inset 0 0 0.1rem 0.1rem #ddd;
+
+              position: relative;
+              top: 1rem;
+              margin-bottom: 1.25rem;
+}
+
+.shanti-texts-section-title.text-level-3{
+  border-left: 8px double #d0d0d0;
+}
+
+.shanti-texts-section-title.text-level-4,
+.shanti-texts-section-title.text-level-5,
+.shanti-texts-section-title.text-level-6,
+.shanti-texts-section-title.text-level-7 {
+  border-left: 3px solid #ccc;
+  margin-top: 1rem;
+  padding: 1rem 1rem 1rem 2.4rem;
+  margin-left: -0.6rem;
+}
+
+.shanti-texts-section-title.text-level-1,
+.shanti-texts-section.text-level-1 .shanti-texts-section-kmaps {
+  display:none;
+}
+
+
+div[lang="bo"] .shanti-texts-section-title.text-level-3{
+  padding-bottom: 1rem;
+}
+
+div[lang="bo"] .shanti-texts-section-title.text-level-4,
+div[lang="bo"] .shanti-texts-section-title.text-level-5,
+div[lang="bo"] .shanti-texts-section-title.text-level-6,
+div[lang="bo"] .shanti-texts-section-title.text-level-7 {
+  padding-bottom: .75rem;
+}  
+
+
+
+
+
+
+
+
+
+#shanti-texts-sidebar .tab-content {
+  padding: 2rem 1.5rem;
+  overflow-y: scroll !important;
+  max-height: 54rem;
+  width: 100%;
+  /* for mobile height */
+  min-height: 38rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #aaa;
+  border-top: none;
+  position: relative;
+  top: 130px;
+}
+
+#shanti-texts-body {
+  padding: 0 0 0 2.5rem;
+  margin: 0;
+  height: 100%;
+  background-color: white;
+  box-shadow: inset 0 -.2rem 5px #ddd;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  border-radius: 0;
+  border-top: 2px solid #aaa;
+  border-bottom: 2px solid #aaa;
+  border-left: 2px solid #ccc;
+  border-right: 1px solid #d0d0d0;
+}
+
+#shanti-texts-body > div:first-of-type{
+  /*margin-top:-5rem;*/
+}
+
+#shanti-texts-sidebar {
+  /* display:none; */ /* INITIAL CONDITION to prevent showing un-tabbed content */
+  padding: 2rem 0 0;
+  height: 100%;
+  min-height: 30rem;
+  background-color:#eee;
+  color:#333;
+}
+
+/*--- texts window scroller styles ---*/
+#shanti-texts-body::-webkit-scrollbar,
+#shanti-texts-sidebar .tab-content::-webkit-scrollbar {
+  width: 1.15rem;
+}
+
+#shanti-texts-body::-webkit-scrollbar-track,
+#shanti-texts-sidebar .tab-content::-webkit-scrollbar-track {
+  border-radius: 0rem;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+#shanti-texts-body::-webkit-scrollbar-thumb,
+#shanti-texts-sidebar .tab-content::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  /*outline: 1px solid #555;*/
+  border-radius:  .5rem;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+}
+#shanti-texts-body:hover::-webkit-scrollbar-thumb,
+#shanti-texts-sidebar .tab-content:hover::-webkit-scrollbar-thumb{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
+
+#shanti-texts-body .shanti-texts-section-content {
+  color: #000;
+  font-family: 'EB Garamond',serif;
+  font-size: 1.32em;
+    line-height: 1.5;
+  letter-spacing: 0.0125rem;
+  padding-bottom: 1rem;
+  padding-top:1rem;
+}
+
+#shanti-texts-body .shanti-texts-section-content strong{
+  font-weight:500;
+}
+
+#shanti-texts-body .shanti-texts-section-content a{
+  border-bottom-color: #cccaf3;
+}
+
+#shanti-texts-body img{
+  display:block;
+  max-width:100%;
+  height:auto;
+  /* display:none; */
+}
+
+#shanti-texts-body .text-level-1 img{
+  margin: 0 auto; /* centering the top image */
+}
+
+#shanti-texts-body ul{
+  margin-left:1rem;
+}
+
+
+#shanti-texts-sidebar .field {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+#shanti-texts-sidebar .field {
+  display: block;
+  border-bottom: 1px solid gray;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+#shanti-texts-sidebar .field-type-shanti-kmaps-fields-default .field-item {
+  display: inline-block;
+}
+
+#shanti-texts-sidebar-tabs {
+  margin-top: 0;
+  position: absolute;
+  z-index: 10;
+  /*width: 99%;
+  right: 0.275rem;*/
+}
+
+
+
+/*
+#shanti-texts-meta  > .book-title,
+#shanti-texts-links > .book-title {
+  font-family: 'Helvetica Neue',helvetica,arial,sans-serif;
+  font-weight: bold;
+  font-size: 110%;
+  margin-bottom: 0.3em;
+  color: #555;
+}
+*/
+
+
+
+#shanti-texts-toc {
+  position: relative;
+}
+
+#shanti-texts-toc ul{
+  margin-top: 0;
+  padding-top: 0;
+  /*font-family: source-sans-pro,'Arial Unicode MS',Helvetica-Neue,Helvetica, sans-serif;*/
+}
+
+#shanti-texts-toc > ul {
+  margin-left: 0;
+  padding-left: 2.5rem;
+  margin-top: 1.5rem;
+}
+#shanti-texts-toc > ul > li > ul{
+  padding-left: 1.25rem;
+}
+
+#shanti-texts-toc > ul > li > ul > li > ul,
+#shanti-texts-toc > ul > li > ul > li > ul > li > ul{
+  padding-left: 1.75rem;
+}
+
+#shanti-texts-toc ul li{
+  background:#fff;
+  position: relative;
+  float: left;
+width: 100%;
+display: block;
+}
+
+#shanti-texts-toc li,
+#shanti-texts-links .links li {
+  list-style-type: square;
+  color: #454fa4;
+  line-height: 1.82em;
+}
+
+#shanti-texts-toc > li.toc-item-node {
+  font-weight: bold;
+  font-size: 110%;
+  margin-bottom: 1em;
+}
+
+#shanti-texts-toc ul li.active{
+  background: -moz-linear-gradient(top, #f7f7f7 0, #f7f7f7 25px, #ffffff 25px, #ffffff 100%);
+  background: -webkit-linear-gradient(top, #f7f7f7 0, #f7f7f7 25px, #ffffff 25px, #ffffff 100%);
+  background: linear-gradient(to bottom, #f7f7f7 0, #f7f7f7 25px, #ffffff 25px, #ffffff 100%);
+}
+
+#shanti-texts-toc a{
+  border: none;
+  display:inline-block;
+  color: rgb(0, 0, 139);
+    color:#000;
+}
+
+#shanti-texts-toc a:hover{
+  color: #df3d26;
+}
+#shanti-texts-toc a:active{
+  color:#000;
+}
+
+#shanti-texts-toc li > a{
+  letter-spacing: 0.0175rem;
+  line-height: 1.32em;
+  width: 100%;
+}
+
+.admin-menu #shanti-texts-toc li > a{
+  padding-right: 4.5rem;
+}
+
+#shanti-texts-toc li.active > a{
+  color: #df3d26 !important; 
+}
+
+#shanti-texts-toc a::before,
+.shanti-texts-section-title::before{
+  content: '';
+  color:#999;
+  background-color: transparent;
+  border-radius: 0;
+  filter: alpha(opacity=80);
+  opacity:.8;
+  display: inline-block;
+  margin-right: 1rem;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.shanti-texts-section-title::before{
+  border: 8px double #999;
+  position: relative;
+  top: .1rem;
+  margin-left: -3.5rem;
+}
+
+#shanti-texts-toc > ul > li a::before{
+  border: 4px double rgb(0,0,139);
+  position: relative;
+  top: -.1rem;
+  margin-left: -2rem;
+  margin-right: 1rem;
+}
+
+#shanti-texts-toc > ul > li > ul > li a::before{
+  position: relative;
+  top: -0.15rem;
+  right: 0.2rem;
+  margin-right:.6rem;
+  border-radius: 0;
+  border-width: .25rem;
+  border-color: rgb(0,0,139);
+  margin-left:-1.5rem;
+
+    border-radius: 0;
+    border-width: .1rem;
+    width: .7rem;
+    height: .7rem;
+}
+
+#shanti-texts-toc > ul > li > ul > li > ul > li a::before,
+#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li a::before,
+#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li a::before,
+#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li a::before,
+#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li a::before{
+  border-radius: 50%;
+  width: .5rem;
+  height: .5rem;
+  filter: alpha(opacity=60);
+  opacity: .6;
+  background-color: rgb(0,0,139);
+}
+
+#shanti-texts-toc a:hover::before,
+#shanti-texts-toc li.active > a::before{
+  border-color: #df3d26;
+  background-color: #df3d26 !important;
+}
+#shanti-texts-toc a:active::before,
+#shanti-texts-toc li.active > a::before{
+  border-color: rgb(0,0,139);
+  background-color:transparent !important;
+}
+
+.shanti-texts-section-title.text-level-3::before,
+.shanti-texts-section-title.text-level-4::before,
+.shanti-texts-section-title.text-level-5::before,
+.shanti-texts-section-title.text-level-6::before,
+.shanti-texts-section-title.text-level-7::before{
+  border-radius: 50%;
+  border-width: 4px;
+  border-color: #999;
+  top: 0;
+  left: 0;
+  margin-right:  3.5rem;
+  margin-left: -6.2rem;
+}
+.shanti-texts-section-title.text-level-3::before{
+  margin-right: 4rem;
+  border-radius: 0;
+  margin-left: -6.2rem;
+  border-width: 5px;
+}
+.shanti-texts-section-title.text-level-4::before,
+.shanti-texts-section-title.text-level-5::before,
+.shanti-texts-section-title.text-level-6::before,
+.shanti-texts-section-title.text-level-7::before{
+  margin-left: -4.1rem;
+  margin-right: 3.5rem;
+  top: -.1rem;
+}
+
+.shanti-texts-section-title.text-level-5::before,
+.shanti-texts-section-title.text-level-6::before,
+.shanti-texts-section-title.text-level-7::before{
+  border-style: solid;
+  border-width: 3px;
+  border-color: #ccc;
+  top: -.2rem;
+}
+
+.shanti-texts-section-title.text-level-6::before{
+  border-color: #777;
+  top: -.2rem;
+}
+.shanti-texts-section-title.text-level-7::before{
+  border-color: #ccc;
+  border-width: 4px;
+}
+
+
+
+
+.toc-selected {
+  font-weight: bold;
+}
+
+
+
+
+
+#shanti-texts-toc .shanti-texts-section-controls{
+  position: absolute;
+  top: 0.15rem;
+  right: 0;
+}
+#shanti-texts-toc .shanti-texts-record-title .shanti-texts-section-controls{
+  position: absolute;
+  top: -2.3rem;
+}
+
+#shanti-texts-toc .shanti-texts-section-controls a{
+  filter: alpha(opacity=35);
+  opacity: 0.35;
+}
+
+#shanti-texts-toc .shanti-texts-section-controls a:hover{
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+  color: #454fa4;
+}
+
+#shanti-texts-toc .shanti-texts-section-controls a:active{
+  filter: alpha(opacity=100);
+  opacity: 1;
+  color: #454fa4;
+}
+
+#shanti-texts-toc .shanti-texts-record-title .shanti-texts-section-controls a{
+  font-size: 70%;
+}
+
+#shanti-texts-toc .shanti-texts-section-controls a:first-of-type{
+  position: relative;
+  right: 2.2rem;
+}
+
+#shanti-texts-toc > .shanti-texts-record-title .shanti-texts-section-controls a:first-of-type{
+  position: relative;
+  right: 0;
+}
+
+#shanti-texts-toc .shanti-texts-section-controls a .fa-plus{
+  filter: alpha(opacity=70);
+  opacity: 0.7;
+}
+
+#shanti-texts-toc .shanti-texts-section-controls a:before {
+    width: 0;
+    height: 0;
+    border: none;
+}
+
+#shanti-texts-toc a[style="font-weight:bold"]::before{
+  border-color: #3c4380;
+  background-color: #3c4380;
+}
+
+
+#shanti-texts-body .book-section {
+  clear: both;
+}
+
+/* PUT THIS IN CKEDITOR ENHANCEMENTS */
+#shanti-texts-body .book-section .bourdieu {
+    font-size: 95%;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 1em 1em;
+    /* margin: 1em 0; */
+}
+
+#shanti-texts-body .pull-quote-right {
+    float: right;
+    margin-left: 1em;
+    margin-right: 0;
+}
+
+#shanti-texts-body  .pull-quote-left {
+    float:left;
+    margin-left: 0;
+    margin-right: 1em;
+}
+
+#shanti-texts-body .pull-quote-right,
+#shanti-texts-body .pull-quote-left {
+    width: 45%;
+    font-size: 150%;
+    border-top: 3px solid gray;
+    border-bottom: 3px solid gray;
+    padding: 1em 0;
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+#shanti-texts-body .image-left,
+#shanti-texts-body .image-right {
+  box-shadow: 5px 5px 10px #AAA;
+}
+
+#shanti-texts-body .image-left {
+  float:left;
+  margin: .5em 1em .5em 0;
+}
+
+#shanti-texts-body .image-right {
+  float:right;
+  margin: .5em 0 .5em 1em;
+}
+
+#shanti-texts-toc li,
+#shanti-texts-links .links li {
+    list-style-type: none;
+}
+
+
+
+.shanti-texts-section-kmaps {
+  font-family: sans-serif;
+  font-size:10pt;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #fafafa;
+  color:#111;
+}
+
+#shanti-texts-meta .shanti-texts-record-table{
+  margin-top:1.5rem;
+}
+
+
+
+/* Tabbed Content Areas */
+.shanti-texts-section-content .label{
+  color:#555;
+  font-size:0.93em;
+}
+
+#shanti-texts-links h6{
+  text-transform: uppercase;
+  color: #333;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.075rem;
+  font-size: 1em;
+  letter-spacing: 0.06rem;
+    /*font-family: source-sans-pro,'Arial Unicode MS',Helvetica-Neue,Helvetica, sans-serif;*/
+    font-weight:600;
+}
+
+#shanti-texts-links table a::before{
+  content: '\e678';
+  position: relative;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  font-family: 'shanticon';
+  margin: 0 .8rem 0 .7rem;
+  font-size: 1.32em;
+}
+#shanti-texts-sidebar .shanti-texts-record-title {
+  font-weight: normal;
+  font-size: 1.32em;
+  line-height: 1.32em;
+  color: #000;
+  border-bottom: 2px solid #ddd !important;
+  padding-bottom: 1rem;
+  margin: 1rem 0 1.5rem;
+  font-family: 'EB Garamond',serif;
+}
+#shanti-texts-toc .shanti-texts-record-title > a{
+  /*margin-bottom: 1rem;*/
+  /*padding-right:0;*/
+}
+#shanti-texts-sidebar .shanti-texts-record-title > a{
+  padding-right:0;
+}
+/* .admin-menu #shanti-texts-sidebar #shanti-texts-toc .shanti-texts-record-title > a */
+#shanti-texts-sidebar #shanti-texts-toc .shanti-texts-record-title{
+  cursor: default; 
+  padding-right: 0rem;
+  color: #000;
+    font-size: 1.38em;
+    line-height: 1.62em;
+}
+
+#shanti-texts-toc > .shanti-texts-record-title .shanti-texts-section-controls {
+  top: 0px;
+}
+
+#shanti-texts-toc .pdflink {
+  width: 20px;
+  height: 20px;
+  top: -58px;
+  position: relative;
+  float: right;
+  margin-right: -5px;
+}
+
+#shanti-texts-toc .pdflink img {
+  width: 16px;
+}
+
+#shanti-texts-toc .shanti-texts-record-title > a::before{
+   content:'';
+   display:none;
+}
+
+#shanti-texts-sidebar .shanti-texts-record-table tbody {
+   border-top: 0;
+}
+
+#shanti-texts-sidebar .shanti-texts-field tr{
+  border-top: 1px solid #ddd;
+}
+
+#shanti-texts-sidebar .shanti-texts-field td {
+  /*font-family: source-sans-pro,'Arial Unicode MS',Helvetica-Neue,Helvetica, sans-serif;*/
+}
+
+#shanti-texts-sidebar table tr.shanti-texts-field:first-child td{
+  border-top-color:#fff;
+}
+
+#shanti-texts-sidebar .field_pdf_version span.file img.file-icon {
+  display: none;
+}
+
+#shanti-texts-links .shanti-texts-field td.shanti-texts-field-content{
+  /*font-family: source-sans-pro,'Arial Unicode MS',Helvetica-Neue,Helvetica, sans-serif;*/
+}
+
+
+#shanti-texts-sidebar .fullview{
+  float: left;
+  position: relative;
+  right: 8rem;
+  margin: 0.95rem 0 0;
+    margin-top:2rem;
+  border-radius: 50%;
+  padding: .75rem;
+  background: #fff;
+  filter: alpha(opacity=80);
+  opacity: 0.80;
+  border: 1px solid #eee;
+  font-size: 2rem;
+  color: #ddd;
+  -webkit-transition: all 50ms ease 0s;
+  transition: all 50ms ease 0s;
+  font-family:'shanticon';
+}
+
+#shanti-texts-sidebar .fullview:hover{
+  color: #999;
+  filter: alpha(opacity=95);
+  opacity: .95;
+  border-color:#aaa;
+}
+
+#shanti-texts-sidebar .fullview:active,
+#shanti-texts-sidebar .fullview:focus{
+  color: #777;
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+}
+
+#shanti-texts-sidebar .fullview::before{
+  opacity: 0.9;
+  position: relative;
+  bottom: 0;
+  font-size: 110%;
+}
+
+#shanti-texts-sidebar .fullview.expanded-view::before{
+  content:'\e667';
+}  
+
+/* removing the button from Kmaps iframe */
+.kmaps.page-places-texts #shanti-texts-sidebar .fullview{
+  display:none;
+}
+
+
+
+
+
+#shanti-texts-sidebar .shanti-texts-record-table ul {
+  list-style-type: none;
+  margin: 0 0 0 -2rem;
+}
+
+#shanti-texts-sidebar #shanti-texts-meta .shanti-texts-field-label {
+  letter-spacing: 0.06rem;
+  text-transform: uppercase;
+  color: #333;
+  /*font-family: source-sans-pro,'Arial Unicode MS',Helvetica-Neue,Helvetica, sans-serif;*/
+    font-weight:600;
+  padding: .5rem;
+    padding-right:0.1rem;
+  font-size: .88em;
+  vertical-align: top;
+  white-space: normal;
+  line-height: 2.2em;
+}
+
+#shanti-texts-sidebar #shanti-texts-meta .shanti-texts-field-label::after{
+  content:':';
+  display:inline-block;
+  font-size:130%;
+  position: relative;
+  right: 0.2rem;
+}
+
+#shanti-texts-sidebar #shanti-texts-meta .text-visibility-0 .text-val {
+  display: none;
+}
+
+#shanti-texts-sidebar #shanti-texts-meta .text-visibility-1 .group-val,
+#shanti-texts-sidebar #shanti-texts-meta .text-visibility-2 .group-val {
+  display: none;
+}
+
+  /* FROM COLLECTIONS PANEL */
+.shanti-collection-page .shanti-collection-body {
+  margin-top: -1rem;
+}
+
+.shanti-collection-page .shanti-collection-body .pane-title {
+  margin-bottom: 2rem;
+}
+
+.shanti-collection-page .field-name-field-general-featured-image {
+  margin-right: 1rem;
+}
+
+.shanti-collection-page .field-name-body {
+  margin-top: -1rem;
+}
+
+.shanti-collection-page .pane-node-field-general-featured-image {
+  margin-right: 1rem;
+}
+
+.shanti-collection-page a.shanti-collections-create-link {
+  margin-left: -1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+/** ----------------------
+* Tibetan Language (bo) */
+/* This adds letter-spacing within regular paragraph text for Tibetan. Should phase out use of <span lang="tib"> for <div lang="bo"> on sections */
+/*#shanti-texts-body .shanti-texts-section-content .tib,*/
+#shanti-texts-body div[lang="bo"] .shanti-texts-section-title,
+#shanti-texts-body div[lang="bo"] .shanti-texts-section-content{
+  /*letter-spacing: 0.125rem;*/
+  line-height: 2em;
+  font-size: 1.75em;
+  color: #111;
+      font-weight: normal;
+}
+#shanti-texts-body div[lang="bo"] .shanti-texts-section-title {
+  /*color:#555;
+  font-weight: bold;*/
+  /*letter-spacing: 0.125rem;*/
+}
+#shanti-texts-body div[lang="bo"] .shanti-texts-section-content{
+  line-height: 1.88em;
+  font-size: 1.56em;
+}
+#shanti-texts-body div[lang="bo"] .shanti-texts-section-content .eng{
+  font-size: 75%;
+}
+
+/**
+* Sidebar Navigation subheaders
+*/
+#shanti-texts-toc a[lang="bo"]{
+  font-size: 1.25em;
+  /*letter-spacing: 0.1rem;*/
+}
+#shanti-texts-toc a[lang="bo"]::before{
+  position: relative;
+  top: -0.25rem;
+}
+#shanti-texts-toc div[lang="bo"] li,
+#shanti-texts-links div[lang="bo"] .links li {
+  line-height: 1.88em;
+}
+#shanti-texts-toc div[lang="bo"] .shanti-texts-record-title a{
+  font-size: 1.38em;
+  /*letter-spacing: 0.075rem;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#shanti-texts-links .shanti-text-record-table{
+  margin-bottom:3rem;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) {
+
+    #shanti-texts-sidebar .tab-content {
+      max-height: 62rem;
+      position: relative;
+      top: 56px;
+    }
+
+    #shanti-texts-sidebar #shanti-texts-meta .shanti-texts-field-label{
+      white-space:nowrap;
+      width:50%;
+    }
+
+    .astviewer.texts.no-sidebars article.main-col{
+      padding-right:1.5rem;
+    }
+
+    .shanti-texts-section.text-level-4,
+    .shanti-texts-section.text-level-5,
+    .shanti-texts-section.text-level-6,
+    .shanti-texts-section.text-level-7{
+      padding-right:0;
+    }
+}
+
+@media screen and (min-width: 850px) {
+
+    #shanti-texts-sidebar .tab-content {
+      top: 15px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    /* testing these two rulesets is for positioning book reader height */
+    .astviewer.texts article.main-col{ position: relative; padding-top:1.7rem;}
+    .astviewer.texts article.main-col > div{ min-height:580px; }
+
+    .astviewer.texts #shanti-texts-container{
+      height:auto;
+      position: absolute;
+      top: 5rem;
+      bottom:0.1rem;
+      padding: 0 2rem 0 0;
+      margin-bottom: 0;
+    }
+    .has-tabs.astviewer.texts #shanti-texts-container{
+      position: absolute;
+      top: .5rem;
+    }  
+
+    #shanti-texts-sidebar {
+      height:100%;
+      padding: 0;
+      width: 32%;
+    }
+
+    #shanti-texts-body {
+      margin-right:1.25rem;
+      padding: 3.5rem 1.5rem 0 3.25rem;
+    }
+
+    #shanti-texts-sidebar .tab-content{
+      position: absolute;
+      top: 38px;
+      bottom: 0;
+      max-height: 100%;
+      border: 1px solid #ddd;
+      border-right:1px solid #d0d0d0;
+      border-bottom: 1px solid #aaa;
+      border-top: none;
+    }
+
+    #shanti-texts-sidebar .tab-content::-webkit-scrollbar {
+      height: .7rem; /* horizontal scrolling scroll handle */
+      width: 1.15rem; /* vertical scrolling scroll handle */
+    }
+
+
+    .astviewer.texts .nav-tabs.nav-justified>a{
+      border-right: 1px solid #ddd;
+      border-top: 2px solid #aaa;
+      border-bottom: 2px solid #ddd;
+      background-color: #f5f5f5 !important;
+      font-size: 1em;
+    }
+
+    .astviewer.texts .nav-tabs.nav-justified>a:last-child{
+      border-right: 2px solid #ddd;
+    }
+    .astviewer.texts .nav-tabs.nav-justified>a{
+      border-radius: 0;
+      background: #f9f9f9 !important;
+      height: 3.4rem;
+      color: #555;
+      font-size: 0.88em;
+      line-height: 1.25em;
+      padding-top: 1.2rem;
+      -webkit-transition: all 50ms ease 0s;
+      transition: all 50ms ease 0s;
+      display:block;
+    }
+    .astviewer.texts .nav-tabs.nav-justified>a:hover{
+      background-color: #fff !important;
+      color: #777;
+      box-shadow: none;
+    }
+
+    .astviewer.texts .nav-tabs.nav-justified>a.active{
+      border-top: none;
+      box-shadow: none;
+      border-right: 1px solid #ddd;
+      border-top: 2px solid #8c48a1;
+      border-bottom: none;
+      background-color: #fff !important;
+      color: #555;
+      box-shadow: none;
+      display: block;
+      font-size: 0.93em;
+      position:relative;
+      background-color: #fff !important;
+      letter-spacing: -0.013rem;
+    }
+    .astviewer.texts .nav-tabs.nav-justified>a:hover:not(.active){
+      box-shadow: none;
+      border-top: 2px solid #888;
+    }
+    .astviewer.texts .nav-tabs.nav-justified>a.active{
+
+    }
+    .astviewer.texts .nav-tabs.nav-justified>a.active:focus,
+    .astviewer.texts .nav-tabs.nav-justified>a.active:hover{
+      background-color: #fff;
+      color: #444;
+      border-bottom-color: #fff !important;
+      box-shadow: none;
+    }
+    .astviewer.texts .nav-tabs.nav-justified>a.active:last-child{
+    }
+    .page-shanti-texts .nav-tabs.nav-justified>a.active::before{
+      display:none; /* remove the active-tab-pointer icon */
+    }
+
+
+} /* END (min-width: 992px) */
+
+
+
+
+.nav-tabs.nav-justified>a{
+  position: relative;
+  top: -.4rem;
+}
+
+.nav-tabs.nav-justified>a{
+  font-size: 0.93em !important;
+  text-transform: uppercase;
+  line-height: 1.32em;
+  padding-top: 1.5rem;
+}
+
+.nav-tabs.nav-justified>a.active::before{
+  color: #555 !important;
+}
+
+
+
+
+
+
+@media print {
+  div#shanti-texts-body {
+    display:block;
+    height: auto;
+    width: auto;
+    overflow: visible;
+    border: none;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  div.titlearea.banner .banner-tabs, nav.breadwrap, div.messages,
+  div#shanti-texts-sidebar, #search-flyout {
+    display: none;
+  }
+
+  .page-title-text {
+    font-size: 24pt;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+
+
+
+
+.shanti-texts-section-content:empty {
+  display:none;
+}
+
+.shanti-texts-section{
+
+}
+
+.shanti-texts-section.text-level-2 .shanti-texts-section-content:empty ~ div{
+  text-transform:uppercase;
+}
+
+
+
+
+
+.group-kmap-terms .kmap-typeahead-picker .shanticon-magnify{
+    position: absolute;
+    top: 2.7rem;
+    left: .9rem;
+}
+
+.group-kmap-terms .kmaps-tt-dataset-places{
+  overflow-x: auto;
+}
+
+.group-kmap-terms .kmaps-place-results-header{
+  white-space: nowrap;
+}
+
+
+
+/* - this helps display of the Places Kmaps dropdown which has columns for feature type and kmaps-id */
+.page-node-group.no-sidebars .tab-panel.main-col{
+  max-width:1200px;
+}
+
+
+
+/** Text Page Formatting, styles for the display of the text itself */
+.shanti-texts-section-content table td p {
+  margin: 0;
+  padding: 0;
+}
+
+.shanti-texts-section-content table[cellpadding] td {
+  padding: 4px !important;
+}
+
+.shanti-texts-section-content a[id*="ref"],
+.shanti-texts-section-content a[id*="edn"],
+.shanti-texts-section-content a[id*="ftn"]{
+  color:cornflowerblue;
+  vertical-align: super;
+  font-size: 70%;
+}
+
+
+
