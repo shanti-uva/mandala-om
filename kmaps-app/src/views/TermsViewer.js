@@ -7,7 +7,8 @@ import RelatedTerms from "./TermsViewer_RelatedTerms";
 // import CardGroup from "react-bootstrap/CardGroup";
 import 'rc-input-number/assets/index.css';
 import NodeHeader from "./common/NodeHeader";
-import {FeatureGallery, RelatedsGallery} from "./common/FeatureGallery";
+import {FeatureGallery} from "./common/FeatureGallery";
+import {RelatedsGallery} from "./common/RelatedsGallery";
 
 // import KmapContext from "../context/KmapContext";
 

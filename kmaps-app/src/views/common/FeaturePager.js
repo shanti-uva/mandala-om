@@ -1,8 +1,8 @@
 import InputNumber from "rc-input-number";
 import * as PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
-export function FeatureGalleryPager(props) {
+export function FeaturePager(props) {
     return <div>
         <span>
             <span>Page</span>
@@ -13,7 +13,7 @@ export function FeatureGalleryPager(props) {
                 style={{width: "4em"}}
                 value={props.pager.getPage() + 1}
                 onChange={(pg) => {
-                    console.log("FeatureGalleryPager pg = " + pg + " maxPage = " + props.pager.getMaxPage() );
+                    console.log("FeaturePager pg = " + pg + " maxPage = " + props.pager.getMaxPage() );
                     props.pager.setPage(pg - 1);
                 }}
                 onPressEnter={(evt) => {
@@ -23,6 +23,7 @@ export function FeatureGalleryPager(props) {
                 disabled={false}
             /> of {props.pager.getMaxPage() + 1}
         </span>
+        {props.loadingState?<span> loading...</span>:<span></span> }
 
 
         <span className={"float-right"}>
@@ -43,10 +44,11 @@ export function FeatureGalleryPager(props) {
                 disabled={false}
             />
         </span>
+
     </div>;
 }
 
-FeatureGalleryPager.propTypes = {
+FeaturePager.propTypes = {
     pager: PropTypes.shape({
         getPageSize: PropTypes.func,
         getMaxPage: PropTypes.func,

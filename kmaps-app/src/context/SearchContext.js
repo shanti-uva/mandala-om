@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {useStoreState, useStoreActions} from '../model/StoreModel';
 import {buildNestedDocs} from "../views/common/utils";
 import _ from "lodash";
@@ -19,7 +19,23 @@ import _ from "lodash";
  * */
 
 export default function SearchContext(props) {
+
+    function debounce(func) { return _.debounce(func, 500) };
+
+    function debounceAll(funcs) {
+        return _.reduce(funcs, (result, f, key) => {
+            result[key] = debounce(f);
+            return result;
+        }, {});
+    }
+
+    // This makes the Easy Peasy State Store available.
+    // we are mapping "search" from the Store into const "search".
     const search = useStoreState(state => state.search);
+
+    // we are unpacking all the state store's actions.
+    // eventually this list of action will be enhanced with things like sort controls
+    // TODO: review: we debounce ALL the calls, for now...   maybe this is not the right place to do that.
     const {
         update,
         setSearchText,
@@ -32,39 +48,16 @@ export default function SearchContext(props) {
         clearFilters,
         removeFilters,
         setPageSize
-    } = useStoreActions(actions => actions.search);
-    const onNext = () => nextPage(1);
-    const onPrev = () => prevPage(1);
-    const onLast = () => lastPage();
-    const onFirst = () => firstPage();
-    const onBig = () => setPageSize(25);
-    const onLittle = () => setPageSize(5);
-
-
-    // ENCAPSULATE pager
-
-    // ENCAPSULATE docs
+    } = debounceAll(useStoreActions(actions => actions.search));
 
     // Let's dispatch an update right off the bat...
-    // update();
     useEffect(() => {
         console.log("INITING");
         update();
     }, []);
 
-    {/*<h5>SEARCH STATE</h5>*/}
-    {/*<pre>{JSON.stringify(search, undefined, 2)}</pre>*/}
-    {/*<button onClick={onFirst}>First</button>*/}
-    {/*<button onClick={onPrev}>Prev</button>*/}
-    {/*<button onClick={onNext}>Next</button>*/}
-    {/*<button onClick={onLast}>Last</button>*/}
-
-    {/*<div>*/}
-    {/*    <button onClick={update}>Update</button>*/}
-    {/*    <button onClick={onBig}>big page</button>*/}
-    {/*    <button onClick={onLittle}>little page</button>*/}
-    {/*</div>*/}
-
+    // The pager encapsulates controls paging of the results in docs.
+    // Eventually it will also include things like sorting
     const docs = search.results?.docs;
     const pager = {
         getMaxPage: () => {
@@ -113,20 +106,26 @@ export default function SearchContext(props) {
         getPageSize: () => {
             return search.page.rows;
         },
-        nextPage: () => {
-            alert("next");
-        }
+        // nextPage: () => {
+        //     alert("next");
+        //
 
     }
 
+
+    // Pass the docs and pager as properties.
     const ret_children = React.Children.map(props.children, (child) => {
+        // when a child is an Element or Component it will have a "type" attribute
+        // if its a text node, it will not.
         if (child.type) {
+            // clone the element (or Component) and pass new properties.
             const new_child = React.cloneElement(child, {
                 docs: docs,
                 pager: pager
             });
             return new_child;
         } else {
+            // otherwise, just pass the child as-is.
             return child;
         }
     });

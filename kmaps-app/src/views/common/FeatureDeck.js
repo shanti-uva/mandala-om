@@ -34,14 +34,14 @@ function insertBreakPoints(i, BP_SIZES, ret) {
     }
 }
 
-export function FeatureGallery(props) {
+export function FeatureDeck(props) {
     const docs = props.docs;
 
     let DEBUG_PRE = [];
     let LIST = [];
 
     if (docs) {
-        console.log("FeatureGallery: looking at ", docs);
+        console.log("FeatureDeck: looking at ", docs);
         LIST = docs?.map((doc, i) => {
             let ret = [];
             const featureCard = <FeatureCard doc={doc} key={ i }/>;
@@ -53,7 +53,7 @@ export function FeatureGallery(props) {
         });
         let REMAINDER = rowFiller(LIST.length, BP_SIZES);
         LIST.push(...REMAINDER);
-        console.log("FeatureGallery LIST = ", LIST);
+        console.log("FeatureDeck LIST = ", LIST);
 
         DEBUG_PRE =
             <Accordion>

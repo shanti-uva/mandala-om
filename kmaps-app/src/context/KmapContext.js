@@ -25,6 +25,7 @@ export default function KmapContext(props) {
     const [kmasset, setKmAsset] = useState({});
     const [relateds, setRelateds] = useState({});
     const [kmap, setKmap] = useState({});
+    const [loadingState, setLoadingState] = useState (false);
 
     // const [relatedType, setRelatedType] = useState( "all");
     const [relatedPage, setRelatedPage] = useState(0);

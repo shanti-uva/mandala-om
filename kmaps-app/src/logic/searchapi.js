@@ -1,6 +1,13 @@
 import axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
+import crypto from 'crypto';
+import _ from 'lodash';
 
+function checksum(data) {
+    return crypto.createHash('sha1').update(data).digest('base64');
+}
+
+// TODO: There needs to be better/smarter caching.  sessionStorage is too small to be unmanaged like this.
 export async function search(searchstate) {
 
     return await getAssetSearchPromise(searchstate);
@@ -10,11 +17,12 @@ export async function search(searchstate) {
 
 //  TODO: Maybe refactor to use declarative caching instead...?
 function getCached(request) {
+
     let data = null;
     // TODO: Need explicit cache controls and timeouts, etc.
     if (sessionStorage) {
         try {
-            const cached = sessionStorage.getItem(JSON.stringify(request));
+            const cached = sessionStorage.getItem(checksum(JSON.stringify(request)));
             if (cached) {
                 data = JSON.parse(cached);
             }
@@ -29,7 +37,7 @@ function getCached(request) {
 function setCache(request, data) {
     if (sessionStorage) {
         try {
-            sessionStorage.setItem(JSON.stringify(request), JSON.stringify(data));
+            sessionStorage.setItem(checksum(JSON.stringify(request)), JSON.stringify(data));
             console.log("Cached: data for ", JSON.stringify(request));
         } catch (e) {
             console.log("Ignored sessionStorage error: ", e);
@@ -48,7 +56,7 @@ export function getAssetSearchPromise(search) {
     // TODO: parameterize constructTextQuery
 
     console.log("UNPACKING search: ", search);
-    const  { page, query }  = search;
+    const {page, query} = search;
 
     console.log("UNPACKING page: ", page);
     console.log("UNPACKING query: ", query);
@@ -59,6 +67,7 @@ export function getAssetSearchPromise(search) {
     const startRec = page.start || 0;
     const rowsRec = page.rows || 10;
 
+    // TODO: Parameterize facets.  e.g. You won't need all of them, every time.
     const jsonFacet = {
         asset_count: {
             type: "terms",
@@ -142,9 +151,7 @@ export function getAssetSearchPromise(search) {
 
     const queryParams = constructTextQuery(search.query.searchText);
 
-    params = { ...params, ...queryParams }
-
-
+    params = {...params, ...queryParams}
 
     const request = {
         'adapter': jsonpAdapter,
@@ -155,26 +162,39 @@ export function getAssetSearchPromise(search) {
 
     const promise = new Promise((resolve, reject) => {
         let data = getCached(request);
-        if (false && data) {
+        if (data) {
             resolve(data);
             return;
         }
 
-        console.log("getAssetSearchPromise(): Calling axios:");
+        console.log("getAssetSearchPromise(): Calling axios:", request);
+
+        performance.mark("getAssetSearchPromise:start");
         axios.request(request).then((res) => {
             console.log("getAssetSearchPromise():  Yay! axios call succeeded!", res);
             console.log("getAssetSearchPromise(): res = ", res);
             const data = {
                 numFound: res.data.response.numFound,
-                docs: res.data.response.docs,
+                docs: _.map(res.data.response.docs, (x) => { return cleanAssetData(x); }),
                 facets: res.data.facets
             }
+
+
             setCache(request, data);
             resolve(data);
         }).catch(reason => {
             console.log("getAssetSearchPromise(): OUCH axios call failed!", reason);
             reject(reason);
-        });
+        }).finally(() => {
+            performance.mark("getAssetSearchPromise:done");
+            performance.measure("getAssetSearchPromise", "getAssetSearchPromise:start", "getAssetSearchPromise:done");
+            console.log("performance:", performance.getEntriesByName("getAssetSearchPromise"));
+
+            const perf = performance.getEntriesByName("getAssetSearchPromise");
+            perf.forEach( (x) => { console.log("getAssetSearchPromise() duration:" + x.duration )});
+            console.log("performance getEntries:", performance.getEntries());
+            performance.clearMeasures();
+        })
     });
     return promise;
 }
@@ -383,6 +403,8 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
 
 function cleanAssetData(data) {
 
+    // TODO: refactor this grunginess
+
     const asset_type = data.asset_type;
     switch (asset_type) {
         case 'texts':
@@ -390,6 +412,7 @@ function cleanAssetData(data) {
         case 'subjects':
         case 'places':
         case 'terms':
+        case 'collections':
             data.url_thumb = "/mandala-om/gradient.jpg";
             break;
         default:
@@ -402,7 +425,7 @@ function cleanAssetData(data) {
     return data;
 }
 
-
+// TODO: Refactor: parameterize basic_req to select which fields to search.
 function constructTextQuery(searchString) {
 
     let searchstring = escapeSearchString(searchString || "");
@@ -420,13 +443,13 @@ function constructTextQuery(searchString) {
         "q": "(" +
             " title:${xact}^100" +
             " title:${slashy}^100" +
-            " names_txt:${xact}^90" +
+            // " title:${search}^10" +
             " title:${starts}^80" +
+            " names_txt:${xact}^90" +
             " names_txt:${starts}^70" +
-            " title:${search}^10" +
-            " caption:${search}" +
-            " summary:${search}" +
-            " names_txt:${search}" +
+            // " names_txt:${search}" +
+            // " caption:${search}" +
+            // " summary:${search}" +
             ")",
 
         // search strings

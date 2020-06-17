@@ -22,6 +22,7 @@ interface Page {
 }
 
 export interface SearchModel {
+    loadingState: boolean,
     results: Results,
     query: Query,
     page: Page
@@ -82,6 +83,7 @@ interface FacetConfig {
 }
 
 export const searchModel: SearchModel = {
+    loadingState: false,
     results: {
         numFound: 0,
         docs: [],
@@ -149,11 +151,19 @@ export const searchModel: SearchModel = {
 
     update: thunk(async (actions, payload, helpers) => {
         const searchState = helpers.getStoreState().search
+
+        searchState.loadingState=true;
+        console.log("SEARCH START: ", searchState.page.current);
         const results = await search(searchState);
+        console.log("SEARCH DONE: ", searchState.page.current);
+        searchState.loadingState=false;
+
         actions.receiveResults(results)
     }),
+
     receiveResults: action((state, results) => {
-        console.log("RESULTS: ", results);
+        console.log("SEARCH Receive RESULTS: ", results);
+
         // Is it as simple as that?
         if (state.page.maxStart !== results.numFound) {
             state.page.maxStart = results.numFound;
