@@ -1,3 +1,4 @@
+/** Styles copied from shanti-texts.main but modified to use classes from React App **/
 .content-section #shanti-texts-body a{
   border-bottom: 1px solid transparent !important;
 }
@@ -214,6 +215,17 @@ div[lang="bo"] .shanti-texts-section-title.text-level-7 {
   color:#333;
 }
 
+#sidecolumn-ctrl {
+  font-size:1.25rem;
+  border: 2px outset #888888;
+  border-right: none;
+  height: 1.75rem;
+  padding: 0 1px 2px;
+  background-color: #fff;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
 /*--- texts window scroller styles ---*/
 #shanti-texts-body::-webkit-scrollbar,
 #shanti-texts-sidebar .tab-content::-webkit-scrollbar {
@@ -312,32 +324,31 @@ div[lang="bo"] .shanti-texts-section-title.text-level-7 {
 */
 
 
-
-#shanti-texts-toc {
+.shanti-texts-toc {
   position: relative;
 }
 
-#shanti-texts-toc ul{
+.shanti-texts-toc ul{
   margin-top: 0;
   padding-top: 0;
   /*font-family: source-sans-pro,'Arial Unicode MS',Helvetica-Neue,Helvetica, sans-serif;*/
 }
 
-#shanti-texts-toc > ul {
+.shanti-texts-toc > ul {
   margin-left: 0;
   padding-left: 2.5rem;
   margin-top: 1.5rem;
 }
-#shanti-texts-toc > ul > li > ul{
+.shanti-texts-toc > ul > li > ul{
   padding-left: 1.25rem;
 }
 
-#shanti-texts-toc > ul > li > ul > li > ul,
-#shanti-texts-toc > ul > li > ul > li > ul > li > ul{
+.shanti-texts-toc > ul > li > ul > li > ul,
+.shanti-texts-toc > ul > li > ul > li > ul > li > ul{
   padding-left: 1.75rem;
 }
 
-#shanti-texts-toc ul li{
+.shanti-texts-toc ul li{
   background:#fff;
   position: relative;
   float: left;
@@ -345,54 +356,57 @@ width: 100%;
 display: block;
 }
 
-#shanti-texts-toc li,
+.shanti-texts-toc li,
 #shanti-texts-links .links li {
   list-style-type: square;
   color: #454fa4;
   line-height: 1.82em;
 }
 
-#shanti-texts-toc > li.toc-item-node {
+.shanti-texts-toc > li.toc-item-node {
   font-weight: bold;
   font-size: 110%;
   margin-bottom: 1em;
 }
 
-#shanti-texts-toc ul li.active{
+.shanti-texts-toc ul li.active{
   background: -moz-linear-gradient(top, #f7f7f7 0, #f7f7f7 25px, #ffffff 25px, #ffffff 100%);
   background: -webkit-linear-gradient(top, #f7f7f7 0, #f7f7f7 25px, #ffffff 25px, #ffffff 100%);
   background: linear-gradient(to bottom, #f7f7f7 0, #f7f7f7 25px, #ffffff 25px, #ffffff 100%);
 }
 
-#shanti-texts-toc a{
+.shanti-texts-toc a{
   border: none;
   display:inline-block;
-  color: rgb(0, 0, 139);
-    color:#000;
-}
-
-#shanti-texts-toc a:hover{
-  color: #df3d26;
-}
-#shanti-texts-toc a:active{
+  font-family: 'Open Sans','Segoe UI','Lucida Grande',Tahoma,sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  /* color: rgb(0, 0, 139);*/
   color:#000;
 }
 
-#shanti-texts-toc li > a{
+.shanti-texts-toc a:hover{
+  color: #df3d26;
+}
+.shanti-texts-toc a:active{
+  color:#000;
+}
+
+.shanti-texts-toc li > a{
   letter-spacing: 0.0175rem;
   line-height: 1.32em;
   width: 100%;
 }
 
-.admin-menu #shanti-texts-toc li > a{
+.admin-menu .shanti-texts-toc li > a{
   padding-right: 4.5rem;
 }
 
-#shanti-texts-toc li.active > a{
+.shanti-texts-toc li.active > a{
   color: #df3d26 !important; 
 }
 
-#shanti-texts-toc a::before,
+.shanti-texts-toc a::before,
 .shanti-texts-section-title::before{
   content: '';
   color:#999;
@@ -416,7 +430,7 @@ display: block;
   margin-left: -3.5rem;
 }
 
-#shanti-texts-toc > ul > li a::before{
+.shanti-texts-toc > ul > li a::before{
   border: 4px double rgb(0,0,139);
   position: relative;
   top: -.1rem;
@@ -424,7 +438,7 @@ display: block;
   margin-right: 1rem;
 }
 
-#shanti-texts-toc > ul > li > ul > li a::before{
+.shanti-texts-toc > ul > li > ul > li a::before{
   position: relative;
   top: -0.15rem;
   right: 0.2rem;
@@ -440,11 +454,11 @@ display: block;
     height: .7rem;
 }
 
-#shanti-texts-toc > ul > li > ul > li > ul > li a::before,
-#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li a::before,
-#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li a::before,
-#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li a::before,
-#shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li a::before{
+.shanti-texts-toc > ul > li > ul > li > ul > li a::before,
+.shanti-texts-toc > ul > li > ul > li > ul > li > ul > li a::before,
+.shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li a::before,
+.shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li a::before,
+.shanti-texts-toc > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li a::before{
   border-radius: 50%;
   width: .5rem;
   height: .5rem;
@@ -453,13 +467,13 @@ display: block;
   background-color: rgb(0,0,139);
 }
 
-#shanti-texts-toc a:hover::before,
-#shanti-texts-toc li.active > a::before{
+.shanti-texts-toc a:hover::before,
+.shanti-texts-toc li.active > a::before{
   border-color: #df3d26;
   background-color: #df3d26 !important;
 }
-#shanti-texts-toc a:active::before,
-#shanti-texts-toc li.active > a::before{
+.shanti-texts-toc a:active::before,
+.shanti-texts-toc li.active > a::before{
   border-color: rgb(0,0,139);
   background-color:transparent !important;
 }
@@ -521,59 +535,59 @@ display: block;
 
 
 
-#shanti-texts-toc .shanti-texts-section-controls{
+.shanti-texts-toc .shanti-texts-section-controls{
   position: absolute;
   top: 0.15rem;
   right: 0;
 }
-#shanti-texts-toc .shanti-texts-record-title .shanti-texts-section-controls{
+.shanti-texts-toc .shanti-texts-record-title .shanti-texts-section-controls{
   position: absolute;
   top: -2.3rem;
 }
 
-#shanti-texts-toc .shanti-texts-section-controls a{
+.shanti-texts-toc .shanti-texts-section-controls a{
   filter: alpha(opacity=35);
   opacity: 0.35;
 }
 
-#shanti-texts-toc .shanti-texts-section-controls a:hover{
+.shanti-texts-toc .shanti-texts-section-controls a:hover{
   filter: alpha(opacity=80);
   opacity: 0.8;
   color: #454fa4;
 }
 
-#shanti-texts-toc .shanti-texts-section-controls a:active{
+.shanti-texts-toc .shanti-texts-section-controls a:active{
   filter: alpha(opacity=100);
   opacity: 1;
   color: #454fa4;
 }
 
-#shanti-texts-toc .shanti-texts-record-title .shanti-texts-section-controls a{
+.shanti-texts-toc .shanti-texts-record-title .shanti-texts-section-controls a{
   font-size: 70%;
 }
 
-#shanti-texts-toc .shanti-texts-section-controls a:first-of-type{
+.shanti-texts-toc .shanti-texts-section-controls a:first-of-type{
   position: relative;
   right: 2.2rem;
 }
 
-#shanti-texts-toc > .shanti-texts-record-title .shanti-texts-section-controls a:first-of-type{
+.shanti-texts-toc > .shanti-texts-record-title .shanti-texts-section-controls a:first-of-type{
   position: relative;
   right: 0;
 }
 
-#shanti-texts-toc .shanti-texts-section-controls a .fa-plus{
+.shanti-texts-toc .shanti-texts-section-controls a .fa-plus{
   filter: alpha(opacity=70);
   opacity: 0.7;
 }
 
-#shanti-texts-toc .shanti-texts-section-controls a:before {
+.shanti-texts-toc .shanti-texts-section-controls a:before {
     width: 0;
     height: 0;
     border: none;
 }
 
-#shanti-texts-toc a[style="font-weight:bold"]::before{
+.shanti-texts-toc a[style="font-weight:bold"]::before{
   border-color: #3c4380;
   background-color: #3c4380;
 }
@@ -630,7 +644,7 @@ display: block;
   margin: .5em 0 .5em 1em;
 }
 
-#shanti-texts-toc li,
+.shanti-texts-toc li,
 #shanti-texts-links .links li {
     list-style-type: none;
 }
@@ -692,15 +706,15 @@ display: block;
   margin: 1rem 0 1.5rem;
   font-family: 'EB Garamond',serif;
 }
-#shanti-texts-toc .shanti-texts-record-title > a{
+.shanti-texts-toc .shanti-texts-record-title > a{
   /*margin-bottom: 1rem;*/
   /*padding-right:0;*/
 }
 #shanti-texts-sidebar .shanti-texts-record-title > a{
   padding-right:0;
 }
-/* .admin-menu #shanti-texts-sidebar #shanti-texts-toc .shanti-texts-record-title > a */
-#shanti-texts-sidebar #shanti-texts-toc .shanti-texts-record-title{
+/* .admin-menu #shanti-texts-sidebar .shanti-texts-toc .shanti-texts-record-title > a */
+#shanti-texts-sidebar .shanti-texts-toc .shanti-texts-record-title{
   cursor: default; 
   padding-right: 0rem;
   color: #000;
@@ -708,11 +722,11 @@ display: block;
     line-height: 1.62em;
 }
 
-#shanti-texts-toc > .shanti-texts-record-title .shanti-texts-section-controls {
+.shanti-texts-toc > .shanti-texts-record-title .shanti-texts-section-controls {
   top: 0px;
 }
 
-#shanti-texts-toc .pdflink {
+.shanti-texts-toc .pdflink {
   width: 20px;
   height: 20px;
   top: -58px;
@@ -721,11 +735,11 @@ display: block;
   margin-right: -5px;
 }
 
-#shanti-texts-toc .pdflink img {
+.shanti-texts-toc .pdflink img {
   width: 16px;
 }
 
-#shanti-texts-toc .shanti-texts-record-title > a::before{
+.shanti-texts-toc .shanti-texts-record-title > a::before{
    content:'';
    display:none;
 }
@@ -907,19 +921,19 @@ display: block;
 /**
 * Sidebar Navigation subheaders
 */
-#shanti-texts-toc a[lang="bo"]{
+.shanti-texts-toc a[lang="bo"]{
   font-size: 1.25em;
   /*letter-spacing: 0.1rem;*/
 }
-#shanti-texts-toc a[lang="bo"]::before{
+.shanti-texts-toc a[lang="bo"]::before{
   position: relative;
   top: -0.25rem;
 }
-#shanti-texts-toc div[lang="bo"] li,
+.shanti-texts-toc div[lang="bo"] li,
 #shanti-texts-links div[lang="bo"] .links li {
   line-height: 1.88em;
 }
-#shanti-texts-toc div[lang="bo"] .shanti-texts-record-title a{
+.shanti-texts-toc div[lang="bo"] .shanti-texts-record-title a{
   font-size: 1.38em;
   /*letter-spacing: 0.075rem;*/
 }

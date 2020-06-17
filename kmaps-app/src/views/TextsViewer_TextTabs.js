@@ -21,16 +21,16 @@ export default function TextTabs(props) {
     }
     return (
         <>
-            <a
+            <div id={'sidecolumn-ctrl'}> <a
                 onClick={toggle_col}
                 aria-controls="txtsidecol"
                 aria-expanded="open"
                 className={'sidecol-toggle'}
-            >{icon}</a>
+            >{icon}</a></div>
             <Collapse in={open} onExited={update_icon} onEnter={update_icon}>
                 <Col id={'shanti-texts-sidebar'} md={4}>
                     <Tabs id={'shanti-texts-sidebar-tabs'} className={'nav-justified'}>
-                        <Tab eventKey={ 'text_toc' } title={ 'Contents' }>{ parser.parse(props.toc) }</Tab>
+                        <Tab eventKey={ 'text_toc' } title={ 'Contents' } className={'shanti-texts-toc'}>{ parser.parse(props.toc) }</Tab>
                         <Tab eventKey={ 'text_bibl' } title={ 'Description' }>{ parser.parse(props.meta) }</Tab>
                         <Tab eventKey={ 'text_links' } title={ 'Views' }>{ parser.parse(props.links) }</Tab>
                     </Tabs>
