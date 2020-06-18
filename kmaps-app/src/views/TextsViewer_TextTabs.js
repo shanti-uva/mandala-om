@@ -7,6 +7,7 @@ import Collapse from 'react-bootstrap/Collapse';
 
 export default function TextTabs(props) {
     const parser = new Parser();
+    const toc_code = parser.parse(props.toc);
     const info_icon = <span className={'shanticon shanticon-info'}></span>
     const collapse_icon = <span className={'shanticon shanticon-circle-right'}></span>
     const [open, setOpen] = useState(true);
@@ -35,7 +36,7 @@ export default function TextTabs(props) {
                             <div className={'shanti-texts-record-title'}>
                                 <a href={'#shanti-top'}>{props.title}</a>
                             </div>
-                            { parser.parse(props.toc) }
+                            { toc_code }
                         </Tab>
                         <Tab eventKey={ 'text_bibl' } title={ 'Description' }>{ parser.parse(props.meta) }</Tab>
                         <Tab eventKey={ 'text_links' } title={ 'Views' }>{ parser.parse(props.links) }</Tab>

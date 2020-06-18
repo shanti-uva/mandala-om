@@ -17,7 +17,7 @@ export function getMandalaAssetDataPromise(assettype, id) {
 
     const promise = new Promise((resolve, reject) => {
         let data = getCached(request);
-        clearCache();
+        clearCache(); // TODO: Remove this to enable caching
         if (data) {
             resolve(data);
             return;

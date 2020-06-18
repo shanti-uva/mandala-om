@@ -8,7 +8,7 @@ export default function TextBody(props) {
     const parser = new Parser();  // html-to-jsx parser
     const render_text = (props.markup) ? parser.parse( props.markup ) : '';
     return (
-        <Col id={'shanti-texts-body'}>
+        <Col id={'shanti-texts-body'} onScroll={props.listener}>
             {render_text}
         </Col>
     );

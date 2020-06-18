@@ -38,15 +38,9 @@ export function ContentPane(props) {
                         <ImagesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
                     <Route path={`${path}/texts/:id`}>
-                        {/* Was:
-                        <KmapContext>
-                            <TextsViewer onStateChange={props.onStateChange}/>
-                        </KmapContext>
-                        */}
                         <MdlAssetContext assettype={'texts'}>
                             <TextsViewer onStateChange={props.onStateChange}/>
                         </MdlAssetContext>
-
                     </Route>
                     <Route path={`${path}/sources/:id`}>
                         <SourcesViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
