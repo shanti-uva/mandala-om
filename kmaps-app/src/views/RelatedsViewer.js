@@ -45,7 +45,7 @@ function RelatedCount(p) {
 
     // return null if the count doesn't exist or is === 0
     return count ?
-        <Link to={"/view/" + p.baseType + "/" + p.baseUid + "/related/" + p.type}>
+        <Link to={"/view/" + p.baseType + "/" + p.baseUid + "/related/" + p.type + "/default"}>
             <span className={"sui-relatedItem"} id={"sui-rl-" + p.type} href="#">
                 <span className={"sui-color-" + p.type + " " + iconClass}></span>
                 <span className={"sui-relatedItem-label"}> {p.type}</span>

@@ -292,6 +292,12 @@ export function getFullKmapDataPromise(kmapid) {
 
 }
 
+function deriveImageUrl(url_thumb, size) {
+    console.log("deriveImageUrl: ", url_thumb);
+    const url_large = url_thumb.toString().replace('200,200',size +"," + size);
+    console.log("deriveImageUrl: large = ", url_large);
+    return url_large;
+}
 
 function cleanKmapData(data) {
 
@@ -406,6 +412,9 @@ function cleanAssetData(data) {
     // TODO: refactor this grunginess
 
     const asset_type = data.asset_type;
+
+    console.log("cleanAssetData ", asset_type);
+
     switch (asset_type) {
         case 'texts':
         case 'sources':
@@ -413,7 +422,13 @@ function cleanAssetData(data) {
         case 'places':
         case 'terms':
         case 'collections':
+            data.url_large = "/mandala-om/gradient.jpg";
             data.url_thumb = "/mandala-om/gradient.jpg";
+            data.url_thumb_height = 100.0;
+            data.url_thumb_width = 150.0;
+            break;
+        case 'images':
+            data.url_large = deriveImageUrl(data.url_thumb,1200);
             break;
         default:
             break;

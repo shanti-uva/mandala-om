@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {useStoreState, useStoreActions} from '../model/StoreModel';
-import {buildNestedDocs} from "../views/common/utils";
 import _ from "lodash";
+import {useParams} from "react-router";
 
 /**
  *    Container which injects the current search data, before rendering the its children.
@@ -19,6 +19,9 @@ import _ from "lodash";
  * */
 
 export default function SearchContext(props) {
+
+    const params = useParams();
+    console.log( "SearchContext params = ", params);
 
     function debounce(func) { return _.debounce(func, 500) };
 
@@ -91,6 +94,7 @@ export default function SearchContext(props) {
             }
         },
         setPageSize: (size) => {
+
             size = Number(size);
             let oldSize = Number(size);
             let oldPage = Number(search.page.current);

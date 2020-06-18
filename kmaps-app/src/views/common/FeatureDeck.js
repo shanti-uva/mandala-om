@@ -66,6 +66,7 @@ export function FeatureDeck(props) {
 
     const output = <React.Fragment>
         <FeatureGalleryHeaderLine title={props.title}/>
+        <h2>Card Deck View</h2>
         <FeaturePager pager={props.pager}/>
         <Container>
             <CardDeck>

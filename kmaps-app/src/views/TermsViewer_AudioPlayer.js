@@ -24,7 +24,7 @@ function TermAudioPlayer(props) {
                 player.current.play();
             }}><span>{'\ue60a'}</span>
             </button>
-            <select onChange={e => handleSelect(e)}>{option_list}></select></>
+            <select onChange={e => handleSelect(e)}>{option_list}</select></>
         : "No Audio Available";
 
     return <Card>

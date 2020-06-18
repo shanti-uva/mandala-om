@@ -25,7 +25,7 @@ export default function TermsViewer(props) {
                 <div className={"sui-terms"}>
                     <NodeHeader kmasset={props.kmasset}/>
                     <Switch>
-                        <Route path={`/view/:viewerType/:id/related/:relatedType`}>
+                        <Route path={'/view/:viewerType/:id/related/:relatedType/:viewMode?'}>
                             <RelatedsGallery {...props}/>
                         </Route>
                         <Route>

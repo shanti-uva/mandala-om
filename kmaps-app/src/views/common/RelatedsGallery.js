@@ -1,6 +1,8 @@
 import {useParams} from "react-router-dom";
 import React from "react";
 import {FeatureGallery} from "./FeatureGallery";
+import {FeatureCollection} from "./FeatureCollection";
+
 
 
 // Special case of the FeatureGallery
@@ -12,5 +14,5 @@ export function RelatedsGallery(props) {
 
     // Give a nice title.
     const title = (type !== "all")?`Related ${type}`: "All Related Items";
-    return <FeatureGallery docs={docs} pager={props.pager} title={title}/>
+    return <FeatureCollection docs={docs} pager={props.pager} title={title} viewMode={"gallery"}/>
 }
