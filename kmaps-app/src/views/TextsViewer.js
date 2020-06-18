@@ -22,13 +22,16 @@ export function TextsViewer(props) {
         </div>;
     if (props.mdlasset && props.mdlasset.nid) {
         const currast = props.mdlasset;
+        //console.log("Currast", currast);
         output =
             <Container className={'astviewer texts'} fluid>
                 <Row id={'shanti-texts-container'}>
                     <TextBody markup={currast.full_markup}/>
                     <TextTabs toc={currast.toc_links}
                               meta={currast.bibl_summary}
-                              links={currast.views_links} />
+                              links={currast.views_links}
+                              title={currast.title}
+                    />
                 </Row>
             </Container>;
     }

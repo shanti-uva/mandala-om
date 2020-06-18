@@ -1,8 +1,26 @@
 .sui-main {
     overflow-x: hidden;
+    font-family: 'Open Sans','Segoe UI','Lucida Grande',Tahoma,sans-serif;
+    font-weight: 400;
+    text-rendering: optimizeSpeed;
+    letter-spacing: 0.01rem;
+    text-rendering: optimizeLegibility !important;
 }
 .sui-content {
     height: 100% !important;
     background-color: #eee;
     overflow-x: hidden;
+}
+
+.spinner-border-sm {
+    margin: -2px 6px 0 20px;
+    vertical-align: middle !important;
+}
+
+.shanticon {
+    font-family: "shanticon";
+}
+
+#shanti-texts-body figure.image {
+    margin: 0 1rem;
 }

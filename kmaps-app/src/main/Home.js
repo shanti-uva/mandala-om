@@ -16,7 +16,7 @@ export function Home(props) {
         <ul>
             <li><Link to={'/view/assets/terms-85193'}>/view/assets/terms-85193</Link> (Legacy)</li>
             <li><Link
-                to={'/view/texts/texts-dev_shanti_virginia_edu-16202'}>/view/texts/texts-dev_shanti_virginia_edu-16202</Link>
+                to={'/view/texts/texts-dev_shanti_virginia_edu-16230'}>/view/texts/texts-dev_shanti_virginia_edu-16230</Link>
             </li>
         </ul>
 

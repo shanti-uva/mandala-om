@@ -7,7 +7,7 @@ export function getMandalaAssetDataPromise(assettype, id) {
     // console.log('params: ', assettype, id);
     const json_call = getMandalaJSONUrl(env, assettype, id);
     // console.log("json call: " + json_call);
-    //const selectUrl = 'https://' + host + '/solr/' + index + '/select';
+    // const selectUrl = 'https://' + host + '/solr/' + index + '/select';
 
     const request = {
         'adapter': jsonpAdapter,
@@ -17,6 +17,7 @@ export function getMandalaAssetDataPromise(assettype, id) {
 
     const promise = new Promise((resolve, reject) => {
         let data = getCached(request);
+        clearCache();
         if (data) {
             resolve(data);
             return;

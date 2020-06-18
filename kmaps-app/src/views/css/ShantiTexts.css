@@ -217,13 +217,15 @@ div[lang="bo"] .shanti-texts-section-title.text-level-7 {
 
 #sidecolumn-ctrl {
   font-size:1.25rem;
-  border: 2px outset #888888;
+  color: #AAA;
+  border: 2px solid #AAA;
   border-right: none;
-  height: 1.75rem;
-  padding: 0 1px 2px;
+  height: 1.8rem;
+  padding: 0px 1px 2px;
   background-color: #fff;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  cursor: pointer;
 }
 
 /*--- texts window scroller styles ---*/
@@ -378,9 +380,8 @@ display: block;
 .shanti-texts-toc a{
   border: none;
   display:inline-block;
-  font-family: 'Open Sans','Segoe UI','Lucida Grande',Tahoma,sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  /* font-size: 13px; */
   /* color: rgb(0, 0, 139);*/
   color:#000;
 }
@@ -388,6 +389,7 @@ display: block;
 .shanti-texts-toc a:hover{
   color: #df3d26;
 }
+
 .shanti-texts-toc a:active{
   color:#000;
 }
@@ -447,11 +449,10 @@ display: block;
   border-width: .25rem;
   border-color: rgb(0,0,139);
   margin-left:-1.5rem;
-
     border-radius: 0;
-    border-width: .1rem;
-    width: .7rem;
-    height: .7rem;
+    border-width: 1px;
+    width: 7px;
+    height: 7px;
 }
 
 .shanti-texts-toc > ul > li > ul > li > ul > li a::before,
@@ -1169,7 +1170,7 @@ display: block;
 
 }
 
-.shanti-texts-section.text-level-2 .shanti-texts-section-content:empty ~ div{
+.shanti-texts-section .text-level-2 .shanti-texts-section-content:empty ~ div{
   text-transform:uppercase;
 }
 
