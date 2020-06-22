@@ -35,7 +35,7 @@ export default function KmapContext(props) {
 
     const pager = {
         getMaxPage: () => {
-            if (!relateds.assets) {
+            if (!relateds.assets || !relateds.assets[relatedType] ) {
                 return 0;
             } else {
                 const maxCount = relateds.assets[relatedType].count;

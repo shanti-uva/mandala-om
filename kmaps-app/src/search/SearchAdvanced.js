@@ -3,26 +3,20 @@ import React from "react";
 
 export function SearchAdvanced(props) {
     const query = "";
-    console.log("SearchAdvanced: query = ", query);
     const openclass = props.advanced ? "open" : "closed";
+
+    console.debug("SearchAdvanced: query = ", props.search.query);
+    console.debug("SearchAdvanced: facets = ", props.facets);
+
     const advanced =
         <div id='sui-adv' className={`sui-adv ${openclass}`}>
-
-            <FacetBox id='squawk' label="item type" assetType="assets" filters={query.assets}/>
-            <FacetBox id='squawk' label="audio-video" assetType="audio-video"/>
-            <FacetBox id='squawk' label="images" assetType="images"/>
-            <FacetBox id='squawk' label="texts" assetType="texts"/>
-            <FacetBox id='squawk' label="images" assetType="images"/>
-            <FacetBox id='squawk' label="sources" assetType="sources"/>
-            <FacetBox id='squawk' label="visual" assetType="visuals"/>
-            <FacetBox id='squawk' label="subjects" assetType="subjects"/>
-            <FacetBox id='squawk' label="places" assetType="places"/>
-            <FacetBox id='squawk' label="texts" assetType="texts"/>
-            <FacetBox id='squawk' label="collections" assetType="collections"/>
-            <FacetBox id='squawk' label="languages" assetType="languages"/>
-
-            <FacetBox id='squawk' label="users" assetType="users"/>
-            <FacetBox id='squawk' label="languages" assetType="languages"/>
+            <FacetBox id='squawk' label="item type" facets = { props.facets.asset_count } assetType={ "assets"}/>
+            <FacetBox id='squawk' label="related subjects" facets = { props.facets.related_subjects } assetType="subjects"/>
+            <FacetBox id='squawk' label="related places" facets = { props.facets.related_places }assetType="places"/>
+            <FacetBox id='squawk' label="related terms" facets = { props.facets.related_terms } assetType="terms"/>
+            <FacetBox id='squawk' label="collections" facets = { props.facets.collections } assetType="collections"/>
+            <FacetBox id='squawk' label="languages" facets = { props.facets.languages } assetType="languages"/>
+            <FacetBox id='squawk' label="users" facets = { props.facets.node_user } assetType="users"/>
 
             <FacetBox id='squawk' label="recent searches" assetType="recent-searches"/>
 

@@ -174,6 +174,12 @@ export const searchModel: SearchModel = {
         }
     }),
     setSearchText: action((state, payload) => {
+
+        // console.log(" ACTION TIME: setSearchText() payload = ", payload);
+
+        // TODO: ,ight need to insert sanity checks here.
+        state.query.searchText = payload;
+
     }),
 
     addFilters: action((state, payload) => {

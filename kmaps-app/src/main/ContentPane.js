@@ -57,11 +57,14 @@ export function ContentPane(props) {
                         <RelatedsViewer id={props.id} onStateChange={props.onStateChange}/>
                         <LegacyViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
-                    <Route path={[`${path}/terms/:id/related/:relatedType`,`${path}/terms/:id`]}>
+                    <Route path={[`${path}/terms/:id/related/:relatedType/:viewMode`,`${path}/terms/:id`]}>
                         <KmapContext>
                             <RelatedsViewer id={props.id} onStateChange={props.onStateChange}/>
                             <TermsViewer onStateChange={props.onStateChange}/>
                         </KmapContext>
+                    </Route>
+                    <Route path={`${path}/terms/:id/related/:relatedType`}>
+                        <Redirect to={'./default'} />
                     </Route>
                     <Route path={`${path}/collections/:id`}>
                         <CollectionsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>

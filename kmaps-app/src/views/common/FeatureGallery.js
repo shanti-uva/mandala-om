@@ -85,7 +85,7 @@ export function FeatureGallery(props) {
             View</h2>
         <FeatureGalleryHeaderLine title={props.title}/>
         <FeaturePager pager={props.pager}/>
-            <PhotoGallery targetRowHeight={200}  photos={ LIST } />
+            {/*<PhotoGallery targetRowHeight={200}  photos={ LIST } />*/}
             <ImageGallery items={ LIST } />
         <FeaturePager pager={props.pager}/>
 

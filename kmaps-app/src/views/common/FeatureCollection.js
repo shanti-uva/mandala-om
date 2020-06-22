@@ -77,9 +77,13 @@ function FeatureCollectionViewModeSelector(props) {
         history.push(viewMode);
     }
 
-    return <ToggleButtonGroup name={viewMode} value={viewMode} type={"radio"} onChange= { (x) => { navigate(x)} }>
-        <ToggleButton name={"viewMode"} value={"deck"} type={"radio"}>Card Deck</ToggleButton>
-        <ToggleButton name={"viewMode"} value={"gallery"} type={"radio"}>Gallery</ToggleButton>
-        <ToggleButton name={"viewMode"} value={"list"} type={"radio"}>List</ToggleButton>
+    const deckLabel = <span className={"shanticon-vcard-o"}></span>; // card deck
+    const galleryLabel = <span className={"shanticon-image"}></span>; // Gallery
+    const listLabel = <span className={"shanticon-list2"}></span>; // List
+    return <ToggleButtonGroup name={viewMode} value={viewMode} type={"radio"}
+                                                          onChange={mode => navigate(mode)}>
+        <ToggleButton name={"viewMode"} value={"deck"} type={"radio"}>{deckLabel}</ToggleButton>
+        <ToggleButton name={"viewMode"} value={"gallery"} type={"radio"}>{galleryLabel}</ToggleButton>
+        <ToggleButton name={"viewMode"} value={"list"} type={"radio"}>{listLabel}</ToggleButton>
     </ToggleButtonGroup>
 }

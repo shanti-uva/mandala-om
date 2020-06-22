@@ -60,7 +60,9 @@ export function Main(props) {
                             <Home/>
                         </Route>
                     </Switch>
-                    <SearchAdvanced advanced={state.advanced}/>
+                    <SearchContext>
+                        <SearchAdvanced advanced={state.advanced}/>
+                    </SearchContext>
                     <Hamburger hamburgerOpen={state.hamburgerOpen}/>
                 </div>
             </div>

@@ -53,6 +53,20 @@ export default function SearchContext(props) {
         setPageSize
     } = debounceAll(useStoreActions(actions => actions.search));
 
+
+
+    const query = search.query;
+    console.log("setting searchControls: search = " , search);
+    const searchControls = {
+        query: query,
+        currentText: search.searchText,
+        update: update,
+        setSearchText: setSearchText,
+        addFilters: addFilters,
+        clearFilters: clearFilters,
+        removeFilters: removeFilters,
+    };
+
     // Let's dispatch an update right off the bat...
     useEffect(() => {
         console.log("INITING");
@@ -63,6 +77,11 @@ export default function SearchContext(props) {
     // Eventually it will also include things like sorting
     const docs = search.results?.docs;
     const pager = {
+
+        numFound: search.results.numFound,
+        currentPage: search.page.current,
+        currentPageSize: search.page.rows,
+
         getMaxPage: () => {
             if (!search.results?.numFound) {
                 return 0;
@@ -116,6 +135,7 @@ export default function SearchContext(props) {
 
     }
 
+    const facets = search.results?.facets;
 
     // Pass the docs and pager as properties.
     const ret_children = React.Children.map(props.children, (child) => {
@@ -125,7 +145,9 @@ export default function SearchContext(props) {
             // clone the element (or Component) and pass new properties.
             const new_child = React.cloneElement(child, {
                 docs: docs,
-                pager: pager
+                facets: facets,
+                pager: pager,
+                search: searchControls
             });
             return new_child;
         } else {
