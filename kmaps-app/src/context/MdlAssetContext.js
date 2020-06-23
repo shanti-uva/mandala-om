@@ -41,10 +41,12 @@ export default function MdlAssetContext(props) {
 
         // console.log(asset_type)
         const promises = [getMandalaAssetDataPromise(asset_type, id)];
-
+        console.log(promises);
         Promise.allSettled(promises).then(([mdlasset_result]) => {
+            console.log('settled');
             const {status: call_status, value: new_mdlasset} = mdlasset_result;
             if (mdlasset_result && call_status === 'fulfilled' && mdlasset.nid !== new_mdlasset.nid) {
+                console.log('Fulfilled!');
                 // kmprops.kmasset = new_kmasset; // what is kmprops for?
                 setMdlAsset(new_mdlasset);
                 changed = true;

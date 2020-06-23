@@ -1,7 +1,6 @@
 import jsonpAdapter from 'axios-jsonp';
 import axios from "axios";
 
-
 export function getMandalaAssetDataPromise(assettype, id) {
     const env = 'local';
     // console.log('params: ', assettype, id);
@@ -13,24 +12,22 @@ export function getMandalaAssetDataPromise(assettype, id) {
         'adapter': jsonpAdapter,
         'callbackParamName': 'json.wrf',
         'url': json_call
-    }
+    };
 
     const promise = new Promise((resolve, reject) => {
         let data = getCached(request);
-        clearCache(); // TODO: Remove this to enable caching
         if (data) {
             resolve(data);
             return;
         }
-
-        // console.log("getMandalaAssetDataPromise(): Calling axios:");
+        console.log("getMandalaAssetDataPromise(): Calling axios:", request);
         axios.request(request).then((res) => {
-           // console.log("getMandalaAssetDataPromise():  Yay! axios call succeeded!", res);
+            console.log("getMandalaAssetDataPromise():  Yay! axios call succeeded!", res);
             const data = res.data;
             setCache(request, data);
             resolve(data);
         }).catch(reason => {
-            // console.log("getMandalaAssetDataPromise(): OUCH axios call failed!", reason);
+            console.log("getMandalaAssetDataPromise(): OUCH axios call failed!", reason);
             reject(reason);
         });
     });

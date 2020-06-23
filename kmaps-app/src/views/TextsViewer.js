@@ -37,13 +37,14 @@ import $ from 'jquery';
  * @constructor
  */
 export function TextsViewer(props) {
-    //console.log("TV Props", props);
+    console.log("TV Props", props);
     const tid = props.mdlasset.nid;
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState(['shanti-texts-' + tid]);
+    /*
     useEffect(() => {
         // Set the text section state var if empty. Only need to do once on load
-        if (text_sections.length == 0) {
+        if (text_sections.length == 0 && $('#shanti-texts-body .shanti-texts-section').length > 0) {
             const sections_tmp = $('#shanti-texts-body .shanti-texts-section').toArray();
             const sections_new = $.map(sections_tmp, function(s, n) {
                 const sel = $(s);
@@ -65,6 +66,7 @@ export function TextsViewer(props) {
             setSections(sections_new);
         }
     });
+     */
 
     /**
      * Handle scroll of the main text window to determine which sections are in viewport (i.e. showing)
@@ -102,7 +104,7 @@ export function TextsViewer(props) {
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
     if (props.mdlasset && props.mdlasset.nid) {
         const currast = props.mdlasset;
-        //console.log("Currast", currast);
+        console.log("Currast", currast);
         output =
             <Container className={'astviewer texts'} fluid>
                 <Row id={'shanti-texts-container'}>
