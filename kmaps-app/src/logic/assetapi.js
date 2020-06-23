@@ -2,10 +2,10 @@ import jsonpAdapter from 'axios-jsonp';
 import axios from "axios";
 
 export function getMandalaAssetDataPromise(assettype, id) {
-    const env = 'local';
+    const env = 'dev';
     // console.log('params: ', assettype, id);
     const json_call = getMandalaJSONUrl(env, assettype, id);
-    // console.log("json call: " + json_call);
+    console.log("json call: " + json_call);
     // const selectUrl = 'https://' + host + '/solr/' + index + '/select';
 
     const request = {
@@ -15,11 +15,12 @@ export function getMandalaAssetDataPromise(assettype, id) {
     };
 
     const promise = new Promise((resolve, reject) => {
-        let data = getCached(request);
+        /*let data = getCached(request);
         if (data) {
             resolve(data);
             return;
-        }
+        }*/
+        let data = false;
         console.log("getMandalaAssetDataPromise(): Calling axios:", request);
         axios.request(request).then((res) => {
             console.log("getMandalaAssetDataPromise():  Yay! axios call succeeded!", res);

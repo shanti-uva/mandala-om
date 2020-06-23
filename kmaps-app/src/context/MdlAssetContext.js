@@ -24,7 +24,6 @@ import { getMandalaAssetDataPromise } from "../logic/assetapi";
  * */
 export default function MdlAssetContext(props) {
     //console.log('props in mdlasset', props);
-    const env = 'local';
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
 
