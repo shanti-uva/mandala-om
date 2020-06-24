@@ -7,7 +7,7 @@ export function FacetBox(props) {
     let chosen_icon = props.icon;
     const assetType = props.assetType;
     const filters = props.filters;
-    console.log("FacetBox Filters: ", filters);
+    // console.log("FacetBox Filters: ", filters);
 
     const ICON_MAP = {
         "audio-video": "\ue648",
@@ -31,10 +31,10 @@ export function FacetBox(props) {
     const label = props.label || "UNKNOWN LABEL";
 
 
-    console.debug("FacetBox: props = ", props);
+    // console.debug("FacetBox: props = ", props);
 
     function parseEntry(entry, fullEntry) {
-        console.log("FacetBox.parseEntry: " + JSON.stringify(entry));
+        // console.log("FacetBox.parseEntry: " + JSON.stringify(entry));
         let [ label, uid ] = entry.val.split("|");
         label=label?label:"undefined";
         const extra = (fullEntry && uid)?<span>({uid})</span>:"";

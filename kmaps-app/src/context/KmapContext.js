@@ -75,6 +75,18 @@ export default function KmapContext(props) {
         getPageSize: () => {
             return pageSize;
         },
+        nextPage: () => {
+            pager.setPage(pager.getPage() + 1);
+        },
+        prevPage: () => {
+            pager.setPage(pager.getPage() - 1);
+        },
+        lastPage: () => {
+            pager.setPage( pager.getMaxPage() );
+        },
+        firstPage: () => {
+            pager.setPage(0);
+        }
 
     }
 

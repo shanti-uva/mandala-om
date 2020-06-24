@@ -37,7 +37,6 @@ export function FeatureList(props) {
 
 
     const output = <div>
-        <h2>Feature List</h2>
         <Container>
             <FeaturePager pager={props.pager}/>
             {LIST}

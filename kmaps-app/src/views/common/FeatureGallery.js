@@ -81,8 +81,6 @@ export function FeatureGallery(props) {
     }
 
     const output = <React.Fragment>
-        <h2>
-            View</h2>
         <FeatureGalleryHeaderLine title={props.title}/>
         <FeaturePager pager={props.pager}/>
             {/*<PhotoGallery targetRowHeight={200}  photos={ LIST } />*/}

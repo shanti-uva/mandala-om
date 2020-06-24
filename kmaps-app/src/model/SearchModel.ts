@@ -90,7 +90,7 @@ export const searchModel: SearchModel = {
         facets: []
     },
     query: {
-        searchText: "lhasa",
+        searchText: "",
         filters: [
             {
                 id: "places",
@@ -121,25 +121,40 @@ export const searchModel: SearchModel = {
         state.page.current = pageNum;
     }),
     nextPage: action((state, increment) => {
+        increment |=1;
+        console.log("SearchModel: pager.nextPage() ", increment);
+        console.log("SearchModel: state.page ", state.page);
+
+        let oldPage = state.page.current;
         let newStart = state.page.start + increment * state.page.rows;
         if (newStart > state.page.maxStart) {
             newStart = state.page.rows * Math.floor(state.page.maxStart / state.page.rows)
         }
-        state.page.start = newStart
+
+        console.log("SearchModel: newStart ", newStart);
+        state.page.start = newStart;
+        state.page.current = Math.floor(newStart / state.page.rows);
     }),
     prevPage: action((state, decrement) => {
+        decrement |=1;
+        console.log("SearchModel: pager.prevPage() ", decrement);
+        console.log("SearchModel: state.page ", state.page);
+
         let newStart = state.page.start - decrement * state.page.rows;
         if (newStart < 0) {
             newStart = 0
         }
-        ;
+        console.log("SearchModel: newStart ", newStart);
         state.page.start = newStart;
+        state.page.current = Math.floor((newStart + 1) / state.page.rows);
     }),
     lastPage: action((state) => {
         state.page.start = state.page.rows * Math.floor(state.page.maxStart / state.page.rows);
+        state.page.current = Math.floor(state.page.maxStart / state.page.rows);
     }),
     firstPage: action((state) => {
         state.page.start = 0;
+        state.page.current = 0;
     }),
 
     setPageSize: action((state, pageSize) => {

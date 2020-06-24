@@ -125,7 +125,7 @@ export function getAssetSearchPromise(search) {
         "node_user": {
             "limit": 300,
             "type": "terms",
-            "field": "user_name_full_s"
+            "field": "node_user_full_s"
         },
         "creator": {
             "limit": 300,

@@ -129,9 +129,19 @@ export default function SearchContext(props) {
         getPageSize: () => {
             return search.page.rows;
         },
-        // nextPage: () => {
-        //     alert("next");
-        //
+        nextPage: () => {
+            nextPage();
+        },
+        prevPage: () => {
+            prevPage();
+        },
+        firstPage: () => {
+            firstPage();
+        },
+        lastPage: () => {
+            lastPage();
+        }
+
 
     }
 
