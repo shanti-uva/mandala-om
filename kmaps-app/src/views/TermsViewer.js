@@ -15,7 +15,7 @@ import { RelatedsGallery } from './common/RelatedsGallery';
 // Bootstrap
 
 export default function TermsViewer(props) {
-    let output = <div className={'termsviewer'}>Loading Test...</div>;
+    let output = <div className={'termsviewer'}>Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
         output = (
             <div className={'termsviewer'}>
