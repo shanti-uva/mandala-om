@@ -1,0 +1,257 @@
+
+/*----------------------------*/
+/*----- BEGIN Popovers -------*/
+/*----------------------------*/
+.kmap-tag-group { white-space: nowrap; }  /** Keeps the popover with the preceeding kmap term it goes with **/
+
+.kmap-tag-group .deflinks {
+    vertical-align: super;
+    font-size: 80%;
+}
+
+.popover-link {
+    background: #5a65d1;
+    border: none;
+    height: 12.5px;
+    width: 14.5px;
+    color: white;
+    padding: 0;
+    display: inline-block;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-left: 8px;
+    margin-right: 12.5px;
+    font-size: 10px;
+    font-family: 'EB Garamond',serif;
+}
+
+.popover-link-tip {
+    border-bottom: 0.5rem solid transparent;
+    border-top: 0 solid transparent;
+    border-right: .5rem solid #5a65d1;
+    font-size: 0;
+    position: relative;
+    bottom: 10px;
+    right: 5px;
+    height: 0;
+    width: 0;
+}
+
+.popover-link .icon {
+    font-size: 8px;
+    position: relative;
+    right: 3px;
+}
+
+.popover-link .icon::before{
+    color: white;
+}
+
+.popover {
+    position: absolute;
+    z-index: 400;
+    color:#333;
+    font-size:0.88em;
+    line-height:1.18em;
+    width:320px;
+    max-width:320px;
+    font-style:normal;
+}
+
+.popover.fade.in{
+    /*filter: alpha(opacity=98);
+    opacity:0.98;*/
+}
+
+.popover .popover-title .kmid,
+.popover .popover-header .kmid {
+    font-size: 0.8em;
+    font-weight: 400;
+    position: absolute;
+    top: .3rem;
+    right: .75rem;
+}
+
+.content-section .related-resources-popover {
+    border: none;
+    /*padding: 0;*/
+}
+
+.related-resources-popover .popover-content{
+    /*padding: 0.5rem 1.4rem 1rem;*/
+}
+
+.related-resources-popover .popover-body {
+    /*border-top: 1px solid #ccc;*/
+    padding: 0.5rem 1rem !important;
+}
+
+.related-resources-popover .popover-title,
+.related-resources-popover .popover-header {
+    display: block;
+    font-size: 13px;
+    padding: 13px 0 6px !important;
+    margin: 0 14px;
+    background: transparent;
+    border: none;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    color: #444;
+    font-weight: 600;
+    text-transform: capitalize;
+    z-index: 1000;
+}
+
+.related-resources-popover .desc p {
+    font-size: 0.88em;
+    line-height: 1.25em;
+    color:#333;
+}
+
+.related-resources-popover .parents,
+.related-resources-popover .other,
+.related-resources-popover .defs{
+    line-height: 1em;
+    margin-top:0.75rem;
+}
+
+.related-resources-popover .parents p,
+.related-resources-popover .other p,
+.related-resources-popover .defs p{
+    line-height:1.12em;
+    margin-bottom: 0;
+}
+
+.related-resources-popover .parents strong,
+.related-resources-popover .other strong,
+.related-resources-popover .defs strong{
+    color: #222;
+    font-size: .93em;
+    letter-spacing: 0.0275rem;
+    margin-top: -0.12em;
+}
+
+.related-resources-popover .other strong:after {
+    padding-right: 3px;
+}
+
+.related-resources-popover .parents strong::after,
+.related-resources-popover .other strong::after,
+.related-resources-popover .defs strong::after{
+    content: ':';
+    /*margin-right: 0.3rem;*/
+}
+
+.related-resources-popover .parents a,
+.related-resources-popover .defs a{
+    font-size: 0.93em;
+    line-height: 1.32em;
+    border-bottom-width: 0;
+    display: inline;
+    white-space: normal;
+    color: #03038e;
+}
+
+.related-resources-popover .parents a::after{
+    content: ' / ';
+}
+
+.related-resources-popover .parents a:last-child::after {
+    content: '';
+}
+
+.related-resources-popover .parents a:hover,
+.related-resources-popover .parents a:active,
+.related-resources-popover .defs a:hover,
+.related-resources-popover .defs a:active{
+    color: #cf2f1e;
+}
+
+.related-resources-popover .termtypes {
+    margin: 0.5em auto;
+}
+
+.popover-footer {
+    margin: 8px -14px -10px;
+    background: #333;
+    border-radius: 0 0 0.8rem 0.8rem;
+    background-clip: padding-box;
+}
+
+.popover-footer-button {
+    background: #333;
+    height: 2.5em;
+    padding: 0 0 0 1.3rem;
+    margin: 0;
+}
+
+.popover-footer-button:hover {
+    color: #fff;
+    background: #5a65d1;
+}
+
+.popover-footer-button:active {
+    background-color: #424a9a;
+}
+
+.popover-footer-button a {
+    color: #ddd;
+    border-bottom: none;
+    display: block;
+    width: 100%;
+    font-size: 1.12em;
+    line-height: 2em;
+    height: 3em;
+    text-transform:capitalize;
+    letter-spacing: 0.05rem;
+    font-family:'Open Sans','Segoe UI',Tahoma,sans-serif !important;
+    font-weight: 400;
+}
+
+.popover-footer-button a:hover{
+    color: #f0f0f0;
+}
+
+.popover-footer-button a:active{
+    color: #fff;
+}
+
+.popover-footer-button a.icon::before {
+    color: #fff;
+    margin-right: 12px;
+    font-size: 1.12em;
+    position: relative;
+    top: 0.25rem;
+    left:.1rem;
+    font-family: 'shanticon';
+}
+
+.popover-footer-button:hover .icon,
+.popover-footer-button:active .icon {
+    color: #fff;
+    text-decoration: none;
+}
+
+.popover-footer-button:first-child .icon {
+    text-transform: uppercase;
+    font-size: 1.06em;
+    line-height: 2.25em;
+}
+
+.popover-footer .popover-footer-button:first-child .icon::before{
+    margin-right: 1.3rem;
+    content:'\e629';
+    position: relative;
+    left:.2rem;
+}
+
+.popover-footer-button:last-child {
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-clip: padding-box;
+    height:3.4rem;
+}
+
+/*------------------*/
+/*-- END Popovers --*/
+/*------------------*/
