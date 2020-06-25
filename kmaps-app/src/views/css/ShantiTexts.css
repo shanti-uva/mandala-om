@@ -380,7 +380,7 @@ display: block;
 .shanti-texts-toc a{
   border: none;
   display:inline-block;
-  font-weight: 400;
+  /*font-weight: 400;*/
   /* font-size: 13px; */
   /* color: rgb(0, 0, 139);*/
   color:#000;

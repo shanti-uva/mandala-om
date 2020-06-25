@@ -488,3 +488,4 @@ function escapeSearchString(str) {
     str = str.replace('?', '\\?');
     return str;
 }
+

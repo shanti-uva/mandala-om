@@ -1,11 +1,22 @@
 import jsonpAdapter from 'axios-jsonp';
 import axios from "axios";
+import $ from "jquery";
+import React from "react";
 
-export function getMandalaAssetDataPromise(assettype, id) {
-    const env = 'dev';
+$(document).ready(function() {
+    // Use timeout to show not found message because otherwise displays while waiting for JSON to respond
+    window.show_not_found = setTimeout(
+        function() {
+            $('.loading').hide();
+            $('.not-found-msg').show();
+        },
+        5000);
+});
+
+export function getMandalaAssetDataPromise(env, assettype, id) {
     // console.log('params: ', assettype, id);
     const json_call = getMandalaJSONUrl(env, assettype, id);
-    console.log("json call: " + json_call);
+    //console.log("json call: " + json_call);
     // const selectUrl = 'https://' + host + '/solr/' + index + '/select';
 
     const request = {
@@ -21,14 +32,14 @@ export function getMandalaAssetDataPromise(assettype, id) {
             return;
         }*/
         let data = false;
-        console.log("getMandalaAssetDataPromise(): Calling axios:", request);
+        //console.log("getMandalaAssetDataPromise(): Calling axios:", request);
         axios.request(request).then((res) => {
-            console.log("getMandalaAssetDataPromise():  Yay! axios call succeeded!", res);
+            //console.log("getMandalaAssetDataPromise():  Yay! axios call succeeded!", res);
             const data = res.data;
             setCache(request, data);
             resolve(data);
         }).catch(reason => {
-            console.log("getMandalaAssetDataPromise(): OUCH axios call failed!", reason);
+            //console.log("getMandalaAssetDataPromise(): OUCH axios call failed!", reason);
             reject(reason);
         });
     });

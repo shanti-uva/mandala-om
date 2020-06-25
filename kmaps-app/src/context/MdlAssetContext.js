@@ -24,12 +24,15 @@ import { getMandalaAssetDataPromise } from "../logic/assetapi";
  * */
 export default function MdlAssetContext(props) {
     //console.log('props in mdlasset', props);
+    const env = 'dev';  // Acquia Drupal Environment to Call for the JSON API. Set to promises.
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
 
     const params = useParams();
-    const id = params.id.split('-').pop();
-    // setMdlAssetId(app + "-" + id);
+    let id = params.id; // When ID param is just a number
+    if (id.indexOf('-') > 1) {  // When ID param is something like "texts-1234".
+        id = id.split('-').pop();
+    }
 
     if (!props.children) {
         let output = <h2>No Children?</h2>;
@@ -37,17 +40,18 @@ export default function MdlAssetContext(props) {
     } else {
 
         let changed = false;
-
         // console.log(asset_type)
-        const promises = [getMandalaAssetDataPromise(asset_type, id)];
-        console.log(promises);
+        const promises = [getMandalaAssetDataPromise(env, asset_type, id)];
         Promise.allSettled(promises).then(([mdlasset_result]) => {
-            console.log('settled');
             const {status: call_status, value: new_mdlasset} = mdlasset_result;
-            if (mdlasset_result && call_status === 'fulfilled' && mdlasset.nid !== new_mdlasset.nid) {
-                console.log('Fulfilled!');
-                // kmprops.kmasset = new_kmasset; // what is kmprops for?
-                setMdlAsset(new_mdlasset);
+            if (call_status === 'fulfilled') {
+                if (mdlasset_result && mdlasset.nid !== new_mdlasset.nid) {
+                    // kmprops.kmasset = new_kmasset; // what is kmprops for?
+                    setMdlAsset(new_mdlasset);
+                    changed = true;
+                }
+            } else if (call_status == 'rejected') {
+                setMdlAsset(false);
                 changed = true;
             }
 

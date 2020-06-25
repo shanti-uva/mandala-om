@@ -1,15 +1,18 @@
 import React from 'react';
-import {Parser} from "html-to-react";
+import 'html-to-react';
+import {HtmlWithPopovers} from './common/MandalaPopover';
 import Col from 'react-bootstrap/Col';
 
 export default function TextBody(props) {
-    //console.log("text body props", props);
-    // ReactDOMServer.renderToStaticMarkup(props.markup)
-    const parser = new Parser();  // html-to-jsx parser
-    const render_text = (props.markup) ? parser.parse( props.markup ) : '';
+    const txt_link = props.alias;
     return (
         <Col id={'shanti-texts-body'} onScroll={props.listener}>
-            {render_text}
+            <div className={'link-external'}>
+                <a href={txt_link} target={'_blank'} title={'View Text in Mandala'}>
+                    <span className={'shanticon shanticon-link-external'}></span>
+                </a>
+            </div>
+            <HtmlWithPopovers markup={props.markup} />
         </Col>
     );
 }

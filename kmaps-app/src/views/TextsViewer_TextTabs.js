@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Collapse from 'react-bootstrap/Collapse';
+import {HtmlWithPopovers} from "./common/MandalaPopover";
 
 export default function TextTabs(props) {
     const parser = new Parser();
@@ -38,7 +39,10 @@ export default function TextTabs(props) {
                             </div>
                             { toc_code }
                         </Tab>
-                        <Tab eventKey={ 'text_bibl' } title={ 'Description' }>{ parser.parse(props.meta) }</Tab>
+                        <Tab eventKey={ 'text_bibl' } title={ 'Description' }>
+                            <HtmlWithPopovers markup={props.meta} />
+                            {/* parser.parse(props.meta) */}
+                        </Tab>
                         <Tab eventKey={ 'text_links' } title={ 'Views' }>{ parser.parse(props.links) }</Tab>
                     </Tabs>
                 </Col>

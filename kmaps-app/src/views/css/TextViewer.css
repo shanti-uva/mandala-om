@@ -21,6 +21,18 @@
     font-family: "shanticon";
 }
 
+.tib, .bo {
+    letter-spacing: normal !important;
+}
+
 #shanti-texts-body figure.image {
     margin: 0 1rem;
+}
+
+.link-external {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
