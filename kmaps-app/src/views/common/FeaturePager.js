@@ -51,12 +51,12 @@ export function FeaturePager(props) {
     }
 
     return <div>
-        <span onClick={firstPage} className={"shanticon-arrow-end-left"}> </span>
-        <span onClick={prevPage} className={"shanticon-arrow3-left"}> </span>
+        <span onClick={firstPage} className={"shanticon-arrow-end-left icon"}> </span>
+        <span onClick={prevPage} className={"shanticon-arrow3-left icon"}> </span>
         <span>{wingo}</span> of <span>{ props.pager.getMaxPage() + 1 }</span>
         &nbsp;
-        <span onClick={nextPage} className={"shanticon-arrow3-right"}> </span>
-        <span onClick={lastPage} className={"shanticon-arrow-end-right"}> </span>
+        <span onClick={nextPage} className={"shanticon-arrow3-right icon"}> </span>
+        <span onClick={lastPage} className={"shanticon-arrow-end-right icon"}> </span>
 
         {props.loadingState ? <span> loading...</span> : <span></span>}
 

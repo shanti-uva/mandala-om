@@ -19,16 +19,16 @@ html { font-size: small }
 					border-radius:16px 0 0 16px; border-left: 1px solid #999; border-top:1px solid #999; border-bottom:1px solid #999; box-sizing: content-box	}
 .sui-search2 	{	float:left; background-color:#fafafa; color:#888; height:17px; width:175px; margin-top:-2px; margin-left:2px; font-size:14px;
 					outline:none; border-radius:0; border:0; appearance: none; -webkit-appearance: none; box-shadow: none; box-sizing: content-box }
-.sui-search3 	{	float:right; font-size:16px; color: #ccc; cursor:pointer; box-sizing: content-box}
+.sui-search3 	{	float:right; font-family: shanticon; font-size:16px; color: #ccc; cursor:pointer; box-sizing: content-box}
 .sui-search4 	{	display:inline-block; background-color:#ddd; font-size:16px; color:#999; border-radius: 0 16px 16px 0; border: 1px solid #999;
-					height:23px; width:27px; padding:5px 0 0 7px; cursor:pointer; vertical-align:top; box-sizing: content-box}
+					height:23px; width:27px; padding:5px 0 0 7px; cursor:pointer; vertical-align:top; box-sizing: content-box; font-family: shanticon;}
 					.sui-search4:hover { opacity:.66; }
 .sui-search5 	{	display:inline-block; font-size:10px; cursor:pointer; color:#666; width:auto;text-align:center; padding: 5px 0 0 12px; line-height:10px; width:60px;  text-transform: uppercase;}
 					.sui-search5:hover{ color:#668eec; }
 
 /* HAMBURGER MENU */
 
-.sui-hamBut 	{	display:inline-block; font-size:16px; cursor:pointer; color:#666;vertical-align:2px; margin-left:12px; }
+.sui-hamBut 	{	display:inline-block; font-family: shanticon; font-size:16px; cursor:pointer; color:#666;vertical-align:2px; margin-left:12px; }
 					.sui-hamBut:hover{ color:#668eec; }
 .sui-hamburger 	{	position:absolute; font-size:14px; background-color:#666; color:#fff; width:calc(100% - 12px); height:38px; display:none;
 					padding:16px 12px 0 0;   }
