@@ -1,4 +1,7 @@
 import Card from "react-bootstrap/Card";
+import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
+
 import { Link } from "react-router-dom";
 import _ from "lodash";
 // import Accordion from "react-bootstrap/Accordion";
@@ -14,20 +17,21 @@ export function FeatureCard(props) {
         <Card.Body>
             <Card.Title>{props.doc.title[0]}</Card.Title>
             <Card.Text>
-                {!_.isEmpty(props.doc.caption) ? props.doc.caption : props.doc.summary}
+                <p>{props.doc.uid}</p>
+                <p>{!_.isEmpty(props.doc.caption) ? props.doc.caption : props.doc.summary}</p>
             </Card.Text>
             {/*<Button variant="primary">Go somewhere</Button>*/}
 
-            {/*<Accordion>*/}
-            {/*    <Accordion.Toggle as={Button} eventKey="0">*/}
-            {/*        Item JSON*/}
-            {/*    </Accordion.Toggle>*/}
-            {/*    <Accordion.Collapse eventKey="0">*/}
-            {/*            <pre>*/}
-            {/*                {JSON.stringify(props.doc, undefined, 2)}*/}
-            {/*            </pre>*/}
-            {/*    </Accordion.Collapse>*/}
-            {/*</Accordion>*/}
+            <Accordion>
+                <Accordion.Toggle as={Button} eventKey="0">
+                    Item JSON
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                        <pre>
+                            {JSON.stringify(props.doc, undefined, 2)}
+                        </pre>
+                </Accordion.Collapse>
+            </Accordion>
         </Card.Body>
     </Card>;
 }

@@ -1,7 +1,8 @@
 import React from "react";
-import {BasicSearch} from "../main/BasicSearch";
+import {BasicSearch} from "./BasicSearch";
 import {AdvancedToggle} from "../main/AdvancedToggle";
 import {HamburgerToggle} from "../main/HamburgerToggle";
+import SearchContext from "../context/SearchContext";
 
 export class SearchBar extends React.Component {
 
@@ -18,10 +19,12 @@ export class SearchBar extends React.Component {
             <div id='sui-top' className='sui-top'>
                 {/*<form onSubmit={this.handleSubmit}>*/}
                 <div style={{display: 'inline-block'}}>
-                    <BasicSearch onSubmit={this.handleSubmit} onChange={this.handleInputChange}/>
-                    <AdvancedToggle onStateChange={this.handleStateChange} advanced={this.state.advanced}/>
-                    <HamburgerToggle onStateChange={this.handleStateChange}
-                                     hamburgerOpen={this.state.hamburgerOpen}/>
+                    <SearchContext>
+                        <BasicSearch onSubmit={this.handleSubmit} onChange={this.handleInputChange}/>
+                        <AdvancedToggle onStateChange={this.handleStateChange} advanced={this.state.advanced}/>
+                        <HamburgerToggle onStateChange={this.handleStateChange}
+                                         hamburgerOpen={this.state.hamburgerOpen}/>
+                    </SearchContext>
                 </div>
                 {/*</form>*/}
             </div>;

@@ -1,8 +1,7 @@
 import React from "react";
-import {FeatureGallery} from "./common/FeatureGallery";
+import {FeatureCollection} from "./common/FeatureCollection";
 
 export function SearchViewer (props) {
-    let output = <FeatureGallery { ...props } />;
-
-    return <>SEARCH IS GROOVY { output }</>
+    let output = <FeatureCollection {...props} viewMode={"deck"} />;
+    return output;
 }

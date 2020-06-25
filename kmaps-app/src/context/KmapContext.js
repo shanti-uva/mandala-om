@@ -25,6 +25,7 @@ export default function KmapContext(props) {
     const [kmasset, setKmAsset] = useState({});
     const [relateds, setRelateds] = useState({});
     const [kmap, setKmap] = useState({});
+    const [loadingState, setLoadingState] = useState (false);
 
     // const [relatedType, setRelatedType] = useState( "all");
     const [relatedPage, setRelatedPage] = useState(0);
@@ -34,7 +35,7 @@ export default function KmapContext(props) {
 
     const pager = {
         getMaxPage: () => {
-            if (!relateds.assets) {
+            if (!relateds.assets || !relateds.assets[relatedType] ) {
                 return 0;
             } else {
                 const maxCount = relateds.assets[relatedType].count;
@@ -74,6 +75,18 @@ export default function KmapContext(props) {
         getPageSize: () => {
             return pageSize;
         },
+        nextPage: () => {
+            pager.setPage(pager.getPage() + 1);
+        },
+        prevPage: () => {
+            pager.setPage(pager.getPage() - 1);
+        },
+        lastPage: () => {
+            pager.setPage( pager.getMaxPage() );
+        },
+        firstPage: () => {
+            pager.setPage(0);
+        }
 
     }
 

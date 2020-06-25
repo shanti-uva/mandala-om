@@ -1,6 +1,6 @@
 import React from "react";
 import {ContentHeader} from "./ContentHeader";
-import {Switch, Route, useRouteMatch} from "react-router-dom";
+import {Switch, Route, Redirect, useRouteMatch} from "react-router-dom";
 import {AudioVideoViewer} from "../views/AudioVideoViewer";
 import {ImagesViewer} from "../views/ImagesViewer";
 import {TextsViewer} from "../views/TextsViewer";
@@ -58,19 +58,25 @@ export function ContentPane(props) {
                         <RelatedsViewer id={props.id} onStateChange={props.onStateChange}/>
                         <LegacyViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
-                    <Route path={[`${path}/terms/:id/related/:relatedType`,`${path}/terms/:id`]}>
+                    <Route path={[`${path}/terms/:id/related/:relatedType/:viewMode`,`${path}/terms/:id`]}>
                         <KmapContext>
                             <RelatedsViewer id={props.id} onStateChange={props.onStateChange}/>
                             <TermsViewer onStateChange={props.onStateChange}/>
                         </KmapContext>
                     </Route>
+                    <Route path={`${path}/terms/:id/related/:relatedType`}>
+                        <Redirect to={'./default'} />
+                    </Route>
                     <Route path={`${path}/collections/:id`}>
                         <CollectionsViewer id={props.id} sui={props.sui} onStateChange={props.onStateChange}/>
                     </Route>
-                    <Route path={`${path}/search`}>
+                    <Route path={`${path}/search/:viewMode`}>
                         <SearchContext>
                             <SearchViewer />
                         </SearchContext>
+                    </Route>
+                    <Route exact path={`${path}/search`}>
+                        <Redirect to={`${path}/search/default`} />
                     </Route>
                     <Route path="*">
                         <Error404/>
