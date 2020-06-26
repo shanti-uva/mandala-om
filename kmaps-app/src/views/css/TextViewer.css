@@ -8,10 +8,9 @@
     background-color: #eee;
 }
 .sui-content {
-    height: 90% !important;
+    height: 90vh !important;
     background-color: #eee;
     overflow-x: hidden;
-    overflow-y: hidden !important;
 }
 
 .spinner-border-sm {
