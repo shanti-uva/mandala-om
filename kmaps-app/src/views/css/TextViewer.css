@@ -5,11 +5,13 @@
     text-rendering: optimizeSpeed;
     letter-spacing: 0.01rem;
     text-rendering: optimizeLegibility !important;
+    background-color: #eee;
 }
 .sui-content {
-    height: 100% !important;
+    height: 90% !important;
     background-color: #eee;
     overflow-x: hidden;
+    overflow-y: hidden !important;
 }
 
 .spinner-border-sm {
