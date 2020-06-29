@@ -141,10 +141,10 @@ export function FeatureGallery(props) {
     }
 
     function handleImageClick(evt, chosen) {
-        console.log('FeatureGallery CLICKED evt= ', evt);
-        console.log('FeatureGallery CLICKED chosen= ', chosen);
-        console.log('FeatureGallery CLICKED galleryRef = ', galleryRef);
-        // console.log("FeatureGallery CLICKED viewerRef = ", viewerRef);
+        // console.log('FeatureGallery CLICKED evt= ', evt);
+        // console.log('FeatureGallery CLICKED chosen= ', chosen);
+        // console.log('FeatureGallery CLICKED galleryRef = ', galleryRef);
+        // // console.log("FeatureGallery CLICKED viewerRef = ", viewerRef);
 
         setFocusedFeature(chosen.photo);
 
@@ -165,20 +165,24 @@ export function FeatureGallery(props) {
         }
         insert.setAttribute('uid', chosen.photo.alt);
 
-        const selector = "div[uid='" + chosen.photo.alt + "']";
+        console.log('check for uid = ' + chosen.photo.alt);
+        const selector = "div[photoKey='" + chosen.photo.alt + "']";
         let domImg = galleryRef.current.querySelector(selector);
         const rowtop = domImg.offsetTop;
+        console.log('check rowtop = ' + domImg.offsetTop);
 
         const before = false;
         while (domImg.offsetTop === rowtop) {
             const nextImg = before
                 ? domImg.previousSibling
                 : domImg.nextSibling;
-            console.log('top = ' + domImg.offsetTop);
+            console.log('check top = ' + domImg?.offsetTop);
+            console.log('check next = ' + nextImg?.offsetTop);
+
             if (!nextImg || nextImg.offsetTop !== rowtop) {
                 break;
             }
-            console.log('next = ' + nextImg.offsetTop);
+
             domImg = nextImg;
         }
         if (before) {
@@ -201,7 +205,7 @@ export function FeatureGallery(props) {
                                 ? { className: SELECTED_IMG_CLASS }
                                 : {};
                         return (
-                            <div uid={props.key} {...atts}>
+                            <div photoKey={props.key} {...atts}>
                                 <Photo {...props} />
                             </div>
                         );
