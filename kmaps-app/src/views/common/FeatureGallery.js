@@ -148,47 +148,56 @@ export function FeatureGallery(props) {
 
         setFocusedFeature(chosen.photo);
 
-        let insert = document.getElementById(VIEWER_ID);
-        if (!insert) {
-            insert = document.createElement('div');
-            insert.id = VIEWER_ID;
-        }
-        insert.innerText = 'VIEWER: ' + chosen.photo.alt;
+        // find the VIEWER by ID
+        let viewer = document.getElementById(VIEWER_ID);
 
+        // if its not to be found, create it.
+        if (!viewer) {
+            viewer = document.createElement('div');
+            viewer.id = VIEWER_ID;
+        }
+        // viewer.innerText = 'VIEWER: ' + chosen.photo.alt;
+
+        // if it already has the uid of the requested image, hide it
+        // otherwise set its width to 100%
         if (
-            insert.getAttribute('uid') === chosen.photo.alt &&
-            insert.className !== 'hidden'
+            viewer.getAttribute('uid') === chosen.photo.alt &&
+            viewer.className !== 'hidden'
         ) {
-            insert.className = 'hidden';
+            viewer.className = 'hidden';
         } else {
-            insert.className = 'w-100';
+            viewer.className = 'w-100';
         }
-        insert.setAttribute('uid', chosen.photo.alt);
 
-        console.log('check for uid = ' + chosen.photo.alt);
+        // set its uid attribute to the current image uid.
+        viewer.setAttribute('uid', chosen.photo.alt);
+
         const selector = "div[photoKey='" + chosen.photo.alt + "']";
         let domImg = galleryRef.current.querySelector(selector);
-        const rowtop = domImg.offsetTop;
-        console.log('check rowtop = ' + domImg.offsetTop);
 
+        // before = true --> find the beginning of the row otherwise, find the end of the row
+        // might make this dynamic, so that "high" rows open downward and "low" rows open upward.
         const before = false;
+
+        // scan the siblings to find the row end (or beginning)
+        const rowtop = domImg.offsetTop;
         while (domImg.offsetTop === rowtop) {
             const nextImg = before
                 ? domImg.previousSibling
                 : domImg.nextSibling;
-            console.log('check top = ' + domImg?.offsetTop);
-            console.log('check next = ' + nextImg?.offsetTop);
-
             if (!nextImg || nextImg.offsetTop !== rowtop) {
+                // stop if you get the end (or beginning) of the row
                 break;
             }
-
-            domImg = nextImg;
+            domImg = nextImg; // prepare to look at the next img...
         }
+
+        // domImg is now the last (or first) image of the same row.
+        // so let's viewer the foldout div
         if (before) {
-            domImg.before(insert);
+            domImg.before(viewer);
         } else {
-            domImg.after(insert);
+            domImg.after(viewer);
         }
     }
 
@@ -212,6 +221,10 @@ export function FeatureGallery(props) {
                     }}
                 />
             </div>
+
+            {/* This Component is an HOC that provides a portal container so that the enclosed div (the viewer) can
+                be placed elsewhere-- specifically in the dynamic "viewer" div we created above and inserted directly
+                into the DOM */}
             <FeatureFoldOutPortal
                 portalRootId={VIEWER_ID}
                 focus={focusedFeature}
@@ -221,6 +234,8 @@ export function FeatureGallery(props) {
         </>
     );
 
+    // This basic markup.
+    // TODO: Eventually we might not use a pager here and load the data progressively.
     const output = (
         <React.Fragment>
             <FeatureGalleryHeaderLine title={props.title} />
@@ -233,32 +248,6 @@ export function FeatureGallery(props) {
     );
     return output;
 }
-
-// /* utility function to fill the remaining spaces in the last row */
-// function rowFiller(length, bp_sizes) {
-//     let remainderCards = [];
-//     const maxLength = bp_sizes.xl;
-//     const remainVisible = "invisible"
-//     for (let i = 0; i < maxLength; i++) {
-//         let remClasses = ["m-1", "p-2", "d-none"];  // TODO: need to get / set defaults from someplace...
-//         for (let [type, size] of Object.entries(bp_sizes)) {
-//             // console.log(`${type}: ${size}`);
-//             if (length % size !== 0 && i < size - (length % size)) {
-//                 remClasses.push(`d-${type}-block ${remainVisible}`);
-//             } else {
-//                 remClasses.push(`d-${type}-none`);
-//             }
-//         }
-//         const remainderCard = <Card className={remClasses.join(" ")} key= { "fill" + i }>
-//             <Card.Text>
-//                 {/* for debugging */}
-//                 <pre>{remClasses.join("\n")}</pre>
-//             </Card.Text>
-//         </Card>
-//         remainderCards.push(remainderCard);
-//     }
-//     return remainderCards;
-// }
 
 function FeatureGalleryHeaderLine(props) {
     if (props.title) {
