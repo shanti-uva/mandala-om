@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import 'html-to-react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
@@ -6,15 +6,32 @@ import '../css/Popover.css';
 import ReactHtmlParser from 'react-html-parser';
 
 /**
- * MandalaPopovers: Uses React Bootstrapts Overlay Trigger/Popover combo to display a kmap popover
+ * MandalaPopovers: Uses React Bootstrapts Overlay Trigger/Popover combo to display a kmap popover. There are two ways
+ * to implement popovers. One can use the MandalaPopover component in the standard way:
+ *
+ *      <MandalaPopover
+ *              placement="left|right|top|bottom"
+ *              kmdomain="domain of kmap"
+ *              kmid="kmaps number id"
+ *              kmtitle="title for kmaps"
+ *              kmcontent="the html for the body and footer of the kmap"
+ *       />
+ *
+ * Or one can use the function HtmlWithPopovers(props) to convert kmap popovers embedded within HTML from an API. The
+ * "props" parameter is an object with a single attribute "markup" set to the html markup to convert.
+ *
  * @param props
  * @returns {*}
  * @constructor
  */
 export function MandalaPopover(props) {
-
-    const popover_icon =  <span><span className="popover-link-tip" /><span className="icon shanticon-menu3" title={'Click to view'}/></span>;
-    const placement = (props.placement) ? props.placement : 'bottom';
+    const popover_icon = (
+        <span>
+            <span className="popover-link-tip" />
+            <span className="icon shanticon-menu3" title={'Click to view'} />
+        </span>
+    );
+    const placement = props.placement ? props.placement : 'bottom';
     const cnt = props.kmcontent;
     const cntprs = ReactHtmlParser(cnt);
     return (
@@ -24,17 +41,19 @@ export function MandalaPopover(props) {
             key={placement}
             placement={placement}
             overlay={
-                <Popover data-kmid={props.kmid} className={'related-resources-popover'} >
+                <Popover
+                    data-kmid={props.kmid}
+                    className={'related-resources-popover'}
+                >
                     <Popover.Title as="h5">
-                        {props.kmtitle} <span className={'kmid'}>{props.kmid}</span>
+                        {props.kmtitle}{' '}
+                        <span className={'kmid'}>{props.kmid}</span>
                     </Popover.Title>
-                    <Popover.Content>
-                        { cntprs }
-                    </Popover.Content>
+                    <Popover.Content>{cntprs}</Popover.Content>
                 </Popover>
             }
         >
-            { popover_icon }
+            {popover_icon}
         </OverlayTrigger>
     );
 }
@@ -50,14 +69,20 @@ export function HtmlWithPopovers(props) {
     const HtmlToReact = require('html-to-react');
     const HtmlToReactParser = HtmlToReact.Parser;
     const processNodeDefs = new HtmlToReact.ProcessNodeDefinitions(React);
-    const processingInstructions = GetPopoverProcessingInstruction(processNodeDefs);
-    const isValidNode = function () { return true; };
-    const htmlToReactParser = new HtmlToReactParser();
-    const htmlInput = (props.markup) ? props.markup : '<div></div>';
-    const reactComponent = htmlToReactParser.parseWithInstructions(htmlInput, isValidNode, processingInstructions);
-    return (
-        <>{reactComponent}</>
+    const processingInstructions = GetPopoverProcessingInstruction(
+        processNodeDefs
     );
+    const isValidNode = function () {
+        return true;
+    };
+    const htmlToReactParser = new HtmlToReactParser();
+    const htmlInput = props.markup ? props.markup : '<div></div>';
+    const reactComponent = htmlToReactParser.parseWithInstructions(
+        htmlInput,
+        isValidNode,
+        processingInstructions
+    );
+    return <>{reactComponent}</>;
 }
 
 /**
@@ -83,22 +108,24 @@ export function GetPopoverProcessingInstruction(processNodeDefs) {
                 for (let n in popel.children) {
                     popcnt += elToHtml(popel.children[n]);
                 }
-                return <MandalaPopover
-                            kmid={kmpid}
-                            kmdomain={kmpdom}
-                            kmtitle={poptitle}
-                            kmcontent={popcnt}
-                        />;
-            }
+                return (
+                    <MandalaPopover
+                        kmid={kmpid}
+                        kmdomain={kmpdom}
+                        kmtitle={poptitle}
+                        kmcontent={popcnt}
+                    />
+                );
+            },
         },
         {
             // Anything else
             shouldProcessNode: function (node) {
                 return true;
             },
-            processNode: processNodeDefs.processDefaultNode
-        }
-    ]
+            processNode: processNodeDefs.processDefaultNode,
+        },
+    ];
 }
 
 /**
@@ -114,8 +141,12 @@ function elToHtml(el) {
         elout = '<' + el.name;
         for (let atnm in el.attribs) {
             let attval = el.attribs[atnm];
-            if (el.attribs['class'] === 'popover' && atnm === 'style') { continue; }
-            if (el.attribs['class'] === 'popover-body') {continue;}
+            if (el.attribs['class'] === 'popover' && atnm === 'style') {
+                continue;
+            }
+            if (el.attribs['class'] === 'popover-body') {
+                continue;
+            }
             //if (atnm === 'style') { attval = attval.replace('display: none;',''); }
             elout += ' ' + atnm + '="' + attval + '"';
         }

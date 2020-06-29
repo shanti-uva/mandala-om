@@ -1,15 +1,17 @@
 .sui-main {
     overflow-x: hidden;
-    font-family: 'Open Sans','Segoe UI','Lucida Grande',Tahoma,sans-serif;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
     font-weight: 400;
     text-rendering: optimizeSpeed;
     letter-spacing: 0.01rem;
     text-rendering: optimizeLegibility !important;
+    background-color: #eee;
 }
 .sui-content {
-    height: 100% !important;
+    height: 90% !important;
     background-color: #eee;
     overflow-x: hidden;
+    overflow-y: hidden !important;
 }
 
 .spinner-border-sm {
@@ -18,15 +20,35 @@
 }
 
 .shanticon {
-    font-family: "shanticon";
+    font-family: 'shanticon';
 }
 
-.tib, .bo {
+.tib,
+.bo {
     letter-spacing: normal !important;
+}
+
+#shanti-texts-body .mandala-edit-link {
+    display: none;
 }
 
 #shanti-texts-body figure.image {
     margin: 0 1rem;
+}
+
+#shanti-texts-body figure.image figcaption {
+    margin: 0.5rem 0 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    line-height: 1.1rem;
+    letter-spacing: 0;
+}
+
+#shanti-texts-body figure.image img {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
 }
 
 .link-external {
