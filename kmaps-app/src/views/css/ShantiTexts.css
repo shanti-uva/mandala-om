@@ -176,7 +176,7 @@ div[lang='bo'] .shanti-texts-section-title.text-level-7 {
 #shanti-texts-body {
     padding: 0 0 0 2.5rem;
     margin: 0;
-    height: 82vh;
+    height: 84vh;
     background-color: white;
     box-shadow: inset 0 -0.2rem 5px #ddd;
     overflow-y: scroll;
@@ -196,7 +196,7 @@ div[lang='bo'] .shanti-texts-section-title.text-level-7 {
 #shanti-texts-sidebar {
     /* display:none; */ /* INITIAL CONDITION to prevent showing un-tabbed content */
     padding: 2rem 0 0;
-    height: 82vh !important;
+    height: 84vh !important;
     min-height: 30rem;
     background-color: #eee;
     color: #333;
