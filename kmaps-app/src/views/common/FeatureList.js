@@ -9,7 +9,7 @@ import Accordion from 'react-bootstrap/Accordion';
 export function FeatureList(props) {
     let LIST = _.map(props.docs, (doc) => {
         return (
-            <Card className={'p-0 m-1'}>
+            <Card className={'p-0 m-1'} key={doc.id}>
                 <Accordion>
                     <Card.Body className={'p-1'}>
                         <span

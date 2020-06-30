@@ -542,6 +542,19 @@ html {
     color: #666;
     margin: 6px 0 6px 0;
 }
+
+.sui-advEdit input {
+    width: 90px;
+    border: 1px solid #999;
+    border-radius: 12px;
+    font-size: 11px;
+    padding-left: 6px;
+}
+
+.sui-advPlus {
+    float: right;
+}
+
 .sui-advEditBut {
     display: inline-block;
     cursor: pointer;

@@ -15,49 +15,56 @@ export function SearchAdvanced(props) {
                     id="squawk"
                     label="item type"
                     facets={props.facets.asset_count}
-                    assetType={'assets'}
+                    facetType={'assets'}
                 />
                 <FacetBox
                     id="squawk"
                     label="related subjects"
                     facets={props.facets.related_subjects}
-                    assetType="subjects"
+                    facetType="subjects"
                 />
                 <FacetBox
                     id="squawk"
                     label="related places"
                     facets={props.facets.related_places}
-                    assetType="places"
+                    facetType="places"
                 />
                 <FacetBox
                     id="squawk"
                     label="related terms"
                     facets={props.facets.related_terms}
-                    assetType="terms"
+                    facetType="terms"
                 />
                 <FacetBox
                     id="squawk"
                     label="collections"
                     facets={props.facets.collections}
-                    assetType="collections"
+                    facetType="collections"
                 />
                 <FacetBox
                     id="squawk"
                     label="languages"
                     facets={props.facets.languages}
-                    assetType="languages"
+                    facetType="languages"
                 />
                 <FacetBox
                     id="squawk"
                     label="users"
                     facets={props.facets.node_user}
-                    assetType="users"
+                    facetType="users"
+                />
+
+                <FacetBox
+                    id="squawk"
+                    label="creator"
+                    facets={props.facets.creator}
+                    facetType="creator"
                 />
 
                 <FacetBox
                     id="squawk"
                     label="recent searches"
-                    assetType="recent-searches"
+                    facetType="recent-searches"
                 />
             </div>
             <div className={'sui-advFooter'}>

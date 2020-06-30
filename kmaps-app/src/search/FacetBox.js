@@ -12,7 +12,7 @@ function FacetChoice(props) {
             className="sui-advEditLine"
             id="sui-advEditLine-0"
         >
-            <span className={props.className}></span> {props.value} (
+            <span className={props.className}></span> {props.label}(
             {props.count}){' '}
         </div>
     );
@@ -28,9 +28,9 @@ FacetChoice.propTypes = {
 export function FacetBox(props) {
     const [open, setOpen] = useState(false);
     let chosen_icon = props.icon;
-    const assetType = props.assetType;
+    const facetType = props.facetType;
     const filters = props.filters;
-    // console.log("FacetBox Filters: ", filters);
+    console.log('FacetBox Filters: ', filters);
 
     const ICON_MAP = {
         'audio-video': <span className={'icon shanticon-audio-video'} />,
@@ -45,10 +45,11 @@ export function FacetBox(props) {
         'recent-searches': '\ue62e',
         assets: '\ue60b',
         users: '\ue600',
+        creator: '\ue600',
         languages: '\ue670',
     };
 
-    chosen_icon = chosen_icon || ICON_MAP[assetType];
+    chosen_icon = chosen_icon || ICON_MAP[facetType];
     const icon = chosen_icon;
     const plus = <span className={'shanticon-plus icon'} />;
     const minus = <span className={'shanticon-minus icon'} />;
@@ -66,16 +67,23 @@ export function FacetBox(props) {
                 {_.startCase(_.lowerCase(label))} {extra}
             </span>
         );
-        return fullLabel;
+        return { label: label, fullLabel: fullLabel, value: uid ? uid : label };
     }
 
     const facetList = _.map(props.facets?.buckets, (entry) => {
         // Adjust
         const iconClass = 'shanticon-' + entry.val + ' icon';
-        const value = parseEntry(entry, false);
+        const { label, fullLabel, value } = parseEntry(entry, false);
         const count = entry.count;
         return (
-            <FacetChoice className={iconClass} value={value} count={count} />
+            <FacetChoice
+                key={`${value} ${label} ${facetType}`}
+                className={iconClass}
+                value={value}
+                label={fullLabel}
+                count={count}
+                facetType={facetType}
+            />
         );
     });
 
@@ -87,8 +95,7 @@ export function FacetBox(props) {
                 onClick={() => setOpen(!open)}
             >
                 <span className={'icon'}>{icon}</span>&nbsp;&nbsp;{label}
-                {/* TODO: refactor setOpen to be css-based */}
-                <span id={'sui-advPlus-' + props.id} style={{ float: 'right' }}>
+                <span id={'sui-advPlus-' + props.id} className={'sui-advPlus'}>
                     <Badge
                         pill
                         variant={facetList.length ? 'primary' : 'secondary'}
@@ -104,18 +111,7 @@ export function FacetBox(props) {
                 className={'sui-advEdit ' + (open ? 'open' : 'closed')}
                 id={'sui-advEdit-' + props.id}
             >
-                {/* TODO: refactor style to css*/}
-                <input
-                    placeholder="Search this list"
-                    value=""
-                    style={{
-                        width: '90px',
-                        border: '1px solid #999',
-                        borderRadius: '12px',
-                        fontSize: '11px',
-                        paddingLeft: '6px',
-                    }}
-                />
+                <input placeholder="Filter this list" value="" />
                 <div className={'sui-adv-facetlist overflow-auto'}>
                     {facetList}
                 </div>
@@ -124,3 +120,10 @@ export function FacetBox(props) {
     );
     return facetBox;
 }
+
+FacetBox.propTypes = {
+    label: PropTypes.string,
+    chosenIcon: PropTypes.string,
+    facetType: PropTypes.string,
+    filters: PropTypes.array,
+};

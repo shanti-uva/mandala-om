@@ -75,45 +75,25 @@ export function FeatureGallery(props) {
     // const viewerRef = useRef();
 
     useEffect((x) => {
-        console.log('FeatureGallery  useEffect: ', x);
-        console.log('FeatureGallery  galleryRef= ', galleryRef.current);
-        // console.log("FeatureGallery  viewerRef= ", viewerRef.current);
+        // console.log('FeatureGallery  useEffect: ', x);
+        // console.log('FeatureGallery  galleryRef= ', galleryRef.current);
+        // // console.log("FeatureGallery  viewerRef= ", viewerRef.current);
     });
 
-    console.log('FeatureGallery');
+    // console.log('FeatureGallery');
     const docs = props.docs;
 
     let DEBUG_PRE = [];
     let LIST = [];
 
     if (docs) {
-        console.log('FeatureGallery: looking at ', docs);
         LIST = docs?.map((doc, i) => {
-            console.log('FeatureGallery: doc.uid: ', doc.uid);
-            console.log(
-                'FeatureGallery: doc.url_thumb_width: ',
-                doc.url_thumb_width
-            );
-            console.log(
-                'FeatureGallery: doc.url_thumb_height: ',
-                doc.url_thumb_height
-            );
             const calc_thumb_width = doc.url_thumb_width
                 ? Number(doc.url_thumb_width)
                 : 200;
-            console.log(
-                'FeatureGallery: doc.url_thumb_width: ',
-                calc_thumb_width
-            );
             const calc_thumb_height = doc.url_thumb_height
                 ? Number(doc.url_thumb_height)
                 : 200;
-            console.log(
-                'FeatureGallery: doc.url_thumb_height: ',
-                calc_thumb_height
-            );
-            console.log('FeatureGallery: url_large = ', doc.url_large);
-            console.log('FeatureGallery: doc = ', doc);
 
             const featureCard = {
                 original: doc.url_large ? doc.url_large : doc.url_thumb,
@@ -126,7 +106,6 @@ export function FeatureGallery(props) {
             };
             return featureCard;
         });
-        console.log('FeatureGallery LIST = ', LIST);
 
         DEBUG_PRE = (
             <Accordion>
