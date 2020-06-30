@@ -11,7 +11,7 @@
     height: 90% !important;
     background-color: #eee;
     overflow-x: hidden;
-    overflow-y: hidden !important;
+    /*overflow-y: hidden !important;*/
 }
 
 .spinner-border-sm {
