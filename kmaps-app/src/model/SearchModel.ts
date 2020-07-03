@@ -120,15 +120,14 @@ export const searchModel: SearchModel = {
             pageNum = 0;
         }
 
-        console.error('gotoPage() pageNum = ', pageNum);
-
+        //console.error("gotoPage() pageNum = ", pageNum);
         state.page.start = state.page.rows * pageNum;
         state.page.current = pageNum;
     }),
     nextPage: action((state, increment) => {
         increment |= 1;
-        console.log('SearchModel: pager.nextPage() ', increment);
-        console.log('SearchModel: state.page ', state.page);
+        //console.log("SearchModel: pager.nextPage() ", increment);
+        //console.log("SearchModel: state.page ", state.page)
 
         let oldPage = state.page.current;
         let newStart = state.page.start + increment * state.page.rows;
@@ -138,20 +137,20 @@ export const searchModel: SearchModel = {
                 Math.floor(state.page.maxStart / state.page.rows);
         }
 
-        console.log('SearchModel: newStart ', newStart);
+        //console.log("SearchModel: newStart ", newStart);
         state.page.start = newStart;
         state.page.current = Math.floor(newStart / state.page.rows);
     }),
     prevPage: action((state, decrement) => {
         decrement |= 1;
-        console.log('SearchModel: pager.prevPage() ', decrement);
-        console.log('SearchModel: state.page ', state.page);
+        //console.log("SearchModel: pager.prevPage() ", decrement);
+        //console.log("SearchModel: state.page ", state.page)
 
         let newStart = state.page.start - decrement * state.page.rows;
         if (newStart < 0) {
             newStart = 0;
         }
-        console.log('SearchModel: newStart ', newStart);
+        //console.log("SearchModel: newStart ", newStart);
         state.page.start = newStart;
         state.page.current = Math.floor((newStart + 1) / state.page.rows);
     }),
@@ -177,10 +176,10 @@ export const searchModel: SearchModel = {
         const searchState = helpers.getStoreState().search;
 
         searchState.loadingState = true;
-        console.log('SEARCH START');
+//         console.log('SEARCH START');
         performance.mark('SearchModelSearchUpdateThunkStart');
         const results = await search(searchState);
-        console.log('SEARCH DONE');
+//         console.log('SEARCH DONE');
         performance.mark('SearchModelSearchUpdateThunkEnd');
         performance.measure(
             'SearchModelSearchUpdate',
@@ -199,8 +198,7 @@ export const searchModel: SearchModel = {
     }),
 
     receiveResults: action((state, results) => {
-        console.log('SEARCH Receive RESULTS: ', results);
-
+        //console.log("SEARCH Receive RESULTS: ", results);
         // Is it as simple as that?
         if (state.page.maxStart !== results.numFound) {
             state.page.maxStart = results.numFound;

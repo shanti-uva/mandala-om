@@ -6,8 +6,8 @@ import _ from 'lodash';
 export function BasicSearch(props) {
     const inputEl = useRef(null);
     const state = useStoreState((state) => state);
-
-    // console.debug("BasicSearch: state = ", state);
+    const show_debug = false;
+    if (show_debug) console.debug('BasicSearch: state = ', state);
 
     const currText = state.search.query.searchText;
     // const [state, setState] = useState({searchString: {currText}});

@@ -31,7 +31,7 @@ function getCached(request) {
             console.log('Ignored sessionStorage error: ', e);
         }
     }
-    console.log('getCached: returning: ', data);
+    //console.log("getCached: returning: ", data);
     return data;
 }
 
@@ -42,9 +42,9 @@ function setCache(request, data) {
                 checksum(JSON.stringify(request)),
                 JSON.stringify(data)
             );
-            console.log('Cached: data for ', JSON.stringify(request));
+            //console.log("Cached: data for ", JSON.stringify(request));
         } catch (e) {
-            console.log('Ignored sessionStorage error: ', e);
+            //console.log("Ignored sessionStorage error: ", e);
             // ignore
         }
     }
@@ -58,11 +58,11 @@ export function getAssetSearchPromise(search) {
     // TODO: parameterize the use of facets
     // TODO: parameterize constructTextQuery
 
-    console.log('UNPACKING search: ', search);
+    //console.log("UNPACKING search: ", search);
     const { page, query } = search;
 
-    console.log('UNPACKING page: ', page);
-    console.log('UNPACKING query: ', query);
+    //console.log("UNPACKING page: ", page);
+    //console.log("UNPACKING query: ", query);
 
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
@@ -162,7 +162,6 @@ export function getAssetSearchPromise(search) {
     };
 
     const queryParams = constructTextQuery(search.query.searchText);
-
     const filterParams = constructFilters(search.query.filters);
 
     params = { ...params, ...queryParams, ...filterParams };
@@ -187,11 +186,11 @@ export function getAssetSearchPromise(search) {
         qaxios
             .request(request)
             .then((res) => {
-                console.log(
-                    'getAssetSearchPromise():  Yay! axios call succeeded!',
-                    res
-                );
-                console.log('getAssetSearchPromise(): res = ', res);
+//                 console.log(
+//                     'getAssetSearchPromise():  Yay! axios call succeeded!',
+//                     res
+//                 );
+//                 console.log('getAssetSearchPromise(): res = ', res);
                 const data = {
                     numFound: res.data.response.numFound,
                     docs: _.map(res.data.response.docs, (x) => {
@@ -217,10 +216,10 @@ export function getAssetSearchPromise(search) {
                     'getAssetSearchPromise:start',
                     'getAssetSearchPromise:done'
                 );
-                console.log(
-                    'performance:',
-                    performance.getEntriesByName('getAssetSearchPromise')
-                );
+//                 console.log(
+//                     'performance:',
+//                     performance.getEntriesByName('getAssetSearchPromise')
+//                 );
 
                 const perf = performance.getEntriesByName(
                     'getAssetSearchPromise'
@@ -230,10 +229,7 @@ export function getAssetSearchPromise(search) {
                         'getAssetSearchPromise() duration:' + x.duration
                     );
                 });
-                console.log(
-                    'performance getEntries:',
-                    performance.getEntries()
-                );
+                //console.log("performance getEntries:", performance.getEntries());
                 performance.clearMeasures();
             });
     });
@@ -271,23 +267,17 @@ export function getAssetDataPromise(kmapid) {
             return;
         }
 
-        console.log('getAssetDataPromise(): Calling axios:');
+        //console.log("getAssetDataPromise(): Calling axios:");
         axios
             .request(request)
             .then((res) => {
-                console.log(
-                    'getAssetDataPromise():  Yay! axios call succeeded!',
-                    res
-                );
+                //console.log("getAssetDataPromise():  Yay! axios call succeeded!", res);
                 const data = res.data.response.docs[0];
                 setCache(request, data);
                 resolve(data);
             })
             .catch((reason) => {
-                console.log(
-                    'gertAssetDataPromise(): OUCH axios call failed!',
-                    reason
-                );
+                //console.log("gertAssetDataPromise(): OUCH axios call failed!", reason);
                 reject(reason);
             });
     });
@@ -324,23 +314,17 @@ export function getFullKmapDataPromise(kmapid) {
             resolve(data);
             return;
         }
-        console.log('getFullKmapDataPromise(): Calling axios:');
+        //console.log("getFullKmapDataPromise(): Calling axios:")
         axios
             .request(request)
             .then((res) => {
-                console.log(
-                    'getFullKmapDataPromise(): Yay! axios call succeeded!',
-                    res
-                );
+                //console.log("getFullKmapDataPromise(): Yay! axios call succeeded!", res);
                 const data = cleanKmapData(res.data.response.docs[0]);
                 setCache(request, data);
                 resolve(data);
             })
             .catch((reason) => {
-                console.log(
-                    'getFullKmapDataPromise(): OUCH axios call failed!',
-                    reason
-                );
+                //console.log("getFullKmapDataPromise(): OUCH axios call failed!", reason);
                 reject(reason);
             });
     });
@@ -348,21 +332,21 @@ export function getFullKmapDataPromise(kmapid) {
 }
 
 function deriveImageUrl(url_thumb, size) {
-    console.log('deriveImageUrl: ', url_thumb);
+    //console.log("deriveImageUrl: ", url_thumb);
     const url_large = url_thumb
         .toString()
         .replace('200,200', size + ',' + size);
-    console.log('deriveImageUrl: large = ', url_large);
+    //console.log("deriveImageUrl: large = ", url_large);
     return url_large;
 }
 
 function cleanKmapData(data) {
-    console.log('clean kmap data = ', data);
+    //console.log("clean kmap data = ", data);
     return data;
 }
 
 export function getRelatedAssetsPromise(kmapid, type, start, rows) {
-    console.log('getRelatedAssetsPromise() Promising: ', arguments);
+    //console.log("getRelatedAssetsPromise() Promising: ", arguments);
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
     const selectUrl = 'https://' + host + '/solr/' + index + '/select';
@@ -385,9 +369,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     const startRec = typeof start === 'undefined' ? defaultStart : start;
     const rowsRec = typeof rows === 'undefined' ? defaultRows : rows;
 
-    console.log(
-        'getRelatedAssetsPromise: start = ' + startRec + ' rows = ' + rowsRec
-    );
+    //console.log("getRelatedAssetsPromise: start = " + startRec + " rows = " + rowsRec);
 
     const facetJson = JSON.stringify({
         asset_counts: {
@@ -420,7 +402,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     };
 
     const unpackResponse = (res) => {
-        console.log('unpacking asset_counts: ', res.data.facets);
+        //console.log("unpacking asset_counts: ", res.data.facets);
 
         const buckets = res.data.facets.asset_counts.buckets;
 
@@ -432,7 +414,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
             asset_counts['all'].count += x.count;
         });
 
-        console.log('unpacking assets: ', res.data.response.docs);
+        //console.log("unpacking assets: ", res.data.response.docs);
         const docs = res.data.response.docs;
 
         docs.forEach((x) => {
@@ -456,23 +438,17 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
             resolve(data);
             return;
         }
-        console.log('getRelatedAssetsPromise(): Calling axios:');
+        //console.log("getRelatedAssetsPromise(): Calling axios:")
         axios
             .request(request)
             .then((res) => {
-                console.log(
-                    'getRelatedAssetsPromise():  Yay! axios call succeeded!',
-                    res
-                );
+                //console.log("getRelatedAssetsPromise():  Yay! axios call succeeded!", res);
                 const data = unpackResponse(res);
                 setCache(request, data);
                 resolve(data);
             })
             .catch((reason) => {
-                console.log(
-                    'getRelatedAssetsPromise(): OUCH axios call failed!',
-                    reason
-                );
+                //console.log("getRelatedAssetsPromise(): OUCH axios call failed!", reason);
                 reject(reason);
             });
     });
@@ -484,7 +460,7 @@ function cleanAssetData(data) {
 
     const asset_type = data.asset_type;
 
-    console.log('cleanAssetData ', asset_type);
+    //console.log("cleanAssetData ", asset_type);
 
     switch (asset_type) {
         case 'texts':
@@ -505,9 +481,8 @@ function cleanAssetData(data) {
             break;
     }
 
-    console.log('clean thumb = ', data.url_thumb);
-
-    console.log('returning clean: ', data);
+    //console.log("clean thumb = ", data.url_thumb);
+    //console.log("returning clean: ", data);
     return data;
 }
 

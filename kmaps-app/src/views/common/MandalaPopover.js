@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'html-to-react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import poppng from '../../legacy/popover.png';
 import '../css/Popover.css';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -159,4 +160,15 @@ function elToHtml(el) {
         elout = el.data;
     }
     return elout;
+}
+
+/**
+ * Element to return a simple html img element for the popover icon with no reactivity
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+export function PopoverIcon(props) {
+    return <img src={poppng} title={'popover icon'} />;
 }

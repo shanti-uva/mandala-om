@@ -1,0 +1,86 @@
+#sui-av {
+    overflow: visible;
+    margin: 12px;
+    width: 98%;
+}
+
+#sui-kplayer {
+    width: 100%;
+}
+
+#sui-kplayer iframe {
+    min-height: 530px;
+}
+
+#av-player-row {
+    overflow-x: hidden;
+}
+
+#av-trscrpt-wrapper #sui-trans {
+    max-height: calc(100vh - 108px);
+}
+
+#av-info-tabs {
+    margin: 0px;
+}
+
+#av-info-tabs .sui-tabTab {
+    height: 36px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgb(88, 170, 180);
+}
+
+#av-info-tabs .sui-tabTab.active {
+    background-color: white;
+    border: 2px solid rgb(88, 170, 180);
+    color: rgb(88, 170, 180);
+    font-weight: bold;
+    border-bottom: none;
+}
+
+#av-info-tabs .sui-tabContent {
+    padding: 12px 24px 0px;
+    min-height: 500px;
+    background-color: #fff;
+    border-left: 2px solid rgb(88, 170, 180);
+    border-right: 2px solid rgb(88, 170, 180);
+    width: 100%;
+    margin-right: 6px;
+}
+
+.sui-popover {
+    padding: 0px;
+}
+
+.sui-popover-body {
+    padding: 12px;
+}
+
+#sui-popbot {
+    width: 100%;
+    padding: 12px 12px 1px;
+    margin: 0;
+    background-color: #333;
+    font-size: 14px;
+    border-radius: 0 0 6px 6px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+#sui-popbot .sui-popItem p {
+}
+
+#av-trscrpt-wrapper .row {
+    margin: 0px;
+}
+
+#av-trscrpt-wrapper .av-trscrpt-ctrls {
+    height: 48px;
+    width: 99.7%;
+}
+
+#av-trscrpt-wrapper .av-trscrpt-ctrls .sui-transTab {
+    height: 52px;
+    padding-top: 10px;
+}

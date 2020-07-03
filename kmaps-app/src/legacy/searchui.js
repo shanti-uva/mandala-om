@@ -272,8 +272,8 @@ export default class SearchUI {
     Draw(
         mode // DRAW SEARCH COMPONENTS
     ) {
-        console.log('Draw called!');
-        console.log('searchui.Draw called with ' + JSON.stringify(arguments));
+        //console.log("Draw called!");
+        //console.log("searchui.Draw called with " + JSON.stringify(arguments));
         if (mode) this.ss.mode = mode; // If mode spec'd, use it
         this.DrawResults(); // Draw results page if active
         // this.DrawAdvanced();																		// Draw search UI if active
@@ -343,7 +343,7 @@ export default class SearchUI {
     PageRouter(
         hash // ROUTE PAGE BASED ON QUERY HASH OR BACK BUTTON
     ) {
-        console.log('PageRouter called.');
+        //console.log ("PageRouter called.");
         const sui = this.sui;
         const here = window.location.href.split('#')[0]; // Remove any hashes
         let id;
@@ -379,10 +379,7 @@ export default class SearchUI {
             );
             this.GetKmapFromID(v[3], (kmap) => {
                 this.pages.relatedBase = kmap;
-                console.log(
-                    '	PAGEROUTER handling callback.  calling pages.DrawRelatedResults with kmap uid = ' +
-                        kmap.uid
-                );
+                //console.log("	PAGEROUTER handling callback.  calling pages.DrawRelatedResults with kmap uid = " + kmap.uid);
                 this.pages.DrawRelatedResults(kmap, true);
             }); // Get kmap and show page
         } else if ((id = hash.match(/#s=(.+)/))) {
@@ -507,18 +504,13 @@ export default class SearchUI {
         fromHistory,
         collectionId // QUERY AND UPDATE RESULTS
     ) {
-        console.log(
-            'Query() called with fromHistory = ' +
-                fromHistory +
-                ' collectionId =  ' +
-                collectionId
-        );
+        //console.log("Query() called with fromHistory = " + fromHistory + " collectionId =  " + collectionId);
         let url;
         this.LoadingIcon(true, 64); // Show loading icon
 
         if (collectionId) {
             // If getting collection members
-            console.log('	SearchUI.Query: collection mode');
+            //console.log("	SearchUI.Query: collection mode");
             let ts = JSON.parse(JSON.stringify(this.ss)); // Clone search
             ts.query = {
                 text: '',
@@ -535,7 +527,7 @@ export default class SearchUI {
             }; // Set new search
             url = this.solrUtil.buildAssetQuery(ts); // Set url
         } else if (this.ss.mode == 'related') {
-            console.log('	SearchUI.Query: related mode');
+            //console.log("	SearchUI.Query: related mode");
             url = this.solrUtil.createKmapQuery(
                 this.pages.relatedId.toLowerCase(),
                 this.pages.relatedType.toLowerCase(),
@@ -544,12 +536,12 @@ export default class SearchUI {
             );
         } // Get assets related to relatedId
         else {
-            console.log('	SearchUI.Query: asset mode');
+            //console.log("	SearchUI.Query: asset mode");
             url = this.solrUtil.buildAssetQuery(this.ss);
         } // Get assets that match query
         if (this.ss.mode != 'related' && !fromHistory) {
             // These set their own states and not from history API
-            console.log('	SearchUI.Query: default mode');
+            //console.log("	SearchUI.Query: default mode");
             this.SetState('s=' + this.SerializeQuery(this.ss)); // Save search state
         }
         $('#sui-relatedAssets').remove(); // Remove related assets panel
@@ -566,10 +558,8 @@ export default class SearchUI {
         $.ajax({ url: url, dataType: 'jsonp', jsonp: 'json.wrf' })
             .done((data) => {
                 // Get data from SOLR
-                console.log(
-                    '	SearchUI.Query: got data back from SOLR query: ' + url
-                );
-                console.dir(data);
+                //console.log ("	SearchUI.Query: got data back from SOLR query: " + url);
+                //console.dir(data);
                 this.curResults = this.MassageKmapData(data.response.docs); // Normalize for display
                 this.ParseFacetData(data); // Get facet data counts
                 this.LoadingIcon(false); // Hide loading icon
@@ -577,7 +567,7 @@ export default class SearchUI {
                 // this.DrawAdvanced();																	// Draw advanced search if active
             })
             .fail((msg) => {
-                console.log(msg);
+                //console.log(msg);
                 this.LoadingIcon(false);
                 this.Popup('Query error');
             }); // Failure message
@@ -587,9 +577,9 @@ export default class SearchUI {
         id,
         callback // GET KMAP FROM ID
     ) {
-        console.log('GetKmapFromID() called with id=' + id);
+        //console.log("GetKmapFromID() called with id=" + id);
         var url = this.ss.solrUrl + '?q=uid:' + id.toLowerCase() + '&wt=json';
-        console.log('SOLR QUERY GetKmapFromID() = ' + url); // Set query url
+        //console.log("SOLR QUERY GetKmapFromID() = " + url);// Set query url
         $.ajax({ url: url, dataType: 'jsonp', jsonp: 'json.wrf' })
             .done((data) => {
                 // Get kmap
@@ -628,7 +618,7 @@ export default class SearchUI {
         callback // GET RELATED THINGS FROM ID
     ) {
         this.log('GetRelatedFromID() called with arguments');
-        console.log(JSON.stringify(arguments));
+        //console.log(JSON.stringify(arguments));
         let url = `${this.solrBase}kmterms${this.solrId}/query`; // Base url
         url +=
             '?child_count.fq=related_kmaps_node_type:child&child_count.fl=uid&fq=!related_kmaps_node_type:parent';
@@ -645,7 +635,7 @@ export default class SearchUI {
             .done((data) => {
                 // Get kmap
                 this.log('GetRelatedFromID() returns ' + data);
-                console.dir(data);
+                //console.dir(data);
                 callback(data.response.docs); // Return data
             })
             .fail((msg) => {
@@ -694,7 +684,7 @@ export default class SearchUI {
         callback // GET CHILD DATA FROM ID
     ) {
         let url = `${this.solrBase}kmterms${this.solrId}/query?q=uid:${uid}&wt=json&fl=*,[child%20parentFilter=block_type:parent%20limit=300]`;
-        console.log('SOLR QUERY GetChildDataFromID = ' + url);
+        //console.log("SOLR QUERY GetChildDataFromID = " + url);
         $.ajax({ url: url, dataType: 'jsonp', jsonp: 'json.wrf' })
             .done((data) => {
                 // Get kmap
@@ -930,7 +920,7 @@ export default class SearchUI {
 
     DrawHeader() { // DRAW RESULTS HEADER
         // alert("pages.DrawHeader called()");
-        console.log('pages.Drawheader called!');
+        //console.log("pages.Drawheader called!");
         if (this.ss.mode == 'related') return; // Quit for special search modes
         var lastPage = Math.floor(this.numItems / this.ss.pageSize); // Calc last page
         var s = this.ss.page * this.ss.pageSize + 1; // Starting item number
@@ -1097,7 +1087,7 @@ export default class SearchUI {
     // CALLS this.pages.DrawRelatedAssets()
 
     DrawItems() { // DRAW RESULT ITEMS
-        console.log('SearchUI.DrawItems()');
+        //console.log("SearchUI.DrawItems()");
         var i,
             str = '';
         $('#sui-legacy').css({
@@ -2341,7 +2331,7 @@ export default class SearchUI {
     }
 
     log(message, debugObject, showAlert) {
-        console.log(message);
+        //console.log(message);x
         if (debugObject) {
             console.dir(debugObject);
         }

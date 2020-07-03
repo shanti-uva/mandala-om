@@ -144,6 +144,5 @@ export function SearchAdvanced(props) {
             </div>
         </div>
     );
-
     return advanced;
 }

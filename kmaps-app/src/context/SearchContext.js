@@ -20,7 +20,8 @@ import { useParams } from 'react-router';
 
 export default function SearchContext(props) {
     const params = useParams();
-    // console.log( "SearchContext params = ", params);
+    const show_debug = false;
+    if (show_debug) console.log('SearchContext params = ', params);
 
     function debounce(func) {
         return _.debounce(func, 500);
@@ -59,7 +60,8 @@ export default function SearchContext(props) {
     } = debounceAll(useStoreActions((actions) => actions.search));
 
     const query = search.query;
-    // console.log("setting searchControls: search = " , search);
+    if (show_debug) console.log('setting searchControls: search = ', search);
+
     const searchControls = {
         query: query,
         currentText: search.searchText,
@@ -72,7 +74,7 @@ export default function SearchContext(props) {
 
     // Let's dispatch an update right off the bat...
     useEffect(() => {
-        // console.log("INITING");
+        if (show_debug) console.log('INITING');
         update();
     }, []);
 
@@ -107,10 +109,10 @@ export default function SearchContext(props) {
             if (pg > maxPage) {
                 gotoPage(maxPage);
             } else if (pg < 0) {
-                // console.log ("SearchContext: gotoPage: 0");
+                if (show_debug) console.log('SearchContext: gotoPage: 0');
                 gotoPage(0);
             } else {
-                // console.log ("SearchContext: gotoPage: " + pg);
+                if (show_debug) console.log('SearchContext: gotoPage: ' + pg);
                 gotoPage(pg);
             }
         },
