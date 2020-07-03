@@ -1,6 +1,15 @@
-import {Action, action, Computed, computed, thunk, Thunk, ThunkOn, thunkOn} from 'easy-peasy';
-import {search} from '../logic/searchapi';
-import {StoreModel} from "./StoreModel";
+import {
+    Action,
+    action,
+    Computed,
+    computed,
+    thunk,
+    Thunk,
+    ThunkOn,
+    thunkOn,
+} from 'easy-peasy';
+import { search } from '../logic/searchapi';
+import { StoreModel } from './StoreModel';
 
 interface Results {
     numFound: number | number;
@@ -22,50 +31,46 @@ interface Page {
 }
 
 export interface SearchModel {
-    loadingState: boolean,
-    results: Results,
-    query: Query,
-    page: Page
+    loadingState: boolean;
+    results: Results;
+    query: Query;
+    page: Page;
 
     // PAGING ACTIONS
-    gotoPage: Action<SearchModel, number>
-    nextPage: Action<SearchModel, number>
-    prevPage: Action<SearchModel, number>
-    firstPage: Action<SearchModel, number>
-    lastPage: Action<SearchModel, number>
-    setPageSize: Action<SearchModel, number>
+    gotoPage: Action<SearchModel, number>;
+    nextPage: Action<SearchModel, number>;
+    prevPage: Action<SearchModel, number>;
+    firstPage: Action<SearchModel, number>;
+    lastPage: Action<SearchModel, number>;
+    setPageSize: Action<SearchModel, number>;
 
     // QUERY ACTIONS
-    setSearchText: Action<SearchModel, string>
-    update: Thunk<SearchModel,
-        void,
-        any,
-        StoreModel,
-        any>
-    receiveResults: Action<SearchModel, Results>
-    addFilters: Action<SearchModel, Filter[]>
-    removeFilters: Action<SearchModel, Filter[]>
+    setSearchText: Action<SearchModel, string>;
+    update: Thunk<SearchModel, void, any, StoreModel, any>;
+    receiveResults: Action<SearchModel, Results>;
+    addFilters: Action<SearchModel, Filter[]>;
+    removeFilters: Action<SearchModel, Filter[]>;
 
     // can clearFilters of a certain type
-    clearFilters: Action<SearchModel, string>
+    clearFilters: Action<SearchModel, string>;
 
-    onUpdate: ThunkOn<SearchModel, StoreModel>
+    onUpdate: ThunkOn<SearchModel, StoreModel>;
 }
 
 enum AssetType {
-    Places = "places",
-    Subjects = "subjects",
-    Terms = "terms",
-    AudioVideo = "audio-video",
-    Images = "images",
-    Visuals = "visuals",
-    Sources = "sources"
+    Places = 'places',
+    Subjects = 'subjects',
+    Terms = 'terms',
+    AudioVideo = 'audio-video',
+    Images = 'images',
+    Visuals = 'visuals',
+    Sources = 'sources',
 }
 
 enum Oper {
-    Not = "NOT",
-    And = "AND",
-    Or = "OR"
+    Not = 'NOT',
+    And = 'AND',
+    Or = 'OR',
 }
 
 interface Filter {
@@ -87,18 +92,18 @@ export const searchModel: SearchModel = {
     results: {
         numFound: 0,
         docs: [],
-        facets: []
+        facets: [],
     },
     query: {
-        searchText: "",
+        searchText: '',
         filters: [
             {
-                id: "places",
-                label: "Places",
+                id: 'asset_type:places',
+                label: 'Places',
                 operator: Oper.Or,
-                field: "asset_type",
+                field: 'asset_type',
                 match: AssetType.Places,
-            }
+            },
         ],
         facetConfigs: [],
     },
@@ -106,50 +111,53 @@ export const searchModel: SearchModel = {
         current: 0,
         start: 0,
         rows: 10,
-        maxStart: 219
+        maxStart: 219,
     },
     gotoPage: action((state, pageNum) => {
         if (pageNum * state.page.rows > state.page.maxStart) {
-            pageNum = Math.floor(state.page.maxStart / state.page.rows)
+            pageNum = Math.floor(state.page.maxStart / state.page.rows);
         } else if (pageNum < 0) {
             pageNum = 0;
         }
 
-        console.error("gotoPage() pageNum = ", pageNum);
+        console.error('gotoPage() pageNum = ', pageNum);
 
-        state.page.start = state.page.rows * pageNum
+        state.page.start = state.page.rows * pageNum;
         state.page.current = pageNum;
     }),
     nextPage: action((state, increment) => {
-        increment |=1;
-        console.log("SearchModel: pager.nextPage() ", increment);
-        console.log("SearchModel: state.page ", state.page);
+        increment |= 1;
+        console.log('SearchModel: pager.nextPage() ', increment);
+        console.log('SearchModel: state.page ', state.page);
 
         let oldPage = state.page.current;
         let newStart = state.page.start + increment * state.page.rows;
         if (newStart > state.page.maxStart) {
-            newStart = state.page.rows * Math.floor(state.page.maxStart / state.page.rows)
+            newStart =
+                state.page.rows *
+                Math.floor(state.page.maxStart / state.page.rows);
         }
 
-        console.log("SearchModel: newStart ", newStart);
+        console.log('SearchModel: newStart ', newStart);
         state.page.start = newStart;
         state.page.current = Math.floor(newStart / state.page.rows);
     }),
     prevPage: action((state, decrement) => {
-        decrement |=1;
-        console.log("SearchModel: pager.prevPage() ", decrement);
-        console.log("SearchModel: state.page ", state.page);
+        decrement |= 1;
+        console.log('SearchModel: pager.prevPage() ', decrement);
+        console.log('SearchModel: state.page ', state.page);
 
         let newStart = state.page.start - decrement * state.page.rows;
         if (newStart < 0) {
-            newStart = 0
+            newStart = 0;
         }
-        console.log("SearchModel: newStart ", newStart);
+        console.log('SearchModel: newStart ', newStart);
         state.page.start = newStart;
         state.page.current = Math.floor((newStart + 1) / state.page.rows);
     }),
     lastPage: action((state) => {
-        state.page.start = state.page.rows * Math.floor(state.page.maxStart / state.page.rows);
+        state.page.start =
+            state.page.rows * Math.floor(state.page.maxStart / state.page.rows);
         state.page.current = Math.floor(state.page.maxStart / state.page.rows);
     }),
     firstPage: action((state) => {
@@ -159,25 +167,39 @@ export const searchModel: SearchModel = {
 
     setPageSize: action((state, pageSize) => {
         if (pageSize < 1) {
-            pageSize = 1
+            pageSize = 1;
         }
         state.page.rows = pageSize;
     }),
 
+    // THE MAIN THUNK
     update: thunk(async (actions, payload, helpers) => {
-        const searchState = helpers.getStoreState().search
+        const searchState = helpers.getStoreState().search;
 
-        searchState.loadingState=true;
-        console.log("SEARCH START: ", searchState.page.current);
+        searchState.loadingState = true;
+        console.log('SEARCH START');
+        performance.mark('SearchModelSearchUpdateThunkStart');
         const results = await search(searchState);
-        console.log("SEARCH DONE: ", searchState.page.current);
-        searchState.loadingState=false;
+        console.log('SEARCH DONE');
+        performance.mark('SearchModelSearchUpdateThunkEnd');
+        performance.measure(
+            'SearchModelSearchUpdate',
+            'SearchModelSearchUpdateThunkStart',
+            'SearchModelSearchUpdateThunkEnd'
+        );
 
-        actions.receiveResults(results)
+        const perf = performance.getEntriesByName('SearchModelSearchUpdate');
+        perf.forEach((x) => {
+            console.log('SearchModelSearchUpdate duration: ' + x.duration);
+        });
+        performance.clearMeasures();
+
+        searchState.loadingState = false;
+        actions.receiveResults(results);
     }),
 
     receiveResults: action((state, results) => {
-        console.log("SEARCH Receive RESULTS: ", results);
+        console.log('SEARCH Receive RESULTS: ', results);
 
         // Is it as simple as that?
         if (state.page.maxStart !== results.numFound) {
@@ -189,19 +211,59 @@ export const searchModel: SearchModel = {
         }
     }),
     setSearchText: action((state, payload) => {
-
         // console.log(" ACTION TIME: setSearchText() payload = ", payload);
 
         // TODO: ,ight need to insert sanity checks here.
         state.query.searchText = payload;
-
     }),
 
     addFilters: action((state, payload) => {
+        // console.error("SearchModel: addFilters called!");
+        // console.log("SearchModel: addFilters filters=", state.query.filters);
+        const newone = payload[0];
+
+        // USE SPLICE TO UPDATE THE ARRAY SO THAT WE DON'T CHANGE THE ARRAY REFERENCE
+        const found = state.query.filters.findIndex((check) => {
+            console.log('checking ' + check.id + ' against ' + newone.id);
+            return check.id === newone.id;
+        });
+
+        console.log(' Found = ' + found);
+
+        if (found >= 0) {
+            state.query.filters.splice(found, 1);
+        }
+        state.query.filters.push(payload[0]);
     }),
-    removeFilters: action((state, payload) => {
+    removeFilters: action((state, filters) => {
+        // console.error("SearchModel: removeFilters called!");
+        // console.log("SearchModel: removeFilters filters=", state.query.filters);
+        // console.log("SearchModel: removeFilters filters=", filters);
+
+        for (let i = 0; i < filters.length; i++) {
+            const removeMe = filters[i];
+            const found = state.query.filters.findIndex((check) => {
+                console.log('checking ' + check.id + ' against ', removeMe.id);
+                return check.id === removeMe.id;
+            });
+
+            if (found >= 0) {
+                // MAKE SURE TO USE splice() to preserve reference to original array.
+                state.query.filters.splice(found, 1);
+            } else {
+                console.log(
+                    "SearchFilter.removeFilters(): Couldn't find filter by that id: "
+                );
+                console.log('   Requested = ', removeMe);
+                console.log(
+                    '   Filters = ',
+                    JSON.parse(JSON.stringify(state.query.filters))
+                );
+            }
+        }
     }),
     clearFilters: action((state, payload) => {
+        //
     }),
 
     // LISTENERS
@@ -217,13 +279,11 @@ export const searchModel: SearchModel = {
             actions.removeFilters,
             actions.clearFilters,
             actions.addFilters,
-            actions.setSearchText
+            actions.setSearchText,
         ],
         // handler:
         async (actions, target) => {
             actions.update();
         }
-    )
-}
-
-
+    ),
+};

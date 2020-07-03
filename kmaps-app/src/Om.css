@@ -597,6 +597,11 @@ html {
 .sui-advEditLine:hover {
     background-color: #dee7f1;
 }
+
+.sui-advEditLine.chosen {
+    background-color: #dcdcdc;
+}
+
 .sui-advViewListPage {
     display: inline-block;
 }

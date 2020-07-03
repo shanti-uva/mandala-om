@@ -1,7 +1,8 @@
 import axios from 'axios';
-import jsonpAdapter from 'axios-jsonp';
+import jsonpAdapter from './axios-jsonp';
 import crypto from 'crypto';
 import _ from 'lodash';
+import Qs from 'qs';
 
 function checksum(data) {
     return crypto.createHash('sha1').update(data).digest('base64');
@@ -69,21 +70,27 @@ export function getAssetSearchPromise(search) {
     const startRec = page.start || 0;
     const rowsRec = page.rows || 10;
 
+    const qaxios = axios.create({
+        paramsSerializer: (params) =>
+            Qs.stringify(params, { arrayFormat: 'repeat' }),
+    });
+
     // TODO: Parameterize facets.  e.g. You won't need all of them, every time.
     const jsonFacet = {
         asset_count: {
             type: 'terms',
             field: 'asset_type',
             limit: 500,
-        },
-        related_places: {
-            type: 'terms',
-            field: 'kmapid_places_idfacet',
-            limit: 2000,
+            domain: { excludeTags: 'asset_type' },
         },
         related_subjects: {
             type: 'terms',
             field: 'kmapid_subjects_idfacet',
+            limit: 2000,
+        },
+        related_places: {
+            type: 'terms',
+            field: 'kmapid_places_idfacet',
             limit: 2000,
         },
         related_terms: {
@@ -156,7 +163,9 @@ export function getAssetSearchPromise(search) {
 
     const queryParams = constructTextQuery(search.query.searchText);
 
-    params = { ...params, ...queryParams };
+    const filterParams = constructFilters(search.query.filters);
+
+    params = { ...params, ...queryParams, ...filterParams };
 
     const request = {
         adapter: jsonpAdapter,
@@ -175,7 +184,7 @@ export function getAssetSearchPromise(search) {
         console.log('getAssetSearchPromise(): Calling axios:', request);
 
         performance.mark('getAssetSearchPromise:start');
-        axios
+        qaxios
             .request(request)
             .then((res) => {
                 console.log(
@@ -537,6 +546,109 @@ function constructTextQuery(searchString) {
     };
 
     return basic_req;
+}
+
+function constructFilters(filters) {
+    function arrayToHash(array, keyField) {
+        return array.reduce((collector, item) => {
+            const key = item[keyField] || 'unknown key';
+            if (!collector[key]) {
+                collector[key] = [];
+            }
+            collector[key].push(item);
+            return collector;
+        }, {});
+    }
+
+    // console.log("constructFilters: received filters: ", filters);
+    const sortedFilters = arrayToHash(filters, 'field');
+    console.log('constructFilters: sorted filters = ', sortedFilters);
+
+    const facets = Object.keys(sortedFilters);
+    console.log('constructFilters: keys = ', facets);
+
+    let fq_list = [];
+
+    function constructFQs(facetData, fieldName) {
+        let fq_list = [];
+        let not_list = [];
+        let and_list = [];
+        let or_list = [];
+        // console.log("handle asset_type");
+        // console.log("   facet = ", facet);
+        // console.log("   facet data = ", facetData);
+
+        facetData.forEach((f) => {
+            if (f.operator === 'NOT') {
+                not_list.push(f.match);
+            } else if (f.operator === 'AND') {
+                and_list.push(f.match);
+            } else {
+                /* OR default case */
+                or_list.push('"' + f.match + '"');
+            }
+        });
+
+        const or_clause =
+            '{!tag=' +
+            fieldName +
+            '}' +
+            fieldName +
+            ':(' +
+            or_list.join(' ') +
+            ')';
+        fq_list.push(or_clause);
+
+        return fq_list;
+    }
+
+    facets.forEach((facet) => {
+        const facetData = sortedFilters[facet];
+        let fqs = [];
+        console.log('constructFilters:\tfacet ' + facet + ' = ', facetData);
+        switch (facet) {
+            case 'asset_type':
+                fqs = constructFQs(facetData, 'asset_type');
+                fq_list.push(...fqs);
+                break;
+            case 'subjects':
+                fqs = constructFQs(facetData, 'kmapid');
+                fq_list.push(...fqs);
+                break;
+            case 'places':
+                fqs = constructFQs(facetData, 'kmapid');
+                fq_list.push(...fqs);
+                break;
+            case 'terms':
+                fqs = constructFQs(facetData, 'kmapid');
+                fq_list.push(...fqs);
+                break;
+            case 'languages':
+                fqs = constructFQs(facetData, 'kmapid');
+                break;
+            case 'users':
+                console.log('handle users');
+                console.log('   facet = ', facet);
+
+                break;
+            case 'creators':
+                console.log('handle creators');
+                console.log('   facet = ', facet);
+                break;
+            case 'collections':
+                console.log('handle collections');
+                console.log('   facet = ', facet);
+
+                break;
+            default:
+                console.log('handle default');
+                console.log('   facet = ', facet);
+                break;
+        }
+    });
+
+    console.log('RETURNING FQ_LIST = ', fq_list);
+    return { fq: fq_list };
 }
 
 function escapeSearchString(str) {

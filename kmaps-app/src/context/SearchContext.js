@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {useStoreState, useStoreActions} from '../model/StoreModel';
-import _ from "lodash";
-import {useParams} from "react-router";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useStoreState, useStoreActions } from '../model/StoreModel';
+import _ from 'lodash';
+import { useParams } from 'react-router';
 
 /**
  *    Container which injects the current search data, before rendering the its children.
@@ -19,22 +19,27 @@ import {useParams} from "react-router";
  * */
 
 export default function SearchContext(props) {
-
     const params = useParams();
-    console.log( "SearchContext params = ", params);
+    // console.log( "SearchContext params = ", params);
 
-    function debounce(func) { return _.debounce(func, 500) };
+    function debounce(func) {
+        return _.debounce(func, 500);
+    }
 
     function debounceAll(funcs) {
-        return _.reduce(funcs, (result, f, key) => {
-            result[key] = debounce(f);
-            return result;
-        }, {});
+        return _.reduce(
+            funcs,
+            (result, f, key) => {
+                result[key] = debounce(f);
+                return result;
+            },
+            {}
+        );
     }
 
     // This makes the Easy Peasy State Store available.
     // we are mapping "search" from the Store into const "search".
-    const search = useStoreState(state => state.search);
+    const search = useStoreState((state) => state.search);
 
     // we are unpacking all the state store's actions.
     // eventually this list of action will be enhanced with things like sort controls
@@ -50,13 +55,11 @@ export default function SearchContext(props) {
         firstPage,
         clearFilters,
         removeFilters,
-        setPageSize
-    } = debounceAll(useStoreActions(actions => actions.search));
-
-
+        setPageSize,
+    } = debounceAll(useStoreActions((actions) => actions.search));
 
     const query = search.query;
-    console.log("setting searchControls: search = " , search);
+    // console.log("setting searchControls: search = " , search);
     const searchControls = {
         query: query,
         currentText: search.searchText,
@@ -69,7 +72,7 @@ export default function SearchContext(props) {
 
     // Let's dispatch an update right off the bat...
     useEffect(() => {
-        console.log("INITING");
+        // console.log("INITING");
         update();
     }, []);
 
@@ -77,7 +80,6 @@ export default function SearchContext(props) {
     // Eventually it will also include things like sorting
     const docs = search.results?.docs;
     const pager = {
-
         numFound: search.results.numFound,
         currentPage: search.page.current,
         currentPageSize: search.page.rows,
@@ -88,7 +90,7 @@ export default function SearchContext(props) {
             } else {
                 const maxCount = search.results.numFound;
                 const pageSize = search.page.rows;
-                const maxPage = Math.floor((maxCount-1) / pageSize);
+                const maxPage = Math.floor((maxCount - 1) / pageSize);
                 // console.log( "getMaxPage(): pageSize = ",pageSize, " maxCount = ",maxCount," => maxPage = ", maxPage);
                 return maxPage;
             }
@@ -101,29 +103,28 @@ export default function SearchContext(props) {
             const maxCount = search.results.numFound;
             const pageSize = search.page.rows;
             const maxPage = Math.floor(maxCount / pageSize);
-            pg = (_.isNaN(pg))?0:pg;
+            pg = _.isNaN(pg) ? 0 : pg;
             if (pg > maxPage) {
                 gotoPage(maxPage);
             } else if (pg < 0) {
-                console.log ("SearchContext: gotoPage: 0");
+                // console.log ("SearchContext: gotoPage: 0");
                 gotoPage(0);
             } else {
-                console.log ("SearchContext: gotoPage: " + pg);
+                // console.log ("SearchContext: gotoPage: " + pg);
                 gotoPage(pg);
             }
         },
         setPageSize: (size) => {
-
             size = Number(size);
             let oldSize = Number(size);
             let oldPage = Number(search.page.current);
-            size=(size < 1)?1:size;
-            size=_.isNaN(size)?oldSize:size;
+            size = size < 1 ? 1 : size;
+            size = _.isNaN(size) ? oldSize : size;
             setPageSize(size);
             const pageSize = search.page.rows;
             let newPage = Math.floor((pageSize / oldSize) * oldPage);
             // console.log("newPage: " + newPage + " oldPage: " + oldPage + " pageSize = " + pageSize + " oldSize = " + oldSize);
-            newPage= _.isNaN(newPage)?0:newPage;
+            newPage = _.isNaN(newPage) ? 0 : newPage;
             pager.setPage(newPage);
         },
         getPageSize: () => {
@@ -140,10 +141,8 @@ export default function SearchContext(props) {
         },
         lastPage: () => {
             lastPage();
-        }
-
-
-    }
+        },
+    };
 
     const facets = search.results?.facets;
 
@@ -157,7 +156,7 @@ export default function SearchContext(props) {
                 docs: docs,
                 facets: facets,
                 pager: pager,
-                search: searchControls
+                search: searchControls,
             });
             return new_child;
         } else {
@@ -166,5 +165,4 @@ export default function SearchContext(props) {
         }
     });
     return ret_children;
-
 }
