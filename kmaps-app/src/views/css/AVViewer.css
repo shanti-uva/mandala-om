@@ -2,6 +2,8 @@
     overflow: visible;
     margin: 12px;
     width: 98%;
+    max-width: 2000px;
+    margin: 0 auto;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
 }
 
@@ -23,6 +25,8 @@
 div#av-trscrpt-wrapper {
     height: inherit;
     letter-spacing: 0;
+    max-height: 550px;
+    overflow-y: hidden;
 }
 
 #av-trscrpt-wrapper #sui-trans {
