@@ -17,3 +17,7 @@ a.dead:hover {
     text-decoration: none;
     cursor: default;
 }
+
+.sui-popover {
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
+}
