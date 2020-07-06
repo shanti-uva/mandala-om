@@ -66,7 +66,7 @@ export default class AudioVideo {
         sui.LoadingIcon(true, 64); // Show loading icon
         sui.GetJSONFromKmap(o, (d) => {
             // Get details from JSON
-            var str = `<div id="av-player-row" class="row avplayer"><div id='un-sui-viewerSide' class="av col">`; // Left side
+            var str = `<div id="av-player-row" class="row avplayer"><div id='sui-viewerSide' class="av col">`; // Left side
             if (d.field_video && d.field_video.und)
                 // If video
                 entryId = d.field_video.und[0].entryid;
