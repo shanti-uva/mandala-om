@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Parser } from 'html-to-react';
 import './css/AVViewer.css';
 import $ from 'jquery';
@@ -12,9 +12,15 @@ export function AudioVideoViewer(props) {
         sui.pages.Draw(kmasset, false);
     }
 
-    // TODO: markup issues
     const parser = new Parser();
-    // console.dir(sui.pages.div.html());
     const output = parser.parse($(sui.pages.div).html());
-    return <div>{output}</div>;
+
+    useEffect(() => {
+        $('body').on('click', 'a.sui-avMore2', function () {
+            $('#sui-avlang').toggle();
+            this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
+        });
+    }, []);
+
+    return <div id={'av-viewer-wrapper'}>{output}</div>;
 }

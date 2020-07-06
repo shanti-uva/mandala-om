@@ -117,19 +117,28 @@ export default class AudioVideo {
                 d.field_pbcore_description.und &&
                 d.field_pbcore_description.und.length
             ) {
-                str += `<div class='sui-avMore1'><a class='sui-avMore2' onclick='$("#sui-avlang").toggle();this.text=(this.text == "SHOW MORE") ? "SHOW LESS" : "SHOW MORE"'>
+                str += `<div class='sui-avMore1'><a class='sui-avMore2'>
 				SHOW MORE</a></div><br>`;
                 str += "<div id='sui-avlang' style='display:none'>";
+                let morecnt = '';
                 for (i = 0; i < d.field_pbcore_description.und.length; ++i) {
                     // For each new description
                     try {
                         f = d.field_pbcore_description.und[i]; // Point at it
-                        str += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>${
-                            f.field_description.und[0].value
-                        }<br>`;
+                        if (f.field_description.und[0].value.length > 0) {
+                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>${
+                                f.field_description.und[0].value
+                            }<br>`;
+                        }
                     } catch (e) {}
                 }
-                str += '</div>';
+                str += morecnt + '</div>';
+                if (morecnt.length == 0) {
+                    str = str.replace(
+                        "class='sui-avMore2'",
+                        "class='sui-avMore2 hidden'"
+                    );
+                }
             }
             str += '</div>';
 
