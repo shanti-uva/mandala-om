@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import TextBody from "./TextsViewer_TextBody";
-import TextTabs from "./TextsViewer_TextTabs";
-import './css/AssetViewer.css';
+import React, { useEffect, useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import TextBody from './TextsViewer_TextBody';
+import TextTabs from './TextsViewer_TextTabs';
 import './css/TextViewer.css';
 import './css/ShantiTexts.css';
 import Spinner from 'react-bootstrap/Spinner';
@@ -36,22 +35,29 @@ import $ from 'jquery';
  */
 export function TextsViewer(props) {
     const pgid = props.id;
-    const tid = (props.mdlasset) ? props.mdlasset.nid : '';
+    const tid = props.mdlasset ? props.mdlasset.nid : '';
     const [text_sections, setSections] = useState([]);
-    const [section_showing, setSectionShowing] = useState(['shanti-texts-' + tid]);
+    const [section_showing, setSectionShowing] = useState([
+        'shanti-texts-' + tid,
+    ]);
 
     // Setting text_sections variable with array of sections in text
     // TODO: Assess whether this is still necessary
     useEffect(() => {
         // Set the text section state var if empty. Only need to do once on load
-        if (text_sections.length == 0 && $('#shanti-texts-body .shanti-texts-section').length > 0) {
-            const sections_tmp = $('#shanti-texts-body .shanti-texts-section').toArray();
-            const sections_new = $.map(sections_tmp, function(s, n) {
+        if (
+            text_sections.length == 0 &&
+            $('#shanti-texts-body .shanti-texts-section').length > 0
+        ) {
+            const sections_tmp = $(
+                '#shanti-texts-body .shanti-texts-section'
+            ).toArray();
+            const sections_new = $.map(sections_tmp, function (s, n) {
                 const sel = $(s);
-                let nexttop =  1000000;
+                let nexttop = 1000000;
                 if (n < sections_tmp.length + 1) {
                     const nxtoffset = $(sections_tmp[n + 1]).offset();
-                    if(nxtoffset && nxtoffset.top) {
+                    if (nxtoffset && nxtoffset.top) {
                         nexttop = nxtoffset.top - 145;
                     }
                 }
@@ -59,14 +65,16 @@ export function TextsViewer(props) {
                     el: sel,
                     id: sel.attr('id'),
                     title: $.trim(sel.children().eq(0).text()),
-                    getTop: function() { return this.el.offset().top; }
+                    getTop: function () {
+                        return this.el.offset().top;
+                    },
                 };
             });
             setSections(sections_new);
             const firstlink = $('.shanti-texts-toc > ul > li.first > a');
             firstlink.addClass('toc-selected');
         }
-    });  // End of sections effect
+    }); // End of sections effect
 
     /**
      * Handle scroll of the main text window to determine which sections are in viewport (i.e. showing)
@@ -80,12 +88,16 @@ export function TextsViewer(props) {
         const mybottom = mytop + $('#shanti-texts-body').height();
         let vissect = [];
         $('.toc-selected').removeClass('toc-selected');
-        $.each(text_sections, function(m) {
+        $.each(text_sections, function (m) {
             const s = text_sections[m];
-            const nxts = (m < text_sections.length - 1) ? text_sections[m + 1] : false;
+            const nxts =
+                m < text_sections.length - 1 ? text_sections[m + 1] : false;
             const stop = s.getTop();
-            const nxttop = (nxts) ? nxts.getTop() : 10000000;
-            if ((stop > mytop && stop < mybottom) || (stop < mytop && nxttop > mytop)) {
+            const nxttop = nxts ? nxts.getTop() : 10000000;
+            if (
+                (stop > mytop && stop < mybottom) ||
+                (stop < mytop && nxttop > mytop)
+            ) {
                 vissect.push(s.id);
                 const lnkid = '#' + s.id.replace('texts-', 'texts-toc-');
                 $(lnkid).addClass('toc-selected');
@@ -98,19 +110,21 @@ export function TextsViewer(props) {
     let output = (
         <Container className={'astviewer texts'} fluid>
             <Row id={'shanti-texts-container'}>
-               <div className="loading">
+                <div className="loading">
                     <Spinner
                         as="div"
                         animation="border"
                         size="sm"
                         role="status"
-                        aria-hidden="true">
-                    </Spinner>
+                        aria-hidden="true"
+                    ></Spinner>
                     Loading text...
-               </div>
-                <div className={ 'not-found-msg hidden' }>
+                </div>
+                <div className={'not-found-msg hidden'}>
                     <h1>Text Not Found!</h1>
-                    <p className={'error'}>Could not find the requested text: {props.id}</p>
+                    <p className={'error'}>
+                        Could not find the requested text: {props.id}
+                    </p>
                 </div>
             </Row>
         </Container>
@@ -119,22 +133,25 @@ export function TextsViewer(props) {
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
     if (props.mdlasset && props.mdlasset.nid) {
         const currast = props.mdlasset;
-        output =
+        output = (
             <Container className={'astviewer texts'} fluid>
                 <Row id={'shanti-texts-container'}>
-                    <TextBody id={props.mdlasset.nid}
-                              alias={props.mdlasset.alias}
-                              markup={currast.full_markup}
-                              listener={handleScroll}
+                    <TextBody
+                        id={props.mdlasset.nid}
+                        alias={props.mdlasset.alias}
+                        markup={currast.full_markup}
+                        listener={handleScroll}
                     />
-                    <TextTabs toc={currast.toc_links}
-                              meta={currast.bibl_summary}
-                              links={currast.views_links}
-                              title={currast.title}
-                              sections={section_showing}
+                    <TextTabs
+                        toc={currast.toc_links}
+                        meta={currast.bibl_summary}
+                        links={currast.views_links}
+                        title={currast.title}
+                        sections={section_showing}
                     />
                 </Row>
-            </Container>;
+            </Container>
+        );
     }
     return output;
 }

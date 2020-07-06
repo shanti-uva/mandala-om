@@ -1,51 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Parser } from 'html-to-react';
+import './css/AVViewer.css';
 import $ from 'jquery';
 
-export class AudioVideoViewer extends React.Component {
+export function AudioVideoViewer(props) {
+    const id = props.id;
+    const kmasset = props.mdlasset;
+    const sui = props.sui;
 
-    constructor(props) {
-        super(props);
-
-        console.error(typeof props.sui);
-        if (typeof props.sui !== 'object') {
-            throw new Error("sui must be passed as a property to the component!");
-        }
-
-        if (typeof props.sui.pages !== 'object') {
-            throw new Error("sui.pages must be passed as part of the sui passed to the constructor!");
-        }
-
-        this.sui = props.sui;
-        this.props = props;
+    if (kmasset) {
+        sui.pages.Draw(kmasset, false);
     }
 
-    componentDidMount() {
-
-
-    }
-
-    componentDidCatch(error, errorInfo) {
-    }
-
-    componentWillUnmount() {
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-    }
-
-    render() {
-
-        // TODO: markup issues
-        const parser = new Parser();
-        console.dir(this.sui.pages.div.html());
-        const output = parser.parse($(this.sui.pages.div).html());
-        return <div> { output }</div>;
-    }
-
-
-
+    // TODO: markup issues
+    const parser = new Parser();
+    // console.dir(sui.pages.div.html());
+    const output = parser.parse($(sui.pages.div).html());
+    return <div>{output}</div>;
 }

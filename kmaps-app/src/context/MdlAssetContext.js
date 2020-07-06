@@ -1,7 +1,11 @@
-import React, {useState} from 'react';
-import {useParams} from "react-router";
-import { getMandalaAssetDataPromise } from "../logic/assetapi";
-// import _ from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import {
+    getMandalaAssetDataPromise,
+    getLegacyAssetPromise,
+} from '../logic/assetapi';
+import { normalizeLinks } from '../views/common/utils';
+import '../views/css/AssetViewer.css';
 
 /**
  *    Container which injects the Mandala asset data, before rendering it.
@@ -24,13 +28,22 @@ import { getMandalaAssetDataPromise } from "../logic/assetapi";
  * */
 export default function MdlAssetContext(props) {
     //console.log('props in mdlasset', props);
-    const env = 'dev';  // Acquia Drupal Environment to Call for the JSON API. Set to promises.
+    const env = 'dev'; // Acquia Drupal Environment to Call for the JSON API. Set to promises.
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
 
+    /**
+     * Effect used to normalize links in Asset Pages after loading so that links do not go outside of standalon
+     * function found in ../common/utils.js
+     */
+    useEffect(() => {
+        normalizeLinks(asset_type);
+    });
+
     const params = useParams();
     let id = params.id; // When ID param is just a number
-    if (id.indexOf('-') > 1) {  // When ID param is something like "texts-1234".
+    if (id.indexOf('-') > 1) {
+        // When ID param is something like "texts-1234".
         id = id.split('-').pop();
     }
 
@@ -38,29 +51,53 @@ export default function MdlAssetContext(props) {
         let output = <h2>No Children?</h2>;
         return output;
     } else {
-
         let changed = false;
         // console.log(asset_type)
-        const promises = [getMandalaAssetDataPromise(env, asset_type, id)];
-        Promise.allSettled(promises).then(([mdlasset_result]) => {
-            const {status: call_status, value: new_mdlasset} = mdlasset_result;
-            if (call_status === 'fulfilled') {
-                if (mdlasset_result && mdlasset.nid !== new_mdlasset.nid) {
-                    // kmprops.kmasset = new_kmasset; // what is kmprops for?
-                    setMdlAsset(new_mdlasset);
+        let promises = [];
+        // console.log("asset type: " + asset_type);
+        if (asset_type == 'texts') {
+            promises = [getMandalaAssetDataPromise(env, asset_type, id)];
+        } else if (asset_type == 'audio-video') {
+            promises = [getLegacyAssetPromise(env, asset_type, id)];
+        }
+        Promise.allSettled(promises)
+            .then(([mdlasset_result]) => {
+                const {
+                    status: call_status,
+                    value: new_mdlasset,
+                } = mdlasset_result;
+                if (call_status === 'fulfilled') {
+                    if (mdlasset_result) {
+                        if (mdlasset.nid !== new_mdlasset.nid) {
+                            // kmprops.kmasset = new_kmasset; // what is kmprops for?
+                            setMdlAsset(new_mdlasset);
+                            changed = true;
+                        } else if (mdlasset.id !== new_mdlasset.id) {
+                            console.warn(
+                                'Setting mdl for AV asset',
+                                new_mdlasset
+                            );
+                            setMdlAsset(new_mdlasset);
+                            changed = true;
+                        }
+                    }
+                } else if (call_status == 'rejected') {
+                    setMdlAsset(false);
                     changed = true;
                 }
-            } else if (call_status == 'rejected') {
-                setMdlAsset(false);
-                changed = true;
-            }
 
-            if (changed && props.onStateChange) {
-                props.onStateChange({id: id, asset_type: asset_type, mdlasset: mdlasset});
-            }
-        }).catch(e => {
-            console.error("oh dear! failure!??? ", e)
-        });
+                if (changed && props.onStateChange) {
+                    console.error('triggering state change');
+                    props.onStateChange({
+                        id: id,
+                        asset_type: asset_type,
+                        mdlasset: mdlasset,
+                    });
+                }
+            })
+            .catch((e) => {
+                console.error('oh dear! failure!??? ', e);
+            });
     }
 
     const ret_children = React.Children.map(props.children, (child) => {
@@ -68,7 +105,7 @@ export default function MdlAssetContext(props) {
             const new_child = React.cloneElement(child, {
                 id: id,
                 asset_type: asset_type,
-                mdlasset: mdlasset
+                mdlasset: mdlasset,
             });
             return new_child;
         } else {

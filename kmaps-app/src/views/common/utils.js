@@ -1,8 +1,7 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 export function buildNestedDocs(docs, child_type, path_field) {
-
-    path_field = (path_field) ? path_field : child_type + "_path_s";
+    path_field = path_field ? path_field : child_type + '_path_s';
 
     const base = {};
     docs = _.filter(docs, (x) => {
@@ -11,12 +10,12 @@ export function buildNestedDocs(docs, child_type, path_field) {
 
     // console.log("buildNestedDocs: ", docs)
 
-    _.forEach(docs, (doc,i) => {
+    _.forEach(docs, (doc, i) => {
         // console.log("buildNestedDocs: i=" +i);
         // console.log("buildNestedDocs: pathField = " + path_field);
         const path = doc[path_field].split('/');
         // console.log("buildNestedDocs path = " + path);
-        doc.order=i;
+        doc.order = i;
         // console.log("buildNestedDocs path.length == " + path.length);
         if (path.length === 1) {
             // this is a "root doc", push it on the base list
@@ -45,9 +44,51 @@ export function buildNestedDocs(docs, child_type, path_field) {
                 }
                 curr = curr[path[i]]._nested_;
             }
-
         }
-    })
+    });
     // console.log("buildNestedDocs:", base);
     return base;
+}
+
+/**
+ * Generic function to normalize links in document's html from Mandala APIs
+ * This needs to be called from UseEffect once html has been inserted.
+ * It is called from kmaps-app/src/context/MdlAssetContext.js
+ */
+export function normalizeLinks(asset_type) {
+    if (typeof asset_type == 'undefined') {
+        asset_type = 'mandala';
+    }
+    let aels = [];
+    // Mandala Assets inserted in text that have the attribute "data-mandala-id"
+    const mandala_items = document.querySelectorAll('[data-mandala-id]');
+    _.forEach(mandala_items, function (el) {
+        const mid = el.getAttribute('data-mandala-id');
+        const new_url = '/mandala-om/view/' + mid.replace('-', '/');
+        aels = el.getElementsByTagName('a');
+        _.forEach(aels, function (ael) {
+            ael.setAttribute('href', new_url);
+            ael.setAttribute('target', '_self');
+        });
+    });
+
+    // Update links to external sources so they are either internal or disabled (currently all disabled)
+    aels = document.querySelectorAll('a');
+    _.forEach(aels, function (el) {
+        const href = el.getAttribute('href');
+        if (href) {
+            if (href.indexOf('/content') === 0) {
+                // All /content/... links are in the same app
+                el.setAttribute('data-asset-type', asset_type);
+                el.setAttribute('data-url', href);
+                el.removeAttribute('href');
+                el.classList.add('dead');
+            } else if (href.indexOf('.shanti.virginia.edu') > -1) {
+                // Links to .shanti.virginia.edu. Disable for now"
+                el.setAttribute('data-url', href);
+                el.removeAttribute('href');
+                el.classList.add('dead');
+            }
+        }
+    });
 }

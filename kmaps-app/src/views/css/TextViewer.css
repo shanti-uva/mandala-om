@@ -37,7 +37,7 @@
 }
 
 #shanti-texts-body .mandala-edit-link {
-    display: none;
+    /* display: none; */
 }
 
 #shanti-texts-body figure.image {
@@ -65,4 +65,30 @@
     top: 8px;
     font-size: 1.2rem;
     font-weight: normal;
+}
+
+/* Iframe Styles for pub reader and voyant */
+iframe.full-page-frame {
+    z-index: 3000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.close-iframe {
+    z-index: 5000;
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    color: #777;
+}
+
+.close-iframe a {
+    color: #777;
+}
+
+.close-iframe a:hover {
+    color: red;
 }
