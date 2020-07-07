@@ -39,7 +39,7 @@ export function Main(props) {
 
     const main = (
         <Router basename={'/mandala-om'}>
-            <div id={'sui-mains'} className={'sui-mains'}>
+            <div id={'sui-main'} className={'sui-main'}>
                 <div>
                     <TopBar />
                     <SearchBar onStateChange={handleStateChange} />
