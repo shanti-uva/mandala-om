@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
-import {useParams} from "react-router";
-import {getRelatedAssetsPromise, getAssetDataPromise, getFullKmapDataPromise} from "../logic/searchapi";
+import React, { useState } from 'react';
+import { useParams } from 'react-router';
+import {
+    getRelatedAssetsPromise,
+    getAssetDataPromise,
+    getFullKmapDataPromise,
+} from '../logic/searchapi';
 import _ from 'lodash';
 
 /**
@@ -17,41 +21,47 @@ import _ from 'lodash';
  *
  * */
 export default function KmapContext(props) {
-
-    console.log("KmapContext: props=", props);
+    console.log('KmapContext: props=', props);
 
     // eslint-disable-next-line
-    const [kmapId, setKmapId] = useState("");
+    const [kmapId, setKmapId] = useState('');
     const [kmasset, setKmAsset] = useState({});
     const [relateds, setRelateds] = useState({});
     const [kmap, setKmap] = useState({});
-    const [loadingState, setLoadingState] = useState (false);
+    const [loadingState, setLoadingState] = useState(false);
 
     // const [relatedType, setRelatedType] = useState( "all");
     const [relatedPage, setRelatedPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);  // TODO this should be a configuration
+    const [pageSize, setPageSize] = useState(100); // TODO this should be a configuration
     const params = useParams();
-    const {id, relatedType} = params;
+    const { id, relatedType } = params;
 
     const pager = {
         getMaxPage: () => {
-            if (!relateds.assets || !relateds.assets[relatedType] ) {
+            if (!relateds.assets || !relateds.assets[relatedType]) {
                 return 0;
             } else {
                 const maxCount = relateds.assets[relatedType].count;
-                const maxPage = Math.floor((maxCount-1) / pageSize);
-                console.log( "getMaxPage(): pageSize = ",pageSize, " maxCount = ",maxCount," => maxPage = ", maxPage);
+                const maxPage = Math.floor((maxCount - 1) / pageSize);
+                console.log(
+                    'getMaxPage(): pageSize = ',
+                    pageSize,
+                    ' maxCount = ',
+                    maxCount,
+                    ' => maxPage = ',
+                    maxPage
+                );
                 return maxPage;
             }
         },
         getPage: () => {
-            return relatedPage
+            return relatedPage;
         },
         setPage: (pg) => {
             pg = Number(pg);
             const maxCount = relateds.assets[relatedType].count;
             const maxPage = Math.floor(maxCount / pageSize);
-            pg = (_.isNaN(pg))?0:pg;
+            pg = _.isNaN(pg) ? 0 : pg;
             if (pg > maxPage) {
                 setRelatedPage(() => maxPage);
             } else if (pg < 0) {
@@ -64,12 +74,12 @@ export default function KmapContext(props) {
             size = Number(size);
             let oldSize = Number(size);
             let oldPage = Number(relatedPage);
-            size=(size < 1)?1:size;
-            size=_.isNaN(size)?oldSize:size;
+            size = size < 1 ? 1 : size;
+            size = _.isNaN(size) ? oldSize : size;
             setPageSize(size);
             let newPage = Math.floor((pageSize / oldSize) * oldPage);
             // console.log("newPage: " + newPage + " oldPage: " + oldPage + " pageSize = " + pageSize + " oldSize = " + oldSize);
-            newPage= _.isNaN(newPage)?0:newPage;
+            newPage = _.isNaN(newPage) ? 0 : newPage;
             pager.setPage(newPage);
         },
         getPageSize: () => {
@@ -82,64 +92,89 @@ export default function KmapContext(props) {
             pager.setPage(pager.getPage() - 1);
         },
         lastPage: () => {
-            pager.setPage( pager.getMaxPage() );
+            pager.setPage(pager.getMaxPage());
         },
         firstPage: () => {
             pager.setPage(0);
-        }
-
-    }
+        },
+    };
 
     if (!props.children) {
         let output = <h2>No Children?</h2>;
         return output;
     } else {
-
         let changed = false;
 
         const start = relatedPage * pageSize;
 
-        console.log("KmapContext: id = " + id + " relatedType = " + relatedType);
+        console.log(
+            'KmapContext: id = ' + id + ' relatedType = ' + relatedType
+        );
 
-        const promises = [getAssetDataPromise(id),
+        const promises = [
+            getAssetDataPromise(id),
             getFullKmapDataPromise(id),
-            getRelatedAssetsPromise(id, relatedType, start, pageSize)];
+            getRelatedAssetsPromise(id, relatedType, start, pageSize),
+        ];
 
-        Promise.allSettled(promises).then(([kmasset_result, kmap_result, relateds_result]) => {
+        Promise.allSettled(promises)
+            .then(([kmasset_result, kmap_result, relateds_result]) => {
+                const {
+                    status: kmasset_status,
+                    value: new_kmasset,
+                } = kmasset_result;
+                const { status: kmap_status, value: new_kmap } = kmap_result;
+                const {
+                    status: relateds_status,
+                    value: new_relateds,
+                } = relateds_result;
 
-            const {status: kmasset_status, value: new_kmasset} = kmasset_result;
-            const {status: kmap_status, value: new_kmap} = kmap_result;
-            const {status: relateds_status, value: new_relateds} = relateds_result;
+                let kmprops = {};
 
-            let kmprops = {};
+                if (
+                    new_kmap &&
+                    kmap_status === 'fulfilled' &&
+                    kmap.uid !== new_kmap.uid
+                ) {
+                    kmprops.kmap = new_kmap;
+                    setKmap(new_kmap);
+                    setKmapId(id);
+                    changed = true;
+                }
+                if (
+                    new_kmasset &&
+                    kmasset_status === 'fulfilled' &&
+                    kmasset.uid !== new_kmasset.uid
+                ) {
+                    kmprops.kmasset = new_kmasset;
+                    setKmAsset(new_kmasset);
+                    changed = true;
+                }
 
-            if (new_kmap && (kmap_status === 'fulfilled') && kmap.uid !== new_kmap.uid) {
-                kmprops.kmap = new_kmap;
-                setKmap(new_kmap);
-                setKmapId(id);
-                changed = true;
-            }
-            if (new_kmasset && kmasset_status === 'fulfilled' && kmasset.uid !== new_kmasset.uid) {
-                kmprops.kmasset = new_kmasset;
-                setKmAsset(new_kmasset);
-                changed = true;
-            }
+                console.log('relateds looks like: ', new_relateds);
+                if (
+                    relateds_status === 'fulfilled' &&
+                    relateds.stateKey !== new_relateds.stateKey
+                ) {
+                    kmprops.relateds = new_relateds;
+                    setRelateds(new_relateds);
+                    changed = true;
+                }
 
-            console.log("relateds looks like: ", new_relateds);
-            if (relateds_status === 'fulfilled' && relateds.stateKey !== new_relateds.stateKey) {
-                kmprops.relateds = new_relateds;
-                setRelateds(new_relateds);
-                changed = true;
-            }
-
-            if (changed && props.onStateChange) {
-                props.onStateChange({id: id, kmap: kmap, kmasset: kmasset, relateds: relateds, pager: pager});
-            }
-        }).catch(e => {
-            console.error("oh dear! ", e)
-        });
+                if (changed && props.onStateChange) {
+                    props.onStateChange({
+                        id: id,
+                        kmap: kmap,
+                        kmasset: kmasset,
+                        relateds: relateds,
+                        pager: pager,
+                    });
+                }
+            })
+            .catch((e) => {
+                console.error('oh dear! ', e);
+            });
     }
-
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {
@@ -148,7 +183,7 @@ export default function KmapContext(props) {
                 kmap: kmap,
                 kmasset: kmasset,
                 relateds: relateds,
-                pager: pager
+                pager: pager,
             });
             return new_child;
         } else {
@@ -157,9 +192,3 @@ export default function KmapContext(props) {
     });
     return ret_children;
 }
-
-
-
-
-
-

@@ -68,7 +68,7 @@ export function getAssetSearchPromise(search) {
     const index = 'kmassets_dev';
     const selectUrl = 'https://' + host + '/solr/' + index + '/select';
     const startRec = page.start || 0;
-    const rowsRec = page.rows || 10;
+    const rowsRec = page.rows || 100;
 
     const qaxios = axios.create({
         paramsSerializer: (params) =>

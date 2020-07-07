@@ -105,7 +105,7 @@ export const searchModel: SearchModel = {
     page: {
         current: 0,
         start: 0,
-        rows: 10,
+        rows: 100,
         maxStart: 0,
     },
     gotoPage: action((state, pageNum) => {
