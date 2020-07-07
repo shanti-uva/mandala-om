@@ -1602,3 +1602,8 @@ a {
     /*border-style: solid;*/
     /*border-width: 1px;*/
 }
+
+.sui-featureCard-img-crop {
+    height: 12em;
+    overflow-y: hidden;
+}
