@@ -20,7 +20,7 @@ interface Results {
 interface Query {
     searchText: string;
     filters: Filter[];
-    facetConfigs: FacetConfig[];
+    facetFilters: any;
 }
 
 interface Page {
@@ -54,6 +54,9 @@ export interface SearchModel {
     // can clearFilters of a certain type
     clearFilters: Action<SearchModel, string>;
 
+    // narrowFilters
+    narrowFilters: Action<SearchModel, NarrowFilter>;
+
     onUpdate: ThunkOn<SearchModel, StoreModel>;
 }
 
@@ -82,9 +85,9 @@ interface Filter {
     match: string;
 }
 
-interface FacetConfig {
-    id: string;
-    jsonFacet: string;
+interface NarrowFilter {
+    filter: string;
+    search: string;
 }
 
 export const searchModel: SearchModel = {
@@ -96,22 +99,14 @@ export const searchModel: SearchModel = {
     },
     query: {
         searchText: '',
-        filters: [
-            {
-                id: 'asset_type:places',
-                label: 'Places',
-                operator: Oper.Or,
-                field: 'asset_type',
-                match: AssetType.Places,
-            },
-        ],
-        facetConfigs: [],
+        filters: [],
+        facetFilters: {},
     },
     page: {
         current: 0,
         start: 0,
         rows: 10,
-        maxStart: 219,
+        maxStart: 0,
     },
     gotoPage: action((state, pageNum) => {
         if (pageNum * state.page.rows > state.page.maxStart) {
@@ -171,15 +166,20 @@ export const searchModel: SearchModel = {
         state.page.rows = pageSize;
     }),
 
+    narrowFilters: action((state, narrowFilter) => {
+        console.log('NARROW FILTER: ', narrowFilter);
+        state.query.facetFilters[narrowFilter.filter] = narrowFilter.search;
+    }),
+
     // THE MAIN THUNK
     update: thunk(async (actions, payload, helpers) => {
         const searchState = helpers.getStoreState().search;
 
         searchState.loadingState = true;
-//         console.log('SEARCH START');
+        //         console.log('SEARCH START');
         performance.mark('SearchModelSearchUpdateThunkStart');
         const results = await search(searchState);
-//         console.log('SEARCH DONE');
+        //         console.log('SEARCH DONE');
         performance.mark('SearchModelSearchUpdateThunkEnd');
         performance.measure(
             'SearchModelSearchUpdate',
@@ -250,7 +250,9 @@ export const searchModel: SearchModel = {
                 state.query.filters.splice(found, 1);
             } else {
                 console.log(
-                    "SearchFilter.removeFilters(): Couldn't find filter by that id: "
+                    "SearchFilter.removeFilters(): Couldn't find filter by that id: ",
+                    removeMe.id,
+                    '  -- Ignoring.'
                 );
                 console.log('   Requested = ', removeMe);
                 console.log(
@@ -260,8 +262,15 @@ export const searchModel: SearchModel = {
             }
         }
     }),
-    clearFilters: action((state, payload) => {
-        //
+    clearFilters: action((state, type) => {
+        // clearFilters of a given "type"
+        // if no type given. clear all filters.
+
+        if (!type) {
+            state.query.filters = [];
+        } else {
+            // TODO: remove filters that match "type"...
+        }
     }),
 
     // LISTENERS
@@ -278,6 +287,7 @@ export const searchModel: SearchModel = {
             actions.clearFilters,
             actions.addFilters,
             actions.setSearchText,
+            actions.narrowFilters,
         ],
         // handler:
         async (actions, target) => {

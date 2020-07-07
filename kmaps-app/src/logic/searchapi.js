@@ -62,7 +62,7 @@ export function getAssetSearchPromise(search) {
     const { page, query } = search;
 
     //console.log("UNPACKING page: ", page);
-    //console.log("UNPACKING query: ", query);
+    console.log('UNPACKING query: ', query);
 
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
@@ -74,6 +74,15 @@ export function getAssetSearchPromise(search) {
         paramsSerializer: (params) =>
             Qs.stringify(params, { arrayFormat: 'repeat' }),
     });
+
+    console.log('UNPACKING narrowFilters:  ', query.facetFilters);
+
+    let filters = [];
+
+    if (query.facetFilters.subjects) {
+        filters['subjects'] =
+            'name_latin:*' + query.facetFilters.subjects + '*';
+    }
 
     // TODO: Parameterize facets.  e.g. You won't need all of them, every time.
     const jsonFacet = {
@@ -87,31 +96,37 @@ export function getAssetSearchPromise(search) {
             type: 'terms',
             field: 'kmapid_subjects_idfacet',
             limit: 2000,
+            domain: { filter: filters['subjects'] },
         },
         related_places: {
             type: 'terms',
             field: 'kmapid_places_idfacet',
             limit: 2000,
+            domain: { filter: filters['places'] },
         },
         related_terms: {
             type: 'terms',
             field: 'kmapid_terms_idfacet',
             limit: 2000,
+            domain: { filter: filters['terms'] },
         },
         feature_types: {
             limit: 300,
             type: 'terms',
             field: 'feature_types_idfacet',
+            domain: { filter: filters['feature_types'] },
         },
         languages: {
             limit: 300,
             type: 'terms',
             field: 'node_lang',
+            domain: { filter: filters['languages'] },
         },
         collections: {
             limit: 300,
             type: 'terms',
             field: 'collection_idfacet',
+            domain: { filter: filters['collections'] },
         },
 
         collection_nid: {
@@ -140,13 +155,17 @@ export function getAssetSearchPromise(search) {
             limit: 300,
             type: 'terms',
             field: 'node_user_full_s',
+            domain: { filter: filters['node_user'] },
         },
         creator: {
             limit: 300,
             type: 'terms',
             field: 'creator',
+            domain: { filter: filters['creator'] },
         },
     };
+
+    console.log('FACETING: ' + JSON.stringify(jsonFacet, undefined, 2));
 
     let params = {
         fl: '*',
@@ -180,17 +199,14 @@ export function getAssetSearchPromise(search) {
             return;
         }
 
-        console.log('getAssetSearchPromise(): Calling axios:', request);
+        // console.log('getAssetSearchPromise(): Calling axios:', request);
 
         performance.mark('getAssetSearchPromise:start');
         qaxios
             .request(request)
             .then((res) => {
-//                 console.log(
-//                     'getAssetSearchPromise():  Yay! axios call succeeded!',
-//                     res
-//                 );
-//                 console.log('getAssetSearchPromise(): res = ', res);
+                //                 console.log('getAssetSearchPromise():  Yay! axios call succeeded!', res);
+                //                 console.log('getAssetSearchPromise(): res = ', res);
                 const data = {
                     numFound: res.data.response.numFound,
                     docs: _.map(res.data.response.docs, (x) => {
@@ -216,10 +232,7 @@ export function getAssetSearchPromise(search) {
                     'getAssetSearchPromise:start',
                     'getAssetSearchPromise:done'
                 );
-//                 console.log(
-//                     'performance:',
-//                     performance.getEntriesByName('getAssetSearchPromise')
-//                 );
+                //                 console.log('performance:',performance.getEntriesByName('getAssetSearchPromise'));
 
                 const perf = performance.getEntriesByName(
                     'getAssetSearchPromise'
@@ -536,11 +549,11 @@ function constructFilters(filters) {
     }
 
     // console.log("constructFilters: received filters: ", filters);
-    const sortedFilters = arrayToHash(filters, 'field');
-    console.log('constructFilters: sorted filters = ', sortedFilters);
+    const hashedFilters = arrayToHash(filters, 'field');
+    // console.log('constructFilters: sorted filters = ', hashedFilters);
 
-    const facets = Object.keys(sortedFilters);
-    console.log('constructFilters: keys = ', facets);
+    const facets = Object.keys(hashedFilters);
+    // console.log('constructFilters: keys = ', facets);
 
     let fq_list = [];
 
@@ -549,9 +562,6 @@ function constructFilters(filters) {
         let not_list = [];
         let and_list = [];
         let or_list = [];
-        // console.log("handle asset_type");
-        // console.log("   facet = ", facet);
-        // console.log("   facet data = ", facetData);
 
         facetData.forEach((f) => {
             if (f.operator === 'NOT') {
@@ -569,18 +579,25 @@ function constructFilters(filters) {
             fieldName +
             '}' +
             fieldName +
-            ':(' +
+            ':' +
+            '(' +
             or_list.join(' ') +
             ')';
-        fq_list.push(or_clause);
 
+        // TODO: does the order matter?
+        if (or_list.length) fq_list.push(or_clause);
+        if (and_list.length) fq_list.push(...and_list);
+        if (not_list.length) fq_list.push(...not_list);
+
+        console.log('constructFQs returning: ', fq_list);
         return fq_list;
     }
 
+    // TODO: Refactor so that facets can be added via configuration.
     facets.forEach((facet) => {
-        const facetData = sortedFilters[facet];
+        const facetData = hashedFilters[facet];
         let fqs = [];
-        console.log('constructFilters:\tfacet ' + facet + ' = ', facetData);
+        // console.log('constructFilters:\tfacet ' + facet + ' = ', facetData);
         switch (facet) {
             case 'asset_type':
                 fqs = constructFQs(facetData, 'asset_type');
@@ -599,25 +616,27 @@ function constructFilters(filters) {
                 fq_list.push(...fqs);
                 break;
             case 'languages':
+                fqs = constructFQs(facetData, 'language');
+                fq_list.push(...fqs);
+                break;
+            case 'feature_types':
                 fqs = constructFQs(facetData, 'kmapid');
+                fq_list.push(...fqs);
                 break;
             case 'users':
-                console.log('handle users');
-                console.log('   facet = ', facet);
-
+                fqs = constructFQs(facetData, 'node_user_full_s');
+                fq_list.push(...fqs);
                 break;
-            case 'creators':
-                console.log('handle creators');
-                console.log('   facet = ', facet);
+            case 'creator':
+                fqs = constructFQs(facetData, 'creator');
+                fq_list.push(...fqs);
                 break;
             case 'collections':
-                console.log('handle collections');
-                console.log('   facet = ', facet);
-
+                fqs = constructFQs(facetData, 'collection_uid_s');
+                fq_list.push(...fqs);
                 break;
             default:
-                console.log('handle default');
-                console.log('   facet = ', facet);
+                console.error('UNHANDLED FACET TYPE: ' + facet);
                 break;
         }
     });

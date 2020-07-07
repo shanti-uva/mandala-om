@@ -24,7 +24,7 @@ export default function SearchContext(props) {
     if (show_debug) console.log('SearchContext params = ', params);
 
     function debounce(func) {
-        return _.debounce(func, 500);
+        return _.debounce(func, 200);
     }
 
     function debounceAll(funcs) {
@@ -45,6 +45,7 @@ export default function SearchContext(props) {
     // we are unpacking all the state store's actions.
     // eventually this list of action will be enhanced with things like sort controls
     // TODO: review: we debounce ALL the calls, for now...   maybe this is not the right place to do that.
+    // TODO: probably should make the debounce adjustable per call.  Otherwise it introduces artificial sluggishness in many cases.
     const {
         update,
         setSearchText,
@@ -57,6 +58,7 @@ export default function SearchContext(props) {
         clearFilters,
         removeFilters,
         setPageSize,
+        narrowFilters,
     } = debounceAll(useStoreActions((actions) => actions.search));
 
     const query = search.query;
@@ -70,15 +72,18 @@ export default function SearchContext(props) {
         addFilters: addFilters,
         clearFilters: clearFilters,
         removeFilters: removeFilters,
+        narrowFilters: narrowFilters,
     };
 
     // Let's dispatch an update right off the bat...
+    // TODO: review what gets populated initially and how.
+    // Need to populate the facets but should we populate the search results?
     useEffect(() => {
         if (show_debug) console.log('INITING');
         update();
     }, []);
 
-    // The pager encapsulates controls paging of the results in docs.
+    // The pager encapsulates and controls paging of the results in docs.
     // Eventually it will also include things like sorting
     const docs = search.results?.docs;
     const pager = {
@@ -145,7 +150,6 @@ export default function SearchContext(props) {
             lastPage();
         },
     };
-
     const facets = search.results?.facets;
 
     // Pass the docs and pager as properties.

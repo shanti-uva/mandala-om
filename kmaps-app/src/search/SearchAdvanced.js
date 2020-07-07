@@ -20,9 +20,9 @@ export function SearchAdvanced(props) {
         const compound_id = `${msg.facetType}:${msg.value}`;
 
         if (command.action === null || command.action === 'add') {
-            // console.log("ADD " + compound_id);
-            // console.log("command = ", command);
-            // console.log("filters = ", search.query.filters);
+            console.log('ADD ' + compound_id);
+            console.log('command = ', command);
+            console.log('filters = ', search.query.filters);
             const new_filter = {
                 id: compound_id,
                 label: msg.labelText,
@@ -31,7 +31,9 @@ export function SearchAdvanced(props) {
                 match: msg.value,
             };
 
-            // console.log("NEW FILTER: " + JSON.stringify(new_filter, undefined, 2));
+            console.log(
+                'NEW FILTER: ' + JSON.stringify(new_filter, undefined, 2)
+            );
             search.addFilters([new_filter]);
         } else if (command.action === 'remove') {
             // console.log("REMOVE " + compound_id);
@@ -39,6 +41,12 @@ export function SearchAdvanced(props) {
             // console.log("filters = ", search.query.filters);
             search.removeFilters([{ id: compound_id }]);
         }
+    }
+
+    function handleNarrowFilters(narrowFilter) {
+        console.log('handleNarrowFilters narrowFilter = ', narrowFilter);
+        const search = props.search;
+        search.narrowFilters(narrowFilter);
     }
 
     function getChosenFacets(type) {
@@ -55,6 +63,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.asset_count}
                     facetType={'asset_type'}
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('asset_type')}
                 />
                 <FacetBox
@@ -63,6 +72,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.related_subjects}
                     facetType="subjects"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('subjects')}
                 />
                 <FacetBox
@@ -71,6 +81,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.related_places}
                     facetType="places"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('places')}
                 />
                 <FacetBox
@@ -79,6 +90,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.related_terms}
                     facetType="terms"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('terms')}
                 />
                 <FacetBox
@@ -87,6 +99,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.feature_types}
                     facetType="feature_types"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('feature_types')}
                 />
 
@@ -96,6 +109,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.collections}
                     facetType="collections"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('collections')}
                 />
                 <FacetBox
@@ -104,6 +118,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.languages}
                     facetType="languages"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('languages')}
                 />
                 <FacetBox
@@ -112,6 +127,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.node_user}
                     facetType="users"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('users')}
                 />
 
@@ -121,6 +137,7 @@ export function SearchAdvanced(props) {
                     facets={props.facets.creator}
                     facetType="creator"
                     onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('creator')}
                 />
 

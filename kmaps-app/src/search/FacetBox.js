@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import _ from 'lodash';
 import * as PropTypes from 'prop-types';
@@ -44,6 +44,7 @@ FacetChoice.propTypes = {
 };
 
 export function FacetBox(props) {
+    const inputEl = useRef(null);
     const [open, setOpen] = useState(false);
     let chosen_icon = props.icon;
     const facetType = props.facetType;
@@ -59,6 +60,27 @@ export function FacetBox(props) {
         }, {});
     }
     const chosenHash = arrayToHash(chosenFacets, 'id');
+
+    function handleNarrowFilters() {
+        props.onNarrowFilters({
+            filter: props.facetType,
+            search: inputEl.current.value,
+        });
+    }
+
+    const handleKey = (x) => {
+        // submit on return
+        if (x.keyCode === 13) {
+            handleNarrowFilters();
+        }
+    };
+
+    const handleChange =
+        // To be used for completions if desired
+        _.debounce(() => {
+            console.log('handleChange: ', inputEl.current.value);
+            handleNarrowFilters();
+        }, 500);
 
     // console.log("chosen hash = ", chosenHash);
     const isChosen = (id) => (chosenHash[id] ? true : false);
@@ -188,7 +210,14 @@ export function FacetBox(props) {
                 className={'sui-advEdit ' + (open ? 'open' : 'closed')}
                 id={'sui-advEdit-' + props.id}
             >
-                <input placeholder="Filter this list" value="" />
+                <input
+                    type={'text'}
+                    placeholder="Filter this list"
+                    onChange={handleChange}
+                    defaultValue={''}
+                    onKeyDownCapture={handleKey}
+                    ref={inputEl}
+                />
                 <div className={'sui-adv-facetlist overflow-auto'}>
                     {facetList}
                 </div>
