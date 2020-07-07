@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 export function RelatedsViewer(props) {
     console.log('Relateds props = ', props);
+
+    const match = useRouteMatch('/view/:baseType/:baseUid/related/:type');
+    const loc = match?.params.type || 'home';
+    let locMatch = {};
+    locMatch[loc] = 'selected';
 
     const baseArgs = {
         baseType: 'terms',
@@ -28,7 +33,7 @@ export function RelatedsViewer(props) {
                         }
                     >
                         <div
-                            className="sui-relatedItem  sui-color-terms"
+                            className={`sui-relatedItem  sui-color-terms ${locMatch['home']}`}
                             id="sui-rl-Home"
                         >
                             <span className={'icon sui-relatedItem-icon'}>
@@ -38,51 +43,93 @@ export function RelatedsViewer(props) {
                         </div>
                     </Link>
 
-                    <RelatedCount type={'all'} {...baseArgs} />
-                    <RelatedCount type={'places'} {...baseArgs} />
-                    <RelatedCount type={'audio-video'} {...baseArgs} />
-                    <RelatedCount type={'images'} {...baseArgs} />
-                    <RelatedCount type={'sources'} {...baseArgs} />
-                    <RelatedCount type={'texts'} {...baseArgs} />
-                    <RelatedCount type={'visuals'} {...baseArgs} />
-                    <RelatedCount type={'subjects'} {...baseArgs} />
-                    <RelatedCount type={'terms'} {...baseArgs} />
-                    <RelatedCount type={'collections'} {...baseArgs} />
+                    <RelatedCount
+                        type={'all'}
+                        {...baseArgs}
+                        className={locMatch['all']}
+                    />
+                    <RelatedCount
+                        type={'places'}
+                        {...baseArgs}
+                        className={locMatch['places']}
+                    />
+                    <RelatedCount
+                        type={'audio-video'}
+                        {...baseArgs}
+                        className={locMatch['audio-video']}
+                    />
+                    <RelatedCount
+                        type={'images'}
+                        {...baseArgs}
+                        className={locMatch.images}
+                    />
+                    <RelatedCount
+                        type={'sources'}
+                        {...baseArgs}
+                        className={locMatch.sources}
+                    />
+                    <RelatedCount
+                        type={'texts'}
+                        {...baseArgs}
+                        className={locMatch.texts}
+                    />
+                    <RelatedCount
+                        type={'visuals'}
+                        {...baseArgs}
+                        className={locMatch.visuals}
+                    />
+                    <RelatedCount
+                        type={'subjects'}
+                        {...baseArgs}
+                        className={locMatch.subjects}
+                    />
+                    <RelatedCount
+                        type={'terms'}
+                        {...baseArgs}
+                        className={locMatch.terms}
+                    />
+                    <RelatedCount
+                        type={'collections'}
+                        {...baseArgs}
+                        className={locMatch.collections}
+                    />
                 </div>
             </div>
         </div>
     );
 }
 
-function RelatedCount(p) {
-    const count = p.relateds?.assets ? p.relateds.assets[p.type]?.count : 0;
+function RelatedCount(props) {
+    const count = props.relateds?.assets
+        ? props.relateds.assets[props.type]?.count
+        : 0;
 
     // assign shanticon class according to type.  "all" type should get the "shanticon-logo-shanti" icon.
     const iconClass =
-        'icon shanticon-' + (p.type === 'all' ? 'logo-shanti' : p.type);
+        'icon shanticon-' + (props.type === 'all' ? 'logo-shanti' : props.type);
 
     // return null if the count doesn't exist or is === 0
     return count ? (
         <Link
             to={
                 '/view/' +
-                p.baseType +
+                props.baseType +
                 '/' +
-                p.baseUid +
+                props.baseUid +
                 '/related/' +
-                p.type +
+                props.type +
                 '/default'
             }
         >
             <span
-                className={'sui-relatedItem'}
-                id={'sui-rl-' + p.type}
+                className={'sui-relatedItem ' + props.className}
+                id={'sui-rl-' + props.type}
                 href="#"
             >
                 <span
-                    className={'sui-color-' + p.type + ' ' + iconClass}
+                    className={'sui-color-' + props.type + ' ' + iconClass}
                 ></span>
-                <span className={'sui-relatedItem-label'}> {p.type}</span>
+                <span className={'sui-relatedItem-label'}> {props.type}</span>
                 &nbsp;(<span id="sui-rln-places">{count}</span>)
             </span>
         </Link>

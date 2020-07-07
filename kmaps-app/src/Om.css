@@ -732,6 +732,19 @@ html {
     font-weight: normal;
     display: block;
 }
+
+.sui-relatedItem.selected {
+    background: #dcdcdc;
+}
+
+.sui-relatedItem:not(.selected):hover {
+    background: #efefef;
+}
+
+.sui-relatedList a:hover {
+    text-decoration: none;
+}
+
 .sui-relatedItem-icon {
     border-color: transparent;
     height: 6px;
