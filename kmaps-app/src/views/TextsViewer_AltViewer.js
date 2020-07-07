@@ -20,7 +20,7 @@ export function TextsAltViewer(props) {
         back_href = window.location.href.replace('voyant/', '');
         const ajax_text_path = env_base + '/shanti_texts/node_ajax_text/' + id;
         iframe_url =
-            'http://voyant-tools.org/tool/Cirrus/?input=' + ajax_text_path;
+            'https://voyant-tools.org/tool/Cirrus/?input=' + ajax_text_path;
     } else {
         back_href = window.location.href.replace('book_pubreader/', '');
         iframe_url = env_base + 'book_pubreader/' + id;
