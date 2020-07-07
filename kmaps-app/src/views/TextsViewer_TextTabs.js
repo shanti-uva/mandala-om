@@ -29,6 +29,7 @@ export default function TextTabs(props) {
         .replace(/href="\//g, 'href="' + site_base)
         .replace('shanti_texts', '')
         .replace('texts//', 'texts/');
+
     useEffect(() => {
         var ablanks = $(
             '#shanti-texts-sidebar-tabs-tabpane-text_links a[target="_blank"]'

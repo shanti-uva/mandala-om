@@ -8,7 +8,7 @@ $(document).ready(function () {
     window.show_not_found = setTimeout(function () {
         $('.loading').hide();
         $('.not-found-msg').show();
-    }, 5000);
+    }, 10000);
 });
 
 export function getMandalaAssetDataPromise(env, assettype, id) {
