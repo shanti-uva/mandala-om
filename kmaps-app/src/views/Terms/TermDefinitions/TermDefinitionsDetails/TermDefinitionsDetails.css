@@ -1,0 +1,15 @@
+.sui-termDefDetailsWrapper {
+    position: relative;
+}
+.sui-termDefDetails__item {
+    margin-bottom: 0.8rem;
+}
+.sui-termDefDetails__title {
+    text-transform: uppercase;
+    margin-right: 0.8rem;
+    font-size: smaller;
+}
+.sui-termDefDetails__text {
+    font-weight: 400;
+    font-style: italic;
+}

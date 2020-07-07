@@ -87,7 +87,6 @@ export default function MdlAssetContext(props) {
                 }
 
                 if (changed && props.onStateChange) {
-                    console.error('triggering state change');
                     props.onStateChange({
                         id: id,
                         asset_type: asset_type,

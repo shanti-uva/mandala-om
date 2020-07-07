@@ -77,7 +77,9 @@ export function normalizeLinks(asset_type) {
     _.forEach(aels, function (el) {
         const href = el.getAttribute('href');
         if (href) {
-            if (href.indexOf('/content') === 0) {
+            if (href.indexOf('shanti_texts/node_ajax_text') > -1) {
+                return;
+            } else if (href.indexOf('/content') === 0) {
                 // All /content/... links are in the same app
                 el.setAttribute('data-asset-type', asset_type);
                 el.setAttribute('data-url', href);

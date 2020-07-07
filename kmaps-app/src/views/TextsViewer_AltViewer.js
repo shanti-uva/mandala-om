@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 
 export function TextsAltViewer(props) {
     const view_type = props.viewtype;
-
+    console.log('altview view tpe: ' + view_type);
     const params = useParams();
     let id = params.id; // When ID param is just a number
     if (id.indexOf('-') > 1) {
@@ -17,9 +17,10 @@ export function TextsAltViewer(props) {
         back_href = '',
         close_title = 'Back to Text';
     if (view_type === 'voyant') {
+        back_href = window.location.href.replace('voyant/', '');
         const ajax_text_path = env_base + '/shanti_texts/node_ajax_text/' + id;
         iframe_url =
-            'http://voyant-tools.org/tool/Cirrus/?input=' + ajax_text_path;
+            'https://voyant-tools.org/tool/Cirrus/?input=' + ajax_text_path;
     } else {
         back_href = window.location.href.replace('book_pubreader/', '');
         iframe_url = env_base + 'book_pubreader/' + id;

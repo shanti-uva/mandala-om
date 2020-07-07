@@ -2,22 +2,30 @@
     overflow: visible;
     margin: 12px;
     width: 98%;
+    max-width: 2000px;
+    margin: 0 auto;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
 }
 
 #sui-kplayer {
     width: 100%;
-}
-
-#sui-kplayer iframe {
-    min-height: 530px;
+    height: 350px;
+    max-width: 800px;
 }
 
 #av-player-row {
     overflow-x: hidden;
 }
 
+div#av-trscrpt-wrapper {
+    height: inherit;
+    letter-spacing: 0;
+    max-height: 600px;
+    overflow-y: hidden;
+}
+
 #av-trscrpt-wrapper #sui-trans {
-    max-height: calc(100vh - 108px);
+    height: 90%;
 }
 
 #av-info-tabs {

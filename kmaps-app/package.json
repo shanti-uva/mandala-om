@@ -22,6 +22,7 @@
         "react-bootstrap": "^1.0.1",
         "react-dom": "^16.13.1",
         "react-html-parser": "^2.0.2",
+        "react-icons": "^3.10.0",
         "react-image-gallery": "^1.0.7",
         "react-images": "^1.1.7",
         "react-numeric-input": "^2.2.3",

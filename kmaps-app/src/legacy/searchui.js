@@ -294,7 +294,8 @@ export default class SearchUI {
         this.DrawAdvanced(); // Draw search UI if active
     }
 
-    ShowHamburger() { // SHOW HAMBURGER MENU
+    ShowHamburger() {
+        // SHOW HAMBURGER MENU
         let str = `<span id='sui-help' class='sui-hamItem'>&#xe67e&nbsp;&nbsp;HELP GUIDE</span>
 		<span id='sui-home' class='sui-hamItem'>&#xe60b&nbsp;&nbsp;HOME</span>`;
         $('#sui-hamburger').html(str.replace(/\t|\n|\r/g, '')); // Remove formatting and add to menu
@@ -474,7 +475,8 @@ export default class SearchUI {
 
 //////////////////////////////////////////////////////////////////////////////////////////////  */
 
-    ClearQuery() { // CLEAR SEARCH QUERY STATE TO START
+    ClearQuery() {
+        // CLEAR SEARCH QUERY STATE TO START
         $('#sui-search').val(''); // Clear input field
         if (this.pages) this.pages.relatedBase = this.pages.relatedId = ''; // Clear relateds
         this.ss.page = 0; // Start of page 0
@@ -918,7 +920,8 @@ export default class SearchUI {
         this.DrawFooter(); // Draw footer
     }
 
-    DrawHeader() { // DRAW RESULTS HEADER
+    DrawHeader() {
+        // DRAW RESULTS HEADER
         // alert("pages.DrawHeader called()");
         //console.log("pages.Drawheader called!");
         if (this.ss.mode == 'related') return; // Quit for special search modes
@@ -976,7 +979,8 @@ export default class SearchUI {
         });
     }
 
-    DrawFooter() { // DRAW RESULTS FOOTER
+    DrawFooter() {
+        // DRAW RESULTS FOOTER
         var lastPage = Math.floor(this.numItems / this.ss.pageSize); // Calc last page
         if (this.ss.mode != 'related')
             $('#sui-footer').css('background-color', '#888'); // Set b/g color
@@ -1086,7 +1090,8 @@ export default class SearchUI {
     // CALLS DrawCardItem(), DrawGridItem() or DrawListItem()
     // CALLS this.pages.DrawRelatedAssets()
 
-    DrawItems() { // DRAW RESULT ITEMS
+    DrawItems() {
+        // DRAW RESULT ITEMS
         //console.log("SearchUI.DrawItems()");
         var i,
             str = '';
@@ -1513,7 +1518,8 @@ export default class SearchUI {
 
 //////////////////////////////////////////////////////////////////////////////////////////////  */
 
-    DrawAdvanced() { // DRAW SEARCH UI SECTION
+    DrawAdvanced() {
+        // DRAW SEARCH UI SECTION
         this.log('searchui.DrawAdvanced() short circuit');
         return; // short circuit
 
@@ -1644,7 +1650,8 @@ export default class SearchUI {
     }
 
     // SELF-CONTAINED
-    RecentSearches() { // SHOW RECENT SEARCHES
+    RecentSearches() {
+        // SHOW RECENT SEARCHES
         if ($('#sui-advEdit-recent').css('display') != 'none') {
             // If open
             $('#sui-advEdit-recent').slideUp(); // Close it
@@ -2224,7 +2231,8 @@ export default class SearchUI {
         }
     }
 
-    GeoLocate() { // SHOW GEOLOCATED ASSESTS
+    GeoLocate() {
+        // SHOW GEOLOCATED ASSESTS
         let d = [
             { lat: 36.6251, lon: -118.085, lab: 'Lhasa', ui: 'subjects-6061' },
             { lat: 37.6251, lon: -119.085, lab: 'Lhasa2', ui: 'subjects-6060' },

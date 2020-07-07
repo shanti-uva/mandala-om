@@ -356,7 +356,8 @@ export default class Places {
 		*/
     } // End Draw()
 
-    GeoLocate() { // GET EXTENT FROM PLACE PATH TREE IN KMAP
+    GeoLocate() {
+        // GET EXTENT FROM PLACE PATH TREE IN KMAP
         let loc = '';
         this.extent = null; // Assume not found
         var _this = this; // Save context
@@ -385,7 +386,8 @@ export default class Places {
     // META DATA
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    DrawContent() { // DRAW TABS AND CAPTION INFO
+    DrawContent() {
+        // DRAW TABS AND CAPTION INFO
         const sui = this.sui;
         let str = "<div id='sui-topCon' style='margin-left:192px'>"; // Top content div
         if (this.kmap.caption)
@@ -571,7 +573,8 @@ export default class Places {
         }); // Highlight current one
     }
 
-    AddRelatedTabs() { // ADD TAB CONTROLS FOR RELATED PLACES/SUBJECTS
+    AddRelatedTabs() {
+        // ADD TAB CONTROLS FOR RELATED PLACES/SUBJECTS
         const sui = this.sui;
         const _this = this;
         let str = drawTabB(['PLACE CONTEXT', 'RELATED PLACES']); // Add tab menu

@@ -206,8 +206,10 @@ export default class Pages {
                 return;
             }
             $('[id^=sui-popover-]').remove(); // Remove old one
+            console.log($(this.div).scrollTop(), this.div);
+            let scrltop = $('#sui-main').scrollTop();
             let str = `<div id='sui-popover-${id}' class='sui-popover' 
-			style='top:${pos.top + 24 + $(this.div).scrollTop()}px;left:${
+			style='top:${pos.top + 24 + scrltop}px;left:${
                 x - 150
             }px'><div class='sui-popover-body'>
 			<div style='position:absolute;width:0;height:0;border-left:8px solid transparent;
