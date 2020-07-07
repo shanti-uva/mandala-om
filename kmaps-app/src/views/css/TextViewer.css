@@ -92,3 +92,7 @@ iframe.full-page-frame {
 .close-iframe a:hover {
     color: red;
 }
+
+.full-page-frame {
+    background-color: #fff;
+}
