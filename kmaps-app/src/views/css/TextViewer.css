@@ -1,6 +1,6 @@
 .sui-main {
     overflow-x: hidden;
-    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif, shanticon;
     font-weight: 400;
     text-rendering: optimizeSpeed;
     letter-spacing: 0.01rem;
@@ -8,6 +8,7 @@
     background-color: #eee;
     height: 100vh;
 }
+
 .sui-content {
     background-color: #eee;
     overflow-x: hidden;

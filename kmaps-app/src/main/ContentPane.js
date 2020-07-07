@@ -11,7 +11,7 @@ import { PlacesViewer } from '../views/PlacesViewer';
 import { SubjectsViewer } from '../views/SubjectsViewer';
 import { RelatedsViewer } from '../views/RelatedsViewer';
 import LegacyViewer from '../views/LegacyViewer';
-import TermsViewer from '../views/TermsViewer';
+import TermsViewer from '../views/Terms/TermsViewer';
 import { SearchViewer } from '../views/SearchViewer';
 import { CollectionsViewer } from '../views/CollectionsViewer';
 import { Error404 } from '../App';
