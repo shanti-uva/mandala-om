@@ -44,6 +44,9 @@ export function TextsViewer(props) {
     // Setting text_sections variable with array of sections in text
     // TODO: Assess whether this is still necessary
     useEffect(() => {
+        // add sui-main text class
+        $('.sui-main').addClass('texts');
+
         // Set the text section state var if empty. Only need to do once on load
         if (
             text_sections.length == 0 &&

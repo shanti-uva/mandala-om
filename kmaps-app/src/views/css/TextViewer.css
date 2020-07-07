@@ -1,16 +1,13 @@
-.sui-main {
+.sui-main.texts {
     overflow-x: hidden;
     font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif,
         shanticon;
     font-weight: 400;
-    text-rendering: optimizeSpeed;
-    letter-spacing: 0.01rem;
-    text-rendering: optimizeLegibility !important;
     background-color: #eee;
     height: 100vh;
 }
 
-.sui-content {
+.texts .sui-content {
     background-color: #eee;
     overflow-x: hidden;
     position: relative;
@@ -18,7 +15,7 @@
     height: inherit;
 }
 
-#sui-results,
+.texts #sui-results,
 .astviewer,
 .astviewer.texts #shanti-texts-container {
     height: inherit !important;
