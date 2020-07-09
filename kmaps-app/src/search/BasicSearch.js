@@ -9,7 +9,7 @@ export function BasicSearch(props) {
     const show_debug = false;
     if (show_debug) console.debug('BasicSearch: state = ', state);
 
-    const currText = state.search.query.searchText;
+    const currText = state.search.query?.searchText;
     // const [state, setState] = useState({searchString: {currText}});
     const clearInput = () => {
         inputEl.current.value = '';

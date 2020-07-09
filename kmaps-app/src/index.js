@@ -6,9 +6,42 @@ import App from './App';
 // import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import { storeModel } from './model/StoreModel';
-import { createStore, StoreProvider } from 'easy-peasy';
+import localForage from 'localforage';
+import { createStore, StoreProvider, persist } from 'easy-peasy';
 
-const store = createStore(storeModel);
+const forage = localForage.createInstance({ name: 'om' });
+const store = createStore(
+    persist(
+        storeModel,
+        { storage: forage }
+        /* ,{
+        storage: {
+            setItem: (key, value) => {
+                const ret = window.sessionStorage.setItem(key, value);
+                console.log("PERSISTY");
+                return ret;
+            },
+            getItem: (key) => {
+                console.log("getItem " , key);
+                const item = window.sessionStorage.getItem(key);
+                console.log("getItem " , key, " returning ", item);
+                return item;
+            },
+            clear: () => {
+                return window.sessionStorage.clear();
+            },
+            key: (i) => {
+                console.log("key: " + i);
+                return window.sessionStorage.key(i);
+            },
+            removeItem: (key) => {
+                return window.sessionStorage.removeItem(key);
+            }
+        }
+    }
+     */
+    )
+);
 
 ReactDOM.render(
     <React.StrictMode>

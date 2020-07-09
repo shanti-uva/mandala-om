@@ -209,7 +209,8 @@ export function FacetBox(props) {
                 id={'sui-advHeader-A'}
                 onClick={() => setOpen(!open)}
             >
-                <span className={'icon'}>{icon}</span>&nbsp;&nbsp;{label}
+                <span className={'icon'}>{icon}</span>
+                <span>{label}</span>
                 <span id={'sui-advPlus-' + props.id} className={'sui-advPlus'}>
                     <Badge
                         pill
@@ -228,58 +229,67 @@ export function FacetBox(props) {
                 className={'sui-advEdit ' + (open ? 'open' : 'closed')}
                 id={'sui-advEdit-' + props.id}
             >
-                <input
-                    type={'text'}
-                    placeholder="Filter this list"
-                    onChange={handleChange}
-                    defaultValue={''}
-                    onKeyDownCapture={handleKey}
-                    ref={inputEl}
-                />
+                <div className={'sui-advEdit-facet-ctrls'}>
+                    <input
+                        type={'text'}
+                        placeholder="Filter this list"
+                        onChange={handleChange}
+                        defaultValue={''}
+                        onKeyDownCapture={handleKey}
+                        ref={inputEl}
+                    />
 
-                <ToggleButtonGroup
-                    onChange={setSortField}
-                    name={name + '_field'}
-                    type={'radio'}
-                    value={sortField}
-                    ref={sortFieldEl}
-                >
-                    <ToggleButton
-                        name={name + '_field'}
-                        type={'radio'}
-                        value={'count'}
-                    >
-                        count
-                    </ToggleButton>
-                    <ToggleButton
-                        name={name + '_field'}
-                        type={'radio'}
-                        value={'index'}
-                    >
-                        alpha
-                    </ToggleButton>
-                </ToggleButtonGroup>
-                <ToggleButtonGroup
-                    onChange={setSortDirection}
-                    name={name + '_direction'}
-                    value={sortDirection}
-                    ref={sortDirectionEl}
-                >
-                    <ToggleButton
-                        name={name + '_direction'}
-                        type={'radio'}
-                        value={'desc'}
-                    >
-                        desc
-                    </ToggleButton>
-                    <ToggleButton
-                        name={name + '_direction'}
-                        type={'radio'}
-                        value={'asc'}
-                    >
-                        asc
-                    </ToggleButton>
-                </ToggleButtonGroup>
+                    <span classNmae={'sui-advEdit-facet-ctrls-btns'}>
+                        <ToggleButtonGroup
+                            onChange={setSortField}
+                            name={name + '_field'}
+                            type={'radio'}
+                            value={sortField}
+                            ref={sortFieldEl}
+                        >
+                            <ToggleButton
+                                name={name + '_field'}
+                                type={'radio'}
+                                value={'count'}
+                            >
+                                #
+                            </ToggleButton>
+                            <ToggleButton
+                                name={name + '_field'}
+                                type={'radio'}
+                                value={'index'}
+                            >
+                                A-Z
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                        <span> </span>
+                        <ToggleButtonGroup
+                            onChange={setSortDirection}
+                            name={name + '_direction'}
+                            value={sortDirection}
+                            ref={sortDirectionEl}
+                        >
+                            <ToggleButton
+                                name={name + '_direction'}
+                                type={'radio'}
+                                value={'desc'}
+                            >
+                                <span
+                                    className={'icon shanticon-arrow-tip-down'}
+                                ></span>
+                            </ToggleButton>
+                            <ToggleButton
+                                name={name + '_direction'}
+                                type={'radio'}
+                                value={'asc'}
+                            >
+                                <span
+                                    className={'icon shanticon-arrow-tip-up'}
+                                ></span>
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </span>
+                </div>
 
                 <div className={'sui-adv-facetlist overflow-auto'}>
                     {facetList}

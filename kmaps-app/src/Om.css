@@ -518,6 +518,11 @@ html {
     cursor: pointer;
     text-transform: uppercase;
 }
+
+.sui-advHeader .icon {
+    margin-right: 0.5rem;
+}
+
 .sui-advTermRem {
     display: inline-block;
     cursor: pointer;

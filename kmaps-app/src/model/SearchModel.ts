@@ -276,8 +276,8 @@ export const searchModel: SearchModel = {
 
         if (!type) {
             state.query.filters = [];
+            state.query.facetFilters = {};
         } else {
-            // TODO: remove filters that match "type"...
         }
     }),
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import jsonpAdapter from './axios-jsonp';
 import crypto from 'crypto';
 import _ from 'lodash';
-import Qs from 'qs';
+// import Qs from 'qs';
 import spexLib from 'spex';
 const spex = spexLib(Promise);
 
@@ -14,13 +14,36 @@ export async function search(searchstate) {
     return await getAssetSearchPromise(searchstate);
 }
 
+function getPersistentStorage() {
+    const storage = {
+        setItem: (key, value) => {
+            const ret = window.sessionStorage.setItem(key, value);
+            // console.error ("storage.setItem ret = ", ret);
+        },
+        getItem: (key) => {
+            return window.sessionStorage.getItem(key);
+        },
+        clear: () => {
+            return window.sessionStorage.clear();
+        },
+        key: (i) => {
+            return window.sessionStorage.key(i);
+        },
+        removeItem: (key) => {
+            return window.sessionStorage.removeItem(key);
+        },
+    };
+    return storage;
+}
+
 //  TODO: Maybe refactor to use declarative caching instead...?
 function getCached(request) {
     let data = null;
     // TODO: Need explicit cache controls and expiry, etc.
-    if (sessionStorage) {
+    const persistentStorage = getPersistentStorage();
+    if (persistentStorage) {
         try {
-            const cached = sessionStorage.getItem(
+            const cached = persistentStorage.getItem(
                 checksum(JSON.stringify(request))
             );
             if (cached) {
@@ -84,6 +107,7 @@ function narrowData(data, narrowFilters) {
         });
 
         console.log(' setting bucket with facet= ', facet);
+
         data.facets[facet].buckets = filtered;
     });
     return data;
@@ -262,9 +286,9 @@ export function getAssetSearchPromise(search) {
         params: params,
     };
 
-    const promise = new Promise((resolve, reject) => {
+    const searchPromise = new Promise((resolve, reject) => {
         const cached = getCached(request);
-        if (cached) {
+        if (false && cached) {
             console.log('Returning cached data: ', cached);
             resolve(cached);
             return;
@@ -285,7 +309,7 @@ export function getAssetSearchPromise(search) {
                 };
 
                 setCache(request, data);
-                resolve(narrowData(data, query.facetFilters));
+                resolve(data);
             })
             .catch((reason) => {
                 console.log(
@@ -313,6 +337,17 @@ export function getAssetSearchPromise(search) {
                 });
                 //console.log("performance getEntries:", performance.getEntries());
                 performance.clearMeasures();
+            });
+    });
+
+    const promise = new Promise((resolve, reject) => {
+        searchPromise
+            .then((data) => {
+                resolve(narrowData(data, query.facetFilters));
+            })
+            .catch((rej) => {
+                console.log('Promise rejected: ', rej);
+                reject(rej);
             });
     });
     return promise;

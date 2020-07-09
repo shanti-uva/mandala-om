@@ -15,6 +15,7 @@ import { SearchBar } from '../search/SearchBar';
 import { SearchAdvanced } from '../search/SearchAdvanced';
 import { Error404 } from '../App';
 import SearchContext from '../context/SearchContext';
+import { useStoreRehydrated } from 'easy-peasy';
 
 const stateDefault = {
     kmasset: {
@@ -31,12 +32,12 @@ export function Main(props) {
         console.log('Old state = ', state);
 
         setState({ ...state, ...new_state });
-
         console.log('New state = ', state);
-
         console.log('Main() state = ', state);
     };
 
+    const storeReady = useStoreRehydrated();
+    const loading = '<div>Loading...</div>';
     const main = (
         <Router basename={'/mandala-om'}>
             <div id={'sui-main'} className={'sui-main'}>
@@ -74,5 +75,7 @@ export function Main(props) {
             </div>
         </Router>
     );
-    return main;
+
+    const ret = storeReady ? main : loading;
+    return ret;
 }

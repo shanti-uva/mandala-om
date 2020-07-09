@@ -87,28 +87,28 @@ export default function SearchContext(props) {
     // Eventually it will also include things like sorting
     const docs = search.results?.docs;
     const pager = {
-        numFound: search.results.numFound,
-        currentPage: search.page.current,
-        currentPageSize: search.page.rows,
+        numFound: search.results?.numFound,
+        currentPage: search.page?.current,
+        currentPageSize: search.page?.rows,
 
         getMaxPage: () => {
             if (!search.results?.numFound) {
                 return 0;
             } else {
-                const maxCount = search.results.numFound;
-                const pageSize = search.page.rows;
+                const maxCount = search.results?.numFound;
+                const pageSize = search.page?.rows;
                 const maxPage = Math.floor((maxCount - 1) / pageSize);
                 // console.log( "getMaxPage(): pageSize = ",pageSize, " maxCount = ",maxCount," => maxPage = ", maxPage);
                 return maxPage;
             }
         },
         getPage: () => {
-            return search.page.current;
+            return search.page?.current;
         },
         setPage: (pg) => {
             pg = Number(pg);
-            const maxCount = search.results.numFound;
-            const pageSize = search.page.rows;
+            const maxCount = search.results?.numFound;
+            const pageSize = search.page?.rows;
             const maxPage = Math.floor(maxCount / pageSize);
             pg = _.isNaN(pg) ? 0 : pg;
             if (pg > maxPage) {
@@ -124,18 +124,18 @@ export default function SearchContext(props) {
         setPageSize: (size) => {
             size = Number(size);
             let oldSize = Number(size);
-            let oldPage = Number(search.page.current);
+            let oldPage = Number(search.page?.current);
             size = size < 1 ? 1 : size;
             size = _.isNaN(size) ? oldSize : size;
             setPageSize(size);
-            const pageSize = search.page.rows;
+            const pageSize = search.page?.rows;
             let newPage = Math.floor((pageSize / oldSize) * oldPage);
             // console.log("newPage: " + newPage + " oldPage: " + oldPage + " pageSize = " + pageSize + " oldSize = " + oldSize);
             newPage = _.isNaN(newPage) ? 0 : newPage;
             pager.setPage(newPage);
         },
         getPageSize: () => {
-            return search.page.rows;
+            return search.page?.rows;
         },
         nextPage: () => {
             nextPage();

@@ -1,5 +1,9 @@
 import { FacetBox } from './FacetBox';
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 
 export function SearchAdvanced(props) {
     const query = '';
@@ -51,16 +55,40 @@ export function SearchAdvanced(props) {
 
     function getChosenFacets(type) {
         // console.log("getChosenFacets: finding in:", props.search.query.filters)
-        return props.search.query.filters.filter((x) => x.field === type);
+        return props.search.query?.filters.filter((x) => x.field === type);
+    }
+
+    function handleResetAll() {
+        if (props.search) {
+            props.search.clearFilters();
+        }
     }
 
     const advanced = (
         <div id="sui-adv" className={`sui-adv ${openclass} overflow-auto`}>
+            <Navbar>
+                {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
+                <Navbar.Toggle />
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text onClick={handleResetAll}>
+                        Reset All
+                    </Navbar.Text>
+                </Navbar.Collapse>
+            </Navbar>
+
+            {/*<div className={'sui-advBox'}>*/}
+            {/*    <div className={'sui-adv-ctrls wd-100'}>*/}
+            {/*        <ButtonGroup>*/}
+            {/*        <Button>Eject</Button>*/}
+            {/*        <Button className={'float-right'} type={'button'}>clear all</Button>*/}
+            {/*        </ButtonGroup>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className={'overflow-auto'}>
                 <FacetBox
                     id="squawk"
                     label="item type"
-                    facets={props.facets.asset_count}
+                    facets={props.facets?.asset_count}
                     facetType={'asset_type'}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -69,7 +97,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="related subjects"
-                    facets={props.facets.related_subjects}
+                    facets={props.facets?.related_subjects}
                     facetType="subjects"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -78,7 +106,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="related places"
-                    facets={props.facets.related_places}
+                    facets={props.facets?.related_places}
                     facetType="places"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -87,7 +115,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="related terms"
-                    facets={props.facets.related_terms}
+                    facets={props.facets?.related_terms}
                     facetType="terms"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -96,7 +124,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="feature types"
-                    facets={props.facets.feature_types}
+                    facets={props.facets?.feature_types}
                     facetType="feature_types"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -106,7 +134,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="collections"
-                    facets={props.facets.collections}
+                    facets={props.facets?.collections}
                     facetType="collections"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -115,7 +143,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="languages"
-                    facets={props.facets.languages}
+                    facets={props.facets?.languages}
                     facetType="languages"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -124,7 +152,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="users"
-                    facets={props.facets.node_user}
+                    facets={props.facets?.node_user}
                     facetType="users"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -134,7 +162,7 @@ export function SearchAdvanced(props) {
                 <FacetBox
                     id="squawk"
                     label="creator"
-                    facets={props.facets.creator}
+                    facets={props.facets?.creator}
                     facetType="creator"
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
@@ -148,7 +176,7 @@ export function SearchAdvanced(props) {
                 />
 
                 <pre>
-                    {JSON.stringify(props.search.query.filters, undefined, 2)}
+                    {JSON.stringify(props.search.query?.filters, undefined, 2)}
                 </pre>
             </div>
             <div className={'sui-advFooter'}>
