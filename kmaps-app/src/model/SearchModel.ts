@@ -88,6 +88,9 @@ interface Filter {
 interface NarrowFilter {
     filter: string;
     search: string;
+    offset: number;
+    limit: number;
+    sort: string;
 }
 
 export const searchModel: SearchModel = {
@@ -168,7 +171,12 @@ export const searchModel: SearchModel = {
 
     narrowFilters: action((state, narrowFilter) => {
         console.log('NARROW FILTER: ', narrowFilter);
-        state.query.facetFilters[narrowFilter.filter] = narrowFilter.search;
+        state.query.facetFilters[narrowFilter.filter] = {
+            search: narrowFilter.search,
+            limit: narrowFilter.limit,
+            offset: narrowFilter.offset,
+            sort: narrowFilter.sort,
+        };
     }),
 
     // THE MAIN THUNK

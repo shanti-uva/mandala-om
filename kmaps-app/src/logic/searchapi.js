@@ -3,22 +3,21 @@ import jsonpAdapter from './axios-jsonp';
 import crypto from 'crypto';
 import _ from 'lodash';
 import Qs from 'qs';
+import spexLib from 'spex';
+const spex = spexLib(Promise);
 
 function checksum(data) {
     return crypto.createHash('sha1').update(data).digest('base64');
 }
 
-// TODO: There needs to be better/smarter caching.  sessionStorage is too small to be unmanaged like this.
 export async function search(searchstate) {
     return await getAssetSearchPromise(searchstate);
-
-    // TODO:  need to pass configuration.   dev defaults are used now.
 }
 
 //  TODO: Maybe refactor to use declarative caching instead...?
 function getCached(request) {
     let data = null;
-    // TODO: Need explicit cache controls and timeouts, etc.
+    // TODO: Need explicit cache controls and expiry, etc.
     if (sessionStorage) {
         try {
             const cached = sessionStorage.getItem(
@@ -42,9 +41,9 @@ function setCache(request, data) {
                 checksum(JSON.stringify(request)),
                 JSON.stringify(data)
             );
-            //console.log("Cached: data for ", JSON.stringify(request));
+            console.log('Cached: data for ', JSON.stringify(request));
         } catch (e) {
-            //console.log("Ignored sessionStorage error: ", e);
+            console.log('Ignored sessionStorage error: ', e);
             // ignore
         }
     }
@@ -52,6 +51,42 @@ function setCache(request, data) {
 
 export function clearCache() {
     sessionStorage.clear();
+}
+
+function narrowData(data, narrowFilters) {
+    Object.entries(narrowFilters).forEach((x) => {
+        const [key, searchObj] = x;
+        const search = searchObj.search;
+        // const limit = searchObj.limit || 500;
+        // const offset = searchObj.offset || 0;
+        // const sort = searchObj.sort || "alpha";
+        console.log(' search = ' + search);
+        // console.log(" limit = " + limit);
+        // console.log(" offset = " + offset);
+        // console.log(" sort = " + sort);
+        let facet = '';
+        if (key === 'subjects') {
+            facet = 'related_subjects';
+        } else if (key === 'places') {
+            facet = 'related_places';
+        } else if (key === 'terms') {
+            facet = 'related_terms';
+        } else if (key === 'users') {
+            facet = 'node_user';
+        } else {
+            facet = key;
+        }
+
+        const buckets = data.facets[facet]?.buckets;
+        const filtered = _.filter(buckets, (x) => {
+            const str = x.val.split('|')[0].toLowerCase();
+            return str.includes(search);
+        });
+
+        console.log(' setting bucket with facet= ', facet);
+        data.facets[facet].buckets = filtered;
+    });
+    return data;
 }
 
 export function getAssetSearchPromise(search) {
@@ -70,77 +105,107 @@ export function getAssetSearchPromise(search) {
     const startRec = page.start || 0;
     const rowsRec = page.rows || 100;
 
-    const qaxios = axios.create({
-        paramsSerializer: (params) =>
-            Qs.stringify(params, { arrayFormat: 'repeat' }),
-    });
-
-    console.log('UNPACKING narrowFilters:  ', query.facetFilters);
+    // const qaxios = axios.create({
+    //     paramsSerializer: (params) =>
+    //         Qs.stringify(params, { arrayFormat: 'repeat' }),
+    // });
 
     let filters = [];
 
-    if (query.facetFilters.subjects) {
-        filters['subjects'] =
-            'name_latin:*' + query.facetFilters.subjects + '*';
-    }
+    const ff = query.facetFilters;
+    console.log('UNPACKING facetFilters: ', query.facetFilters);
+    // Object.entries(query.facetFilters).forEach((x) => {
+    //     const [key, searchObj] = x;
+    //     const search = searchObj.search;
+    //     const limit = searchObj.limit || 500;
+    //     const offset = searchObj.offset || 0;
+    //     const sort = searchObj.sort || "alpha";
+    //     console.log(" search = " + search);
+    //     console.log(" limit = " + limit);
+    //     console.log(" offset = " + offset);
+    //     console.log(" sort = " + sort);
+    //     let facet = "";
+    //     if (key === "subjects") {
+    //         facet = "related_subjects";
+    //     } else if (key === "places") {
+    //         facet = "related_places"
+    //     } else if (key === "terms") {
+    //         facet = "related_terms";
+    //     } else if (key === "users") {
+    //         facet = "node_user";
+    //     } else {
+    //         facet = key;
+    //     }
+    // });
 
     // TODO: Parameterize facets.  e.g. You won't need all of them, every time.
     const jsonFacet = {
         asset_count: {
             type: 'terms',
             field: 'asset_type',
-            limit: 500,
+            limit: ff['asset_type']?.limit || 20,
+            offset: ff['asset_type']?.offset || 0,
+            sort: ff['asset_type']?.sort || 'count desc',
             domain: { excludeTags: 'asset_type' },
         },
         related_subjects: {
             type: 'terms',
             field: 'kmapid_subjects_idfacet',
-            limit: 2000,
-            domain: { filter: filters['subjects'] },
+            limit: ff['subjects']?.limit || 500,
+            offset: ff['subjects']?.offset || 0,
+            sort: ff['subjects']?.sort || 'count desc',
         },
         related_places: {
             type: 'terms',
             field: 'kmapid_places_idfacet',
-            limit: 2000,
-            domain: { filter: filters['places'] },
+            limit: ff['places']?.limit || 500,
+            offset: ff['places']?.offset || 0,
+            sort: ff['places']?.sort || 'count desc',
         },
         related_terms: {
             type: 'terms',
             field: 'kmapid_terms_idfacet',
-            limit: 2000,
-            domain: { filter: filters['terms'] },
+            limit: ff['terms']?.limit || 500,
+            offset: ff['terms']?.offset || 0,
+            sort: ff['terms']?.sort || 'count desc',
         },
         feature_types: {
-            limit: 300,
             type: 'terms',
             field: 'feature_types_idfacet',
-            domain: { filter: filters['feature_types'] },
+            limit: ff['feature_types']?.limit || 500,
+            offset: ff['feature_types']?.offset || 0,
+            sort: ff['feature_types']?.sort || 'count desc',
         },
         languages: {
-            limit: 300,
             type: 'terms',
             field: 'node_lang',
-            domain: { filter: filters['languages'] },
+            limit: ff['languages']?.limit || 500,
+            offset: ff['languages']?.offset || 0,
+            sort: ff['languages']?.sort || 'count desc',
         },
         collections: {
-            limit: 300,
             type: 'terms',
             field: 'collection_idfacet',
-            domain: { filter: filters['collections'] },
+            limit: ff['collections']?.limit || 500,
+            offset: ff['collections']?.offset || 0,
+            sort: ff['collections']?.sort || 'count desc',
         },
 
         collection_nid: {
-            limit: 300,
             type: 'terms',
             field: 'collection_nid',
+            limit: ff['collection_nid']?.limit || 500,
+            offset: ff['collection_nid']?.offset || 0,
+            sort: ff['collection_nid']?.sort || 'count desc',
         },
         collection_uid: {
-            limit: 300,
             type: 'terms',
             field: 'collection_uid_s',
+            limit: ff['collection_uid']?.limit || 500,
+            offset: ff['collection_uid']?.offset || 0,
+            sort: ff['collection_uid']?.sort || 'count desc',
         },
         asset_subtype: {
-            limit: 300,
             type: 'terms',
             field: 'asset_subtype',
             facet: {
@@ -150,18 +215,23 @@ export function getAssetSearchPromise(search) {
                     field: 'asset_type',
                 },
             },
+            limit: ff['asset_subtype']?.limit || 500,
+            offset: ff['asset_subtype']?.offset || 0,
+            sort: ff['asset_subtype']?.sort || 'count desc',
         },
         node_user: {
-            limit: 300,
             type: 'terms',
             field: 'node_user_full_s',
-            domain: { filter: filters['node_user'] },
+            limit: ff['user']?.limit || 500,
+            offset: ff['user']?.offset || 0,
+            sort: ff['user']?.sort || 'count desc',
         },
         creator: {
-            limit: 300,
             type: 'terms',
             field: 'creator',
-            domain: { filter: filters['creator'] },
+            limit: ff['creator']?.limit || 500,
+            offset: ff['creator']?.offset || 0,
+            sort: ff['creator']?.sort || 'count desc',
         },
     };
 
@@ -193,16 +263,15 @@ export function getAssetSearchPromise(search) {
     };
 
     const promise = new Promise((resolve, reject) => {
-        let data = getCached(request);
-        if (data) {
-            resolve(data);
+        const cached = getCached(request);
+        if (cached) {
+            console.log('Returning cached data: ', cached);
+            resolve(cached);
             return;
         }
 
-        // console.log('getAssetSearchPromise(): Calling axios:', request);
-
         performance.mark('getAssetSearchPromise:start');
-        qaxios
+        axios
             .request(request)
             .then((res) => {
                 //                 console.log('getAssetSearchPromise():  Yay! axios call succeeded!', res);
@@ -216,7 +285,7 @@ export function getAssetSearchPromise(search) {
                 };
 
                 setCache(request, data);
-                resolve(data);
+                resolve(narrowData(data, query.facetFilters));
             })
             .catch((reason) => {
                 console.log(

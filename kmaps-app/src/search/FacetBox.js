@@ -1,7 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import _ from 'lodash';
 import * as PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 function FacetChoice(props) {
     function handleFacetAdd() {
@@ -45,6 +49,11 @@ FacetChoice.propTypes = {
 
 export function FacetBox(props) {
     const inputEl = useRef(null);
+    const sortFieldEl = useRef(null);
+    const [sortField, setSortField] = useState('count');
+    const sortDirectionEl = useRef(null);
+    const [sortDirection, setSortDirection] = useState('desc');
+
     const [open, setOpen] = useState(false);
     let chosen_icon = props.icon;
     const facetType = props.facetType;
@@ -53,6 +62,10 @@ export function FacetBox(props) {
     // console.log('FacetBox (' + facetType + ') filters: ', filters);
     // console.log('FacetBox (' + facetType + ') chosenFacets: ', chosenFacets);
 
+    // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
+    useEffect(() => {
+        handleNarrowFilters();
+    }, [sortField, sortDirection]);
     function arrayToHash(array, keyField) {
         return array.reduce((collector, item) => {
             collector[item[keyField]] = item;
@@ -62,10 +75,14 @@ export function FacetBox(props) {
     const chosenHash = arrayToHash(chosenFacets, 'id');
 
     function handleNarrowFilters() {
-        props.onNarrowFilters({
-            filter: props.facetType,
-            search: inputEl.current.value,
-        });
+        if (props.onNarrowFilters) {
+            props.onNarrowFilters({
+                filter: props.facetType,
+                search: inputEl.current.value,
+                sort: sortField + ' ' + sortDirection,
+                limit: inputEl.current?.value?.length ? -1 : null,
+            });
+        }
     }
 
     const handleKey = (x) => {
@@ -184,6 +201,7 @@ export function FacetBox(props) {
         );
     });
 
+    const name = 'sort_' + props.id;
     const facetBox = (
         <div className="sui-advBox" id={'sui-advBox-' + props.id}>
             <div
@@ -218,6 +236,51 @@ export function FacetBox(props) {
                     onKeyDownCapture={handleKey}
                     ref={inputEl}
                 />
+
+                <ToggleButtonGroup
+                    onChange={setSortField}
+                    name={name + '_field'}
+                    type={'radio'}
+                    value={sortField}
+                    ref={sortFieldEl}
+                >
+                    <ToggleButton
+                        name={name + '_field'}
+                        type={'radio'}
+                        value={'count'}
+                    >
+                        count
+                    </ToggleButton>
+                    <ToggleButton
+                        name={name + '_field'}
+                        type={'radio'}
+                        value={'index'}
+                    >
+                        alpha
+                    </ToggleButton>
+                </ToggleButtonGroup>
+                <ToggleButtonGroup
+                    onChange={setSortDirection}
+                    name={name + '_direction'}
+                    value={sortDirection}
+                    ref={sortDirectionEl}
+                >
+                    <ToggleButton
+                        name={name + '_direction'}
+                        type={'radio'}
+                        value={'desc'}
+                    >
+                        desc
+                    </ToggleButton>
+                    <ToggleButton
+                        name={name + '_direction'}
+                        type={'radio'}
+                        value={'asc'}
+                    >
+                        asc
+                    </ToggleButton>
+                </ToggleButtonGroup>
+
                 <div className={'sui-adv-facetlist overflow-auto'}>
                     {facetList}
                 </div>
