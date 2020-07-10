@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/mandala-om/static/css/main.4eb04ad2.chunk.css",
-    "main.js": "/mandala-om/static/js/main.18c4fb5a.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.18c4fb5a.chunk.js.map",
+    "main.js": "/mandala-om/static/js/main.6b1e0718.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.6b1e0718.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.5255fc5b.js",
     "runtime-main.js.map": "/mandala-om/static/js/runtime-main.5255fc5b.js.map",
     "static/css/2.f83d61e1.chunk.css": "/mandala-om/static/css/2.f83d61e1.chunk.css",
     "static/js/2.898cd365.chunk.js": "/mandala-om/static/js/2.898cd365.chunk.js",
     "static/js/2.898cd365.chunk.js.map": "/mandala-om/static/js/2.898cd365.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.aacc6a262426c49e6bb33640b1c4d9f7.js": "/mandala-om/precache-manifest.aacc6a262426c49e6bb33640b1c4d9f7.js",
+    "precache-manifest.e0c981a83d0f915f3187a17e477c238c.js": "/mandala-om/precache-manifest.e0c981a83d0f915f3187a17e477c238c.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.f83d61e1.chunk.css.map": "/mandala-om/static/css/2.f83d61e1.chunk.css.map",
     "static/css/main.4eb04ad2.chunk.css.map": "/mandala-om/static/css/main.4eb04ad2.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.f83d61e1.chunk.css",
     "static/js/2.898cd365.chunk.js",
     "static/css/main.4eb04ad2.chunk.css",
-    "static/js/main.18c4fb5a.chunk.js"
+    "static/js/main.6b1e0718.chunk.js"
   ]
 }
