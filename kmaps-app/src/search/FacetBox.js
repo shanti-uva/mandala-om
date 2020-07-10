@@ -57,15 +57,18 @@ export function FacetBox(props) {
     const [open, setOpen] = useState(false);
     let chosen_icon = props.icon;
     const facetType = props.facetType;
-    const filters = props.filters;
+    const facets = props.facets;
     const chosenFacets = props.chosenFacets || [];
-    // console.log('FacetBox (' + facetType + ') filters: ', filters);
-    // console.log('FacetBox (' + facetType + ') chosenFacets: ', chosenFacets);
 
     // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
     useEffect(() => {
         handleNarrowFilters();
     }, [sortField, sortDirection]);
+
+    useEffect(() => {}, [props.reset]);
+
+    // console.log("FacetBox: props = ", props);
+
     function arrayToHash(array, keyField) {
         return array.reduce((collector, item) => {
             collector[item[keyField]] = item;
@@ -155,7 +158,7 @@ export function FacetBox(props) {
         return uid;
     }
 
-    const facetList = _.map(props.facets?.buckets, (entry) => {
+    const facetList = _.map(facets?.buckets, (entry) => {
         // Adjust
         const iconClass = chooseIconClass(entry);
         const { label, fullLabel, value } = parseEntry(entry, false);

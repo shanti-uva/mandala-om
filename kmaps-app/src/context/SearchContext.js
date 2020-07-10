@@ -56,6 +56,7 @@ export default function SearchContext(props) {
         lastPage,
         firstPage,
         clearFilters,
+        clearAll,
         removeFilters,
         setPageSize,
         narrowFilters,
@@ -71,6 +72,7 @@ export default function SearchContext(props) {
         setSearchText: setSearchText,
         addFilters: addFilters,
         clearFilters: clearFilters,
+        clearAll: clearAll,
         removeFilters: removeFilters,
         narrowFilters: narrowFilters,
     };

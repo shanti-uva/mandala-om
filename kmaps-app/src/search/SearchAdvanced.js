@@ -4,13 +4,16 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import { Link, useLocation, useRouteMatch } from 'react-router-dom';
 
 export function SearchAdvanced(props) {
     const query = '';
     const openclass = props.advanced ? 'open' : 'closed';
 
-    // console.debug('SearchAdvanced: query = ', props.search.query);
-    // console.debug('SearchAdvanced: facets = ', props.facets);
+    // This tells us whether we are viewing the search results
+    // so that we can give a link to go there (or not).
+    const searchView = useRouteMatch('/view/search');
 
     function handleFacetChange(msg) {
         const command = {
@@ -24,9 +27,6 @@ export function SearchAdvanced(props) {
         const compound_id = `${msg.facetType}:${msg.value}`;
 
         if (command.action === null || command.action === 'add') {
-            console.log('ADD ' + compound_id);
-            console.log('command = ', command);
-            console.log('filters = ', search.query.filters);
             const new_filter = {
                 id: compound_id,
                 label: msg.labelText,
@@ -40,9 +40,6 @@ export function SearchAdvanced(props) {
             );
             search.addFilters([new_filter]);
         } else if (command.action === 'remove') {
-            // console.log("REMOVE " + compound_id);
-            // console.log("command = ", command);
-            // console.log("filters = ", search.query.filters);
             search.removeFilters([{ id: compound_id }]);
         }
     }
@@ -58,35 +55,45 @@ export function SearchAdvanced(props) {
         return props.search.query?.filters.filter((x) => x.field === type);
     }
 
-    function handleResetAll() {
+    function handleResetFilters() {
         if (props.search) {
             props.search.clearFilters();
         }
     }
 
+    function handleResetAll() {
+        if (props.search) {
+            props.search.clearAll();
+        }
+    }
+
+    // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components
     const advanced = (
         <div id="sui-adv" className={`sui-adv ${openclass} overflow-auto`}>
             <Navbar>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
+                {!searchView && (
+                    <Link to={'/view/search'}>{'<<'} Show Results</Link>
+                )}
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text onClick={handleResetAll}>
-                        Reset All
-                    </Navbar.Text>
+                    <Navbar.Text>Reset: </Navbar.Text>
+                    <Nav.Link
+                        eventKey="resetFilters"
+                        onClick={handleResetFilters}
+                    >
+                        Filters
+                    </Nav.Link>
+                    |
+                    <Nav.Link eventKey="resetFilters" onClick={handleResetAll}>
+                        All
+                    </Nav.Link>
                 </Navbar.Collapse>
             </Navbar>
 
-            {/*<div className={'sui-advBox'}>*/}
-            {/*    <div className={'sui-adv-ctrls wd-100'}>*/}
-            {/*        <ButtonGroup>*/}
-            {/*        <Button>Eject</Button>*/}
-            {/*        <Button className={'float-right'} type={'button'}>clear all</Button>*/}
-            {/*        </ButtonGroup>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <div className={'overflow-auto'}>
                 <FacetBox
-                    id="squawk"
+                    id="asset_type"
                     label="item type"
                     facets={props.facets?.asset_count}
                     facetType={'asset_type'}
@@ -95,7 +102,7 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('asset_type')}
                 />
                 <FacetBox
-                    id="squawk"
+                    id="subjects"
                     label="related subjects"
                     facets={props.facets?.related_subjects}
                     facetType="subjects"
@@ -104,7 +111,7 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('subjects')}
                 />
                 <FacetBox
-                    id="squawk"
+                    id="places"
                     label="related places"
                     facets={props.facets?.related_places}
                     facetType="places"
@@ -113,7 +120,7 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('places')}
                 />
                 <FacetBox
-                    id="squawk"
+                    id="terms"
                     label="related terms"
                     facets={props.facets?.related_terms}
                     facetType="terms"
@@ -122,7 +129,7 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('terms')}
                 />
                 <FacetBox
-                    id="squawk"
+                    id="feature_types"
                     label="feature types"
                     facets={props.facets?.feature_types}
                     facetType="feature_types"
@@ -132,7 +139,7 @@ export function SearchAdvanced(props) {
                 />
 
                 <FacetBox
-                    id="squawk"
+                    id="collections"
                     label="collections"
                     facets={props.facets?.collections}
                     facetType="collections"
@@ -141,7 +148,7 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('collections')}
                 />
                 <FacetBox
-                    id="squawk"
+                    id="languages"
                     label="languages"
                     facets={props.facets?.languages}
                     facetType="languages"
@@ -150,7 +157,7 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('languages')}
                 />
                 <FacetBox
-                    id="squawk"
+                    id="users"
                     label="users"
                     facets={props.facets?.node_user}
                     facetType="users"
@@ -160,7 +167,7 @@ export function SearchAdvanced(props) {
                 />
 
                 <FacetBox
-                    id="squawk"
+                    id="creator"
                     label="creator"
                     facets={props.facets?.creator}
                     facetType="creator"
@@ -170,7 +177,17 @@ export function SearchAdvanced(props) {
                 />
 
                 <FacetBox
-                    id="squawk"
+                    id="perspective"
+                    label="perspective"
+                    facets={props.facets?.perspective}
+                    facetType="perspective"
+                    onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
+                    chosenFacets={getChosenFacets('perspective')}
+                />
+
+                <FacetBox
+                    id="recent"
                     label="recent searches"
                     facetType="recent-searches"
                 />

@@ -2,8 +2,10 @@ import axios from 'axios';
 import jsonpAdapter from './axios-jsonp';
 import crypto from 'crypto';
 import _ from 'lodash';
+import localforage from 'localforage';
 // import Qs from 'qs';
 import spexLib from 'spex';
+
 const spex = spexLib(Promise);
 
 function checksum(data) {
@@ -14,69 +16,47 @@ export async function search(searchstate) {
     return await getAssetSearchPromise(searchstate);
 }
 
-function getPersistentStorage() {
-    const storage = {
-        setItem: (key, value) => {
-            const ret = window.sessionStorage.setItem(key, value);
-            // console.error ("storage.setItem ret = ", ret);
-        },
-        getItem: (key) => {
-            return window.sessionStorage.getItem(key);
-        },
-        clear: () => {
-            return window.sessionStorage.clear();
-        },
-        key: (i) => {
-            return window.sessionStorage.key(i);
-        },
-        removeItem: (key) => {
-            return window.sessionStorage.removeItem(key);
-        },
-    };
-    return storage;
-}
-
 //  TODO: Maybe refactor to use declarative caching instead...?
 function getCached(request) {
-    let data = null;
-    // TODO: Need explicit cache controls and expiry, etc.
-    const persistentStorage = getPersistentStorage();
-    if (persistentStorage) {
-        try {
-            const cached = persistentStorage.getItem(
-                checksum(JSON.stringify(request))
-            );
-            if (cached) {
-                data = JSON.parse(cached);
-            }
-        } catch (e) {
-            console.log('Ignored sessionStorage error: ', e);
-        }
-    }
-    //console.log("getCached: returning: ", data);
-    return data;
+    localforage
+        .getItem(checksum(JSON.stringify(request)))
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => {
+            console.log('getCached failed.  Returning null: ', err);
+            return null;
+        });
 }
 
 function setCache(request, data) {
-    if (sessionStorage) {
-        try {
-            sessionStorage.setItem(
-                checksum(JSON.stringify(request)),
-                JSON.stringify(data)
-            );
-            console.log('Cached: data for ', JSON.stringify(request));
-        } catch (e) {
-            console.log('Ignored sessionStorage error: ', e);
-            // ignore
-        }
-    }
+    localforage
+        .setItem(checksum(JSON.stringify(request)), data)
+        .then(() => {
+            localforage.length().then((length) => {
+                console.log('localforage length = ', length);
+                console.log('localforage driver = ', localforage.driver());
+            });
+        })
+        .catch((err) => {
+            console.log('setCache failed.  Ignoring: ', err);
+        });
 }
 
 export function clearCache() {
-    sessionStorage.clear();
+    localforage
+        .clear()
+        .then(() => {
+            console.log('cache cleared successfully');
+        })
+        .catch((err) => {
+            console.log('ERROR: Failed to clear cache: ', err);
+        });
 }
 
 function narrowData(data, narrowFilters) {
+    console.log('narrowData called with data = ', data);
+
     Object.entries(narrowFilters).forEach((x) => {
         const [key, searchObj] = x;
         const search = searchObj.search;
@@ -100,20 +80,21 @@ function narrowData(data, narrowFilters) {
             facet = key;
         }
 
-        const buckets = data.facets[facet]?.buckets;
-        const filtered = _.filter(buckets, (x) => {
-            const str = x.val.split('|')[0].toLowerCase();
-            return str.includes(search);
-        });
-
-        console.log(' setting bucket with facet= ', facet);
-
-        data.facets[facet].buckets = filtered;
+        if (data.facets[facet]) {
+            const buckets = data.facets[facet].buckets;
+            const filtered = _.filter(buckets, (x) => {
+                const str = x.val.split('|')[0].toLowerCase();
+                return str.includes(search);
+            });
+            console.log(' setting bucket with facet= ', facet);
+            data.facets[facet].buckets = filtered;
+        }
     });
     return data;
 }
 
 export function getAssetSearchPromise(search) {
+    // console.error("searchapi.getAssetSearchPromise who's calling me? with ", search);
     // TODO: parameterize the use of facets
     // TODO: parameterize constructTextQuery
 
@@ -259,7 +240,7 @@ export function getAssetSearchPromise(search) {
         },
     };
 
-    console.log('FACETING: ' + JSON.stringify(jsonFacet, undefined, 2));
+    // console.log('FACETING: ' + JSON.stringify(jsonFacet, undefined, 2));
 
     let params = {
         fl: '*',

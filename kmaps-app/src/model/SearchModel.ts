@@ -54,6 +54,9 @@ export interface SearchModel {
     // can clearFilters of a certain type
     clearFilters: Action<SearchModel, string>;
 
+    // clear all filters and the search string
+    clearAll: Action<SearchModel>;
+
     // narrowFilters
     narrowFilters: Action<SearchModel, NarrowFilter>;
 
@@ -278,9 +281,18 @@ export const searchModel: SearchModel = {
             state.query.filters = [];
             state.query.facetFilters = {};
         } else {
+            console.error(
+                'HEY: clearing by specific filter not implemented yet!  type = ',
+                type
+            );
         }
     }),
 
+    clearAll: action((state) => {
+        state.query.filters = [];
+        state.query.facetFilters = {};
+        state.query.searchText = '';
+    }),
     // LISTENERS
     onUpdate: thunkOn(
         // targetResolver:
@@ -293,6 +305,7 @@ export const searchModel: SearchModel = {
             actions.firstPage,
             actions.removeFilters,
             actions.clearFilters,
+            actions.clearAll,
             actions.addFilters,
             actions.setSearchText,
             actions.narrowFilters,

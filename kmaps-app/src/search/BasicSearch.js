@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useStoreState } from 'easy-peasy';
 import * as PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -11,18 +11,21 @@ export function BasicSearch(props) {
 
     const currText = state.search.query?.searchText;
     // const [state, setState] = useState({searchString: {currText}});
-    const clearInput = () => {
-        inputEl.current.value = '';
-        props.onSubmit(inputEl.current.value);
-    };
     const handleSubmit = () => {
         props.search.setSearchText(inputEl.current.value);
         props.onSubmit(inputEl.current.value);
+        console.log('BasicSearch handleSubmit: ', inputEl.current.value);
+    };
+    const clearInput = () => {
+        inputEl.current.value = '';
+        handleSubmit();
+        props.onSubmit(inputEl.current.value);
+        console.log('BasicSearch clearInput: ', inputEl.current.value);
     };
     const handleChange =
         // To be used for completions if desired
         _.debounce(() => {
-            console.log('handleChange: ', inputEl.current.value);
+            console.log('BasicSearch handleChange: ', inputEl.current.value);
         }, 500);
 
     const handleKey = (x) => {
@@ -31,6 +34,15 @@ export function BasicSearch(props) {
             handleSubmit();
         }
     };
+
+    useLayoutEffect(() => {
+        // console.log("BasicSearch useEffect() props = ", props);
+        // console.log("BasicSearch sees searchText = ", props.search.query.searchText);
+        if (inputEl.current.value !== props.search.query.searchText) {
+            inputEl.current.value = props.search.query.searchText;
+        }
+    });
+
     return (
         <>
             <div className="sui-search1">
