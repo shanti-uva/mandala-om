@@ -12,10 +12,7 @@ $(document).ready(function () {
 });
 
 export function getMandalaAssetDataPromise(env, assettype, id) {
-    // console.log('params: ', assettype, id);
     const json_call = getMandalaJSONUrl(env, assettype, id);
-    // console.log("json call: " + json_call);
-    // const selectUrl = 'https://' + host + '/solr/' + index + '/select';
 
     const request = {
         adapter: jsonpAdapter,
@@ -30,17 +27,14 @@ export function getMandalaAssetDataPromise(env, assettype, id) {
             return;
         }*/
         let data = false;
-        //console.log("getMandalaAssetDataPromise(): Calling axios:", request);
         axios
             .request(request)
             .then((res) => {
-                //console.log("getMandalaAssetDataPromise():  Yay! axios call succeeded!", res);
                 const data = res.data;
                 setCache(request, data);
                 resolve(data);
             })
             .catch((reason) => {
-                //console.log("getMandalaAssetDataPromise(): OUCH axios call failed!", reason);
                 reject(reason);
             });
     });
@@ -48,10 +42,7 @@ export function getMandalaAssetDataPromise(env, assettype, id) {
 }
 
 export function getLegacyAssetPromise(env, assettype, id) {
-    // console.log('params: ', assettype, id);
     const json_call = getMandalaSolrUrl(env, assettype, id);
-    //console.log("json call: " + json_call);
-    // const selectUrl = 'https://' + host + '/solr/' + index + '/select';
 
     const request = {
         adapter: jsonpAdapter,
@@ -65,24 +56,14 @@ export function getLegacyAssetPromise(env, assettype, id) {
             resolve(data);
             return;
         }
-        // console.log('getLegacyAssetPromise(): Calling axios:', request);
         axios
             .request(request)
             .then((res) => {
-                /*console.log(
-                    'getLegacyAssetPromise():  Yay! axios call succeeded!',
-                    res
-                );*/
                 const data = res.data.response.docs[0];
-                //console.log('data is', data);
                 setCache(request, data);
                 resolve(data);
             })
             .catch((reason) => {
-                /*console.log(
-                    'getLegacyAssetPromise(): OUCH axios call failed!',
-                    reason
-                );*/
                 reject(reason);
             });
     });
