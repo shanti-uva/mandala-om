@@ -1,4 +1,182 @@
-/** Styles copied from shanti-texts.main but modified to use classes from React App **/
+/**
+Styles for the text component only. Loaded in TextViewer.js UseEffect() by adding <link> for the component page
+The first section are styles written newly for the React APP scoped by the body class `.texts`
+The second section "Styles from Mandala" are the styles copied with some modifications from mandala.
+These should eventually be sorted and organized into a coherent stylesheet.
+ndg, 2020-07-14
+ */
+.sui-main.texts {
+    overflow-x: hidden;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif,
+        shanticon;
+    font-weight: 400;
+    background-color: #eee;
+    height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.texts .sui-content {
+    background-color: #eee;
+    overflow-x: hidden;
+    position: relative;
+    top: 0;
+    height: inherit;
+}
+
+.texts #sui-results,
+.astviewer,
+.astviewer.texts #shanti-texts-container {
+    height: inherit !important;
+}
+
+/** In text styles **/
+.spinner-border-sm {
+    margin: -2px 6px 0 20px;
+    vertical-align: middle !important;
+}
+
+.shanticon {
+    font-family: 'shanticon';
+}
+
+.tib,
+.bo {
+    letter-spacing: normal !important;
+}
+
+a {
+    text-decoration: none;
+    color: #03038e;
+}
+
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: #df3d26;
+}
+
+/* Embeds in Texts: images, av, texts, etc */
+figure.image,
+div.assetplayer,
+div.image-wrapper {
+    margin: 0.5rem 1.5rem 0rem;
+    width: auto;
+}
+
+figure.image img,
+div.assetplayer iframe {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
+}
+
+figure figcaption,
+div.assetplayer p.avcaption {
+    margin: 0.5rem 0 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    line-height: 1.1rem;
+    letter-spacing: 0;
+}
+
+figure figcaption.bo,
+div.assetplayer p.caption.bo {
+    font-size: 1.75rem;
+    font-weight: normal;
+}
+
+figure.center {
+    margin: 12px 0px 12px 24%;
+}
+
+div.assetplayer.center {
+    margin: 12px 0px 12px 16%;
+}
+
+div.image-wrapper figure.image {
+    margin: 0;
+}
+
+div.image-wrapper h2 {
+    margin: 0 0 0.4em 0;
+    font-size: 1.25em;
+    color: #222;
+}
+
+div.shanti-texts-embed-container {
+    border: 2px lightgray solid;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#shanti-texts-body .mandala-edit-link {
+    /* display: none; */
+}
+
+#shanti-texts-body figure.image {
+    margin: 0 1rem;
+}
+
+#shanti-texts-body figure.image figcaption {
+    margin: 0.5rem 0 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    line-height: 1.1rem;
+    letter-spacing: 0;
+}
+
+#shanti-texts-body figure.image img {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.8);
+}
+
+.link-external {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+/* Iframe Styles for pub reader and voyant */
+iframe.full-page-frame {
+    z-index: 3000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.close-iframe {
+    z-index: 5000;
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    color: #777;
+}
+
+.close-iframe a {
+    color: #777;
+}
+
+.close-iframe a:hover {
+    color: red;
+}
+
+.full-page-frame {
+    background-color: #fff;
+}
+
+/*****************************************************************************************/
+/********************************** Styles from Mandala **********************************/
+/*****************************************************************************************/
+
+/** Styles copied from Shanti texts and Shanti Sarvaka but modified to use classes from React App **/
 .content-section #shanti-texts-body a {
     border-bottom: 1px solid transparent !important;
 }

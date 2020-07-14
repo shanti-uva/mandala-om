@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Collapse from 'react-bootstrap/Collapse';
-import { HtmlWithPopovers } from './common/MandalaPopover';
+import { HtmlWithPopovers } from './common/MandalaMarkup';
 import $ from 'jquery';
 
 export default function TextTabs(props) {
@@ -36,16 +36,13 @@ export default function TextTabs(props) {
         );
         ablanks.each(function () {
             const ltitle = $(this).attr('title');
-            console.warn('Need to finish removing blank from target', ltitle);
-            if (typeof ltitle == 'undefined') {
-                return;
-            }
-            if (
-                (typeof ltitle != 'undefined' &&
-                    ltitle.indexOf('Voyant') > -1) ||
-                ltitle.indexOf('Reader') > -1
-            ) {
-                $(this).attr('target', '');
+            if (typeof ltitle === 'string') {
+                if (
+                    ltitle.indexOf('Voyant') > -1 ||
+                    ltitle.indexOf('Reader') > -1
+                ) {
+                    $(this).attr('target', '');
+                }
             }
         });
     });

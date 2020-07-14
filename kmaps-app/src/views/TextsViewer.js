@@ -3,8 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import TextBody from './TextsViewer_TextBody';
 import TextTabs from './TextsViewer_TextTabs';
-import './css/TextViewer.css';
-import './css/ShantiTexts.css';
 import Spinner from 'react-bootstrap/Spinner';
 
 import $ from 'jquery';
@@ -41,12 +39,26 @@ export function TextsViewer(props) {
         'shanti-texts-' + tid,
     ]);
 
-    // Setting text_sections variable with array of sections in text
-    // TODO: Assess whether this is still necessary
+    // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
     useEffect(() => {
-        // add sui-main text class
+        // add class "texts" to sui-main
         $('.sui-main').addClass('texts');
 
+        // Add customs CSS styles
+        const headel = $('head');
+        if (headel.length > 0 && $('#textcsslnk').length === 0) {
+            const pubfolder = process.env.PUBLIC_URL;
+            const csslink = $(
+                '<link rel="stylesheet" type="text/css" href="' +
+                    pubfolder +
+                    '/css/component-text-viewer.css" id="textcsslnk" >'
+            );
+            headel.append(csslink);
+        }
+    }, []);
+
+    // Setting text_sections variable with array of sections in text for TOC scroll highlighting and highlighting first TOC link
+    useEffect(() => {
         // Set the text section state var if empty. Only need to do once on load
         if (
             text_sections.length == 0 &&
@@ -74,6 +86,8 @@ export function TextsViewer(props) {
                 };
             });
             setSections(sections_new);
+
+            // Highlight first link in TOC
             const firstlink = $('.shanti-texts-toc > ul > li.first > a');
             firstlink.addClass('toc-selected');
         }

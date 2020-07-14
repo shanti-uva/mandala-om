@@ -37,7 +37,7 @@ export default function MdlAssetContext(props) {
      * function found in ../common/utils.js
      */
     useEffect(() => {
-        normalizeLinks(asset_type);
+        // normalizeLinks(asset_type);
     });
 
     const params = useParams();
