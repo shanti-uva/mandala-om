@@ -3,6 +3,7 @@ import 'html-to-react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import poppng from '../../legacy/popover.png';
+import { HtmlWithPopovers } from './MandalaMarkup';
 
 import ReactHtmlParser from 'react-html-parser';
 
