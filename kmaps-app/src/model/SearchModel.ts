@@ -173,7 +173,7 @@ export const searchModel: SearchModel = {
     }),
 
     narrowFilters: action((state, narrowFilter) => {
-        console.log('NARROW FILTER: ', narrowFilter);
+        // console.log('NARROW FILTER: ', narrowFilter);
         state.query.facetFilters[narrowFilter.filter] = {
             search: narrowFilter.search,
             limit: narrowFilter.limit,
@@ -219,36 +219,30 @@ export const searchModel: SearchModel = {
             state.results = results;
         }
     }),
-    setSearchText: action((state, payload) => {
-        // console.log(" ACTION TIME: setSearchText() payload = ", payload);
-
-        // TODO: ,ight need to insert sanity checks here.
-        state.query.searchText = payload;
+    setSearchText: action((state, searchString) => {
+        // TODO: might need to insert sanity checks here.
+        state.query.searchText = searchString;
+        state.page.current = 0; // always reset page when changing filters
+        state.page.start = 0;
     }),
 
-    addFilters: action((state, payload) => {
-        // console.error("SearchModel: addFilters called!");
-        // console.log("SearchModel: addFilters filters=", state.query.filters);
-        const newone = payload[0];
+    addFilters: action((state, filters) => {
+        for (let i = 0; i < filters.length; i++) {
+            const filter = filters[i];
+            // USE SPLICE TO UPDATE THE ARRAY SO THAT WE DON'T CHANGE THE ARRAY REFERENCE
+            const found = state.query.filters.findIndex((check) => {
+                return check.id === filter.id;
+            });
 
-        // USE SPLICE TO UPDATE THE ARRAY SO THAT WE DON'T CHANGE THE ARRAY REFERENCE
-        const found = state.query.filters.findIndex((check) => {
-            console.log('checking ' + check.id + ' against ' + newone.id);
-            return check.id === newone.id;
-        });
-
-        console.log(' Found = ' + found);
-
-        if (found >= 0) {
-            state.query.filters.splice(found, 1);
+            if (found >= 0) {
+                state.query.filters.splice(found, 1);
+            }
+            state.query.filters.push(filters[i]);
+            state.page.current = 0; // always reset page when changing filters
+            state.page.start = 0;
         }
-        state.query.filters.push(payload[0]);
     }),
     removeFilters: action((state, filters) => {
-        // console.error("SearchModel: removeFilters called!");
-        // console.log("SearchModel: removeFilters filters=", state.query.filters);
-        // console.log("SearchModel: removeFilters filters=", filters);
-
         for (let i = 0; i < filters.length; i++) {
             const removeMe = filters[i];
             const found = state.query.filters.findIndex((check) => {
@@ -259,6 +253,8 @@ export const searchModel: SearchModel = {
             if (found >= 0) {
                 // MAKE SURE TO USE splice() to preserve reference to original array.
                 state.query.filters.splice(found, 1);
+                state.page.current = 0; // always reset page when changing filters
+                state.page.start = 0;
             } else {
                 console.log(
                     "SearchFilter.removeFilters(): Couldn't find filter by that id: ",
@@ -286,12 +282,16 @@ export const searchModel: SearchModel = {
                 type
             );
         }
+        state.page.current = 0; // always reset page when changing filters
+        state.page.start = 0;
     }),
 
     clearAll: action((state) => {
         state.query.filters = [];
         state.query.facetFilters = {};
         state.query.searchText = '';
+        state.page.current = 0; // always reset page when changing filters
+        state.page.start = 0;
     }),
     // LISTENERS
     onUpdate: thunkOn(

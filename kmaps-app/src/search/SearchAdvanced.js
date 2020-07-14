@@ -1,5 +1,5 @@
 import { FacetBox } from './FacetBox';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,6 +10,7 @@ import { Link, useLocation, useRouteMatch } from 'react-router-dom';
 export function SearchAdvanced(props) {
     const query = '';
     const openclass = props.advanced ? 'open' : 'closed';
+    let [reset, setReset] = useState(0);
 
     // This tells us whether we are viewing the search results
     // so that we can give a link to go there (or not).
@@ -45,7 +46,7 @@ export function SearchAdvanced(props) {
     }
 
     function handleNarrowFilters(narrowFilter) {
-        console.log('handleNarrowFilters narrowFilter = ', narrowFilter);
+        // console.log('handleNarrowFilters narrowFilter = ', narrowFilter);
         const search = props.search;
         search.narrowFilters(narrowFilter);
     }
@@ -59,12 +60,14 @@ export function SearchAdvanced(props) {
         if (props.search) {
             props.search.clearFilters();
         }
+        setReset(reset + 1);
     }
 
     function handleResetAll() {
         if (props.search) {
             props.search.clearAll();
         }
+        setReset(reset + 1);
     }
 
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components
@@ -97,6 +100,7 @@ export function SearchAdvanced(props) {
                     label="item type"
                     facets={props.facets?.asset_count}
                     facetType={'asset_type'}
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('asset_type')}
@@ -106,6 +110,7 @@ export function SearchAdvanced(props) {
                     label="related subjects"
                     facets={props.facets?.related_subjects}
                     facetType="subjects"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('subjects')}
@@ -115,6 +120,7 @@ export function SearchAdvanced(props) {
                     label="related places"
                     facets={props.facets?.related_places}
                     facetType="places"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('places')}
@@ -124,6 +130,7 @@ export function SearchAdvanced(props) {
                     label="related terms"
                     facets={props.facets?.related_terms}
                     facetType="terms"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('terms')}
@@ -133,6 +140,7 @@ export function SearchAdvanced(props) {
                     label="feature types"
                     facets={props.facets?.feature_types}
                     facetType="feature_types"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('feature_types')}
@@ -143,6 +151,7 @@ export function SearchAdvanced(props) {
                     label="collections"
                     facets={props.facets?.collections}
                     facetType="collections"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('collections')}
@@ -152,6 +161,7 @@ export function SearchAdvanced(props) {
                     label="languages"
                     facets={props.facets?.languages}
                     facetType="languages"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('languages')}
@@ -161,6 +171,7 @@ export function SearchAdvanced(props) {
                     label="users"
                     facets={props.facets?.node_user}
                     facetType="users"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('users')}
@@ -171,6 +182,7 @@ export function SearchAdvanced(props) {
                     label="creator"
                     facets={props.facets?.creator}
                     facetType="creator"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('creator')}
@@ -181,6 +193,7 @@ export function SearchAdvanced(props) {
                     label="perspective"
                     facets={props.facets?.perspective}
                     facetType="perspective"
+                    resetFlag={reset}
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('perspective')}

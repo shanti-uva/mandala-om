@@ -65,7 +65,9 @@ export function FacetBox(props) {
         handleNarrowFilters();
     }, [sortField, sortDirection]);
 
-    useEffect(() => {}, [props.reset]);
+    useEffect(() => {
+        inputEl.current.value = '';
+    }, [props.resetFlag]);
 
     // console.log("FacetBox: props = ", props);
 
@@ -242,7 +244,7 @@ export function FacetBox(props) {
                         ref={inputEl}
                     />
 
-                    <span classNmae={'sui-advEdit-facet-ctrls-btns'}>
+                    <span className={'sui-advEdit-facet-ctrls-btns'}>
                         <ToggleButtonGroup
                             onChange={setSortField}
                             name={name + '_field'}

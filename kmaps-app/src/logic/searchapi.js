@@ -33,10 +33,10 @@ function setCache(request, data) {
     localforage
         .setItem(checksum(JSON.stringify(request)), data)
         .then(() => {
-            localforage.length().then((length) => {
-                console.log('localforage length = ', length);
-                console.log('localforage driver = ', localforage.driver());
-            });
+            // localforage.length().then((length) => {
+            //     console.log('localforage length = ', length);
+            //     console.log('localforage driver = ', localforage.driver());
+            // });
         })
         .catch((err) => {
             console.log('setCache failed.  Ignoring: ', err);
@@ -55,7 +55,7 @@ export function clearCache() {
 }
 
 function narrowData(data, narrowFilters) {
-    console.log('narrowData called with data = ', data);
+    // console.log('narrowData called with data = ', data);
 
     Object.entries(narrowFilters).forEach((x) => {
         const [key, searchObj] = x;
@@ -63,7 +63,7 @@ function narrowData(data, narrowFilters) {
         // const limit = searchObj.limit || 500;
         // const offset = searchObj.offset || 0;
         // const sort = searchObj.sort || "alpha";
-        console.log(' search = ' + search);
+        // console.log(' search = ' + search);
         // console.log(" limit = " + limit);
         // console.log(" offset = " + offset);
         // console.log(" sort = " + sort);
@@ -86,7 +86,7 @@ function narrowData(data, narrowFilters) {
                 const str = x.val.split('|')[0].toLowerCase();
                 return str.includes(search);
             });
-            console.log(' setting bucket with facet= ', facet);
+            // console.log(' setting bucket with facet= ', facet);
             data.facets[facet].buckets = filtered;
         }
     });
@@ -238,6 +238,13 @@ export function getAssetSearchPromise(search) {
             offset: ff['creator']?.offset || 0,
             sort: ff['creator']?.sort || 'count desc',
         },
+        perspective: {
+            type: 'terms',
+            field: 'perspectives_ss',
+            limit: ff['perspective']?.limit || 50,
+            offset: ff['perspective']?.offset || 0,
+            sort: ff['perspective']?.sort || 'count desc',
+        },
     };
 
     // console.log('FACETING: ' + JSON.stringify(jsonFacet, undefined, 2));
@@ -275,7 +282,7 @@ export function getAssetSearchPromise(search) {
             return;
         }
 
-        performance.mark('getAssetSearchPromise:start');
+        // performance.mark('getAssetSearchPromise:start');
         axios
             .request(request)
             .then((res) => {
@@ -300,24 +307,24 @@ export function getAssetSearchPromise(search) {
                 reject(reason);
             })
             .finally(() => {
-                performance.mark('getAssetSearchPromise:done');
-                performance.measure(
-                    'getAssetSearchPromise',
-                    'getAssetSearchPromise:start',
-                    'getAssetSearchPromise:done'
-                );
-                //                 console.log('performance:',performance.getEntriesByName('getAssetSearchPromise'));
-
-                const perf = performance.getEntriesByName(
-                    'getAssetSearchPromise'
-                );
-                perf.forEach((x) => {
-                    console.log(
-                        'getAssetSearchPromise() duration:' + x.duration
-                    );
-                });
-                //console.log("performance getEntries:", performance.getEntries());
-                performance.clearMeasures();
+                // performance.mark('getAssetSearchPromise:done');
+                // performance.measure(
+                //     'getAssetSearchPromise',
+                //     'getAssetSearchPromise:start',
+                //     'getAssetSearchPromise:done'
+                // );
+                // //                 console.log('performance:',performance.getEntriesByName('getAssetSearchPromise'));
+                //
+                // const perf = performance.getEntriesByName(
+                //     'getAssetSearchPromise'
+                // );
+                // perf.forEach((x) => {
+                //     console.log(
+                //         'getAssetSearchPromise() duration:' + x.duration
+                //     );
+                // });
+                // //console.log("performance getEntries:", performance.getEntries());
+                // performance.clearMeasures();
             });
     });
 
@@ -674,7 +681,7 @@ function constructFilters(filters) {
         if (and_list.length) fq_list.push(...and_list);
         if (not_list.length) fq_list.push(...not_list);
 
-        console.log('constructFQs returning: ', fq_list);
+        // console.log('constructFQs returning: ', fq_list);
         return fq_list;
     }
 
@@ -720,13 +727,17 @@ function constructFilters(filters) {
                 fqs = constructFQs(facetData, 'collection_uid_s');
                 fq_list.push(...fqs);
                 break;
+            case 'perspective':
+                fqs = constructFQs(facetData, 'perspectives_ss');
+                fq_list.push(...fqs);
+                break;
             default:
                 console.error('UNHANDLED FACET TYPE: ' + facet);
                 break;
         }
     });
 
-    console.log('RETURNING FQ_LIST = ', fq_list);
+    // console.log('RETURNING FQ_LIST = ', fq_list);
     return { fq: fq_list };
 }
 

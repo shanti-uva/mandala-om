@@ -19,14 +19,14 @@ export function FeatureCard(props) {
             </Link>
             <Card.Body>
                 <Card.Title>{props.doc.title[0]}</Card.Title>
-                <Card.Text>
-                    <p>{props.doc.uid}</p>
-                    <p>
-                        {!_.isEmpty(props.doc.caption)
-                            ? props.doc.caption
-                            : props.doc.summary}
-                    </p>
-                </Card.Text>
+                {/*<Card.Text>*/}
+                <div>{props.doc.uid}</div>
+                <div>
+                    {!_.isEmpty(props.doc.caption)
+                        ? props.doc.caption
+                        : props.doc.summary}
+                </div>
+                {/*</Card.Text>*/}
                 {/*<Button variant="primary">Go somewhere</Button>*/}
 
                 <Accordion>
