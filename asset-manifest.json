@@ -1,27 +1,28 @@
 {
   "files": {
-    "main.css": "/mandala-om/static/css/main.4eb04ad2.chunk.css",
-    "main.js": "/mandala-om/static/js/main.6b1e0718.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.6b1e0718.chunk.js.map",
+    "main.css": "/mandala-om/static/css/main.f48a2e6e.chunk.css",
+    "main.js": "/mandala-om/static/js/main.50c47ec3.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.50c47ec3.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.5255fc5b.js",
     "runtime-main.js.map": "/mandala-om/static/js/runtime-main.5255fc5b.js.map",
     "static/css/2.f83d61e1.chunk.css": "/mandala-om/static/css/2.f83d61e1.chunk.css",
-    "static/js/2.898cd365.chunk.js": "/mandala-om/static/js/2.898cd365.chunk.js",
-    "static/js/2.898cd365.chunk.js.map": "/mandala-om/static/js/2.898cd365.chunk.js.map",
+    "static/js/2.8f4c712d.chunk.js": "/mandala-om/static/js/2.8f4c712d.chunk.js",
+    "static/js/2.8f4c712d.chunk.js.map": "/mandala-om/static/js/2.8f4c712d.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.e0c981a83d0f915f3187a17e477c238c.js": "/mandala-om/precache-manifest.e0c981a83d0f915f3187a17e477c238c.js",
+    "precache-manifest.11bda9a1aac58a55674cae8944370da7.js": "/mandala-om/precache-manifest.11bda9a1aac58a55674cae8944370da7.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.f83d61e1.chunk.css.map": "/mandala-om/static/css/2.f83d61e1.chunk.css.map",
-    "static/css/main.4eb04ad2.chunk.css.map": "/mandala-om/static/css/main.4eb04ad2.chunk.css.map",
-    "static/js/2.898cd365.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.898cd365.chunk.js.LICENSE.txt",
+    "static/css/main.f48a2e6e.chunk.css.map": "/mandala-om/static/css/main.f48a2e6e.chunk.css.map",
+    "static/js/2.8f4c712d.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.8f4c712d.chunk.js.LICENSE.txt",
+    "static/media/ShantiSarvaka.css": "/mandala-om/static/media/museosans-300-webfont.b08f7489.woff2",
     "static/media/index.css": "/mandala-om/static/media/shanticon.9d6d13f8.ttf",
     "static/media/Om.css": "/mandala-om/static/media/treebuts.bcb9b6f1.png"
   },
   "entrypoints": [
     "static/js/runtime-main.5255fc5b.js",
     "static/css/2.f83d61e1.chunk.css",
-    "static/js/2.898cd365.chunk.js",
-    "static/css/main.4eb04ad2.chunk.css",
-    "static/js/main.6b1e0718.chunk.js"
+    "static/js/2.8f4c712d.chunk.js",
+    "static/css/main.f48a2e6e.chunk.css",
+    "static/js/main.50c47ec3.chunk.js"
   ]
 }
