@@ -288,6 +288,9 @@ export function getAssetSearchPromise(search) {
             .then((res) => {
                 //                 console.log('getAssetSearchPromise():  Yay! axios call succeeded!', res);
                 //                 console.log('getAssetSearchPromise(): res = ', res);
+                if (typeof (res.data.response === 'undefined')) {
+                    console.log('HERE DATA', res.data);
+                }
                 const data = {
                     numFound: res.data.response.numFound,
                     docs: _.map(res.data.response.docs, (x) => {

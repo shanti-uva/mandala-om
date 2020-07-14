@@ -27,7 +27,7 @@ import '../views/css/AssetViewer.css';
  *
  * */
 export default function MdlAssetContext(props) {
-    //console.log('props in mdlasset', props);
+    // TODO: need to make env determined according to url
     const env = 'dev'; // Acquia Drupal Environment to Call for the JSON API. Set to promises.
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
@@ -37,7 +37,7 @@ export default function MdlAssetContext(props) {
      * function found in ../common/utils.js
      */
     useEffect(() => {
-        normalizeLinks(asset_type);
+        // normalizeLinks(asset_type);
     });
 
     const params = useParams();

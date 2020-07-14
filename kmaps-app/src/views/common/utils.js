@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import $ from 'jquery';
 
 export function buildNestedDocs(docs, child_type, path_field) {
     path_field = path_field ? path_field : child_type + '_path_s';
@@ -83,13 +84,44 @@ export function normalizeLinks(asset_type) {
                 // All /content/... links are in the same app
                 el.setAttribute('data-asset-type', asset_type);
                 el.setAttribute('data-url', href);
-                el.removeAttribute('href');
-                el.classList.add('dead');
+                el.setAttribute('href', '#');
+                el.removeAttribute('target');
+                el.classList.add('extlink');
             } else if (href.indexOf('.shanti.virginia.edu') > -1) {
                 // Links to .shanti.virginia.edu. Disable for now"
                 el.setAttribute('data-url', href);
                 el.removeAttribute('href');
-                el.classList.add('dead');
+                el.setAttribute('href', '#');
+                el.removeAttribute('target');
+                el.classList.add('extlink');
+            }
+        }
+    });
+}
+
+/**
+ *
+ * @param sel
+ */
+export function addBoClass(sel) {
+    const els =
+        'h1, h2, h3, h4, h5, h6, h7, div, p, blockquote, li, span, label, th, td, a, b, strong, i, em, u, s, dd, dl, dt, figure';
+    const repat = /[a-zA-Z0-9\,\.\:\;\-\s]/g; // the regex patter to strip latin and other characters from string
+
+    const ellist =
+        typeof sel === 'undefined' || sel === 'all' ? $(els) : $(sel).find(els);
+
+    // Iterate through such elements
+    ellist.each(function () {
+        //var etxt = $.trim($(this).text());  // get the text of the element
+        var etxt = $(this).clone().children().remove().end().text(); // See https://stackoverflow.com/a/8851526/2911874
+        etxt = etxt.replace(repat, ''); // strip of irrelevant characters
+        var cc1 = etxt.charCodeAt(0); // get the first character code
+        // If it is within the Tibetan Unicode Range
+        if (cc1 > 3839 && cc1 < 4096) {
+            // If it does not already have .bo
+            if (!$(this).hasClass('bo') && !$(this).parents().hasClass('bo')) {
+                $(this).addClass('bo'); // Add .bo
             }
         }
     });

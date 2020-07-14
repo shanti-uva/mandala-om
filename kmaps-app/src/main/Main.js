@@ -43,7 +43,9 @@ export function Main(props) {
             <div id={'sui-main'} className={'sui-main'}>
                 <div>
                     <TopBar />
+                    {/* Commented this out to get Asset Views to work (ndg) */}
                     <SearchBar onStateChange={handleStateChange} />
+
                     <Switch>
                         <Route path={'/home'}>
                             <Home />
@@ -67,6 +69,7 @@ export function Main(props) {
                             <Home />
                         </Route>
                     </Switch>
+                    {/* Commented this out to get Asset Views to work (ndg) */}
                     <SearchContext>
                         <SearchAdvanced advanced={state.advanced} />
                     </SearchContext>

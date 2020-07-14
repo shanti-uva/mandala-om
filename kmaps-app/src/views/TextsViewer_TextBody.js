@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import 'html-to-react';
-import { HtmlWithPopovers } from './common/MandalaPopover';
+import { HtmlWithPopovers } from './common/MandalaMarkup';
 import Col from 'react-bootstrap/Col';
+import { addBoClass } from './common/utils';
 import $ from 'jquery';
 
 export default function TextBody(props) {
@@ -13,6 +14,10 @@ export default function TextBody(props) {
             '.sui-content, #sui-results,.astviewer, .astviewer.texts #shanti-texts-container'
         ).css('height', 'inherit');
     }, []);
+
+    useEffect(() => {
+        addBoClass('#sui-results');
+    });
 
     return (
         <Col id={'shanti-texts-body'} onScroll={props.listener}>
