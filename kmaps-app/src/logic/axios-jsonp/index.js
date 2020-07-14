@@ -1,6 +1,6 @@
 import qs from 'qs';
 
-var cid = 1;
+var cid = Math.floor((Math.random() * 10) ^ 12) + 1;
 
 function buildParams(params) {
     // var result = [];

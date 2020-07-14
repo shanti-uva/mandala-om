@@ -1,4 +1,4 @@
-import jsonpAdapter from 'axios-jsonp';
+import jsonpAdapter from './axios-jsonp';
 import axios from 'axios';
 import $ from 'jquery';
 import React from 'react';
