@@ -24,7 +24,6 @@ const TermEtymology = (props) => {
 
     return (
         <div className="sui-etymology__wrapper">
-            <div className="sui-etymology__title">Etymology</div>
             <div className="sui-etymology__content">
                 {Object.keys(etymologies).map((key) => (
                     <div key={key} className="sui-etymology__content-items">

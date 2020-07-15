@@ -28,11 +28,8 @@ const TermDefinitions = (props) => {
         }
     }
 
-    console.log('GerardKetumaMainDefs', props.mainDefs);
-
     return (
         <div className="sui-termDefinitions_wrapper">
-            <div className="sui-termDefinitions__title">Definitions</div>
             <div className="sui-termDefinitions__content">
                 {_.orderBy(props.mainDefs, (val) => val.order, 'asc').map(
                     (def, order) => (

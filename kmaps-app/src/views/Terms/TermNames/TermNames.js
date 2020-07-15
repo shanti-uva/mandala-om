@@ -14,7 +14,6 @@ export default function TermNames(props) {
 
     return (
         <div className="sui-nameEntry__wrapper">
-            <div className="siu-nameEntry__title">Names</div>
             <ul className="sui-nameEntry first-entry">
                 <NameEntry names={namesTree} />
             </ul>

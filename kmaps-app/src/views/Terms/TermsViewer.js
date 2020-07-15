@@ -17,6 +17,7 @@ import './TermsViewer.css';
 // Bootstrap
 
 export default function TermsViewer(props) {
+    console.log('GerardKetuma', props);
     //Get all related Definitions
     const definitions = _(props.kmap._childDocuments_)
         .pickBy((val) => {
