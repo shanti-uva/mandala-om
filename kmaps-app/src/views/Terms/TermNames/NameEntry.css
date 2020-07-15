@@ -29,19 +29,6 @@ ul.sui-nameEntry.first-entry {
     margin-bottom: 0;
 }
 
-.siu-nameEntry__title {
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 0.8rem;
-    font-family: 'EB Garamond', serif;
-    font-weight: 700;
-    color: #4a5568;
-    letter-spacing: 0.1rem;
-    border-bottom: 1px solid #718096;
-    display: inline-block;
-}
-
 ul.sui-nameEntry.first-entry
     > li.sui-nameEntry:first-child
     > span.sui-nameEntry-header:first-child {

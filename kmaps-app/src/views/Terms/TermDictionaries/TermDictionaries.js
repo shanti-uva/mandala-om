@@ -3,7 +3,6 @@ import ReactHtmlParser from 'react-html-parser';
 import './TermDictionaries.css';
 
 const TermDictionaries = ({ definitions }) => {
-    console.log('GerardKetumaOther', definitions);
     return (
         <div className="sui-termDicts__wrapper">
             <div className="sui-termDicts__title">Other Dictionaries</div>

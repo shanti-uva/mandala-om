@@ -51,7 +51,6 @@ function TermAudioPlayer(props) {
                     return false;
                 }}
             >
-                <div className="sui-audioPlayer__title">Audio</div>
                 {playButton}
             </form>
         </div>
