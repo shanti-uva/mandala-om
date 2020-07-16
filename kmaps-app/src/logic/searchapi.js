@@ -102,7 +102,7 @@ export function getAssetSearchPromise(search) {
     const { page, query } = search;
 
     //console.log("UNPACKING page: ", page);
-    console.log('UNPACKING query: ', query);
+    // console.log('UNPACKING query: ', query);
 
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
@@ -118,7 +118,7 @@ export function getAssetSearchPromise(search) {
     let filters = [];
 
     const ff = query.facetFilters;
-    console.log('UNPACKING facetFilters: ', query.facetFilters);
+    // console.log('UNPACKING facetFilters: ', query.facetFilters);
     // Object.entries(query.facetFilters).forEach((x) => {
     //     const [key, searchObj] = x;
     //     const search = searchObj.search;
@@ -277,7 +277,7 @@ export function getAssetSearchPromise(search) {
     const searchPromise = new Promise((resolve, reject) => {
         const cached = getCached(request);
         if (false && cached) {
-            console.log('Returning cached data: ', cached);
+            // console.log('Returning cached data: ', cached);
             resolve(cached);
             return;
         }
@@ -289,7 +289,7 @@ export function getAssetSearchPromise(search) {
                 //                 console.log('getAssetSearchPromise():  Yay! axios call succeeded!', res);
                 //                 console.log('getAssetSearchPromise(): res = ', res);
                 if (typeof (res.data.response === 'undefined')) {
-                    console.log('HERE DATA', res.data);
+                    // console.log('HERE DATA', res.data);
                 }
                 const data = {
                     numFound: res.data.response.numFound,
@@ -473,11 +473,20 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     ];
 
     const asset_types =
-        typeof type === 'undefined' || type === 'all' ? ALL : [type];
+        typeof type === 'undefined' || type === null || type === 'all'
+            ? ALL
+            : [type];
     const startRec = typeof start === 'undefined' ? defaultStart : start;
     const rowsRec = typeof rows === 'undefined' ? defaultRows : rows;
 
-    //console.log("getRelatedAssetsPromise: start = " + startRec + " rows = " + rowsRec);
+    console.log(
+        'getRelatedAssetsPromise: asset_types = ' +
+            asset_types +
+            ' start = ' +
+            startRec +
+            ' rows = ' +
+            rowsRec
+    );
 
     const facetJson = JSON.stringify({
         asset_counts: {
@@ -510,7 +519,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     };
 
     const unpackResponse = (res) => {
-        //console.log("unpacking asset_counts: ", res.data.facets);
+        console.log('unpacking asset_counts: ', res.data.facets);
 
         const buckets = res.data.facets.asset_counts.buckets;
 
@@ -541,22 +550,28 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     };
 
     const promise = new Promise((resolve, reject) => {
-        let data = getCached(request);
-        if (data) {
-            resolve(data);
-            return;
-        }
+        // let data = getCached(request);
+        // if (data) {
+        //     resolve(data);
+        //     return;
+        // }
         //console.log("getRelatedAssetsPromise(): Calling axios:")
         axios
             .request(request)
             .then((res) => {
-                //console.log("getRelatedAssetsPromise():  Yay! axios call succeeded!", res);
+                console.log(
+                    'getRelatedAssetsPromise():  Yay! axios call succeeded!',
+                    res
+                );
                 const data = unpackResponse(res);
                 setCache(request, data);
                 resolve(data);
             })
             .catch((reason) => {
-                //console.log("getRelatedAssetsPromise(): OUCH axios call failed!", reason);
+                console.log(
+                    'getRelatedAssetsPromise(): OUCH axios call failed!',
+                    reason
+                );
                 reject(reason);
             });
     });

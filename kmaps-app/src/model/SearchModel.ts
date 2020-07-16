@@ -59,7 +59,6 @@ export interface SearchModel {
 
     // narrowFilters
     narrowFilters: Action<SearchModel, NarrowFilter>;
-
     onUpdate: ThunkOn<SearchModel, StoreModel>;
 }
 
