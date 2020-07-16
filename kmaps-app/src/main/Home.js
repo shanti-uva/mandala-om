@@ -42,6 +42,9 @@ export function Home(props) {
                     </Link>
                 </li>
                 <li>
+                    <Link to={'/view/texts/46641'}>Text: Veronoica’s Test</Link>
+                </li>
+                <li>
                     <Link to={'/view/audio-video/256'}>
                         Video: Women Discuss Their Dreams
                     </Link>
