@@ -136,15 +136,30 @@ export function FacetBox(props) {
     // console.debug("FacetBox: props = ", props);
 
     function parseEntry(entry, fullEntry) {
-        // console.log("FacetBox.parseEntry: " + JSON.stringify(entry));
-        let [label, uid] = entry.val.split('|');
-        label = label ? label : 'undefined';
-        const extra = fullEntry && uid ? <span>({uid})</span> : '';
-        const fullLabel = (
-            <span uid={uid}>
-                {label} {extra}
-            </span>
-        );
+        let label = '';
+        let uid = '';
+        let fullLabel = '';
+
+        if (entry.val.match(/[^=]+\=[^\|]+\|[^=]+.*/)) {
+            // console.log("parseEntry SPECIAL CASE!")
+            const [ref, val] = entry.val.split('|');
+            const [refLabel, refUid] = ref.split('=');
+            const [valLabel, valUid] = val.split('=');
+
+            label = refLabel + ': ' + valLabel;
+            uid = entry.val;
+            fullLabel = label;
+        } else {
+            // console.log("FacetBox.parseEntry: " + JSON.stringify(entry));
+            [label, uid] = entry.val.split('|');
+            label = label ? label : 'undefined';
+            const extra = fullEntry && uid ? <span>({uid})</span> : '';
+            fullLabel = (
+                <span uid={uid}>
+                    {label} {extra}
+                </span>
+            );
+        }
         return { label: label, fullLabel: fullLabel, value: uid ? uid : label };
     }
 

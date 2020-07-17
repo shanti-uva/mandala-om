@@ -245,6 +245,13 @@ export function getAssetSearchPromise(search) {
             offset: ff['perspective']?.offset || 0,
             sort: ff['perspective']?.sort || 'count desc',
         },
+        associated_subjects: {
+            type: 'terms',
+            field: 'associated_subject_map_idfacet',
+            limit: ff['associated_subjects']?.limit || 50,
+            offset: ff['associated_subjects']?.offset || 0,
+            sort: ff['associated_subjects']?.sort || 'count desc',
+        },
     };
 
     // console.log('FACETING: ' + JSON.stringify(jsonFacet, undefined, 2));
@@ -450,6 +457,7 @@ function deriveImageUrl(url_thumb, size) {
 
 function cleanKmapData(data) {
     //console.log("clean kmap data = ", data);
+
     return data;
 }
 
@@ -747,6 +755,10 @@ function constructFilters(filters) {
                 break;
             case 'perspective':
                 fqs = constructFQs(facetData, 'perspectives_ss');
+                fq_list.push(...fqs);
+                break;
+            case 'associated_subjects':
+                fqs = constructFQs(facetData, 'associated_subject_map_idfacet');
                 fq_list.push(...fqs);
                 break;
             default:

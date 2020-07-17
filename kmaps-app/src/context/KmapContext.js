@@ -46,9 +46,9 @@ export default function KmapContext(props) {
     const relateds = useStoreState((state) => state.kmap.relateds);
     const kmap = useStoreState((state) => state.kmap.kmap);
     const loadingState = useStoreState((state) => state.kmap.loadingState);
-    const relatedPage = useStoreState((state) => state.kmap.relatedsPage.page);
+    const relatedPage = useStoreState((state) => state.kmap.relatedsPage?.page);
     const relatedPageSize = useStoreState(
-        (state) => state.kmap.relatedsPage.pageSize
+        (state) => state.kmap.relatedsPage?.pageSize
     );
     const { id, relatedType } = useParams();
 

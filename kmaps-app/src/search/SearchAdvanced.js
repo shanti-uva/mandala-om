@@ -200,6 +200,17 @@ export function SearchAdvanced(props) {
                 />
 
                 <FacetBox
+                    id="associated subjects"
+                    label="Associated Subjects"
+                    facets={props.facets?.associated_subjects}
+                    facetType="associated_subjects"
+                    resetFlag={reset}
+                    onFacetClick={handleFacetChange}
+                    onNarrowFilters={handleNarrowFilters}
+                    chosenFacets={getChosenFacets('associated_subjects')}
+                />
+
+                <FacetBox
                     id="recent"
                     label="recent searches"
                     facetType="recent-searches"

@@ -55,11 +55,11 @@ export const kmapModel: KmapModel = {
         return (
             state.kmap.uid +
             '/' +
-            state.relatedsPage.related_type +
+            state.relatedsPage?.related_type +
             '/' +
-            state.relatedsPage.page +
+            state.relatedsPage?.page +
             '/' +
-            state.relatedsPage.pageSize
+            state.relatedsPage?.pageSize
         );
     }),
     uid: '',
