@@ -20,7 +20,7 @@ import SearchContext from '../context/SearchContext';
 import MdlAssetContext from '../context/MdlAssetContext';
 
 export function ContentPane(props) {
-    // console.log("ContentPanel: props =  ", props);
+    console.log('ContentPanel: props =  ', props);
 
     let { path } = useRouteMatch();
     const title = props.title || 'Untitled';
@@ -32,6 +32,7 @@ export function ContentPane(props) {
                 title={title}
                 sui={props.sui}
                 kmasset={props.kmasset}
+                kmap={props.kmap}
             />
             <div id={'sui-results'}>
                 <Switch>
