@@ -472,6 +472,7 @@ html {
 .sui-cardFooter {
     background-color: #9e894d;
     height: 21px;
+    padding: 0px;
     color: #fff;
     border-radius: 0 0 5px 8px;
     padding: 3px 0 0 8px;
@@ -1622,6 +1623,6 @@ a {
 }
 
 .sui-featureCard-img-crop {
-    height: 12em;
+    height: 8em;
     overflow-y: hidden;
 }

@@ -16,7 +16,6 @@ import { SearchAdvanced } from '../search/SearchAdvanced';
 import { Error404 } from '../App';
 import SearchContext from '../context/SearchContext';
 import { useStoreRehydrated } from 'easy-peasy';
-import KmapContext from '../context/KmapContext';
 
 const stateDefault = {
     kmasset: {
@@ -55,17 +54,15 @@ export function Main(props) {
                             <Redirect to={'/home'} />
                         </Route>
                         <Route path={'/view'}>
-                            <KmapContext>
-                                <ContentPane
-                                    site={'mandala'}
-                                    mode={'development'}
-                                    title={'Mandala'}
-                                    sui={props.sui}
-                                    // kmasset={state.kmasset}
-                                    // kmap={state.kmap}
-                                    onStateChange={handleStateChange}
-                                />
-                            </KmapContext>
+                            <ContentPane
+                                site={'mandala'}
+                                mode={'development'}
+                                title={'Mandala'}
+                                sui={props.sui}
+                                kmasset={state.kmasset}
+                                kmap={state.kmap}
+                                onStateChange={handleStateChange}
+                            />
                         </Route>
                         <Route path={'*'}>
                             <Error404 />

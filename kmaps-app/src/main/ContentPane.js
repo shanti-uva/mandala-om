@@ -20,20 +20,21 @@ import SearchContext from '../context/SearchContext';
 import MdlAssetContext from '../context/MdlAssetContext';
 
 export function ContentPane(props) {
-    console.log('ContentPanel: props =  ', props);
+    // console.log("ContentPanel: props =  ", props);
 
     let { path } = useRouteMatch();
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
         <div id="sui-content" className="sui-content">
-            <ContentHeader
-                siteClass={siteClass}
-                title={title}
-                sui={props.sui}
-                kmasset={props.kmasset}
-                kmap={props.kmap}
-            />
+            <KmapContext>
+                <ContentHeader
+                    siteClass={siteClass}
+                    title={title}
+                    sui={props.sui}
+                    // kmasset={props.kmasset}
+                />
+            </KmapContext>
             <div id={'sui-results'}>
                 <Switch>
                     <Route path={`${path}/audio-video/:id`}>
