@@ -1,8 +1,6 @@
 import React from 'react';
 
 export function ContentHeader(props) {
-    console.log('ContentHeader: props = ', props);
-
     const cheader = (
         <div id="sui-header" className={`sui-header legacy ${props.siteClass}`}>
             <div id="sui-contentHead" className="sui-contentHead legacy">
