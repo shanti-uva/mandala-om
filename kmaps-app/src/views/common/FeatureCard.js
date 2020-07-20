@@ -1,9 +1,6 @@
 import Card from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button';
 
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 // import Accordion from "react-bootstrap/Accordion";
 // import Button from "react-bootstrap/Button";
 import * as PropTypes from 'prop-types';
@@ -17,9 +14,40 @@ export function FeatureCard(props) {
         props.doc.uid && props.doc.asset_type !== 'images' ? (
             <span className={'icon shanticon-' + props.doc.asset_type}></span>
         ) : null;
+
+    const viewer = props.doc.asset_type;
+
+    const places = props.doc.kmapid_places_idfacet?.map((x, i) => {
+        const [name, id] = x.split('|');
+        return (
+            <div className="shanti-thumbnail-field shanti-field-place">
+                <span className="shanti-field-content">
+                    <a key={i} href={'#'}>
+                        {name}
+                    </a>
+                </span>
+            </div>
+        );
+    });
+
+    const date = props.doc.timestamp?.split('T')[0];
+
+    const footer_text = props.doc.collection_title ? (
+        <span>
+            <span className="icon shanticon-collections"></span>{' '}
+            {props.doc.collection_title}{' '}
+        </span>
+    ) : (
+        <span>
+            <span className={`icon shanticon-${props.doc.asset_type}`}></span>{' '}
+            {props.doc.asset_type}
+        </span>
+    );
+
+    // console.log("FOOTERING: ", props.doc);
     return (
         <Card className={'m-2 zoom'} key={props.doc.uid}>
-            <Link to={`/view/assets/${props.doc.uid}`}>
+            <Link to={`/view/${viewer}/${props.doc.uid}`}>
                 <div className={'sui-featureCard-img-crop'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
                     <div className={'sui-cardType'}>{typeGlyph}</div>
@@ -39,6 +67,29 @@ export function FeatureCard(props) {
                     }}
                 ></div>
 
+                {props.doc.creator && (
+                    <div className="shanti-thumbnail-field shanti-field-creator">
+                        <span className="shanti-field-content">
+                            {props.doc.creator.join(', ')}
+                        </span>
+                    </div>
+                )}
+                {props.doc.duration_s && (
+                    <div className="shanti-thumbnail-field shanti-field-duration">
+                        <span className="shanti-field-content">
+                            {props.doc.duration_s}
+                        </span>
+                    </div>
+                )}
+
+                {places}
+
+                {date && (
+                    <div className="shanti-thumbnail-field shanti-field-created">
+                        <span className="shanti-field-content">{date}</span>
+                    </div>
+                )}
+
                 {/*<div>{props.doc.uid}</div>*/}
                 {/*<div>*/}
                 {/*    {!_.isEmpty(props.doc.caption)*/}
@@ -48,22 +99,20 @@ export function FeatureCard(props) {
                 {/*</Card.Text>*/}
                 {/*<Button variant="primary">Go somewhere</Button>*/}
 
-                <Accordion>
-                    <Accordion.Toggle as={Button} eventKey="0">
-                        Item JSON
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey="0">
-                        <pre>{JSON.stringify(props.doc, undefined, 2)}</pre>
-                    </Accordion.Collapse>
-                </Accordion>
+                {/*<Accordion>*/}
+                {/*    <Accordion.Toggle as={Button} eventKey="0">*/}
+                {/*        Item JSON*/}
+                {/*    </Accordion.Toggle>*/}
+                {/*    <Accordion.Collapse eventKey="0">*/}
+                {/*        <pre>{JSON.stringify(props.doc, undefined, 2)}</pre>*/}
+                {/*    </Accordion.Collapse>*/}
+                {/*</Accordion>*/}
             </Card.Body>
             <Card.Footer
                 className={'sui-cardFooter'}
-                style={{ 'background-color': '#aaaaaa' }}
+                style={{ 'background-color': '#bbbbbb' }}
             >
-                <span style={{ 'font-size': '11px' }}>
-                    subjects<span></span>
-                </span>
+                <span style={{ 'font-size': '11px' }}>{footer_text}</span>
             </Card.Footer>
         </Card>
     );

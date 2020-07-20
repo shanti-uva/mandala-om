@@ -242,7 +242,7 @@ html {
 .sui-results {
     position: absolute;
     left: 0;
-    top: 52;
+    top: 52px;
     min-height: calc(100% - 77px);
     width: calc(100% - 24px);
     background-color: #ddd;
@@ -471,11 +471,10 @@ html {
 }
 .sui-cardFooter {
     background-color: #9e894d;
-    height: 21px;
-    padding: 0px;
+    /*height: 21px;*/
     color: #fff;
     border-radius: 0 0 5px 8px;
-    padding: 3px 0 0 8px;
+    padding: 0px 3px 0px 6px !important;
 }
 
 /* ADVANCED SEARCH */
@@ -848,7 +847,7 @@ html {
 .sui-termSpeak {
     border-radius: 16px;
     background-color: #f8f8f8;
-    border: 1px-solid #999;
+    border: 1px solid #999;
     padding: 4px;
     color: #000;
 }
@@ -935,7 +934,7 @@ html {
 .sui-imageMid {
     max-width: 900px;
     margin: 8px auto 8px auto;
-    padding-left: 0 50px 0 50px;
+    padding: 0 50px 0 50px;
     width: 100%;
 }
 .sui-images {
@@ -1357,7 +1356,7 @@ html {
 .sui-breadCrumbs {
     display: inline-block;
     font-size: 13px;
-    margin-left: 24x;
+    margin-left: 24px;
     cursor: pointer;
 }
 .sui-crumb:hover {
@@ -1379,7 +1378,7 @@ html {
     z-index: 1001;
     border: 1px solid #999;
     background-color: #fff;
-    box-shadow: 0 5px 10px rgb(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgb(0, 0, 0);
 }
 .sui-pageLab {
     font-weight: 400;
@@ -1625,4 +1624,309 @@ a {
 .sui-featureCard-img-crop {
     height: 8em;
     overflow-y: hidden;
+}
+
+/* stuff stolen from .shanti-main */
+.shanti-thumbnail-info a {
+    font-style: italic;
+}
+
+.shanti-thumbnail .body-wrap {
+    padding: 0 0.5rem 0.75rem;
+    overflow: auto;
+    height: 13.3rem;
+    border-top: 1px solid rgba(205, 169, 66, 1) !important;
+}
+
+.shanti-no-wookmark .shanti-thumbnail .body-wrap {
+    height: inherit;
+}
+
+.shanti-thumbnail .body-wrap::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.shanti-thumbnail .body-wrap::-webkit-scrollbar-track {
+    width: 0.5rem;
+    background-color: #ddd;
+}
+
+.shanti-thumbnail .body-wrap::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    width: 0.5rem;
+}
+
+.shanti-thumbnail .body-wrap::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+    cursor: pointer;
+}
+
+.shanti-thumbnail-info .body-wrap a {
+    border-bottom: 1px solid transparent !important;
+    display: inline;
+}
+.shanti-thumbnail-info .body-wrap a:hover {
+    border-bottom-color: rgba(163, 90, 209, 0.52) !important;
+}
+
+.shanti-thumbnail-info .body-wrap .shanti-field-title {
+    padding: 0 0.5rem 0.1rem 0.2rem;
+    line-height: 2em;
+    margin-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(205, 169, 66, 0.6) !important;
+}
+
+.shanti-thumbnail-info .body-wrap .shanti-field-title a {
+    font-size: 1em;
+    line-height: 1.32em;
+    padding: 0.5rem 0 0;
+    font-weight: 600;
+    word-break: break-word;
+    color: #111;
+    border-bottom: none !important;
+    font-style: normal;
+    display: inline-block;
+    width: 100%;
+}
+/* Tibetan font scaling */
+.shanti-thumbnail-info .body-wrap .shanti-field-title.bo a {
+    font-size: 1.5em;
+    font-weight: normal;
+    font-family: 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan', 'Babelstone',
+        'Kailasa', 'Tibetan Himalayan' !important;
+}
+
+.shanti-thumbnail-info .body-wrap .shanti-field-title:hover a {
+    color: #df3d26;
+}
+
+.shanti-thumbnail-link:hover {
+    color: #0e1fbd;
+    box-shadow: none;
+    text-decoration: none;
+}
+.shanti-thumbnail-link:active {
+    color: #df3d26;
+}
+
+.shanti-field-group-audience .shanti-thumbnail-link + a::before {
+    font-family: 'Glyphicons Halflings';
+    content: '\e144';
+    color: #666;
+    font-size: 1.25em;
+    width: 1.32em;
+    height: 1.32em;
+    display: inline-block;
+    margin-right: 0.2rem;
+    position: relative;
+    left: 0.1rem;
+    top: 0.05rem;
+}
+
+.shanti-field-itemcount,
+.shanti-field-type,
+.shanti-field-author, /* author and creator are the same thing... */
+.shanti-field-creator,
+.shanti-field-registrar,
+.shanti-field-languages,
+.shanti-field-duration,
+.shanti-field-created,
+.shanti-field-place {
+    color: #000;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 400;
+    font-size: 0.85em;
+    line-height: 1.68em;
+    padding-left: 0.4rem;
+}
+
+.shanti-field-type {
+    padding-left: 0.2rem;
+}
+
+.shanti-field-author a, /* author and creator are the same thing... */
+.shanti-field-creator a,
+.shanti-field-registrar a {
+    font-size: 1em;
+}
+
+.shanti-field-languages span:empty,
+.shanti-thumbnail .body-wrap span:empty {
+    display: none;
+}
+
+.shanti-field-itemcount span::before,
+.shanti-field-type span::before,
+.shanti-field-author > span::before, /* author and creator are the same thing... */
+.shanti-field-creator > span::before,
+.shanti-field-registrar > span::before,
+.shanti-field-languages span::before,
+.shanti-field-duration span::before,
+.shanti-field-created span::before,
+.shanti-field-place > span::before {
+    font-family: 'shanticon';
+    content: '\e63b';
+    font-size: 120%;
+    font-weight: normal;
+    position: relative;
+    left: 0.1rem;
+    top: 0.1rem;
+    margin-right: 0.8rem;
+    color: #333;
+}
+
+.shanti-field-languages span::before {
+    content: '\e675';
+    font-size: 150%;
+    position: relative;
+    left: -0.1rem;
+    margin-right: 0.5rem;
+}
+
+.shanti-field-duration span::before {
+    content: '\e61c';
+    left: 0.13rem;
+    margin-right: 0.5rem;
+}
+
+.shanti-field-created span::before {
+    content: '\e60c';
+    position: relative;
+    color: #222;
+    margin-right: 0.8rem;
+}
+
+.shanti-field-author > span::before, /* author and creator are the same thing... */
+.shanti-field-creator > span::before,
+.shanti-field-registrar > span::before {
+    content: '\e600';
+    float: left;
+}
+
+.shanti-field-registrar > span::before {
+    content: '\e673';
+}
+
+.shanti-field-type span::before {
+    content: '\e633' !important;
+    position: relative;
+    left: 0;
+    top: 0.2rem;
+    font-size: 130%;
+    margin-right: 0.6rem;
+    color: #555;
+}
+
+.audio-video.page-collections
+    .shanti-thumbnail
+    .shanti-field-type
+    span::before {
+    /* temp fixing for AV collections page - testing */
+    position: relative;
+    top: 0.3rem;
+    font-size: 150%;
+}
+
+/*
+.shanti-thumbnail .shanti-field-type span::before{
+  content: '\e633' !important;
+  position: relative;
+  left: 0rem;
+}
+*/
+.images.page-collections .shanti-field-itemcount span::before {
+    content: '\e62a';
+    position: relative;
+    top: 0.25rem;
+    left: 0.08rem;
+}
+
+.visuals.page-collections .shanti-field-itemcount span::before {
+    content: '\e63b';
+    position: relative;
+    top: 0.25rem;
+    left: -0.05rem;
+    font-size: 1.5em;
+}
+
+.audio-video.page-collections .shanti-field-itemcount span::before {
+    content: '\e648';
+    left: 0.2rem;
+    font-size: 140%;
+    color: #555;
+}
+
+.shanti-field-place > span::before {
+    content: '\e62b';
+    position: relative;
+    top: 0.15rem;
+    color: #222;
+}
+
+.shanti-thumbnail .footer-wrap {
+    background: rgba(142, 117, 46, 0.85);
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-clip: padding-box;
+    width: 100%;
+    display: block;
+    padding: 0 0.9rem;
+    height: 2.8rem;
+}
+.shanti-thumbnail .footer-wrap:hover {
+    background-color: rgba(105, 79, 4, 0.85);
+}
+.shanti-thumbnail .footer-wrap:active {
+    background-color: rgba(142, 117, 46, 0.85);
+}
+.shanti-thumbnail .footer-wrap a {
+    font-size: 1.06em;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    font-style: italic;
+    border: none !important;
+    padding: 0.6rem 0;
+    line-height: 1.4em;
+}
+
+.shanti-thumbnail .footer-wrap a:hover {
+    background-color: transparent;
+}
+
+.shanti-thumbnail .footer-wrap a::before {
+    content: '\e633';
+    font-family: 'shanticon';
+    display: inline-block;
+    font-size: 1.32em;
+    color: #eee;
+    margin-right: 0.5rem;
+    float: left;
+    font-style: normal;
+}
+.shanti-thumbnail .footer-wrap a:empty {
+    display: none;
+}
+
+.shanti-thumbnail .footer-wrap:empty:active {
+    background-color: rgba(105, 79, 4, 0.85);
+}
+
+.shanti-thumbnail-field.shanti-field-type {
+    font-size: 1em;
+}
+.shanti-thumbnail-field.shanti-field-type span {
+    padding-left: 0.2rem;
+}
+
+.shanti-thumbnail-field.shanti-field-body {
+    padding: 0.3rem 0.5rem 0.5rem;
+    line-height: 1.25em;
+    font-size: 0.88em;
+}
+
+.shanti-thumbnail-field.shanti-field-body p {
+    margin-bottom: 0;
 }
