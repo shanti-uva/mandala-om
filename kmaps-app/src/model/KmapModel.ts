@@ -128,7 +128,7 @@ export const kmapModel: KmapModel = {
             Number(
                 kmapState.relatedsPage.page * kmapState.relatedsPage.pageSize
             ) || 0;
-        const rows = kmapState.relatedsPage.pageSize;
+        const rows = kmapState.relatedsPage.pageSize || 100;
 
         console.log('KmapModel update thunk: kmapState: ', kmapState);
         console.log('KmapModel update thunk: kmapState.uid: ', kmapState.uid);
