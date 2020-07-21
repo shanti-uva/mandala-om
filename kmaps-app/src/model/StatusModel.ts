@@ -27,16 +27,17 @@ export interface StatusModel {
 }
 
 export const statusModel: StatusModel = {
-    type: 'none',
+    type: null,
     headerTitle: 'Mandala',
-    subTitle: 'subby title',
-    path: ['the', 'twisted', 'path', 'to', 'enlightenment'],
-    id: 'shanti-123',
+    subTitle: null,
+    path: [],
+    id: null,
 
     // ACTIONS
     clear: action((state) => {
         state.id = null;
         state.type = null;
+        state.subTitle = null;
         state.headerTitle = null;
         state.path = [];
         state.id = null;
