@@ -49,11 +49,13 @@ export function ContentPane(props) {
                         </MdlAssetContext>
                     </Route>
                     <Route path={`${path}/images/:id`}>
-                        <ImagesViewer
-                            id={props.id}
-                            sui={props.sui}
-                            onStateChange={props.onStateChange}
-                        />
+                        <MdlAssetContext assettype={'images'} sui={props.sui}>
+                            <ImagesViewer
+                                id={props.id}
+                                sui={props.sui}
+                                onStateChange={props.onStateChange}
+                            />
+                        </MdlAssetContext>
                     </Route>
                     <Route path={`${path}/texts/book_pubreader/:id`}>
                         <TextsAltViewer viewtype={'pubreader'} />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import _ from 'lodash';
 import { useStoreActions, useStoreState } from '../model/StoreModel';
+import useStatus from '../hooks/useStatus';
 
 /**
  *    Container which injects the kmap and kmasset data, before rendering the its children.
@@ -19,6 +20,7 @@ import { useStoreActions, useStoreState } from '../model/StoreModel';
 export default function KmapContext(props) {
     console.log('KmapContext: props=', props);
 
+    const status = useStatus();
     // Let's do the Easy Peasy thing
     const kmapActions = useStoreActions((actions) => actions.kmap);
     const {
@@ -108,12 +110,22 @@ export default function KmapContext(props) {
     };
 
     useEffect(() => {
-        setUid(id);
-        setRelatedsPage({
-            related_type: relatedType,
-            page: relatedPage,
-            pageSize: relatedPageSize,
-        });
+        if (id) {
+            setUid(id);
+            setRelatedsPage({
+                related_type: relatedType,
+                page: relatedPage,
+                pageSize: relatedPageSize,
+            });
+        }
+
+        // TODO: Review:  Is this the right place for this?
+        // console.log("KmapContext: setting status from props = " , props);
+        status.clear();
+        status.setHeaderTitle(kmasset.title);
+        status.setType(kmasset.asset_type);
+        status.setPath(kmasset.ancestors_txt);
+        status.setId(kmapId);
     }, [id, relatedType, relatedPage, relatedPageSize]);
 
     console.log('Mapped kmap: ', mapped_kmap);

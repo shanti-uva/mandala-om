@@ -11,16 +11,31 @@ export function FeatureCard(props) {
         <span className={'icon shanticon-' + props.doc.asset_type}></span>
     ) : null;
     const assetGlyph =
-        props.doc.uid && props.doc.asset_type !== 'images' ? (
+        props.doc.uid &&
+        props.doc.asset_type !== 'images' &&
+        props.doc.asset_type !== 'audio-video' ? (
             <span className={'icon shanticon-' + props.doc.asset_type}></span>
         ) : null;
 
     const viewer = props.doc.asset_type;
 
-    const places = props.doc.kmapid_places_idfacet?.map((x, i) => {
+    const related_places = props.doc.kmapid_places_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
             <div className="shanti-thumbnail-field shanti-field-place">
+                <span className="shanti-field-content">
+                    <a key={i} href={'#'}>
+                        {name}
+                    </a>
+                </span>
+            </div>
+        );
+    });
+
+    const related_subjects = props.doc.kmapid_subjects_idfacet?.map((x, i) => {
+        const [name, id] = x.split('|');
+        return (
+            <div className="shanti-thumbnail-field shanti-field-subject">
                 <span className="shanti-field-content">
                     <a key={i} href={'#'}>
                         {name}
@@ -43,6 +58,14 @@ export function FeatureCard(props) {
             {props.doc.asset_type}
         </span>
     );
+
+    let relateds = null;
+
+    if (props.doc.asset_type === 'places') {
+        relateds = related_subjects;
+    } else if (props.doc.asset_type === 'subjects') {
+        relateds = related_places;
+    }
 
     // console.log("FOOTERING: ", props.doc);
     return (
@@ -82,7 +105,7 @@ export function FeatureCard(props) {
                     </div>
                 )}
 
-                {places}
+                {relateds}
 
                 {date && (
                     <div className="shanti-thumbnail-field shanti-field-created">

@@ -167,11 +167,11 @@ html {
     user-select: none;
     height: 100%;
     float: left;
-    padding: 6px 12px 0 22px;
-    font-size: 20px;
-    line-height: 20px;
+    padding: 0px 0px 0 22px;
+    font-size: 19px;
+    line-height: 19px;
     width: 100%;
-    max-width: calc(100% - 80px);
+    max-width: calc(100% - 20px);
 }
 .sui-type {
     background-color: #fff;
@@ -1354,9 +1354,10 @@ html {
 
 /* MISC PAGES */
 .sui-breadCrumbs {
-    display: inline-block;
+    display: block;
+    font-style: italic;
     font-size: 13px;
-    margin-left: 24px;
+    margin-left: 3px;
     cursor: pointer;
 }
 .sui-crumb:hover {
@@ -1732,7 +1733,8 @@ a {
 .shanti-field-languages,
 .shanti-field-duration,
 .shanti-field-created,
-.shanti-field-place {
+.shanti-field-place,
+.shanti-field-subject {
     color: #000;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif;
     font-weight: 400;
@@ -1764,7 +1766,8 @@ a {
 .shanti-field-languages span::before,
 .shanti-field-duration span::before,
 .shanti-field-created span::before,
-.shanti-field-place > span::before {
+.shanti-field-place > span::before,
+.shanti-field-subject > span::before {
     font-family: 'shanticon';
     content: '\e63b';
     font-size: 120%;
@@ -1864,6 +1867,13 @@ a {
     color: #222;
 }
 
+.shanti-field-subject > span::before {
+    content: '\e634';
+    position: relative;
+    top: 0.15rem;
+    color: #222;
+}
+
 .shanti-thumbnail .footer-wrap {
     background: rgba(142, 117, 46, 0.85);
     border-radius: 0 0 0.5rem 0.5rem;
@@ -1929,4 +1939,10 @@ a {
 
 .shanti-thumbnail-field.shanti-field-body p {
     margin-bottom: 0;
+}
+
+.sui-contentHeader-id {
+    font-style: italic;
+    font-size: smaller;
+    color: #aaaaaa;
 }

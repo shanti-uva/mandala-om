@@ -6,6 +6,7 @@ import {
 } from '../logic/assetapi';
 import { normalizeLinks } from '../views/common/utils';
 import '../views/css/AssetViewer.css';
+import useStatus from '../hooks/useStatus';
 
 /**
  *    Container which injects the Mandala asset data, before rendering it.
@@ -31,6 +32,7 @@ export default function MdlAssetContext(props) {
     const env = 'dev'; // Acquia Drupal Environment to Call for the JSON API. Set to promises.
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
+    const status = useStatus();
 
     /**
      * Effect used to normalize links in Asset Pages after loading so that links do not go outside of standalon
@@ -72,6 +74,10 @@ export default function MdlAssetContext(props) {
                             // kmprops.kmasset = new_kmasset; // what is kmprops for?
                             setMdlAsset(new_mdlasset);
                             changed = true;
+                            status.clear();
+                            status.setHeaderTitle(new_mdlasset.title);
+                            status.setType(new_mdlasset.asset_type);
+                            status.setId(new_mdlasset.id);
                         } else if (mdlasset.id !== new_mdlasset.id) {
                             console.warn(
                                 'Setting mdl for AV asset',
@@ -79,6 +85,10 @@ export default function MdlAssetContext(props) {
                             );
                             setMdlAsset(new_mdlasset);
                             changed = true;
+                            status.clear();
+                            status.setHeaderTitle(new_mdlasset.title[0]);
+                            status.setType(new_mdlasset.asset_type);
+                            status.setId(new_mdlasset.id);
                         }
                     }
                 } else if (call_status == 'rejected') {
