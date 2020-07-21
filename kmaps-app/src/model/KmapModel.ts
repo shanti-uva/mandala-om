@@ -125,7 +125,9 @@ export const kmapModel: KmapModel = {
         //  NEED TO GET related assets only when needed...?
         const type = kmapState.relatedsPage.related_type;
         const start =
-            kmapState.relatedsPage.page * kmapState.relatedsPage.pageSize;
+            Number(
+                kmapState.relatedsPage.page * kmapState.relatedsPage.pageSize
+            ) || 0;
         const rows = kmapState.relatedsPage.pageSize;
 
         console.log('KmapModel update thunk: kmapState: ', kmapState);
