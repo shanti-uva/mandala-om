@@ -5,8 +5,12 @@ import { Link } from 'react-router-dom';
 // import Button from "react-bootstrap/Button";
 import * as PropTypes from 'prop-types';
 import React from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 export function FeatureCard(props) {
+    const [modalShow, setModalShow] = React.useState(false);
+
     const typeGlyph = props.doc.uid ? (
         <span className={'icon shanticon-' + props.doc.asset_type}></span>
     ) : null;
@@ -81,6 +85,7 @@ export function FeatureCard(props) {
                 <Card.Title className={'sui-cardTitle'}>
                     {props.doc.title[0]}
                 </Card.Title>
+
                 <div
                     style={{
                         'border-top': '.5px solid #9e894d',
@@ -107,6 +112,11 @@ export function FeatureCard(props) {
 
                 {relateds}
 
+                <span
+                    className={'sui-showinfo shanticon-info float-right'}
+                    onClick={() => setModalShow(true)}
+                ></span>
+
                 {date && (
                     <div className="shanti-thumbnail-field shanti-field-created">
                         <span className="shanti-field-content">{date}</span>
@@ -130,6 +140,12 @@ export function FeatureCard(props) {
                 {/*        <pre>{JSON.stringify(props.doc, undefined, 2)}</pre>*/}
                 {/*    </Accordion.Collapse>*/}
                 {/*</Accordion>*/}
+
+                <DetailModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    data={props.doc}
+                />
             </Card.Body>
             <Card.Footer
                 className={'sui-cardFooter'}
@@ -142,3 +158,26 @@ export function FeatureCard(props) {
 }
 
 FeatureCard.propTypes = { doc: PropTypes.any };
+
+function DetailModal(props) {
+    return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    JSON DATA
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <pre>{JSON.stringify(props.data, undefined, 3)}</pre>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+}

@@ -1946,3 +1946,12 @@ a {
     font-size: smaller;
     color: #aaaaaa;
 }
+
+.sui-showinfo {
+    color: #aaaaaa;
+    cursor: pointer;
+}
+
+.sui-showinfo:hover {
+    color: #888888;
+}
