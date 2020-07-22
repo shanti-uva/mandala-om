@@ -145,6 +145,7 @@ export function FeatureCard(props) {
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     data={props.doc}
+                    scrollable={true}
                 />
             </Card.Body>
             <Card.Footer
@@ -173,7 +174,9 @@ function DetailModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <pre>{JSON.stringify(props.data, undefined, 3)}</pre>
+                <div style={{ 'overflow-y': 'scrolling' }}>
+                    <pre>{JSON.stringify(props.data, undefined, 3)}</pre>
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
