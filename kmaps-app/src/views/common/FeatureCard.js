@@ -174,9 +174,7 @@ function DetailModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div style={{ 'overflow-y': 'scrolling' }}>
-                    <pre>{JSON.stringify(props.data, undefined, 3)}</pre>
-                </div>
+                <pre>{JSON.stringify(props.data, undefined, 3)}</pre>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
