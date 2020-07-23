@@ -18,6 +18,7 @@ import { Error404 } from '../App';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
 import MdlAssetContext from '../context/MdlAssetContext';
+import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 
 export function ContentPane(props) {
     // console.log("ContentPanel: props =  ", props);
@@ -82,6 +83,13 @@ export function ContentPane(props) {
                             onStateChange={props.onStateChange}
                         />
                     </Route>
+
+                    {/*  Temporary path for testing popover */}
+                    <Route
+                        path={`${path}/poptest/:dom/:kid`}
+                        component={MandalaPopoverTest}
+                    />
+
                     <Route path={`${path}/places/:id`}>
                         <PlacesViewer
                             id={props.id}

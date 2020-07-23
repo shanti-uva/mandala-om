@@ -122,7 +122,7 @@ div.shanti-texts-embed-container {
 #shanti-texts-body figure.image figcaption {
     margin: 0.5rem 0 0;
     font-family: Verdana, Arial, sans-serif;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #555;
     text-align: center;
@@ -383,14 +383,22 @@ div[lang='bo'] .shanti-texts-section-title.text-level-7 {
 #sidecolumn-ctrl {
     font-size: 1.25rem;
     color: #aaa;
-    border: 2px solid #aaa;
+    border: 2px solid #bbb;
     border-right: none;
-    height: 1.8rem;
-    padding: 0px 1px 2px;
+    height: 2rem;
+    padding: 1px 1px 2px 2px;
     background-color: #fff;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     cursor: pointer;
+}
+
+#sidecolumn-ctrl .sidecol-toggle {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    position: relative;
+    top: -3px;
 }
 
 /*--- texts window scroller styles ---*/
@@ -512,7 +520,7 @@ div[lang='bo'] .shanti-texts-section-title.text-level-7 {
 .shanti-texts-toc ul li {
     background: #fff;
     position: relative;
-    float: left;
+    /*float: left;*/
     width: 100%;
     display: block;
 }
@@ -1197,6 +1205,7 @@ div[lang='bo'] .shanti-texts-section-title.text-level-7 {
         border-right: 1px solid #d0d0d0;
         border-bottom: 1px solid #aaa;
         border-top: none;
+        overflow-y: auto !important;
     }
 
     #shanti-texts-sidebar .tab-content::-webkit-scrollbar {
@@ -1218,7 +1227,7 @@ div[lang='bo'] .shanti-texts-section-title.text-level-7 {
     .astviewer.texts .nav-tabs.nav-justified > a {
         border-radius: 0;
         background: #f9f9f9 !important;
-        height: 3.4rem;
+        height: 4.2rem;
         color: #555;
         font-size: 0.88em;
         line-height: 1.25em;

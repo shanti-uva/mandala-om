@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 
 export function MandalaModal(props) {
     const myurl = props.url;
+    const gotourl = props.gourl;
     const mytext = props.text;
     const title = props.title ? props.title : 'External Link';
 
@@ -31,7 +32,7 @@ export function MandalaModal(props) {
                     <iframe className={'mdlmodal'} src={myurl}></iframe>
                 </Modal.Body>
                 <Modal.Footer>
-                    <a href={myurl} target={'_blank'}>
+                    <a href={gotourl} target={'_blank'}>
                         <Button variant="success">Go</Button>
                     </a>
                     <Button variant="primary" onClick={handleClose}>

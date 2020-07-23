@@ -47,10 +47,10 @@ export default function TextTabs(props) {
         });
     });
 
+    //console.log("meta received", props);
     return (
         <>
             <div id={'sidecolumn-ctrl'}>
-                <span></span>
                 <a
                     onClick={toggle_col}
                     aria-controls="txtsidecol"

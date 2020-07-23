@@ -4,7 +4,7 @@ import {
     getMandalaAssetDataPromise,
     getLegacyAssetPromise,
 } from '../logic/assetapi';
-import { normalizeLinks } from '../views/common/utils';
+// import { normalizeLinks } from '../views/common/utils';
 import '../views/css/AssetViewer.css';
 import useStatus from '../hooks/useStatus';
 
@@ -71,7 +71,6 @@ export default function MdlAssetContext(props) {
                 if (call_status === 'fulfilled') {
                     if (mdlasset_result) {
                         if (mdlasset.nid !== new_mdlasset.nid) {
-                            // kmprops.kmasset = new_kmasset; // what is kmprops for?
                             setMdlAsset(new_mdlasset);
                             changed = true;
                             status.clear();

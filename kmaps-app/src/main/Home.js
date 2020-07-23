@@ -91,6 +91,11 @@ export function Home(props) {
                         KSolr search on Lhasa
                     </a>
                 </li>
+                <li>
+                    <a href={'/view/poptest/places/637'}>
+                        Kmaps Popover Test Page
+                    </a>
+                </li>
             </ul>
         </div>
     );

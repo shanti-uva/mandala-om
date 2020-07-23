@@ -1627,6 +1627,16 @@ a {
     overflow-y: hidden;
 }
 
+.loading-msg {
+    font-size: 1.5rem;
+    margin: 20px;
+}
+
+.bo {
+    font-size: larger;
+    font-family: Jomolhari, 'Tibetan Machine Uni';
+}
+
 /* stuff stolen from .shanti-main */
 .shanti-thumbnail-info a {
     font-style: italic;

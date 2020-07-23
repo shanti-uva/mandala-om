@@ -5,6 +5,8 @@ import TextBody from './TextsViewer_TextBody';
 import TextTabs from './TextsViewer_TextTabs';
 import Spinner from 'react-bootstrap/Spinner';
 
+import { ReactQueryDevtools } from 'react-query-devtools';
+
 import $ from 'jquery';
 
 /**
@@ -125,49 +127,58 @@ export function TextsViewer(props) {
 
     // Declare output variable with loading markup (Not used because overwritten
     let output = (
-        <Container className={'astviewer texts'} fluid>
-            <Row id={'shanti-texts-container'}>
-                <div className="loading">
-                    <Spinner
-                        as="div"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    ></Spinner>
-                    Loading text...
-                </div>
-                <div className={'not-found-msg hidden'}>
-                    <h1>Text Not Found!</h1>
-                    <p className={'error'}>
-                        Could not find the requested text: {props.id}
-                    </p>
-                </div>
-            </Row>
-        </Container>
+        <>
+            <Container className={'astviewer texts'} fluid>
+                <Row id={'shanti-texts-container'}>
+                    <div className="loading">
+                        <Spinner
+                            as="div"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                        ></Spinner>
+                        Loading text...
+                    </div>
+                    <div className={'not-found-msg hidden'}>
+                        <h1>Text Not Found!</h1>
+                        <p className={'error'}>
+                            Could not find the requested text: {props.id}
+                        </p>
+                    </div>
+                </Row>
+            </Container>
+        </>
     );
     // Set output to return. If there's an asset, then output with text BS Container with one BS Row
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
     if (props.mdlasset && props.mdlasset.nid) {
         const currast = props.mdlasset;
+        if (currast.bibl_summary === '') {
+            currast.bibl_summary =
+                '<div>Description is unavailable at this time!</div>';
+        }
         output = (
-            <Container className={'astviewer texts'} fluid>
-                <Row id={'shanti-texts-container'}>
-                    <TextBody
-                        id={props.mdlasset.nid}
-                        alias={props.mdlasset.alias}
-                        markup={currast.full_markup}
-                        listener={handleScroll}
-                    />
-                    <TextTabs
-                        toc={currast.toc_links}
-                        meta={currast.bibl_summary}
-                        links={currast.views_links}
-                        title={currast.title}
-                        sections={section_showing}
-                    />
-                </Row>
-            </Container>
+            <>
+                <Container className={'astviewer texts'} fluid>
+                    <Row id={'shanti-texts-container'}>
+                        <TextBody
+                            id={props.mdlasset.nid}
+                            alias={props.mdlasset.alias}
+                            markup={currast.full_markup}
+                            listener={handleScroll}
+                        />
+                        <TextTabs
+                            toc={currast.toc_links}
+                            meta={currast.bibl_summary}
+                            links={currast.views_links}
+                            title={currast.title}
+                            sections={section_showing}
+                        />
+                    </Row>
+                </Container>
+                <ReactQueryDevtools initialIsOpen />
+            </>
         );
     }
     return output;

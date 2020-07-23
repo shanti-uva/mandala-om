@@ -1,5 +1,5 @@
-import jsonpAdapter from './axios-jsonp';
 import axios from 'axios';
+import jsonpAdapter from './axios-jsonp';
 import $ from 'jquery';
 import React from 'react';
 
@@ -16,23 +16,23 @@ export function getMandalaAssetDataPromise(env, assettype, id) {
 
     const request = {
         adapter: jsonpAdapter,
-        callbackParamName: 'json.wrf',
+        callbackParamName: 'json_wrf',
         url: json_call,
     };
-
+    //console.log("json request: ", request);
     const promise = new Promise((resolve, reject) => {
-        /*let data = getCached(request);
-        if (data) {
-            resolve(data);
+        let calldata = false; // getCached(request);
+        if (calldata) {
+            resolve(calldata);
             return;
-        }*/
-        let data = false;
+        }
         axios
             .request(request)
             .then((res) => {
-                const data = res.data;
-                setCache(request, data);
-                resolve(data);
+                //console.log('res', res);
+                const apidata = res.data;
+                setCache(request, apidata);
+                resolve(apidata);
             })
             .catch((reason) => {
                 reject(reason);

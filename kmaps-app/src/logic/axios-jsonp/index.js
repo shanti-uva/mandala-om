@@ -1,6 +1,10 @@
 import qs from 'qs';
 
-var cid = Math.floor((Math.random() * 10) ^ 12) + 1;
+function getRandom() {
+    return Math.floor(Math.random() * Math.pow(10, 12)) + 1;
+}
+
+// var cid = getRandom();
 
 function buildParams(params) {
     // var result = [];
@@ -42,7 +46,7 @@ export default function jsonpAdapter(config) {
             }
         }
 
-        var jsonp = 'axiosJsonpCallback' + cid++;
+        var jsonp = 'axiosJsonpCallback_' + getRandom();
         var old = window[jsonp];
         var isAbort = false;
 

@@ -80,7 +80,7 @@ function narrowData(data, narrowFilters) {
             facet = key;
         }
 
-        if (data.facets[facet]) {
+        if (data.facets && data.facets[facet]) {
             const buckets = data.facets[facet].buckets;
             const filtered = _.filter(buckets, (x) => {
                 const str = x.val.split('|')[0].toLowerCase();
@@ -295,8 +295,12 @@ export function getAssetSearchPromise(search) {
             .then((res) => {
                 //                 console.log('getAssetSearchPromise():  Yay! axios call succeeded!', res);
                 //                 console.log('getAssetSearchPromise(): res = ', res);
+
                 if (typeof (res.data.response === 'undefined')) {
                     // console.log('HERE DATA', res.data);
+                }
+                if (!res.data.response) {
+                    return;
                 }
                 const data = {
                     numFound: res.data.response.numFound,

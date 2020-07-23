@@ -1,9 +1,10 @@
-/*----------------------------*/
-/*----- BEGIN Popovers -------*/
-/*----------------------------*/
+.mandala-popover-wrapper {
+    display: inline-block;
+}
+
 .kmap-tag-group {
     white-space: nowrap;
-} /** Keeps the popover with the preceeding kmap term it goes with **/
+}
 
 .kmap-tag-group .deflinks {
     vertical-align: super;
@@ -13,15 +14,15 @@
 .popover-link {
     background: #5a65d1;
     border: none;
-    height: 12.5px;
-    width: 14.5px;
+    border-radius: 2px;
+    /*height: 12.5px;
+    width: 14.5px;*/
     color: white;
-    padding: 0;
-    /*display: inline-block;*/
+    padding: 0 0 0 1px;
     position: relative;
     left: 0;
     top: 0;
-    margin: 0 8px;
+    margin: 0 0 0 8px;
     font-size: 10px;
     font-family: 'EB Garamond', serif;
 }
@@ -48,26 +49,18 @@
     color: white;
 }
 
-.popover {
-    /*position: absolute;
-    z-index: 400;
-    color: #333;*/
-    font-size: 1.1em !important;
+.related-resources-popover {
+    font-size: 1.2em !important;
     line-height: 1.18em;
-    width: 320px;
-    max-width: 320px;
+    width: 320px !important;
+    max-width: 320px !important;
     font-style: normal;
     padding: 3px 3px 0px 3px;
     border-radius: 0.8rem !important;
 }
 
-.popover.fade.in {
-    /*filter: alpha(opacity=98);
-    opacity:0.98;*/
-}
-
-.popover .popover-title .kmid,
-.popover .popover-header .kmid {
+.related-resources-popover .popover-title .kmid,
+.related-resources-popover .popover-header .kmid {
     font-size: 0.8em;
     font-weight: 400;
     position: absolute;
@@ -75,34 +68,39 @@
     right: 0.75rem;
 }
 
-.content-section .related-resources-popover {
-    border: none;
-    /*padding: 0;*/
-}
-
-.related-resources-popover .popover-content {
-    /*padding: 0.5rem 1.4rem 1rem;*/
+.related-resources-popover .react-popover-body .kmdomain,
+.related-resources-popover .react-popover-body .kmid {
+    display: none;
 }
 
 .related-resources-popover .popover-body {
-    /*border-top: 1px solid #ccc;*/
-    padding: 0.5rem 1rem !important;
+    padding: 0.5rem 0.5rem 0 !important;
+}
+
+.related-resources-popover .popover-body .desc {
+    font-size: 1.22rem;
+    letter-spacing: normal;
 }
 
 .related-resources-popover .popover-title,
 .related-resources-popover .popover-header {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px 0 6px !important;
     margin: 0 14px;
     background: transparent;
     border: none;
-    /*border-top: 1px solid #ccc;*/
     border-bottom: 1px solid #ccc;
     color: #444;
     font-weight: 600;
     text-transform: capitalize;
     z-index: 1000;
+}
+
+.related-resources-popover .popover-title.bo,
+.related-resources-popover .popover-header.bo {
+    font-family: Jomolhari;
+    font-size: 18px;
 }
 
 .related-resources-popover .desc p {
@@ -174,8 +172,23 @@
     margin: 0.5em auto;
 }
 
+.related-resources-popover .other.featuretypes a,
+.related-resources-popover .termtypes a {
+    color: #03038e;
+}
+
+.related-resources-popover .other.featuretypes a:after,
+.related-resources-popover .termtypes a:after {
+    content: ', ';
+}
+
+.related-resources-popover .other.featuretypes a:last-child:after,
+.related-resources-popover .termtypes a:last-child:after {
+    content: '';
+}
+
 .popover-footer {
-    margin: 8px -14px 0px;
+    margin: 10px -7px 1px;
     background: #333;
     border-radius: 0 0 0.8rem 0.8rem !important;
     background-clip: padding-box;
@@ -201,13 +214,14 @@
     border-bottom: none;
     display: block;
     width: 100%;
-    font-size: 1.12em;
-    line-height: 2.2em;
-    height: 3em;
+    font-size: 1.16em;
+    line-height: 1.2em;
+    height: 2.2em;
     text-transform: capitalize;
     letter-spacing: 0.05rem;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif !important;
     font-weight: 400;
+    padding-top: 0.5rem;
 }
 
 .popover-footer-button a:hover {
@@ -233,9 +247,11 @@
     color: #fff;
     text-decoration: none;
 }
+
 .popover-footer-button:first-child {
-    padding-top: 5px;
+    padding-bottom: 0.8rem;
 }
+
 .popover-footer-button:first-child .icon {
     text-transform: uppercase;
     font-size: 1.06em;
@@ -252,10 +268,41 @@
 .popover-footer-button:last-child {
     border-radius: 0 0 0.8rem 0.8rem !important;
     background-clip: padding-box;
-    height: 3.5rem;
-    margin-bottom: -5px;
+    height: 3.75rem;
 }
 
-/*------------------*/
-/*-- END Popovers --*/
-/*------------------*/
+.popover-footer .shanticon-link-external:before {
+    color: #333333;
+}
+
+.popover-footer .shanticon-audio-video:before {
+    color: #58aab4 !important;
+}
+
+.popover-footer .shanticon-images:before {
+    color: #b49c59 !important;
+}
+
+.popover-footer .shanticon-sources:before {
+    color: #5a57ad !important;
+}
+
+.popover-footer .shanticon-places:before {
+    color: #6faaf1 !important;
+}
+
+.popover-footer .shanticon-subjects:before {
+    color: #cc4c39 !important;
+}
+
+.popover-footer .shanticon-terms:before {
+    color: #a2733f !important;
+}
+
+.popover-footer .shanticon-texts:before {
+    color: #8b5aa1 !important;
+}
+
+.popover-footer .shanticon-visuals:before {
+    color: #558e3c !important;
+}

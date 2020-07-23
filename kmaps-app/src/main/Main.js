@@ -37,7 +37,7 @@ export function Main(props) {
     };
 
     const storeReady = useStoreRehydrated();
-    const loading = <div>Loading...</div>;
+    const loading = <div className={'loading-msg'}>Loading...</div>;
     const main = (
         <Router basename={'/mandala-om'}>
             <div id={'sui-main'} className={'sui-main'}>
