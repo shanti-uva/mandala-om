@@ -11,6 +11,7 @@ import 'rc-input-number/assets/index.css';
 import NodeHeader from '../common/NodeHeader';
 import { RelatedsGallery } from '../common/RelatedsGallery';
 import './TermsViewer.css';
+import { useRouteMatch } from 'react-router';
 
 // import KmapContext from "../context/KmapContext";
 
@@ -37,14 +38,12 @@ export default function TermsViewer(props) {
                     <Switch>
                         <Route
                             path={
-                                '/view/:viewerType/:id/related/:relatedType/:viewMode'
+                                '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
                             <RelatedsGallery {...props} />
                         </Route>
-                        <Route
-                            path={'/view/:viewerType/:id/related/:relatedType'}
-                        >
+                        <Route path={'/:viewerType/:id/related-:relatedType'}>
                             <Redirect to={'./all'} />
                         </Route>
                         <Route>

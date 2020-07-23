@@ -24,6 +24,7 @@ export function ContentPane(props) {
     // console.log("ContentPanel: props =  ", props);
 
     let { path } = useRouteMatch();
+    // console.log("ContentPane path = ", path);
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
@@ -38,7 +39,7 @@ export function ContentPane(props) {
             </KmapContext>
             <div id={'sui-results'}>
                 <Switch>
-                    <Route path={`${path}/audio-video/:id`}>
+                    <Route path={`${path}audio-video/:id`}>
                         <MdlAssetContext
                             assettype={'audio-video'}
                             sui={props.sui}
@@ -49,7 +50,7 @@ export function ContentPane(props) {
                             />
                         </MdlAssetContext>
                     </Route>
-                    <Route path={`${path}/images/:id`}>
+                    <Route path={`${path}images/:id`}>
                         <MdlAssetContext assettype={'images'} sui={props.sui}>
                             <ImagesViewer
                                 id={props.id}
@@ -58,25 +59,25 @@ export function ContentPane(props) {
                             />
                         </MdlAssetContext>
                     </Route>
-                    <Route path={`${path}/texts/book_pubreader/:id`}>
+                    <Route path={`${path}texts/book_pubreader/:id`}>
                         <TextsAltViewer viewtype={'pubreader'} />
                     </Route>
-                    <Route path={`${path}/texts/voyant/:id`}>
+                    <Route path={`${path}texts/voyant/:id`}>
                         <TextsAltViewer viewtype={'voyant'} />
                     </Route>
-                    <Route path={`${path}/texts/:id`}>
+                    <Route path={`${path}texts/:id`}>
                         <MdlAssetContext assettype={'texts'}>
                             <TextsViewer onStateChange={props.onStateChange} />
                         </MdlAssetContext>
                     </Route>
-                    <Route path={`${path}/sources/:id`}>
+                    <Route path={`${path}sources/:id`}>
                         <SourcesViewer
                             id={props.id}
                             sui={props.sui}
                             onStateChange={props.onStateChange}
                         />
                     </Route>
-                    <Route path={`${path}/visuals/:id`}>
+                    <Route path={`${path}visuals/:id`}>
                         <VisualsViewer
                             id={props.id}
                             sui={props.sui}
@@ -90,21 +91,21 @@ export function ContentPane(props) {
                         component={MandalaPopoverTest}
                     />
 
-                    <Route path={`${path}/places/:id`}>
+                    <Route path={`${path}places/:id`}>
                         <PlacesViewer
                             id={props.id}
                             sui={props.sui}
                             onStateChange={props.onStateChange}
                         />
                     </Route>
-                    <Route path={`${path}/subjects/:id`}>
+                    <Route path={`${path}subjects/:id`}>
                         <SubjectsViewer
                             id={props.id}
                             sui={props.sui}
                             onStateChange={props.onStateChange}
                         />
                     </Route>
-                    <Route path={`${path}/assets/:id`}>
+                    <Route path={`${path}assets/:id`}>
                         <RelatedsViewer
                             id={props.id}
                             onStateChange={props.onStateChange}
@@ -117,8 +118,8 @@ export function ContentPane(props) {
                     </Route>
                     <Route
                         path={[
-                            `${path}/terms/:id/related/:relatedType/:viewMode`,
-                            `${path}/terms/:id`,
+                            `${path}terms/:id/related-:relatedType/:viewMode`,
+                            `${path}terms/:id`,
                         ]}
                     >
                         <KmapContext>
@@ -129,23 +130,23 @@ export function ContentPane(props) {
                             <TermsViewer onStateChange={props.onStateChange} />
                         </KmapContext>
                     </Route>
-                    <Route path={`${path}/terms/:id/related/:relatedType`}>
+                    <Route path={`${path}terms/:id/related-:relatedType`}>
                         <Redirect to={'./default'} />
                     </Route>
-                    <Route path={`${path}/collections/:id`}>
+                    <Route path={`${path}collections/:id`}>
                         <CollectionsViewer
                             id={props.id}
                             sui={props.sui}
                             onStateChange={props.onStateChange}
                         />
                     </Route>
-                    <Route path={`${path}/search/:viewMode`}>
+                    <Route path={`${path}search/:viewMode`}>
                         <SearchContext>
                             <SearchViewer />
                         </SearchContext>
                     </Route>
-                    <Route exact path={`${path}/search`}>
-                        <Redirect to={`${path}/search/default`} />
+                    <Route exact path={`${path}search`}>
+                        <Redirect to={`${path}search/default`} />
                     </Route>
                     <Route path="*">
                         <Error404 />

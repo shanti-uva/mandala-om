@@ -66,9 +66,7 @@ function transform(node, index) {
         const mtch = lnkurl.search(/places|subjects|terms/);
         if (mtch > -1) {
             lnkurl =
-                pubfolder +
-                '/view/' +
-                lnkurl.substring(mtch).replace('/nojs', '');
+                pubfolder + '/' + lnkurl.substring(mtch).replace('/nojs', '');
             node.attribs['href'] = lnkurl;
         } else {
             node.attribs['href'] = '#';

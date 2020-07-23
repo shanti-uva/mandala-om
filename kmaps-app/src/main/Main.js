@@ -53,7 +53,7 @@ export function Main(props) {
                         <Route exact path={'/'}>
                             <Redirect to={'/home'} />
                         </Route>
-                        <Route path={'/view'}>
+                        <Route path={'/'}>
                             <ContentPane
                                 site={'mandala'}
                                 mode={'development'}

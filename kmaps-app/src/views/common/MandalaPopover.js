@@ -274,7 +274,7 @@ function MandalaPopoverBody(props) {
 }
 
 /**
- * A test function returned from the path in ContentPane.js. Path is: /view/poptest/{domain}/{kid}
+ * A test function returned from the path in ContentPane.js. Path is: /poptest/{domain}/{kid}
  *
  * @param props
  * @returns {*}
@@ -293,7 +293,7 @@ export function MandalaPopoverTest(props) {
         backgroundColor: '#e1eff3',
         maxWidth: '98vw',
     };
-    const base_url = process.env.PUBLIC_URL + '/view/poptest/{}';
+    const base_url = process.env.PUBLIC_URL + '/poptest/{}';
     return (
         <>
             <Container fluid id={'mptestdiv'} style={testdivstyle}>

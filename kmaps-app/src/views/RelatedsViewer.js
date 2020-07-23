@@ -4,7 +4,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 export function RelatedsViewer(props) {
     console.log('Relateds props = ', props);
 
-    const match = useRouteMatch('/view/:baseType/:baseUid/related/:type');
+    const match = useRouteMatch('/:baseType/:baseUid/related-:type');
     const loc = match?.params.type || 'home';
     let locMatch = {};
     locMatch[loc] = 'selected';
@@ -24,14 +24,7 @@ export function RelatedsViewer(props) {
                 RELATED RESOURCES
                 <hr />
                 <div className="sui-relatedList">
-                    <Link
-                        to={
-                            '/view/' +
-                            baseArgs.baseType +
-                            '/' +
-                            baseArgs.baseUid
-                        }
-                    >
+                    <Link to={'/' + baseArgs.baseType + '/' + baseArgs.baseUid}>
                         <div
                             className={`sui-relatedItem  sui-color-terms ${locMatch['home']}`}
                             id="sui-rl-Home"
@@ -112,11 +105,11 @@ function RelatedCount(props) {
     return count ? (
         <Link
             to={
-                '/view/' +
+                '/' +
                 props.baseType +
                 '/' +
                 props.baseUid +
-                '/related/' +
+                '/related-' +
                 props.type +
                 '/default'
             }

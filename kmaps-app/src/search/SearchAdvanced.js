@@ -14,7 +14,7 @@ export function SearchAdvanced(props) {
 
     // This tells us whether we are viewing the search results
     // so that we can give a link to go there (or not).
-    const searchView = useRouteMatch('/view/search');
+    const searchView = useRouteMatch('/search');
 
     function handleFacetChange(msg) {
         const command = {
@@ -76,9 +76,7 @@ export function SearchAdvanced(props) {
             <Navbar>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
-                {!searchView && (
-                    <Link to={'/view/search'}>{'<<'} Show Results</Link>
-                )}
+                {!searchView && <Link to={'/search'}>{'<<'} Show Results</Link>}
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>Reset: </Navbar.Text>
                     <Nav.Link

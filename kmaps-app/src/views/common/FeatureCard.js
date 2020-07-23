@@ -74,7 +74,7 @@ export function FeatureCard(props) {
     // console.log("FOOTERING: ", props.doc);
     return (
         <Card className={'m-2 zoom'} key={props.doc.uid}>
-            <Link to={`/view/${viewer}/${props.doc.uid}`}>
+            <Link to={`/${viewer}/${props.doc.uid}`}>
                 <div className={'sui-featureCard-img-crop'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
                     <div className={'sui-cardType'}>{typeGlyph}</div>
