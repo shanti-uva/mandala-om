@@ -11,6 +11,12 @@ import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
  *      placement: (optional) where to place the popover relative to the icon, defaults to 'below'.
  *                 Other values are: 'top', 'right', and 'left'.
  *
+ *      Example:   <MandalaPopover
+ *                      domain="subjects"
+ *                      kid="8260"
+ *                  />
+ *
+ *  Styling instructions for Popovers are in: ./views/css/Popover.css which is included by call in App.js
  * @param props
  * @returns {*}
  * @constructor
@@ -25,11 +31,8 @@ export function MandalaPopover(props) {
     const kid = props.kid;
     const placement = props.placement ? props.placement : 'bottom';
 
-    // Query Custom Hooks
-    //const kmapdata = useKmap(domain, kid, 'info');
-    //const related = useKmap(domain, kid, 'related');
-
-    // ys2n: need to remap destructured variables
+    // Query Custom Hooks (see hooks/useKmaps.js)
+    // Info for Kmap Itself: kmapRes
     const {
         isLoading: kmapIsLoading,
         isError: kmapIsError,
@@ -37,6 +40,7 @@ export function MandalaPopover(props) {
         error: kmapError,
     } = useKmap(domain, kid, 'info');
 
+    // Info of Related Kmaps/Assets: relRes
     const {
         isLoading: relIsLoading,
         isError: relIsError,
@@ -53,11 +57,7 @@ export function MandalaPopover(props) {
     }
     //console.log('kmapdata', kmapRes);
     const kmapdata = kmapRes;
-    // kmapRes && kmapRes.data && kmapRes.data.data
-    //     ? kmapRes.data.data
-    //     : kmapRes;
     const related = relRes;
-    // relRes && relRes.data && relRes.data.data ? relRes.data.data : relRes;
 
     if (!kmapdata || !related) {
         return <>No data!</>;
@@ -67,52 +67,41 @@ export function MandalaPopover(props) {
 
     // JSX
     return (
-        <div className={'mandala-popover-wrapper'}>
-            &nbsp;
+        <span className="kmap-tag-group" data-kmdomain={domain} data-kmid={kid}>
+            <span className={isTib ? 'bo' : ''}>{myhead}</span>
             <span
-                className="kmap-tag-group"
-                data-kmdomain={domain}
-                data-kmid={kid}
+                className="popover-link"
+                ref={target}
+                onMouseOver={() => setShow(true)}
+                onMouseOut={() => setShow(false)}
             >
-                <span className={isTib ? 'bo' : ''}>{myhead}</span>
+                <span className="popover-link-tip" />
                 <span
-                    className="popover-link"
-                    ref={target}
+                    className="icon shanticon-menu3"
+                    title={'Click to view'}
+                />
+            </span>
+            <Overlay target={target.current} show={show} placement={placement}>
+                <Popover
+                    data-kmid={kid}
+                    className={'related-resources-popover'}
                     onMouseOver={() => setShow(true)}
                     onMouseOut={() => setShow(false)}
                 >
-                    <span className="popover-link-tip" />
-                    <span
-                        className="icon shanticon-menu3"
-                        title={'Click to view'}
-                    />
-                </span>
-                <Overlay
-                    target={target.current}
-                    show={show}
-                    placement={placement}
-                >
-                    <Popover
-                        data-kmid={kid}
-                        className={'related-resources-popover'}
-                        onMouseOver={() => setShow(true)}
-                        onMouseOut={() => setShow(false)}
-                    >
-                        <Popover.Title as="h5" className={isTib ? 'bo' : ''}>
-                            {myhead} <span className={'kmid'}>{kid}</span>
-                        </Popover.Title>
-                        <Popover.Content>
-                            <MandalaPopoverBody
-                                domain={domain}
-                                kid={kid}
-                                info={kmapdata}
-                                related={related}
-                            />
-                        </Popover.Content>
-                    </Popover>
-                </Overlay>
-            </span>
-        </div>
+                    <Popover.Title as="h5" className={isTib ? 'bo' : ''}>
+                        {myhead} <span className={'kmid'}>{kid}</span>
+                    </Popover.Title>
+                    <Popover.Content>
+                        <MandalaPopoverBody
+                            domain={domain}
+                            kid={kid}
+                            info={kmapdata}
+                            related={related}
+                        />
+                    </Popover.Content>
+                </Popover>
+            </Overlay>
+        </span>
     );
 }
 
@@ -138,7 +127,7 @@ function MandalaPopoverBody(props) {
             ? kminfo.caption_eng[0].replace(/<\/?p>/g, '') + ' '
             : '';
     const pubfolder = process.env.PUBLIC_URL;
-    const mandala_base = pubfolder + '/view'; // TODO: Change to /mandala when that path gets initialized
+    const mandala_base = pubfolder; // TODO: Check if this needs to change?
     const kmap_item_page = mandala_base + '/' + domain + '/' + kid;
 
     // Feature types
