@@ -19,6 +19,7 @@ import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
 import MdlAssetContext from '../context/MdlAssetContext';
 import { MandalaPopoverTest } from '../views/common/MandalaPopover';
+import KmapsViewer from '../views/Kmaps/KmapsViewer';
 
 export function ContentPane(props) {
     // console.log("ContentPanel: props =  ", props);
@@ -90,20 +91,25 @@ export function ContentPane(props) {
                         path={`${path}/poptest/:dom/:kid`}
                         component={MandalaPopoverTest}
                     />
-
                     <Route path={`${path}places/:id`}>
-                        <PlacesViewer
-                            id={props.id}
-                            sui={props.sui}
-                            onStateChange={props.onStateChange}
-                        />
+                        <KmapContext>
+                            <RelatedsViewer />
+                            <KmapsViewer
+                                id={props.id}
+                                sui={props.sui}
+                                onStateChange={props.onStateChange}
+                            />
+                        </KmapContext>
                     </Route>
                     <Route path={`${path}subjects/:id`}>
-                        <SubjectsViewer
-                            id={props.id}
-                            sui={props.sui}
-                            onStateChange={props.onStateChange}
-                        />
+                        <KmapContext>
+                            <RelatedsViewer />
+                            <KmapsViewer
+                                id={props.id}
+                                sui={props.sui}
+                                onStateChange={props.onStateChange}
+                            />
+                        </KmapContext>
                     </Route>
                     <Route path={`${path}assets/:id`}>
                         <RelatedsViewer

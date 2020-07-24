@@ -14,16 +14,21 @@ export interface StatusModel {
     type: string | null;
     headerTitle: string | null;
     subTitle: string | null;
-    path: string[];
+    path: Link[];
     id: string | null;
 
     setType: Action<StatusModel, string>;
     setHeaderTitle: Action<StatusModel, string>;
     setId: Action<StatusModel, string>;
-    setPath: Action<StatusModel, string[]>;
+    setPath: Action<StatusModel, Link[]>;
     setSubTitle: Action<StatusModel, string>;
     setStatus: Action<StatusModel, StatusModel>;
     clear: Action<StatusModel>;
+}
+
+export interface Link {
+    uid: string;
+    name: string;
 }
 
 export const statusModel: StatusModel = {

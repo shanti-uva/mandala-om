@@ -7,6 +7,7 @@ import * as PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { KmapLink } from './KmapLink';
 
 export function FeatureCard(props) {
     const [modalShow, setModalShow] = React.useState(false);
@@ -28,9 +29,7 @@ export function FeatureCard(props) {
         return (
             <div className="shanti-thumbnail-field shanti-field-place">
                 <span className="shanti-field-content">
-                    <a key={i} href={'#'}>
-                        {name}
-                    </a>
+                    <KmapLink key={i} uid={id} label={name} />
                 </span>
             </div>
         );
@@ -41,9 +40,7 @@ export function FeatureCard(props) {
         return (
             <div className="shanti-thumbnail-field shanti-field-subject">
                 <span className="shanti-field-content">
-                    <a key={i} href={'#'}>
-                        {name}
-                    </a>
+                    <KmapLink key={i} uid={id} label={name} />
                 </span>
             </div>
         );

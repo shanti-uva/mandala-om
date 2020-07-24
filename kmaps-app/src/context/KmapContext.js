@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import _ from 'lodash';
 import { useStoreActions, useStoreState } from '../model/StoreModel';
 import useStatus from '../hooks/useStatus';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 /**
  *    Container which injects the kmap and kmasset data, before rendering the its children.
@@ -17,10 +19,42 @@ import useStatus from '../hooks/useStatus';
  *
  *
  * */
+
+//  assembles a path from the data is has...
+function assemblePath(kmap, kmasset) {
+    // console.log("assemble kmap = ", kmap);
+    // console.log("assemble kmasset = ", kmasset);
+    //
+    let path = [];
+
+    if (kmasset?.ancestor_ids_is && kmasset?.ancestors_txt) {
+        const t = kmasset.asset_type;
+        const ids = kmasset.ancestor_ids_is;
+        const names = kmasset.ancestors_txt;
+
+        for (let i = 0; i < ids.length; i++) {
+            const uid = t + '-' + ids[i];
+            const name = names[i];
+            path.push({
+                uid: uid,
+                name: name,
+            });
+        }
+    } else {
+        console.log(
+            'KmapContext.assembledPath: kmasset does not have ancestor_ids_is or ancestors_txt.'
+        );
+    }
+    return path;
+}
+
 export default function KmapContext(props) {
     console.log('KmapContext: props=', props);
 
     const status = useStatus();
+    status.clear();
+    status.setHeaderTitle('Loading...');
+
     // Let's do the Easy Peasy thing
     const kmapActions = useStoreActions((actions) => actions.kmap);
     const {
@@ -121,12 +155,14 @@ export default function KmapContext(props) {
 
         // TODO: Review:  Is this the right place for this?
         // console.log("KmapContext: setting status from props = " , props);
-        status.clear();
-        status.setHeaderTitle(kmasset.title);
-        status.setType(kmasset.asset_type);
-        status.setPath(kmasset.ancestors_txt);
-        status.setId(kmapId);
     }, [id, relatedType, relatedPage, relatedPageSize]);
+
+    status.clear();
+    status.setHeaderTitle(kmasset.title);
+    status.setType(kmasset.asset_type);
+    const superPath = assemblePath(kmap, kmasset);
+    status.setPath(superPath);
+    status.setId(kmapId);
 
     console.log('Mapped kmap: ', mapped_kmap);
 

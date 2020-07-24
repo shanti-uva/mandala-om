@@ -34,6 +34,10 @@ export default function MdlAssetContext(props) {
     const [mdlasset, setMdlAsset] = useState({});
     const status = useStatus();
 
+    status.clear();
+    status.setHeaderTitle('Loading...');
+    status.setType(asset_type);
+
     /**
      * Effect used to normalize links in Asset Pages after loading so that links do not go outside of standalon
      * function found in ../common/utils.js
@@ -75,7 +79,7 @@ export default function MdlAssetContext(props) {
                             changed = true;
                             status.clear();
                             status.setHeaderTitle(new_mdlasset.title);
-                            status.setType(new_mdlasset.asset_type);
+                            status.setType(asset_type);
                             status.setId(new_mdlasset.id);
                         } else if (mdlasset.id !== new_mdlasset.id) {
                             console.warn(
@@ -86,7 +90,7 @@ export default function MdlAssetContext(props) {
                             changed = true;
                             status.clear();
                             status.setHeaderTitle(new_mdlasset.title[0]);
-                            status.setType(new_mdlasset.asset_type);
+                            status.setType(asset_type);
                             status.setId(new_mdlasset.id);
                         }
                     }

@@ -1957,6 +1957,25 @@ a {
     color: #aaaaaa;
 }
 
+.sui-contentHeader-sub {
+    font-style: italic;
+    font-size: smaller;
+    color: #aaaaaa;
+}
+
+.sui-contentHead a {
+    color: #eeeeee;
+    margin: 0.3em;
+}
+
+.sui-contentHead a:hover {
+    color: #bbbbbb;
+}
+
+.sui-contentHead a:visited {
+    color: #eeeeee;
+}
+
 .sui-showinfo {
     color: #aaaaaa;
     cursor: pointer;
