@@ -77,7 +77,7 @@ const getKmapData = async (_, { qtype, domain, kid }) => {
     };
     const { data } = await axios.request(request);
     // console.log("Axios request params = ", myparams);
-    console.log('Axios request/response = ', request, data);
+    // console.log('Axios request/response = ', request, data);
     return data;
 };
 
@@ -97,60 +97,7 @@ export function useKmap(domain, kid, query_type) {
         ['kmap', { qtype: query_type, domain: domain, kid: kid }],
         getKmapData
     );
-    /*
-    if ( isLoading ) { console.log("loading " + domain + '-' + kid); return false; }
-    if ( isError ) {
-        console.error("useKmap Error: ", error);
-        return false;
-    }
-    if (status === 'success') {
-        // Filter out extra info in results from useQuery, return only data as filtered above if exists
-        const results = (respdata && respdata.data && respdata.data.data) ? respdata.data.data : respdata;
-        return results;
-    }
-     */
 }
-
-/**
- * GetKmapData is the function that makes the Axios call to SOLR based on the query specifics chosen.
- * The parameter, qtype, is the key index for the queries object that retrieves the URL, params, and result filter
- * for the desired query. The result filter is a function that takes the raw data returned from the axios query and
- * filters it to return only the desired portion.
- *
- * @param id
- * @param qtype
- * @param domain
- * @param kid
- * @returns {*}
- */
-/*
-function OldgetKmapData(id, {qtype, domain, kid}) {
-    //console.log("in getKmapData: " + [qtype, domain, kid].join(", "));
-    const query = queries[qtype];
-    for (let key in query.params) {
-        query.params[key] = query.params[key]
-            .replace('_DOMAIN_', domain)
-            .replace('_KID_', kid);
-    }
-    // Most kmap queries are wt=json. So added here by default.
-    let myparams = query.params;
-    if (!('wt' in myparams)) {
-        myparams['wt'] = 'json';
-    }
-
-    const request = {
-        adapter: jsonpAdapter,
-        callbackParamName: 'json.wrf',
-        url: query.url,
-        params: myparams,
-        transformResponse: function (data) {
-            const filtered_data = query.dataFilter(data);
-            return filtered_data ? filtered_data : data;
-        },
-    };
-    return axios.request(request);
-}
-*/
 
 /**
  * A function to get the proper Solr base URL for the current environment.

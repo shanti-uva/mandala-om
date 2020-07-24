@@ -5,7 +5,7 @@ import TextBody from './TextsViewer_TextBody';
 import TextTabs from './TextsViewer_TextTabs';
 import Spinner from 'react-bootstrap/Spinner';
 
-import { ReactQueryDevtools } from 'react-query-devtools';
+// import { ReactQueryDevtools } from 'react-query-devtools';
 
 import $ from 'jquery';
 
@@ -177,7 +177,7 @@ export function TextsViewer(props) {
                         />
                     </Row>
                 </Container>
-                <ReactQueryDevtools initialIsOpen />
+                {/* <ReactQueryDevtools initialIsOpen /> */}
             </>
         );
     }
