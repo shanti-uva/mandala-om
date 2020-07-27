@@ -4,7 +4,6 @@ import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideoViewer';
 import { ImagesViewer } from '../views/ImagesViewer';
 import { TextsViewer } from '../views/TextsViewer';
-import { TextsAltViewer } from '../views/TextsViewer_AltViewer';
 import { SourcesViewer } from '../views/SourcesViewer';
 import { VisualsViewer } from '../views/VisualsViewer';
 import { PlacesViewer } from '../views/PlacesViewer';
@@ -59,12 +58,6 @@ export function ContentPane(props) {
                                 onStateChange={props.onStateChange}
                             />
                         </MdlAssetContext>
-                    </Route>
-                    <Route path={`${path}texts/book_pubreader/:id`}>
-                        <TextsAltViewer viewtype={'pubreader'} />
-                    </Route>
-                    <Route path={`${path}texts/voyant/:id`}>
-                        <TextsAltViewer viewtype={'voyant'} />
                     </Route>
                     <Route path={`${path}texts/:id`}>
                         <MdlAssetContext assettype={'texts'}>

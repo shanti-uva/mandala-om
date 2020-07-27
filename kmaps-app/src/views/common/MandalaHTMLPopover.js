@@ -44,7 +44,7 @@ export function MandalaHTMLPopover(props) {
                     className={'related-resources-popover'}
                 >
                     <Popover.Title as="h5">
-                        {props.kmtitle}{' '}
+                        Hey diddle {props.kmtitle}{' '}
                         <span className={'kmid'}>{props.kmid}</span>
                     </Popover.Title>
                     <Popover.Content>
