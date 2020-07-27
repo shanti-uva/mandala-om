@@ -107,6 +107,7 @@ export function MandalaPopover(props) {
 
 function MandalaPopoverBody(props) {
     const kminfo = props.info;
+    //console.log(kminfo);
     const related = props.related;
     // Sort related by Asset/Kmap type (groupValue)
     related.sort((a, b) => {
@@ -128,7 +129,7 @@ function MandalaPopoverBody(props) {
             : '';
     const pubfolder = process.env.PUBLIC_URL;
     const mandala_base = pubfolder; // TODO: Check if this needs to change?
-    const kmap_item_page = mandala_base + '/' + domain + '/' + kid;
+    const kmap_item_page = mandala_base + '/terms/' + domain + '-' + kid;
 
     // Feature types
     let featuretypes = '';
@@ -138,12 +139,10 @@ function MandalaPopoverBody(props) {
                 <p>
                     <strong>Feature Type</strong>
                     {kminfo.feature_type_ids.map((item, index) => {
-                        const url = mandala_base + '/subjects/' + item;
+                        const url = mandala_base + '/terms/subjects-' + item;
                         return (
                             <>
-                                <a href={url} target="_blank">
-                                    {kminfo.feature_types[index]}
-                                </a>
+                                <a href={url}>{kminfo.feature_types[index]}</a>
                             </>
                         );
                     })}
@@ -172,13 +171,10 @@ function MandalaPopoverBody(props) {
                         if (index == ancestor_ids.length - 1) {
                             return;
                         } // Don't show self in ancestry list
-                        const aurl = mandala_base + '/places/' + aid;
+                        const aurl =
+                            mandala_base + '/terms/' + kminfo.tree + '-' + aid;
                         const label = ancestor_labels[index];
-                        return (
-                            <a target="_blank" href={aurl}>
-                                {label}
-                            </a>
-                        );
+                        return <a href={aurl}>{label}</a>;
                     })}
                 </p>
             </div>
@@ -196,11 +192,9 @@ function MandalaPopoverBody(props) {
                 </div>
                 <div className="termtypes">
                     {kminfo.associated_subject_ids.map((item, n) => {
-                        const myurl = mandala_base + '/subject/' + item;
+                        const myurl = mandala_base + '/terms/subject-' + item;
                         return (
-                            <a href={myurl} target={'_blank'}>
-                                {kminfo.associated_subjects[n]}
-                            </a>
+                            <a href={myurl}>{kminfo.associated_subjects[n]}</a>
                         );
                     })}
                 </div>
@@ -216,7 +210,8 @@ function MandalaPopoverBody(props) {
                 if (assettype == 'texts:pages') {
                     return;
                 }
-                const myurl = kmap_item_page + '/related-' + assettype;
+                const myurl =
+                    kmap_item_page + '/related-' + assettype + '/deck';
                 const label =
                     'Related ' +
                     assettype[0].toUpperCase() +

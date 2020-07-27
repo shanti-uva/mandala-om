@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import TextBody from './TextsViewer_TextBody';
-import TextTabs from './TextsViewer_TextTabs';
-import Spinner from 'react-bootstrap/Spinner';
+import {
+    Container,
+    Col,
+    Row,
+    Spinner,
+    Collapse,
+    Tabs,
+    Tab,
+} from 'react-bootstrap';
+import { HtmlWithPopovers } from './common/MandalaMarkup';
+import { Parser } from 'html-to-react';
+import { addBoClass } from './common/utils';
+import $ from 'jquery';
 
 // import { ReactQueryDevtools } from 'react-query-devtools';
-
-import $ from 'jquery';
 
 /**
  * Text Viewer Component: The parent component for viewing a text. Gets sent the asset information as a prop
  * called "mdlasset" from MdlAssetContext.js. When there is asset information, it creates a bootstrap container
- * with one row that contains a TextBody (TextsViewer_TextBody.js) component and a TextTabs (TextsViewer_TextTabs.js)
- * component.
+ * with one row that contains a TextBody component and a TextTabs component (Both defined in this file).
  *
  * Uses State and Effect to keep track of which section(s) is/are visible in the scrolling body and passes this
  * information to the TextTabs component so it can highlight the active part of the TOC.
@@ -34,12 +39,13 @@ import $ from 'jquery';
  * @constructor
  */
 export function TextsViewer(props) {
-    const pgid = props.id;
     const tid = props.mdlasset ? props.mdlasset.nid : '';
+    const title = props.mdlasset ? props.mdlasset.title : '';
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
     ]);
+    const [alt_viewer_url, setAltViewerUrl] = useState(''); // alt_viewer has url for alt view to show if showing or empty string is hidden
 
     // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
     useEffect(() => {
@@ -59,7 +65,8 @@ export function TextsViewer(props) {
         }
     }, []);
 
-    // Setting text_sections variable with array of sections in text for TOC scroll highlighting and highlighting first TOC link
+    // Setting text_sections variable with array of sections in text for TOC highlighting on scrolling and
+    // also highlights first TOC link
     useEffect(() => {
         // Set the text section state var if empty. Only need to do once on load
         if (
@@ -154,10 +161,11 @@ export function TextsViewer(props) {
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
     if (props.mdlasset && props.mdlasset.nid) {
         const currast = props.mdlasset;
+        //console.log("Currast", currast);
         if (currast.bibl_summary === '') {
-            currast.bibl_summary =
-                '<div>Description is unavailable at this time!</div>';
+            currast.bibl_summary = '<div>Description is loading!</div>';
         }
+
         output = (
             <>
                 <Container className={'astviewer texts'} fluid>
@@ -172,14 +180,210 @@ export function TextsViewer(props) {
                             toc={currast.toc_links}
                             meta={currast.bibl_summary}
                             links={currast.views_links}
-                            title={currast.title}
+                            title={title}
                             sections={section_showing}
+                            altChange={setAltViewerUrl}
                         />
                     </Row>
                 </Container>
+                <TextsAltViewer
+                    title={title}
+                    url={alt_viewer_url}
+                    altChange={setAltViewerUrl}
+                />
                 {/* <ReactQueryDevtools initialIsOpen /> */}
             </>
         );
     }
     return output;
+}
+
+/**
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+function TextBody(props) {
+    const txt_link = props.alias;
+
+    // Adjust CSS for Texts only
+    useEffect(() => {
+        $(
+            '.sui-content, #sui-results,.astviewer, .astviewer.texts #shanti-texts-container'
+        ).css('height', 'inherit');
+    }, []);
+
+    useEffect(() => {
+        addBoClass('#sui-results');
+    });
+
+    return (
+        <Col id={'shanti-texts-body'} onScroll={props.listener}>
+            <div className={'link-external mandala-edit-link'}>
+                <a
+                    href={txt_link}
+                    target={'_blank'}
+                    title={'View Text in Mandala'}
+                >
+                    <span
+                        className={'shanticon shanticon-link-external'}
+                    ></span>
+                </a>
+            </div>
+            <HtmlWithPopovers markup={props.markup} />
+        </Col>
+    );
+}
+
+/**
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+function TextTabs(props) {
+    const parser = new Parser();
+    const toc_code = parser.parse(props.toc);
+    const info_icon = <span className={'shanticon shanticon-info'}></span>;
+    const collapse_icon = (
+        <span className={'shanticon shanticon-circle-right'}></span>
+    );
+    const [open, setOpen] = useState(true);
+    const [icon, setIcon] = useState(collapse_icon);
+    const toggle_col = () => {
+        setOpen(!open);
+    };
+    const update_icon = () => {
+        let new_icon = open ? collapse_icon : info_icon;
+        setIcon(new_icon);
+    };
+
+    const tabshtml = $(props.links);
+    const htmllinks = tabshtml.find('a');
+    const texthome = getCurrentEnvBase();
+    const title = props.title;
+
+    return (
+        <>
+            <div id={'sidecolumn-ctrl'}>
+                <a
+                    onClick={toggle_col}
+                    aria-controls="txtsidecol"
+                    aria-expanded="open"
+                    className={'sidecol-toggle'}
+                >
+                    {icon}
+                </a>
+            </div>
+            <Collapse in={open} onExited={update_icon} onEnter={update_icon}>
+                <Col id={'shanti-texts-sidebar'} md={4}>
+                    <Tabs
+                        id={'shanti-texts-sidebar-tabs'}
+                        className={'nav-justified'}
+                    >
+                        <Tab
+                            eventKey={'text_toc'}
+                            title={'Contents'}
+                            className={'shanti-texts-toc'}
+                        >
+                            <div className={'shanti-texts-record-title'}>
+                                <a href={'#shanti-top'}>{props.title}</a>
+                            </div>
+                            {toc_code}
+                        </Tab>
+                        <Tab eventKey={'text_bibl'} title={'Description'}>
+                            <HtmlWithPopovers
+                                markup={props.meta}
+                                app={'texts'}
+                            />
+                        </Tab>
+                        <Tab eventKey={'text_links'} title={'Views'}>
+                            <div className="shanti-texts-record-title">
+                                {title}
+                            </div>
+                            <h6>Alternative Formats</h6>
+                            <div>
+                                <table className="shanti-texts-record-table table">
+                                    <tbody>
+                                        {htmllinks.map((n, item) => {
+                                            let href = $(item).attr('href');
+                                            if (!href.includes('http')) {
+                                                href = texthome + href;
+                                            }
+                                            return (
+                                                <tr className="shanti-texts-field nothing">
+                                                    <td
+                                                        colSpan="2"
+                                                        className="shanti-texts-field-content"
+                                                    >
+                                                        <a
+                                                            href="#"
+                                                            data-href={href}
+                                                            onClick={() => {
+                                                                props.altChange(
+                                                                    href
+                                                                );
+                                                            }}
+                                                        >
+                                                            {$(item).text()}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Tab>
+                    </Tabs>
+                </Col>
+            </Collapse>
+        </>
+    );
+}
+
+/**
+ * Text Alt viewer provides the IFrame to show the alternative views in an Iframe
+ *
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
+function TextsAltViewer(props) {
+    const iframe_url = props.url;
+    const clname = props.url === '' ? 'hidden' : 'shown';
+    const text_title = props.title;
+    return (
+        <div id={'text-alt-viewer'} className={clname}>
+            <div className={'close-iframe'}>
+                <a
+                    href="#"
+                    title={'Back to ' + text_title}
+                    onClick={() => {
+                        props.altChange('');
+                    }}
+                >
+                    <span className={'icon shanticon-cancel'}></span>
+                </a>
+            </div>
+            <iframe src={iframe_url} className={'full-page-frame'} />
+        </div>
+    );
+}
+
+/**
+ * Uses NODE_ENV process environment variable to determine Texts home for alt links
+ *
+ * @returns {string}
+ */
+function getCurrentEnvBase() {
+    const env = process.env.NODE_ENV;
+    if (!env || env === 'development') {
+        return 'https://texts-dev.shanti.virginia.edu/';
+    } else if (env === 'test') {
+        return 'https://texts-stage.shanti.virginia.edu/';
+    } else {
+        return 'https://texts.shanti.virginia.edu/';
+    }
 }

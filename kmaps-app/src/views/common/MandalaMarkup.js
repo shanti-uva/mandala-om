@@ -38,8 +38,16 @@ function transform(node, index) {
                     ? linkcontents[0].split(':')[0]
                     : 'No title';
         }
+        const blocked = isBlockedUrl(linkurl);
+
         if (linkurl === '#') {
             return;
+        } else if (linkurl[0] === '/' || blocked) {
+            return (
+                <a href={linkurl} target={'_blank'}>
+                    {linkcontents}
+                </a>
+            );
         } else {
             return (
                 <MandalaModal
@@ -54,6 +62,25 @@ function transform(node, index) {
 }
 
 /**
+ * a function that determines which urls are allowed to show in modal windows instead of new window
+ *
+ * @param lnkurl
+ * @returns {boolean} : returns true if blocked from showing in modal
+ */
+function isBlockedUrl(lnkurl) {
+    // ToDo: Check if there's a way to ping a url to see if it allows Iframing?
+    // List of allowed domains for modal popups
+    const allowed = ['.virginia.edu', 'youtube.com', 'vimeo.com'];
+    for (let n in allowed) {
+        let domstr = allowed[n];
+        if (lnkurl.includes(domstr)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
  * Custom function to converts HTML from a Mandala App API into React Component using the MandalaPopover component for Popovers
  *
  * @param props
@@ -64,6 +91,12 @@ export function HtmlWithPopovers(props) {
     const htmlInput = props.markup ? props.markup : '<div></div>';
     const options = {
         decodeEntities: true,
+        preprocessNodes: function (nt) {
+            for (let n in nt) {
+                nt[n]['app'] = props.app ? props.app : false;
+            }
+            return nt;
+        },
         transform,
     };
 
