@@ -9,7 +9,10 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { KmapLink } from './KmapLink';
 
+// TODO: move all "style" declarations to css!
 export function FeatureCard(props) {
+    // console.log("FeatureCard: ", props.doc);
+
     const [modalShow, setModalShow] = React.useState(false);
 
     const typeGlyph = props.doc.uid ? (
@@ -46,6 +49,17 @@ export function FeatureCard(props) {
         );
     });
 
+    const feature_types = props.doc.feature_types_idfacet?.map((x, i) => {
+        const [name, id] = x.split('|');
+        return (
+            <div className="shanti-thumbnail-field shanti-field-subject">
+                <span className="shanti-field-content">
+                    <KmapLink key={i} uid={id} label={name} />
+                </span>
+            </div>
+        );
+    });
+
     const date = props.doc.timestamp?.split('T')[0];
 
     const footer_text = props.doc.collection_title ? (
@@ -63,7 +77,8 @@ export function FeatureCard(props) {
     let relateds = null;
 
     if (props.doc.asset_type === 'places') {
-        relateds = related_subjects;
+        // relateds = related_subjects;
+        relateds = feature_types;
     } else if (props.doc.asset_type === 'subjects') {
         relateds = related_places;
     }
@@ -85,7 +100,7 @@ export function FeatureCard(props) {
 
                 <div
                     style={{
-                        'border-top': '.5px solid #9e894d',
+                        borderTop: '.5px solid #9e894d',
                         height: '1px',
                         width: '100%',
                         margin: '6px 0 6px 0',
@@ -107,7 +122,7 @@ export function FeatureCard(props) {
                     </div>
                 )}
 
-                {relateds}
+                <div className={'sui-featureCard-relatedsWrap'}>{relateds}</div>
 
                 <span
                     className={'sui-showinfo shanticon-info float-right'}
@@ -147,9 +162,9 @@ export function FeatureCard(props) {
             </Card.Body>
             <Card.Footer
                 className={'sui-cardFooter'}
-                style={{ 'background-color': '#bbbbbb' }}
+                style={{ backgroundColor: '#bbbbbb' }}
             >
-                <span style={{ 'font-size': '11px' }}>{footer_text}</span>
+                <span style={{ fontSize: '11px' }}>{footer_text}</span>
             </Card.Footer>
         </Card>
     );

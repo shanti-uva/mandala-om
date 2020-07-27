@@ -52,8 +52,8 @@ export default function KmapContext(props) {
     console.log('KmapContext: props=', props);
 
     const status = useStatus();
-    status.clear();
-    status.setHeaderTitle('Loading...');
+    // status.clear();
+    // status.setHeaderTitle('Loading...');
 
     // Let's do the Easy Peasy thing
     const kmapActions = useStoreActions((actions) => actions.kmap);
@@ -157,12 +157,14 @@ export default function KmapContext(props) {
         // console.log("KmapContext: setting status from props = " , props);
     }, [id, relatedType, relatedPage, relatedPageSize]);
 
-    status.clear();
-    status.setHeaderTitle(kmasset.title);
-    status.setType(kmasset.asset_type);
-    const superPath = assemblePath(kmap, kmasset);
-    status.setPath(superPath);
-    status.setId(kmapId);
+    useEffect(() => {
+        status.clear();
+        status.setHeaderTitle(kmasset.title);
+        status.setType(kmasset.asset_type);
+        const superPath = assemblePath(kmap, kmasset);
+        status.setPath(superPath);
+        status.setId(kmapId);
+    });
 
     console.log('Mapped kmap: ', mapped_kmap);
 

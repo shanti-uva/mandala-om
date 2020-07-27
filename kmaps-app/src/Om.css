@@ -1627,6 +1627,11 @@ a {
     overflow-y: hidden;
 }
 
+.sui-featureCard-relatedsWrap {
+    max-height: 4.5em;
+    overflow-y: auto;
+}
+
 .loading-msg {
     font-size: 1.5rem;
     margin: 20px;

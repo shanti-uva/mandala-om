@@ -57,7 +57,6 @@ export const statusModel: StatusModel = {
         state.subTitle = subTitle;
     }),
     setHeaderTitle: action((state, title) => {
-        console.log('TRYING TO SET title = ', title);
         state.headerTitle = title;
     }),
     setType: action((state, type) => {

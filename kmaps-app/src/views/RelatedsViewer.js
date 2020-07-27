@@ -10,7 +10,7 @@ export function RelatedsViewer(props) {
     locMatch[loc] = 'selected';
 
     const baseArgs = {
-        baseType: 'terms',
+        baseType: match?.params.baseType || props.kmap?.tree || 'terms',
         baseUid: props.id,
         relateds: props.relateds,
     };

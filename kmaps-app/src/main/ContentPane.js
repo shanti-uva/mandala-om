@@ -22,10 +22,10 @@ import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
 
 export function ContentPane(props) {
-    // console.log("ContentPanel: props =  ", props);
+    console.log('ContentPanel: props =  ', props);
 
     let { path } = useRouteMatch();
-    // console.log("ContentPane path = ", path);
+    console.log('ContentPane path = ', path);
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
@@ -91,7 +91,12 @@ export function ContentPane(props) {
                         path={`${path}/poptest/:dom/:kid`}
                         component={MandalaPopoverTest}
                     />
-                    <Route path={`${path}places/:id`}>
+                    <Route
+                        path={[
+                            `${path}places/:id/related-:relatedType/:viewMode`,
+                            `${path}places/:id`,
+                        ]}
+                    >
                         <KmapContext>
                             <RelatedsViewer />
                             <KmapsViewer
@@ -101,7 +106,12 @@ export function ContentPane(props) {
                             />
                         </KmapContext>
                     </Route>
-                    <Route path={`${path}subjects/:id`}>
+                    <Route
+                        path={[
+                            `${path}subjects/:id/related-:relatedType/:viewMode`,
+                            `${path}subjects/:id`,
+                        ]}
+                    >
                         <KmapContext>
                             <RelatedsViewer />
                             <KmapsViewer
