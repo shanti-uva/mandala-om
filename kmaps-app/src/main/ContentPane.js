@@ -21,10 +21,10 @@ import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
 
 export function ContentPane(props) {
-    console.log('ContentPanel: props =  ', props);
+    // console.log('ContentPanel: props =  ', props);
 
     let { path } = useRouteMatch();
-    console.log('ContentPane path = ', path);
+    // console.log('ContentPane path = ', path);
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (

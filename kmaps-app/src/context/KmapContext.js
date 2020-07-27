@@ -49,7 +49,7 @@ function assemblePath(kmap, kmasset) {
 }
 
 export default function KmapContext(props) {
-    console.log('KmapContext: props=', props);
+    // console.log('KmapContext: props=', props);
 
     const status = useStatus();
     // status.clear();
@@ -166,7 +166,7 @@ export default function KmapContext(props) {
         status.setId(kmapId);
     });
 
-    console.log('Mapped kmap: ', mapped_kmap);
+    // console.log('Mapped kmap: ', mapped_kmap);
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {
