@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import { useStoreState } from 'easy-peasy';
+import Spinner from 'react-bootstrap/Spinner';
 
 function FacetChoice(props) {
     function handleFacetAdd() {
@@ -60,6 +62,8 @@ export function FacetBox(props) {
     const facets = props.facets;
     const chosenFacets = props.chosenFacets || [];
 
+    const loadingState = useStoreState((state) => state.search.loadingState);
+
     // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
     useEffect(() => {
         handleNarrowFilters();
@@ -77,6 +81,7 @@ export function FacetBox(props) {
             return collector;
         }, {});
     }
+
     const chosenHash = arrayToHash(chosenFacets, 'id');
 
     function handleNarrowFilters() {
@@ -223,7 +228,7 @@ export function FacetBox(props) {
 
     const name = 'sort_' + props.id;
     const facetBox = (
-        <div className="sui-advBox" id={'sui-advBox-' + props.id}>
+        <div className={'sui-advBox sui-advBox-' + props.id}>
             <div
                 className={'sui-advHeader'}
                 id={'sui-advHeader-A'}
@@ -308,6 +313,12 @@ export function FacetBox(props) {
                                 ></span>
                             </ToggleButton>
                         </ToggleButtonGroup>
+
+                        {loadingState && (
+                            <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </Spinner>
+                        )}
                     </span>
                 </div>
 

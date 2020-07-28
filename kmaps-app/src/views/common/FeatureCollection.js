@@ -8,6 +8,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import Spinner from 'react-bootstrap/Spinner';
 
 // There are three view modes encapsulated by three different components
 //          gallery:    FeatureGallery
@@ -62,6 +63,11 @@ export function FeatureCollection(props) {
             <h5>
                 View Mode:{' '}
                 <FeatureCollectionViewModeSelector viewMode={viewMode} />
+                {props.loadingState && (
+                    <Spinner animation="border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </Spinner>
+                )}
             </h5>
             {viewer}
         </div>
