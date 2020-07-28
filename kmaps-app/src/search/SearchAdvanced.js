@@ -70,6 +70,13 @@ export function SearchAdvanced(props) {
         setReset(reset + 1);
     }
 
+    function handleResetSuper() {
+        if (props.search) {
+            props.search.superClear();
+        }
+        setReset(reset + 1);
+    }
+
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components
     const advanced = (
         <div id="sui-adv" className={`sui-adv ${openclass} overflow-auto`}>
@@ -86,8 +93,12 @@ export function SearchAdvanced(props) {
                         Filters
                     </Nav.Link>
                     |
-                    <Nav.Link eventKey="resetFilters" onClick={handleResetAll}>
+                    <Nav.Link eventKey="resetAll" onClick={handleResetAll}>
                         All
+                    </Nav.Link>
+                    |
+                    <Nav.Link eventKey="resetSuper" onClick={handleResetSuper}>
+                        Super
                     </Nav.Link>
                 </Navbar.Collapse>
             </Navbar>

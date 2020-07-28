@@ -10,6 +10,7 @@ import {
 } from 'easy-peasy';
 import { search } from '../logic/searchapi';
 import { StoreModel } from './StoreModel';
+import localForage from 'localforage';
 
 interface Results {
     numFound: number | number;
@@ -56,6 +57,9 @@ export interface SearchModel {
 
     // clear all filters and the search string
     clearAll: Action<SearchModel>;
+
+    // clear underlying stores as well
+    superClear: Action<SearchModel>;
 
     // narrowFilters
     narrowFilters: Action<SearchModel, NarrowFilter>;
@@ -119,7 +123,6 @@ export const searchModel: SearchModel = {
         } else if (pageNum < 0) {
             pageNum = 0;
         }
-
         //console.error("gotoPage() pageNum = ", pageNum);
         state.page.start = state.page.rows * pageNum;
         state.page.current = pageNum;
@@ -128,7 +131,6 @@ export const searchModel: SearchModel = {
         increment |= 1;
         //console.log("SearchModel: pager.nextPage() ", increment);
         //console.log("SearchModel: state.page ", state.page)
-
         let oldPage = state.page.current;
         let newStart = state.page.start + increment * state.page.rows;
         if (newStart > state.page.maxStart) {
@@ -203,7 +205,6 @@ export const searchModel: SearchModel = {
         });
         performance.clearMeasures();
 
-        searchState.loadingState = false;
         actions.receiveResults(results);
     }),
 
@@ -294,6 +295,22 @@ export const searchModel: SearchModel = {
         state.page.current = 0; // always reset page when changing filters
         state.page.start = 0;
     }),
+
+    superClear: action((state) => {
+        state.query.filters = [];
+        state.query.facetFilters = {};
+        state.query.searchText = '';
+        state.page.current = 0; // always reset page when changing filters
+        state.page.start = 0;
+        localForage
+            .clear()
+            .then(() => {
+                console.log('localForage cleared!');
+            })
+            .catch((e) => {
+                console.error('localForage error on clear(): ', e);
+            });
+    }),
     // LISTENERS
     onUpdate: thunkOn(
         // targetResolver:
@@ -310,6 +327,7 @@ export const searchModel: SearchModel = {
             actions.addFilters,
             actions.setSearchText,
             actions.narrowFilters,
+            actions.superClear,
         ],
         // handler:
         async (actions, target) => {

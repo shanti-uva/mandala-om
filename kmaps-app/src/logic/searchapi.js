@@ -33,9 +33,9 @@ function setCache(request, data) {
     localforage
         .setItem(checksum(JSON.stringify(request)), data)
         .then(() => {
-            // localforage.length().then((length) => {
-            //     console.log('localforage length = ', length);
-            //     console.log('localforage driver = ', localforage.driver());
+            // localForage.length().then((length) => {
+            //     console.log('localForage length = ', length);
+            //     console.log('localForage driver = ', localForage.driver());
             // });
         })
         .catch((err) => {

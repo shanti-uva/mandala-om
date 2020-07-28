@@ -60,6 +60,7 @@ export default function SearchContext(props) {
         removeFilters,
         setPageSize,
         narrowFilters,
+        superClear,
     } = debounceAll(useStoreActions((actions) => actions.search));
 
     const query = search.query;
@@ -73,6 +74,7 @@ export default function SearchContext(props) {
         addFilters: addFilters,
         clearFilters: clearFilters,
         clearAll: clearAll,
+        superClear: superClear,
         removeFilters: removeFilters,
         narrowFilters: narrowFilters,
     };
