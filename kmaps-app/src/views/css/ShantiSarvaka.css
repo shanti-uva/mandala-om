@@ -146,3 +146,12 @@ iframe.mdlmodal {
 }
 
 /*********************** End Mandala Modal Styles ***********************/
+
+/*** Inline Styles for HTML from Mandala included in Stand alone ***/
+figure.image.center img,
+div.image-wrapper.center img,
+figure.image.center figcaption,
+div.image-wrapper.center figcaption {
+    margin-left: auto;
+    margin-right: auto;
+}

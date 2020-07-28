@@ -97,7 +97,24 @@ export function TextsViewer(props) {
             setSections(sections_new);
 
             // Highlight first link in TOC
-            const firstlink = $('.shanti-texts-toc > ul > li.first > a');
+            const myhash = window.location.hash;
+            const mytochash = myhash.replace(
+                'shanti-texts-',
+                'shanti-texts-toc-'
+            );
+            console.log(
+                myhash,
+                'selector: ' + '.shanti-texts-toc > ul  a' + mytochash
+            );
+            let firstlink = $('.shanti-texts-toc > ul > li.first > a');
+            if (
+                myhash &&
+                $('.shanti-texts-toc > ul  a' + mytochash).length === 1
+            ) {
+                firstlink = $('.shanti-texts-toc > ul  a' + mytochash);
+                $(myhash).get(0).scrollIntoView();
+                console.log('setting', myhash, firstlink);
+            }
             firstlink.addClass('toc-selected');
         }
     }); // End of sections effect
