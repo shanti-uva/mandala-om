@@ -511,6 +511,11 @@ html {
     padding: 4px 8px 2px 8px;
     border-radius: 6px;
 }
+
+.sui-advBox-asset_type {
+    text-transform: capitalize;
+}
+
 .sui-advHeader:hover {
     color: #668eec;
 }
