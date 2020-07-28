@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/mandala-om/static/css/main.26ef1fd1.chunk.css",
+    "main.css": "/mandala-om/static/css/main.bce6b854.chunk.css",
     "main.js": "/mandala-om/static/js/main.95876b00.chunk.js",
     "main.js.map": "/mandala-om/static/js/main.95876b00.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.5255fc5b.js",
@@ -9,10 +9,10 @@
     "static/js/2.75a1472b.chunk.js": "/mandala-om/static/js/2.75a1472b.chunk.js",
     "static/js/2.75a1472b.chunk.js.map": "/mandala-om/static/js/2.75a1472b.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.70c418c4c39c20c0c03c9c5004ac7cff.js": "/mandala-om/precache-manifest.70c418c4c39c20c0c03c9c5004ac7cff.js",
+    "precache-manifest.303cb7d2253341faea0db44f54189fb7.js": "/mandala-om/precache-manifest.303cb7d2253341faea0db44f54189fb7.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.f83d61e1.chunk.css.map": "/mandala-om/static/css/2.f83d61e1.chunk.css.map",
-    "static/css/main.26ef1fd1.chunk.css.map": "/mandala-om/static/css/main.26ef1fd1.chunk.css.map",
+    "static/css/main.bce6b854.chunk.css.map": "/mandala-om/static/css/main.bce6b854.chunk.css.map",
     "static/js/2.75a1472b.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.75a1472b.chunk.js.LICENSE.txt",
     "static/media/ShantiSarvaka.css": "/mandala-om/static/media/museosans-300-webfont.b08f7489.woff2",
     "static/media/index.css": "/mandala-om/static/media/shanticon.9d6d13f8.ttf",
@@ -22,7 +22,7 @@
     "static/js/runtime-main.5255fc5b.js",
     "static/css/2.f83d61e1.chunk.css",
     "static/js/2.75a1472b.chunk.js",
-    "static/css/main.26ef1fd1.chunk.css",
+    "static/css/main.bce6b854.chunk.css",
     "static/js/main.95876b00.chunk.js"
   ]
 }
