@@ -217,6 +217,8 @@ export const searchModel: SearchModel = {
         if (state.results !== results) {
             state.results = results;
         }
+
+        state.loadingState = false;
     }),
     setSearchText: action((state, searchString) => {
         // TODO: might need to insert sanity checks here.
