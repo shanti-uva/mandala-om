@@ -1,0 +1,21 @@
+.sui-termsDetails__wrapper {
+    margin-bottom: 3.2rem;
+}
+.sui-termsDetails__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.sui-termsDetails__list-item {
+    flex: 1 0 100%;
+}
+@media (min-width: 768px) {
+    .sui-termsDetails__list-item {
+        flex: 1 0 45%;
+    }
+}
+.sui-termsDetails__li-subjects {
+    font-style: italic;
+}

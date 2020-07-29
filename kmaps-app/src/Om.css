@@ -235,7 +235,7 @@ html {
     top: 43px;
     width: 100%;
     height: calc(100% - 73px);
-    background-color: #fff;
+    background-color: #dddddd;
     display: block;
     overflow-y: auto;
 }
@@ -744,7 +744,7 @@ html {
 }
 
 .sui-relatedItem.selected {
-    background: #dcdcdc;
+    background: #f7f7f7;
 }
 
 .sui-relatedItem:not(.selected):hover {
@@ -840,7 +840,7 @@ html {
     border: 1px solid #999;
     border-radius: 6px;
     padding: 20px;
-    color: #000; 
+    color: #000;
 } */
 
 .sui-termTitle {
