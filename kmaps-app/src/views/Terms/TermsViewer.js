@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import TermNames from './TermNames';
+import TermsDetails from './TermsDetails';
 import TermAudioPlayer from './TermAudioPlayer';
 import TermEtymology from './TermEtymology';
 import TermDefinitions from './TermDefinitions';
@@ -48,6 +49,7 @@ export default function TermsViewer(props) {
                         </Route>
                         <Route>
                             <TermNames kmap={props.kmap} />
+                            <TermsDetails kmAsset={props.kmasset} />
                             <TermAudioPlayer kmap={props.kmap} />
                             {props.kmap.etymologies_ss && (
                                 <TermEtymology kmap={props.kmap} />
