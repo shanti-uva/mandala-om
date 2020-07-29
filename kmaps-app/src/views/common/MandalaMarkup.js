@@ -22,19 +22,11 @@ function transform(node, index) {
                 ? false
                 : node.attribs['data-mandala-id'];
 
-        let gotourl = linkurl;
-        if (linkurl.indexOf('youtube.com') > -1) {
-            linkurl = linkurl.replace('watch?v=', 'embed/');
-            if (linkurl.indexOf('&t') > -1) {
-                linkurl = linkurl.replace('&t', '?start');
-                linkurl = linkurl.substring(0, linkurl.length - 1);
-            }
-        }
         let linkcontents = [];
         for (let n in node.children) {
             linkcontents.push(
                 convertNodeToElement(node.children[n], index, transform)
-            ); //elToHtml(node.children[n]);
+            );
         }
         let mytitle = node.attribs['title'] ? node.attribs['title'] : false;
         if (mytitle === false) {
@@ -48,31 +40,25 @@ function transform(node, index) {
         if (linkurl === '#') {
             return;
         } else if (mandalaid) {
-            //console.log("mandala id: " + mandalaid);
             return <MandalaLink mid={mandalaid} contents={linkcontents} />;
-            /*
-            let newurl = process.env.PUBLIC_URL + '/';
-            if (mandalaid.includes('-collection-')) {
-                newurl += mandalaid.replace('-collection-', '-collection/');
-            } else {
-                newurl += mandalaid
-                    .replace(/\-/g, '/')
-                    .replace('audio/video', 'audio-video');
-            }
-            return (
-                // Convert to component MandalaLink
-                <a href={newurl} data-mandala-id={mandalaid}>
-                    {linkcontents}
-                </a>
-            );
-            */
-        } else if (linkurl[0] === '/' || blocked) {
+        } else if (linkurl[0] === '/') {
+            return <MandalaPathDecoder path={linkurl} />;
+        } else if (blocked) {
             return (
                 <a href={linkurl} target={'_blank'}>
                     {linkcontents}
                 </a>
             );
         } else {
+            let gotourl = linkurl;
+            if (linkurl.indexOf('youtube.com') > -1) {
+                linkurl = linkurl.replace('watch?v=', 'embed/');
+                if (linkurl.indexOf('&t') > -1) {
+                    linkurl = linkurl.replace('&t', '?start');
+                    linkurl = linkurl.substring(0, linkurl.length - 1);
+                }
+            }
+
             return (
                 <MandalaModal
                     url={linkurl}
@@ -162,39 +148,6 @@ export function GetMandalaProcessingInstruction(processNodeDefs) {
     ];
 }
 
-/**
- * Custom function to convert the js node object tree from htmlToReactParser back into an html markup string
- * to be inserted into the dom. Used in the GetMandalaProcessingInstruction() to extract the popover body html
- *
- * @param el
- * @returns {string}
- */
-function elToHtml(el) {
-    let elout = '';
-    if (el.type == 'tag') {
-        elout = '<' + el.name;
-        for (let atnm in el.attribs) {
-            let attval = el.attribs[atnm];
-            if (el.attribs['class'] === 'popover' && atnm === 'style') {
-                continue;
-            }
-            if (el.attribs['class'] === 'popover-body') {
-                continue;
-            }
-            //if (atnm === 'style') { attval = attval.replace('display: none;',''); }
-            elout += ' ' + atnm + '="' + attval + '"';
-        }
-        elout += '>';
-        for (let n in el.children) {
-            elout += elToHtml(el.children[n]);
-        }
-        elout += '</' + el.name + '>';
-    } else if (el.type == 'text') {
-        elout = el.data;
-    }
-    return elout;
-}
-
 function MandalaLink(props) {
     const mid = props.mid;
     const children = props.contents;
@@ -210,3 +163,5 @@ function MandalaLink(props) {
         </a>
     );
 }
+
+function MandalaPathDecoder(props) {}
