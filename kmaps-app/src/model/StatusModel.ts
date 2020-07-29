@@ -48,6 +48,7 @@ export const statusModel: StatusModel = {
         state.id = null;
     }),
     setId: action((state, id) => {
+        document.title = state.headerTitle + ' (' + id + ')';
         state.id = id;
     }),
     setPath: action((state, path) => {
@@ -57,6 +58,7 @@ export const statusModel: StatusModel = {
         state.subTitle = subTitle;
     }),
     setHeaderTitle: action((state, title) => {
+        document.title = title + (state.id ? ' (' + state.id + ')' : '');
         state.headerTitle = title;
     }),
     setType: action((state, type) => {
