@@ -396,14 +396,7 @@ function TextsAltViewer(props) {
  * @returns {string}
  */
 function getCurrentEnvBase() {
-    const env = process.env.NODE_ENV;
-    if (!env || env === 'development') {
-        return 'https://texts-dev.shanti.virginia.edu/';
-    } else if (env === 'test') {
-        return 'https://texts-stage.shanti.virginia.edu/';
-    } else {
-        return 'https://texts.shanti.virginia.edu/';
-    }
+    const env = process.env.REACT_APP_DRUPAL_TEXTS;
 }
 
 function TestComp(props) {
@@ -429,14 +422,13 @@ function TestComp(props) {
         },
     };
     const results = useSolrEnabled('newtsq', q2, res1);
-    console.log('results 2', results);
 
     let nf = '?';
     let adocs = [];
-    if (results && results.data) {
-        console.log('res data', results.data);
-        nf = results.data.numFound;
-        adocs = JSON.stringify(results.data.docs, null, 2);
+    if (results) {
+        console.log('res data', results);
+        nf = results.numFound;
+        adocs = JSON.stringify(results.docs, null, 2);
     }
     return (
         <>

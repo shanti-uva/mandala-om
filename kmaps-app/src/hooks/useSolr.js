@@ -62,9 +62,10 @@ export function useSolr(qkey, queryobj) {
  * @returns {any}
  */
 export function useSolrEnabled(qkey, queryobj, depvar) {
-    return useQuery([qkey, { query: queryobj }], getSolrData, {
+    const res = useQuery([qkey, { query: queryobj }], getSolrData, {
         enabled: depvar,
     });
+    return res && res.data ? res.data : false;
 }
 
 /**
