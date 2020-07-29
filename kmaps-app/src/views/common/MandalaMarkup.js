@@ -49,6 +49,8 @@ function transform(node, index) {
             return;
         } else if (mandalaid) {
             //console.log("mandala id: " + mandalaid);
+            return <MandalaLink mid={mandalaid} contents={linkcontents} />;
+            /*
             let newurl = process.env.PUBLIC_URL + '/';
             if (mandalaid.includes('-collection-')) {
                 newurl += mandalaid.replace('-collection-', '-collection/');
@@ -58,10 +60,12 @@ function transform(node, index) {
                     .replace('audio/video', 'audio-video');
             }
             return (
+                // Convert to component MandalaLink
                 <a href={newurl} data-mandala-id={mandalaid}>
                     {linkcontents}
                 </a>
             );
+            */
         } else if (linkurl[0] === '/' || blocked) {
             return (
                 <a href={linkurl} target={'_blank'}>
@@ -189,4 +193,20 @@ function elToHtml(el) {
         elout = el.data;
     }
     return elout;
+}
+
+function MandalaLink(props) {
+    const mid = props.mid;
+    const children = props.contents;
+    let newurl = process.env.PUBLIC_URL + '/';
+    if (mid.includes('-collection-')) {
+        newurl += mid.replace('-collection-', '-collection/');
+    } else {
+        newurl += mid.replace(/\-/g, '/').replace('audio/video', 'audio-video');
+    }
+    return (
+        <a href={newurl} data-mandala-id={mid}>
+            {children}
+        </a>
+    );
 }
