@@ -779,6 +779,10 @@ html {
     text-transform: uppercase;
 }
 
+.sui-recent {
+    margin-top: 2em;
+}
+
 /* SOURCES PAGE */
 .sui-sources {
     max-width: 900px;
