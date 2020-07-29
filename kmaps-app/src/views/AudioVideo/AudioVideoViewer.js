@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Parser } from 'html-to-react';
-import './css/AVViewer.css';
+import '../css/AVViewer.css';
 import $ from 'jquery';
 
 export function AudioVideoViewer(props) {
