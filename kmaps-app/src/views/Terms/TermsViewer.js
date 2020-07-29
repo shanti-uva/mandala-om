@@ -21,7 +21,7 @@ import { useRouteMatch } from 'react-router';
 export default function TermsViewer(props) {
     console.log('GerardKetuma', props);
     //Get all related Definitions
-    const definitions = _(props.kmap._childDocuments_)
+    const definitions = _(props.kmap?._childDocuments_)
         .pickBy((val) => {
             return val.block_child_type === 'related_definitions';
         })
@@ -51,7 +51,7 @@ export default function TermsViewer(props) {
                             <TermNames kmap={props.kmap} />
                             <TermsDetails kmAsset={props.kmasset} />
                             <TermAudioPlayer kmap={props.kmap} />
-                            {props.kmap.etymologies_ss && (
+                            {props.kmap?.etymologies_ss && (
                                 <TermEtymology kmap={props.kmap} />
                             )}
                             <TermDefinitions

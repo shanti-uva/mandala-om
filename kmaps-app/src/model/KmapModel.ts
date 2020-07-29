@@ -53,7 +53,7 @@ export const kmapModel: KmapModel = {
     loading: false,
     stateKey: computed((state) => {
         return (
-            state.kmap.uid +
+            state.kmap?.uid +
             '/' +
             state.relatedsPage?.related_type +
             '/' +

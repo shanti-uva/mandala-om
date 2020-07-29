@@ -8,7 +8,7 @@ export default function TermNames(props) {
 
     // TODO: Refactor so that Redux delivers the rebuilt nested docs instead of leaving it up to the Components.
     const namesTree = buildNestedDocs(
-        props.kmap._childDocuments_,
+        props.kmap?._childDocuments_,
         'related_names'
     );
 
