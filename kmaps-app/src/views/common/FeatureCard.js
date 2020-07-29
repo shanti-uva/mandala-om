@@ -22,7 +22,14 @@ export function FeatureCard(props) {
         props.doc.uid &&
         props.doc.asset_type !== 'images' &&
         props.doc.asset_type !== 'audio-video' ? (
-            <span className={'icon shanticon-' + props.doc.asset_type}></span>
+            <span
+                className={
+                    'icon shanticon-' +
+                    props.doc.asset_type +
+                    ' sui-color-' +
+                    props.doc.asset_type
+                }
+            ></span>
         ) : null;
 
     const viewer = props.doc.asset_type;

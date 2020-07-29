@@ -20,7 +20,10 @@ export function ContentHeader(props) {
     const convertedPath = pathy;
 
     const cheader = (
-        <div id="sui-header" className={`sui-header legacy ${props.siteClass}`}>
+        <div
+            id="sui-header"
+            className={`sui-header legacy ${props.siteClass} ${status.type}`}
+        >
             <div id="sui-contentHead" className="sui-contentHead legacy">
                 <div>
                     <span>
