@@ -11,6 +11,7 @@ import {
 import { HtmlWithPopovers } from './common/MandalaMarkup';
 import { Parser } from 'html-to-react';
 import { addBoClass } from './common/utils';
+import { useSolr } from '../hooks/useSolr';
 import $ from 'jquery';
 
 // import { ReactQueryDevtools } from 'react-query-devtools';
@@ -102,10 +103,6 @@ export function TextsViewer(props) {
                 'shanti-texts-',
                 'shanti-texts-toc-'
             );
-            console.log(
-                myhash,
-                'selector: ' + '.shanti-texts-toc > ul  a' + mytochash
-            );
             let firstlink = $('.shanti-texts-toc > ul > li.first > a');
             if (
                 myhash &&
@@ -113,7 +110,6 @@ export function TextsViewer(props) {
             ) {
                 firstlink = $('.shanti-texts-toc > ul  a' + mytochash);
                 $(myhash).get(0).scrollIntoView();
-                console.log('setting', myhash, firstlink);
             }
             firstlink.addClass('toc-selected');
         }
@@ -185,6 +181,7 @@ export function TextsViewer(props) {
 
         output = (
             <>
+                (<TestComp />)
                 <Container className={'astviewer texts'} fluid>
                     <Row id={'shanti-texts-container'}>
                         <TextBody
@@ -403,4 +400,20 @@ function getCurrentEnvBase() {
     } else {
         return 'https://texts.shanti.virginia.edu/';
     }
+}
+
+function TestComp(props) {
+    const testquery = {
+        index: 'assets',
+        params: {
+            q: 'asset_type:text',
+            row: '2',
+        },
+        dataFilter: function (data) {
+            return JSON.stringify(data);
+        },
+    };
+    const res = useSolr('tqry', testquery);
+    console.log('res in test comp', res);
+    return <pre>{res}</pre>;
 }
