@@ -102,37 +102,13 @@ export function useKmap(domain, kid, query_type) {
 /**
  * A function to get the proper Solr base URL for the current environment.
  * Returns an object with both an assets and a terms property that contains the base url to that index
- * for the given environment. TODO: Do we need a terms /query url?
+ * for the given environment. Uses environment variables set by .env files for each environment
  * @param env
  * @returns {{assets: string, terms: string}}
  */
 function getSolrUrls(env) {
-    switch (env) {
-        case 'development':
-            return {
-                assets:
-                    ' https://ss251856-us-east-1-aws.measuredsearch.com/solr/kmassets_dev/select',
-                terms:
-                    'https://ss251856-us-east-1-aws.measuredsearch.com/solr/kmterms_dev/select',
-            };
-            break;
-
-        case 'test':
-            return {
-                assets:
-                    'https://ss395824-us-east-1-aws.measuredsearch.com/solr/kmassets_stage/select',
-                terms:
-                    'https://ss395824-us-east-1-aws.measuredsearch.com/solr/kmterms_stage/select',
-            };
-            break;
-
-        case 'production':
-            return {
-                assets:
-                    'https://ss395824-us-east-1-aws.measuredsearch.com/solr/kmassets/select',
-                terms:
-                    'https://ss395824-us-east-1-aws.measuredsearch.com/solr/kmterms_prod/select',
-            };
-            break;
-    }
+    return {
+        assets: process.env.REACT_APP_SOLR_KMASSETS + '/select',
+        terms: process.env.REACT_APP_SOLR_KMTERMS + '/select',
+    };
 }

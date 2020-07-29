@@ -17,6 +17,11 @@ function transform(node, index) {
         node.attribs['href']
     ) {
         let linkurl = node.attribs['href'];
+        let mandalaid =
+            typeof node.attribs['data-mandala-id'] === 'undefined'
+                ? false
+                : node.attribs['data-mandala-id'];
+
         let gotourl = linkurl;
         if (linkurl.indexOf('youtube.com') > -1) {
             linkurl = linkurl.replace('watch?v=', 'embed/');
@@ -42,6 +47,21 @@ function transform(node, index) {
 
         if (linkurl === '#') {
             return;
+        } else if (mandalaid) {
+            //console.log("mandala id: " + mandalaid);
+            let newurl = process.env.PUBLIC_URL + '/';
+            if (mandalaid.includes('-collection-')) {
+                newurl += mandalaid.replace('-collection-', '-collection/');
+            } else {
+                newurl += mandalaid
+                    .replace(/\-/g, '/')
+                    .replace('audio/video', 'audio-video');
+            }
+            return (
+                <a href={newurl} data-mandala-id={mandalaid}>
+                    {linkcontents}
+                </a>
+            );
         } else if (linkurl[0] === '/' || blocked) {
             return (
                 <a href={linkurl} target={'_blank'}>
@@ -91,12 +111,6 @@ export function HtmlWithPopovers(props) {
     const htmlInput = props.markup ? props.markup : '<div></div>';
     const options = {
         decodeEntities: true,
-        preprocessNodes: function (nt) {
-            for (let n in nt) {
-                nt[n]['app'] = props.app ? props.app : false;
-            }
-            return nt;
-        },
         transform,
     };
 
