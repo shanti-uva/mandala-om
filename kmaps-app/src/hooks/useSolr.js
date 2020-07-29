@@ -9,7 +9,6 @@ const solrurls = getSolrUrls(process.env.NODE_ENV);
  * A async function to perform a solr query provided a query object. The query object needs to have the following properties:
  *      index: (assets|terms),
  *      params: name-value pairs for params for the query
- *      dataFilter: (optional) function to filter data
  * @param _
  * @param query
  * @returns {Promise<any>}
@@ -30,26 +29,16 @@ const getSolrData = async (_, { query }) => {
         myparams['wt'] = 'json';
     }
 
-    const myfilter =
-        'dataFilter' in query
-            ? query.dataFilter
-            : () => {
-                  return false;
-              };
-
     const request = {
         adapter: jsonpAdapter,
         callbackParamName: 'json.wrf',
         url: solrurls[query.index],
         params: myparams,
-        transformResponse: function (data) {
-            const filtered_data = myfilter(data);
-            return filtered_data ? filtered_data : data;
-        },
     };
     const { data } = await axios.request(request);
+    const retdata = data && data.response ? data.response : data;
 
-    return data;
+    return retdata;
 };
 
 /**
@@ -60,7 +49,8 @@ const getSolrData = async (_, { query }) => {
  * @returns {any}
  */
 export function useSolr(qkey, queryobj) {
-    return useQuery([qkey, { query: queryobj }], getSolrData);
+    const res = useQuery([qkey, { query: queryobj }], getSolrData);
+    return res && res.data ? res.data : false;
 }
 
 /**

@@ -11,8 +11,12 @@ import {
 import { HtmlWithPopovers } from './common/MandalaMarkup';
 import { Parser } from 'html-to-react';
 import { addBoClass } from './common/utils';
-import { useSolr } from '../hooks/useSolr';
+import { useSolr, useSolrEnabled } from '../hooks/useSolr';
 import $ from 'jquery';
+
+import { useQuery, queryCache } from 'react-query';
+import jsonpAdapter from '../logic/axios-jsonp';
+import axios from 'axios';
 
 // import { ReactQueryDevtools } from 'react-query-devtools';
 
@@ -404,16 +408,78 @@ function getCurrentEnvBase() {
 
 function TestComp(props) {
     const testquery = {
-        index: 'assets',
+        index: 'terms',
         params: {
-            q: 'asset_type:text',
-            row: '2',
-        },
-        dataFilter: function (data) {
-            return JSON.stringify(data);
+            q: 'header:Lhasa AND tree:places AND feature_types:ADM3',
+            rows: 1,
         },
     };
-    const res = useSolr('tqry', testquery);
-    console.log('res in test comp', res);
-    return <pre>{res}</pre>;
+    const res1 = useSolr('tqry', testquery);
+    let { numFound, start, docs } = res1
+        ? res1
+        : { numFound: 0, start: 0, docs: [] };
+    const kmapid = docs && docs.length > 0 ? docs[0].id : false;
+
+    const q2 = {
+        index: 'assets',
+        params: {
+            q: 'kmapid:' + kmapid,
+            fl: 'id,uid',
+            rows: 25,
+        },
+    };
+    const results = useSolrEnabled('newtsq', q2, res1);
+    console.log('results 2', results);
+
+    let nf = '?';
+    let adocs = [];
+    if (results && results.data) {
+        console.log('res data', results.data);
+        nf = results.data.numFound;
+        adocs = JSON.stringify(results.data.docs, null, 2);
+    }
+    return (
+        <>
+            <p>
+                Lhasa's kmid is: {kmapid}. Found {nf} assets connected with it:{' '}
+            </p>
+            <pre>{adocs}</pre>
+        </>
+    );
 }
+
+const doTextQuery = async (_, { query }) => {
+    const solrurls = {
+        assets: process.env.REACT_APP_SOLR_KMASSETS + '/select',
+        terms: process.env.REACT_APP_SOLR_KMTERMS + '/select',
+    };
+
+    if (!(query.index in solrurls)) {
+        console.warn(
+            'A solr index labeled, ' +
+                query.index +
+                ', does not exist. Cannot perform query:',
+            query
+        );
+        return false;
+    }
+
+    let myparams = query.params;
+    if (!('wt' in myparams)) {
+        myparams['wt'] = 'json';
+    }
+
+    const request = {
+        adapter: jsonpAdapter,
+        callbackParamName: 'json.wrf',
+        url: solrurls[query.index],
+        params: myparams,
+    };
+    const { data } = await axios.request(request);
+    let retdata = false;
+    if (data && data.response) {
+        retdata = data.response;
+    }
+
+    return retdata;
+};
