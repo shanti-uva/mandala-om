@@ -12,7 +12,9 @@ export function ContentHeader(props) {
         if (i !== 0) {
             pathy.push(sep);
         }
-        pathy.push(<KmapLink uid={link.uid} label={link.name} />);
+        pathy.push(
+            <KmapLink key={link.uid} uid={link.uid} label={link.name} />
+        );
     });
 
     const convertedPath = pathy;
