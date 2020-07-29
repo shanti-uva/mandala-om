@@ -12,13 +12,18 @@ export function ContentHeader(props) {
         if (i !== 0) {
             pathy.push(sep);
         }
-        pathy.push(<KmapLink uid={link.uid} label={link.name} />);
+        pathy.push(
+            <KmapLink key={link.uid} uid={link.uid} label={link.name} />
+        );
     });
 
     const convertedPath = pathy;
 
     const cheader = (
-        <div id="sui-header" className={`sui-header legacy ${props.siteClass}`}>
+        <div
+            id="sui-header"
+            className={`sui-header legacy ${props.siteClass} ${status.type}`}
+        >
             <div id="sui-contentHead" className="sui-contentHead legacy">
                 <div>
                     <span>

@@ -24,7 +24,7 @@ export default function SearchContext(props) {
     if (show_debug) console.log('SearchContext params = ', params);
 
     function debounce(func) {
-        return _.debounce(func, 200);
+        return _.debounce(func, 100);
     }
 
     function debounceAll(funcs) {

@@ -18,7 +18,7 @@ export default function KmapsViewer(props) {
     const [modalShow, setModalShow] = useState();
 
     //Get all related Definitions
-    const definitions = _(props.kmap._childDocuments_)
+    const definitions = _(props.kmap?._childDocuments_)
         .pickBy((val) => {
             return val.block_child_type === 'related_definitions';
         })

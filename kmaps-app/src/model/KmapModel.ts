@@ -53,7 +53,7 @@ export const kmapModel: KmapModel = {
     loading: false,
     stateKey: computed((state) => {
         return (
-            state.kmap.uid +
+            state.kmap?.uid +
             '/' +
             state.relatedsPage?.related_type +
             '/' +
@@ -120,9 +120,6 @@ export const kmapModel: KmapModel = {
     update: thunk(async (actions, payload, helpers) => {
         const kmapState = helpers.getStoreState().kmap;
         kmapState.loading = true;
-
-        // TODO: How do we get these values?
-        //  NEED TO GET related assets only when needed...?
         const type = kmapState.relatedsPage.related_type;
         const start =
             Number(

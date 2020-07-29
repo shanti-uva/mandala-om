@@ -16,7 +16,7 @@ export function PlacesInfo(props) {
 
             return (
                 <li>
-                    <KmapLink uid={uid} label={label} />
+                    <KmapLink key={uid} uid={uid} label={label} />
                 </li>
             );
         });

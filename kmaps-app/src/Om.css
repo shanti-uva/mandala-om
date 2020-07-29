@@ -779,6 +779,10 @@ html {
     text-transform: uppercase;
 }
 
+.sui-recent {
+    margin-top: 2em;
+}
+
 /* SOURCES PAGE */
 .sui-sources {
     max-width: 900px;
@@ -1462,6 +1466,35 @@ a {
 .mandala.sui-header {
     background-color: #4d59ca;
 }
+
+.mandala.terms {
+    background-color: rgb(162, 115, 63);
+}
+.mandala.all {
+    background-color: rgb(91, 102, 203);
+}
+.mandala.audio-video {
+    background-color: rgb(88, 170, 180);
+}
+.mandala.images {
+    background-color: rgb(180, 156, 89);
+}
+.mandala.sources {
+    background-color: rgb(90, 87, 173);
+}
+.mandala.texts {
+    background-color: rgb(139, 90, 161);
+}
+.mandala.visuals {
+    background-color: rgb(110, 148, 86);
+}
+.mandala.subjects {
+    background-color: rgb(204, 76, 57);
+}
+.mandala.collections {
+    background-color: rgb(91, 102, 203);
+}
+
 .mandala.sui-results {
     background-size: 100% auto;
     background-repeat: no-repeat;

@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import './TermAudioPlayer.css';
 
 function TermAudioPlayer(props) {
-    const audioRefs = _.filter(props.kmap._childDocuments_, (x) => {
+    const audioRefs = _.filter(props.kmap?._childDocuments_, (x) => {
         return x.block_child_type === 'terms_recording';
     });
 
