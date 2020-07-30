@@ -4,17 +4,22 @@ import { Link, useRouteMatch } from 'react-router-dom';
 export function RelatedsViewer(props) {
     console.log('Relateds props = ', props);
 
-    const match = useRouteMatch('/:baseType/:baseUid/related-:type');
+    const match = useRouteMatch([
+        '/:baseType/:baseUid/related-:type',
+        '/:baseType/:baseUid',
+    ]);
+    console.log('Relateds match = ', match);
+
     const loc = match?.params.type || 'home';
     let locMatch = {};
     locMatch[loc] = 'selected';
 
     const baseArgs = {
-        baseType: match?.params.baseType || props.kmap?.tree || 'terms',
-        baseUid: props.id,
+        baseType: match?.params.baseType || props.kmap?.tree || 'assets',
+        baseUid: props.id || match?.params.baseUid,
         relateds: props.relateds,
     };
-    if (!props.id) {
+    if (!props.id && !baseArgs.baseUid) {
         return null;
     }
 

@@ -32,21 +32,24 @@ export default function KmapsViewer(props) {
         output = (
             <div className="termsviewer">
                 <div className="sui-terms">
-                    <NodeHeader kmasset={props.kmasset} />
+                    {/*<NodeHeader kmasset={props.kmasset} />*/}
                     <Switch>
                         <Route
                             path={
                                 '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
+                            <NodeHeader {...props} kmasset={props.kmasset} />
                             <RelatedsGallery {...props} />
                         </Route>
                         <Route path={'/:viewerType/:id/related-:relatedType'}>
+                            <NodeHeader kmasset={props.kmasset} />
                             <Redirect to={'./all'} />
                         </Route>
 
+                        {/* Default or "Home" path */}
                         <Route>
-                            {/* This displays for all types */}
+                            <NodeHeader kmasset={props.kmasset} />
                             <TermNames kmap={props.kmap} />
 
                             <Switch>
