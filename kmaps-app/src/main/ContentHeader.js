@@ -4,7 +4,6 @@ import { KmapLink } from '../views/common/KmapLink';
 export function ContentHeader(props) {
     const status = useStoreState((state) => state.status);
     // console.error("ContentHeader status = " , status);
-
     // console.log(" ContentHeader path = ", status.path)
     const sep = '\u00BB';
     let pathy = [];

@@ -5,12 +5,19 @@ import { useRouteMatch } from 'react-router';
 function NodeHeader(props) {
     const match = useRouteMatch();
     const { id, relatedType, viewerType, viewMode } = match.params;
-    console.log('NodeHeader match = ', match);
+
+    let subHeader =
+        props.subHeader ||
+        (relatedType === 'all'
+            ? 'All Related Items'
+            : viewerType
+            ? 'Related ' + relatedType
+            : null);
     const nameTibtText = props.kmasset.name_tibt
         ? props.kmasset.name_tibt[0]
         : null;
-    const nameLatinText = props.kmasset.name_latin[1]
-        ? props.kmasset.name_latin[1]
+    const nameLatinText = props.kmasset.name_latin[0]
+        ? props.kmasset.name_latin[0]
         : props.kmasset.title[0];
     const nameTibtElem = nameTibtText ? (
         <span className={'sui-nodeTitle-item tibt'}>{nameTibtText} </span>
@@ -26,7 +33,10 @@ function NodeHeader(props) {
             &nbsp;
             <span className="sui-termTitle sui-nodeTitle" id="sui-termTitle">
                 {nameTibtElem} {nameLatinElem}
-            </span>
+            </span>{' '}
+            {subHeader && (
+                <span className={'sui-relatedSubHeader'}>{subHeader}</span>
+            )}
             <hr style={{ borderTop: '1px solid rgb(162, 115, 63)' }} />
         </div>
     );

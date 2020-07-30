@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 // import Accordion from "react-bootstrap/Accordion";
 // import Button from "react-bootstrap/Button";
@@ -18,6 +18,7 @@ export function FeatureCard(props) {
     const typeGlyph = props.doc.uid ? (
         <span className={'icon shanticon-' + props.doc.asset_type}></span>
     ) : null;
+
     const assetGlyph =
         props.doc.uid &&
         props.doc.asset_type !== 'images' &&
@@ -88,6 +89,8 @@ export function FeatureCard(props) {
         relateds = feature_types;
     } else if (props.doc.asset_type === 'subjects') {
         relateds = related_places;
+    } else if (props.doc.asset_type === 'terms') {
+        relateds = related_subjects;
     }
 
     // console.log("FOOTERING: ", props.doc);
@@ -100,9 +103,10 @@ export function FeatureCard(props) {
                     <div className={'sui-cardGlyph'}>{assetGlyph}</div>
                 </div>
             </Link>
+
             <Card.Body>
                 <Card.Title className={'sui-cardTitle'}>
-                    {props.doc.title[0]}
+                    <SmartTitle doc={props.doc} />
                 </Card.Title>
 
                 <div
@@ -113,6 +117,14 @@ export function FeatureCard(props) {
                         margin: '6px 0 6px 0',
                     }}
                 ></div>
+
+                {props.doc.ancestors_txt && props.doc.asset_type !== 'terms' && (
+                    <div className="shanti-thumbnail-field shanti-field-path">
+                        <span className="shanti-field-content">
+                            <SmartPath doc={props.doc} />
+                        </span>
+                    </div>
+                )}
 
                 {props.doc.creator && (
                     <div className="shanti-thumbnail-field shanti-field-creator">
@@ -141,24 +153,6 @@ export function FeatureCard(props) {
                         <span className="shanti-field-content">{date}</span>
                     </div>
                 )}
-
-                {/*<div>{props.doc.uid}</div>*/}
-                {/*<div>*/}
-                {/*    {!_.isEmpty(props.doc.caption)*/}
-                {/*        ? props.doc.caption*/}
-                {/*        : props.doc.summary}*/}
-                {/*</div>*/}
-                {/*</Card.Text>*/}
-                {/*<Button variant="primary">Go somewhere</Button>*/}
-
-                {/*<Accordion>*/}
-                {/*    <Accordion.Toggle as={Button} eventKey="0">*/}
-                {/*        Item JSON*/}
-                {/*    </Accordion.Toggle>*/}
-                {/*    <Accordion.Collapse eventKey="0">*/}
-                {/*        <pre>{JSON.stringify(props.doc, undefined, 2)}</pre>*/}
-                {/*    </Accordion.Collapse>*/}
-                {/*</Accordion>*/}
 
                 <DetailModal
                     show={modalShow}
@@ -200,4 +194,57 @@ function DetailModal(props) {
             </Modal.Footer>
         </Modal>
     );
+}
+
+function SmartTitle(props) {
+    let smartTitle = props.doc.title[0];
+
+    function findIn(arr, value) {
+        return _.findIndex(arr, (x) => x === value);
+    }
+
+    switch (props.doc.asset_type) {
+        case 'places':
+            // UNITED STATES NAMING RULES
+            const n = findIn(
+                props.doc.ancestors_txt,
+                'United States of America'
+            );
+            if (n > 1) {
+                let state = props.doc.ancestors_txt[n + 1];
+                if (findIn(props.doc.feature_types_ss, 'County') > -1) {
+                    smartTitle += ' County';
+                }
+                smartTitle += ', ' + state;
+            }
+            break;
+        case 'subjects':
+        case 'terms':
+        case 'audio-video':
+        case 'texts':
+        case 'sources':
+        case 'visuals':
+        case 'images':
+    }
+    return <>{smartTitle}</>;
+}
+
+function SmartPath(props) {
+    const { doc } = props;
+    console.log('SmartPath doc = ', doc);
+
+    let smartPath = <>{doc.ancestors_txt.join('/')}</>;
+    switch (doc.asset_type) {
+        case 'places':
+            smartPath = <>{doc.ancestors_txt.slice(3, 6).join('/')}</>;
+            break;
+        case 'subjects':
+            smartPath = <>{doc.ancestors_txt.slice(0, 2).join('/')}</>;
+            break;
+        case 'terms':
+            smartPath = null;
+            break;
+    }
+
+    return smartPath;
 }

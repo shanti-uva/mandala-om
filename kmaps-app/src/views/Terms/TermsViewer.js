@@ -73,19 +73,20 @@ export default function TermsViewer(props) {
         output = (
             <div className="termsviewer">
                 <div className="sui-terms">
-                    <NodeHeader kmasset={props.kmasset} />
                     <Switch>
                         <Route
                             path={
                                 '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
+                            <NodeHeader kmasset={props.kmasset} />
                             <RelatedsGallery {...props} />
                         </Route>
                         <Route path={'/:viewerType/:id/related-:relatedType'}>
                             <Redirect to={'./all'} />
                         </Route>
                         <Route>
+                            <NodeHeader kmasset={props.kmasset} />
                             <TermNames kmap={props.kmap} />
                             <TermsDetails kmAsset={props.kmasset} />
                             <TermAudioPlayer kmap={props.kmap} />
