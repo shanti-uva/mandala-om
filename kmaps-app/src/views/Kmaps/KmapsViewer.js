@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
 import TermNames from '../Terms/TermNames';
-// import CardGroup from "react-bootstrap/CardGroup";
 import 'rc-input-number/assets/index.css';
 import NodeHeader from '../common/NodeHeader';
 import { RelatedsGallery } from '../common/RelatedsGallery';
@@ -13,9 +12,19 @@ import { SubjectsInfo } from './SubjectsInfo';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import useStatus from '../../hooks/useStatus';
 
 export default function KmapsViewer(props) {
     const [modalShow, setModalShow] = useState();
+    const status = useStatus();
+    useEffect(() => {
+        status.clear();
+        status.setHeaderTitle(props.kmasset.title);
+        status.setType(props.kmasset.asset_type);
+        const superPath = assemblePath(props.kmap, props.kmasset);
+        status.setPath(superPath);
+        status.setId(props.kmasset.uid);
+    }, [props.kmasset.uid]);
 
     //Get all related Definitions
     const definitions = _(props.kmap?._childDocuments_)
@@ -111,4 +120,32 @@ function DetailModal(props) {
             </Modal.Footer>
         </Modal>
     );
+}
+
+//  assembles a path from the data is has...
+function assemblePath(kmap, kmasset) {
+    // console.log("assemble kmap = ", kmap);
+    // console.log("assemble kmasset = ", kmasset);
+    //
+    let path = [];
+
+    if (kmasset?.ancestor_ids_is && kmasset?.ancestors_txt) {
+        const t = kmasset.asset_type;
+        const ids = kmasset.ancestor_ids_is;
+        const names = kmasset.ancestors_txt;
+
+        for (let i = 0; i < ids.length; i++) {
+            const uid = t + '-' + ids[i];
+            const name = names[i];
+            path.push({
+                uid: uid,
+                name: name,
+            });
+        }
+    } else {
+        console.log(
+            'KmapContext.assembledPath: kmasset does not have ancestor_ids_is or ancestors_txt.'
+        );
+    }
+    return path;
 }
