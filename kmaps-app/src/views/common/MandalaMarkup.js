@@ -63,9 +63,10 @@ function transform(node, index) {
             const domain = pathparts[0].includes('.shanti.virginia')
                 ? pathparts.shift()
                 : false;
-            const mtch = domain.match(
-                /(audio-video|images|sources|texts|visuals)/
-            );
+            const mtch =
+                domain && typeof domain == 'string'
+                    ? domain.match(/(audio-video|images|sources|texts|visuals)/)
+                    : false;
             // if only one part to the path, it's most likely not a resource but a Drupal page/view so must use modal
             // or if a mandala app name is not in domain.
             if (pathparts.length == 1 || !mtch) {
@@ -158,6 +159,14 @@ function MandalaLink(props) {
     );
 }
 
+/**
+ * Functional Component for in-Mandala links attempt to search for alias in SOLR and if found
+ * returns a link within react to app/id.
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function MandalaPathDecoder(props) {
     const asset_path = props.mpath;
     const qobj = {
@@ -168,18 +177,29 @@ function MandalaPathDecoder(props) {
         },
     };
     const asset = useSolr(asset_path, qobj);
-    const { asset_type, id } = asset
-        ? asset.docs[0]
-        : { asset_type: false, id: false };
-    if (asset_type && id) {
-        const newpath = process.env.PUBLIC_URL + '/' + asset_type + '/' + id;
-        return (
-            <a href={newpath} title={props.title} data-original-url={props.url}>
-                {props.contents}
-            </a>
-        );
+    if (asset && asset.docs && asset.docs.length > 0) {
+        const { asset_type, id } = asset.docs[0];
+        if (asset_type && id) {
+            const newpath =
+                process.env.PUBLIC_URL + '/' + asset_type + '/' + id;
+            return (
+                <a
+                    href={newpath}
+                    title={props.title}
+                    data-original-url={props.url}
+                >
+                    {props.contents}
+                </a>
+            );
+        }
     }
-    return <span>Oh no!</span>;
+    return (
+        <MandalaModal
+            url={props.url}
+            title={props.title}
+            text={props.contents}
+        />
+    );
 }
 
 export function getRandomKey(txt) {
