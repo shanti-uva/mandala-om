@@ -11,14 +11,7 @@ import {
 import { HtmlWithPopovers } from './common/MandalaMarkup';
 import { Parser } from 'html-to-react';
 import { addBoClass } from './common/utils';
-import { useSolr, useSolrEnabled } from '../hooks/useSolr';
 import $ from 'jquery';
-
-import { useQuery, queryCache } from 'react-query';
-import jsonpAdapter from '../logic/axios-jsonp';
-import axios from 'axios';
-
-// import { ReactQueryDevtools } from 'react-query-devtools';
 
 /**
  * Text Viewer Component: The parent component for viewing a text. Gets sent the asset information as a prop
@@ -185,7 +178,6 @@ export function TextsViewer(props) {
 
         output = (
             <>
-                (<TestComp />)
                 <Container className={'astviewer texts'} fluid>
                     <Row id={'shanti-texts-container'}>
                         <TextBody
@@ -398,80 +390,3 @@ function TextsAltViewer(props) {
 function getCurrentEnvBase() {
     const env = process.env.REACT_APP_DRUPAL_TEXTS;
 }
-
-function TestComp(props) {
-    const testquery = {
-        index: 'terms',
-        params: {
-            q: 'header:Lhasa AND tree:places AND feature_types:ADM3',
-            rows: 1,
-        },
-    };
-    const res1 = useSolr('tqry', testquery);
-    let { numFound, start, docs } = res1
-        ? res1
-        : { numFound: 0, start: 0, docs: [] };
-    const kmapid = docs && docs.length > 0 ? docs[0].id : false;
-
-    const q2 = {
-        index: 'assets',
-        params: {
-            q: 'kmapid:' + kmapid,
-            fl: 'id,uid',
-            rows: 25,
-        },
-    };
-    const results = useSolrEnabled('newtsq', q2, res1);
-
-    let nf = '?';
-    let adocs = [];
-    if (results) {
-        console.log('res data', results);
-        nf = results.numFound;
-        adocs = JSON.stringify(results.docs, null, 2);
-    }
-    return (
-        <>
-            <p>
-                Lhasa's kmid is: {kmapid}. Found {nf} assets connected with it:{' '}
-            </p>
-            <pre>{adocs}</pre>
-        </>
-    );
-}
-
-const doTextQuery = async (_, { query }) => {
-    const solrurls = {
-        assets: process.env.REACT_APP_SOLR_KMASSETS + '/select',
-        terms: process.env.REACT_APP_SOLR_KMTERMS + '/select',
-    };
-
-    if (!(query.index in solrurls)) {
-        console.warn(
-            'A solr index labeled, ' +
-                query.index +
-                ', does not exist. Cannot perform query:',
-            query
-        );
-        return false;
-    }
-
-    let myparams = query.params;
-    if (!('wt' in myparams)) {
-        myparams['wt'] = 'json';
-    }
-
-    const request = {
-        adapter: jsonpAdapter,
-        callbackParamName: 'json.wrf',
-        url: solrurls[query.index],
-        params: myparams,
-    };
-    const { data } = await axios.request(request);
-    let retdata = false;
-    if (data && data.response) {
-        retdata = data.response;
-    }
-
-    return retdata;
-};
