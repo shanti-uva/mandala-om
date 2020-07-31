@@ -13,9 +13,9 @@ const TermsDetails = (props) => {
                     return (
                         <li className="sui-termsDetails__list-item" key={asset}>
                             {assetSplit[0].split('=')[0].toUpperCase()}: {` `}
-                            <span className="sui-termsDetails__li-subjects">
+                            {/*<span className="sui-termsDetails__li-subjects">
                                 {assocSubject[0]}
-                            </span>
+                            </span>*/}
                             <MandalaPopover domain={subID[0]} kid={subID[1]} />
                         </li>
                     );
