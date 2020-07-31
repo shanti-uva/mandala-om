@@ -1,14 +1,13 @@
 import { FeatureGallery } from './FeatureGallery';
 import React, { useState } from 'react';
-import { useParams, Redirect, useHistory } from 'react-router';
+import { Redirect, useHistory, useParams } from 'react-router';
 import _ from 'lodash';
 import { FeatureDeck } from './FeatureDeck';
 import { FeatureList } from './FeatureList';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Spinner from 'react-bootstrap/Spinner';
+import { FeatureFilters } from './FeatureFilters';
 
 // There are three view modes encapsulated by three different components
 //          gallery:    FeatureGallery
@@ -60,7 +59,7 @@ export function FeatureCollection(props) {
 
     return (
         <div>
-            <h5>
+            <div>
                 View Mode:{' '}
                 <FeatureCollectionViewModeSelector viewMode={viewMode} />
                 {props.loadingState && (
@@ -68,7 +67,8 @@ export function FeatureCollection(props) {
                         <span className="sr-only">Loading...</span>
                     </Spinner>
                 )}
-            </h5>
+            </div>
+            <FeatureFilters />
             {viewer}
         </div>
     );

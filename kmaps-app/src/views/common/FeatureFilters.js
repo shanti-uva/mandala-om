@@ -1,0 +1,49 @@
+import React from 'react';
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import { FacetChoice } from '../../search/FacetChoice';
+import Badge from 'react-bootstrap/Badge';
+import { CSSTransition } from 'react-transition-group'; // ES6
+
+export function FeatureFilters(props) {
+    const filters = useStoreState((state) => state.search.query.filters);
+    const search = useStoreState((state) => state.search);
+
+    const { removeFilters } = useStoreActions((actions) => actions.search);
+
+    function handleFacetClick(...x) {
+        console.log('Received ', x);
+        console.log(' try to remove id = ', x.value);
+        removeFilters([{ id: x[0].value }]);
+    }
+
+    console.log('FeatureFilters filters = ', filters);
+
+    const removeIconClass = 'sui-advTermRem shanticon-cancel-circle icon';
+
+    const entries = filters.map((entry) => {
+        console.log('FeatureFilters x = ', entry);
+        return (
+            <Badge pill variant={'secondary'} className={'m-2 p-2 pr-3'}>
+                <FacetChoice
+                    mode={'remove'}
+                    key={`Remove ${entry.match} ${entry.label}`}
+                    className={removeIconClass}
+                    value={entry.id}
+                    labelText={entry.label}
+                    label={entry.label}
+                    facetType={entry.field}
+                    onFacetClick={(msg) => {
+                        handleFacetClick({ ...msg, action: 'remove' });
+                    }}
+                />
+            </Badge>
+        );
+    });
+
+    return entries.length > 0 ? (
+        <span className={'center'}>
+            Applied Filters:
+            {entries}
+        </span>
+    ) : null;
+}

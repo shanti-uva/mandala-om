@@ -16,7 +16,7 @@ export function SmartPath(props) {
             smartPath = <>{doc.ancestors_txt.slice(3, 6).join('/')}</>;
             break;
         case 'subjects':
-            smartPath = <>{doc.ancestors_txt.slice(0, 2).join('/')}</>;
+            smartPath = <>{doc.ancestors_txt.slice(1, 2).join('/')}</>;
             break;
         case 'terms':
             // NO PATH for terms.

@@ -1,53 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import _ from 'lodash';
 import * as PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { useStoreState } from 'easy-peasy';
 import Spinner from 'react-bootstrap/Spinner';
-
-function FacetChoice(props) {
-    function handleFacetAdd() {
-        // console.log("DELEGATING Add Click: ", props);
-        props.onFacetClick({ ...props, action: 'add' });
-    }
-
-    function handleFacetRemove(x, y) {
-        // console.log("DELEGATING Remove Click: ", props)
-        props.onFacetClick({ ...props, action: 'remove' });
-    }
-
-    const chosen = props.chosen ? 'chosen' : '';
-
-    const choice =
-        props.mode === 'add' ? (
-            <div
-                onClick={handleFacetAdd}
-                className={'sui-advEditLine ' + chosen}
-            >
-                <span className={props.className}></span> {props.label}(
-                {props.count}){' '}
-            </div>
-        ) : (
-            <div>
-                <span
-                    onClick={handleFacetRemove}
-                    className={props.className}
-                ></span>{' '}
-                {props.label}
-            </div>
-        );
-    return choice;
-}
-
-FacetChoice.propTypes = {
-    className: PropTypes.string,
-    value: PropTypes.any,
-    count: PropTypes.any,
-};
+import { FacetChoice } from './FacetChoice';
 
 export function FacetBox(props) {
     const inputEl = useRef(null);

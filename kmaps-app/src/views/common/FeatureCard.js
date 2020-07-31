@@ -119,6 +119,17 @@ export function FeatureCard(props) {
                     }}
                 ></div>
 
+                {props.doc.asset_type && (
+                    <div className="shanti-thumbnail-field shanti-field-path">
+                        <span className="shanti-field-content">
+                            {props.doc.asset_type}{' '}
+                            {props.doc.asset_subtype
+                                ? '/ ' + props.doc.asset_subtype
+                                : ''}
+                        </span>
+                    </div>
+                )}
+
                 {props.doc.ancestors_txt && props.doc.asset_type !== 'terms' && (
                     <div className="shanti-thumbnail-field shanti-field-path">
                         <span className="shanti-field-content">
@@ -126,7 +137,6 @@ export function FeatureCard(props) {
                         </span>
                     </div>
                 )}
-
                 {props.doc.creator && (
                     <div className="shanti-thumbnail-field shanti-field-creator">
                         <span className="shanti-field-content">

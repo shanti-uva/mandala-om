@@ -45,6 +45,11 @@ export function SmartTitle(props) {
             break;
         case 'images':
             break;
+        case 'collections':
+            if (props.doc.asset_subtype) {
+                smartTitle += ' (' + props.doc.asset_subtype + ')';
+            }
+            break;
     }
     return <>{smartTitle}</>;
 }
