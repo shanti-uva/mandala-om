@@ -18,11 +18,9 @@ const solrurls = {
  * @returns {Promise<any>}
  */
 const getSolrData = async (_, { query }) => {
-    if (!(query.index in solrurls)) {
+    if (!(query.index in solrurls) || !query.params) {
         console.warn(
-            'A solr index labeled, ' +
-                query.index +
-                ', does not exist. Cannot perform query:',
+            'The query object sent to useSolr() did not have proper index or params values: ',
             query
         );
         return false;

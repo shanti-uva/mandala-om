@@ -8,8 +8,7 @@ import {
     Tabs,
     Tab,
 } from 'react-bootstrap';
-import { HtmlWithPopovers } from './common/MandalaMarkup';
-import { Parser } from 'html-to-react';
+import { HtmlWithPopovers, getRandomKey } from './common/MandalaMarkup';
 import { addBoClass } from './common/utils';
 import $ from 'jquery';
 
@@ -253,8 +252,8 @@ function TextBody(props) {
  * @constructor
  */
 function TextTabs(props) {
-    const parser = new Parser();
-    const toc_code = parser.parse(props.toc);
+    /*const parser = new Parser();
+    const toc_code = parser.parse(props.toc);*/
     const info_icon = <span className={'shanticon shanticon-info'}></span>;
     const collapse_icon = (
         <span className={'shanticon shanticon-circle-right'}></span>
@@ -271,7 +270,29 @@ function TextTabs(props) {
 
     const tabshtml = $(props.links);
     const htmllinks = tabshtml.find('a');
-    const texthome = getCurrentEnvBase();
+    const linkscomp = htmllinks.map((n, item) => {
+        let href = $(item).attr('href');
+        if (!href.includes('http')) {
+            href = process.env.REACT_APP_DRUPAL_TEXTS + href;
+        }
+        const mytxt = $(item).text();
+        const mykey = getRandomKey(mytxt);
+        return (
+            <tr className="shanti-texts-field nothing" key={mykey}>
+                <td colSpan="2" className="shanti-texts-field-content">
+                    <a
+                        href="#"
+                        data-href={href}
+                        onClick={() => {
+                            props.altChange(href);
+                        }}
+                    >
+                        {mytxt}
+                    </a>
+                </td>
+            </tr>
+        );
+    });
     const title = props.title;
 
     return (
@@ -300,7 +321,10 @@ function TextTabs(props) {
                             <div className={'shanti-texts-record-title'}>
                                 <a href={'#shanti-top'}>{props.title}</a>
                             </div>
-                            {toc_code}
+                            <HtmlWithPopovers
+                                markup={props.toc}
+                                app={'texts'}
+                            />
                         </Tab>
                         <Tab eventKey={'text_bibl'} title={'Description'}>
                             <HtmlWithPopovers
@@ -315,34 +339,7 @@ function TextTabs(props) {
                             <h6>Alternative Formats</h6>
                             <div>
                                 <table className="shanti-texts-record-table table">
-                                    <tbody>
-                                        {htmllinks.map((n, item) => {
-                                            let href = $(item).attr('href');
-                                            if (!href.includes('http')) {
-                                                href = texthome + href;
-                                            }
-                                            return (
-                                                <tr className="shanti-texts-field nothing">
-                                                    <td
-                                                        colSpan="2"
-                                                        className="shanti-texts-field-content"
-                                                    >
-                                                        <a
-                                                            href="#"
-                                                            data-href={href}
-                                                            onClick={() => {
-                                                                props.altChange(
-                                                                    href
-                                                                );
-                                                            }}
-                                                        >
-                                                            {$(item).text()}
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
+                                    <tbody>{linkscomp}</tbody>
                                 </table>
                             </div>
                         </Tab>
@@ -380,13 +377,4 @@ function TextsAltViewer(props) {
             <iframe src={iframe_url} className={'full-page-frame'} />
         </div>
     );
-}
-
-/**
- * Uses NODE_ENV process environment variable to determine Texts home for alt links
- *
- * @returns {string}
- */
-function getCurrentEnvBase() {
-    const env = process.env.REACT_APP_DRUPAL_TEXTS;
 }

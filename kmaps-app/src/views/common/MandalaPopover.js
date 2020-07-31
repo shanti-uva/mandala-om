@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useKmap } from '../../hooks/useKmap';
-import { ReactQueryDevtools } from 'react-query-devtools';
+import { getRandomKey } from './MandalaMarkup';
+// import { ReactQueryDevtools } from 'react-query-devtools';
 import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
 
 /**
@@ -30,6 +31,7 @@ export function MandalaPopover(props) {
     const domain = props.domain;
     const kid = props.kid;
     const placement = props.placement ? props.placement : 'bottom';
+    const kmkey = props.key;
 
     // Query Custom Hooks (see hooks/useKmaps.js)
     // Info for Kmap Itself: kmapRes
@@ -67,7 +69,12 @@ export function MandalaPopover(props) {
 
     // JSX
     return (
-        <span className="kmap-tag-group" data-kmdomain={domain} data-kmid={kid}>
+        <span
+            key={kmkey}
+            className="kmap-tag-group"
+            data-kmdomain={domain}
+            data-kmid={kid}
+        >
             <span className={isTib ? 'bo' : ''}>{myhead}</span>
             <span
                 className="popover-link"
@@ -376,7 +383,7 @@ export function MandalaPopoverTest(props) {
                     </Col>
                 </Row>
             </Container>
-            <ReactQueryDevtools initialIsOpen />
+            {/* <ReactQueryDevtools initialIsOpen />*/}
         </>
     );
 }
