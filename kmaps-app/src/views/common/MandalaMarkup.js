@@ -50,7 +50,7 @@ function transform(node, index) {
         }
         const blocked = isBlockedUrl(linkurl);
 
-        if (linkurl === '#') {
+        if (linkurl[0] === '#') {
             return;
         } else if (mandalaid) {
             return <MandalaLink mid={mandalaid} contents={linkcontents} />;
