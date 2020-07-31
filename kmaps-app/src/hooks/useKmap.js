@@ -10,7 +10,7 @@ const solr_urls = getSolrUrls(process.env.NODE_ENV);
  *      url: the base url for the query
  *      params: an object of named parameters and values for the query. Queries can have variables,
  *              _DOMAIN_ for the domain placeholder, and _KID_ for the kmaps ID placeholder
- *      dataFilter: if a function that takes the raw data returned from axios and filters it in a custom way
+ *      dataFilter: is a function that takes the raw data returned from axios and filters it in a custom way
  *                  to return the desired portion of the result.
  */
 const queries = {
