@@ -136,7 +136,8 @@ function MandalaPopoverBody(props) {
             : '';
     const pubfolder = process.env.PUBLIC_URL;
     const mandala_base = pubfolder; // TODO: Check if this needs to change?
-    const kmap_item_page = mandala_base + '/terms/' + domain + '-' + kid;
+    const kmap_item_page =
+        mandala_base + '/' + domain + '/' + domain + '-' + kid;
 
     // Feature types
     let featuretypes = '';
@@ -146,7 +147,7 @@ function MandalaPopoverBody(props) {
                 <p>
                     <strong>Feature Type</strong>
                     {kminfo.feature_type_ids.map((item, index) => {
-                        const url = mandala_base + '/terms/subjects-' + item;
+                        const url = mandala_base + '/subjects/subjects-' + item;
                         return (
                             <>
                                 <a href={url}>{kminfo.feature_types[index]}</a>
@@ -179,7 +180,13 @@ function MandalaPopoverBody(props) {
                             return;
                         } // Don't show self in ancestry list
                         const aurl =
-                            mandala_base + '/terms/' + kminfo.tree + '-' + aid;
+                            mandala_base +
+                            '/' +
+                            kminfo.tree +
+                            '/' +
+                            kminfo.tree +
+                            '-' +
+                            aid;
                         const label = ancestor_labels[index];
                         return <a href={aurl}>{label}</a>;
                     })}
@@ -199,7 +206,8 @@ function MandalaPopoverBody(props) {
                 </div>
                 <div className="termtypes">
                     {kminfo.associated_subject_ids.map((item, n) => {
-                        const myurl = mandala_base + '/terms/subject-' + item;
+                        const myurl =
+                            mandala_base + '/subjects/subjects-' + item;
                         return (
                             <a href={myurl}>{kminfo.associated_subjects[n]}</a>
                         );

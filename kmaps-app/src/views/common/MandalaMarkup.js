@@ -78,7 +78,7 @@ function transform(node, index) {
                     />
                 );
             }
-            const app = mtch[0];
+            //const app = mtch[0];
             const asset_path = pathparts.join('/');
             return (
                 <MandalaPathDecoder
