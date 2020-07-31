@@ -21,8 +21,7 @@ function transform(node, index) {
     if (node.attribs && node.attribs['class'] === 'kmap-tag-group') {
         const kmpdom = node.attribs['data-kmdomain'];
         const kmpid = node.attribs['data-kmid'];
-        const mykey = getRandomKey(kmpdom + kmpid);
-        return <MandalaPopover domain={kmpdom} kid={kmpid} key={mykey} />;
+        return <MandalaPopover domain={kmpdom} kid={kmpid} />;
     } // Process External Links in Mandala Markup to turn into Modals or Internal links TODO: Process internal Mandala links
     else if (
         node.name &&
