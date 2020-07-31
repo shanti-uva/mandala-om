@@ -1,5 +1,4 @@
 import Card from 'react-bootstrap/Card';
-import _ from 'lodash';
 import { Link } from 'react-router-dom';
 // import Accordion from "react-bootstrap/Accordion";
 // import Button from "react-bootstrap/Button";
@@ -8,6 +7,8 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { KmapLink } from './KmapLink';
+import { SmartTitle } from './SmartTitle';
+import { SmartPath } from './SmartPath';
 
 // TODO: move all "style" declarations to css!
 export function FeatureCard(props) {
@@ -194,57 +195,4 @@ function DetailModal(props) {
             </Modal.Footer>
         </Modal>
     );
-}
-
-function SmartTitle(props) {
-    let smartTitle = props.doc.title[0];
-
-    function findIn(arr, value) {
-        return _.findIndex(arr, (x) => x === value);
-    }
-
-    switch (props.doc.asset_type) {
-        case 'places':
-            // UNITED STATES NAMING RULES
-            const n = findIn(
-                props.doc.ancestors_txt,
-                'United States of America'
-            );
-            if (n > 1) {
-                let state = props.doc.ancestors_txt[n + 1];
-                if (findIn(props.doc.feature_types_ss, 'County') > -1) {
-                    smartTitle += ' County';
-                }
-                smartTitle += ', ' + state;
-            }
-            break;
-        case 'subjects':
-        case 'terms':
-        case 'audio-video':
-        case 'texts':
-        case 'sources':
-        case 'visuals':
-        case 'images':
-    }
-    return <>{smartTitle}</>;
-}
-
-function SmartPath(props) {
-    const { doc } = props;
-    console.log('SmartPath doc = ', doc);
-
-    let smartPath = <>{doc.ancestors_txt.join('/')}</>;
-    switch (doc.asset_type) {
-        case 'places':
-            smartPath = <>{doc.ancestors_txt.slice(3, 6).join('/')}</>;
-            break;
-        case 'subjects':
-            smartPath = <>{doc.ancestors_txt.slice(0, 2).join('/')}</>;
-            break;
-        case 'terms':
-            smartPath = null;
-            break;
-    }
-
-    return smartPath;
 }
