@@ -28,12 +28,12 @@ const stateDefault = {
 export function Main(props) {
     const [state, setState] = useState(stateDefault);
     const handleStateChange = (new_state) => {
-        console.log('Setting state with: ', new_state);
-        console.log('Old state = ', state);
+        // console.log('Setting state with: ', new_state);
+        // console.log('Old state = ', state);
 
         setState({ ...state, ...new_state });
-        console.log('New state = ', state);
-        console.log('Main() state = ', state);
+        // console.log('New state = ', state);
+        // console.log('Main() state = ', state);
     };
 
     const storeReady = useStoreRehydrated();

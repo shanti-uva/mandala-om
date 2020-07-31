@@ -39,9 +39,9 @@ export function FeatureCard(props) {
     const related_places = props.doc.kmapid_places_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
-            <div className="shanti-thumbnail-field shanti-field-place">
+            <div key={i} className="shanti-thumbnail-field shanti-field-place">
                 <span className="shanti-field-content">
-                    <KmapLink key={i} uid={id} label={name} />
+                    <KmapLink uid={id} label={name} />
                 </span>
             </div>
         );
@@ -50,20 +50,26 @@ export function FeatureCard(props) {
     const related_subjects = props.doc.kmapid_subjects_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
-            <div className="shanti-thumbnail-field shanti-field-subject">
+            <div
+                key={i}
+                className="shanti-thumbnail-field shanti-field-subject"
+            >
                 <span className="shanti-field-content">
-                    <KmapLink key={i} uid={id} label={name} />
+                    <KmapLink uid={id} label={name} />
                 </span>
             </div>
         );
     });
 
-    const feature_types = props.doc.feature_types_idfacet?.map((x) => {
+    const feature_types = props.doc.feature_types_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
-            <div className="shanti-thumbnail-field shanti-field-subject">
+            <div
+                key={id}
+                className="shanti-thumbnail-field shanti-field-subject"
+            >
                 <span className="shanti-field-content">
-                    <KmapLink key={id} uid={id} label={name} />
+                    <KmapLink uid={id} label={name} />
                 </span>
             </div>
         );

@@ -16,17 +16,22 @@ export function FeatureFilters(props) {
         removeFilters([{ id: x[0].value }]);
     }
 
-    console.log('FeatureFilters filters = ', filters);
+    // console.log('FeatureFilters filters = ', filters);
 
     const removeIconClass = 'sui-advTermRem shanticon-cancel-circle icon';
 
     const entries = filters.map((entry) => {
-        console.log('FeatureFilters x = ', entry);
+        // console.log('FeatureFilters x = ', entry);
         return (
-            <Badge pill variant={'secondary'} className={'m-2 p-2 pr-3'}>
+            <Badge
+                key={entry.id}
+                pill
+                variant={'secondary'}
+                className={'m-2 p-2 pr-3'}
+            >
                 <FacetChoice
                     mode={'remove'}
-                    key={`Remove ${entry.match} ${entry.label}`}
+                    key={`Remove ${entry.id}`}
                     className={removeIconClass}
                     value={entry.id}
                     labelText={entry.label}
