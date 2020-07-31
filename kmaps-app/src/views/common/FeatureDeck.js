@@ -86,7 +86,6 @@ export function FeatureDeck(props) {
 
     const output = (
         <React.Fragment>
-            <FeatureGalleryHeaderLine title={props.title} />
             <FeaturePager pager={props.pager} />
             <Container>
                 <CardDeck>{LIST}</CardDeck>
@@ -126,6 +125,7 @@ function rowFiller(length, bp_sizes) {
     return remainderCards;
 }
 
+// TODO: deprecate FeatureGalleryHeaderLine
 function FeatureGalleryHeaderLine(props) {
     if (props.title) {
         return <h5 className={'sui-relatedHeader'}>{props.title}</h5>;

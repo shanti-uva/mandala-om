@@ -779,6 +779,16 @@ html {
     text-transform: uppercase;
 }
 
+.sui-relatedSubHeader {
+    text-transform: capitalize;
+}
+
+.sui-relatedSubHeader::before {
+    content: ' / ';
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
 .sui-recent {
     margin-top: 2em;
 }
@@ -853,6 +863,7 @@ html {
     line-height: 24px;
     font-size: 20px;
 }
+
 .sui-termSpeak {
     border-radius: 16px;
     background-color: #f8f8f8;
@@ -1779,6 +1790,7 @@ a {
 }
 
 .shanti-field-itemcount,
+.shanti-field-path,
 .shanti-field-type,
 .shanti-field-author, /* author and creator are the same thing... */
 .shanti-field-creator,
@@ -1812,6 +1824,7 @@ a {
 }
 
 .shanti-field-itemcount span::before,
+.shanti-field-path span::before,
 .shanti-field-type span::before,
 .shanti-field-author > span::before, /* author and creator are the same thing... */
 .shanti-field-creator > span::before,

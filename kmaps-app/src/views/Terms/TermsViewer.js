@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import TermNames from './TermNames';
@@ -7,18 +7,56 @@ import TermAudioPlayer from './TermAudioPlayer';
 import TermEtymology from './TermEtymology';
 import TermDefinitions from './TermDefinitions';
 import TermDictionaries from './TermDictionaries';
-// import CardGroup from "react-bootstrap/CardGroup";
-import 'rc-input-number/assets/index.css';
+
 import NodeHeader from '../common/NodeHeader';
 import { RelatedsGallery } from '../common/RelatedsGallery';
+import useStatus from '../../hooks/useStatus';
+
 import './TermsViewer.css';
-import { useRouteMatch } from 'react-router';
+import 'rc-input-number/assets/index.css';
 
 // import KmapContext from "../context/KmapContext";
 
 // Bootstrap
 
 export default function TermsViewer(props) {
+    //  assembles a path from the data is has...
+    function assemblePath(kmap, kmasset) {
+        // console.log("assemble kmap = ", kmap);
+        // console.log("assemble kmasset = ", kmasset);
+        //
+        let path = [];
+
+        if (kmasset?.ancestor_ids_is && kmasset?.ancestors_txt) {
+            const t = kmasset.asset_type;
+            const ids = kmasset.ancestor_ids_is;
+            const names = kmasset.ancestors_txt;
+
+            for (let i = 0; i < ids.length; i++) {
+                const uid = t + '-' + ids[i];
+                const name = names[i];
+                path.push({
+                    uid: uid,
+                    name: name,
+                });
+            }
+        } else {
+            console.log(
+                'KmapContext.assembledPath: kmasset does not have ancestor_ids_is or ancestors_txt.'
+            );
+        }
+        return path;
+    }
+    const status = useStatus();
+    useEffect(() => {
+        status.clear();
+        status.setHeaderTitle(props.kmasset.title);
+        status.setType(props.kmasset.asset_type);
+        const superPath = assemblePath(props.kmap, props.kmasset);
+        status.setPath(superPath);
+        status.setId(props.kmasset.uid);
+    }, [props.kmasset.uid]);
+
     console.log('GerardKetuma', props);
     //Get all related Definitions
     const definitions = _(props.kmap?._childDocuments_)
@@ -35,19 +73,20 @@ export default function TermsViewer(props) {
         output = (
             <div className="termsviewer">
                 <div className="sui-terms">
-                    <NodeHeader kmasset={props.kmasset} />
                     <Switch>
                         <Route
                             path={
                                 '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
+                            <NodeHeader kmasset={props.kmasset} />
                             <RelatedsGallery {...props} />
                         </Route>
                         <Route path={'/:viewerType/:id/related-:relatedType'}>
                             <Redirect to={'./all'} />
                         </Route>
                         <Route>
+                            <NodeHeader kmasset={props.kmasset} />
                             <TermNames kmap={props.kmap} />
                             <TermsDetails kmAsset={props.kmasset} />
                             <TermAudioPlayer kmap={props.kmap} />
