@@ -1484,6 +1484,11 @@ a {
 .mandala.all {
     background-color: rgb(91, 102, 203);
 }
+
+.mandala.places {
+    background-color: #007bff;
+}
+
 .mandala.audio-video {
     background-color: rgb(88, 170, 180);
 }
@@ -2039,4 +2044,26 @@ a {
 
 .sui-showinfo:hover {
     color: #888888;
+}
+
+.sui-facetList-horiz div {
+    display: inline;
+    margin-right: 1em;
+    text-transform: capitalize;
+}
+
+/* CSS Transition */
+.item-enter {
+    opacity: 0;
+}
+.item-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+.item-exit {
+    opacity: 1;
+}
+.item-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in;
 }

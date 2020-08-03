@@ -179,8 +179,7 @@ export function FeatureCard(props) {
                 />
             </Card.Body>
             <Card.Footer
-                className={'sui-cardFooter'}
-                style={{ backgroundColor: '#bbbbbb' }}
+                className={`sui-cardFooter mandala ${props.doc.asset_type}`}
             >
                 <span style={{ fontSize: '11px' }}>{footer_text}</span>
             </Card.Footer>

@@ -80,7 +80,7 @@ export function SearchAdvanced(props) {
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components
     const advanced = (
         <div id="sui-adv" className={`sui-adv ${openclass} overflow-auto`}>
-            <Navbar>
+            <Navbar onKeyDown={(x) => console.log(x)}>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
                 {!searchView && <Link to={'/search'}>{'<<'} Show Results</Link>}
@@ -93,12 +93,12 @@ export function SearchAdvanced(props) {
                         Filters
                     </Nav.Link>
                     |
-                    <Nav.Link eventKey="resetAll" onClick={handleResetAll}>
+                    <Nav.Link
+                        eventKey="resetAll"
+                        onMouseOver={(x) => console.log(x)}
+                        onClick={handleResetAll}
+                    >
                         All
-                    </Nav.Link>
-                    |
-                    <Nav.Link eventKey="resetSuper" onClick={handleResetSuper}>
-                        Super
                     </Nav.Link>
                 </Navbar.Collapse>
             </Navbar>

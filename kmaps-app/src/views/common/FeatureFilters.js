@@ -2,7 +2,7 @@ import React from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { FacetChoice } from '../../search/FacetChoice';
 import Badge from 'react-bootstrap/Badge';
-import { CSSTransition } from 'react-transition-group'; // ES6
+import { CSSTransition, TransitionGroup } from 'react-transition-group'; // ES6
 
 export function FeatureFilters(props) {
     const filters = useStoreState((state) => state.search.query.filters);
@@ -23,12 +23,13 @@ export function FeatureFilters(props) {
     const entries = filters.map((entry) => {
         // console.log('FeatureFilters x = ', entry);
         return (
-            <Badge
-                key={entry.id}
-                pill
-                variant={'secondary'}
-                className={'m-2 p-2 pr-3'}
-            >
+            <CSSTransition key={entry.id} timeout={1000} classNames="item">
+                {/*<Badge*/}
+                {/*    key={entry.id}*/}
+                {/*    pill*/}
+                {/*    variant={'secondary'}*/}
+                {/*    className={'m-2 p-2 pr-3'}*/}
+                {/*>*/}
                 <FacetChoice
                     mode={'remove'}
                     key={`Remove ${entry.id}`}
@@ -41,14 +42,24 @@ export function FeatureFilters(props) {
                         handleFacetClick({ ...msg, action: 'remove' });
                     }}
                 />
-            </Badge>
+                {/*</Badge>*/}
+            </CSSTransition>
         );
     });
 
-    return entries.length > 0 ? (
-        <span className={'center'}>
-            Applied Filters:
-            {entries}
+    if (entries.length) {
+        entries.unshift(
+            <CSSTransition key="label" timeout={1000} classNames="item">
+                <span>Applied Filters: </span>
+            </CSSTransition>
+        );
+    }
+
+    return (
+        <span>
+            <TransitionGroup className={'sui-facetList-horiz'}>
+                {entries}
+            </TransitionGroup>
         </span>
-    ) : null;
+    );
 }
