@@ -5,16 +5,24 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Link, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+
+const SEARCH_PATH = '/search';
 
 export function SearchAdvanced(props) {
+    const history = useHistory();
     const query = '';
     const openclass = props.advanced ? 'open' : 'closed';
     let [reset, setReset] = useState(0);
 
     // This tells us whether we are viewing the search results
     // so that we can give a link to go there (or not).
-    const searchView = useRouteMatch('/search');
+    const searchView = useRouteMatch(SEARCH_PATH);
+    // console.log("SearchAdvance searchView = ", searchView);
+
+    function gotoSearchPage() {
+        if (!searchView) history.push(SEARCH_PATH);
+    }
 
     function handleFacetChange(msg) {
         const command = {
@@ -43,6 +51,8 @@ export function SearchAdvanced(props) {
         } else if (command.action === 'remove') {
             search.removeFilters([{ id: compound_id }]);
         }
+
+        gotoSearchPage();
     }
 
     function handleNarrowFilters(narrowFilter) {
@@ -83,7 +93,9 @@ export function SearchAdvanced(props) {
             <Navbar onKeyDown={(x) => console.log(x)}>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
-                {!searchView && <Link to={'/search'}>{'<<'} Show Results</Link>}
+                {!searchView && (
+                    <Link to={SEARCH_PATH}>{'<<'} Show Results</Link>
+                )}
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>Reset: </Navbar.Text>
                     <Nav.Link
