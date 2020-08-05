@@ -1,41 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useStatus from '../hooks/useStatus';
 
-export class SourcesViewer extends React.Component {
+export function SourcesViewer(props) {
+    const status = useStatus();
 
-    constructor(props) {
-        super(props);
-
-        console.error(typeof props.sui);
-        if (typeof props.sui !== 'object') {
-            throw new Error("sui must be passed as a property to the component!");
+    useEffect(() => {
+        if (!props.inline) {
+            console.log(props);
+            status.clear();
+            status.setHeaderTitle('Image Viewer For A Better Tomorrow');
+            status.setType('Sources');
         }
+    });
 
-        if (typeof props.sui.pages !== 'object') {
-            throw new Error("sui.pages must be passed as part of the sui passed to the constructor!");
-        }
-
-        this.sui = props.sui;
-        this.props = props;
-    }
-
-    componentDidMount() {
-    }
-
-    componentDidCatch(error, errorInfo) {
-    }
-
-    componentWillUnmount() {
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-    }
-
-    render() {
-        return <div class={"sources legacy"} >NOT YET IMPLEMENTED SOURCES LEGACY { JSON.stringify(this.props) }</div>
-    }
-
-
+    return (
+        <div className={'Sources legacy'}>
+            NOT YET IMPLEMENTED Sources{' '}
+            <pre>{JSON.stringify(props.kmasset)}</pre>
+        </div>
+    );
 }

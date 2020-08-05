@@ -52,6 +52,24 @@ function insertBreakPoints(i, BP_SIZES, ret) {
 }
 
 export function FeatureDeck(props) {
+    function shouldInline(doc) {
+        let inline = true;
+
+        if (props.inline === false) {
+            return false;
+        }
+        switch (doc.asset_type) {
+            case 'subjects':
+            case 'terms':
+            case 'places':
+                inline = false;
+                break;
+            default:
+                inline = true;
+        }
+        return inline;
+    }
+
     const docs = props.docs;
 
     let DEBUG_PRE = [];
@@ -61,7 +79,9 @@ export function FeatureDeck(props) {
         // console.log("FeatureDeck: looking at ", docs);
         LIST = docs?.map((doc, i) => {
             let ret = [];
-            const featureCard = <FeatureCard doc={doc} key={i} />;
+            const featureCard = (
+                <FeatureCard doc={doc} key={i} inline={shouldInline(doc)} />
+            );
 
             // Insert breakpoints for various window sizes
             insertBreakPoints(i, BP_SIZES, ret);

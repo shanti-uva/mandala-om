@@ -74,10 +74,13 @@ export default function MdlAssetContext(props) {
                         if (mdlasset.nid !== new_mdlasset.nid) {
                             setMdlAsset(new_mdlasset);
                             changed = true;
-                            status.clear();
-                            status.setHeaderTitle(new_mdlasset.title);
-                            status.setType(asset_type);
-                            status.setId(new_mdlasset.id);
+
+                            if (!inline) {
+                                status.clear();
+                                status.setHeaderTitle(new_mdlasset.title);
+                                status.setType(asset_type);
+                                status.setId(new_mdlasset.id);
+                            }
                         } else if (mdlasset.id !== new_mdlasset.id) {
                             console.warn(
                                 'Setting mdl for AV asset',
@@ -85,10 +88,13 @@ export default function MdlAssetContext(props) {
                             );
                             setMdlAsset(new_mdlasset);
                             changed = true;
-                            status.clear();
-                            status.setHeaderTitle(new_mdlasset.title[0]);
-                            status.setType(asset_type);
-                            status.setId(new_mdlasset.id);
+
+                            if (!inline) {
+                                status.clear();
+                                status.setHeaderTitle(new_mdlasset.title[0]);
+                                status.setType(asset_type);
+                                status.setId(new_mdlasset.id);
+                            }
                         }
                     }
                 } else if (call_status == 'rejected') {

@@ -410,6 +410,8 @@ export function getFullKmapDataPromise(kmapid) {
     const startRec = 0;
     const rowsRec = 1;
 
+    // console.log( "getFullKmapDataPromise: kmapid = ", kmapid );
+
     const request = {
         adapter: jsonpAdapter,
         callbackParamName: 'json.wrf',

@@ -12,7 +12,9 @@ import { SmartPath } from './SmartPath';
 
 // TODO: move all "style" declarations to css!
 export function FeatureCard(props) {
-    // console.log("FeatureCard: ", props.doc);
+    console.log('FeatureCard: doc = ', props.doc.uid);
+    console.log('FeatureCard: inline = ', props.inline);
+    const inline = props.inline || false;
 
     const [modalShow, setModalShow] = React.useState(false);
 
@@ -101,9 +103,13 @@ export function FeatureCard(props) {
     }
 
     // console.log("FOOTERING: ", props.doc);
+    const asset_view = inline
+        ? `./view/${props.doc.uid}`
+        : `/${viewer}/${props.doc.uid}`;
     return (
         <Card className={'m-2 zoom'} key={props.doc.uid}>
-            <Link to={`/${viewer}/${props.doc.uid}`}>
+            <Link to={asset_view}>
+                {/*<Link to={`./view/${props.doc.uid}`}> }*/}
                 <div className={'sui-featureCard-img-crop'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
                     <div className={'sui-cardType'}>{typeGlyph}</div>

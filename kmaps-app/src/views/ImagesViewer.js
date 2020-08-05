@@ -5,10 +5,12 @@ export function ImagesViewer(props) {
     const status = useStatus();
 
     useEffect(() => {
-        console.log(props);
-        status.clear();
-        status.setHeaderTitle('Image Viewer For A Better Tomorrow');
-        status.setType('images');
+        if (!props.inline) {
+            console.log(props);
+            status.clear();
+            status.setHeaderTitle('Image Viewer For A Better Tomorrow');
+            status.setType('Sources');
+        }
     });
 
     return (

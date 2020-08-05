@@ -7,6 +7,7 @@ export function AudioVideoViewer(props) {
     const id = props.id;
     const kmasset = props.mdlasset;
     const sui = props.sui;
+    const inline = props.inline;
 
     if (kmasset) {
         sui.pages.Draw(kmasset, false);
