@@ -25,6 +25,9 @@ import SearchContext from '../context/SearchContext';
 import MdlAssetContext from '../context/MdlAssetContext';
 import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
+import PlacesHome from '../views/PlacesHome';
+import SubjectsHome from '../views/SubjectsHome';
+import TermsHome from '../views/Terms/TermsHome';
 
 export function ContentPane(props) {
     // console.log('ContentPanel: props =  ', props);
@@ -124,6 +127,9 @@ export function ContentPane(props) {
                             />
                         </KmapContext>
                     </Route>
+                    <Route path={`${path}places`}>
+                        <PlacesHome />
+                    </Route>
 
                     {/* SUBJECTS */}
                     <Route
@@ -141,6 +147,9 @@ export function ContentPane(props) {
                             />
                         </KmapContext>
                     </Route>
+                    <Route path={`${path}subjects`}>
+                        <SubjectsHome />
+                    </Route>
 
                     {/* TERMS */}
                     <Route
@@ -151,8 +160,15 @@ export function ContentPane(props) {
                     >
                         <KmapContext>
                             <RelatedsViewer />
-                            <TermsViewer onStateChange={props.onStateChange} />
+                            <KmapsViewer
+                                id={props.id}
+                                sui={props.sui}
+                                onStateChange={props.onStateChange}
+                            />{' '}
                         </KmapContext>
+                    </Route>
+                    <Route path={`${path}terms`}>
+                        <TermsHome />
                     </Route>
 
                     {/* do we need this route? */}
@@ -173,6 +189,9 @@ export function ContentPane(props) {
                     </Route>
 
                     {/* SEARCH */}
+                    {/*<Route path={`${path}search/view/:vid`}>*/}
+                    {/*    <h2>WHATTUP</h2>*/}
+                    {/*</Route>*/}
                     <Route path={`${path}search/:viewMode`}>
                         <SearchContext>
                             <SearchViewer />
