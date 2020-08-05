@@ -33,10 +33,7 @@ export default function MdlAssetContext(props) {
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
     const status = useStatus();
-
-    status.clear();
-    status.setHeaderTitle('Loading...');
-    status.setType(asset_type);
+    const inline = props.inline || false;
 
     /**
      * Effect used to normalize links in Asset Pages after loading so that links do not go outside of standalon
