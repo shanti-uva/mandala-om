@@ -1536,6 +1536,13 @@ a {
     display: none;
 }
 
+.sui-adv nav {
+    font-size: small;
+}
+
+.sui-adv .nav-link {
+    padding: 0.3rem 0.3rem;
+}
 /*
 .sui-nameEntry span {
     margin-right: 0.2em;
