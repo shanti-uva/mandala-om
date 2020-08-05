@@ -104,7 +104,7 @@ export function FeatureCard(props) {
 
     // console.log("FOOTERING: ", props.doc);
     const asset_view = inline
-        ? `./view/${props.doc.uid}`
+        ? `./view/${props.doc.uid}?asset_type=${props.doc.asset_type}`
         : `/${viewer}/${props.doc.uid}`;
     return (
         <Card className={'m-2 zoom'} key={props.doc.uid}>

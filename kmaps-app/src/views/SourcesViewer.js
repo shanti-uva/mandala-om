@@ -8,8 +8,8 @@ export function SourcesViewer(props) {
         if (!props.inline) {
             console.log(props);
             status.clear();
-            status.setHeaderTitle('Image Viewer For A Better Tomorrow');
-            status.setType('Sources');
+            status.setHeaderTitle('Sources Viewer For A Better Tomorrow');
+            status.setType('sources');
         }
     });
 

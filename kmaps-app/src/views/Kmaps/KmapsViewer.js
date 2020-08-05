@@ -18,6 +18,8 @@ import MdlAssetContext from '../../context/MdlAssetContext';
 import { TextsViewer } from '../TextsViewer';
 import { ImagesViewer } from '../ImagesViewer';
 import { SourcesViewer } from '../SourcesViewer';
+import { VisualsViewer } from '../VisualsViewer';
+import { useLocation } from 'react-router';
 
 export default function KmapsViewer(props) {
     console.log('KmapsViewer props = ', props);
@@ -25,6 +27,46 @@ export default function KmapsViewer(props) {
     const route = useRouteMatch();
     const [modalShow, setModalShow] = useState();
     const status = useStatus();
+
+    const queryParams = new URLSearchParams(useLocation().search);
+    function grokAssetType(route, queryParams) {
+        // console.log("grokAssetType props = ", props);
+        // console.log("grokAssetType route = ", route  );
+        // console.log("grokAssetType queryParams = ", queryParams.get("asset_type")  );
+
+        const asset_type = queryParams.get('asset_type');
+        let viewer = null;
+        switch (asset_type) {
+            case 'images':
+                viewer = <ImagesViewer />;
+                break;
+            case 'audio-video':
+                viewer = <AudioVideoViewer sui={window.sui} />;
+                break;
+            case 'sources':
+                viewer = <SourcesViewer />;
+                break;
+            case 'texts':
+                viewer = <TextsViewer />;
+                break;
+            case 'visuals':
+                viewer = <VisualsViewer />;
+                break;
+            case 'subjects':
+            case 'terms':
+            case 'places':
+                viewer = <KmapsViewer />;
+                break;
+        }
+
+        return {
+            declaredType: asset_type,
+            declaredViewer: viewer,
+        };
+    }
+
+    const { declaredType, declaredViewer } = grokAssetType(route, queryParams);
+
     useEffect(() => {
         status.clear();
         status.setHeaderTitle(props.kmasset.title);
@@ -103,6 +145,21 @@ export default function KmapsViewer(props) {
                             </MdlAssetContext>
                         </Route>
 
+                        <Route path={'/:viewerType/:id/related-all/view/:id'}>
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'all'}
+                                back={'true'}
+                            />
+                            <MdlAssetContext
+                                assettype={declaredType}
+                                inline={true}
+                            >
+                                {declaredViewer}
+                            </MdlAssetContext>
+                        </Route>
+
                         {/* Catch relatedType routes that are not specified above */}
                         <Redirect
                             from={
@@ -128,7 +185,6 @@ export default function KmapsViewer(props) {
                         <Route>
                             <NodeHeader kmasset={props.kmasset} />
                             <TermNames kmap={props.kmap} />
-
                             <Switch>
                                 {/*    Asset Specific SubViewers*/}
                                 <Route path={'/subjects'}>

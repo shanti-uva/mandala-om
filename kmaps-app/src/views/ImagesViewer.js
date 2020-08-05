@@ -9,7 +9,7 @@ export function ImagesViewer(props) {
             console.log(props);
             status.clear();
             status.setHeaderTitle('Image Viewer For A Better Tomorrow');
-            status.setType('Sources');
+            status.setType('images');
         }
     });
 
