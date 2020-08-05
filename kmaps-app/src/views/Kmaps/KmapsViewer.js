@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import TermNames from '../Terms/TermNames';
 import 'rc-input-number/assets/index.css';
@@ -13,8 +13,16 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import useStatus from '../../hooks/useStatus';
+import { AudioVideoViewer } from '../AudioVideo/AudioVideoViewer';
+import MdlAssetContext from '../../context/MdlAssetContext';
+import { TextsViewer } from '../TextsViewer';
+import { ImagesViewer } from '../ImagesViewer';
+import { SourcesViewer } from '../SourcesViewer';
 
 export default function KmapsViewer(props) {
+    console.log('KmapsViewer props = ', props);
+
+    const route = useRouteMatch();
     const [modalShow, setModalShow] = useState();
     const status = useStatus();
     useEffect(() => {
@@ -24,17 +32,7 @@ export default function KmapsViewer(props) {
         const superPath = assemblePath(props.kmap, props.kmasset);
         status.setPath(superPath);
         status.setId(props.kmasset.uid);
-    }, [props.kmasset.uid]);
-
-    //Get all related Definitions
-    const definitions = _(props.kmap?._childDocuments_)
-        .pickBy((val) => {
-            return val.block_child_type === 'related_definitions';
-        })
-        .groupBy((val) => {
-            return _.get(val, 'related_definitions_source_s', 'main_defs');
-        })
-        .value();
+    }, [props.kmasset.uid, route]);
 
     let output = <div className="termsviewer">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
@@ -45,14 +43,84 @@ export default function KmapsViewer(props) {
                     <Switch>
                         <Route
                             path={
+                                '/:viewerType/:nid/related-audio-video/view/:id'
+                            }
+                        >
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'audio-video'}
+                                back={'true'}
+                            />
+                            <MdlAssetContext
+                                assettype={'audio-video'}
+                                inline={true}
+                            >
+                                <AudioVideoViewer sui={window.sui} />
+                            </MdlAssetContext>
+                        </Route>
+
+                        <Route path={'/:viewerType/:id/related-texts/view/:id'}>
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'texts'}
+                                back={'true'}
+                            />
+                            <MdlAssetContext assettype={'texts'} inline={true}>
+                                <TextsViewer />
+                            </MdlAssetContext>
+                        </Route>
+
+                        <Route
+                            path={'/:viewerType/:id/related-images/view/:id'}
+                        >
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'images'}
+                                back={'true'}
+                            />
+                            <MdlAssetContext assettype={'images'} inline={true}>
+                                <ImagesViewer />
+                            </MdlAssetContext>
+                        </Route>
+
+                        <Route
+                            path={'/:viewerType/:id/related-sources/view/:id'}
+                        >
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'sources'}
+                                back={'true'}
+                            />
+                            <MdlAssetContext
+                                assettype={'sources'}
+                                inline={true}
+                            >
+                                <SourcesViewer />
+                            </MdlAssetContext>
+                        </Route>
+
+                        {/* Catch relatedType routes that are not specified above */}
+                        <Redirect
+                            from={
+                                '/:viewerType/:id/related-:relatedType/view/:relId'
+                            }
+                            to={'/:viewerType/:relId'}
+                        />
+
+                        <Route
+                            path={
                                 '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
                             <NodeHeader {...props} kmasset={props.kmasset} />
                             <RelatedsGallery {...props} />
                         </Route>
+
                         <Route path={'/:viewerType/:id/related-:relatedType'}>
-                            <NodeHeader kmasset={props.kmasset} />
                             <Redirect to={'./all'} />
                         </Route>
 
@@ -71,8 +139,8 @@ export default function KmapsViewer(props) {
                                 </Route>
                                 <Route path={'/terms'}>
                                     <TermsInfo
+                                        kmasset={props.kmasset}
                                         kmap={props.kmap}
-                                        definitions={definitions}
                                         kmRelated={props.relateds}
                                     />
                                 </Route>

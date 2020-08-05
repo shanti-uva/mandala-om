@@ -1,10 +1,21 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
-import { useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function NodeHeader(props) {
+    const history = useHistory();
     const match = useRouteMatch();
-    const { id, relatedType, viewerType, viewMode } = match.params;
+    const back = props.back || false;
+    let { id, relatedType, viewerType, viewMode } = match.params;
+
+    console.log('Nodeheader match = ', match);
+    console.log('NodeHeader id = ', id);
+    console.log('Nodeheader viewMode = ', viewMode);
+
+    if (props.relatedType) {
+        relatedType = props.relatedType;
+    }
 
     let subHeader =
         props.subHeader ||
@@ -13,10 +24,10 @@ function NodeHeader(props) {
             : viewerType
             ? 'Related ' + relatedType
             : null);
-    const nameTibtText = props.kmasset.name_tibt
+    const nameTibtText = props.kmasset?.name_tibt
         ? props.kmasset.name_tibt[0]
         : null;
-    const nameLatinText = props.kmasset.name_latin[0]
+    const nameLatinText = props.kmasset?.name_latin
         ? props.kmasset.name_latin[0]
         : props.kmasset.title[0];
     const nameTibtElem = nameTibtText ? (
@@ -25,8 +36,16 @@ function NodeHeader(props) {
     const nameLatinElem = nameLatinText ? (
         <span className={'sui-nodeTitle-item latin'}>{nameLatinText}</span>
     ) : null;
+
     return (
         <div className={'sui-nodeHeader'}>
+            {back && (
+                <span>
+                    <Link to={'..'}>
+                        <span className={'icon shanticon-arrow-left_2'}></span>
+                    </Link>
+                </span>
+            )}
             <span
                 className={`icon shanticon-${props.kmasset?.asset_type} sui-color-${props.kmasset?.asset_type}`}
             ></span>
