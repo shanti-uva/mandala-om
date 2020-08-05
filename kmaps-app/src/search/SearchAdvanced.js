@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import Badge from 'react-bootstrap/Badge';
 
 const SEARCH_PATH = '/search';
 
@@ -86,7 +87,7 @@ export function SearchAdvanced(props) {
         }
         setReset(reset + 1);
     }
-
+    // console.log ("SEARCHY ", props );
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components
     const advanced = (
         <div id="sui-adv" className={`sui-adv ${openclass} overflow-auto`}>
@@ -94,7 +95,12 @@ export function SearchAdvanced(props) {
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
                 {!searchView && (
-                    <Link to={SEARCH_PATH}>{'<<'} Show Results</Link>
+                    <Link to={SEARCH_PATH}>
+                        {'<<'} Show Results{' '}
+                        <Badge pill variant={'secondary'}>
+                            {props.pager.numFound}
+                        </Badge>
+                    </Link>
                 )}
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>Reset: </Navbar.Text>
