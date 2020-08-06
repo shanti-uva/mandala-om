@@ -12,8 +12,8 @@ import { SmartPath } from './SmartPath';
 
 // TODO: move all "style" declarations to css!
 export function FeatureCard(props) {
-    console.log('FeatureCard: doc = ', props.doc.uid);
-    console.log('FeatureCard: inline = ', props.inline);
+    // console.log('FeatureCard: doc = ', props.doc.uid);
+    // console.log('FeatureCard: inline = ', props.inline);
     const inline = props.inline || false;
 
     const [modalShow, setModalShow] = React.useState(false);

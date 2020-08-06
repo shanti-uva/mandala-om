@@ -22,9 +22,11 @@ html {
     height: 100vh;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
 }
+
 .sui-main b {
     font-weight: 600;
 }
+
 .sui-top {
     position: absolute;
     right: 12px;
@@ -32,12 +34,14 @@ html {
     user-select: none;
     box-sizing: content-box;
 }
+
 .sui-topBar {
     height: 43px;
     width: 100%;
     background-color: #eee;
     box-sizing: content-box;
 }
+
 .sui-editBut {
     float: right;
     color: #fff;
@@ -45,6 +49,7 @@ html {
     margin: -6px -42px 0 0;
     cursor: pointer;
 }
+
 .sui-editBut:hover {
     color: #ccc;
 }
@@ -65,6 +70,7 @@ html {
     border-bottom: 1px solid #999;
     box-sizing: content-box;
 }
+
 .sui-search2 {
     float: left;
     background-color: #fafafa;
@@ -82,6 +88,7 @@ html {
     box-shadow: none;
     box-sizing: content-box;
 }
+
 .sui-search3 {
     float: right;
     font-family: shanticon;
@@ -90,6 +97,7 @@ html {
     cursor: pointer;
     box-sizing: content-box;
 }
+
 .sui-search4 {
     display: inline-block;
     background-color: #ddd;
@@ -105,9 +113,11 @@ html {
     box-sizing: content-box;
     font-family: shanticon;
 }
+
 .sui-search4:hover {
     opacity: 0.66;
 }
+
 .sui-search5 {
     display: inline-block;
     font-size: 10px;
@@ -120,6 +130,7 @@ html {
     width: 60px;
     text-transform: uppercase;
 }
+
 .sui-search5:hover {
     color: #668eec;
 }
@@ -135,9 +146,11 @@ html {
     vertical-align: 2px;
     margin-left: 12px;
 }
+
 .sui-hamBut:hover {
     color: #668eec;
 }
+
 .sui-hamburger {
     position: absolute;
     font-size: 14px;
@@ -148,6 +161,7 @@ html {
     display: none;
     padding: 16px 12px 0 0;
 }
+
 .sui-hamItem {
     float: right;
     cursor: pointer;
@@ -173,6 +187,7 @@ html {
     width: 100%;
     max-width: calc(100% - 20px);
 }
+
 .sui-type {
     background-color: #fff;
     font-size: 12px;
@@ -185,6 +200,7 @@ html {
     line-height: 18px;
     cursor: pointer;
 }
+
 .sui-typeIcon {
     display: inline-block;
     border-radius: 8px 0 0 8px;
@@ -196,6 +212,7 @@ html {
     color: #fff;
     margin-right: 8px;
 }
+
 .sui-typeSet {
     float: right;
     border-radius: 0 8px 8px 0;
@@ -208,9 +225,11 @@ html {
     color: #666;
     background-color: #ddd;
 }
+
 .sui-typeSet:hover {
     opacity: 0.66;
 }
+
 .sui-typeList {
     position: absolute;
     left: calc(100% - 560px);
@@ -226,9 +245,11 @@ html {
     padding: 12px;
     border: 1px solid #999;
 }
+
 .sui-typeItem:hover {
     background-color: #dee7f1;
 }
+
 .sui-content {
     position: absolute;
     left: 0;
@@ -239,6 +260,7 @@ html {
     display: block;
     overflow-y: auto;
 }
+
 .sui-results {
     position: absolute;
     left: 0;
@@ -249,11 +271,13 @@ html {
     overflow-x: hidden;
     padding: 12px;
 }
+
 .sui-resDisplay {
     cursor: pointer;
     display: inline-block;
     margin: 0 12px;
 }
+
 .sui-footer {
     position: absolute;
     left: 0;
@@ -267,6 +291,7 @@ html {
     user-select: none;
     overflow: hidden;
 }
+
 .sui-infoBottom {
     position: absolute;
     left: 12px;
@@ -290,12 +315,14 @@ html {
     margin-left: 30px;
     padding: 6px 0;
 }
+
 .sui-itemPlus {
     display: inline-block;
     color: #888;
     margin-left: -30px;
     cursor: pointer;
 }
+
 .sui-itemIcon {
     display: inline-block;
     color: #fff;
@@ -309,6 +336,7 @@ html {
     margin-left: 20px;
     padding-top: 4px;
 }
+
 .sui-itemPic {
     width: 100px;
     cursor: pointer;
@@ -317,6 +345,7 @@ html {
     border-radius: 4px;
     margin: 0 0 12px 8px;
 }
+
 .sui-itemInfo {
     display: inline-block;
     margin-left: 20px;
@@ -324,6 +353,7 @@ html {
     line-height: 23px;
     font-size: 13px;
 }
+
 .sui-itemRelated {
     display: inline-block;
     font-family: serif;
@@ -331,39 +361,47 @@ html {
     line-height: 24px;
     color: #000;
 }
+
 .sui-itemTitle {
     display: inline-block;
     margin-left: 8px;
     cursor: pointer;
 }
+
 .sui-itemTitle:hover {
     color: #a4baec;
 }
+
 .sui-itemSubtitle {
     display: inline-block;
     margin-left: 8px;
 }
+
 .sui-itemFeature {
     display: inline-block;
     font-family: serif;
     font-style: italic;
     font-size: 12px;
 }
+
 .sui-itemTrail {
     font-style: italic;
     font-size: 11px;
     margin: 4px 0 4px 34px;
     cursor: pointer;
 }
+
 .sui-itemAncestor:hover {
     color: #a4baec;
 }
+
 .sui-itemId {
     float: right;
     font-size: 11px;
     font-style: italic;
     margin-top: -2px;
 }
+
 .sui-itemMore {
     padding: 12px 0 12px 34px;
     display: none;
@@ -383,12 +421,15 @@ html {
     text-align: center;
     background-color: #aaa;
 }
+
 .sui-grid:hover {
     border-color: #a4baec;
 }
+
 .sui-gridPic {
     height: 100%;
 }
+
 .sui-gridInfo {
     position: absolute;
     cursor: pointer;
@@ -399,6 +440,7 @@ html {
     text-align: center;
     text-shadow: 1px 1px 2px #666;
 }
+
 .sui-gridGlyph {
     position: absolute;
     font-size: 36px;
@@ -410,6 +452,7 @@ html {
     padding: 16px 12px 0 12px;
     overflow: hidden;
 }
+
 .sui-gridPopup {
     position: absolute;
     width: 300px;
@@ -437,13 +480,16 @@ html {
     overflow: hidden;
     border-radius: 0 0 5px 8px;
 }
+
 .sui-card:hover {
     border-top: 3px solid #a4baec;
 }
+
 .sui-cardPic {
     width: 180px;
     cursor: pointer;
 }
+
 .sui-cardInfo {
     padding: 10px;
     color: #666;
@@ -453,6 +499,7 @@ html {
     height: 92px;
     overflow: hidden;
 }
+
 .sui-cardGlyph {
     position: absolute;
     width: 180px;
@@ -461,6 +508,7 @@ html {
     pointer-events: none;
     margin-top: -68px;
 }
+
 .sui-cardType {
     display: inline-block;
     margin-left: -23px;
@@ -469,6 +517,7 @@ html {
     color: #fff;
     text-shadow: 1px 1px 2px #666;
 }
+
 .sui-cardFooter {
     background-color: #9e894d;
     /*height: 21px;*/
@@ -495,6 +544,7 @@ html {
     font-size: 15px;
     overflow: hidden;
 }
+
 .sui-advTop {
     text-align: center;
     color: #fff;
@@ -504,6 +554,7 @@ html {
     width: calc(100% + 24px);
     height: 36px;
 }
+
 .sui-advBox {
     border: 1px solid #a4baec;
     width: calc(100% - 28px);
@@ -519,6 +570,7 @@ html {
 .sui-advHeader:hover {
     color: #668eec;
 }
+
 .sui-advHeader {
     cursor: pointer;
     text-transform: uppercase;
@@ -533,13 +585,16 @@ html {
     cursor: pointer;
     margin-right: 4px;
 }
+
 .sui-advValueRem:hover {
     color: #668eec;
 }
+
 .sui-advTerm {
     margin: 2px 0 2px 24px;
     font-size: 11px;
 }
+
 .sui-advEdit {
     display: none;
     border: 1px solid #ccc;
@@ -571,39 +626,47 @@ html {
     vertical-align: -2px;
     color: #999;
 }
+
 .sui-advEditBut:hover {
     color: #a4baec;
 }
+
 .sui-advEditNums {
     float: right;
     font-size: 9px;
     padding-top: 5px;
 }
+
 .sui-advEditBool {
     display: inline-block;
     cursor: pointer;
     color: #668eec;
-    border: 0.5px solid#999;
+    border: 0.5px solid #999;
     border-radius: 2px;
     padding: 0 0 1px 3px;
     margin: 2px 0;
 }
+
 .sui-boolItem {
     display: inline-block;
     color: #999;
 }
+
 .sui-boolItem:hover {
     color: #668eec;
 }
+
 .sui-advEditList {
     overflow-x: hidden;
     max-height: 360px;
 }
+
 .sui-advEditLine {
     cursor: pointer;
     padding: 2px;
     border-radius: 5px;
 }
+
 .sui-advEditLine:hover {
     background-color: #dee7f1;
 }
@@ -615,14 +678,17 @@ html {
 .sui-advViewListPage {
     display: inline-block;
 }
+
 .sui-advViewListPage:hover {
     color: #668eec;
 }
+
 .sui-advViewTreePage {
     display: inline-block;
     padding: 0 4px;
     color: #777;
 }
+
 .sui-advViewTreePage:hover {
     color: #a4baec;
 }
@@ -642,6 +708,7 @@ html {
     float: right;
     color: #fff;
 }
+
 /* TREE */
 .sui-tree {
     user-select: none;
@@ -650,15 +717,18 @@ html {
     padding-left: 6px;
     font-size: 12px;
 }
+
 .sui-tree ul {
     list-style: none outside none;
     padding: 0;
     margin: 0;
 }
+
 .sui-tree li a {
     line-height: 19px;
     cursor: pointer;
 }
+
 .sui-tree > ul > li > a {
     color: #3b4c56;
     display: block;
@@ -666,9 +736,11 @@ html {
     position: relative;
     text-decoration: none;
 }
+
 .sui-tree li.parent > a {
     padding: 0 0 2px 20px;
 }
+
 .sui-tree li.parent > a:before {
     background-image: url('treebuts.png');
     content: '';
@@ -680,15 +752,18 @@ html {
     width: 15px;
     background-position: 0;
 }
+
 .sui-tree ul li.active > a:before {
     background-position: 30px;
 }
+
 .sui-tree ul li ul {
     border-left: 1px solid #a4baec;
     display: none;
     margin: 0 0 0 7px;
     padding: 0 0 0 12px;
 }
+
 .sui-tree ul li ul li {
     position: relative;
 }
@@ -698,11 +773,13 @@ html {
     width: calc(100% - 193px);
     margin-left: 192px;
 }
+
 #plc-infoDiv {
     position: absolute;
     top: 292px;
     left: 219px;
 }
+
 #plc-infoDiv input {
     border: none;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px;
@@ -729,11 +806,13 @@ html {
     outline: 1px solid #999;
     outline-offset: 4px;
 }
+
 .sui-relatedList {
     font-size: 14px;
     color: #222;
     padding: 0;
 }
+
 .sui-relatedItem {
     cursor: pointer;
     padding: 6px 3px 3px 6px;
@@ -759,9 +838,11 @@ html {
     border-color: transparent;
     height: 6px;
 }
+
 .sui-relatedItem-label {
     text-transform: capitalize;
 }
+
 .sui-relatedRecent {
     font-size: 12px;
     color: #222;
@@ -772,9 +853,11 @@ html {
     cursor: pointer;
     margin-right: 12px;
 }
+
 .sui-relatedRecentItem:hover {
     background-color: #a4baec;
 }
+
 .sui-relatedHeader {
     text-transform: uppercase;
 }
@@ -804,18 +887,21 @@ html {
     font-weight: 400;
     color: #000;
 }
+
 .sui-sourceText {
     font-family: 'EB Garamond', serif, shanticon;
     font-weight: 400;
     line-height: 24px;
     font-size: 17px;
 }
+
 .sui-sourceTitle {
     font-family: 'EB Garamond', serif;
     font-weight: 500;
     line-height: 24px;
     font-size: 20px;
 }
+
 .sui-sourceSec {
     font-size: 18px;
     font-weight: 400;
@@ -832,12 +918,14 @@ html {
     font-weight: 400;
     color: #000;
 }
+
 .sui-subIcon {
     font-size: 24px;
     color: #cc4c39;
     vertical-align: -4px;
     margin-right: 12px;
 }
+
 .sui-subText {
     font-family: 'EB Garamond', serif, shanticon;
     font-weight: 500;
@@ -871,6 +959,7 @@ html {
     padding: 4px;
     color: #000;
 }
+
 .sui-termOHead {
     background-color: #a2733f;
     font-weight: 900;
@@ -878,15 +967,18 @@ html {
     color: #fff;
     font-size: 18px;
 }
+
 .sui-termOther {
     background-color: #eee;
 }
+
 .sui-termData {
     font-size: 12px;
     float: right;
     color: #a2733f;
     margin-right: 16px;
 }
+
 .sui-termPlay {
     display: inline-block;
     font-size: 15px;
@@ -902,6 +994,7 @@ html {
     height: 18px;
     box-shadow: 0 0 0 1px #fff, 0 0 0 2px #a2733f;
 }
+
 .sui-termAssetBut {
     display: inline-block;
     text-transform: uppercase;
@@ -912,6 +1005,7 @@ html {
     width: auto;
     font-size: 13px;
 }
+
 .sui-termDefs {
     font-size: 1em;
     padding: 0 24px;
@@ -936,6 +1030,7 @@ html {
     font-size: 12px;
     line-height: 22px;
 }
+
 .sui-imageDiv {
     overflow: hidden;
     width: 50%;
@@ -943,6 +1038,7 @@ html {
     margin-right: auto;
     user-select: none;
 }
+
 .sui-imageGal {
     width: calc(100% - 24px);
     overflow-x: scroll;
@@ -951,12 +1047,14 @@ html {
     margin: 0 12px 0 12px;
     -webkit-scrollbar-track-background: #000;
 }
+
 .sui-imageMid {
     max-width: 900px;
     margin: 8px auto 8px auto;
     padding: 0 50px 0 50px;
     width: 100%;
 }
+
 .sui-images {
     max-width: 900px;
     margin: 8px auto 8px auto;
@@ -968,6 +1066,7 @@ html {
     border-top: 4px solid #b49c59;
     border-bottom: 4px solid #b49c59;
 }
+
 /* TEXT PAGE*/
 .sui-texts {
     display: inline-block;
@@ -979,6 +1078,7 @@ html {
     height: 100%;
     max-height: calc(100% - 154px);
 }
+
 .sui-textContent {
     background-color: #fff;
     width: calc(100% - 46px);
@@ -991,6 +1091,7 @@ html {
     border-right: 1px solid #999;
     line-height: 22px;
 }
+
 .sui-textTop {
     background-color: #fff;
     width: 100%;
@@ -998,6 +1099,7 @@ html {
     white-space: nowrap;
     user-select: none;
 }
+
 .sui-textTab {
     display: inline-block;
     height: 26px;
@@ -1012,12 +1114,14 @@ html {
     border: 1px solid #999;
     border-bottom: none;
 }
+
 /* AV PAGE */
 .sui-vPlayer {
     display: inline-block;
     margin: 0;
     padding: 0;
 }
+
 .sui-avTop {
     background-color: #fff;
     border-top: 1px solid #999;
@@ -1030,10 +1134,12 @@ html {
     font-size: 13px;
     color: #555;
 }
+
 .sui-avMore1 {
     width: 100%;
     text-align: center;
 }
+
 .sui-avMore2 {
     cursor: pointer;
     border: 1px solid #ccc;
@@ -1041,6 +1147,7 @@ html {
     border-right: none;
     font-weight: 400;
 }
+
 .sui-trans {
     display: inline-block;
     background-color: #fefefe;
@@ -1050,6 +1157,7 @@ html {
     width: calc(100% - 2px);
     font-size: 15px;
 }
+
 .sui-transTab {
     display: inline-block;
     background-color: #555;
@@ -1063,9 +1171,11 @@ html {
     padding-top: 12px;
     border-right: 1px solid #fefefe;
 }
+
 .sui-transTab:hover {
     background-color: #444;
 }
+
 .sui-transOps {
     position: absolute;
     background-color: #f7f7f7;
@@ -1075,19 +1185,23 @@ html {
     width: 180px;
     font-size: 13px;
 }
+
 .sui-transSrc {
     background-color: #999;
     display: none;
     height: 55px;
     width: calc(100% - 1px);
 }
+
 .sui-transRow {
     padding: 5px 12px 5px 24px;
     cursor: pointer;
 }
+
 .sui-transRow:hover {
     background-color: #eee;
 }
+
 .sui-transLab {
     padding: 5px 12px 5px 12px;
     background-color: #e8e8e8;
@@ -1095,10 +1209,12 @@ html {
     font-weight: 600;
     font-style: italic;
 }
+
 .sui-transCheck {
     float: right;
     color: #ccc;
 }
+
 .sui-transMinSeg {
     background-color: #fff;
     padding: 0 0 0 8px;
@@ -1107,12 +1223,14 @@ html {
     border-left: 4px solid #fff;
     min-height: 70px;
 }
+
 .sui-transMinBox {
     width: calc(100% - 174px);
     margin: 0 0 0 150px;
     border-left: 1px solid #eee;
     padding: 0 12px 6px 8px;
 }
+
 .sui-transMinPlay {
     float: right;
     color: #ccc;
@@ -1123,10 +1241,12 @@ html {
     padding: 2px 0 0 4px;
     margin: 6px 44px 0 0;
 }
+
 .sui-transMinPlay:hover {
     background-color: #999;
     color: #fff;
 }
+
 .sui-transSeg {
     background-color: #ddd;
     border-radius: 6px 6px 0 0;
@@ -1136,6 +1256,7 @@ html {
     margin: 4px 0 4px 0;
     min-height: 80px;
 }
+
 .sui-transBox {
     margin: 0 0 0 150px;
     background-color: #fff;
@@ -1143,6 +1264,7 @@ html {
     padding: 12px;
     width: calc(100% - 174px);
 }
+
 .sui-transPlay {
     color: #fff;
     font-size: 20px;
@@ -1154,6 +1276,7 @@ html {
     background-color: #bbb;
     margin: 6px 44px 0 0;
 }
+
 .sui-transPlay:hover {
     background-color: #999;
 }
@@ -1169,9 +1292,11 @@ html {
     cursor: pointer;
     margin: 0 8px 12px 0;
 }
+
 .sui-spCat:hover {
     opacity: 0.75;
 }
+
 .sui-spHead {
     font-weight: 600;
     color: #777;
@@ -1179,11 +1304,13 @@ html {
     font-size: 16px;
     text-transform: uppercase;
 }
+
 .sui-spSubCat {
     color: #5b66cb;
     text-transform: uppercase;
     font-size: 15px;
 }
+
 .sui-spDot {
     display: inline-block;
     background-color: #4d59ca;
@@ -1198,19 +1325,23 @@ html {
     font-size: 16px;
     margin-right: 6px;
 }
+
 .sui-spDot:hover {
     opacity: 0.66;
 }
+
 .sui-spLoner {
     display: inline-block;
     color: #5b66cb;
     margin-left: 12px;
 }
+
 .sui-spLin {
     margin: 4px 0;
     list-style-type: none;
     padding: 0;
 }
+
 .sui-spImg {
     float: left;
     width: 160px;
@@ -1219,6 +1350,7 @@ html {
     outline: 1px solid #999;
     outline-offset: 4px;
 }
+
 .sui-spSub {
     background-color: #ddd;
     padding: 0 8px;
@@ -1229,9 +1361,11 @@ html {
     border: 1px solid #aaa;
     margin: 4px 0 4px -32px;
 }
+
 .sui-spSub:hover {
     border-color: #333;
 }
+
 .sui-rpList {
     overflow-x: hidden;
     overflow-y: auto;
@@ -1260,6 +1394,7 @@ html {
     border-right: 1px solid #eee;
     height: 24px;
 }
+
 .sui-tabContent {
     background-color: #eee;
     width: calc(100% - 50px);
@@ -1281,16 +1416,19 @@ html {
     border: 1px solid #999;
     min-height: 190px;
 }
+
 .sui-caroHeader {
     font-style: italic;
     font-size: 17px;
     margin: -140px 0 24px 0;
     color: #fff;
 }
+
 .sui-caroTitle {
     font-size: 21px;
     margin: -12px 0 8px -8px;
 }
+
 .sui-caroButL {
     position: relative;
     left: -46px;
@@ -1305,9 +1443,11 @@ html {
     width: 30px;
     cursor: pointer;
 }
+
 .sui-caroButL:hover {
     opacity: 0.8;
 }
+
 .sui-caroButR {
     position: relative;
     left: calc(100% + 12px);
@@ -1322,13 +1462,16 @@ html {
     width: 30px;
     cursor: pointer;
 }
+
 .sui-caroButR:hover {
     opacity: 0.8;
 }
+
 .sui-caroView {
     font-style: italic;
     font-size: 16px;
 }
+
 .sui-caroText {
     border-left: 5px solid #eee;
     padding-left: 24px;
@@ -1337,28 +1480,33 @@ html {
     line-height: 22px;
     font-size: 16px;
 }
+
 .sui-caroPic {
     max-width: 320px;
     height: 172px;
 }
+
 .sui-caroLeft {
     display: inline-block;
     width: calc(100% - 330px);
     vertical-align: top;
     margin-right: 24px;
 }
+
 .sui-caroRes {
     display: inline-block;
     font-size: 14px;
     font-weight: 400;
     margin-top: 8px;
 }
+
 .sui-caroDots {
     display: inline-block;
     width: calc(66% - 200px);
     text-align: center;
     min-width: 200px;
 }
+
 .sui-caroDot {
     display: inline-block;
     opacity: 0.8;
@@ -1368,6 +1516,7 @@ html {
     border: 1px solid #999;
     margin-right: 16px;
 }
+
 .sui-caroDot:hover {
     background-color: #5d68cc;
 }
@@ -1380,15 +1529,19 @@ html {
     margin-left: 3px;
     cursor: pointer;
 }
+
 .sui-crumb:hover {
     text-decoration: underline;
 }
+
 .sui-popItem {
     color: #ddd;
 }
+
 .sui-popItem:hover {
     color: #a4baec;
 }
+
 .sui-popover {
     position: absolute;
     width: 300px;
@@ -1401,17 +1554,20 @@ html {
     background-color: #fff;
     box-shadow: 0 5px 10px rgb(0, 0, 0);
 }
+
 .sui-pageLab {
     font-weight: 400;
     letter-spacing: 0.0475rem;
     font-size: 13px;
 }
+
 .sui-pageVal {
     word-wrap: break-word;
     font-family: 'EB Garamond', serif;
     font-weight: 400;
     font-size: 17px;
 }
+
 .sui-pageThumb {
     display: inline-block;
     height: 50px;
@@ -1420,6 +1576,7 @@ html {
     border-radius: 3px;
     border: 2px solid #000;
 }
+
 .sui-pageThumb:hover {
     border-color: #fff;
 }
@@ -1430,20 +1587,25 @@ html {
     width: 10px;
     height: 8px;
 }
+
 .sui-main ::-webkit-scrollbar-track {
     background: transparent;
     border-left: 1px solid #aaa;
 }
+
 .sui-main ::-webkit-scrollbar-thumb {
     border-radius: 8px;
     background: #ccc;
 }
+
 .sui-main ::-webkit-scrollbar-thumb:hover {
     background: #aaa;
 }
+
 .sui-main ::-webkit-input-placeholder {
     color: #bbb;
 }
+
 ::placeholder {
     color: #bbb;
 }
@@ -1451,6 +1613,7 @@ html {
 a {
     text-decoration: none;
 }
+
 .sui-noA {
     border-bottom: hidden;
     cursor: default;
@@ -1469,6 +1632,7 @@ a {
 .open {
     display: block;
 }
+
 .closed {
     display: none;
 }
@@ -1481,6 +1645,7 @@ a {
 .mandala.terms {
     background-color: rgb(162, 115, 63);
 }
+
 .mandala.all {
     background-color: rgb(91, 102, 203);
 }
@@ -1492,21 +1657,27 @@ a {
 .mandala.audio-video {
     background-color: rgb(88, 170, 180);
 }
+
 .mandala.images {
     background-color: rgb(180, 156, 89);
 }
+
 .mandala.sources {
     background-color: rgb(90, 87, 173);
 }
+
 .mandala.texts {
     background-color: rgb(139, 90, 161);
 }
+
 .mandala.visuals {
     background-color: rgb(110, 148, 86);
 }
+
 .mandala.subjects {
     background-color: rgb(204, 76, 57);
 }
+
 .mandala.collections {
     background-color: rgb(91, 102, 203);
 }
@@ -1543,6 +1714,7 @@ a {
 .sui-adv .nav-link {
     padding: 0.3rem 0.3rem;
 }
+
 /*
 .sui-nameEntry span {
     margin-right: 0.2em;
@@ -1572,27 +1744,35 @@ a {
 .sui-color-terms {
     color: rgb(162, 115, 63);
 }
+
 .sui-color-all {
     color: rgb(91, 102, 203);
 }
+
 .sui-color-audio-video {
     color: rgb(88, 170, 180);
 }
+
 .sui-color-images {
     color: rgb(180, 156, 89);
 }
+
 .sui-color-sources {
     color: rgb(90, 87, 173);
 }
+
 .sui-color-texts {
     color: rgb(139, 90, 161);
 }
+
 .sui-color-visuals {
     color: rgb(110, 148, 86);
 }
+
 .sui-color-subjects {
     color: rgb(204, 76, 57);
 }
+
 .sui-color-collections {
     color: rgb(91, 102, 203);
 }
@@ -1633,6 +1813,7 @@ a {
 .zoom {
     transition: transform 0.2s;
 }
+
 .zoom:hover {
     transform: scale(1.2);
     z-index: 100;
@@ -1743,6 +1924,7 @@ a {
     border-bottom: 1px solid transparent !important;
     display: inline;
 }
+
 .shanti-thumbnail-info .body-wrap a:hover {
     border-bottom-color: rgba(163, 90, 209, 0.52) !important;
 }
@@ -1766,6 +1948,7 @@ a {
     display: inline-block;
     width: 100%;
 }
+
 /* Tibetan font scaling */
 .shanti-thumbnail-info .body-wrap .shanti-field-title.bo a {
     font-size: 1.5em;
@@ -1783,6 +1966,7 @@ a {
     box-shadow: none;
     text-decoration: none;
 }
+
 .shanti-thumbnail-link:active {
     color: #df3d26;
 }
@@ -1961,12 +2145,15 @@ a {
     padding: 0 0.9rem;
     height: 2.8rem;
 }
+
 .shanti-thumbnail .footer-wrap:hover {
     background-color: rgba(105, 79, 4, 0.85);
 }
+
 .shanti-thumbnail .footer-wrap:active {
     background-color: rgba(142, 117, 46, 0.85);
 }
+
 .shanti-thumbnail .footer-wrap a {
     font-size: 1.06em;
     display: block;
@@ -1994,6 +2181,7 @@ a {
     float: left;
     font-style: normal;
 }
+
 .shanti-thumbnail .footer-wrap a:empty {
     display: none;
 }
@@ -2005,6 +2193,7 @@ a {
 .shanti-thumbnail-field.shanti-field-type {
     font-size: 1em;
 }
+
 .shanti-thumbnail-field.shanti-field-type span {
     padding-left: 0.2rem;
 }
@@ -2059,17 +2248,40 @@ a {
     text-transform: capitalize;
 }
 
+.sui-nodeHeader-itemHeader {
+    margin: 1rem 0.3rem 0.3rem 0.3rem;
+}
+
+.sui-nodeHeader-itemHeader span {
+    margin: 0.3rem 0.3rem 3rem 0.3rem;
+}
+
+.sui-nodeHeader-itemHeader-subType {
+    text-transform: capitalize;
+}
+
+.sui-nodeHeader-itemHeader-subType:after {
+    content: ': ';
+}
+
+.sui-nodeHeader-itemHeader-caption {
+    font-style: italic;
+}
+
 /* CSS Transition */
 .item-enter {
     opacity: 0;
 }
+
 .item-enter-active {
     opacity: 1;
     transition: opacity 300ms ease-in;
 }
+
 .item-exit {
     opacity: 1;
 }
+
 .item-exit-active {
     opacity: 0;
     transition: opacity 300ms ease-in;

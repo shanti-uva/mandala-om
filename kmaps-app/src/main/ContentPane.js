@@ -187,11 +187,6 @@ export function ContentPane(props) {
                     <Route path={`${path}collections`}>
                         <CollectionsHome />
                     </Route>
-
-                    {/* SEARCH */}
-                    {/*<Route path={`${path}search/view/:vid`}>*/}
-                    {/*    <h2>WHATTUP</h2>*/}
-                    {/*</Route>*/}
                     <Route path={`${path}search/:viewMode`}>
                         <SearchContext>
                             <SearchViewer />

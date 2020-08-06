@@ -44,7 +44,7 @@ export default function MdlAssetContext(props) {
     });
 
     const params = useParams();
-    let id = params.id; // When ID param is just a number
+    let id = params.relId || params.id || params.nid; // When ID param is just a number
     if (id.indexOf('-') > 1) {
         // When ID param is something like "texts-1234".
         id = id.split('-').pop();

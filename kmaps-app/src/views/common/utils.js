@@ -126,3 +126,25 @@ export function addBoClass(sel) {
         }
     });
 }
+
+export function grokId(id) {
+    const [nid] = id.match(/(\d+)$/);
+    return nid;
+}
+
+export function fitDimensions(maxHeight, maxWidth, imgHeight, imgWidth) {
+    const targetProportions = maxHeight / maxWidth;
+    const imageProportions = imgHeight / imgWidth;
+    let targetHeight = 0;
+    let targetWidth = 0;
+    if (targetProportions > imageProportions) {
+        // height constrained
+        targetHeight = maxHeight;
+        targetWidth = Math.floor(imgWidth * (maxHeight / imgHeight));
+    } else {
+        // width constrained
+        targetWidth = maxWidth;
+        targetHeight = Math.floor(imgHeight * (maxWidth / imgWidth));
+    }
+    return { height: targetHeight, width: targetWidth };
+}

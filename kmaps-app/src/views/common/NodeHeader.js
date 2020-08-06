@@ -2,19 +2,54 @@ import * as PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
+import useAsset from '../../hooks/useAsset';
+import { grokId } from './utils';
 
 function NodeHeader(props) {
     const history = useHistory();
     const match = useRouteMatch();
     const back = props.back || false;
-    let { id, relatedType, viewerType, viewMode } = match.params;
 
-    console.log('Nodeheader match = ', match);
-    console.log('NodeHeader id = ', id);
-    console.log('Nodeheader viewMode = ', viewMode);
+    let { id, relId, relatedType, viewerType, viewMode } = match.params;
+    // console.log('Nodeheader match = ', match);
+    // console.log('NodeHeader id = ', id);
+    // console.log('NodeHeader relId = ', relId);
+    // console.log('Nodeheader viewMode = ', viewMode);
+    // console.log('Nodeheader viewerType = ', viewerType);
+
+    let itemHeader = null;
 
     if (props.relatedType) {
         relatedType = props.relatedType;
+    }
+
+    const nid = relId ? grokId(relId) : grokId(id);
+    // console.log("NodeHeader calling useAsset with relatedType = ", relatedType, " nid = ", nid);
+    const relatedData = useAsset(relatedType, nid);
+
+    if (relId && relatedType) {
+        // console.log("NodeHeader relatedData = ", relatedData);
+
+        const docs = relatedData?.docs;
+        let caption = null;
+
+        if (docs?.length) {
+            caption =
+                docs[0].caption || docs[0].title ? docs[0].title[0] : null;
+        }
+
+        itemHeader = docs?.length ? (
+            <div className={'sui-nodeHeader-itemHeader'}>
+                <span className={'icon shanticon-' + docs[0].asset_type}></span>
+                <span className={'sui-nodeHeader-itemHeader-subType'}>
+                    {docs[0].asset_subtype}
+                </span>
+                <span className={'sui-nodeHeader-itemHeader-caption'}>
+                    {caption}
+                </span>
+            </div>
+        ) : null;
+        // console.log("NodeHeader itemHeader = ", itemHeader);
     }
 
     let subHeader =
@@ -56,6 +91,7 @@ function NodeHeader(props) {
             {subHeader && (
                 <span className={'sui-relatedSubHeader'}>{subHeader}</span>
             )}
+            {itemHeader}
             <hr style={{ borderTop: '1px solid rgb(162, 115, 63)' }} />
         </div>
     );

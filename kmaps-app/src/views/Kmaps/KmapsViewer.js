@@ -22,7 +22,7 @@ import { VisualsViewer } from '../VisualsViewer';
 import { useLocation } from 'react-router';
 
 export default function KmapsViewer(props) {
-    console.log('KmapsViewer props = ', props);
+    // console.log('KmapsViewer props = ', props);
 
     const route = useRouteMatch();
     const [modalShow, setModalShow] = useState();
@@ -38,7 +38,9 @@ export default function KmapsViewer(props) {
         let viewer = null;
         switch (asset_type) {
             case 'images':
-                viewer = <ImagesViewer />;
+                viewer = (
+                    <ImagesViewer kmasset={props.kmasset} kmap={props.kmap} />
+                );
                 break;
             case 'audio-video':
                 viewer = <AudioVideoViewer sui={window.sui} />;
@@ -85,7 +87,7 @@ export default function KmapsViewer(props) {
                     <Switch>
                         <Route
                             path={
-                                '/:viewerType/:nid/related-audio-video/view/:id'
+                                '/:viewerType/:nid/related-audio-video/view/:relId'
                             }
                         >
                             <NodeHeader
@@ -102,7 +104,9 @@ export default function KmapsViewer(props) {
                             </MdlAssetContext>
                         </Route>
 
-                        <Route path={'/:viewerType/:id/related-texts/view/:id'}>
+                        <Route
+                            path={'/:viewerType/:nid/related-texts/view/:relId'}
+                        >
                             <NodeHeader
                                 {...props}
                                 kmasset={props.kmasset}
@@ -115,7 +119,9 @@ export default function KmapsViewer(props) {
                         </Route>
 
                         <Route
-                            path={'/:viewerType/:id/related-images/view/:id'}
+                            path={
+                                '/:viewerType/:nid/related-images/view/:relId'
+                            }
                         >
                             <NodeHeader
                                 {...props}
@@ -123,13 +129,13 @@ export default function KmapsViewer(props) {
                                 relatedType={'images'}
                                 back={'true'}
                             />
-                            <MdlAssetContext assettype={'images'} inline={true}>
-                                <ImagesViewer />
-                            </MdlAssetContext>
+                            <ImagesViewer inline={true} />
                         </Route>
 
                         <Route
-                            path={'/:viewerType/:id/related-sources/view/:id'}
+                            path={
+                                '/:viewerType/:nid/related-sources/view/:relId'
+                            }
                         >
                             <NodeHeader
                                 {...props}
@@ -145,7 +151,9 @@ export default function KmapsViewer(props) {
                             </MdlAssetContext>
                         </Route>
 
-                        <Route path={'/:viewerType/:id/related-all/view/:id'}>
+                        <Route
+                            path={'/:viewerType/:nid/related-all/view/:relId'}
+                        >
                             <NodeHeader
                                 {...props}
                                 kmasset={props.kmasset}

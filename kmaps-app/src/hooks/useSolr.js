@@ -51,7 +51,9 @@ const getSolrData = async (_, { query }) => {
  * @returns {any}
  */
 export function useSolr(qkey, queryobj) {
+    // console.log("useSolr: qkey = ", qkey, " queryobj = ", queryobj);
     const res = useQuery([qkey, { query: queryobj }], getSolrData);
+    // console.log("useSolr: res = ", res);
     return res && res.data ? res.data : false;
 }
 
