@@ -55,6 +55,29 @@ export function Home(props) {
                         </Link>
                     </li>
                 </ul>
+                <li>
+                    <Link to={'/places/places-427'}>
+                        {' '}
+                        Bhutan: /places/places-427
+                    </Link>
+                </li>
+                Inline Viewers:
+                <ul>
+                    <li>
+                        <Link to={'/places/places-427/related-images/deck'}>
+                            {' '}
+                            Related Images
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to={'/places/places-427/related-audio-video/deck'}
+                        >
+                            {' '}
+                            Related Audio-Video
+                        </Link>
+                    </li>
+                </ul>
             </ul>
             <h4>Search</h4>
             <ul>
