@@ -137,7 +137,7 @@ export function fitDimensions(maxHeight, maxWidth, imgHeight, imgWidth) {
     const imageProportions = imgHeight / imgWidth;
     let targetHeight = 0;
     let targetWidth = 0;
-    if (targetProportions > imageProportions) {
+    if (targetProportions < imageProportions) {
         // height constrained
         targetHeight = maxHeight;
         targetWidth = Math.floor(imgWidth * (maxHeight / imgHeight));

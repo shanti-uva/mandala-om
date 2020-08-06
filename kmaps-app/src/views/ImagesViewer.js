@@ -12,9 +12,9 @@ export function ImagesViewer(props) {
     const { nid, relId, id, viewerType } = match.params;
     const status = useStatus();
 
-    // TODO should we calculate MAX_HEIGHT and MAX_WIDTH?
+    // TODO: should we calculate MAX_HEIGHT and MAX_WIDTH?
     const MAX_HEIGHT = 800;
-    const FULL_WIDTH = 1000;
+    const MAX_WIDTH = 1024;
 
     const targetId = relId || id;
     const imageId = grokId(targetId);
@@ -38,10 +38,10 @@ export function ImagesViewer(props) {
         thumbUrl = imageData.docs[0]?.url_thumb;
         imgHeight = imageData.docs[0]?.img_height_s;
         imgWidth = imageData.docs[0]?.img_width_s;
-        fullUrl = thumbUrl.replace('200,200', FULL_WIDTH + ',' + MAX_HEIGHT);
+        fullUrl = thumbUrl.replace('200,200', MAX_WIDTH + ',' + MAX_HEIGHT);
         const { height: dispHeight, width: dispWidth } = fitDimensions(
             MAX_HEIGHT,
-            FULL_WIDTH,
+            MAX_WIDTH,
             imgHeight,
             imgWidth
         );
