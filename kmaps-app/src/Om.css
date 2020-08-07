@@ -2267,6 +2267,10 @@ a {
     font-style: italic;
 }
 
+.sui-featureDeck {
+    /*min-height: 30rem;*/
+}
+
 /* CSS Transition */
 .item-enter {
     opacity: 0;

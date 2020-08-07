@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import CardDeck from 'react-bootstrap/CardDeck';
 import { FeaturePager } from './FeaturePager';
+import Spinner from 'react-bootstrap/Spinner';
 
 // The length of the Rows at each Break Point  TODO: make the breakpoints adjustable.  Config and/or Dynamic?
 const BP_SIZES = {
@@ -52,7 +53,7 @@ function insertBreakPoints(i, BP_SIZES, ret) {
 }
 
 export function FeatureDeck(props) {
-    function shouldInline(doc) {
+    const shouldInline = (doc) => {
         let inline = true;
 
         if (props.inline === false) {
@@ -68,13 +69,12 @@ export function FeatureDeck(props) {
                 inline = true;
         }
         return inline;
-    }
+    };
 
     const docs = props.docs;
 
     let DEBUG_PRE = [];
     let LIST = [];
-
     if (docs) {
         // console.log("FeatureDeck: looking at ", docs);
         LIST = docs?.map((doc, i) => {
@@ -88,9 +88,24 @@ export function FeatureDeck(props) {
             ret.push(featureCard);
             return ret;
         });
-        let REMAINDER = rowFiller(LIST.length, BP_SIZES);
-        LIST.push(...REMAINDER);
-        // console.log("FeatureDeck LIST = ", LIST);
+
+        if (docs.length) {
+            let REMAINDER = rowFiller(LIST.length, BP_SIZES);
+            LIST.push(...REMAINDER);
+        } else {
+            LIST = (
+                <div className={'d-flex justify-content-center'}>
+                    {props.loadingState ? (
+                        <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
+                    ) : (
+                        <NoResults />
+                    )}
+                </div>
+            );
+        }
+        console.log('FeatureDeck LIST = ', LIST);
 
         DEBUG_PRE = (
             <Accordion>
@@ -108,7 +123,7 @@ export function FeatureDeck(props) {
         <React.Fragment>
             <FeaturePager pager={props.pager} />
             <Container>
-                <CardDeck>{LIST}</CardDeck>
+                <CardDeck className={'sui-featureDeck'}>{LIST}</CardDeck>
             </Container>
             <FeaturePager pager={props.pager} />
             <Jumbotron>{DEBUG_PRE}</Jumbotron>
@@ -152,4 +167,8 @@ function FeatureGalleryHeaderLine(props) {
     } else {
         return null;
     }
+}
+
+function NoResults(props) {
+    return <h2>No results. Your query yielded no results.</h2>;
 }
