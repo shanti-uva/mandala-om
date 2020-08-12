@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { useKmap } from '../../hooks/useKmap';
-import { getRandomKey } from './MandalaMarkup';
 // import { ReactQueryDevtools } from 'react-query-devtools';
 import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
 
@@ -23,6 +22,7 @@ import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
  * @constructor
  */
 export function MandalaPopover(props) {
+    //console.log("mandala popover props", props);
     // Basic Hooks
     const [show, setShow] = useState(false);
     const target = useRef(null);
@@ -66,7 +66,35 @@ export function MandalaPopover(props) {
     }
     const isTib = kmapdata.tree == 'terms' && kmapdata.name_tibt;
     const myhead = isTib ? kmapdata.name_tibt : kmapdata.header;
-
+    let popoverLabel = '';
+    if (props.children) {
+        console.log('rendering children');
+        popoverLabel = (
+            <span
+                className="popover-link-custom"
+                ref={target}
+                onMouseOver={() => setShow(true)}
+                onMouseOut={() => setShow(false)}
+            >
+                {props.children}
+            </span>
+        );
+    } else {
+        popoverLabel = (
+            <>
+                <span className={isTib ? 'bo' : ''}>{myhead}</span>
+                <span
+                    className="popover-link"
+                    ref={target}
+                    onMouseOver={() => setShow(true)}
+                    onMouseOut={() => setShow(false)}
+                >
+                    <span className="popover-link-tip" />
+                    <span className="icon shanticon-menu3" />
+                </span>
+            </>
+        );
+    }
     // JSX
     return (
         <span
@@ -75,19 +103,7 @@ export function MandalaPopover(props) {
             data-kmdomain={domain}
             data-kmid={kid}
         >
-            <span className={isTib ? 'bo' : ''}>{myhead}</span>
-            <span
-                className="popover-link"
-                ref={target}
-                onMouseOver={() => setShow(true)}
-                onMouseOut={() => setShow(false)}
-            >
-                <span className="popover-link-tip" />
-                <span
-                    className="icon shanticon-menu3"
-                    title={'Click to view'}
-                />
-            </span>
+            {popoverLabel}
             <Overlay target={target.current} show={show} placement={placement}>
                 <Popover
                     data-kmid={kid}
@@ -313,20 +329,50 @@ export function MandalaPopoverTest(props) {
                             />{' '}
                             Magnis turpis inceptos nostrud malesuada, faucibus
                             excepteur modi laboriosam, commodi suscipit viverra?
-                            Duis amet. Suspendisse numquam? Incididunt mollitia,
-                            perspiciatis penatibus.
+                        </p>
+                        <p>
+                            Now this is the mandala inline popover test:{' '}
                             <MandalaPopover
                                 domain={'subjects'}
-                                kid={'8260'}
+                                kid={'442'}
                                 placement={placement}
-                            />{' '}
+                            >
+                                <PopTestComp label={'Bologna'} type={'fire'} />
+                            </MandalaPopover>{' '}
+                            The whale has no famous author, and whaling no
+                            famous chronicler, you will say.{' '}
+                            <MandalaPopover
+                                domain={'subjects'}
+                                kid={'4481'}
+                                placement={'top'}
+                            >
+                                <PopTestComp
+                                    label={'housewife'}
+                                    type={'zelda'}
+                                />
+                            </MandalaPopover>{' '}
+                            The Pequod had now swept so nigh to the stranger,
+                            that Stubb vowed he recognised his cutting
+                            spade-pole entangled in the lines that were knotted
+                            round the tail of one of these whales.{' '}
+                            <MandalaPopover
+                                domain={'subjects'}
+                                kid={'2191'}
+                                placement={'right'}
+                            >
+                                <PopTestComp
+                                    label={'what’s right?'}
+                                    type={'tree'}
+                                />
+                            </MandalaPopover>{' '}
+                        </p>
+                        <p>
                             Faucibus excepteur modi laboriosam, commodi suscipit
-                            viverra? Duis amet. Suspendisse numquam? Incididunt
-                            mollitia, perspiciatis penatibus.
+                            viverra?
                             <MandalaPopover
                                 domain={'terms'}
                                 kid={'85193'}
-                                placement={placement}
+                                placement={'top'}
                             />{' '}
                             Duis amet. Suspendisse numquam? Incididunt mollitia,
                             perspiciatis penatibus.
@@ -393,5 +439,42 @@ export function MandalaPopoverTest(props) {
             </Container>
             {/* <ReactQueryDevtools initialIsOpen />*/}
         </>
+    );
+}
+
+function PopTestComp(props) {
+    const label = props.label;
+    const imgs = {
+        rose: 'https://www.gstatic.com/webp/gallery3/1.sm.png',
+        fire: 'https://www.gstatic.com/webp/gallery/5.sm.jpg',
+        valley: 'https://www.gstatic.com/webp/gallery/1.sm.jpg',
+        rapids: 'https://www.gstatic.com/webp/gallery/2.sm.jpg',
+        peppers: 'https://homepages.cae.wisc.edu/~ece533/images/peppers.png',
+        zelda: 'https://homepages.cae.wisc.edu/~ece533/images/zelda.png',
+        tree: 'https://www.gstatic.com/webp/gallery/4.sm.jpg',
+        error:
+            'https://cdn.freshdesignweb.com/wp-content/uploads/site/Free-404-Error-Page-Responsive-website-Template.jpg',
+    };
+    const imgtype = props.type in imgs ? props.type : 'error';
+
+    return (
+        <div className={'inline'}>
+            <span
+                style={{
+                    fontStyle: 'italic',
+                    color: 'blue',
+                    paddingRight: '2px',
+                }}
+            >
+                {label}
+            </span>
+            <img
+                src={imgs[imgtype]}
+                style={{
+                    height: '80px',
+                    display: 'inline',
+                }}
+            />
+        </div>
     );
 }

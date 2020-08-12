@@ -208,7 +208,7 @@ export function ContentPane(props) {
 
                     {/*  POPOVER TEST */}
                     <Route
-                        path={`${path}/poptest/:dom/:kid`}
+                        path={`${path}poptest/:dom/:kid`}
                         component={MandalaPopoverTest}
                     />
 
