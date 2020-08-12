@@ -94,7 +94,7 @@ export function RelatedsViewer(props) {
                     />
                 </div>
                 <br />
-                VISITED RESOURCES
+                RECENTLY VIEWED
                 <hr />
                 <HistoryViewer />
             </div>

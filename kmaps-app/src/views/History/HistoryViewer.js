@@ -5,6 +5,45 @@ import { useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { useStoreActions } from '../../model/StoreModel';
 import useAsset from '../../hooks/useAsset';
+import * as PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+
+import './HistoryViewer.css';
+
+function HistoryLocation(props) {
+    const { removeLocation } = useStoreActions((actions) => actions.history);
+    const history = useHistory();
+
+    return (
+        <div
+            className="c-HistoryViewer__relatedRecentItem"
+            onClick={(event) => history.push(props.location.pathname)}
+        >
+            <span to={props.location.pathname}>
+                <span
+                    className={
+                        'icon shanticon-' + props.location.asset_type ||
+                        'shanti'
+                    }
+                ></span>{' '}
+                {props.location.name}
+            </span>
+            <span
+                className="c-HistoryViewer__removeItem shanticon-cancel-circle icon"
+                data-key={props.location.key}
+                alt={'Remove from list'}
+                aria-label={'Remove from list'}
+                onClick={(event) => {
+                    console.log('delete:', event.target.dataset.key);
+                    removeLocation(event.target.dataset.key);
+                    event.stopPropagation();
+                }}
+            ></span>
+        </div>
+    );
+}
+
+HistoryLocation.propTypes = { location: PropTypes.any };
 
 export function HistoryViewer(props) {
     /*
@@ -59,32 +98,12 @@ export function HistoryViewer(props) {
     // },[]);
 
     let historyList = [];
-    historyStack.forEach((x, k) => {
-        // console.log('HISTORY STACK = ', x, ' k= ', k);
-        const z = (
-            <Link
-                key={x.key}
-                className="sui-noA"
-                // onClick={() => {
-                //     alert('going where? ' + x.pathname);
-                // }}
-                to={x.pathname}
-            >
-                <div className="sui-relatedRecentItem">
-                    <span
-                        className={'icon shanticon-' + x.asset_type || 'shanti'}
-                    ></span>{' '}
-                    {x.name}
-                </div>
-            </Link>
-        );
+    historyStack.forEach((location, key) => {
+        // console.log('HISTORY STACK = ', location, ' key= ', key);
+        const z = <HistoryLocation key={location.key} location={location} />;
         historyList.unshift(z);
     });
-    return (
-        <div className="sui-relatedRecent" id="sui-relatedRecent">
-            {historyList}
-        </div>
-    );
+    return <div className="c-HistoryViewer">{historyList}</div>;
 }
 
 export default HistoryViewer;

@@ -580,11 +580,11 @@ html {
     margin-right: 0.5rem;
 }
 
-.sui-advTermRem {
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 4px;
-}
+/*.sui-advTermRem {*/
+/*    display: inline-block;*/
+/*    cursor: pointer;*/
+/*    margin-right: 4px;*/
+/*}*/
 
 .sui-advValueRem:hover {
     color: #668eec;
