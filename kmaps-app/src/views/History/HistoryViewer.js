@@ -1,58 +1,84 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation, useRouteMatch } from 'react-router';
 import { useStoreState } from 'easy-peasy';
 
-export function HistoryViewer() {
+import { Link } from 'react-router-dom';
+import { useStoreActions } from '../../model/StoreModel';
+import useAsset from '../../hooks/useAsset';
+
+export function HistoryViewer(props) {
+    /*
     const kmasset = useStoreState((state) => state.kmap.asset);
+*/
+    const historyStack = useStoreState((state) => state.history.historyStack);
+    const { addLocation, clear } = useStoreActions(
+        (actions) => actions.history
+    );
     const HISTORY_LENGTH = 25;
-    const histRef = useRef(new Map());
-    const [historyStack] = useState(histRef);
-    const history = useHistory();
+    // const histRef = useRef(new Map());
+    // const [historyStack] = useState(histRef);
     const location = useLocation();
+    const match = useRouteMatch('/:type/:id');
+    // console.log('HISTORY VIEWER current = ', location);
+    // console.log('HISTORY VIEWER match = ', match);
+
+    const [type, fixedId] = match.params.id.split('-');
+    const kmasset = useAsset(match.params.type, fixedId);
+
+    // console.log(' HISTORY kmasset from kmapid = (', fixedId, ') is ', kmasset);
 
     useEffect(() => {
-        console.log('Attaching a history listener');
-        const unlisten = history.listen((entry) => {
-            console.log('Making history: entry', entry);
-            historyStack.current.set(entry.key, {
-                uid: kmasset.asset_type + '-' + kmasset.id,
-                label: kmasset.name_latin[0],
-                type: kmasset.asset_type,
-                history: entry,
-            });
-            let i = 0;
-            historyStack.current.forEach((x, i) => {
-                console.log('LOOKY: ', i, x);
-            });
-            console.log('Making history: stack ', historyStack.current);
-        }, []);
-    });
+        if (kmasset) {
+            if (kmasset.numFound > 0) {
+                console.log('HISTORY VIEWER: kmasset = ', kmasset);
+                const title = kmasset.docs[0]?.title?.length
+                    ? kmasset.docs[0]?.title
+                    : 'Unknown';
+                const baseLocation = {
+                    ...location,
+                    name: title,
+                    pathname: match.url,
+                    asset_type: kmasset?.docs[0].asset_type,
+                    kmasset: kmasset?.docs[0],
+                };
+                console.log(
+                    'Making history: location = ',
+                    location,
+                    ' kmasset = ',
+                    kmasset,
+                    ' match.url = ',
+                    match.url
+                );
+                addLocation(baseLocation);
+            }
+        }
+    }, [kmasset]);
 
-    console.log('HISTORY location = ', location);
+    // useEffect( () => {
+    //     clear();
+    // },[]);
 
     let historyList = [];
-    historyStack.current.forEach((x, k) => {
-        console.log('HISTORY STACK = ', x, ' k= ', k);
+    historyStack.forEach((x, k) => {
+        // console.log('HISTORY STACK = ', x, ' k= ', k);
         const z = (
-            <a
+            <Link
+                key={x.key}
                 className="sui-noA"
-                id="sui-rcItem-subjects-3519"
-                href=""
-                onClick={() => {
-                    alert('going where? ' + x.history.pathname);
-                }}
+                // onClick={() => {
+                //     alert('going where? ' + x.pathname);
+                // }}
+                to={x.pathname}
             >
-                <div
-                    className="sui-relatedRecentItem"
-                    id="sui-rr-subjects-3519"
-                >
-                    <span className={'icon shanticon-' + 'places'}></span>{' '}
-                    {x.label}
+                <div className="sui-relatedRecentItem">
+                    <span
+                        className={'icon shanticon-' + x.asset_type || 'shanti'}
+                    ></span>{' '}
+                    {x.name}
                 </div>
-            </a>
+            </Link>
         );
-
-        historyList.push(z);
+        historyList.unshift(z);
     });
     return (
         <div className="sui-relatedRecent" id="sui-relatedRecent">

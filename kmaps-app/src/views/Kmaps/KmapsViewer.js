@@ -70,13 +70,15 @@ export default function KmapsViewer(props) {
     const { declaredType, declaredViewer } = grokAssetType(route, queryParams);
 
     useEffect(() => {
-        status.clear();
-        status.setHeaderTitle(props.kmasset.title);
-        status.setType(props.kmasset.asset_type);
-        const superPath = assemblePath(props.kmap, props.kmasset);
-        status.setPath(superPath);
-        status.setId(props.kmasset.uid);
-    }, [props.kmasset.uid, route]);
+        if (props.kmasset) {
+            status.clear();
+            status.setHeaderTitle(props.kmasset.title);
+            status.setType(props.kmasset.asset_type);
+            const superPath = assemblePath(props.kmap, props.kmasset);
+            status.setPath(superPath);
+            status.setId(props.kmasset?.uid);
+        }
+    }, [props.kmasset?.uid, route]);
 
     let output = <div className="termsviewer">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {

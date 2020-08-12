@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
     Route,
@@ -16,6 +16,7 @@ import { SearchAdvanced } from '../search/SearchAdvanced';
 import { Error404 } from '../App';
 import SearchContext from '../context/SearchContext';
 import { useStoreRehydrated } from 'easy-peasy';
+import HistoryListener from '../views/History/HistoryListener';
 
 const stateDefault = {
     kmasset: {
@@ -28,20 +29,17 @@ const stateDefault = {
 export function Main(props) {
     const [state, setState] = useState(stateDefault);
     const handleStateChange = (new_state) => {
-        // console.log('Setting state with: ', new_state);
-        // console.log('Old state = ', state);
-
         setState({ ...state, ...new_state });
-        // console.log('New state = ', state);
-        // console.log('Main() state = ', state);
     };
-
+    // const storeReady = true;
     const storeReady = useStoreRehydrated();
     const loading = <div className={'loading-msg'}>Loading...</div>;
+
     const main = (
         <Router basename={'/mandala-om'}>
             <div id={'sui-main'} className={'sui-main'}>
                 <div>
+                    <HistoryListener />
                     <TopBar />
                     {/* Commented this out to get Asset Views to work (ndg) */}
                     <SearchBar onStateChange={handleStateChange} />

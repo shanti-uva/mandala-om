@@ -8,6 +8,7 @@ import React from 'react';
 import TermNames from '../Terms/TermNames/TermNames';
 import TermsDetails from '../Terms/TermsDetails';
 import { Route } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 
 export function TermsInfo(props) {
     console.log('TermsInfo props = ', props);
@@ -21,21 +22,26 @@ export function TermsInfo(props) {
             return _.get(val, 'related_definitions_source_s', 'main_defs');
         })
         .value();
-
-    return (
-        <>
-            <TermsDetails kmAsset={props.kmasset} />
-            <TermAudioPlayer kmap={props.kmap} />
-            {props.kmap.etymologies_ss && <TermEtymology kmap={props.kmap} />}
-            <TermDefinitions
-                mainDefs={definitions['main_defs']}
-                kmRelated={props.kmRelated}
-            />
-            <TermDictionaries
-                definitions={_.omit(definitions, ['main_defs'])}
-            />
-        </>
-    );
+    if (props.kmap) {
+        return (
+            <>
+                <TermsDetails kmAsset={props.kmasset} />
+                <TermAudioPlayer kmap={props.kmap} />
+                {props.kmap.etymologies_ss && (
+                    <TermEtymology kmap={props.kmap} />
+                )}
+                <TermDefinitions
+                    mainDefs={definitions['main_defs']}
+                    kmRelated={props.kmRelated}
+                />
+                <TermDictionaries
+                    definitions={_.omit(definitions, ['main_defs'])}
+                />
+            </>
+        );
+    } else {
+        return <></>;
+    }
 }
 
 TermsInfo.propTypes = {

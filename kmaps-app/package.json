@@ -8,6 +8,7 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
+        "@types/lodash": "^4.14.159",
         "axios": "^0.19.2",
         "axios-jsonp": "^1.0.4",
         "bootstrap": "^4.5.0",

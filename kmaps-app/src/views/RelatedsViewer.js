@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import HistoryViewer from './History/HistoryViewer';
 
 export function RelatedsViewer(props) {
     console.log('Relateds props = ', props);
@@ -92,6 +93,10 @@ export function RelatedsViewer(props) {
                         className={locMatch.collections}
                     />
                 </div>
+                <br />
+                VISITED RESOURCES
+                <hr />
+                <HistoryViewer />
             </div>
         </div>
     );
