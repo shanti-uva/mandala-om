@@ -152,9 +152,9 @@ export function Home(props) {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href={'/poptest/places/637'}>
+                                    <Link to={'/poptest/places/637'}>
                                         Kmaps Popover Test Page
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </Jumbotron>
