@@ -1,7 +1,5 @@
 import React, { useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { useKmap } from '../../hooks/useKmap';
-import { getRandomKey } from './MandalaMarkup';
 // import { ReactQueryDevtools } from 'react-query-devtools';
 import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
 
