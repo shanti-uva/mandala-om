@@ -68,7 +68,8 @@ export function FeatureCollection(props) {
                     </Spinner>
                 )}
             </div>
-            <FeatureFilters />
+
+            {props.showSearchFilters && <FeatureFilters />}
             {viewer}
         </div>
     );

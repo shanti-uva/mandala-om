@@ -19,6 +19,7 @@ export function SearchViewer(props) {
             viewMode={'deck'}
             loadingState={loadingState}
             inline={false}
+            showSearchFilters={true}
         />
     );
     return output;
