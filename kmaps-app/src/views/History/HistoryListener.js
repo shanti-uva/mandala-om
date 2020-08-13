@@ -39,14 +39,14 @@ export default function HistoryListener() {
     const fixedRelId = fixId(relatedId);
     const relAsset = useAsset(relatedType, fixedRelId);
 
-    console.log(' HISTORY kmasset from kmapid = (', fixedId, ') is ', kmasset);
-    console.log(
-        ' HISTORY related relatedType: ',
-        relatedType,
-        ' related id: ',
-        relatedId
-    );
-    console.log(' HISTORY related asset: ', relAsset);
+    // console.log(' HISTORY kmasset from kmapid = (', fixedId, ') is ', kmasset);
+    // console.log(
+    //     ' HISTORY related relatedType: ',
+    //     relatedType,
+    //     ' related id: ',
+    //     relatedId
+    // );
+    // console.log(' HISTORY related asset: ', relAsset);
 
     function fixTitle(docs) {
         let title = null;
@@ -111,7 +111,7 @@ export default function HistoryListener() {
 
     useEffect(() => {
         return history.listen((location) => {
-            console.log('History: Location = ', location);
+            // console.log('History: Location = ', location);
         });
     }, [history]);
 
