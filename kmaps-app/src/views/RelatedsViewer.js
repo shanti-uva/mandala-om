@@ -3,13 +3,13 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import HistoryViewer from './History/HistoryViewer';
 
 export function RelatedsViewer(props) {
-    console.log('Relateds props = ', props);
+    // console.log('Relateds props = ', props);
 
     const match = useRouteMatch([
         '/:baseType/:baseUid/related-:type',
         '/:baseType/:baseUid',
     ]);
-    console.log('Relateds match = ', match);
+    // console.log('Relateds match = ', match);
 
     const loc = match?.params.type || 'home';
     let locMatch = {};

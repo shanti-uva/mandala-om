@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 export default function HistoryListener() {
     const history = useHistory();
-    console.log('History useHistory = ', history);
+    // console.log('History useHistory = ', history);
 
     useEffect(() => {
         return history.listen((location) => {

@@ -31,7 +31,7 @@ export const historyModel: HistoryModel = {
         const ind = state.historyStack.findIndex((x) => {
             return x.pathname === location.pathname;
         });
-        console.log('pathname = ', location.pathname, ' ind = ', ind);
+        // console.log('pathname = ', location.pathname, ' ind = ', ind);
 
         // remove old one, if its there
         if (ind > -1) {
@@ -51,7 +51,7 @@ export const historyModel: HistoryModel = {
         const ind = state.historyStack.findIndex((x) => {
             return x.key === locationKey;
         });
-        console.log('locationKey = ', locationKey, ' ind = ', ind);
+        // console.log('locationKey = ', locationKey, ' ind = ', ind);
 
         // remove it, if its there
         if (ind > -1) {

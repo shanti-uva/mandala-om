@@ -493,14 +493,14 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     const startRec = typeof start === 'undefined' ? defaultStart : start;
     const rowsRec = typeof rows === 'undefined' ? defaultRows : rows;
 
-    console.log(
-        'getRelatedAssetsPromise: asset_types = ' +
-            asset_types +
-            ' start = ' +
-            startRec +
-            ' rows = ' +
-            rowsRec
-    );
+    // console.log(
+    //     'getRelatedAssetsPromise: asset_types = ' +
+    //         asset_types +
+    //         ' start = ' +
+    //         startRec +
+    //         ' rows = ' +
+    //         rowsRec
+    // );
 
     const facetJson = JSON.stringify({
         asset_counts: {
@@ -533,7 +533,7 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
     };
 
     const unpackResponse = (res) => {
-        console.log('unpacking asset_counts: ', res.data.facets);
+        // console.log('unpacking asset_counts: ', res.data.facets);
 
         const buckets = res.data.facets.asset_counts.buckets;
 
@@ -573,10 +573,10 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
         axios
             .request(request)
             .then((res) => {
-                console.log(
-                    'getRelatedAssetsPromise():  Yay! axios call succeeded!',
-                    res
-                );
+                // console.log(
+                //     'getRelatedAssetsPromise():  Yay! axios call succeeded!',
+                //     res
+                // );
                 const data = unpackResponse(res);
                 setCache(request, data);
                 resolve(data);
