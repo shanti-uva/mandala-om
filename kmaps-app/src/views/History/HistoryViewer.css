@@ -10,6 +10,9 @@
 }
 
 .c-HistoryViewer__relatedRecentItem {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .c-HistoryViewer__relatedRecentItem:hover {
@@ -27,4 +30,15 @@
 
 .c-HistoryViewer__relatedRecentItem:hover .c-HistoryViewer__removeItem {
     display: inline-block;
+}
+.c-HistoryViewer__title {
+    width: 88%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+}
+.c-HistoryViewer__relatedTitle {
+    font-style: italic;
 }
