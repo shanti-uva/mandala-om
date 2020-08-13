@@ -19,6 +19,7 @@ export function SearchAdvanced(props) {
     // This tells us whether we are viewing the search results
     // so that we can give a link to go there (or not).
     const searchView = useRouteMatch(SEARCH_PATH);
+
     // console.log("SearchAdvance searchView = ", searchView);
 
     function gotoSearchPage() {
@@ -52,8 +53,7 @@ export function SearchAdvanced(props) {
         } else if (command.action === 'remove') {
             search.removeFilters([{ id: compound_id }]);
         }
-
-        gotoSearchPage();
+        gotoSearchPage(); // declaratively navigate to search
     }
 
     function handleNarrowFilters(narrowFilter) {
@@ -87,11 +87,29 @@ export function SearchAdvanced(props) {
         }
         setReset(reset + 1);
     }
+
     // console.log ("SEARCHY ", props );
-    // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components
+    function closeAdvanced() {
+        if (typeof props.onStateChange === 'function') {
+            props.onStateChange({ advanced: false });
+        } else {
+            console.error(
+                'SearchAdvanced: No onStateChange() function passed in properties!'
+            );
+        }
+    }
+
+    // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components as they are now.
     const advanced = (
         <div id="sui-adv" className={`sui-adv ${openclass} overflow-auto`}>
-            <Navbar onKeyDown={(x) => console.log(x)}>
+            {typeof props.onStateChange === 'function' && (
+                <Navbar className={'justify-content-end'}>
+                    <Nav.Link onClick={closeAdvanced}>
+                        <span className={'icon shanticon-cancel'}></span>
+                    </Nav.Link>
+                </Navbar>
+            )}
+            <Navbar>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
                 {!searchView && (
