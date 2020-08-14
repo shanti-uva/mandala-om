@@ -43,9 +43,333 @@ export default class AudioVideo {
         this.kmap = null; // Current kmap of clip
     }
 
+    // Added by Ndg8f: Separated out from Draw in order to make player into its own component
+    DrawPlayer(o, elid) {
+        const sui = this.sui;
+        let i,
+            f,
+            wid = 100;
+        const _this = $('#' + elid); // Context
+        var partnerId = '381832'; // Kaltura partner id
+        var uiConfId = '31832371'; // Kaltura confidential code
+        var entryId = ''; // Media id
+        this.inPlay = false; // Not playying yet
+        let w = $(this.div).width(); // Width of area
+        _this.css('background-color', '#eee'); // BG color
+        //$(this.div).html("<div id='sui-av'></div>"); // Clear screen
+        //sui.pages.DrawRelatedAssets(o); // Draw related assets menu if active
+        this.kmap = o; // Save kmap
+        if (typeof window.kWidget != 'undefined')
+            window.kWidget.destroy('sui-kplayer'); // If Kaltura player already initted yet, kill it
+
+        //sui.LoadingIcon(true, 64); // Show loading icon
+        sui.GetJSONFromKmap(o, (d) => {
+            // Get details from JSON
+            var str = `<div id="av-player-row" class="row avplayer"><div id='sui-viewerSide' class="av col">`; // Left side
+            if (d.field_video && d.field_video.und)
+                // If video
+                entryId = d.field_video.und[0].entryid;
+            // Get id
+            else if (d.field_video && d.field_video.en)
+                // If video (english)
+                entryId = d.field_video.en[0].entryid;
+            // Get id
+            else if (d.field_audio && d.field_audio.und) {
+                // Audio
+                entryId = d.field_audio.und[0].entryid; // Id
+                wid = 50; // Make smaller
+            } else if (d.field_audio && d.field_audio.en) {
+                // Audio (english)
+                entryId = d.field_audio.en[0].entryid; // Id
+                wid = 50; // Make smaller
+            }
+            str += `<div class='sui-vPlayer' id='sui-kplayer'>
+			<img src="https://cfvod.kaltura.com/p/${partnerId}/sp/${partnerId}00/thumbnail/entry_id/${entryId}/version/100301/width/560/height/0" fill-height"></div>`;
+            str += `<br><br><div style='display:inline-block;width:300px;margin-left:16px'>
+			<div title='Duration'>&#xe61c&nbsp;&nbsp;&nbsp;${o.duration_s}</div>
+			<div title='Published'>&#xe60c&nbsp;&nbsp;&nbsp;Published `;
+            if (d.field_year_published && d.field_year_published.en)
+                str += +d.field_year_published.en[0].value;
+            else if (o.node_created)
+                str += sui.pages.FormatDate(o.node_created);
+            str += '</div>';
+            try {
+                if (o.collection_title)
+                    str += `<a title='Collection' id='sui-avCol'
+					href='#c=${o.asset_type}-${o.id}=${o.collection_idfacet[0]}'>
+					&#xe633&nbsp;&nbsp;&nbsp;
+					<a title='Collection' id='sui-avCol'	href='#p=${o.collection_uid_s}'>${o.collection_title}</a>`;
+            } catch (e) {}
+            str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
+            try {
+                str +=
+                    "<div title='Creators'>&#xe600&nbsp;&nbsp;&nbsp;" +
+                    o.creator.join(', ') +
+                    '</div>';
+            } catch (e) {}
+            str += `</div><hr>
+			<p class='sui-sourceText'>${
+                o.summary ? o.summary : o.caption ? o.caption : ''
+            }</p>`;
+            if (
+                d.field_pbcore_description &&
+                d.field_pbcore_description.und &&
+                d.field_pbcore_description.und.length
+            ) {
+                str += `<div class='sui-avMore1'><a class='sui-avMore2'>
+				SHOW MORE</a></div><br>`;
+                str += "<div id='sui-avlang' style='display:none'>";
+                let morecnt = '';
+                for (i = 0; i < d.field_pbcore_description.und.length; ++i) {
+                    // For each new description
+                    try {
+                        f = d.field_pbcore_description.und[i]; // Point at it
+                        if (f.field_description.und[0].value.length > 0) {
+                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>${
+                                f.field_description.und[0].value
+                            }<br>`;
+                        }
+                    } catch (e) {}
+                }
+                str += morecnt + '</div>';
+                if (morecnt.length == 0) {
+                    str = str.replace(
+                        "class='sui-avMore2'",
+                        "class='sui-avMore2 hidden'"
+                    );
+                }
+            }
+            str += '</div>';
+
+            $('#sui-av').html(str.replace(/\t|\n|\r/g, '')); // Add player
+
+            this.DrawTranscript(o, '#sui-trans'); // Draw transcript in div
+            str = `//cdnapi.kaltura.com/p/${partnerId}/sp/${partnerId}00/embedIframeJs/uiconf_id/${uiConfId}/partner_id/${partnerId}`;
+            $.ajax({ url: str, dataType: 'script' }).done((e) => {
+                window.kWidget.embed({
+                    targetId: 'sui-kplayer',
+                    wid: '_' + partnerId,
+                    uiconf_id: uiConfId,
+                    entry_id: entryId,
+                    flashvars: { autoPlay: false },
+                    params: { wmode: 'transparent' },
+                });
+                window.kWidget.addReadyCallback(() => {
+                    // When ready, add icon callback
+                    let kdp = document.getElementById('sui-kplayer'); // Get div
+                    if (
+                        typeof kdp !== 'object' ||
+                        typeof kdp.kBind !== 'function'
+                    )
+                        return; // Quit if no player ready yet
+                    kdp.kBind('doPlay.__tests__', () => {
+                        $('#sui-transTab1').html('&#xe681');
+                        this.inPlay = true;
+                        this.PlayAV();
+                    }); // Pause icon
+                    kdp.kBind('doPause.__tests__', () => {
+                        $('#sui-transTab1').html('&#xe641');
+                        this.inPlay = false;
+                        this.playEnd = 0;
+                        clearInterval(this.transTimer);
+                    }); // Play
+                });
+            });
+            sui.LoadingIcon(false); // Hide loading icon
+            if (typeof window.kWidget != 'undefined')
+                window.kWidget.embed({ entry_id: entryId }); // If Kaltura player already inittted yet
+        });
+    }
+
+    // Added by ndg8f copied from Draw and DrawMetaData to separate metadata into its own React component
+    DrawMetaNew(o, elid) {
+        const sui = this.sui;
+        let i,
+            f,
+            t,
+            v,
+            wid = 100;
+
+        sui.GetJSONFromKmap(o, (d) => {
+            // Detail Tab
+            let str = '';
+            try {
+                if (o.title)
+                    str +=
+                        "<p title='Title'><b>TITLE</b>:&nbsp;&nbsp;" +
+                        o.title +
+                        '</p>';
+            } catch (e) {}
+            try {
+                if (o.collection_title)
+                    str +=
+                        "<p title='Collection'><b>COLLECTION</b>:&nbsp;&nbsp;" +
+                        o.collection_title +
+                        '</p>';
+            } catch (e) {}
+            try {
+                str += '<p><b>SUBCOLLECTION</b>:&nbsp;&nbsp;';
+                for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
+                    str +=
+                        d.field_subcollection_new.und[i].header +
+                        sui.pages.AddPop(
+                            d.field_subcollection_new.und[i].domain +
+                                '-' +
+                                d.field_subcollection_new.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
+                }
+                str += '</p>';
+            } catch (e) {}
+            try {
+                str += '<p><b>SUBJECT</b>:&nbsp;&nbsp;';
+                for (i = 0; i < d.field_subject.und.length; ++i) {
+                    str +=
+                        d.field_subject.und[i].header +
+                        sui.pages.AddPop(
+                            d.field_subject.und[i].domain +
+                                '-' +
+                                d.field_subject.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
+                }
+                str += '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>RECORDING LOCATION</b>:&nbsp;&nbsp;' +
+                    d.field_recording_location_new.und[0].header +
+                    sui.pages.AddPop(
+                        d.field_recording_location_new.und[0].domain +
+                            '-' +
+                            d.field_recording_location_new.und[0].id
+                    ) +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    "<p'><b>LANGUAGE</b>:&nbsp;&nbsp;" +
+                    d.field_language_kmap.und[0].header +
+                    sui.pages.AddPop(
+                        d.field_language_kmap.und[0].domain +
+                            '-' +
+                            d.field_language_kmap.und[0].id
+                    ) +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>TERMS</b>:&nbsp;&nbsp;' +
+                    d.field_terms.und[0].header +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>COPYRIGHT OWNER</b>:&nbsp;&nbsp;' +
+                    d.field_copyright_owner.en[0].value +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>YEAR PUBLISHED</b>:&nbsp;&nbsp;' +
+                    d.field_year_published.en[0].value +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>RIGHTS SUMMARY</b>:&nbsp;&nbsp;' +
+                    d.field_pbcore_rights_summary.en[0].value +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>UPLOADED</b>:&nbsp;&nbsp;' +
+                    o.timestamp.substr(0, 10) +
+                    ' by ' +
+                    o.node_user_full_s +
+                    '</p>';
+            } catch (e) {}
+
+            if (
+                d.field_pbcore_creator &&
+                d.field_pbcore_creator.und &&
+                d.field_pbcore_creator.und.length
+            ) {
+                // If creators spec'd
+                for (i = 0; i < d.field_pbcore_creator.und.length; ++i) {
+                    // For each creator
+                    f = d.field_pbcore_creator.und[i]; // Point at it
+                    try {
+                        str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${
+                            f.field_creator.und[0].value
+                        }</p>`;
+                    } catch (e) {}
+                }
+            }
+            if (
+                d.field_pbcore_contributor &&
+                d.field_pbcore_contributor.und &&
+                d.field_pbcore_contributor.und.length
+            ) {
+                // If creators spec'd
+                for (i = 0; i < d.field_pbcore_contributor.und.length; ++i) {
+                    // For each item
+                    f = d.field_pbcore_contributor.und[i]; // Point at it
+                    try {
+                        str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${
+                            f.field_contributor.und[0].value
+                        }</p>`;
+                    } catch (e) {}
+                }
+            }
+            try {
+                str +=
+                    '<p><b>PUBLISHER</b>:&nbsp;&nbsp;' +
+                    d.field_pbcore_publisher.und[0].field_publisher.und[0]
+                        .value +
+                    '</p>';
+            } catch (e) {}
+            try {
+                str +=
+                    '<p><b>DATA ENTRY</b>:&nbsp;&nbsp;' +
+                    o.node_user_full_s +
+                    '</p>';
+            } catch (e) {}
+
+            if (
+                d.field_pbcore_instantiation &&
+                d.field_pbcore_instantiation.und &&
+                d.field_pbcore_instantiation.und.length
+            ) {
+                // If instantiation spec'd
+                for (i in d.field_pbcore_instantiation.und[0]) {
+                    // For each item
+                    v = d.field_pbcore_instantiation.und[0][i]; // Point at it
+                    t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
+                    try {
+                        str += `<p><b>${t.toUpperCase()}</b>:&nbsp;&nbsp;${
+                            v.und[0].value
+                        }</p>`;
+                    } catch (e) {}
+                }
+            }
+            try {
+                str +=
+                    '<p><b>FORMAT ID</b>:&nbsp;&nbsp;' +
+                    d.field_video.und[0].entryid +
+                    '</p>';
+            } catch (e) {}
+            str += '<p><b>FORMAT ID SOURCE</b>:&nbsp;&nbsp;(Kaltura.com)</p>';
+            $('#' + elid).html('<div>' + str + '</div>');
+        });
+    }
+
     Draw(
         o // DRAW AUDIO/VIDEO PAGE
     ) {
+        return;
+        // NDG8F (Aug 14, 2020): Overriding for AV in order to separate player/transcript from metadata
+        // into different components
         const sui = this.sui;
         let i,
             f,
