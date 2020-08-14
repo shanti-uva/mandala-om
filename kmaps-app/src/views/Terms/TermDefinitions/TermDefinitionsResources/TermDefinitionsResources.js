@@ -28,7 +28,7 @@ const TermDefinitionsResources = ({ defID, resCounts }) => {
                             <span className="btn-text">
                                 {key.toUpperCase()}
                             </span>{' '}
-                            <span class="badge badge-light">
+                            <span className="badge badge-light">
                                 {resources[key]}
                             </span>
                         </Button>

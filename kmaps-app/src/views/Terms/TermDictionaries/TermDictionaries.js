@@ -8,13 +8,16 @@ const TermDictionaries = ({ definitions }) => {
             <div className="sui-termDicts__title">Other Dictionaries</div>
             <div className="sui-termDicts__content">
                 {Object.keys(definitions).map((key, i) => (
-                    <>
-                        <div key={key} className="sui-termDicts__dict-name">
+                    <React.Fragment key={key}>
+                        <div className="sui-termDicts__dict-name">
                             {i + 1}. {key}
                         </div>
                         <ul className="sui-termDicts__dict-wrapper">
                             {definitions[key].map((dict) => (
-                                <li className="sui-termDicts__dict">
+                                <li
+                                    className="sui-termDicts__dict"
+                                    key={dict.id}
+                                >
                                     {ReactHtmlParser(
                                         dict.related_definitions_content_s.replace(
                                             /(<p[^>]+?>|<p>|<\/p>)/gim,
@@ -36,7 +39,7 @@ const TermDictionaries = ({ definitions }) => {
                                 </li>
                             ))}
                         </ul>
-                    </>
+                    </React.Fragment>
                 ))}
             </div>
         </div>
