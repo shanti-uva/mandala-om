@@ -42,7 +42,10 @@ export function Main(props) {
                     <HistoryListener />
                     <TopBar />
                     {/* Commented this out to get Asset Views to work (ndg) */}
-                    <SearchBar onStateChange={handleStateChange} />
+                    <SearchBar
+                        advanced={state.advanced}
+                        onStateChange={handleStateChange}
+                    />
 
                     <Switch>
                         <Route path={'/home'}>
@@ -69,7 +72,10 @@ export function Main(props) {
                     </Switch>
                     {/* Commented this out to get Asset Views to work (ndg) */}
                     <SearchContext>
-                        <SearchAdvanced advanced={state.advanced} />
+                        <SearchAdvanced
+                            advanced={state.advanced}
+                            onStateChange={handleStateChange}
+                        />
                     </SearchContext>
                     <Hamburger hamburgerOpen={state.hamburgerOpen} />
                 </div>

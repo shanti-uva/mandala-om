@@ -11,9 +11,9 @@ const useAsset = (asset_type, nid) => {
         },
     };
 
-    console.log('useAsset: querySpecs = ', querySpecs);
     const resource = useSolr(QUERY_KEY, querySpecs);
-    console.log('useAsset: returning resource = ', resource);
+    // console.log('useAsset: querySpecs = ', querySpecs);
+    // console.log('useAsset: returning resource = ', resource);
     return resource;
 };
 

@@ -93,13 +93,13 @@ export const kmapModel: KmapModel = {
         state.relatedsPage.pageSize = relatedsPageSize;
     }),
     receiveKmap: action((state, kmap) => {
-        console.log(' receiveKmap received: ', kmap);
+        // console.log(' receiveKmap received: ', kmap);
         //  what do we do with this?
     }),
 
     setUid: action((state, uid) => {
         state.uid = uid;
-        console.log('KmapModel: set uid = ', uid, state);
+        // console.log('KmapModel: set uid = ', uid, state);
     }),
     onUpdate: thunkOn(
         (actions, storeActions) => [
@@ -127,12 +127,12 @@ export const kmapModel: KmapModel = {
             ) || 0;
         const rows = kmapState.relatedsPage.pageSize || 100;
 
-        console.log('KmapModel update thunk: kmapState: ', kmapState);
-        console.log('KmapModel update thunk: kmapState.uid: ', kmapState.uid);
+        // console.log('KmapModel update thunk: kmapState: ', kmapState);
+        // console.log('KmapModel update thunk: kmapState.uid: ', kmapState.uid);
 
-        console.log('KmapModel update thunk:type: ', type);
-        console.log('KmapModel update thunk: start: ', start);
-        console.log('KmapModel update thunk: rows: ', rows);
+        // console.log('KmapModel update thunk:type: ', type);
+        // console.log('KmapModel update thunk: start: ', start);
+        // console.log('KmapModel update thunk: rows: ', rows);
 
         const promises = [
             getAssetDataPromise(kmapState.uid),
@@ -142,15 +142,15 @@ export const kmapModel: KmapModel = {
 
         Promise.allSettled(promises)
             .then(([kmasset_result, kmap_result, relateds_result]) => {
-                console.log(
-                    'kmapModel Promises settled: kmasset:',
-                    kmasset_result
-                );
-                console.log('kmapModel Promises settled: kmap:', kmap_result);
-                console.log(
-                    'kmapModel Promises settled: relateds:',
-                    relateds_result
-                );
+                // console.log(
+                //     'kmapModel Promises settled: kmasset:',
+                //     kmasset_result
+                // );
+                // console.log('kmapModel Promises settled: kmap:', kmap_result);
+                // console.log(
+                //     'kmapModel Promises settled: relateds:',
+                //     relateds_result
+                // );
                 if (kmap_result.status === 'fulfilled') {
                     kmapState.kmap = kmap_result.value;
                 }

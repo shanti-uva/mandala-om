@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import FancyTree from './FancyTree';
 import HistoryViewer from './History/HistoryViewer';
+import './css/RelatedsViewer.css';
 
 export function RelatedsViewer(props) {
-    console.log('Relateds props = ', props);
+    // console.log('Relateds props = ', props);
 
     const match = useRouteMatch([
         '/:baseType/:baseUid/related-:type',
         '/:baseType/:baseUid',
     ]);
-    console.log('Relateds match = ', match);
+    // console.log('Relateds match = ', match);
 
     const loc = match?.params.type || 'home';
     let locMatch = {};
@@ -27,76 +29,88 @@ export function RelatedsViewer(props) {
     return (
         <div className={'relatedsviewer'}>
             <div className="sui-related">
-                RELATED RESOURCES
-                <hr />
-                <div className="sui-relatedList">
-                    <Link to={'/' + baseArgs.baseType + '/' + baseArgs.baseUid}>
-                        <div
-                            className={`sui-relatedItem  sui-color-terms ${locMatch['home']}`}
-                            id="sui-rl-Home"
+                <div className="sui-relatedList__wrapper">
+                    RELATED RESOURCES
+                    <hr />
+                    <div className="sui-relatedList">
+                        <Link
+                            to={
+                                '/' + baseArgs.baseType + '/' + baseArgs.baseUid
+                            }
                         >
-                            <span className={'icon sui-relatedItem-icon'}>
-                                
-                            </span>{' '}
-                            <b>Home</b>
-                        </div>
-                    </Link>
+                            <div
+                                className={`sui-relatedItem  sui-color-terms ${locMatch['home']}`}
+                                id="sui-rl-Home"
+                            >
+                                <span className={'icon sui-relatedItem-icon'}>
+                                    
+                                </span>{' '}
+                                <b>Home</b>
+                            </div>
+                        </Link>
 
-                    <RelatedCount
-                        type={'all'}
-                        {...baseArgs}
-                        className={locMatch['all']}
-                    />
-                    <RelatedCount
-                        type={'places'}
-                        {...baseArgs}
-                        className={locMatch['places']}
-                    />
-                    <RelatedCount
-                        type={'audio-video'}
-                        {...baseArgs}
-                        className={locMatch['audio-video']}
-                    />
-                    <RelatedCount
-                        type={'images'}
-                        {...baseArgs}
-                        className={locMatch.images}
-                    />
-                    <RelatedCount
-                        type={'sources'}
-                        {...baseArgs}
-                        className={locMatch.sources}
-                    />
-                    <RelatedCount
-                        type={'texts'}
-                        {...baseArgs}
-                        className={locMatch.texts}
-                    />
-                    <RelatedCount
-                        type={'visuals'}
-                        {...baseArgs}
-                        className={locMatch.visuals}
-                    />
-                    <RelatedCount
-                        type={'subjects'}
-                        {...baseArgs}
-                        className={locMatch.subjects}
-                    />
-                    <RelatedCount
-                        type={'terms'}
-                        {...baseArgs}
-                        className={locMatch.terms}
-                    />
-                    <RelatedCount
-                        type={'collections'}
-                        {...baseArgs}
-                        className={locMatch.collections}
-                    />
+                        <RelatedCount
+                            type={'all'}
+                            {...baseArgs}
+                            className={locMatch['all']}
+                        />
+                        <RelatedCount
+                            type={'places'}
+                            {...baseArgs}
+                            className={locMatch['places']}
+                        />
+                        <RelatedCount
+                            type={'audio-video'}
+                            {...baseArgs}
+                            className={locMatch['audio-video']}
+                        />
+                        <RelatedCount
+                            type={'images'}
+                            {...baseArgs}
+                            className={locMatch.images}
+                        />
+                        <RelatedCount
+                            type={'sources'}
+                            {...baseArgs}
+                            className={locMatch.sources}
+                        />
+                        <RelatedCount
+                            type={'texts'}
+                            {...baseArgs}
+                            className={locMatch.texts}
+                        />
+                        <RelatedCount
+                            type={'visuals'}
+                            {...baseArgs}
+                            className={locMatch.visuals}
+                        />
+                        <RelatedCount
+                            type={'subjects'}
+                            {...baseArgs}
+                            className={locMatch.subjects}
+                        />
+                        <RelatedCount
+                            type={'terms'}
+                            {...baseArgs}
+                            className={locMatch.terms}
+                        />
+                        <RelatedCount
+                            type={'collections'}
+                            {...baseArgs}
+                            className={locMatch.collections}
+                        />
+                    </div>
                 </div>
-                <br />
-                VISITED RESOURCES
-                <hr />
-                <HistoryViewer />
+                <div className="sui-recently-viewed__wrapper">
+                    RECENTLY VIEWED
+                    <hr />
+                    <HistoryViewer />
+                </div>
+                <div className="sui-termsTree__wrapper">
+                    BROWSE TERMS
+                    <hr />
+                    <FancyTree />
+                </div>
             </div>
         </div>
     );

@@ -1,10 +1,10 @@
 import React from 'react';
 
 export function SubjectsInfo(props) {
-    console.log('SubjectsInfo: props = ', props);
     const { kmap, kmasset } = props;
-    console.log('SubjectsInfo: kmap = ', kmap);
-    console.log('SubjectsInfo: kmasset = ', kmasset);
+    // console.log('SubjectsInfo: props = ', props);
+    // console.log('SubjectsInfo: kmap = ', kmap);
+    // console.log('SubjectsInfo: kmasset = ', kmasset);
 
     return (
         <div>

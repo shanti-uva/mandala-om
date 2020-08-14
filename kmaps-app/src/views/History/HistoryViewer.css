@@ -1,0 +1,44 @@
+.c-HistoryViewer {
+    font-size: 12px;
+    color: #222;
+    padding: 0;
+    max-height: 84px;
+    user-select: none;
+    overflow-x: hidden;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.c-HistoryViewer__relatedRecentItem {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.c-HistoryViewer__relatedRecentItem:hover {
+    background-color: #a4baec;
+}
+
+.c-HistoryViewer__removeItem {
+    display: none;
+    cursor: pointer;
+    margin-right: 4px;
+    float: right;
+    margin-top: 0.6rem;
+    pointer: hand;
+}
+
+.c-HistoryViewer__relatedRecentItem:hover .c-HistoryViewer__removeItem {
+    display: inline-block;
+}
+.c-HistoryViewer__title {
+    width: 88%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+}
+.c-HistoryViewer__relatedTitle {
+    font-style: italic;
+}
