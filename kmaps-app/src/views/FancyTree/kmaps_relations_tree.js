@@ -106,7 +106,12 @@ import jQuery from 'jquery';
                         node.toggleExpanded();
                     } else {
                         if (node.data.href) {
-                            window.location.href = node.data.href;
+                            plugin.options.history.push(
+                                node.data.href.replace(
+                                    process.env.REACT_APP_PUBLIC_URL,
+                                    ''
+                                )
+                            );
                         }
                     }
                 },
