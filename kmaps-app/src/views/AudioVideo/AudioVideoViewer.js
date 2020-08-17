@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { getMandalaAssetDataPromise } from '../../logic/assetapi';
 import { Parser } from 'html-to-react';
+import { Tabs, Tab } from 'react-bootstrap';
 import '../css/AVViewer.css';
 import $ from 'jquery';
 
@@ -7,24 +9,13 @@ export function AudioVideoViewer(props) {
     const id = props.id;
     const kmasset = props.mdlasset;
     const sui = props.sui;
-    const inline = props.inline;
-    console.log('in av viewer...');
-    {
-        /*
-    if (kmasset) {
-        sui.pages.Draw(kmasset, false);
-    }
-
-    const parser = new Parser();
-    const output = parser.parse($(sui.pages.div).html());
-    */
-    }
-
+    const mapp = 'images';
     useEffect(() => {
         $('body').on('click', 'a.sui-avMore2', function () {
             $('#sui-avlang').toggle();
             this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
         });
+        $('#sui-main').addClass('av');
     }, []);
 
     return (
@@ -36,7 +27,6 @@ export function AudioVideoViewer(props) {
 }
 
 function AudioVideoPlayer(props) {
-    const id = props.id;
     const kmasset = props.asset;
     const sui = props.sui;
     sui.av.DrawPlayer(kmasset, 'sui-av');
@@ -44,14 +34,22 @@ function AudioVideoPlayer(props) {
 }
 
 function AudioVideoMeta(props) {
-    const id = props.id;
     const kmasset = props.asset;
     const sui = props.sui;
+    useEffect(() => {
+        const mypromise = getMandalaAssetDataPromise('audio_video', props.id);
+    }, []);
     sui.av.DrawMetaNew(kmasset, 'meta-details');
     return (
-        <div className={'av-meta-row'}>
-            <div id={'meta-details'}></div>
-            <div id={'meta-mlt'}>MLT DATA</div>
+        <div id="av-meta-row">
+            <Tabs defaultActiveKey="details" id="av-meta-tabs">
+                <Tab eventKey="details" title="DETAILS ">
+                    <div id={'meta-details'}>Loading ...</div>
+                </Tab>
+                <Tab eventKey="related" title="RELATED ">
+                    <div id={'meta-mlt'}>Loading ...</div>
+                </Tab>
+            </Tabs>
         </div>
     );
 }

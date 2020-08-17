@@ -1,4 +1,14 @@
-#sui-av {
+#sui-main.av {
+    width: 99vw;
+}
+
+div#av-viewer {
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+#sui-av,
+#av-meta-row {
     overflow: visible;
     margin-top: 2rem !important;
     width: 98%;
@@ -7,10 +17,13 @@
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
 }
 
+#sui-viewerSide {
+    padding-left: 2.5rem;
+}
+
 #sui-kplayer {
     width: 100%;
-    height: 350px;
-    max-width: 800px;
+    height: 430px;
 }
 
 #av-player-row {
@@ -20,26 +33,30 @@
 div#av-trscrpt-wrapper {
     height: inherit;
     letter-spacing: 0;
-    max-height: 600px;
-    overflow-y: hidden;
 }
 
 #av-trscrpt-wrapper #sui-trans {
     height: 90%;
 }
 
-#av-info-tabs {
-    margin: 0px;
+#av-meta-row {
+    margin: 0px auto;
 }
 
-#av-info-tabs .sui-tabTab {
+#av-meta-row .nav-tabs a {
     height: 36px;
+    width: 50%;
+    text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background-color: rgb(88, 170, 180);
 }
 
-#av-info-tabs .sui-tabTab.active {
+#av-meta-row .nav-tabs a {
+    color: white;
+}
+
+#av-meta-row .nav-tabs a.active {
     background-color: white;
     border: 2px solid rgb(88, 170, 180);
     color: rgb(88, 170, 180);
@@ -47,12 +64,12 @@ div#av-trscrpt-wrapper {
     border-bottom: none;
 }
 
-#av-info-tabs .sui-tabContent {
-    padding: 12px 24px 0px;
+#av-meta-row .tab-content .tab-pane {
+    padding: 12px 24px;
     min-height: 500px;
     background-color: #fff;
-    border-left: 2px solid rgb(88, 170, 180);
-    border-right: 2px solid rgb(88, 170, 180);
+    border: 2px solid rgb(88, 170, 180);
+    border-top: none;
     width: 100%;
     margin-right: 6px;
 }

@@ -11,8 +11,8 @@ $(document).ready(function () {
     }, 10000);
 });
 
-export function getMandalaAssetDataPromise(env, assettype, id) {
-    const json_call = getMandalaJSONUrl(env, assettype, id);
+export function getMandalaAssetDataPromise(assettype, id) {
+    const json_call = getMandalaJSONUrl(assettype, id);
 
     const request = {
         adapter: jsonpAdapter,
@@ -41,8 +41,8 @@ export function getMandalaAssetDataPromise(env, assettype, id) {
     return promise;
 }
 
-export function getLegacyAssetPromise(env, assettype, id) {
-    const json_call = getMandalaSolrUrl(env, assettype, id);
+export function getLegacyAssetPromise(assettype, id) {
+    const json_call = getMandalaSolrUrl(assettype, id);
 
     const request = {
         adapter: jsonpAdapter,
@@ -71,21 +71,18 @@ export function getLegacyAssetPromise(env, assettype, id) {
 }
 
 // Build the mandala JSON URL based on environment, app, and ID within app
-function getMandalaJSONUrl(menv, mapp, mid) {
-    let host = '';
-    switch (menv) {
-        case 'local':
-            host = 'https://' + mapp + '.dd:8443';
-            break;
-        case 'dev':
-            host = 'https://' + mapp + '-dev.shanti.virginia.edu';
-            break;
-        case 'stage':
-            host = 'https://' + mapp + '-stage.shanti.virginia.edu';
-            break;
-        default:
-            host = 'https://' + mapp + '.shanti.virginia.edu';
+function getMandalaJSONUrl(mapp, mid) {
+    mapp = mapp.replace('-', '_').toLowerCase();
+    const envkey = 'REACT_APP_DRUPAL_' + mapp.toUpperCase();
+    if (!(envkey in process.env)) {
+        console.error(
+            'Drupal App host URL, ' +
+                envkey +
+                ', not found in React environment variables'
+        );
+        return '';
     }
+    const host = process.env[envkey];
     let json_call = '';
     // TODO: Adapt for other apps
     switch (mapp) {
@@ -93,35 +90,17 @@ function getMandalaJSONUrl(menv, mapp, mid) {
             json_call = host + '/shanti_texts/node_json/' + mid;
             break;
 
+        case 'audio_video':
+            json_call = host + '/services/mlt/' + mid;
+
         default:
             json_call = host;
     }
     return json_call;
 }
 
-function getMandalaSolrUrl(env, assettype, id) {
-    let solr_base = '';
-    switch (env) {
-        case 'predev':
-            solr_base =
-                'https://ss251856-us-east-1-aws.measuredsearch.com/solr/kmassets_predev';
-            break;
-
-        case 'dev':
-        case 'local':
-            solr_base =
-                'https://ss251856-us-east-1-aws.measuredsearch.com/solr/kmassets_dev';
-            break;
-
-        case 'stage':
-            solr_base =
-                'https://ss395824-us-east-1-aws.measuredsearch.com/solr/kmassets_stage';
-            break;
-
-        default:
-            solr_base =
-                'https://ss395824-us-east-1-aws.measuredsearch.com/solr/kmassets'; // default to Prod
-    }
+function getMandalaSolrUrl(assettype, id) {
+    const solr_base = process.env.REACT_APP_SOLR_KMASSETS;
     const solr_url =
         solr_base +
         '/select?q=asset_type:' +
