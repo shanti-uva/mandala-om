@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getMandalaAssetDataPromise } from '../../logic/assetapi';
-import { Parser } from 'html-to-react';
+import axios from 'axios';
+import jsonpAdapter from '../../logic/axios-jsonp';
+import { HtmlWithPopovers } from '../common/MandalaMarkup';
 import { Tabs, Tab } from 'react-bootstrap';
 import '../css/AVViewer.css';
 import $ from 'jquery';
@@ -36,8 +37,25 @@ function AudioVideoPlayer(props) {
 function AudioVideoMeta(props) {
     const kmasset = props.asset;
     const sui = props.sui;
+    const [mlt, setMlt] = useState('');
+    // Effect gets the More Like This list
     useEffect(() => {
-        const mypromise = getMandalaAssetDataPromise('audio_video', props.id);
+        axios({
+            url:
+                process.env.REACT_APP_DRUPAL_AUDIO_VIDEO +
+                '/services/mlt/256?wt=json', // TODO: Update that url
+            adapter: jsonpAdapter,
+        })
+            .then(function (response) {
+                // handle success
+                console.log(response);
+                // setMlt(response.data);
+                $('#meta-mlt').html(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.error(error);
+            });
     }, []);
     sui.av.DrawMetaNew(kmasset, 'meta-details');
     return (
@@ -47,7 +65,7 @@ function AudioVideoMeta(props) {
                     <div id={'meta-details'}>Loading ...</div>
                 </Tab>
                 <Tab eventKey="related" title="RELATED ">
-                    <div id={'meta-mlt'}>Loading ...</div>
+                    <div id={'meta-mlt'}></div>
                 </Tab>
             </Tabs>
         </div>

@@ -82,10 +82,6 @@ export default function MdlAssetContext(props) {
                                 status.setId(new_mdlasset.id);
                             }
                         } else if (mdlasset.id !== new_mdlasset.id) {
-                            console.warn(
-                                'Setting mdl for AV asset',
-                                new_mdlasset
-                            );
                             setMdlAsset(new_mdlasset);
                             changed = true;
 

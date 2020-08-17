@@ -19,7 +19,6 @@ export function getMandalaAssetDataPromise(assettype, id) {
         callbackParamName: 'json_wrf',
         url: json_call,
     };
-    //console.log("json request: ", request);
     const promise = new Promise((resolve, reject) => {
         let calldata = false; // getCached(request);
         if (calldata) {
@@ -89,9 +88,6 @@ function getMandalaJSONUrl(mapp, mid) {
         case 'texts':
             json_call = host + '/shanti_texts/node_json/' + mid;
             break;
-
-        case 'audio_video':
-            json_call = host + '/services/mlt/' + mid;
 
         default:
             json_call = host;
