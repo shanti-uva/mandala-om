@@ -18,16 +18,21 @@ div#av-viewer {
 }
 
 #sui-viewerSide {
+    padding-top: 10px;
     padding-left: 2.5rem;
+    max-width: 900px;
 }
 
 #sui-kplayer {
     width: 100%;
-    height: 430px;
+    max-width: 850px;
+    height: 500px;
 }
 
 #av-player-row {
     overflow-x: hidden;
+    overflow-y: visible;
+    height: auto;
 }
 
 div#av-trscrpt-wrapper {
@@ -37,6 +42,11 @@ div#av-trscrpt-wrapper {
 
 #av-trscrpt-wrapper #sui-trans {
     height: 90%;
+}
+
+#av-player-row .sui-sourceText,
+#sui-viewerSide p {
+    overflow-wrap: break-word;
 }
 
 #av-meta-row {
@@ -141,15 +151,20 @@ div#av-trscrpt-wrapper {
 }
 
 .av #meta-mlt .shanti-thumbnail {
-    margin: 0 0.5rem 1rem;
 }
 
 .av #meta-mlt .shanti-thumbnail {
     display: flex;
     flex-direction: column;
     float: inherit;
-    height: inherit;
+    height: 17.5em;
     max-width: 188px;
+    margin: 0 0.5rem 1rem;
+}
+
+.av #meta-mlt .shanti-thumbnail .shanticon-video:before {
+    font-family: shanticon;
+    content: '\e63a';
 }
 
 .av #meta-mlt .shanti-thumbnail:hover {
@@ -374,7 +389,7 @@ div#av-trscrpt-wrapper {
     color: #df3d26;
 }
 
-.av #meta-mlt .shanti-field-group-audience .shanti-thumbnail-link + a::before {
+.av #meta-mlt .shanti-field-group-audience .shanti-field-content + a::before {
     font-family: 'Glyphicons Halflings';
     content: '\e144';
     color: #666;
@@ -386,4 +401,9 @@ div#av-trscrpt-wrapper {
     position: relative;
     left: 0.1rem;
     top: 0.05rem;
+}
+
+.shanti-field-group-audience .shanti-field-content {
+    font-size: 10px;
+    color: white;
 }
