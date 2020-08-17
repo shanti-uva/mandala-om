@@ -10,7 +10,16 @@ import './kmaps_relations_tree';
 import 'jquery.fancytree/dist/skin-awesome/ui.fancytree.css';
 import './FancyTree.css';
 
-function FancyTree(props) {
+function FancyTree({
+    domain,
+    tree,
+    descendants = true,
+    directAncestors = false,
+    displayPopup = false,
+    perspective = 'tib.alpha',
+    view = 'roman.scholar',
+    sortBy = 'position_i+ASC',
+}) {
     const el = useRef(null);
     let history = useHistory();
     let params = useParams();
@@ -21,32 +30,36 @@ function FancyTree(props) {
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
             assetIndex: process.env.REACT_APP_SOLR_KMASSETS,
             featureId: '',
-            domain: 'terms',
-            perspective: 'tib.alpha',
+            domain,
+            perspective,
             mandalaURL:
-                process.env.REACT_APP_PUBLIC_URL + '/terms/terms-%%ID%%',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
             featuresPath:
-                process.env.REACT_APP_PUBLIC_URL + '/terms/terms-%%ID%%',
-            tree: 'terms',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
+            tree,
         });
 
         const elCopy = $(el.current);
         elCopy.kmapsRelationsTree({
-            domain: 'terms',
+            domain,
             featureId: '',
             featuresPath:
-                process.env.REACT_APP_PUBLIC_URL + '/%%APP%%/%%APP%%-%%ID%%',
-            perspective: 'tib.alpha',
-            tree: 'terms',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
+            perspective,
+            tree,
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
-            descendants: true,
-            directAncestors: false,
-            displayPopup: false,
+            descendants,
+            directAncestors,
+            displayPopup,
             mandalaURL:
-                process.env.REACT_APP_PUBLIC_URL + '/%%APP%%/%%APP%%-%%ID%%',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
             solrUtils: solrUtils,
-            view: 'roman.scholar',
-            sortBy: 'position_i+ASC',
+            view,
+            sortBy,
             extraFields: ['associated_subject_ids'],
             nodeMarkerPredicates: [
                 {

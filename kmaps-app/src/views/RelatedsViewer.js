@@ -109,7 +109,16 @@ export function RelatedsViewer(props) {
                 <div className="sui-termsTree__wrapper">
                     BROWSE TERMS
                     <hr />
-                    <FancyTree />
+                    <FancyTree
+                        domain="terms"
+                        tree="terms"
+                        descendants={true}
+                        directAncestors={false}
+                        displayPopup={false}
+                        perspective="tib.alpha"
+                        view="roman.scholar"
+                        sortBy="position_i+ASC"
+                    />
                 </div>
             </div>
         </div>
