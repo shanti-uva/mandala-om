@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jsonpAdapter from '../../logic/axios-jsonp';
-import { HtmlWithPopovers } from '../common/MandalaMarkup';
 import { Tabs, Tab } from 'react-bootstrap';
 import '../css/AVViewer.css';
 import $ from 'jquery';
+import ReactHtmlParser from 'react-html-parser';
 
 export function AudioVideoViewer(props) {
     const id = props.id;
@@ -37,7 +37,7 @@ function AudioVideoPlayer(props) {
 function AudioVideoMeta(props) {
     const kmasset = props.asset;
     const sui = props.sui;
-    const [mlt, setMlt] = useState('');
+    const [mlt, setMlt] = useState([]);
     // Effect gets the More Like This list
     useEffect(() => {
         axios({
@@ -50,7 +50,8 @@ function AudioVideoMeta(props) {
                 // handle success
                 console.log(response);
                 // setMlt(response.data);
-                $('#meta-mlt').html(response.data);
+                //$('#meta-mlt').html(response.data);
+                setMlt(response.data);
             })
             .catch(function (error) {
                 // handle error
@@ -65,9 +66,31 @@ function AudioVideoMeta(props) {
                     <div id={'meta-details'}>Loading ...</div>
                 </Tab>
                 <Tab eventKey="related" title="RELATED ">
-                    <div id={'meta-mlt'}></div>
+                    <div id={'meta-mlt'}>
+                        {mlt.map((tile, n) => {
+                            return <AudioVideoMltTile markup={tile} />;
+                        })}
+                    </div>
                 </Tab>
             </Tabs>
         </div>
     );
+}
+
+function AudioVideoMltTile(props) {
+    const mu = props.markup;
+    const $mu = $(mu);
+    const nid = $mu.data('nid');
+    // Replace the video link with an in-standalone link
+    $mu.find('.shanti-field-video a.shanti-thumbnail-link')[0].href =
+        '/mandala-om/audio-video/' + nid;
+    // Remove the link to the collection for now.
+    const lnktxt = $mu.find(
+        '.shanti-field-group-audience a.shanti-thumbnail-link'
+    )[0].text;
+    $($mu.find('.shanti-field-group-audience .shanti-field-content')[0]).html(
+        lnktxt
+    );
+    const options = { decodeEntities: true };
+    return <>{ReactHtmlParser($mu.html(), options)}</>;
 }
