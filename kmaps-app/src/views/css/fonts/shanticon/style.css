@@ -8,6 +8,7 @@
     font-display: block;
 }
 
+.icon,
 [class^='shanticon-'],
 [class*=' shanticon-'] {
     /* use !important to prevent issues with browser extensions that change fonts */
@@ -142,7 +143,7 @@
     content: '\e626';
 }
 .shanticon-menu3:before {
-    content: '\e627';
+    content: '\e68f';
 }
 .shanticon-multiply:before {
     content: '\e628';

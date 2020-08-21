@@ -5,48 +5,20 @@
     display: inline-block;
     white-space: nowrap;
 }
-
 .kmap-tag-group .deflinks {
     vertical-align: super;
     font-size: 80%;
 }
 
 .popover-link {
-    background: #5a65d1;
-    border: none;
-    border-radius: 2px;
-    /*height: 12.5px;
-    width: 14.5px;*/
-    color: white;
-    padding: 0 0 0 1px;
     position: relative;
     left: 0;
-    top: 0;
-    margin: 0 0 0 8px;
-    font-size: 10px;
-    font-family: 'EB Garamond', serif;
+    top: 4px;
+    margin: 0 1rem 0 0.35rem;
+    font-size: 20px;
 }
-
-.popover-link-tip {
-    border-bottom: 0.5rem solid transparent;
-    border-top: 0 solid transparent;
-    border-right: 0.5rem solid #5a65d1;
-    font-size: 0;
-    position: relative;
-    bottom: 10px;
-    right: 5px;
-    height: 0;
-    width: 0;
-}
-
-.popover-link .icon {
-    font-size: 8px;
-    position: relative;
-    right: 3px;
-}
-
 .popover-link .icon::before {
-    color: white;
+    color: #5a65d1;
 }
 
 .related-resources-popover {

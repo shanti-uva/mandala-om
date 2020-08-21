@@ -9,15 +9,16 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import { FeaturePager } from './FeaturePager';
 import Spinner from 'react-bootstrap/Spinner';
 
-// The length of the Rows at each Break Point  TODO: make the breakpoints adjustable.  Config and/or Dynamic?
-const BP_SIZES = {
-    sm: 2,
-    md: 3,
-    lg: 4,
-    xl: 6,
-};
+// The length of the Rows at each Break Point
+// const BP_SIZES = {
+//    sm: 2,
+//    md: 3,
+//    lg: 4,
+//    xl: 6,
+// };
 
 // utility function to insert breakpoints
+/*
 function insertBreakPoints(i, BP_SIZES, ret) {
     if (i !== 0) {
         if (i % BP_SIZES.sm === 0) {
@@ -51,7 +52,7 @@ function insertBreakPoints(i, BP_SIZES, ret) {
         }
     }
 }
-
+*/
 export function FeatureDeck(props) {
     const shouldInline = (doc) => {
         let inline = true;
@@ -84,14 +85,14 @@ export function FeatureDeck(props) {
             );
 
             // Insert breakpoints for various window sizes
-            insertBreakPoints(i, BP_SIZES, ret);
+            //        insertBreakPoints(i, BP_SIZES, ret);
             ret.push(featureCard);
             return ret;
         });
 
         if (docs.length) {
-            let REMAINDER = rowFiller(LIST.length, BP_SIZES);
-            LIST.push(...REMAINDER);
+            //    let REMAINDER = rowFiller(LIST.length, BP_SIZES);
+            //    LIST.push(...REMAINDER);
         } else {
             LIST = (
                 <div className={'d-flex justify-content-center'}>
@@ -123,7 +124,7 @@ export function FeatureDeck(props) {
         <React.Fragment>
             <FeaturePager pager={props.pager} />
             <Container>
-                <CardDeck className={'sui-featureDeck'}>{LIST}</CardDeck>
+                <CardDeck className={'c-card__grid'}>{LIST}</CardDeck>
             </Container>
             <FeaturePager pager={props.pager} />
             <Jumbotron>{DEBUG_PRE}</Jumbotron>
@@ -132,13 +133,13 @@ export function FeatureDeck(props) {
     return output;
 }
 
-/* utility function to fill the remaining spaces in the last row */
+/* utility function to fill the remaining spaces in the last row
 function rowFiller(length, bp_sizes) {
     let remainderCards = [];
     const maxLength = bp_sizes.xl;
     const remainVisible = 'invisible';
     for (let i = 0; i < maxLength; i++) {
-        let remClasses = ['m-1', 'p-2', 'd-none']; // TODO: need to get / set defaults from someplace...
+        let remClasses = ['m-1', 'p-2', 'd-none'];
         for (let [type, size] of Object.entries(bp_sizes)) {
             // console.log(`${type}: ${size}`);
             if (length % size !== 0 && i < size - (length % size)) {
@@ -149,7 +150,7 @@ function rowFiller(length, bp_sizes) {
         }
         const remainderCard = (
             <Card className={remClasses.join(' ')} key={'fill' + i}>
-                {/* for debugging */}
+            //    { for debugging}
                 <Card.Body>
                     <pre>{remClasses.join('\n')}</pre>
                 </Card.Body>
@@ -159,7 +160,7 @@ function rowFiller(length, bp_sizes) {
     }
     return remainderCards;
 }
-
+*/
 // TODO: deprecate FeatureGalleryHeaderLine
 function FeatureGalleryHeaderLine(props) {
     if (props.title) {

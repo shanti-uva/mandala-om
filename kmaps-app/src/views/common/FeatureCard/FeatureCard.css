@@ -1,0 +1,149 @@
+html .card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    justify-content: space-between;
+    margin: 1rem 0 2rem;
+}
+
+html .card-deck .card {
+    min-width: 200px;
+    max-width: 235px;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0 2px 5px #ccc;
+    border-top: 2px solid rgba(205, 169, 66, 1) !important;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+html .card-deck .card a:hover {
+    text-decoration: none;
+}
+.c-card__imageWrap {
+    max-height: 110px;
+    overflow: hidden;
+}
+html .card-image,
+html .card-image-top {
+    border-radius: 0;
+    height: 110px;
+}
+html .card-body {
+    max-height: 150px;
+    min-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 0.6rem 1rem;
+    white-space: wrap;
+    word-break: break-word;
+}
+html .card-title {
+    margin: 0.65rem 0 0.5rem;
+}
+html .card-title a {
+    color: #333;
+    font-size: 1.44em !important;
+    line-height: 1.32em;
+    padding: 0 0.75rem;
+    font-weight: 600;
+    word-break: break-word;
+    border-bottom: none !important;
+    display: inline-block;
+    width: 100%;
+}
+html .list-group {
+    border-top: 1px solid rgba(205, 169, 66, 1);
+}
+html .list-group-item {
+    padding: 0.15rem 1.15rem 0.25rem 0.3rem;
+    border: none;
+}
+html .list-group-item:empty {
+    padding: 0 !important;
+    border: none !important;
+}
+html .card-footer {
+    background: rgba(142, 117, 46, 0.85);
+    height: 2.8rem;
+    padding: 0 1rem;
+    border: none;
+    border-radius: 0 0 0.35rem 0.35rem !important;
+}
+html .card-footer:hover {
+    background-color: rgba(105, 79, 4, 0.85);
+}
+html .card-footer:active {
+    background-color: rgba(142, 117, 46, 0.85);
+}
+html .card-footer a {
+    font-size: 0.82em;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    font-style: italic;
+    border: none !important;
+    padding: 0.6rem 0;
+    line-height: 1.4em;
+}
+
+html .card-footer a:hover {
+    background-color: transparent;
+}
+
+html .card-footer a::before {
+    content: '\e633';
+    font-family: 'shanticon';
+    display: inline-block;
+    font-size: 1.32em;
+    color: #eee;
+    margin-right: 0.8rem;
+    float: left;
+    font-style: normal;
+}
+
+.c-button__json {
+    position: absolute;
+    bottom: 3.25rem;
+    right: 1.5rem;
+}
+
+.shanti-field-itemcount,
+.shanti-field-path,
+.shanti-field-type,
+.shanti-field-author,
+.shanti-field-creator,
+.shanti-field-registrar,
+.shanti-field-languages,
+.shanti-field-duration,
+.shanti-field-created,
+.shanti-field-place,
+.shanti-field-subject {
+    font-size: 0.75em;
+}
+.shanti-field-itemcount span::before,
+.shanti-field-path span::before,
+.shanti-field-type span::before,
+.shanti-field-author > span::before,
+.shanti-field-creator > span::before,
+.shanti-field-registrar > span::before,
+.shanti-field-languages span::before,
+.shanti-field-duration span::before,
+.shanti-field-created span::before,
+.shanti-field-place > span::before,
+.shanti-field-subject > span::before {
+    font-size: 130%;
+}
+
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 900px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1100px) {
+}

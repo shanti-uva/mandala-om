@@ -6,9 +6,11 @@ import * as PropTypes from 'prop-types';
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 import { KmapLink } from './KmapLink';
 import { SmartTitle } from './SmartTitle';
 import { SmartPath } from './SmartPath';
+import './FeatureCard/FeatureCard.css';
 
 // TODO: move all "style" declarations to css!
 export function FeatureCard(props) {
@@ -80,10 +82,7 @@ export function FeatureCard(props) {
     const date = props.doc.timestamp?.split('T')[0];
 
     const footer_text = props.doc.collection_title ? (
-        <span>
-            <span className="icon shanticon-collections"></span>{' '}
-            {props.doc.collection_title}{' '}
-        </span>
+        <span> {props.doc.collection_title} </span>
     ) : (
         <span>
             <span className={`icon shanticon-${props.doc.asset_type}`}></span>{' '}
@@ -107,87 +106,96 @@ export function FeatureCard(props) {
         ? `./view/${props.doc.uid}?asset_type=${props.doc.asset_type}`
         : `/${viewer}/${props.doc.uid}`;
     return (
-        <Card className={'m-2 zoom'} key={props.doc.uid}>
+        <Card key={props.doc.uid}>
             <Link to={asset_view}>
                 {/*<Link to={`./view/${props.doc.uid}`}> }*/}
-                <div className={'sui-featureCard-img-crop'}>
+                <div className={'c-card__imageWrap'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
-                    <div className={'sui-cardType'}>{typeGlyph}</div>
-                    <div className={'sui-cardGlyph'}>{assetGlyph}</div>
+                    <div className={'c-card__typeGlyph'}>{typeGlyph}</div>
+                    <div className={'c-card__assetGlyph'}>{assetGlyph}</div>
                 </div>
             </Link>
 
             <Card.Body>
-                <Card.Title className={'sui-cardTitle'}>
-                    <SmartTitle doc={props.doc} />
+                <Card.Title>
+                    <Link to={asset_view}>
+                        <SmartTitle doc={props.doc} />
+                    </Link>
                 </Card.Title>
 
-                <div
-                    style={{
-                        borderTop: '.5px solid #9e894d',
-                        height: '1px',
-                        width: '100%',
-                        margin: '6px 0 6px 0',
-                    }}
-                ></div>
+                <ListGroup>
+                    <ListGroup.Item>
+                        {props.doc.asset_type && (
+                            <div className="shanti-thumbnail-field shanti-field-path">
+                                <span className="shanti-field-content">
+                                    {props.doc.asset_type}{' '}
+                                    {props.doc.asset_subtype
+                                        ? '/ ' + props.doc.asset_subtype
+                                        : ''}
+                                </span>
+                            </div>
+                        )}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        {props.doc.ancestors_txt &&
+                            props.doc.asset_type !== 'terms' && (
+                                <div className="shanti-thumbnail-field shanti-field-path">
+                                    <span className="shanti-field-content">
+                                        <SmartPath doc={props.doc} />
+                                    </span>
+                                </div>
+                            )}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        {props.doc.creator && (
+                            <div className="shanti-thumbnail-field shanti-field-creator">
+                                <span className="shanti-field-content">
+                                    {props.doc.creator.join(', ')}
+                                </span>
+                            </div>
+                        )}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        {props.doc.duration_s && (
+                            <div className="shanti-thumbnail-field shanti-field-duration">
+                                <span className="shanti-field-content">
+                                    {props.doc.duration_s}
+                                </span>
+                            </div>
+                        )}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <div className={'sui-featureCard-relatedsWrap'}>
+                            {relateds}
+                        </div>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        {date && (
+                            <div className="shanti-thumbnail-field shanti-field-created">
+                                <span className="shanti-field-content">
+                                    {date}
+                                </span>
+                            </div>
+                        )}
+                    </ListGroup.Item>
+                </ListGroup>
 
-                {props.doc.asset_type && (
-                    <div className="shanti-thumbnail-field shanti-field-path">
-                        <span className="shanti-field-content">
-                            {props.doc.asset_type}{' '}
-                            {props.doc.asset_subtype
-                                ? '/ ' + props.doc.asset_subtype
-                                : ''}
-                        </span>
-                    </div>
-                )}
-
-                {props.doc.ancestors_txt && props.doc.asset_type !== 'terms' && (
-                    <div className="shanti-thumbnail-field shanti-field-path">
-                        <span className="shanti-field-content">
-                            <SmartPath doc={props.doc} />
-                        </span>
-                    </div>
-                )}
-                {props.doc.creator && (
-                    <div className="shanti-thumbnail-field shanti-field-creator">
-                        <span className="shanti-field-content">
-                            {props.doc.creator.join(', ')}
-                        </span>
-                    </div>
-                )}
-                {props.doc.duration_s && (
-                    <div className="shanti-thumbnail-field shanti-field-duration">
-                        <span className="shanti-field-content">
-                            {props.doc.duration_s}
-                        </span>
-                    </div>
-                )}
-
-                <div className={'sui-featureCard-relatedsWrap'}>{relateds}</div>
-
-                <span
-                    className={'sui-showinfo shanticon-info float-right'}
-                    onClick={() => setModalShow(true)}
-                ></span>
-
-                {date && (
-                    <div className="shanti-thumbnail-field shanti-field-created">
-                        <span className="shanti-field-content">{date}</span>
-                    </div>
-                )}
-
-                <DetailModal
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
-                    data={props.doc}
-                    scrollable={true}
-                />
+                <div className={'c-button__json'}>
+                    <span
+                        className={'sui-showinfo shanticon-info float-right'}
+                        onClick={() => setModalShow(true)}
+                    ></span>
+                    <DetailModal
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                        data={props.doc}
+                        scrollable={true}
+                    />
+                </div>
             </Card.Body>
-            <Card.Footer
-                className={`sui-cardFooter mandala ${props.doc.asset_type}`}
-            >
-                <span style={{ fontSize: '11px' }}>{footer_text}</span>
+
+            <Card.Footer>
+                <Link>{footer_text}</Link>
             </Card.Footer>
         </Card>
     );

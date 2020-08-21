@@ -20,15 +20,15 @@ import {
 const VIEWER_ID = 'FoldOutViewer';
 const SELECTED_IMG_CLASS = 'sui-featureGallery-selectedImg';
 
-// The length of the Rows at each Break Point  TODO: make the breakpoints adjustable.  Config and/or Dynamic?
-const BP_SIZES = {
-    sm: 2,
-    md: 3,
-    lg: 4,
-    xl: 6,
-};
-
+// The length of the Rows at each Break Point
+// const BP_SIZES = {
+//    sm: 2,
+//    md: 3,
+//    lg: 4,
+//    xl: 6,
+// };
 // utility function to insert breakpoints
+/*
 function insertBreakPoints(i, BP_SIZES, ret) {
     if (i !== 0) {
         if (i % BP_SIZES.sm === 0) {
@@ -62,7 +62,7 @@ function insertBreakPoints(i, BP_SIZES, ret) {
         }
     }
 }
-
+*/
 export function FeatureGallery(props) {
     let insert = document.getElementById(VIEWER_ID);
     if (!insert) {
