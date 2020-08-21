@@ -52,4 +52,15 @@ export function SmartTitle(props) {
             }
             break;
     }
+
+    // applying LinesEllipsis component...
+    // ys2n: style-kludge as per https://github.com/xiaody/react-lines-ellipsis/issues/59
+    return (
+        <LinesEllipsis
+            style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}
+            maxLine={2}
+            text={smartTitle}
+            basedOn={'words'}
+        />
+    );
 }
