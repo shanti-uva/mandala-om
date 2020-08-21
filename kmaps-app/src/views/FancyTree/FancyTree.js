@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import fancytree from 'jquery.fancytree';
+import { withRouter } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import 'jquery.fancytree/dist/modules/jquery.fancytree.filter';
 import 'jquery.fancytree/dist/modules/jquery.fancytree.glyph';
 import $ from 'jquery';
@@ -8,39 +10,56 @@ import './kmaps_relations_tree';
 import 'jquery.fancytree/dist/skin-awesome/ui.fancytree.css';
 import './FancyTree.css';
 
-class FancyTree extends React.Component {
-    componentDidMount() {
+function FancyTree({
+    domain,
+    tree,
+    descendants = true,
+    directAncestors = false,
+    displayPopup = false,
+    perspective = 'tib.alpha',
+    view = 'roman.scholar',
+    sortBy = 'position_i+ASC',
+}) {
+    const el = useRef(null);
+    let history = useHistory();
+    let params = useParams();
+
+    useEffect(() => {
         //Setup solr utils
         const solrUtils = kmapsSolrUtils.init({
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
             assetIndex: process.env.REACT_APP_SOLR_KMASSETS,
             featureId: '',
-            domain: 'terms',
-            perspective: 'tib.alpha',
+            domain,
+            perspective,
             mandalaURL:
-                process.env.REACT_APP_PUBLIC_URL + '/%%APP%%/%%APP%%-%%ID%%',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
             featuresPath:
-                process.env.REACT_APP_PUBLIC_URL + '/%%APP%%/%%APP%%-%%ID%%',
-            tree: 'terms',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
+            tree,
         });
 
-        this.$el = $(this.el);
-        this.$el.kmapsRelationsTree({
-            domain: 'terms',
+        const elCopy = $(el.current);
+        elCopy.kmapsRelationsTree({
+            domain,
             featureId: '',
             featuresPath:
-                process.env.REACT_APP_PUBLIC_URL + '/%%APP%%/%%APP%%-%%ID%%',
-            perspective: 'tib.alpha',
-            tree: 'terms',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
+            perspective,
+            tree,
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
-            descendants: true,
-            directAncestors: false,
-            displayPopup: false,
+            descendants,
+            directAncestors,
+            displayPopup,
             mandalaURL:
-                process.env.REACT_APP_PUBLIC_URL + '/%%APP%%/%%APP%%-%%ID%%',
+                process.env.REACT_APP_PUBLIC_URL +
+                `/${domain}/${domain}-%%ID%%`,
             solrUtils: solrUtils,
-            view: 'roman.scholar',
-            sortBy: 'position_i+ASC',
+            view,
+            sortBy,
             extraFields: ['associated_subject_ids'],
             nodeMarkerPredicates: [
                 {
@@ -50,18 +69,15 @@ class FancyTree extends React.Component {
                     mark: 'nonInteractiveNode',
                 },
             ],
+            history,
+            params,
         });
-    }
+        return () => {
+            elCopy.fancytree('destroy');
+        };
+    }, []);
 
-    componentWillUnmount() {
-        this.$el.fancytree('destroy');
-    }
-
-    render() {
-        return (
-            <div className="suiFancyTree" ref={(el) => (this.el = el)}></div>
-        );
-    }
+    return <div className="suiFancyTree" ref={el}></div>;
 }
 
 export default FancyTree;
