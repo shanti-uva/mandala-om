@@ -5,7 +5,6 @@ html .card-deck {
     justify-content: space-between;
     margin: 1rem 0 2rem;
 }
-
 html .card-deck .card {
     min-width: 200px;
     max-width: 235px;
@@ -88,11 +87,9 @@ html .card-footer a {
     padding: 0.6rem 0;
     line-height: 1.4em;
 }
-
 html .card-footer a:hover {
     background-color: transparent;
 }
-
 html .card-footer a::before {
     content: '\e633';
     font-family: 'shanticon';

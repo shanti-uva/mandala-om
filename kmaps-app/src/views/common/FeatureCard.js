@@ -126,7 +126,7 @@ export function FeatureCard(props) {
                 <ListGroup>
                     <ListGroup.Item>
                         {props.doc.asset_type && (
-                            <div className="shanti-thumbnail-field shanti-field-path">
+                            <div className="info shanti-field-path">
                                 <span className="shanti-field-content">
                                     {props.doc.asset_type}{' '}
                                     {props.doc.asset_subtype
@@ -136,38 +136,36 @@ export function FeatureCard(props) {
                             </div>
                         )}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item className={'c-card__listItem--fieldpath'}>
                         {props.doc.ancestors_txt &&
                             props.doc.asset_type !== 'terms' && (
-                                <div className="shanti-thumbnail-field shanti-field-path">
+                                <div className="info shanti-field-path">
                                     <span className="shanti-field-content">
                                         <SmartPath doc={props.doc} />
                                     </span>
                                 </div>
                             )}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item className={'c-card__listItem--creator'}>
                         {props.doc.creator && (
-                            <div className="shanti-thumbnail-field shanti-field-creator">
+                            <div className="info shanti-field-creator">
                                 <span className="shanti-field-content">
                                     {props.doc.creator.join(', ')}
                                 </span>
                             </div>
                         )}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item className={'c-card__listItem--duration'}>
                         {props.doc.duration_s && (
-                            <div className="shanti-thumbnail-field shanti-field-duration">
+                            <div className="info shanti-field-duration">
                                 <span className="shanti-field-content">
                                     {props.doc.duration_s}
                                 </span>
                             </div>
                         )}
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                        <div className={'sui-featureCard-relatedsWrap'}>
-                            {relateds}
-                        </div>
+                    <ListGroup.Item className={'c-card__listItem--related'}>
+                        <div>{relateds}</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         {date && (

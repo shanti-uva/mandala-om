@@ -123,9 +123,7 @@ export function FeatureDeck(props) {
     const output = (
         <React.Fragment>
             <FeaturePager pager={props.pager} />
-            <Container>
-                <CardDeck className={'c-card__grid'}>{LIST}</CardDeck>
-            </Container>
+            <CardDeck className={'c-card__grid'}>{LIST}</CardDeck>
             <FeaturePager pager={props.pager} />
             <Jumbotron>{DEBUG_PRE}</Jumbotron>
         </React.Fragment>

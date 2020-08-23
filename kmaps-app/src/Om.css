@@ -853,6 +853,10 @@ html {
     color: #000;
 } */
 
+.sui-terms {
+    max-width: 1500px !important;
+}
+
 .sui-termTitle {
     font-family: 'EB Garamond', serif;
     font-weight: 500;
