@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import LinesEllipsis from 'react-lines-ellipsis';
 
 /**
  * React functional component:  Renders a Title with appropriate context information
@@ -51,5 +52,15 @@ export function SmartTitle(props) {
             }
             break;
     }
-    return <>{smartTitle}</>;
+
+    // applying LinesEllipsis component...
+    // ys2n: style-kludge as per https://github.com/xiaody/react-lines-ellipsis/issues/59
+    return (
+        <LinesEllipsis
+            style={{ whiteSpace: 'pre-wrap' }}
+            maxLine={2}
+            text={smartTitle}
+            basedOn={'words'}
+        />
+    );
 }
