@@ -22,7 +22,7 @@ export function AudioVideoViewer(props) {
     const id = props.id;
     const kmasset = props.mdlasset;
     const sui = props.sui;
-    const mapp = 'images';
+
     // TODO: is this necessary? Are there situations where it's better to hide the extra content? Need to hide if there is no extra content.
     useEffect(() => {
         $('body').on('click', 'a.sui-avMore2', function () {
