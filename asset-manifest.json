@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/mandala-om/static/css/main.8ef6ce18.chunk.css",
-    "main.js": "/mandala-om/static/js/main.3ee9e051.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.3ee9e051.chunk.js.map",
+    "main.css": "/mandala-om/static/css/main.e7df74f3.chunk.css",
+    "main.js": "/mandala-om/static/js/main.e2b64223.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.e2b64223.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.6b930fe2.js",
     "runtime-main.js.map": "/mandala-om/static/js/runtime-main.6b930fe2.js.map",
     "static/css/2.4eeef256.chunk.css": "/mandala-om/static/css/2.4eeef256.chunk.css",
-    "static/js/2.dde70e34.chunk.js": "/mandala-om/static/js/2.dde70e34.chunk.js",
-    "static/js/2.dde70e34.chunk.js.map": "/mandala-om/static/js/2.dde70e34.chunk.js.map",
+    "static/js/2.4a061bdd.chunk.js": "/mandala-om/static/js/2.4a061bdd.chunk.js",
+    "static/js/2.4a061bdd.chunk.js.map": "/mandala-om/static/js/2.4a061bdd.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.f00bad7f08c6fcfff3dff68d4156c71b.js": "/mandala-om/precache-manifest.f00bad7f08c6fcfff3dff68d4156c71b.js",
+    "precache-manifest.822c82e907ef2d87c27e7ba1cc038208.js": "/mandala-om/precache-manifest.822c82e907ef2d87c27e7ba1cc038208.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.4eeef256.chunk.css.map": "/mandala-om/static/css/2.4eeef256.chunk.css.map",
-    "static/css/main.8ef6ce18.chunk.css.map": "/mandala-om/static/css/main.8ef6ce18.chunk.css.map",
-    "static/js/2.dde70e34.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.dde70e34.chunk.js.LICENSE.txt",
+    "static/css/main.e7df74f3.chunk.css.map": "/mandala-om/static/css/main.e7df74f3.chunk.css.map",
+    "static/js/2.4a061bdd.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.4a061bdd.chunk.js.LICENSE.txt",
     "static/media/ShantiSarvaka.css": "/mandala-om/static/media/museosans-300-webfont.b08f7489.woff2",
     "static/media/index.css": "/mandala-om/static/media/shanticon.9d6d13f8.ttf",
     "static/media/style.css": "/mandala-om/static/media/shanticon.be531d81.ttf",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.6b930fe2.js",
     "static/css/2.4eeef256.chunk.css",
-    "static/js/2.dde70e34.chunk.js",
-    "static/css/main.8ef6ce18.chunk.css",
-    "static/js/main.3ee9e051.chunk.js"
+    "static/js/2.4a061bdd.chunk.js",
+    "static/css/main.e7df74f3.chunk.css",
+    "static/js/main.e2b64223.chunk.js"
   ]
 }
