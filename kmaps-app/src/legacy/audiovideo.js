@@ -98,11 +98,18 @@ export default class AudioVideo {
             // End of left side list of metadata items under video
             str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
             try {
-                if (o.collection_title)
+                console.log('oooo', o);
+                if (o.collection_title) {
+                    const collpath =
+                        sui.pages.GetPublicUrlPath('audio-video') +
+                        'audio-video-collection/' +
+                        o.id;
+                    console.log('collpath', collpath);
                     str += `<a title='Collection' id='sui-avCol'
-					href='#c=${o.asset_type}-${o.id}=${o.collection_idfacet[0]}'>
+					href='${collpath}'>
 					&#xe633&nbsp;&nbsp;&nbsp;
-					<a title='Collection' id='sui-avCol'	href='#p=${o.collection_uid_s}'>${o.collection_title}</a>`;
+					<a title='Collection' id='sui-avCol'	href='${collpath}'>${o.collection_title}</a>`;
+                }
             } catch (e) {}
             try {
                 let creator_short_list = [];
@@ -114,7 +121,7 @@ export default class AudioVideo {
                             : 'none';
                     if (main_roles.includes(crrole)) {
                         creator_short_list.push(
-                            sui.pages.WrapInLangSpan(o.creator[crn]) +
+                            sui.pages.WrapInLangSpan(o.creator[crn], true) +
                                 ' (' +
                                 crrole +
                                 ')'
@@ -325,6 +332,8 @@ export default class AudioVideo {
                 d.field_pbcore_creator.und.length
             ) {
                 // If creators spec'd
+                // TODO: combine people with same role labels into a single entry
+                /*
                 for (i = 0; i < d.field_pbcore_creator.und.length; ++i) {
                     // For each creator
                     f = d.field_pbcore_creator.und[i]; // Point at it
@@ -334,12 +343,42 @@ export default class AudioVideo {
                         )}</p>`;
                     } catch (e) {}
                 }
+
+                 */
+                try {
+                    let agents = {};
+                    let agrole,
+                        agname = '';
+                    for (i = 0; i < d.field_pbcore_creator.und.length; ++i) {
+                        f = d.field_pbcore_creator.und[i]; // Point at it
+                        // For each creator
+                        agrole = f.field_creator_role.und[0].value.toLowerCase();
+                        agname = sui.pages.WrapInLangSpan(
+                            f.field_creator.und[0].value
+                        );
+                        if (agrole in agents) {
+                            agents[agrole].push(agname);
+                        } else {
+                            agents[agrole] = [agname];
+                        }
+                    }
+                    for (agrole in agents) {
+                        let agrolelabel =
+                            agents[agrole].length > 1 ? agrole + 's' : agrole;
+                        str += `<p><b>${agrolelabel.toUpperCase()}</b>:&nbsp;&nbsp;${agents[
+                            agrole
+                        ].join(', ')}</p>`;
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
             if (
                 d.field_pbcore_contributor &&
                 d.field_pbcore_contributor.und &&
                 d.field_pbcore_contributor.und.length
             ) {
+                /* Old code
                 // If creators spec'd
                 for (i = 0; i < d.field_pbcore_contributor.und.length; ++i) {
                     // For each item
@@ -349,6 +388,40 @@ export default class AudioVideo {
                             f.field_contributor.und[0].value
                         )}</p>`;
                     } catch (e) {}
+                }
+
+                 */
+
+                try {
+                    let agents = {};
+                    let agrole,
+                        agname = '';
+                    for (
+                        i = 0;
+                        i < d.field_pbcore_contributor.und.length;
+                        ++i
+                    ) {
+                        f = d.field_pbcore_contributor.und[i]; // Point at it
+                        // For each creator
+                        agrole = f.field_contributor_role.und[0].value.toLowerCase();
+                        agname = sui.pages.WrapInLangSpan(
+                            f.field_contributor.und[0].value
+                        );
+                        if (agrole in agents) {
+                            agents[agrole].push(agname);
+                        } else {
+                            agents[agrole] = [agname];
+                        }
+                    }
+                    for (agrole in agents) {
+                        let agrolelabel =
+                            agents[agrole].length > 1 ? agrole + 's' : agrole;
+                        str += `<p><b>CONTRIBUTING ${agrolelabel.toUpperCase()}</b>:&nbsp;&nbsp;${agents[
+                            agrole
+                        ].join(', ')}</p>`;
+                    }
+                } catch (e) {
+                    console.error(e);
                 }
             }
             try {
@@ -1124,7 +1197,7 @@ export default class AudioVideo {
                     if (res.segs[i][lang] && res.languages[lang])
                         // If something there and checked
                         str +=
-                            res.segs[i][lang] +
+                            sui.pages.WrapInLangSpan(res.segs[i][lang]) +
                             "<hr style='margin:0;border-top:1px dashed #eee'>"; // Add transcription and dividing line
                 str += '</div></div>'; // Close box and seg
             }

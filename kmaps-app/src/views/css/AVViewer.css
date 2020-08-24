@@ -410,19 +410,13 @@ div#av-trscrpt-wrapper {
 
 .u-bo {
     color: #222;
+    font-style: normal !important;
+    letter-spacing: normal !important;
+    text-rendering: optimizeLegibility !important;
     font-family: 'Babelstone', 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan',
         'Tibetan Machine Uni', 'Kailasa', 'Uchen_05', 'Microsoft Himalaya' !important;
     font-size: 150%;
-    line-height: 150%;
-    letter-spacing: unset;
-}
-
-.u-za {
-    color: #222;
-    text-rendering: optimizeLegibility !important;
-    font-family: 'Arial', 'Heiti SC', 'Microsoft Yahei', simsun, sans-serif;
-    font-size: 150%;
-    line-height: 150%;
+    line-height: 140%;
 }
 
 .u-sa {
@@ -431,6 +425,12 @@ div#av-trscrpt-wrapper {
     text-rendering: optimizeLegibility !important;
     font-family: 'Arial Unicode MS', 'open_sansregular', 'siddhanta_deva',
         'Noto Sans', sans-serif;
-    font-size: 150%;
-    line-height: 150%;
+    font-size: 125%;
+}
+
+.u-zh {
+    color: #222;
+    text-rendering: optimizeLegibility !important;
+    font-family: 'Arial', 'Heiti SC', 'Microsoft Yahei', simsun, sans-serif;
+    font-size: 120%;
 }

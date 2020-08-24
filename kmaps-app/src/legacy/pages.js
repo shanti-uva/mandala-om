@@ -1008,12 +1008,26 @@ export default class Pages {
         }
     }
 
-    WrapInLangSpan(text_string) {
+    // Take a string and wrap it in a span with its language class, add no wrap class if desired.
+    WrapInLangSpan(text_string, nowrap) {
+        const wrapclass = nowrap ? ' text-nowrap' : '';
         const langcode = this.GetLangCode(text_string);
         if (langcode === '') {
             return text_string;
         }
-        return `<span class="u-${langcode}">${text_string}</span>`;
+        return `<span class="u-${langcode}${wrapclass}">${text_string}</span>`;
+    }
+
+    GetPublicUrlPath(currapp) {
+        const href = window.location.href;
+        let pts = href.split('#');
+        pts = pts[0].split(currapp);
+        pts = pts[0].split(window.location.host);
+        let retval = pts.length > 1 ? pts[1] : false;
+        if (retval && retval[retval.length - 1] !== '/') {
+            retval += '/';
+        }
+        return retval;
     }
 
     // !!!!  WRITES sui TO GLOBAL WINDOW IN ORDER TO IMPLEMENT POPOVERS...   !!!!
