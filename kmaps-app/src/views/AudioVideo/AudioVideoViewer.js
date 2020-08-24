@@ -85,7 +85,7 @@ function AudioVideoMeta(props) {
             url:
                 process.env.REACT_APP_DRUPAL_AUDIO_VIDEO +
                 '/services/mlt/' +
-                kmasset.id +
+                props.id +
                 '?wt=json',
             adapter: jsonpAdapter,
         })
@@ -93,7 +93,7 @@ function AudioVideoMeta(props) {
                 setMlt(response.data);
             })
             .catch(function (error) {
-                console.error(error);
+                setMlt(['<li>Loading ...</li>']);
             });
     }, [kmasset.id]);
     sui.av.DrawMetaNew(kmasset, 'meta-details');
