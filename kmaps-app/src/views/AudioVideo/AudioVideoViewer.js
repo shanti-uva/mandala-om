@@ -34,10 +34,6 @@ export function AudioVideoViewer(props) {
 
     return (
         <div id={'av-viewer'}>
-            <p>
-                {process.env.REACT_APP_DRUPAL_IMAGES},{' '}
-                {process.env.REACT_APP_PUBLIC_URL}
-            </p>
             <AudioVideoPlayer id={id} asset={kmasset} sui={sui} />
             <AudioVideoMeta id={id} asset={kmasset} sui={sui} />
         </div>
