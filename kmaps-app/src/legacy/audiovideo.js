@@ -86,13 +86,17 @@ export default class AudioVideo {
             str += `<div class='sui-vPlayer' id='sui-kplayer'>
 			<img src="https://cfvod.kaltura.com/p/${partnerId}/sp/${partnerId}00/thumbnail/entry_id/${entryId}/version/100301/width/560/height/0" fill-height"></div>`;
             str += `<br><br><div style='display:inline-block;width:300px;margin-left:16px'>
-			<div title='Duration'>&#xe61c&nbsp;&nbsp;&nbsp;${o.duration_s}</div>
-			<div title='Published'>&#xe60c&nbsp;&nbsp;&nbsp;Published `;
-            if (d.field_year_published && d.field_year_published.en)
-                str += +d.field_year_published.en[0].value;
-            else if (o.node_created)
-                str += sui.pages.FormatDate(o.node_created);
+                    <div title='Published'>&#xe60c&nbsp;&nbsp;&nbsp;`;
+            if (d.field_year_published && d.field_year_published.en) {
+                str += sui.pages.FormatDate(d.field_year_published.en[0].value);
+            } else if (o.node_created) {
+                str += sui.pages.FormatDate(o.node_created, 'short');
+            }
             str += '</div>';
+            str += `<div title='Duration'>&#xe61c&nbsp;&nbsp;&nbsp;${o.duration_s}</div>`;
+            str += `<div title='Uploader'>&#xe673&nbsp;&nbsp;&nbsp;${o.node_user_full_s}</div>`;
+            // End of left side list of metadata items under video
+            str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
             try {
                 if (o.collection_title)
                     str += `<a title='Collection' id='sui-avCol'
@@ -100,17 +104,40 @@ export default class AudioVideo {
 					&#xe633&nbsp;&nbsp;&nbsp;
 					<a title='Collection' id='sui-avCol'	href='#p=${o.collection_uid_s}'>${o.collection_title}</a>`;
             } catch (e) {}
-            str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
             try {
+                let creator_short_list = [];
+                const main_roles = ['Creator', 'Director', 'Producer'];
+                for (var crn = 0; crn < o.creator.length; crn++) {
+                    let crrole =
+                        o.creator_role_ss && o.creator_role_ss.length > crn
+                            ? o.creator_role_ss[crn]
+                            : 'none';
+                    if (main_roles.includes(crrole)) {
+                        creator_short_list.push(
+                            sui.pages.WrapInLangSpan(o.creator[crn]) +
+                                ' (' +
+                                crrole +
+                                ')'
+                        );
+                    }
+                }
+                if (creator_short_list.length === 0) {
+                    creator_short_list = o.creator;
+                }
                 str +=
                     "<div title='Creators'>&#xe600&nbsp;&nbsp;&nbsp;" +
-                    o.creator.join(', ') +
+                    creator_short_list.join(', ') +
                     '</div>';
-            } catch (e) {}
+            } catch (e) {
+                //console.error("in audiovideo.js: " + e.toString());
+            }
+            let desc_text = o.summary ? o.summary : o.caption ? o.caption : '';
+            let langclass = sui.pages.GetLangCode(desc_text);
+            if (langclass.length > 0) {
+                langclass = ' u-' + langclass;
+            }
             str += `</div><hr>
-			<p class='sui-sourceText'>${
-                o.summary ? o.summary : o.caption ? o.caption : ''
-            }</p>`;
+			<p class='sui-sourceText${langclass}'>${desc_text}</p>`;
             if (
                 d.field_pbcore_description &&
                 d.field_pbcore_description.und &&
@@ -125,9 +152,11 @@ export default class AudioVideo {
                     try {
                         f = d.field_pbcore_description.und[i]; // Point at it
                         if (f.field_description.und[0].value.length > 0) {
-                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>${
+                            const moretext = sui.pages.WrapInLangSpan(
                                 f.field_description.und[0].value
-                            }<br>`;
+                            );
+                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>
+                                ${moretext}<br>`;
                         }
                     } catch (e) {}
                 }
@@ -300,9 +329,9 @@ export default class AudioVideo {
                     // For each creator
                     f = d.field_pbcore_creator.und[i]; // Point at it
                     try {
-                        str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${
+                        str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                             f.field_creator.und[0].value
-                        }</p>`;
+                        )}</p>`;
                     } catch (e) {}
                 }
             }
@@ -316,9 +345,9 @@ export default class AudioVideo {
                     // For each item
                     f = d.field_pbcore_contributor.und[i]; // Point at it
                     try {
-                        str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${
+                        str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                             f.field_contributor.und[0].value
-                        }</p>`;
+                        )}</p>`;
                     } catch (e) {}
                 }
             }
@@ -654,9 +683,9 @@ export default class AudioVideo {
                 // For each creator
                 f = d.field_pbcore_creator.und[i]; // Point at it
                 try {
-                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${
+                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                         f.field_creator.und[0].value
-                    }</p>`;
+                    )}</p>`;
                 } catch (e) {}
             }
         }

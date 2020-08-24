@@ -976,12 +976,45 @@ export default class Pages {
 
     // NO SIDE EFFECTS
     FormatDate(
-        date // FRIENDLY FORMAT OF DATE
+        date, // FRIENDLY FORMAT OF DATE
+        format_type
     ) {
         let d = new Date(date); // Parse date
         if (d)
+            format_type =
+                typeof format_type != 'string' ? 'default' : format_type;
+        if (format_type == 'short') {
+            date = d.toDateString();
+        } else {
             date = d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear(); // Remake it
+        }
         return date;
+    }
+
+    GetLangCode(text_string) {
+        // Strip out tags and extra whitespaces
+        text_string = $.trim(text_string.replace(/(<([^>]+)>)/gi, ''));
+        const chrcode = text_string.charCodeAt(0);
+        if (chrcode > 2303 && chrcode < 2432) {
+            return 'sa';
+        }
+        if (chrcode > 3839 && chrcode < 4096) {
+            return 'bo';
+        }
+        if (chrcode > 19967) {
+            return 'zh';
+        } else {
+            return '';
+        }
+    }
+
+    WrapInLangSpan(text_string) {
+        const langcode = this.GetLangCode(text_string);
+        console.log(langcode, text_string);
+        if (langcode === '') {
+            return text_string;
+        }
+        return `<span class="u-${langcode}">${text_string}</span>`;
     }
 
     // !!!!  WRITES sui TO GLOBAL WINDOW IN ORDER TO IMPLEMENT POPOVERS...   !!!!
