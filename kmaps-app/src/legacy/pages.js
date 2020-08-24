@@ -1010,7 +1010,6 @@ export default class Pages {
 
     WrapInLangSpan(text_string) {
         const langcode = this.GetLangCode(text_string);
-        console.log(langcode, text_string);
         if (langcode === '') {
             return text_string;
         }
