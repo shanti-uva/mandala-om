@@ -124,18 +124,6 @@ export function FeatureCard(props) {
                 </Card.Title>
 
                 <ListGroup>
-                    <ListGroup.Item>
-                        {props.doc.asset_type && (
-                            <div className="info shanti-field-path">
-                                <span className="shanti-field-content">
-                                    {props.doc.asset_type}{' '}
-                                    {props.doc.asset_subtype
-                                        ? '/ ' + props.doc.asset_subtype
-                                        : ''}
-                                </span>
-                            </div>
-                        )}
-                    </ListGroup.Item>
                     <ListGroup.Item className={'c-card__listItem--fieldpath'}>
                         {props.doc.ancestors_txt &&
                             props.doc.asset_type !== 'terms' && (

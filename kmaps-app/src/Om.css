@@ -29,7 +29,7 @@ html {
 
 .sui-top {
     position: absolute;
-    right: 12px;
+    right: 4rem;
     top: 7px;
     user-select: none;
     box-sizing: content-box;
@@ -92,10 +92,13 @@ html {
 .sui-search3 {
     float: right;
     font-family: shanticon;
-    font-size: 16px;
+    font-size: 0.62em;
     color: #ccc;
     cursor: pointer;
     box-sizing: content-box;
+    position: relative;
+    top: -0.15rem;
+    right: 2px;
 }
 
 .sui-search4 {
@@ -170,11 +173,15 @@ html {
 }
 
 .sui-header {
-    height: 52px;
+    height: 60px;
     width: 100%;
     user-select: none;
     background-color: #888;
     color: #fff;
+}
+
+.sui-results {
+    padding: 0 1.5rem;
 }
 
 .sui-contentHead {
@@ -1963,8 +1970,6 @@ a {
 
 .shanti-field-duration span::before {
     content: '\e61c';
-    left: 0.13rem;
-    margin-right: 0.5rem;
 }
 
 .shanti-field-created span::before {
@@ -1978,7 +1983,6 @@ a {
 .shanti-field-creator > span::before,
 .shanti-field-registrar > span::before {
     content: '\e600';
-    float: left;
 }
 
 .shanti-field-registrar > span::before {

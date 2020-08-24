@@ -16,6 +16,16 @@ html .card-deck .card {
     margin-bottom: 0;
     font-size: 1.5rem;
 }
+html .card-deck .card:hover {
+    transform: scale(1.025);
+    box-shadow: 0 8px 15px 2px #c0c0c0;
+}
+html .card-deck .card:active {
+    transform: scale(1);
+    box-shadow: 0 2px 5px #ccc;
+}
+html .card-deck .card a {
+}
 html .card-deck .card a:hover {
     text-decoration: none;
 }
@@ -27,6 +37,35 @@ html .card-image,
 html .card-image-top {
     border-radius: 0;
     height: 110px;
+}
+html .c-card__typeGlyph .icon {
+    opacity: 0.9;
+    position: absolute;
+    top: 0.1rem;
+    right: 0;
+    z-index: 100;
+    background: rgba(142, 117, 46, 0.85);
+    width: 2em;
+    height: 1.88em;
+    border-radius: 0 0 0 0.3rem;
+    background-clip: padding-box;
+    text-shadow: 0 0 1px #555;
+    color: white;
+    font-size: 1.12em;
+    line-height: 1.88em;
+    font-weight: normal;
+    text-align: center;
+    box-shadow: none;
+    border: none;
+}
+html .c-card__assetGlyph {
+    position: absolute;
+    top: 4rem;
+    left: 50%;
+    margin-left: -0.5em;
+    z-index: 1;
+    opacity: 0.75;
+    font-size: 2.5em;
 }
 html .card-body {
     max-height: 150px;
@@ -53,6 +92,7 @@ html .card-title a {
 }
 html .list-group {
     border-top: 1px solid rgba(205, 169, 66, 1);
+    padding: 0.5rem 0;
 }
 html .list-group-item {
     padding: 0.15rem 1.15rem 0.25rem 0.3rem;
@@ -64,8 +104,10 @@ html .list-group-item:empty {
 }
 html .card-footer {
     background: rgba(142, 117, 46, 0.85);
-    height: 2.8rem;
-    padding: 0 1rem;
+    height: auto;
+    font-size: 1.06em;
+    text-transform: capitalize;
+    padding: 0 0.75rem 0 1.5rem;
     border: none;
     border-radius: 0 0 0.35rem 0.35rem !important;
 }
@@ -76,16 +118,15 @@ html .card-footer:active {
     background-color: rgba(142, 117, 46, 0.85);
 }
 html .card-footer a {
-    font-size: 0.82em;
+    font-size: 0.75em;
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #fff;
-    font-style: italic;
     border: none !important;
-    padding: 0.6rem 0;
-    line-height: 1.4em;
+    padding: 0.5rem 0;
+    vertical-align: middle;
 }
 html .card-footer a:hover {
     background-color: transparent;
@@ -99,12 +140,25 @@ html .card-footer a::before {
     margin-right: 0.8rem;
     float: left;
     font-style: normal;
+
+    display: none;
+}
+html .card-body .icon,
+html .card-footer .icon {
+    font-size: 1.18em;
+    margin-right: 0.5rem;
+    position: relative;
+    top: 0.2rem;
+}
+
+html .card-body .shanti-field-path span::before {
+    content: '\e633';
 }
 
 .c-button__json {
     position: absolute;
-    bottom: 3.25rem;
-    right: 1.5rem;
+    bottom: 4.25rem;
+    right: 1.35rem;
 }
 
 .shanti-field-itemcount,
@@ -132,6 +186,8 @@ html .card-footer a::before {
 .shanti-field-place > span::before,
 .shanti-field-subject > span::before {
     font-size: 130%;
+    position: relative;
+    top: 2px;
 }
 
 @media (min-width: 576px) {
