@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from 'react';
+import { Parser } from 'html-to-react';
+import '../css/AVViewer.css';
+import $ from 'jquery';
+
+export function AudioVideoViewerNew(props) {
+    const id = props.id;
+    const kmasset = props.mdlasset;
+    const sui = props.sui;
+    const inline = props.inline;
+
+    if (kmasset) {
+        sui.pages.Draw(kmasset, false);
+    }
+
+    const parser = new Parser();
+    const output = parser.parse($(sui.pages.div).html());
+
+    useEffect(() => {
+        $('body').on('click', 'a.sui-avMore2', function () {
+            $('#sui-avlang').toggle();
+            this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
+        });
+    }, []);
+
+    return <div id={'av-viewer-wrapper'}>{output}</div>;
+}

@@ -29,7 +29,7 @@ import useStatus from '../hooks/useStatus';
  * */
 export default function MdlAssetContext(props) {
     // TODO: need to make env determined according to url
-    const env = 'dev'; // Acquia Drupal Environment to Call for the JSON API. Set to promises.
+    // const env = 'dev'; // Acquia Drupal Environment to Call for the JSON API. Set to promises.
     const [asset_type, setAssetType] = useState(props.assettype);
     const [mdlasset, setMdlAsset] = useState({});
     const status = useStatus();
@@ -59,9 +59,9 @@ export default function MdlAssetContext(props) {
         let promises = [];
         // console.log("asset type: " + asset_type);
         if (asset_type == 'texts') {
-            promises = [getMandalaAssetDataPromise(env, asset_type, id)];
+            promises = [getMandalaAssetDataPromise(asset_type, id)];
         } else if (asset_type == 'audio-video') {
-            promises = [getLegacyAssetPromise(env, asset_type, id)];
+            promises = [getLegacyAssetPromise(asset_type, id)];
         }
         Promise.allSettled(promises)
             .then(([mdlasset_result]) => {
@@ -82,10 +82,6 @@ export default function MdlAssetContext(props) {
                                 status.setId(new_mdlasset.id);
                             }
                         } else if (mdlasset.id !== new_mdlasset.id) {
-                            console.warn(
-                                'Setting mdl for AV asset',
-                                new_mdlasset
-                            );
                             setMdlAsset(new_mdlasset);
                             changed = true;
 
