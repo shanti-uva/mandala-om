@@ -43,9 +43,12 @@ export function AudioVideoViewer(props) {
                 <a key="bc1" href={base_path + '/audio-video'}>
                     Audio-Video
                 </a>,
+                /*
                 <a key="bc2" href={base_path + '/audio-video-collection'}>
                     Collections
                 </a>,
+
+                 */
             ];
             if (
                 mda &&
