@@ -991,6 +991,8 @@ export default class Pages {
         return date;
     }
 
+    // Take a string with or without tags in it and get the language code for its text. These codes are for font or script
+    // so Dzongkha is bo and Hindi or Nepali etc. is sa. Of course, CSS styles need to be made for all of these.
     GetLangCode(text_string) {
         // Strip out tags and extra whitespaces
         text_string = $.trim(text_string.replace(/(<([^>]+)>)/gi, ''));
@@ -998,8 +1000,26 @@ export default class Pages {
         if (chrcode > 2303 && chrcode < 2432) {
             return 'sa';
         }
+        if (chrcode > 3455 && chrcode < 3584) {
+            return 'si';
+        }
+        if (chrcode > 3583 && chrcode < 3712) {
+            return 'th';
+        }
         if (chrcode > 3839 && chrcode < 4096) {
             return 'bo';
+        }
+        if (chrcode > 4095 && chrcode < 4256) {
+            return 'my';
+        }
+        if (chrcode > 4352 && chrcode < 4547) {
+            return 'ko';
+        }
+        if (chrcode > 6143 && chrcode < 6320) {
+            return 'mn';
+        }
+        if (chrcode > 12351 && chrcode < 12446) {
+            return 'ja';
         }
         if (chrcode > 19967) {
             return 'zh';
@@ -1008,7 +1028,7 @@ export default class Pages {
         }
     }
 
-    // Take a string and wrap it in a span with its language class, add no wrap class if desired.
+    // Take a string with or without tags and wrap it in a span with its language class, add nowrap class if desired.
     WrapInLangSpan(text_string, nowrap) {
         const wrapclass = nowrap ? ' text-nowrap' : '';
         const langcode = this.GetLangCode(text_string);
