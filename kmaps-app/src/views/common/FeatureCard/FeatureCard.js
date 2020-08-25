@@ -7,10 +7,10 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { KmapLink } from './KmapLink';
-import { SmartTitle } from './SmartTitle';
-import { SmartPath } from './SmartPath';
-import './FeatureCard/FeatureCard.css';
+import { KmapLink } from '../KmapLink';
+import { SmartTitle } from '../SmartTitle';
+import { SmartPath } from '../SmartPath';
+import './FeatureCard.css';
 
 // TODO: move all "style" declarations to css!
 export function FeatureCard(props) {

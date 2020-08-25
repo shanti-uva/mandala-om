@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import { FeatureCard } from './FeatureCard';
+import { FeatureCard } from './FeatureCard/FeatureCard';
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import CardDeck from 'react-bootstrap/CardDeck';

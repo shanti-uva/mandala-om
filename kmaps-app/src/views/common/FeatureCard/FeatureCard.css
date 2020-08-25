@@ -39,7 +39,7 @@ html .card-image-top {
     border-radius: 0;
     height: 110px;
 }
-html .c-card__typeGlyph .icon {
+html .c-card__typeGlyph span {
     opacity: 0.9;
     position: absolute;
     top: 0.1rem;

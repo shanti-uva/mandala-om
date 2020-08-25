@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import CardDeck from 'react-bootstrap/CardDeck';
 import CardGroup from 'react-bootstrap/CardGroup';
 import { FeaturePager } from './FeaturePager';
-import { FeatureCard } from './FeatureCard';
+import { FeatureCard } from './FeatureCard/FeatureCard';
 import PhotoGallery, { Photo } from 'react-photo-gallery';
 import ImageGallery from 'react-image-gallery';
 
