@@ -138,6 +138,13 @@ export function Home(props) {
                                         Video: Dawa and Pudrön Flirt
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link to={'/audio-video/9246'}>
+                                        Video: Riddle of the Terma Vase
+                                    </Link>{' '}
+                                    (Many Agents, Transcript, Tibetan and
+                                    Chinese text)
+                                </li>
                             </ul>
 
                             <h4>References</h4>

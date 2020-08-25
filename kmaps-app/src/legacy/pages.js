@@ -206,7 +206,6 @@ export default class Pages {
                 return;
             }
             $('[id^=sui-popover-]').remove(); // Remove old one
-            console.log($(this.div).scrollTop(), this.div);
             let scrltop = $('#sui-main').scrollTop();
             let str = `<div id='sui-popover-${id}' class='sui-popover' 
 			style='top:${pos.top + 24 + scrltop}px;left:${
@@ -223,7 +222,6 @@ export default class Pages {
             // one-time trap to clear popover
 
             $('#sui-main').one('click', () => {
-                console.log('clearing popover on mousemove ', event.target);
                 this.ClearPopover();
             });
 

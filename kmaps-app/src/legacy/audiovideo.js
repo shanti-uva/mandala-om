@@ -98,17 +98,13 @@ export default class AudioVideo {
             // End of left side list of metadata items under video
             str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
             try {
-                console.log('oooo', o);
                 if (o.collection_title) {
                     const collpath =
                         sui.pages.GetPublicUrlPath('audio-video') +
                         'audio-video-collection/' +
                         o.id;
-                    console.log('collpath', collpath);
-                    str += `<a title='Collection' id='sui-avCol'
-					href='${collpath}'>
-					&#xe633&nbsp;&nbsp;&nbsp;
-					<a title='Collection' id='sui-avCol'	href='${collpath}'>${o.collection_title}</a>`;
+                    str += `&#xe633&nbsp;&nbsp;&nbsp;
+					<a title='Collection' id='sui-avCol' href='${collpath}'>${o.collection_title}</a>`;
                 }
             } catch (e) {}
             try {
@@ -138,6 +134,8 @@ export default class AudioVideo {
             } catch (e) {
                 //console.error("in audiovideo.js: " + e.toString());
             }
+            str +=
+                "<div title='Visibility'>&#xe67c&nbsp;&nbsp;&nbsp;Public</div>"; // TODO: sniff out actual visibility when available in solr index. For now all indexed nodes are public.
             let desc_text = o.summary ? o.summary : o.caption ? o.caption : '';
             let langclass = sui.pages.GetLangCode(desc_text);
             if (langclass.length > 0) {
@@ -162,7 +160,7 @@ export default class AudioVideo {
                             const moretext = sui.pages.WrapInLangSpan(
                                 f.field_description.und[0].value
                             );
-                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>
+                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b><br>
                                 ${moretext}<br>`;
                         }
                     } catch (e) {}
@@ -232,48 +230,69 @@ export default class AudioVideo {
             try {
                 if (o.title)
                     str +=
-                        "<p title='Title'><b>TITLE</b>:&nbsp;&nbsp;" +
+                        "<p title='Title'><b>TITLE</b>&nbsp;&nbsp;" +
                         o.title +
                         '</p>';
             } catch (e) {}
             try {
                 if (o.collection_title)
                     str +=
-                        "<p title='Collection'><b>COLLECTION</b>:&nbsp;&nbsp;" +
+                        "<p title='Collection'><b>COLLECTION</b>&nbsp;&nbsp;" +
                         o.collection_title +
                         '</p>';
             } catch (e) {}
             try {
-                str += '<p><b>SUBCOLLECTION</b>:&nbsp;&nbsp;';
-                for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
-                    str +=
-                        d.field_subcollection_new.und[i].header +
-                        sui.pages.AddPop(
-                            d.field_subcollection_new.und[i].domain +
-                                '-' +
-                                d.field_subcollection_new.und[i].id
-                        ) +
-                        '&nbsp;&nbsp; ';
+                if (d.field_subcollection_new.und.length > 0) {
+                    str += '<p><b>SUBCOLLECTION</b>&nbsp;&nbsp;';
+                    for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
+                        str +=
+                            d.field_subcollection_new.und[i].header +
+                            sui.pages.AddPop(
+                                d.field_subcollection_new.und[i].domain +
+                                    '-' +
+                                    d.field_subcollection_new.und[i].id
+                            ) +
+                            '&nbsp;&nbsp; ';
+                    }
+                    str += '</p>';
                 }
-                str += '</p>';
+            } catch (e) {}
+
+            try {
+                if (d.field_subject.und.length > 0) {
+                    str += '<p><b>SUBJECT</b>&nbsp;&nbsp;';
+                    for (i = 0; i < d.field_subject.und.length; ++i) {
+                        str +=
+                            d.field_subject.und[i].header +
+                            sui.pages.AddPop(
+                                d.field_subject.und[i].domain +
+                                    '-' +
+                                    d.field_subject.und[i].id
+                            ) +
+                            '&nbsp;&nbsp; ';
+                    }
+                    str += '</p>';
+                }
             } catch (e) {}
             try {
-                str += '<p><b>SUBJECT</b>:&nbsp;&nbsp;';
-                for (i = 0; i < d.field_subject.und.length; ++i) {
-                    str +=
-                        d.field_subject.und[i].header +
-                        sui.pages.AddPop(
-                            d.field_subject.und[i].domain +
-                                '-' +
-                                d.field_subject.und[i].id
-                        ) +
-                        '&nbsp;&nbsp; ';
+                if (d.field_location.und.length > 0) {
+                    str += '<p><b>REFERENCED PLACES</b>&nbsp;&nbsp;';
+                    for (i = 0; i < d.field_location.und.length; ++i) {
+                        str +=
+                            d.field_location.und[i].header +
+                            sui.pages.AddPop(
+                                d.field_location.und[i].domain +
+                                    '-' +
+                                    d.field_location.und[i].id
+                            ) +
+                            '&nbsp;&nbsp; ';
+                    }
+                    str += '</p>';
                 }
-                str += '</p>';
             } catch (e) {}
             try {
                 str +=
-                    '<p><b>RECORDING LOCATION</b>:&nbsp;&nbsp;' +
+                    '<p><b>RECORDING LOCATION</b>&nbsp;&nbsp;' +
                     d.field_recording_location_new.und[0].header +
                     sui.pages.AddPop(
                         d.field_recording_location_new.und[0].domain +
@@ -284,7 +303,7 @@ export default class AudioVideo {
             } catch (e) {}
             try {
                 str +=
-                    "<p'><b>LANGUAGE</b>:&nbsp;&nbsp;" +
+                    '<p><b>LANGUAGE</b>&nbsp;&nbsp;' +
                     d.field_language_kmap.und[0].header +
                     sui.pages.AddPop(
                         d.field_language_kmap.und[0].domain +
@@ -294,32 +313,44 @@ export default class AudioVideo {
                     '</p>';
             } catch (e) {}
             try {
-                str +=
-                    '<p><b>TERMS</b>:&nbsp;&nbsp;' +
-                    d.field_terms.und[0].header +
-                    '</p>';
+                if (d.field_kmap_terms.und.length > 0) {
+                    str += '<p><b>TERMS</b>&nbsp;&nbsp;';
+                    for (i = 0; i < d.field_kmap_terms.und.length; ++i) {
+                        str +=
+                            sui.pages.WrapInLangSpan(
+                                d.field_kmap_terms.und[i].header
+                            ) +
+                            sui.pages.AddPop(
+                                d.field_kmap_terms.und[i].domain +
+                                    '-' +
+                                    d.field_kmap_terms.und[i].id
+                            ) +
+                            '&nbsp;&nbsp; ';
+                    }
+                    str += '</p>';
+                }
             } catch (e) {}
             try {
                 str +=
-                    '<p><b>COPYRIGHT OWNER</b>:&nbsp;&nbsp;' +
+                    '<p><b>COPYRIGHT OWNER</b>&nbsp;&nbsp;' +
                     d.field_copyright_owner.en[0].value +
                     '</p>';
             } catch (e) {}
             try {
                 str +=
-                    '<p><b>YEAR PUBLISHED</b>:&nbsp;&nbsp;' +
+                    '<p><b>YEAR PUBLISHED</b>&nbsp;&nbsp;' +
                     d.field_year_published.en[0].value +
                     '</p>';
             } catch (e) {}
             try {
                 str +=
-                    '<p><b>RIGHTS SUMMARY</b>:&nbsp;&nbsp;' +
+                    '<p><b>RIGHTS SUMMARY</b>&nbsp;&nbsp;' +
                     d.field_pbcore_rights_summary.en[0].value +
                     '</p>';
             } catch (e) {}
             try {
                 str +=
-                    '<p><b>UPLOADED</b>:&nbsp;&nbsp;' +
+                    '<p><b>UPLOADED</b>&nbsp;&nbsp;' +
                     o.timestamp.substr(0, 10) +
                     ' by ' +
                     o.node_user_full_s +
@@ -338,7 +369,7 @@ export default class AudioVideo {
                     // For each creator
                     f = d.field_pbcore_creator.und[i]; // Point at it
                     try {
-                        str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                        str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                             f.field_creator.und[0].value
                         )}</p>`;
                     } catch (e) {}
@@ -365,7 +396,7 @@ export default class AudioVideo {
                     for (agrole in agents) {
                         let agrolelabel =
                             agents[agrole].length > 1 ? agrole + 's' : agrole;
-                        str += `<p><b>${agrolelabel.toUpperCase()}</b>:&nbsp;&nbsp;${agents[
+                        str += `<p><b>${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
                             agrole
                         ].join(', ')}</p>`;
                     }
@@ -384,7 +415,7 @@ export default class AudioVideo {
                     // For each item
                     f = d.field_pbcore_contributor.und[i]; // Point at it
                     try {
-                        str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                        str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                             f.field_contributor.und[0].value
                         )}</p>`;
                     } catch (e) {}
@@ -395,6 +426,7 @@ export default class AudioVideo {
                 try {
                     let agents = {};
                     let agrole,
+                        agroleprefix,
                         agname = '';
                     for (
                         i = 0;
@@ -404,6 +436,10 @@ export default class AudioVideo {
                         f = d.field_pbcore_contributor.und[i]; // Point at it
                         // For each creator
                         agrole = f.field_contributor_role.und[0].value.toLowerCase();
+                        agroleprefix =
+                            agrole.indexOf('assistant') > -1
+                                ? ''
+                                : 'CONTRIBUTING';
                         agname = sui.pages.WrapInLangSpan(
                             f.field_contributor.und[0].value
                         );
@@ -416,24 +452,24 @@ export default class AudioVideo {
                     for (agrole in agents) {
                         let agrolelabel =
                             agents[agrole].length > 1 ? agrole + 's' : agrole;
-                        str += `<p><b>CONTRIBUTING ${agrolelabel.toUpperCase()}</b>:&nbsp;&nbsp;${agents[
+                        str += `<p><b>${agroleprefix} ${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
                             agrole
                         ].join(', ')}</p>`;
                     }
                 } catch (e) {
-                    console.error(e);
+                    // console.error(e);
                 }
             }
             try {
                 str +=
-                    '<p><b>PUBLISHER</b>:&nbsp;&nbsp;' +
+                    '<p><b>PUBLISHER</b>&nbsp;&nbsp;' +
                     d.field_pbcore_publisher.und[0].field_publisher.und[0]
                         .value +
                     '</p>';
             } catch (e) {}
             try {
                 str +=
-                    '<p><b>DATA ENTRY</b>:&nbsp;&nbsp;' +
+                    '<p><b>DATA ENTRY</b>&nbsp;&nbsp;' +
                     o.node_user_full_s +
                     '</p>';
             } catch (e) {}
@@ -449,19 +485,20 @@ export default class AudioVideo {
                     v = d.field_pbcore_instantiation.und[0][i]; // Point at it
                     t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
                     try {
-                        str += `<p><b>${t.toUpperCase()}</b>:&nbsp;&nbsp;${
-                            v.und[0].value
-                        }</p>`;
+                        str += `<p><b>${t.toUpperCase()}</b>&nbsp;&nbsp;<span>${v.und[0].value.replace(
+                            /(<([^>]+)>)/gi,
+                            ''
+                        )}</span></p>`;
                     } catch (e) {}
                 }
             }
             try {
                 str +=
-                    '<p><b>FORMAT ID</b>:&nbsp;&nbsp;' +
+                    '<p><b>FORMAT ID</b>&nbsp;&nbsp;' +
                     d.field_video.und[0].entryid +
                     '</p>';
             } catch (e) {}
-            str += '<p><b>FORMAT ID SOURCE</b>:&nbsp;&nbsp;(Kaltura.com)</p>';
+            str += '<p><b>FORMAT ID SOURCE</b>&nbsp;&nbsp;(Kaltura.com)</p>';
             $('#' + elid).html('<div>' + str + '</div>');
         });
     }
@@ -552,7 +589,7 @@ export default class AudioVideo {
                     try {
                         f = d.field_pbcore_description.und[i]; // Point at it
                         if (f.field_description.und[0].value.length > 0) {
-                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b>:<br>${
+                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b><br>${
                                 f.field_description.und[0].value
                             }<br>`;
                         }
@@ -650,33 +687,36 @@ export default class AudioVideo {
         try {
             if (o.title)
                 str +=
-                    "<p title='Title'><b>TITLE</b>:&nbsp;&nbsp;" +
+                    "<p title='Title'><b>TITLE</b>&nbsp;&nbsp;" +
                     o.title +
                     '</p>';
         } catch (e) {}
         try {
             if (o.collection_title)
                 str +=
-                    "<p title='Collection'><b>COLLECTION</b>:&nbsp;&nbsp;" +
+                    "<p title='Collection'><b>COLLECTION</b>&nbsp;&nbsp;" +
                     o.collection_title +
                     '</p>';
         } catch (e) {}
+
         try {
-            str += '<p><b>SUBCOLLECTION</b>:&nbsp;&nbsp;';
-            for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
-                str +=
-                    d.field_subcollection_new.und[i].header +
-                    sui.pages.AddPop(
-                        d.field_subcollection_new.und[i].domain +
-                            '-' +
-                            d.field_subcollection_new.und[i].id
-                    ) +
-                    '&nbsp;&nbsp; ';
+            if (d.field_subcollection_new.und.length > 0) {
+                str += '<p><b>SUBCOLLECTION</b>&nbsp;&nbsp;';
+                for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
+                    str +=
+                        d.field_subcollection_new.und[i].header +
+                        sui.pages.AddPop(
+                            d.field_subcollection_new.und[i].domain +
+                                '-' +
+                                d.field_subcollection_new.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
+                }
+                str += '</p>';
             }
-            str += '</p>';
         } catch (e) {}
         try {
-            str += '<p><b>SUBJECT</b>:&nbsp;&nbsp;';
+            str += '<p><b>SUBJECT</b>&nbsp;&nbsp;';
             for (i = 0; i < d.field_subject.und.length; ++i) {
                 str +=
                     d.field_subject.und[i].header +
@@ -691,7 +731,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>RECORDING LOCATION</b>:&nbsp;&nbsp;' +
+                '<p><b>RECORDING LOCATION</b>&nbsp;&nbsp;' +
                 d.field_recording_location_new.und[0].header +
                 sui.pages.AddPop(
                     d.field_recording_location_new.und[0].domain +
@@ -702,7 +742,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                "<p'><b>LANGUAGE</b>:&nbsp;&nbsp;" +
+                "<p'><b>LANGUAGE</b>&nbsp;&nbsp;" +
                 d.field_language_kmap.und[0].header +
                 sui.pages.AddPop(
                     d.field_language_kmap.und[0].domain +
@@ -713,31 +753,31 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>TERMS</b>:&nbsp;&nbsp;' +
+                '<p><b>TERMS</b>&nbsp;&nbsp;' +
                 d.field_terms.und[0].header +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>COPYRIGHT OWNER</b>:&nbsp;&nbsp;' +
+                '<p><b>COPYRIGHT OWNER</b>&nbsp;&nbsp;' +
                 d.field_copyright_owner.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>YEAR PUBLISHED</b>:&nbsp;&nbsp;' +
+                '<p><b>YEAR PUBLISHED</b>&nbsp;&nbsp;' +
                 d.field_year_published.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>RIGHTS SUMMARY</b>:&nbsp;&nbsp;' +
+                '<p><b>RIGHTS SUMMARY</b>&nbsp;&nbsp;' +
                 d.field_pbcore_rights_summary.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>UPLOADED</b>:&nbsp;&nbsp;' +
+                '<p><b>UPLOADED</b>&nbsp;&nbsp;' +
                 o.timestamp.substr(0, 10) +
                 ' by ' +
                 o.node_user_full_s +
@@ -756,7 +796,7 @@ export default class AudioVideo {
                 // For each creator
                 f = d.field_pbcore_creator.und[i]; // Point at it
                 try {
-                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                         f.field_creator.und[0].value
                     )}</p>`;
                 } catch (e) {}
@@ -772,7 +812,7 @@ export default class AudioVideo {
                 // For each item
                 f = d.field_pbcore_contributor.und[i]; // Point at it
                 try {
-                    str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>:&nbsp;&nbsp;${
+                    str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${
                         f.field_contributor.und[0].value
                     }</p>`;
                 } catch (e) {}
@@ -780,13 +820,13 @@ export default class AudioVideo {
         }
         try {
             str +=
-                '<p><b>PUBLISHER</b>:&nbsp;&nbsp;' +
+                '<p><b>PUBLISHER</b>&nbsp;&nbsp;' +
                 d.field_pbcore_publisher.und[0].field_publisher.und[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>DATA ENTRY</b>:&nbsp;&nbsp;' +
+                '<p><b>DATA ENTRY</b>&nbsp;&nbsp;' +
                 o.node_user_full_s +
                 '</p>';
         } catch (e) {}
@@ -804,7 +844,7 @@ export default class AudioVideo {
                 v = d.field_pbcore_instantiation.und[0][i]; // Point at it
                 t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
                 try {
-                    str += `<p><b>${t.toUpperCase()}</b>:&nbsp;&nbsp;${
+                    str += `<p><b>${t.toUpperCase()}</b>&nbsp;&nbsp;${
                         v.und[0].value
                     }</p>`;
                 } catch (e) {}
@@ -812,11 +852,11 @@ export default class AudioVideo {
         }
         try {
             str +=
-                '<p><b>FORMAT ID</b>:&nbsp;&nbsp;' +
+                '<p><b>FORMAT ID</b>&nbsp;&nbsp;' +
                 d.field_video.und[0].entryid +
                 '</p>';
         } catch (e) {}
-        str += '<p><b>FORMAT ID SOURCE</b>:&nbsp;&nbsp;(Kaltura.com)</p>';
+        str += '<p><b>FORMAT ID SOURCE</b>&nbsp;&nbsp;(Kaltura.com)</p>';
         this.content[2] = "<div style='height:2px'/>" + str + '<br>'; // Add to tab
     } //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
