@@ -1870,7 +1870,6 @@ a {
 .shanti-field-place > span::before,
 .shanti-field-subject > span::before {
     font-family: 'shanticon';
-    content: '\e63b';
     font-size: 120%;
     font-weight: normal;
     position: relative;

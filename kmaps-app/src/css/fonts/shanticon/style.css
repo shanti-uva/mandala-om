@@ -12,7 +12,7 @@
 [class^='shanticon-'],
 [class*=' shanticon-'] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'shanticon';
+    /*font-family: 'shanticon';*/
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -23,6 +23,10 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+[class^='shanticon-']::before,
+[class*=' shanticon-']::before {
+    font-family: 'shanticon';
 }
 
 .shanticon-agents:before {
