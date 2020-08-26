@@ -1,3 +1,15 @@
+/* Colors - temporarily here but will be imported from om-global-var
+// ========================================================================== */
+$color-audio-video: #31acb6 !default;
+$color-images: #b5953b !default;
+$color-mandala: #4d59ca !default; /* theme primary color */
+$color-places: #3297f7 !default;
+$color-subjects: #cc4c39 !default;
+$color-sources: #6f69ae !default;
+$color-texts: #8c48a1 !default;
+$color-terms: #b5953b !default;
+$color-visuals: #558e3c !default;
+
 html .card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -17,7 +29,7 @@ html .card-deck .card {
     font-size: 1.5rem; // reset font size with rem value
 }
 html .card-deck .card:hover {
-    transform: scale(1.025);
+    transform: scale(1.005);
     box-shadow: 0 8px 15px 2px #c0c0c0;
 }
 html .card-deck .card:active {
@@ -39,7 +51,7 @@ html .card-img-top {
     border-radius: 0;
     height: 110px;
 }
-html .c-card__typeGlyph span {
+html .o-icon__typeGlyph span {
     opacity: 0.9;
     position: absolute;
     top: 0.1rem;
@@ -59,7 +71,7 @@ html .c-card__typeGlyph span {
     box-shadow: none;
     border: none;
 }
-html .c-card__assetGlyph {
+html .o-icon__assetGlyph {
     position: absolute;
     top: 4.5rem;
     left: 50%;
@@ -68,7 +80,7 @@ html .c-card__assetGlyph {
     opacity: 0.5;
     font-size: 2em;
 }
-html .c-card__assetGlyph span {
+html .o-icon__assetGlyph span {
     color: #555;
 }
 html .card-body {
@@ -139,7 +151,11 @@ html .card-footer a:hover {
     background-color: transparent;
     color: #fff !important;
 }
-html .card-footer a::before {
+.c-card__grid-audio-video .card-footer a::before,
+.c-card__grid-images .card-footer a::before,
+.c-card__grid-sources .card-footer a::before,
+.c-card__grid-texts .card-footer a::before,
+.c-card__grid-visuals .card-footer a::before {
     content: '\e633';
     font-family: 'shanticon';
     display: inline-block;
@@ -148,19 +164,6 @@ html .card-footer a::before {
     margin-right: 0.8rem;
     float: left;
     font-style: normal;
-
-    display: none;
-}
-html .card-body .icon,
-html .card-footer .icon {
-    font-size: 1.18em;
-    margin-right: 0.5rem;
-    position: relative;
-    top: 0.2rem;
-}
-
-html .card-body .shanti-field-path span::before {
-    /*content: '\e633';*/
 }
 
 .c-button__json {
@@ -186,49 +189,34 @@ html .card-body .shanti-field-path span::before {
     display: inline-block;
 }
 
-$color-audio-video: #31acb6 !default;
-$color-images: #b5953b !default;
-$color-mandala: #4d59ca !default; /* theme primary color */
-$color-places: #3297f7 !default;
-$color-subjects: #cc4c39 !default;
-$color-sources: #6f69ae !default;
-$color-texts: #8c48a1 !default;
-$color-terms: #b5953b !default;
-$color-visuals: #558e3c !default;
-
-.c-card__grid-audio-video .c-card__typeGlyph span {
+.c-card__grid-audio-video .o-icon__typeGlyph span {
     background-color: $color-audio-video;
 }
-.c-card__grid-images .c-card__typeGlyph span {
+.c-card__grid-images .o-icon__typeGlyph span {
     background-color: $color-images;
 }
-.c-card__grid-mandala .c-card__typeGlyph span {
+.c-card__grid-mandala .o-icon__typeGlyph span {
     background-color: $color-mandala;
 }
-.c-card__grid-places .c-card__typeGlyph span {
+.c-card__grid-places .o-icon__typeGlyph span {
     background-color: $color-places;
 }
-.c-card__grid-subjects .c-card__typeGlyph span {
+.c-card__grid-subjects .o-icon__typeGlyph span {
     background-color: $color-subjects;
 }
-.c-card__grid-sources .c-card__typeGlyph span {
+.c-card__grid-sources .o-icon__typeGlyph span {
     background-color: $color-sources;
 }
-.c-card__grid-terms .c-card__typeGlyph span {
+.c-card__grid-terms .o-icon__typeGlyph span {
     background-color: $color-terms;
 }
-.c-card__grid-texts .c-card__typeGlyph span {
+.c-card__grid-texts .o-icon__typeGlyph span {
     background-color: $color-texts;
 }
-.c-card__grid-visuals .c-card__typeGlyph span {
+.c-card__grid-visuals .o-icon__typeGlyph span {
     background-color: $color-visuals;
 }
 
-.c-card__grid-audio-video
-    .c-card__listItem--fieldpath
-    .shanti-field-content
-    span::before {
-}
 .o-icon__agents::before {
     content: '/e600';
 }

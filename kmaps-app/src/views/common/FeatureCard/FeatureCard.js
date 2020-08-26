@@ -114,8 +114,8 @@ export function FeatureCard(props) {
                 {/*<Link to={`./view/${props.doc.uid}`}> }*/}
                 <div className={'c-card__imageWrap'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
-                    <div className={'c-card__typeGlyph'}>{typeGlyph}</div>
-                    <div className={'c-card__assetGlyph'}>{assetGlyph}</div>
+                    <div className={'o-icon__typeGlyph'}>{typeGlyph}</div>
+                    <div className={'o-icon__assetGlyph'}>{assetGlyph}</div>
                 </div>
             </Link>
 
@@ -133,7 +133,7 @@ export function FeatureCard(props) {
                                 <div className="info shanti-field-path">
                                     <span
                                         className={
-                                            'shanti-field-content icon shanticon-' +
+                                            'shanti-field-content shanticon-' +
                                             props.doc.asset_type
                                         }
                                     >
