@@ -1,4 +1,4 @@
-/* Colors - temporarily here but will be imported from om-global-var
+/* Colors
 // ========================================================================== */
 $color-audio-video: #31acb6 !default;
 $color-images: #b5953b !default;
@@ -158,24 +158,6 @@ html .card-footer .icon::before {
     top: 2px;
 }
 
-/*
-.c-card__footer--audio-video a::before,
-.c-card__footer--images a::before,
-.c-card__footer--sources a::before,
-.c-card__footer--texts a::before,
-.c-card__footer--visuals a::before,
-.c-card__footer--collections a::before{
-    content: '\e633';
-    font-family: 'shanticon', sans-serif;
-    display: inline-block;
-    font-size: 1.32em;
-    color: #eee;
-    margin-right: 0.8rem;
-    float: left;
-    font-style: normal;
-}
-*/
-
 .c-button__json {
     position: absolute;
     bottom: 4.25rem;
@@ -224,46 +206,6 @@ html .card-footer .icon::before {
     background-color: $color-visuals;
 }
 
-.o-icon__agents::before {
-    content: '/e600';
-}
-.o-icon__audio-video::before {
-    content: '/e648';
-}
-.o-icon__audio::before {
-    content: '/e60a';
-}
-.o-icon__collections::before {
-    content: '/e633';
-}
-.o-icon__images::before {
-    content: '/e62a';
-}
-.o-icon__mandala::before {
-    content: '/e60b';
-}
-.o-icon__places::before {
-    content: '/e62b';
-}
-.o-icon__sources::before {
-    content: '/e631';
-}
-.o-icon__subjects::before {
-    content: '/e634';
-}
-.o-icon__texts::before {
-    content: '/e636';
-}
-.o-icon__type::before {
-    content: '/e638';
-}
-.o-icon__terms::before {
-    content: '/e635';
-}
-.o-icon__visuals::before {
-    content: '/e63b';
-}
-
 .shanti-field-itemcount,
 .shanti-field-path,
 .shanti-field-type,
@@ -292,13 +234,20 @@ html .card-footer .icon::before {
     top: 2px;
 }
 
-@media (min-width: 576px) {
+.c-card__content-field.shanti-field-type {
+    font-size: 1em;
 }
-@media (min-width: 768px) {
+
+.c-card__content-field.shanti-field-type span {
+    padding-left: 0.2rem;
 }
-@media (min-width: 900px) {
+
+.c-card__content-field.shanti-field-body {
+    padding: 0.3rem 0.5rem 0.5rem;
+    line-height: 1.25em;
+    font-size: 0.88em;
 }
-@media (min-width: 992px) {
-}
-@media (min-width: 1100px) {
+
+.c-card__content-field.shanti-field-body p {
+    margin-bottom: 0;
 }

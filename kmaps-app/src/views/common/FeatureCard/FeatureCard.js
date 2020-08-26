@@ -12,6 +12,7 @@ import { SmartTitle } from '../SmartTitle';
 import { SmartPath } from '../SmartPath';
 import './FeatureCard.scss';
 import '../../../css/fonts/shanticon/style.css';
+// import '../../../om-global-var.scss';
 
 export function FeatureCard(props) {
     // console.log('FeatureCard: doc = ', props.doc.uid);
@@ -21,7 +22,7 @@ export function FeatureCard(props) {
     const [modalShow, setModalShow] = React.useState(false);
 
     const typeGlyph = props.doc.uid ? (
-        <span className={'icon shanticon-' + props.doc.asset_type}></span>
+        <span className={'u-icon--' + props.doc.asset_type}></span>
     ) : null;
 
     const assetGlyph =
@@ -30,7 +31,7 @@ export function FeatureCard(props) {
         props.doc.asset_type !== 'audio-video' ? (
             <span
                 className={
-                    'icon shanticon-' +
+                    'u-icon--' +
                     props.doc.asset_type +
                     ' sui-color-' +
                     props.doc.asset_type
@@ -79,13 +80,13 @@ export function FeatureCard(props) {
     const date = props.doc.timestamp?.split('T')[0];
 
     const footer_text = props.doc.collection_title ? (
-        <span class={'icon shanticon-collections'}>
+        <span class={'icon u-icon--collections'}>
             {' '}
             {props.doc.collection_title}{' '}
         </span>
     ) : (
         <span>
-            <span className={`icon shanticon-${props.doc.asset_type}`}></span>
+            <span className={`icon u-icon--${props.doc.asset_type}`}></span>
             {props.doc.asset_type}
         </span>
     );
@@ -133,7 +134,7 @@ export function FeatureCard(props) {
                                 <div className="info shanti-field-path">
                                     <span
                                         className={
-                                            'shanti-field-content shanticon-' +
+                                            'shanti-field-content u-icon--' +
                                             props.doc.asset_type
                                         }
                                     >
@@ -180,7 +181,7 @@ export function FeatureCard(props) {
 
                 <div className={'c-button__json'}>
                     <span
-                        className={'sui-showinfo shanticon-info float-right'}
+                        className={'sui-showinfo u-icon--info float-right'}
                         onClick={() => setModalShow(true)}
                     ></span>
                     <DetailModal
