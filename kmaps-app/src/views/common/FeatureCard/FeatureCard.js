@@ -10,9 +10,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { KmapLink } from '../KmapLink';
 import { SmartTitle } from '../SmartTitle';
 import { SmartPath } from '../SmartPath';
-import './FeatureCard.css';
+import './FeatureCard.scss';
+import '../../../css/fonts/shanticon/style.css';
 
-// TODO: move all "style" declarations to css!
 export function FeatureCard(props) {
     // console.log('FeatureCard: doc = ', props.doc.uid);
     // console.log('FeatureCard: inline = ', props.inline);
@@ -106,7 +106,10 @@ export function FeatureCard(props) {
         ? `./view/${props.doc.uid}?asset_type=${props.doc.asset_type}`
         : `/${viewer}/${props.doc.uid}`;
     return (
-        <Card key={props.doc.uid}>
+        <Card
+            key={props.doc.uid}
+            className={'c-card__grid-' + props.doc.asset_type}
+        >
             <Link to={asset_view}>
                 {/*<Link to={`./view/${props.doc.uid}`}> }*/}
                 <div className={'c-card__imageWrap'}>
@@ -128,7 +131,12 @@ export function FeatureCard(props) {
                         {props.doc.ancestors_txt &&
                             props.doc.asset_type !== 'terms' && (
                                 <div className="info shanti-field-path">
-                                    <span className="shanti-field-content">
+                                    <span
+                                        className={
+                                            'shanti-field-content icon shanticon-' +
+                                            props.doc.asset_type
+                                        }
+                                    >
                                         <SmartPath doc={props.doc} />
                                     </span>
                                 </div>
@@ -153,11 +161,15 @@ export function FeatureCard(props) {
                         )}
                     </ListGroup.Item>
                     <ListGroup.Item className={'c-card__listItem--related'}>
-                        <div>{relateds}</div>
+                        <div className="info shanti-field-related">
+                            <span className="shanti-field-content">
+                                {relateds}
+                            </span>
+                        </div>
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item className={'c-card__listItem--created'}>
                         {date && (
-                            <div className="shanti-thumbnail-field shanti-field-created">
+                            <div className="shanti-field-created">
                                 <span className="shanti-field-content">
                                     {date}
                                 </span>

@@ -537,6 +537,7 @@ html {
 
 .sui-adv {
     position: absolute;
+    z-index: 10;
     left: calc(100% - 361px);
     top: 43px;
     height: calc(100% - 75px);
@@ -1556,51 +1557,6 @@ a {
     display: none;
 }
 
-/* custom site styles */
-.mandala.sui-header {
-    background-color: #4d59ca;
-}
-
-.mandala.terms {
-    background-color: rgb(162, 115, 63);
-}
-
-.mandala.all {
-    background-color: rgb(91, 102, 203);
-}
-
-.mandala.places {
-    background-color: #007bff;
-}
-
-.mandala.audio-video {
-    background-color: rgb(88, 170, 180);
-}
-
-.mandala.images {
-    background-color: rgb(180, 156, 89);
-}
-
-.mandala.sources {
-    background-color: rgb(90, 87, 173);
-}
-
-.mandala.texts {
-    background-color: rgb(139, 90, 161);
-}
-
-.mandala.visuals {
-    background-color: rgb(110, 148, 86);
-}
-
-.mandala.subjects {
-    background-color: rgb(204, 76, 57);
-}
-
-.mandala.collections {
-    background-color: rgb(91, 102, 203);
-}
-
 .mandala.sui-results {
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -1660,43 +1616,6 @@ a {
     margin-bottom: 1em;
 }
 
-.sui-color-terms {
-    color: rgb(162, 115, 63);
-    font-size: 90%;
-}
-
-.sui-color-all {
-    color: rgb(91, 102, 203);
-}
-
-.sui-color-audio-video {
-    color: rgb(88, 170, 180);
-}
-
-.sui-color-images {
-    color: rgb(180, 156, 89);
-}
-
-.sui-color-sources {
-    color: rgb(90, 87, 173);
-}
-
-.sui-color-texts {
-    color: rgb(139, 90, 161);
-}
-
-.sui-color-visuals {
-    color: rgb(110, 148, 86);
-}
-
-.sui-color-subjects {
-    color: rgb(204, 76, 57);
-}
-
-.sui-color-collections {
-    color: rgb(91, 102, 203);
-}
-
 /*
 .sui-nameEntry li:before {
     content: '> ';
@@ -1747,7 +1666,7 @@ a {
     width: 99%;
 }
 
-/*CARD SIZE ADJUSTMENTS*/
+/*CARD SIZE ADJUSTMENTS
 .card .h1 {
     font-size: 1.5rem;
 }
@@ -1777,13 +1696,13 @@ a {
 .card .h6 {
     font-size: 0.5rem;
 }
-
+*/
 .sui-featureGallery-selectedImg > img {
     /*border-collapse: collapse;*/
     /*border-style: solid;*/
     /*border-width: 1px;*/
 }
-
+/*
 .sui-featureCard-img-crop {
     height: 8em;
     overflow-y: hidden;
@@ -1793,15 +1712,15 @@ a {
     max-height: 4.5em;
     overflow-y: auto;
 }
-
+*/
 .loading-msg {
     font-size: 1.5rem;
     margin: 20px;
 }
 
 .bo {
-    font-size: larger;
-    font-family: Jomolhari, 'Tibetan Machine Uni';
+    /*    font-size: larger;
+    font-family: Jomolhari, 'Tibetan Machine Uni';  h5*/
 }
 
 /* stuff stolen from .shanti-main */

@@ -1,7 +1,7 @@
 html .card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
+    grid-gap: 1%;
     justify-content: space-between;
     margin: 1rem 1rem 2rem;
 }
@@ -14,7 +14,7 @@ html .card-deck .card {
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
     margin-bottom: 0;
-    font-size: 1.5rem;
+    font-size: 1.5rem; // reset font size with rem value
 }
 html .card-deck .card:hover {
     transform: scale(1.025);
@@ -35,7 +35,7 @@ html .card-deck .card a:hover {
     overflow: hidden;
 }
 html .card-image,
-html .card-image-top {
+html .card-img-top {
     border-radius: 0;
     height: 110px;
 }
@@ -44,7 +44,7 @@ html .c-card__typeGlyph span {
     position: absolute;
     top: 0.1rem;
     right: 0;
-    z-index: 100;
+    z-index: 1;
     background: rgba(142, 117, 46, 0.85);
     width: 2em;
     height: 1.88em;
@@ -82,6 +82,7 @@ html .card-body {
 }
 html .card-title {
     margin: 0.65rem 0 0.5rem;
+    font-size: 0.5em;
 }
 html .card-title a {
     color: #333;
@@ -99,8 +100,10 @@ html .list-group {
     padding: 0.5rem 0;
 }
 html .list-group-item {
-    padding: 0.15rem 1.15rem 0.25rem 0.3rem;
+    /*padding: 0.15rem 1.15rem 0.25rem 0.3rem;*/
+    padding: 0.18rem;
     border: none;
+    line-height: 0.88em;
 }
 html .list-group-item:empty {
     padding: 0 !important;
@@ -134,6 +137,7 @@ html .card-footer a {
 }
 html .card-footer a:hover {
     background-color: transparent;
+    color: #fff !important;
 }
 html .card-footer a::before {
     content: '\e633';
@@ -156,13 +160,113 @@ html .card-footer .icon {
 }
 
 html .card-body .shanti-field-path span::before {
-    content: '\e633';
+    /*content: '\e633';*/
 }
 
 .c-button__json {
     position: absolute;
     bottom: 4.25rem;
     right: 1.35rem;
+}
+
+.c-card__listItem--related .shanti-thumbnail-field {
+    display: inline;
+}
+.c-card__listItem--related .shanti-thumbnail-field::after {
+    content: ',';
+    display: inline-block;
+}
+.c-card__listItem--related .shanti-thumbnail-field > span::before {
+    display: none;
+}
+
+.c-card__listItem--related
+    .shanti-thumbnail-field:first-of-type
+    > span::before {
+    display: inline-block;
+}
+
+$color-audio-video: #31acb6 !default;
+$color-images: #b5953b !default;
+$color-mandala: #4d59ca !default; /* theme primary color */
+$color-places: #3297f7 !default;
+$color-subjects: #cc4c39 !default;
+$color-sources: #6f69ae !default;
+$color-texts: #8c48a1 !default;
+$color-terms: #b5953b !default;
+$color-visuals: #558e3c !default;
+
+.c-card__grid-audio-video .c-card__typeGlyph span {
+    background-color: $color-audio-video;
+}
+.c-card__grid-images .c-card__typeGlyph span {
+    background-color: $color-images;
+}
+.c-card__grid-mandala .c-card__typeGlyph span {
+    background-color: $color-mandala;
+}
+.c-card__grid-places .c-card__typeGlyph span {
+    background-color: $color-places;
+}
+.c-card__grid-subjects .c-card__typeGlyph span {
+    background-color: $color-subjects;
+}
+.c-card__grid-sources .c-card__typeGlyph span {
+    background-color: $color-sources;
+}
+.c-card__grid-terms .c-card__typeGlyph span {
+    background-color: $color-terms;
+}
+.c-card__grid-texts .c-card__typeGlyph span {
+    background-color: $color-texts;
+}
+.c-card__grid-visuals .c-card__typeGlyph span {
+    background-color: $color-visuals;
+}
+
+.c-card__grid-audio-video
+    .c-card__listItem--fieldpath
+    .shanti-field-content
+    span::before {
+}
+.o-icon__agents::before {
+    content: '/e600';
+}
+.o-icon__audio-video::before {
+    content: '/e648';
+}
+.o-icon__audio::before {
+    content: '/e60a';
+}
+.o-icon__collections::before {
+    content: '/e633';
+}
+.o-icon__images::before {
+    content: '/e62a';
+}
+.o-icon__mandala::before {
+    content: '/e60b';
+}
+.o-icon__places::before {
+    content: '/e62b';
+}
+.o-icon__sources::before {
+    content: '/e631';
+}
+.o-icon__subjects::before {
+    content: '/e634';
+}
+.o-icon__texts::before {
+    content: '/e636';
+}
+.o-icon__type::before {
+    content: '/e638';
+}
+.o-icon__terms::before {
+    content: '/e635';
+}
+.o-icon__visuals::before {
+    content: '/e63b';
 }
 
 .shanti-field-itemcount,

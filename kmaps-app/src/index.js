@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
+import './Om.css';
+import './om-global.scss';
+import './om-global-var.scss';
+import './css/fonts/shanticon/style.css';
+import './views/css/Popover.css';
+
 import App from './App';
 // import store from './app/store';
 // import { Provider } from 'react-redux';

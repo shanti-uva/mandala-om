@@ -1,13 +1,15 @@
+@import '~bootstrap/scss/bootstrap';
+
 /*** Global Styles copied from ShantiSarvaka shanti-main.css for fonts etc (ndg, 2020-07-14) *****/
 @font-face {
     font-family: 'museo-sans-300';
-    src: url('./fonts/Museosans/museosans-300-webfont.eot');
-    src: url('./fonts/Museosans/museosans-300-webfont.eot?#iefix')
+    src: url('css/fonts/Museosans/museosans-300-webfont.eot');
+    src: url('css/fonts/Museosans/museosans-300-webfont.eot?#iefix')
             format('embedded-opentype'),
-        url('./fonts/Museosans/museosans-300-webfont.woff2') format('woff2'),
-        url('./fonts/Museosans/museosans-300-webfont.woff') format('woff'),
-        url('./fonts/Museosans/museosans-300-webfont.ttf') format('truetype'),
-        url('./fonts/Museosans/museosans-300-webfont.svg#svgFontName')
+        url('css/fonts/Museosans/museosans-300-webfont.woff2') format('woff2'),
+        url('css/fonts/Museosans/museosans-300-webfont.woff') format('woff'),
+        url('css/fonts/Museosans/museosans-300-webfont.ttf') format('truetype'),
+        url('css/fonts/Museosans/museosans-300-webfont.svg#svgFontName')
             format('svg');
 }
 
@@ -155,3 +157,6 @@ div.image-wrapper.center figcaption {
     margin-left: auto;
     margin-right: auto;
 }
+/**
+ ** END - Global Styles copied from ShantiSarvaka shanti-main.css for fonts etc (ndg, 2020-07-14)
+ **/

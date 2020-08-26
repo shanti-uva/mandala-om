@@ -1,0 +1,117 @@
+/* Common Variables
+// ========================================================================== */
+$font-size-default: 16px;
+$font-body: 'Open Sans', sans-serif;
+$font-header: 'Open Sans', sans-serif;
+$font-body-serif: 'EB Garamond', serif;
+$font-weight-sansSerif: (
+    'regular': 400,
+    'medium': 600,
+);
+$font-weight-serif: (
+    'regular': 400,
+    'medium': 500,
+    'bold': 600,
+);
+
+/* Colors
+// ========================================================================== */
+$color-audio-video: #31acb6 !default;
+$color-images: #b5953b !default;
+$color-mandala: #4d59ca !default; /* theme primary color */
+$color-places: #3297f7 !default;
+$color-subjects: #cc4c39 !default;
+$color-sources: #6f69ae !default;
+$color-texts: #8c48a1 !default;
+$color-terms: #b5953b !default;
+$color-visuals: #558e3c !default;
+
+/* Breakpoints
+// ========================================================================== */
+$break-0: 0;
+$break-1: 36em; /* 576px */
+$break-2: 48em; /* 768px */
+$break-3: 62em; /* 992px */
+$break-4: 75em; /* 1200px */
+
+/* custom site styles */
+.mandala.sui-header {
+    background-color: #4d59ca;
+}
+
+.mandala.terms {
+    background-color: rgb(162, 115, 63);
+}
+
+.mandala.all {
+    background-color: rgb(91, 102, 203);
+}
+
+.mandala.places {
+    background-color: #007bff;
+}
+
+.mandala.audio-video {
+    background-color: rgb(88, 170, 180);
+}
+
+.mandala.images {
+    background-color: rgb(180, 156, 89);
+}
+
+.mandala.sources {
+    background-color: rgb(90, 87, 173);
+}
+
+.mandala.texts {
+    background-color: rgb(139, 90, 161);
+}
+
+.mandala.visuals {
+    background-color: rgb(110, 148, 86);
+}
+
+.mandala.subjects {
+    background-color: rgb(204, 76, 57);
+}
+
+.mandala.collections {
+    background-color: rgb(91, 102, 203);
+}
+
+.sui-color-terms {
+    color: rgb(162, 115, 63);
+    font-size: 90%;
+}
+
+.sui-color-all {
+    color: rgb(91, 102, 203);
+}
+
+.sui-color-audio-video {
+    color: rgb(88, 170, 180);
+}
+
+.sui-color-images {
+    color: rgb(180, 156, 89);
+}
+
+.sui-color-sources {
+    color: rgb(90, 87, 173);
+}
+
+.sui-color-texts {
+    color: rgb(139, 90, 161);
+}
+
+.sui-color-visuals {
+    color: rgb(110, 148, 86);
+}
+
+.sui-color-subjects {
+    color: rgb(204, 76, 57);
+}
+
+.sui-color-collections {
+    color: rgb(91, 102, 203);
+}

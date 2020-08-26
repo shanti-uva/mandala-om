@@ -89,7 +89,6 @@ export function MandalaPopover(props) {
                     onMouseOver={() => setShow(true)}
                     onMouseOut={() => setShow(false)}
                 >
-                    <span className="popover-link-tip" />
                     <span className="icon shanticon-menu3" />
                 </span>
             </>
