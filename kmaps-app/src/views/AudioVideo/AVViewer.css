@@ -455,6 +455,8 @@ div#meta-details p b {
     text-transform: uppercase;
     font-weight: 400;
     font-size: 1.25rem;
+    margin-bottom: -3px;
+    padding-top: 3px;
 }
 
 div#meta-details p b:after {
