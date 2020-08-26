@@ -206,7 +206,6 @@ export default class Pages {
                 return;
             }
             $('[id^=sui-popover-]').remove(); // Remove old one
-            console.log($(this.div).scrollTop(), this.div);
             let scrltop = $('#sui-main').scrollTop();
             let str = `<div id='sui-popover-${id}' class='sui-popover' 
 			style='top:${pos.top + 24 + scrltop}px;left:${
@@ -223,7 +222,6 @@ export default class Pages {
             // one-time trap to clear popover
 
             $('#sui-main').one('click', () => {
-                console.log('clearing popover on mousemove ', event.target);
                 this.ClearPopover();
             });
 
@@ -976,12 +974,78 @@ export default class Pages {
 
     // NO SIDE EFFECTS
     FormatDate(
-        date // FRIENDLY FORMAT OF DATE
+        date, // FRIENDLY FORMAT OF DATE
+        format_type
     ) {
         let d = new Date(date); // Parse date
         if (d)
+            format_type =
+                typeof format_type != 'string' ? 'default' : format_type;
+        if (format_type == 'short') {
+            date = d.toDateString();
+        } else {
             date = d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear(); // Remake it
+        }
         return date;
+    }
+
+    // Take a string with or without tags in it and get the language code for its text. These codes are for font or script
+    // so Dzongkha is bo and Hindi or Nepali etc. is sa. Of course, CSS styles need to be made for all of these.
+    GetLangCode(text_string) {
+        // Strip out tags and extra whitespaces
+        text_string = $.trim(text_string.replace(/(<([^>]+)>)/gi, ''));
+        const chrcode = text_string.charCodeAt(0);
+        if (chrcode > 2303 && chrcode < 2432) {
+            return 'sa';
+        }
+        if (chrcode > 3455 && chrcode < 3584) {
+            return 'si';
+        }
+        if (chrcode > 3583 && chrcode < 3712) {
+            return 'th';
+        }
+        if (chrcode > 3839 && chrcode < 4096) {
+            return 'bo';
+        }
+        if (chrcode > 4095 && chrcode < 4256) {
+            return 'my';
+        }
+        if (chrcode > 4352 && chrcode < 4547) {
+            return 'ko';
+        }
+        if (chrcode > 6143 && chrcode < 6320) {
+            return 'mn';
+        }
+        if (chrcode > 12351 && chrcode < 12446) {
+            return 'ja';
+        }
+        if (chrcode > 19967) {
+            return 'zh';
+        } else {
+            return '';
+        }
+    }
+
+    // Take a string with or without tags and wrap it in a span with its language class, add nowrap class if desired.
+    WrapInLangSpan(text_string, nowrap) {
+        const wrapclass = nowrap ? ' text-nowrap' : '';
+        const langcode = this.GetLangCode(text_string);
+        if (langcode === '') {
+            return text_string;
+        }
+        return `<span class="u-${langcode}${wrapclass}">${text_string}</span>`;
+    }
+
+    GetPublicUrlPath(currapp) {
+        const href = window.location.href;
+        let pts = href.split('#');
+        pts = pts[0].split(currapp);
+        pts = pts[0].split(window.location.host);
+        let retval = pts.length > 1 ? pts[1] : false;
+        if (retval && retval[retval.length - 1] !== '/') {
+            retval += '/';
+        }
+        return retval;
     }
 
     // !!!!  WRITES sui TO GLOBAL WINDOW IN ORDER TO IMPLEMENT POPOVERS...   !!!!

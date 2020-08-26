@@ -107,7 +107,7 @@ export default function MdlAssetContext(props) {
                 }
             })
             .catch((e) => {
-                console.error('oh dear! failure!??? ', e);
+                console.error('oh dear! failure!??? ', e, promises);
             });
     }
 

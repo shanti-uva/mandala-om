@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import useStatus from '../../hooks/useStatus';
 import axios from 'axios';
 import jsonpAdapter from '../../logic/axios-jsonp';
 import { Tabs, Tab } from 'react-bootstrap';
-import '../css/AVViewer.css';
+import './AVViewer.css';
 import $ from 'jquery';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -22,7 +23,8 @@ export function AudioVideoViewer(props) {
     const id = props.id;
     const kmasset = props.mdlasset;
     const sui = props.sui;
-    const mapp = 'images';
+    const status = useStatus();
+
     // TODO: is this necessary? Are there situations where it's better to hide the extra content? Need to hide if there is no extra content.
     useEffect(() => {
         $('body').on('click', 'a.sui-avMore2', function () {
@@ -32,6 +34,63 @@ export function AudioVideoViewer(props) {
         $('#sui-main').addClass('av');
     }, []);
 
+    useEffect(() => {
+        if (props.mdlasset) {
+            const mda = props.mdlasset;
+            const base_path = process.env.PUBLIC_URL;
+            let c = 2;
+            let bcrumbs = [
+                <a key="bc1" href={base_path + '/audio-video'}>
+                    Audio-Video
+                </a>,
+                /*
+                <a key="bc2" href={base_path + '/audio-video-collection'}>
+                    Collections
+                </a>,
+
+                 */
+            ];
+            if (
+                mda &&
+                mda.collection_title_path_ss &&
+                mda.collection_title_path_ss.length > 0
+            ) {
+                for (
+                    var bcn = 0;
+                    bcn < mda.collection_title_path_ss.length;
+                    bcn++
+                ) {
+                    c++;
+                    const colltitle = mda.collection_title_path_ss[bcn];
+                    const collpath =
+                        base_path +
+                        '/' +
+                        mda.collection_uid_path_ss[bcn].replace(
+                            'audio-video-collection-',
+                            'audio-video-collection/'
+                        );
+                    let bc = (
+                        <a key={'bc' + c} href={collpath}>
+                            {colltitle}
+                        </a>
+                    );
+                    bcrumbs.push(bc);
+                }
+                c++;
+                const mytitle =
+                    mda.title && mda.title.length > 0
+                        ? mda.title[0]
+                        : mda.caption;
+                let selfbc = (
+                    <a key={'bc' + c} className={'self'} name={'selflink'}>
+                        {mytitle}
+                    </a>
+                );
+                bcrumbs.push(selfbc);
+                status.setSubTitle(bcrumbs);
+            }
+        }
+    }, [props.mdlasset]);
     return (
         <div id={'av-viewer'}>
             <AudioVideoPlayer id={id} asset={kmasset} sui={sui} />
@@ -106,7 +165,12 @@ function AudioVideoMeta(props) {
                 <Tab eventKey="related" title="RELATED ">
                     <div id={'meta-mlt'}>
                         {mlt.map((tile, n) => {
-                            return <AudioVideoMltTile markup={tile} />;
+                            return (
+                                <AudioVideoMltTile
+                                    key={'avmlt-' + n}
+                                    markup={tile}
+                                />
+                            );
                         })}
                     </div>
                 </Tab>
