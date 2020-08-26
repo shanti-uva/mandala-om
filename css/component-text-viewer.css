@@ -7,8 +7,7 @@ ndg, 2020-07-14
  */
 .sui-main.texts {
     overflow-x: hidden;
-    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif,
-        shanticon;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
     font-weight: 400;
     background-color: #eee;
     height: 100vh;
@@ -33,10 +32,6 @@ ndg, 2020-07-14
 .spinner-border-sm {
     margin: -2px 6px 0 20px;
     vertical-align: middle !important;
-}
-
-.shanticon {
-    font-family: 'shanticon';
 }
 
 .tib,
