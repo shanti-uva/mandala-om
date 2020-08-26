@@ -7,6 +7,40 @@ div#av-viewer {
     margin: 0 auto;
 }
 
+.av .sui-contentHeader-sub {
+    display: block;
+    font-style: italic;
+    font-size: 13px;
+    margin: 5px 0 0 2rem !important;
+    cursor: pointer;
+    color: white;
+}
+
+.av .sui-contentHeader-sub a {
+    text-transform: capitalize;
+}
+
+.av .sui-contentHeader-sub a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.av .sui-contentHeader-sub a.self {
+    cursor: default;
+}
+
+.av .sui-contentHeader-sub a.self:hover {
+    color: #eee;
+    text-decoration: none;
+}
+
+.sui-contentHeader-sub a:not(:last-child):after {
+    content: ' > ';
+    display: inline-block;
+    padding-left: 3px;
+    position: relative;
+}
+
 #sui-av,
 #av-meta-row {
     overflow: visible;
@@ -406,4 +440,53 @@ div#av-trscrpt-wrapper {
 .shanti-field-group-audience .shanti-field-content {
     font-size: 10px;
     color: white;
+}
+
+div#meta-details p {
+    margin: 0;
+}
+
+div#meta-details p b {
+    width: 15em !important;
+    display: inline-block;
+    border-right: 2px solid #ddd;
+    margin-right: 1rem;
+    padding-bottom: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 1.25rem;
+    margin-bottom: -3px;
+    padding-top: 3px;
+}
+
+div#meta-details p b:after {
+    content: '';
+}
+
+.av .u-bo {
+    color: #222;
+    font-style: normal !important;
+    letter-spacing: normal !important;
+    text-rendering: optimizeLegibility !important;
+    font-family: 'Babelstone', 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan',
+        'Tibetan Machine Uni', 'Kailasa', 'Uchen_05', 'Microsoft Himalaya' !important;
+    font-size: 150%;
+    line-height: 140%;
+    vertical-align: middle;
+}
+
+.av .u-sa {
+    color: #222;
+    letter-spacing: normal !important;
+    text-rendering: optimizeLegibility !important;
+    font-family: 'Arial Unicode MS', 'open_sansregular', 'siddhanta_deva',
+        'Noto Sans', sans-serif;
+    font-size: 125%;
+}
+
+.av .u-zh {
+    color: #222;
+    text-rendering: optimizeLegibility !important;
+    font-family: 'Arial', 'Heiti SC', 'Microsoft Yahei', simsun, sans-serif;
+    font-size: 120%;
 }
