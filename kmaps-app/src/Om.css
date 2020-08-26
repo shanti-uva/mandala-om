@@ -91,7 +91,7 @@ html {
 
 .sui-search3 {
     float: right;
-    font-family: shanticon;
+    font-family: 'shanticon', serif;
     font-size: 0.62em;
     color: #ccc;
     cursor: pointer;
@@ -114,7 +114,7 @@ html {
     cursor: pointer;
     vertical-align: top;
     box-sizing: content-box;
-    font-family: shanticon;
+    font-family: 'shanticon', serif;
 }
 
 .sui-search4:hover {
@@ -126,7 +126,6 @@ html {
     font-size: 10px;
     cursor: pointer;
     color: #666;
-    width: auto;
     text-align: center;
     padding: 5px 0 0 12px;
     line-height: 10px;
@@ -142,7 +141,7 @@ html {
 
 .sui-hamBut {
     display: inline-block;
-    font-family: shanticon;
+    font-family: 'shanticon', serif;
     font-size: 16px;
     cursor: pointer;
     color: #666;
@@ -188,7 +187,7 @@ html {
     user-select: none;
     height: 100%;
     float: left;
-    padding: 0px 0px 0 22px;
+    padding: 0 0 0 22px;
     font-size: 19px;
     line-height: 19px;
     width: 100%;
@@ -250,7 +249,6 @@ html {
     cursor: pointer;
     border: 1px solid #999;
     padding: 12px;
-    border: 1px solid #999;
 }
 
 .sui-typeItem:hover {
@@ -333,7 +331,6 @@ html {
 .sui-itemIcon {
     display: inline-block;
     color: #fff;
-    margin-left: -30px;
     font-size: 13px;
     cursor: pointer;
     border-radius: 4px;
@@ -530,7 +527,7 @@ html {
     /*height: 21px;*/
     color: #fff;
     border-radius: 0 0 5px 8px;
-    padding: 0px 3px 0px 6px !important;
+    padding: 0 3px 0 6px !important;
 }
 
 /* ADVANCED SEARCH */
@@ -790,7 +787,7 @@ html {
 
 #plc-infoDiv input {
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px;
 }
 
 /* SOURCES PAGE */
@@ -903,7 +900,6 @@ html {
     display: inline-block;
     font-size: 15px;
     color: #fff;
-    vertical-align: -4px;
     background-color: #a2733f;
     padding: 5px;
     vertical-align: -1px;
@@ -965,7 +961,7 @@ html {
     overflow-y: hidden;
     white-space: nowrap;
     margin: 0 12px 0 12px;
-    -webkit-scrollbar-track-background: #000;
+    /*-webkit-scrollbar-track-background: #000;*/
 }
 
 .sui-imageMid {
@@ -1170,7 +1166,7 @@ html {
 .sui-transSeg {
     background-color: #ddd;
     border-radius: 6px 6px 0 0;
-    padding-bottom: 2px;
+
     padding: 8px;
     width: calc(100% - 16px);
     margin: 4px 0 4px 0;
@@ -1220,7 +1216,7 @@ html {
 .sui-spHead {
     font-weight: 600;
     color: #777;
-    margin: 6px 0 14px 0px;
+    margin: 6px 0 14px 0;
     font-size: 16px;
     text-transform: uppercase;
 }
@@ -1354,7 +1350,6 @@ html {
     left: -46px;
     top: 55px;
     font-size: 26px;
-    color: #fff;
     border-radius: 4px 0 0 4px;
     opacity: 0.5;
     color: #ddd;
@@ -1373,7 +1368,6 @@ html {
     left: calc(100% + 12px);
     top: 13px;
     font-size: 26px;
-    color: #fff;
     border-radius: 0 4px 4px 0;
     opacity: 0.5;
     color: #ddd;
@@ -1556,13 +1550,13 @@ a {
 .closed {
     display: none;
 }
-
+/*
 .mandala.sui-results {
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
 }
-
+*/
 .mandala > .sui-contentHead > div {
     margin-top: 0.5em;
 }
@@ -1793,7 +1787,7 @@ a {
     font-size: 1.5em;
     font-weight: normal;
     font-family: 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan', 'Babelstone',
-        'Kailasa', 'Tibetan Himalayan' !important;
+        'Kailasa', 'Tibetan Himalayan', sans-serif !important;
 }
 
 .shanti-thumbnail-info .body-wrap .shanti-field-title:hover a {
@@ -1811,7 +1805,7 @@ a {
 }
 
 .shanti-field-group-audience .shanti-thumbnail-link + a::before {
-    font-family: 'Glyphicons Halflings';
+    font-family: 'Glyphicons Halflings', sans-serif;
     content: '\e144';
     color: #666;
     font-size: 1.25em;
@@ -1869,7 +1863,7 @@ a {
 .shanti-field-created span::before,
 .shanti-field-place > span::before,
 .shanti-field-subject > span::before {
-    font-family: 'shanticon';
+    font-family: 'shanticon', sans-serif;
     font-size: 120%;
     font-weight: normal;
     position: relative;
@@ -2008,7 +2002,7 @@ a {
 
 .shanti-thumbnail .footer-wrap a::before {
     content: '\e633';
-    font-family: 'shanticon';
+    font-family: 'shanticon', sans-serif;
     display: inline-block;
     font-size: 1.32em;
     color: #eee;

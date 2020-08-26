@@ -80,7 +80,7 @@ export function FeatureCard(props) {
     const date = props.doc.timestamp?.split('T')[0];
 
     const footer_text = props.doc.collection_title ? (
-        <span class={'icon u-icon--collections'}>
+        <span className={'icon u-icon--collections'}>
             {' '}
             {props.doc.collection_title}{' '}
         </span>
@@ -115,8 +115,8 @@ export function FeatureCard(props) {
                 {/*<Link to={`./view/${props.doc.uid}`}> }*/}
                 <div className={'c-card__imageWrap'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
-                    <div className={'o-icon__typeGlyph'}>{typeGlyph}</div>
-                    <div className={'o-icon__assetGlyph'}>{assetGlyph}</div>
+                    <div className={'card__typeGlyph'}>{typeGlyph}</div>
+                    <div className={'card__assetGlyph'}>{assetGlyph}</div>
                 </div>
             </Link>
 
