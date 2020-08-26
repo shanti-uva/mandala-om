@@ -2025,21 +2025,21 @@ a {
     background-color: rgba(105, 79, 4, 0.85);
 }
 
-.shanti-thumbnail-field.shanti-field-type {
+.c-card__content-field.shanti-field-type {
     font-size: 1em;
 }
 
-.shanti-thumbnail-field.shanti-field-type span {
+.c-card__content-field.shanti-field-type span {
     padding-left: 0.2rem;
 }
 
-.shanti-thumbnail-field.shanti-field-body {
+.c-card__content-field.shanti-field-body {
     padding: 0.3rem 0.5rem 0.5rem;
     line-height: 1.25em;
     font-size: 0.88em;
 }
 
-.shanti-thumbnail-field.shanti-field-body p {
+.c-card__content-field.shanti-field-body p {
     margin-bottom: 0;
 }
 

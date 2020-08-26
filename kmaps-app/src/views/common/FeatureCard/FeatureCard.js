@@ -43,7 +43,7 @@ export function FeatureCard(props) {
     const related_places = props.doc.kmapid_places_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
-            <div key={i} className="shanti-thumbnail-field shanti-field-place">
+            <div key={i} className="c-card__content-field shanti-field-place">
                 <span className="shanti-field-content">
                     <KmapLink uid={id} label={name} />
                 </span>
@@ -54,10 +54,7 @@ export function FeatureCard(props) {
     const related_subjects = props.doc.kmapid_subjects_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
-            <div
-                key={i}
-                className="shanti-thumbnail-field shanti-field-subject"
-            >
+            <div key={i} className="c-card__content-field shanti-field-subject">
                 <span className="shanti-field-content">
                     <KmapLink uid={id} label={name} />
                 </span>
@@ -70,7 +67,7 @@ export function FeatureCard(props) {
         return (
             <div
                 key={id}
-                className="shanti-thumbnail-field shanti-field-subject"
+                className="c-card__content-field shanti-field-subject"
             >
                 <span className="shanti-field-content">
                     <KmapLink uid={id} label={name} />
@@ -82,10 +79,13 @@ export function FeatureCard(props) {
     const date = props.doc.timestamp?.split('T')[0];
 
     const footer_text = props.doc.collection_title ? (
-        <span> {props.doc.collection_title} </span>
+        <span class={'icon shanticon-collections'}>
+            {' '}
+            {props.doc.collection_title}{' '}
+        </span>
     ) : (
         <span>
-            <span className={`icon shanticon-${props.doc.asset_type}`}></span>{' '}
+            <span className={`icon shanticon-${props.doc.asset_type}`}></span>
             {props.doc.asset_type}
         </span>
     );
@@ -192,7 +192,7 @@ export function FeatureCard(props) {
                 </div>
             </Card.Body>
 
-            <Card.Footer>
+            <Card.Footer className={'c-card__footer--' + props.doc.asset_type}>
                 <Link>{footer_text}</Link>
             </Card.Footer>
         </Card>

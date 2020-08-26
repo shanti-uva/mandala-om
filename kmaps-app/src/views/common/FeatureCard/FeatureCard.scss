@@ -89,7 +89,7 @@ html .card-body {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0 0.6rem 1rem;
-    white-space: wrap;
+    white-space: normal;
     word-break: break-word;
 }
 html .card-title {
@@ -124,7 +124,7 @@ html .list-group-item:empty {
 html .card-footer {
     background: rgba(142, 117, 46, 0.85);
     height: auto;
-    font-size: 1.06em;
+    font-size: 1.25rem;
     text-transform: capitalize;
     padding: 0 0.75rem 0 1.5rem;
     border: none;
@@ -137,7 +137,6 @@ html .card-footer:active {
     background-color: rgba(142, 117, 46, 0.85);
 }
 html .card-footer a {
-    font-size: 0.75em;
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -145,19 +144,29 @@ html .card-footer a {
     color: #fff;
     border: none !important;
     padding: 0.5rem 0;
-    vertical-align: middle;
+    line-height: 1.32em;
 }
 html .card-footer a:hover {
     background-color: transparent;
     color: #fff !important;
 }
-.c-card__grid-audio-video .card-footer a::before,
-.c-card__grid-images .card-footer a::before,
-.c-card__grid-sources .card-footer a::before,
-.c-card__grid-texts .card-footer a::before,
-.c-card__grid-visuals .card-footer a::before {
+
+html .card-footer .icon::before {
+    margin-right: 0.75rem;
+    font-size: 1.18em;
+    position: relative;
+    top: 2px;
+}
+
+/*
+.c-card__footer--audio-video a::before,
+.c-card__footer--images a::before,
+.c-card__footer--sources a::before,
+.c-card__footer--texts a::before,
+.c-card__footer--visuals a::before,
+.c-card__footer--collections a::before{
     content: '\e633';
-    font-family: 'shanticon';
+    font-family: 'shanticon', sans-serif;
     display: inline-block;
     font-size: 1.32em;
     color: #eee;
@@ -165,6 +174,7 @@ html .card-footer a:hover {
     float: left;
     font-style: normal;
 }
+*/
 
 .c-button__json {
     position: absolute;
@@ -172,20 +182,17 @@ html .card-footer a:hover {
     right: 1.35rem;
 }
 
-.c-card__listItem--related .shanti-thumbnail-field {
+.c-card__listItem--related .c-card__content-field {
     display: inline;
 }
-.c-card__listItem--related .shanti-thumbnail-field::after {
+.c-card__listItem--related .c-card__content-field::after {
     content: ',';
     display: inline-block;
 }
-.c-card__listItem--related .shanti-thumbnail-field > span::before {
+.c-card__listItem--related .c-card__content-field > span::before {
     display: none;
 }
-
-.c-card__listItem--related
-    .shanti-thumbnail-field:first-of-type
-    > span::before {
+.c-card__listItem--related .c-card__content-field:first-of-type > span::before {
     display: inline-block;
 }
 
@@ -268,7 +275,7 @@ html .card-footer a:hover {
 .shanti-field-created,
 .shanti-field-place,
 .shanti-field-subject {
-    font-size: 0.75em;
+    font-size: 1.18rem;
 }
 .shanti-field-itemcount span::before,
 .shanti-field-path span::before,
@@ -281,7 +288,6 @@ html .card-footer a:hover {
 .shanti-field-created span::before,
 .shanti-field-place > span::before,
 .shanti-field-subject > span::before {
-    font-size: 130%;
     position: relative;
     top: 2px;
 }
