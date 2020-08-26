@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/mandala-om/static/css/main.1b408dd9.chunk.css",
-    "main.js": "/mandala-om/static/js/main.c1b344ee.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.c1b344ee.chunk.js.map",
+    "main.js": "/mandala-om/static/js/main.69126b7e.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.69126b7e.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.6b930fe2.js",
     "runtime-main.js.map": "/mandala-om/static/js/runtime-main.6b930fe2.js.map",
     "static/css/2.8ab1ff54.chunk.css": "/mandala-om/static/css/2.8ab1ff54.chunk.css",
-    "static/js/2.3128bad2.chunk.js": "/mandala-om/static/js/2.3128bad2.chunk.js",
-    "static/js/2.3128bad2.chunk.js.map": "/mandala-om/static/js/2.3128bad2.chunk.js.map",
+    "static/js/2.e79d01a5.chunk.js": "/mandala-om/static/js/2.e79d01a5.chunk.js",
+    "static/js/2.e79d01a5.chunk.js.map": "/mandala-om/static/js/2.e79d01a5.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.470de962cf90479e7edbcd4bbf4abf42.js": "/mandala-om/precache-manifest.470de962cf90479e7edbcd4bbf4abf42.js",
+    "precache-manifest.1f48b67079b2dcc9ac2895023762c2e0.js": "/mandala-om/precache-manifest.1f48b67079b2dcc9ac2895023762c2e0.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.8ab1ff54.chunk.css.map": "/mandala-om/static/css/2.8ab1ff54.chunk.css.map",
     "static/css/main.1b408dd9.chunk.css.map": "/mandala-om/static/css/main.1b408dd9.chunk.css.map",
-    "static/js/2.3128bad2.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.3128bad2.chunk.js.LICENSE.txt",
+    "static/js/2.e79d01a5.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.e79d01a5.chunk.js.LICENSE.txt",
     "static/media/om-global.scss": "/mandala-om/static/media/museosans-300-webfont.b08f7489.woff2",
     "static/media/style.css": "/mandala-om/static/media/shanticon.be531d81.ttf",
     "static/media/Om.css": "/mandala-om/static/media/treebuts.bcb9b6f1.png"
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.6b930fe2.js",
     "static/css/2.8ab1ff54.chunk.css",
-    "static/js/2.3128bad2.chunk.js",
+    "static/js/2.e79d01a5.chunk.js",
     "static/css/main.1b408dd9.chunk.css",
-    "static/js/main.c1b344ee.chunk.js"
+    "static/js/main.69126b7e.chunk.js"
   ]
 }
