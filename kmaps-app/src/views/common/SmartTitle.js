@@ -54,7 +54,7 @@ export function SmartTitle(props) {
     }
 
     // applying LinesEllipsis component...
-    // ys2n: style-kludge as per https://github.com/xiaody/react-lines-ellipsis/issues/59
+    // ys2n: style-kludge: adding "white-space: pre-wrap" as per https://github.com/xiaody/react-lines-ellipsis/issues/59
     return (
         <LinesEllipsis
             style={{ whiteSpace: 'pre-wrap' }}

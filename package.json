@@ -7,8 +7,9 @@
     "testTimeout": 10000
   },
   "scripts": {
-    "start": "echo There no start script here.  Try inside the ./kmaps-app sub-directory instead.",
-    "test": "jest --verbose --watch",
+    "start": "echo There no 'start' script here.  Cd to the ./kmaps-app sub-directory and try again.",
+    "deploy": "echo There no 'deploy' script here.  Cd to the ./kmaps-app sub-directory and try again.",
+    "test": "jest --verbose ",
     "coverage": "jest --coverage"
   },
   "repository": {
