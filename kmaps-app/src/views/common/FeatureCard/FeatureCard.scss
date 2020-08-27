@@ -143,15 +143,15 @@ html .card-footer a {
     text-overflow: ellipsis;
     color: #fff;
     border: none !important;
-    padding: 0.65rem 0;
-    line-height: 1.32em;
+    padding: 0.6rem 0 0.5rem;
+    line-height: 1em;
 }
 html .card-footer a:hover {
     background-color: transparent;
     color: #fff !important;
 }
 html .card-footer .icon::before {
-    margin-right: 0.6rem;
+    margin-right: 0.2rem;
     font-size: 1.25em;
     position: relative;
     top: 0.25rem;
@@ -159,6 +159,7 @@ html .card-footer .icon::before {
 html .card-footer .shanti-field-path {
     color: #fff;
     padding-left: 0;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
 }
 .card-footer .shanti-field-path span::before {
     /* this targets only kmaps info in footer */

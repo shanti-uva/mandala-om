@@ -12,7 +12,6 @@
 [class*='u-icon--'],
 [class^='shanticon-'],
 [class*=' shanticon-'] {
-    font-family: 'shanticon', serif;
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -23,11 +22,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.icon,
 [class^='u-icon--']::before,
 [class*='u-icon--']::before,
 [class^='shanticon-']::before,
 [class*='shanticon-']::before {
-    font-family: 'shanticon';
+    font-family: 'shanticon', sans-serif;
 }
 .u-icon--agents::before,
 .shanticon-agents:before {
