@@ -34,11 +34,15 @@ div#av-viewer {
     text-decoration: none;
 }
 
-.sui-contentHeader-sub a:not(:last-child):after {
+.av .sui-contentHeader-sub a:not(:last-child):after {
     content: ' > ';
     display: inline-block;
     padding-left: 3px;
     position: relative;
+}
+
+.av .sui-breadCrumbs {
+    display: none;
 }
 
 #sui-av,

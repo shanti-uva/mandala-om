@@ -23,6 +23,7 @@ import { Error404 } from '../App';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
 import MdlAssetContext from '../context/MdlAssetContext';
+import GenAssetContext from '../context/GenAssetContext';
 import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
 import PlacesHome from '../views/PlacesHome';
@@ -49,15 +50,12 @@ export function ContentPane(props) {
                 <Switch>
                     {/* AUDIO-VIDEO */}
                     <Route path={`${path}audio-video/:id`}>
-                        <MdlAssetContext
-                            assettype={'audio-video'}
-                            sui={props.sui}
-                        >
+                        <GenAssetContext assetType={'audio-video'}>
                             <AudioVideoViewer
                                 sui={props.sui}
-                                onStateChange={props.onStateChange}
+                                /*onStateChange={props.onStateChange}*/
                             />
-                        </MdlAssetContext>
+                        </GenAssetContext>
                     </Route>
                     <Route path={`${path}audio-video`}>
                         <AudioVideoHome />

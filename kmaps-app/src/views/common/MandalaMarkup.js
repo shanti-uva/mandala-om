@@ -3,6 +3,7 @@ import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 import { MandalaPopover } from './MandalaPopover';
 import { MandalaModal } from './MandalaModal';
 import { useSolr, useSolrEnabled } from '../../hooks/useSolr';
+import $ from 'jquery';
 
 /**
  * The transform function sent to ReactHtmlParse for converting raw HTML into React Components
@@ -22,7 +23,39 @@ function transform(node, index) {
         const kmpdom = node.attribs['data-kmdomain'];
         const kmpid = node.attribs['data-kmid'];
         return <MandalaPopover domain={kmpdom} kid={kmpid} />;
-    } // Process External Links in Mandala Markup to turn into Modals or Internal links TODO: Process internal Mandala links
+    }
+    // Process popover icon imgs to convert to mandala popovers
+    else if (
+        node.name === 'img' &&
+        node.attribs &&
+        node.attribs['class'] &&
+        node.attribs['class'] === 'popover-icon' &&
+        node.attribs['onmouseenter']
+    ) {
+        let mtchs = node.attribs['onmouseenter'].match(
+            /(places|subjects|terms)\-(\d+)/
+        );
+        if (mtchs) {
+            node.prev.data = '';
+            return <MandalaPopover domain={mtchs[1]} kid={mtchs[2]} />;
+        } else {
+            return null;
+        }
+    }
+
+    // Find text preceding popover icon and remove it, since MandalaPopover provides its own text by default
+    else if (
+        node.type === 'text' &&
+        node.next &&
+        node.next.attribs &&
+        node.next.attribs['class'] &&
+        node.next.attribs['class'] === 'popover-icon'
+    ) {
+        // In Bill's code text preceded by two spaces
+        return ReactHtmlParser('&nbsp;&nbsp;');
+    }
+
+    // Process External Links in Mandala Markup to turn into Modals or Internal links TODO: Process internal Mandala links
     else if (
         node.name &&
         node.name === 'a' &&
@@ -140,6 +173,23 @@ export function HtmlWithPopovers(props) {
         transform,
     };
 
+    return <>{ReactHtmlParser(htmlInput, options)}</>;
+}
+
+/**
+ * General implementation of ReactHTMLParser that allows one to call it with a custom options including a custom
+ * transformer or no options. Does not process Mandala Popovers.
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export function HtmlCustom(props) {
+    const htmlInput = props.markup ? props.markup : '<div></div>';
+    const options = props.options ? props.options : {};
+    if (options && !options.decodeEntities) {
+        options.decodeEntities = true;
+    }
     return <>{ReactHtmlParser(htmlInput, options)}</>;
 }
 

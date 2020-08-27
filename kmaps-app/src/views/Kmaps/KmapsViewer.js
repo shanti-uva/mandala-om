@@ -15,6 +15,7 @@ import Card from 'react-bootstrap/Card';
 import useStatus from '../../hooks/useStatus';
 import { AudioVideoViewer } from '../AudioVideo/AudioVideoViewer';
 import MdlAssetContext from '../../context/MdlAssetContext';
+import GenAssetContext from '../../context/GenAssetContext';
 import { TextsViewer } from '../TextsViewer';
 import { ImagesViewer } from '../ImagesViewer';
 import { SourcesViewer } from '../SourcesViewer';
@@ -98,12 +99,9 @@ export default function KmapsViewer(props) {
                                 relatedType={'audio-video'}
                                 back={'true'}
                             />
-                            <MdlAssetContext
-                                assettype={'audio-video'}
-                                inline={true}
-                            >
+                            <GenAssetContext assetType={'audio-video'}>
                                 <AudioVideoViewer sui={window.sui} />
-                            </MdlAssetContext>
+                            </GenAssetContext>
                         </Route>
 
                         <Route

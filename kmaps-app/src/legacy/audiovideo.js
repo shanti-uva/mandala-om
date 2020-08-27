@@ -44,11 +44,12 @@ export default class AudioVideo {
     }
 
     // Added by Ndg8f: Separated out from Draw in order to make player into its own component
-    DrawPlayer(o, elid) {
+    DrawPlayer(o, d) {
         const sui = this.sui;
         let i,
             f,
             wid = 100;
+        let elid = 'sui-av';
         const _this = $('#' + elid); // Context
         var partnerId = '381832'; // Kaltura partner id
         var uiConfId = '31832371'; // Kaltura confidential code
@@ -63,444 +64,429 @@ export default class AudioVideo {
             window.kWidget.destroy('sui-kplayer'); // If Kaltura player already initted yet, kill it
 
         //sui.LoadingIcon(true, 64); // Show loading icon
-        sui.GetJSONFromKmap(o, (d) => {
-            // Get details from JSON
-            var str = `<div id="av-player-row" class="row avplayer"><div id='sui-viewerSide' class="av col">`; // Left side
-            if (d.field_video && d.field_video.und)
-                // If video
-                entryId = d.field_video.und[0].entryid;
-            // Get id
-            else if (d.field_video && d.field_video.en)
-                // If video (english)
-                entryId = d.field_video.en[0].entryid;
-            // Get id
-            else if (d.field_audio && d.field_audio.und) {
-                // Audio
-                entryId = d.field_audio.und[0].entryid; // Id
-                wid = 50; // Make smaller
-            } else if (d.field_audio && d.field_audio.en) {
-                // Audio (english)
-                entryId = d.field_audio.en[0].entryid; // Id
-                wid = 50; // Make smaller
+        // Get details from JSON
+        var str = `<div id="av-player-row" class="row avplayer"><div id='sui-viewerSide' class="av col">`; // Left side
+        if (d.field_video && d.field_video.und)
+            // If video
+            entryId = d.field_video.und[0].entryid;
+        // Get id
+        else if (d.field_video && d.field_video.en)
+            // If video (english)
+            entryId = d.field_video.en[0].entryid;
+        // Get id
+        else if (d.field_audio && d.field_audio.und) {
+            // Audio
+            entryId = d.field_audio.und[0].entryid; // Id
+            wid = 50; // Make smaller
+        } else if (d.field_audio && d.field_audio.en) {
+            // Audio (english)
+            entryId = d.field_audio.en[0].entryid; // Id
+            wid = 50; // Make smaller
+        }
+        str += `<div class='sui-vPlayer' id='sui-kplayer'>
+        <img src="https://cfvod.kaltura.com/p/${partnerId}/sp/${partnerId}00/thumbnail/entry_id/${entryId}/version/100301/width/560/height/0" fill-height"></div>`;
+        str += `<br><br><div style='display:inline-block;width:300px;margin-left:16px'>
+                <div title='Published'>&#xe60c&nbsp;&nbsp;&nbsp;`;
+        if (d.field_year_published && d.field_year_published.en) {
+            str += sui.pages.FormatDate(d.field_year_published.en[0].value);
+        } else if (o.node_created) {
+            str += sui.pages.FormatDate(o.node_created, 'short');
+        }
+        str += '</div>';
+        str += `<div title='Duration'>&#xe61c&nbsp;&nbsp;&nbsp;${o.duration_s}</div>`;
+        str += `<div title='Uploader'>&#xe673&nbsp;&nbsp;&nbsp;${o.node_user_full_s}</div>`;
+        // End of left side list of metadata items under video
+        str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
+        try {
+            if (o.collection_title) {
+                const collpath =
+                    sui.pages.GetPublicUrlPath('audio-video') +
+                    'audio-video-collection/' +
+                    o.id;
+                str += `&#xe633&nbsp;&nbsp;&nbsp;
+                <a title='Collection' id='sui-avCol' href='${collpath}'>${o.collection_title}</a>`;
             }
-            str += `<div class='sui-vPlayer' id='sui-kplayer'>
-			<img src="https://cfvod.kaltura.com/p/${partnerId}/sp/${partnerId}00/thumbnail/entry_id/${entryId}/version/100301/width/560/height/0" fill-height"></div>`;
-            str += `<br><br><div style='display:inline-block;width:300px;margin-left:16px'>
-                    <div title='Published'>&#xe60c&nbsp;&nbsp;&nbsp;`;
-            if (d.field_year_published && d.field_year_published.en) {
-                str += sui.pages.FormatDate(d.field_year_published.en[0].value);
-            } else if (o.node_created) {
-                str += sui.pages.FormatDate(o.node_created, 'short');
-            }
-            str += '</div>';
-            str += `<div title='Duration'>&#xe61c&nbsp;&nbsp;&nbsp;${o.duration_s}</div>`;
-            str += `<div title='Uploader'>&#xe673&nbsp;&nbsp;&nbsp;${o.node_user_full_s}</div>`;
-            // End of left side list of metadata items under video
-            str += `</div><div style='display:inline-block;vertical-align:top;width:calc(100% - 320px)'>`;
-            try {
-                if (o.collection_title) {
-                    const collpath =
-                        sui.pages.GetPublicUrlPath('audio-video') +
-                        'audio-video-collection/' +
-                        o.id;
-                    str += `&#xe633&nbsp;&nbsp;&nbsp;
-					<a title='Collection' id='sui-avCol' href='${collpath}'>${o.collection_title}</a>`;
-                }
-            } catch (e) {}
-            try {
-                let creator_short_list = [];
-                const main_roles = ['Creator', 'Director', 'Producer'];
-                for (var crn = 0; crn < o.creator.length; crn++) {
-                    let crrole =
-                        o.creator_role_ss && o.creator_role_ss.length > crn
-                            ? o.creator_role_ss[crn]
-                            : 'none';
-                    if (main_roles.includes(crrole)) {
-                        creator_short_list.push(
-                            sui.pages.WrapInLangSpan(o.creator[crn], true) +
-                                ' (' +
-                                crrole +
-                                ')'
-                        );
-                    }
-                }
-                if (creator_short_list.length === 0) {
-                    creator_short_list = o.creator;
-                }
-                str +=
-                    "<div title='Creators'>&#xe600&nbsp;&nbsp;&nbsp;" +
-                    creator_short_list.join(', ') +
-                    '</div>';
-            } catch (e) {
-                //console.error("in audiovideo.js: " + e.toString());
-            }
-            str +=
-                "<div title='Visibility'>&#xe67c&nbsp;&nbsp;&nbsp;Public</div>"; // TODO: sniff out actual visibility when available in solr index. For now all indexed nodes are public.
-            let desc_text = o.summary ? o.summary : o.caption ? o.caption : '';
-            let langclass = sui.pages.GetLangCode(desc_text);
-            if (langclass.length > 0) {
-                langclass = ' u-' + langclass;
-            }
-            str += `</div><hr>
-			<p class='sui-sourceText${langclass}'>${desc_text}</p>`;
-            if (
-                d.field_pbcore_description &&
-                d.field_pbcore_description.und &&
-                d.field_pbcore_description.und.length
-            ) {
-                str += `<div class='sui-avMore1'><a class='sui-avMore2'>
-				SHOW MORE</a></div><br>`;
-                str += "<div id='sui-avlang' style='display:none'>";
-                let morecnt = '';
-                for (i = 0; i < d.field_pbcore_description.und.length; ++i) {
-                    // For each new description
-                    try {
-                        f = d.field_pbcore_description.und[i]; // Point at it
-                        if (f.field_description.und[0].value.length > 0) {
-                            const moretext = sui.pages.WrapInLangSpan(
-                                f.field_description.und[0].value
-                            );
-                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b><br>
-                                ${moretext}<br>`;
-                        }
-                    } catch (e) {}
-                }
-                str += morecnt + '</div>';
-                if (morecnt.length == 0) {
-                    str = str.replace(
-                        "class='sui-avMore2'",
-                        "class='sui-avMore2 hidden'"
+        } catch (e) {}
+        try {
+            let creator_short_list = [];
+            const main_roles = ['Creator', 'Director', 'Producer'];
+            for (var crn = 0; crn < o.creator.length; crn++) {
+                let crrole =
+                    o.creator_role_ss && o.creator_role_ss.length > crn
+                        ? o.creator_role_ss[crn]
+                        : 'none';
+                if (main_roles.includes(crrole)) {
+                    creator_short_list.push(
+                        sui.pages.WrapInLangSpan(o.creator[crn], true) +
+                            ' (' +
+                            crrole +
+                            ')'
                     );
                 }
             }
-            str += '</div>';
+            if (creator_short_list.length === 0) {
+                creator_short_list = o.creator;
+            }
+            str +=
+                "<div title='Creators'>&#xe600&nbsp;&nbsp;&nbsp;" +
+                creator_short_list.join(', ') +
+                '</div>';
+        } catch (e) {
+            //console.error("in audiovideo.js: " + e.toString());
+        }
+        str += "<div title='Visibility'>&#xe67c&nbsp;&nbsp;&nbsp;Public</div>"; // TODO: sniff out actual visibility when available in solr index. For now all indexed nodes are public.
+        let desc_text = o.summary ? o.summary : o.caption ? o.caption : '';
+        let langclass = sui.pages.GetLangCode(desc_text);
+        if (langclass.length > 0) {
+            langclass = ' u-' + langclass;
+        }
+        str += `</div><hr>
+        <p class='sui-sourceText${langclass}'>${desc_text}</p>`;
+        if (
+            d.field_pbcore_description &&
+            d.field_pbcore_description.und &&
+            d.field_pbcore_description.und.length
+        ) {
+            str += `<div class='sui-avMore1'><a class='sui-avMore2'>
+            SHOW MORE</a></div><br>`;
+            str += "<div id='sui-avlang' style='display:none'>";
+            let morecnt = '';
+            for (i = 0; i < d.field_pbcore_description.und.length; ++i) {
+                // For each new description
+                try {
+                    f = d.field_pbcore_description.und[i]; // Point at it
+                    if (f.field_description.und[0].value.length > 0) {
+                        const moretext = sui.pages.WrapInLangSpan(
+                            f.field_description.und[0].value
+                        );
+                        morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b><br>
+                            ${moretext}<br>`;
+                    }
+                } catch (e) {}
+            }
+            str += morecnt + '</div>';
+            if (morecnt.length == 0) {
+                str = str.replace(
+                    "class='sui-avMore2'",
+                    "class='sui-avMore2 hidden'"
+                );
+            }
+        }
+        str += '</div>';
 
-            $('#sui-av').html(str.replace(/\t|\n|\r/g, '')); // Add player
+        $('#sui-av').html(str.replace(/\t|\n|\r/g, '')); // Add player
 
-            this.DrawTranscript(o, '#sui-trans'); // Draw transcript in div
-            str = `//cdnapi.kaltura.com/p/${partnerId}/sp/${partnerId}00/embedIframeJs/uiconf_id/${uiConfId}/partner_id/${partnerId}`;
-            $.ajax({ url: str, dataType: 'script' }).done((e) => {
-                window.kWidget.embed({
-                    targetId: 'sui-kplayer',
-                    wid: '_' + partnerId,
-                    uiconf_id: uiConfId,
-                    entry_id: entryId,
-                    flashvars: { autoPlay: false },
-                    params: { wmode: 'transparent' },
-                });
-                window.kWidget.addReadyCallback(() => {
-                    // When ready, add icon callback
-                    let kdp = document.getElementById('sui-kplayer'); // Get div
-                    if (
-                        typeof kdp !== 'object' ||
-                        typeof kdp.kBind !== 'function'
-                    )
-                        return; // Quit if no player ready yet
-                    kdp.kBind('doPlay.__tests__', () => {
-                        $('#sui-transTab1').html('&#xe681');
-                        this.inPlay = true;
-                        this.PlayAV();
-                    }); // Pause icon
-                    kdp.kBind('doPause.__tests__', () => {
-                        $('#sui-transTab1').html('&#xe641');
-                        this.inPlay = false;
-                        this.playEnd = 0;
-                        clearInterval(this.transTimer);
-                    }); // Play
-                });
+        this.DrawTranscript(o, '#sui-trans'); // Draw transcript in div
+        str = `//cdnapi.kaltura.com/p/${partnerId}/sp/${partnerId}00/embedIframeJs/uiconf_id/${uiConfId}/partner_id/${partnerId}`;
+        $.ajax({ url: str, dataType: 'script' }).done((e) => {
+            window.kWidget.embed({
+                targetId: 'sui-kplayer',
+                wid: '_' + partnerId,
+                uiconf_id: uiConfId,
+                entry_id: entryId,
+                flashvars: { autoPlay: false },
+                params: { wmode: 'transparent' },
             });
-            sui.LoadingIcon(false); // Hide loading icon
-            if (typeof window.kWidget != 'undefined')
-                window.kWidget.embed({ entry_id: entryId }); // If Kaltura player already inittted yet
+            window.kWidget.addReadyCallback(() => {
+                // When ready, add icon callback
+                let kdp = document.getElementById('sui-kplayer'); // Get div
+                if (typeof kdp !== 'object' || typeof kdp.kBind !== 'function')
+                    return; // Quit if no player ready yet
+                kdp.kBind('doPlay.__tests__', () => {
+                    $('#sui-transTab1').html('&#xe681');
+                    this.inPlay = true;
+                    this.PlayAV();
+                }); // Pause icon
+                kdp.kBind('doPause.__tests__', () => {
+                    $('#sui-transTab1').html('&#xe641');
+                    this.inPlay = false;
+                    this.playEnd = 0;
+                    clearInterval(this.transTimer);
+                }); // Play
+            });
         });
+        sui.LoadingIcon(false); // Hide loading icon
+        if (typeof window.kWidget != 'undefined')
+            window.kWidget.embed({ entry_id: entryId }); // If Kaltura player already inittted yet
     }
 
     // Added by ndg8f copied from Draw and DrawMetaData to separate metadata into its own React component
-    DrawMetaNew(o, elid) {
+    DrawMetaNew(o, d) {
         const sui = this.sui;
         let i,
             f,
             t,
             v,
             wid = 100;
-
-        sui.GetJSONFromKmap(o, (d) => {
-            // Detail Tab
-            let str = '';
-            try {
-                if (o.title)
+        let elid = 'meta-details';
+        // Detail Tab
+        let str = '';
+        try {
+            if (o.title)
+                str +=
+                    "<p title='Title'><b>TITLE</b>&nbsp;&nbsp;" +
+                    o.title +
+                    '</p>';
+        } catch (e) {}
+        try {
+            if (o.collection_title)
+                str +=
+                    "<p title='Collection'><b>COLLECTION</b>&nbsp;&nbsp;" +
+                    o.collection_title +
+                    '</p>';
+        } catch (e) {}
+        try {
+            if (d.field_subcollection_new.und.length > 0) {
+                str += '<p><b>SUBCOLLECTION</b>&nbsp;&nbsp;';
+                for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
                     str +=
-                        "<p title='Title'><b>TITLE</b>&nbsp;&nbsp;" +
-                        o.title +
-                        '</p>';
-            } catch (e) {}
-            try {
-                if (o.collection_title)
+                        d.field_subcollection_new.und[i].header +
+                        sui.pages.AddPop(
+                            d.field_subcollection_new.und[i].domain +
+                                '-' +
+                                d.field_subcollection_new.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
+                }
+                str += '</p>';
+            }
+        } catch (e) {}
+
+        try {
+            if (d.field_subject.und.length > 0) {
+                str += '<p><b>SUBJECT</b>&nbsp;&nbsp;';
+                for (i = 0; i < d.field_subject.und.length; ++i) {
                     str +=
-                        "<p title='Collection'><b>COLLECTION</b>&nbsp;&nbsp;" +
-                        o.collection_title +
-                        '</p>';
-            } catch (e) {}
-            try {
-                if (d.field_subcollection_new.und.length > 0) {
-                    str += '<p><b>SUBCOLLECTION</b>&nbsp;&nbsp;';
-                    for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
-                        str +=
-                            d.field_subcollection_new.und[i].header +
-                            sui.pages.AddPop(
-                                d.field_subcollection_new.und[i].domain +
-                                    '-' +
-                                    d.field_subcollection_new.und[i].id
-                            ) +
-                            '&nbsp;&nbsp; ';
-                    }
-                    str += '</p>';
+                        d.field_subject.und[i].header +
+                        sui.pages.AddPop(
+                            d.field_subject.und[i].domain +
+                                '-' +
+                                d.field_subject.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
                 }
-            } catch (e) {}
+                str += '</p>';
+            }
+        } catch (e) {}
+        try {
+            if (d.field_location.und.length > 0) {
+                str += '<p><b>REFERENCED PLACES</b>&nbsp;&nbsp;';
+                for (i = 0; i < d.field_location.und.length; ++i) {
+                    str +=
+                        d.field_location.und[i].header +
+                        sui.pages.AddPop(
+                            d.field_location.und[i].domain +
+                                '-' +
+                                d.field_location.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
+                }
+                str += '</p>';
+            }
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>RECORDING LOCATION</b>&nbsp;&nbsp;' +
+                d.field_recording_location_new.und[0].header +
+                sui.pages.AddPop(
+                    d.field_recording_location_new.und[0].domain +
+                        '-' +
+                        d.field_recording_location_new.und[0].id
+                ) +
+                '</p>';
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>LANGUAGE</b>&nbsp;&nbsp;' +
+                d.field_language_kmap.und[0].header +
+                sui.pages.AddPop(
+                    d.field_language_kmap.und[0].domain +
+                        '-' +
+                        d.field_language_kmap.und[0].id
+                ) +
+                '</p>';
+        } catch (e) {}
+        try {
+            if (d.field_kmap_terms.und.length > 0) {
+                str += '<p><b>TERMS</b>&nbsp;&nbsp;';
+                for (i = 0; i < d.field_kmap_terms.und.length; ++i) {
+                    str +=
+                        sui.pages.WrapInLangSpan(
+                            d.field_kmap_terms.und[i].header
+                        ) +
+                        sui.pages.AddPop(
+                            d.field_kmap_terms.und[i].domain +
+                                '-' +
+                                d.field_kmap_terms.und[i].id
+                        ) +
+                        '&nbsp;&nbsp; ';
+                }
+                str += '</p>';
+            }
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>COPYRIGHT OWNER</b>&nbsp;&nbsp;' +
+                d.field_copyright_owner.en[0].value +
+                '</p>';
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>YEAR PUBLISHED</b>&nbsp;&nbsp;' +
+                d.field_year_published.en[0].value +
+                '</p>';
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>RIGHTS SUMMARY</b>&nbsp;&nbsp;' +
+                d.field_pbcore_rights_summary.en[0].value +
+                '</p>';
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>UPLOADED</b>&nbsp;&nbsp;' +
+                o.timestamp.substr(0, 10) +
+                ' by ' +
+                o.node_user_full_s +
+                '</p>';
+        } catch (e) {}
 
-            try {
-                if (d.field_subject.und.length > 0) {
-                    str += '<p><b>SUBJECT</b>&nbsp;&nbsp;';
-                    for (i = 0; i < d.field_subject.und.length; ++i) {
-                        str +=
-                            d.field_subject.und[i].header +
-                            sui.pages.AddPop(
-                                d.field_subject.und[i].domain +
-                                    '-' +
-                                    d.field_subject.und[i].id
-                            ) +
-                            '&nbsp;&nbsp; ';
-                    }
-                    str += '</p>';
-                }
-            } catch (e) {}
-            try {
-                if (d.field_location.und.length > 0) {
-                    str += '<p><b>REFERENCED PLACES</b>&nbsp;&nbsp;';
-                    for (i = 0; i < d.field_location.und.length; ++i) {
-                        str +=
-                            d.field_location.und[i].header +
-                            sui.pages.AddPop(
-                                d.field_location.und[i].domain +
-                                    '-' +
-                                    d.field_location.und[i].id
-                            ) +
-                            '&nbsp;&nbsp; ';
-                    }
-                    str += '</p>';
-                }
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>RECORDING LOCATION</b>&nbsp;&nbsp;' +
-                    d.field_recording_location_new.und[0].header +
-                    sui.pages.AddPop(
-                        d.field_recording_location_new.und[0].domain +
-                            '-' +
-                            d.field_recording_location_new.und[0].id
-                    ) +
-                    '</p>';
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>LANGUAGE</b>&nbsp;&nbsp;' +
-                    d.field_language_kmap.und[0].header +
-                    sui.pages.AddPop(
-                        d.field_language_kmap.und[0].domain +
-                            '-' +
-                            d.field_language_kmap.und[0].id
-                    ) +
-                    '</p>';
-            } catch (e) {}
-            try {
-                if (d.field_kmap_terms.und.length > 0) {
-                    str += '<p><b>TERMS</b>&nbsp;&nbsp;';
-                    for (i = 0; i < d.field_kmap_terms.und.length; ++i) {
-                        str +=
-                            sui.pages.WrapInLangSpan(
-                                d.field_kmap_terms.und[i].header
-                            ) +
-                            sui.pages.AddPop(
-                                d.field_kmap_terms.und[i].domain +
-                                    '-' +
-                                    d.field_kmap_terms.und[i].id
-                            ) +
-                            '&nbsp;&nbsp; ';
-                    }
-                    str += '</p>';
-                }
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>COPYRIGHT OWNER</b>&nbsp;&nbsp;' +
-                    d.field_copyright_owner.en[0].value +
-                    '</p>';
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>YEAR PUBLISHED</b>&nbsp;&nbsp;' +
-                    d.field_year_published.en[0].value +
-                    '</p>';
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>RIGHTS SUMMARY</b>&nbsp;&nbsp;' +
-                    d.field_pbcore_rights_summary.en[0].value +
-                    '</p>';
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>UPLOADED</b>&nbsp;&nbsp;' +
-                    o.timestamp.substr(0, 10) +
-                    ' by ' +
-                    o.node_user_full_s +
-                    '</p>';
-            } catch (e) {}
+        if (
+            d.field_pbcore_creator &&
+            d.field_pbcore_creator.und &&
+            d.field_pbcore_creator.und.length
+        ) {
+            // If creators spec'd
+            // TODO: combine people with same role labels into a single entry
+            /*
+            for (i = 0; i < d.field_pbcore_creator.und.length; ++i) {
+                // For each creator
+                f = d.field_pbcore_creator.und[i]; // Point at it
+                try {
+                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                        f.field_creator.und[0].value
+                    )}</p>`;
+                } catch (e) {}
+            }
 
-            if (
-                d.field_pbcore_creator &&
-                d.field_pbcore_creator.und &&
-                d.field_pbcore_creator.und.length
-            ) {
-                // If creators spec'd
-                // TODO: combine people with same role labels into a single entry
-                /*
+             */
+            try {
+                let agents = {};
+                let agrole,
+                    agname = '';
                 for (i = 0; i < d.field_pbcore_creator.und.length; ++i) {
-                    // For each creator
                     f = d.field_pbcore_creator.und[i]; // Point at it
-                    try {
-                        str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
-                            f.field_creator.und[0].value
-                        )}</p>`;
-                    } catch (e) {}
-                }
-
-                 */
-                try {
-                    let agents = {};
-                    let agrole,
-                        agname = '';
-                    for (i = 0; i < d.field_pbcore_creator.und.length; ++i) {
-                        f = d.field_pbcore_creator.und[i]; // Point at it
-                        // For each creator
-                        agrole = f.field_creator_role.und[0].value.toLowerCase();
-                        agname = sui.pages.WrapInLangSpan(
-                            f.field_creator.und[0].value
-                        );
-                        if (agrole in agents) {
-                            agents[agrole].push(agname);
-                        } else {
-                            agents[agrole] = [agname];
-                        }
+                    // For each creator
+                    agrole = f.field_creator_role.und[0].value.toLowerCase();
+                    agname = sui.pages.WrapInLangSpan(
+                        f.field_creator.und[0].value
+                    );
+                    if (agrole in agents) {
+                        agents[agrole].push(agname);
+                    } else {
+                        agents[agrole] = [agname];
                     }
-                    for (agrole in agents) {
-                        let agrolelabel =
-                            agents[agrole].length > 1 ? agrole + 's' : agrole;
-                        str += `<p><b>${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
-                            agrole
-                        ].join(', ')}</p>`;
-                    }
-                } catch (e) {
-                    console.error(e);
                 }
+                for (agrole in agents) {
+                    let agrolelabel =
+                        agents[agrole].length > 1 ? agrole + 's' : agrole;
+                    str += `<p><b>${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
+                        agrole
+                    ].join(', ')}</p>`;
+                }
+            } catch (e) {
+                console.error(e);
             }
-            if (
-                d.field_pbcore_contributor &&
-                d.field_pbcore_contributor.und &&
-                d.field_pbcore_contributor.und.length
-            ) {
-                /* Old code
-                // If creators spec'd
+        }
+        if (
+            d.field_pbcore_contributor &&
+            d.field_pbcore_contributor.und &&
+            d.field_pbcore_contributor.und.length
+        ) {
+            /* Old code
+            // If creators spec'd
+            for (i = 0; i < d.field_pbcore_contributor.und.length; ++i) {
+                // For each item
+                f = d.field_pbcore_contributor.und[i]; // Point at it
+                try {
+                    str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                        f.field_contributor.und[0].value
+                    )}</p>`;
+                } catch (e) {}
+            }
+
+             */
+
+            try {
+                let agents = {};
+                let agrole,
+                    agroleprefix,
+                    agname = '';
                 for (i = 0; i < d.field_pbcore_contributor.und.length; ++i) {
-                    // For each item
                     f = d.field_pbcore_contributor.und[i]; // Point at it
-                    try {
-                        str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
-                            f.field_contributor.und[0].value
-                        )}</p>`;
-                    } catch (e) {}
+                    // For each creator
+                    agrole = f.field_contributor_role.und[0].value.toLowerCase();
+                    agroleprefix =
+                        agrole.indexOf('assistant') > -1 ? '' : 'CONTRIBUTING';
+                    agname = sui.pages.WrapInLangSpan(
+                        f.field_contributor.und[0].value
+                    );
+                    if (agrole in agents) {
+                        agents[agrole].push(agname);
+                    } else {
+                        agents[agrole] = [agname];
+                    }
                 }
+                for (agrole in agents) {
+                    let agrolelabel =
+                        agents[agrole].length > 1 ? agrole + 's' : agrole;
+                    str += `<p><b>${agroleprefix} ${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
+                        agrole
+                    ].join(', ')}</p>`;
+                }
+            } catch (e) {
+                // console.error(e);
+            }
+        }
+        try {
+            str +=
+                '<p><b>PUBLISHER</b>&nbsp;&nbsp;' +
+                d.field_pbcore_publisher.und[0].field_publisher.und[0].value +
+                '</p>';
+        } catch (e) {}
+        try {
+            str +=
+                '<p><b>DATA ENTRY</b>&nbsp;&nbsp;' +
+                o.node_user_full_s +
+                '</p>';
+        } catch (e) {}
 
-                 */
-
+        if (
+            d.field_pbcore_instantiation &&
+            d.field_pbcore_instantiation.und &&
+            d.field_pbcore_instantiation.und.length
+        ) {
+            // If instantiation spec'd
+            for (i in d.field_pbcore_instantiation.und[0]) {
+                // For each item
+                v = d.field_pbcore_instantiation.und[0][i]; // Point at it
+                t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
                 try {
-                    let agents = {};
-                    let agrole,
-                        agroleprefix,
-                        agname = '';
-                    for (
-                        i = 0;
-                        i < d.field_pbcore_contributor.und.length;
-                        ++i
-                    ) {
-                        f = d.field_pbcore_contributor.und[i]; // Point at it
-                        // For each creator
-                        agrole = f.field_contributor_role.und[0].value.toLowerCase();
-                        agroleprefix =
-                            agrole.indexOf('assistant') > -1
-                                ? ''
-                                : 'CONTRIBUTING';
-                        agname = sui.pages.WrapInLangSpan(
-                            f.field_contributor.und[0].value
-                        );
-                        if (agrole in agents) {
-                            agents[agrole].push(agname);
-                        } else {
-                            agents[agrole] = [agname];
-                        }
-                    }
-                    for (agrole in agents) {
-                        let agrolelabel =
-                            agents[agrole].length > 1 ? agrole + 's' : agrole;
-                        str += `<p><b>${agroleprefix} ${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
-                            agrole
-                        ].join(', ')}</p>`;
-                    }
-                } catch (e) {
-                    // console.error(e);
-                }
+                    str += `<p><b>${t.toUpperCase()}</b>&nbsp;&nbsp;<span>${v.und[0].value.replace(
+                        /(<([^>]+)>)/gi,
+                        ''
+                    )}</span></p>`;
+                } catch (e) {}
             }
-            try {
-                str +=
-                    '<p><b>PUBLISHER</b>&nbsp;&nbsp;' +
-                    d.field_pbcore_publisher.und[0].field_publisher.und[0]
-                        .value +
-                    '</p>';
-            } catch (e) {}
-            try {
-                str +=
-                    '<p><b>DATA ENTRY</b>&nbsp;&nbsp;' +
-                    o.node_user_full_s +
-                    '</p>';
-            } catch (e) {}
-
-            if (
-                d.field_pbcore_instantiation &&
-                d.field_pbcore_instantiation.und &&
-                d.field_pbcore_instantiation.und.length
-            ) {
-                // If instantiation spec'd
-                for (i in d.field_pbcore_instantiation.und[0]) {
-                    // For each item
-                    v = d.field_pbcore_instantiation.und[0][i]; // Point at it
-                    t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
-                    try {
-                        str += `<p><b>${t.toUpperCase()}</b>&nbsp;&nbsp;<span>${v.und[0].value.replace(
-                            /(<([^>]+)>)/gi,
-                            ''
-                        )}</span></p>`;
-                    } catch (e) {}
-                }
-            }
-            try {
-                str +=
-                    '<p><b>FORMAT ID</b>&nbsp;&nbsp;' +
-                    d.field_video.und[0].entryid +
-                    '</p>';
-            } catch (e) {}
-            str += '<p><b>FORMAT ID SOURCE</b>&nbsp;&nbsp;(Kaltura.com)</p>';
-            $('#' + elid).html('<div>' + str + '</div>');
-        });
+        }
+        try {
+            str +=
+                '<p><b>FORMAT ID</b>&nbsp;&nbsp;' +
+                d.field_video.und[0].entryid +
+                '</p>';
+        } catch (e) {}
+        str += '<p><b>FORMAT ID SOURCE</b>&nbsp;&nbsp;(Kaltura.com)</p>';
+        return '<div>' + str + '</div>';
     }
 
     Draw(
