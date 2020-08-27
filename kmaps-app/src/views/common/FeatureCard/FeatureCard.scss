@@ -42,14 +42,14 @@ html .card-deck .card a:hover {
     text-decoration: none;
     color: inherit;
 }
-.c-card__imageWrap {
-    max-height: 110px;
-    overflow: hidden;
+.card__imageWrap {
+    //   max-height: 110px;
+    //   overflow: hidden;
 }
 html .card-image,
 html .card-img-top {
     border-radius: 0;
-    height: 110px;
+    height: 130px;
 }
 html .card__typeGlyph span {
     position: absolute;
@@ -88,7 +88,7 @@ html .card-body {
     //   height:150px;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 0.6rem 1rem;
+    padding: 0 0.8rem 1rem 1rem;
     white-space: normal;
     word-break: break-word;
 }
@@ -126,7 +126,7 @@ html .card-footer {
     height: 3rem;
     font-size: 1.25rem;
     text-transform: capitalize;
-    padding: 0 0.75rem 0 1.25rem;
+    padding: 0 0.75rem 0 1rem;
     border: none;
     border-radius: 0 0 0.35rem 0.35rem !important;
 }
@@ -158,6 +158,7 @@ html .card-footer .icon::before {
 }
 html .card-footer .shanti-field-path {
     color: #fff;
+    padding-left: 0;
 }
 .card-footer .shanti-field-path span::before {
     /* this targets only kmaps info in footer */
