@@ -83,7 +83,8 @@ html .card__assetGlyph span {
     color: #555;
 }
 html .card-body {
-    max-height: 180px;
+    max-height: 250px;
+    max-height: 200px;
     min-height: 100px;
     //   height:150px;
     overflow-y: auto;
@@ -91,6 +92,11 @@ html .card-body {
     padding: 0 0.8rem 1rem 1rem;
     white-space: normal;
     word-break: break-word;
+    position: relative;
+    top: -130px;
+    top: 0;
+    background: white;
+    z-index: 1;
 }
 html .card-title {
     margin: 0.65rem 0 0.5rem;
@@ -100,7 +106,7 @@ html .card-title a {
     color: #333;
     font-size: 1.44em;
     line-height: 1.44em;
-    padding: 0 0.75rem;
+    padding: 0 0.75rem 0 0.25rem;
     font-weight: 600;
     word-break: break-word;
     border-bottom: none !important;
@@ -126,7 +132,7 @@ html .card-footer {
     height: 3rem;
     font-size: 1.25rem;
     text-transform: capitalize;
-    padding: 0 0.75rem 0 1rem;
+    padding: 0;
     border: none;
     border-radius: 0 0 0.35rem 0.35rem !important;
 }
@@ -143,8 +149,9 @@ html .card-footer a {
     text-overflow: ellipsis;
     color: #fff;
     border: none !important;
-    padding: 0.6rem 0 0.5rem;
+    padding: 0.6rem 0 0.5rem 1.4rem;
     line-height: 1em;
+    width: 98%;
 }
 html .card-footer a:hover {
     background-color: transparent;
@@ -170,7 +177,7 @@ html .card-footer .shanti-field-path {
 
 .c-button__json {
     position: absolute;
-    bottom: 4.25rem;
+    bottom: 0.5rem;
     right: 1.35rem;
 }
 
