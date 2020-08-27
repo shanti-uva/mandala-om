@@ -10,8 +10,11 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { KmapLink } from '../KmapLink';
 import { SmartTitle } from '../SmartTitle';
 import { SmartPath } from '../SmartPath';
+import { SmartRelateds } from '../SmartRelateds';
+
 import './FeatureCard.scss';
 import '../../../css/fonts/shanticon/style.css';
+
 // import '../../../om-global-var.scss';
 
 export function FeatureCard(props) {
@@ -159,7 +162,7 @@ export function FeatureCard(props) {
                     <ListGroup.Item className={'c-card__listItem--related'}>
                         <div className="info shanti-field-related">
                             <span className="shanti-field-content">
-                                {relateds}
+                                <SmartRelateds relateds={relateds} />
                             </span>
                         </div>
                     </ListGroup.Item>
