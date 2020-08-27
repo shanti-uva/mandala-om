@@ -25,11 +25,11 @@ html .card-deck .card {
     border-top: 2px solid rgba(205, 169, 66, 1) !important;
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
-    margin-bottom: 0;
+    margin: 0.3rem 0.3rem 1rem;
     font-size: 1.5rem; // reset font size with rem value
 }
 html .card-deck .card:hover {
-    transform: scale(1.005);
+    transform: scale(1.001);
     box-shadow: 0 8px 15px 2px #c0c0c0;
 }
 html .card-deck .card:active {
@@ -112,9 +112,9 @@ html .list-group {
 }
 html .list-group-item {
     /*padding: 0.15rem 1.15rem 0.25rem 0.3rem;*/
-    padding: 0.18rem;
+    padding: 0.075rem;
     border: none;
-    line-height: 0.88em;
+    /*line-height: 0.88em;*/
 }
 html .list-group-item:empty {
     padding: 0 !important;
@@ -122,7 +122,7 @@ html .list-group-item:empty {
 }
 html .card-footer {
     background: rgba(142, 117, 46, 0.85);
-    height: auto;
+    height: 3rem;
     font-size: 1.25rem;
     text-transform: capitalize;
     padding: 0 0.75rem 0 1.25rem;
@@ -142,19 +142,27 @@ html .card-footer a {
     text-overflow: ellipsis;
     color: #fff;
     border: none !important;
-    padding: 0.5rem 0;
+    padding: 0.65rem 0;
     line-height: 1.32em;
 }
 html .card-footer a:hover {
     background-color: transparent;
     color: #fff !important;
 }
-
 html .card-footer .icon::before {
-    margin-right: 0.75rem;
-    font-size: 1.18em;
+    margin-right: 0.6rem;
+    font-size: 1.25em;
     position: relative;
-    top: 2px;
+    top: 0.25rem;
+}
+html .card-footer .shanti-field-path {
+    color: #fff;
+}
+.card-footer .shanti-field-path span::before {
+    /* this targets only kmaps info in footer */
+    color: #fff;
+    position: relative;
+    top: 0.15rem;
 }
 
 .c-button__json {

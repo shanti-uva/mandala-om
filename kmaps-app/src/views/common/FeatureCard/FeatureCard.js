@@ -86,8 +86,18 @@ export function FeatureCard(props) {
         </span>
     ) : (
         <span>
-            <span className={`icon u-icon--${props.doc.asset_type}`}></span>
-            {props.doc.asset_type}
+            {props.doc.ancestors_txt && props.doc.asset_type !== 'terms' && (
+                <div className="info shanti-field-path">
+                    <span
+                        className={
+                            'shanti-field-content u-icon--' +
+                            props.doc.asset_type
+                        }
+                    >
+                        <SmartPath doc={props.doc} />
+                    </span>
+                </div>
+            )}
         </span>
     );
 
@@ -128,21 +138,6 @@ export function FeatureCard(props) {
                 </Card.Title>
 
                 <ListGroup>
-                    <ListGroup.Item className={'c-card__listItem--fieldpath'}>
-                        {props.doc.ancestors_txt &&
-                            props.doc.asset_type !== 'terms' && (
-                                <div className="info shanti-field-path">
-                                    <span
-                                        className={
-                                            'shanti-field-content u-icon--' +
-                                            props.doc.asset_type
-                                        }
-                                    >
-                                        <SmartPath doc={props.doc} />
-                                    </span>
-                                </div>
-                            )}
-                    </ListGroup.Item>
                     <ListGroup.Item className={'c-card__listItem--creator'}>
                         {props.doc.creator && (
                             <div className="info shanti-field-creator">
