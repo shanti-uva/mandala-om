@@ -121,9 +121,9 @@ export function FeatureCard(props) {
             key={props.doc.uid}
             className={'c-card__grid-' + props.doc.asset_type}
         >
-            <Link to={asset_view}>
+            <Link to={asset_view} className={'c-card__assetLink'}>
                 {/*<Link to={`./view/${props.doc.uid}`}> }*/}
-                <div className={'c-card__imageWrap'}>
+                <div className={'card__imageWrap'}>
                     <Card.Img variant="top" src={props.doc.url_thumb} />
                     <div className={'card__typeGlyph'}>{typeGlyph}</div>
                     <div className={'card__assetGlyph'}>{assetGlyph}</div>
@@ -132,7 +132,7 @@ export function FeatureCard(props) {
 
             <Card.Body>
                 <Card.Title>
-                    <Link to={asset_view}>
+                    <Link to={asset_view} className={'c-card__assetLink'}>
                         <SmartTitle doc={props.doc} />
                     </Link>
                 </Card.Title>

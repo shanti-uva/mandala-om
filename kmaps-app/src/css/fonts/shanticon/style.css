@@ -1,13 +1,12 @@
 @font-face {
     font-family: 'shanticon';
-    src: url('shanticon.ttf?ob87r4') format('truetype');
+    src: url('shanticon.ttf') format('truetype');
     /* url('fonts/shanticon.woff?ob87r4') format('woff'),
     url('fonts/shanticon.svg?ob87r4#shanticon') format('svg');*/
     font-weight: normal;
     font-style: normal;
     font-display: block;
 }
-
 .icon,
 [class^='u-icon--'],
 [class*='u-icon--'],
@@ -23,11 +22,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.icon,
 [class^='u-icon--']::before,
 [class*='u-icon--']::before,
 [class^='shanticon-']::before,
-[class*=' shanticon-']::before {
-    font-family: 'shanticon';
+[class*='shanticon-']::before {
+    font-family: 'shanticon', sans-serif;
 }
 .u-icon--agents::before,
 .shanticon-agents:before {
