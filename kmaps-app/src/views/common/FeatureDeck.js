@@ -106,7 +106,7 @@ export function FeatureDeck(props) {
                 </div>
             );
         }
-        console.log('FeatureDeck LIST = ', LIST);
+        // console.log('FeatureDeck LIST = ', LIST);
 
         DEBUG_PRE = (
             <Accordion>

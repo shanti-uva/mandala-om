@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
+import { HistoryBox } from './HistoryBox';
+import { useStoreState } from 'easy-peasy';
 
 const SEARCH_PATH = '/search';
 
@@ -15,6 +17,7 @@ export function SearchAdvanced(props) {
     const query = '';
     const openclass = props.advanced ? 'open' : 'closed';
     let [reset, setReset] = useState(0);
+    const historyStack = useStoreState((state) => state.history.historyStack);
 
     // This tells us whether we are viewing the search results
     // so that we can give a link to go there (or not).
@@ -64,7 +67,7 @@ export function SearchAdvanced(props) {
 
     function getChosenFacets(type) {
         // console.log("getChosenFacets: finding in:", props.search.query.filters)
-        return props.search.query?.filters.filter((x) => x.field === type);
+        return props.search.query?.filters?.filter((x) => x.field === type);
     }
 
     function handleResetFilters() {
@@ -255,7 +258,8 @@ export function SearchAdvanced(props) {
                     chosenFacets={getChosenFacets('associated_subjects')}
                 />
 
-                <FacetBox
+                <HistoryBox
+                    historyStack={historyStack}
                     id="recent"
                     label="recent searches"
                     facetType="recent-searches"

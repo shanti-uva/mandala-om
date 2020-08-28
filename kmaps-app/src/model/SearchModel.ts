@@ -51,6 +51,7 @@ export interface SearchModel {
     receiveResults: Action<SearchModel, Results>;
     addFilters: Action<SearchModel, Filter[]>;
     removeFilters: Action<SearchModel, Filter[]>;
+    setSearchState: Action<SearchModel, SearchState>;
 
     // can clearFilters of a certain type
     clearFilters: Action<SearchModel, string>;
@@ -64,6 +65,11 @@ export interface SearchModel {
     // narrowFilters
     narrowFilters: Action<SearchModel, NarrowFilter>;
     onUpdate: ThunkOn<SearchModel, StoreModel>;
+}
+
+interface SearchState {
+    searchString: string;
+    filters: Filter[];
 }
 
 enum AssetType {
@@ -311,6 +317,12 @@ export const searchModel: SearchModel = {
                 console.error('localForage error on clear(): ', e);
             });
     }),
+
+    setSearchState: action((state, searchState) => {
+        state.query.searchText = searchState.searchString;
+        state.query.filters = searchState.filters;
+    }),
+
     // LISTENERS
     onUpdate: thunkOn(
         // targetResolver:
@@ -328,6 +340,7 @@ export const searchModel: SearchModel = {
             actions.setSearchText,
             actions.narrowFilters,
             actions.superClear,
+            actions.setSearchState,
         ],
         // handler:
         async (actions, target) => {

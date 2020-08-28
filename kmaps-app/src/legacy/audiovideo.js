@@ -175,6 +175,7 @@ export default class AudioVideo {
         str += '</div>';
 
         $('#sui-av').html(str.replace(/\t|\n|\r/g, '')); // Add player
+        $('#sui-av').addClass('processed');
 
         this.DrawTranscript(o, '#sui-trans'); // Draw transcript in div
         str = `//cdnapi.kaltura.com/p/${partnerId}/sp/${partnerId}00/embedIframeJs/uiconf_id/${uiConfId}/partner_id/${partnerId}`;
@@ -1267,12 +1268,16 @@ export default class AudioVideo {
     ) {
         var i;
         var res = this.transRes; // Point at res
+
         clearInterval(this.transTimer); // Kill timer
         this.scrollStart = $('#sui-trans').scrollTop(); // Scroll
         if (start != undefined)
             $('#sui-kplayer')[0].sendNotification('doSeek', start); // Seek to start
         if (end) this.playEnd = end; // Set ending point
         this.transTimer = setInterval((e) => {
+            if (typeof $('#sui-kplayer')[0].evaluate !== 'function') {
+                return;
+            }
             // Set interval and handler
             var now = $('#sui-kplayer')[0].evaluate(
                 '{video.player.currentTime}'

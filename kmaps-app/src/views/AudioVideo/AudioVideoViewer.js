@@ -93,14 +93,13 @@ export function AudioVideoViewer(props) {
         $('#sui-main').addClass('av');
     }, []);
 
+    useEffect(() => {
+        sui.av.DrawPlayer(kmasset, nodejson);
+    }, [kmasset, nodejson]);
+
     return (
         <div id={'av-viewer'}>
-            <AudioVideoPlayer
-                id={id}
-                asset={kmasset}
-                sui={sui}
-                node={nodejson}
-            />
+            <div id={'sui-av'}>Loading ...</div>
             <AudioVideoMeta id={id} asset={kmasset} sui={sui} node={nodejson} />
         </div>
     );
@@ -110,6 +109,12 @@ export function AudioVideoViewer(props) {
  * A simple component to show the AV player and transcript in a row. A function has been added to Bill's legacy code in
  * audiovideo.js called "DrawPlayer" that takes an element ID and draws the player and transcript in that element.
  *
+ * <AudioVideoPlayer
+ id={id}
+ asset={kmasset}
+ sui={sui}
+ node={nodejson}
+ />
  * @param props
  * @returns {JSX.Element}
  * @constructor
