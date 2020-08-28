@@ -41,7 +41,7 @@ $color-visuals: #558e3c;
 }
 .card-deck .card a:hover {
     text-decoration: none;
-    color: inherit;
+    color: #df3d26;
 }
 
 .card__imageWrap {
@@ -74,7 +74,7 @@ $color-visuals: #558e3c;
 }
 .card__assetGlyph {
     position: absolute;
-    top: 4.5rem;
+    top: 5.25rem;
     left: 50%;
     margin-left: -0.5em;
     z-index: 1;
@@ -109,7 +109,7 @@ $color-visuals: #558e3c;
 }
 .card-title a {
     color: #333;
-    font-size: 1.44em;
+    font-size: 1.5em;
     line-height: 1.44em;
     padding: 0 0.75rem 0 0.25rem;
     font-weight: 600;
@@ -150,7 +150,6 @@ $color-visuals: #558e3c;
     background-color: rgba(142, 117, 46, 0.85);
 }
 .card-footer a {
-    display: block;
     color: #fff;
     border: none !important;
     padding: 0.6rem 0 0.5rem 1.2rem;
@@ -213,22 +212,13 @@ $color-visuals: #558e3c;
     display: inline-block;
 }
 
-.c-card__listItem--related
-    .c-smartRelateds__limited
-    .shanti-field-place:first-child
-    .icon::before {
+.c-smartRelateds__limited .shanti-field-place:first-child .icon::before {
     content: '\e62b';
 }
-.c-card__listItem--related
-    .c-smartRelateds__limited
-    .shanti-field-subjects:first-child
-    .icon::before {
+.c-smartRelateds__limited .shanti-field-subjects:first-child .icon::before {
     content: '\e634';
 }
-.c-card__listItem--related
-    .c-smartRelateds__limited
-    .shanti-field-terms:first-child
-    .icon::before {
+.c-smartRelateds__limited .shanti-field-terms:first-child .icon::before {
     content: '\e635';
 }
 
