@@ -16,14 +16,14 @@ $font-weight-serif: (
 
 /* Colors
 // ========================================================================== */
-$color-audio-video: #31acb6;
-$color-images: #b5953b;
-$color-mandala: #4d59ca; /* theme primary color */
+$color-audio-video: #2ea3ac;
+$color-images: #cc761a;
+$color-mandala1: #2c67c0; /* theme primary color */
 $color-places: #3297f7;
 $color-subjects: #cc4c39;
-$color-sources: #6f69ae;
+$color-sources: #5a57ad;
 $color-texts: #8c48a1;
-$color-terms: #b5953b;
+$color-terms: #91693c;
 $color-visuals: #558e3c;
 
 /* Breakpoints
@@ -34,84 +34,65 @@ $break-2: 48em; /* 768px */
 $break-3: 62em; /* 992px */
 $break-4: 75em; /* 1200px */
 
-/* custom site styles */
-.mandala.sui-header {
-    background-color: #4d59ca;
-}
-
 .mandala.terms {
-    background-color: rgb(162, 115, 63);
+    background-color: $color-terms;
 }
 
-.mandala.all {
-    background-color: rgb(91, 102, 203);
-}
-
-.mandala.places {
-    background-color: #007bff;
-}
-
-.mandala.audio-video {
-    background-color: rgb(88, 170, 180);
-}
-
-.mandala.images {
-    background-color: rgb(180, 156, 89);
-}
-
-.mandala.sources {
-    background-color: rgb(90, 87, 173);
-}
-
-.mandala.texts {
-    background-color: rgb(139, 90, 161);
-}
-
-.mandala.visuals {
-    background-color: rgb(110, 148, 86);
-}
-
-.mandala.subjects {
-    background-color: rgb(204, 76, 57);
-}
-
+.mandala.all,
+.mandala.sui-header,
 .mandala.collections {
-    background-color: rgb(91, 102, 203);
+    background-color: $color-mandala1;
 }
-
-.sui-color-terms {
-    color: rgb(162, 115, 63);
-    font-size: 90%;
+.mandala.places {
+    background-color: $color-places;
+}
+.mandala.audio-video {
+    background-color: $color-audio-video;
+}
+.mandala.images {
+    background-color: $color-images;
+}
+.mandala.sources {
+    background-color: $color-sources;
+}
+.mandala.texts {
+    background-color: $color-texts;
+}
+.mandala.visuals {
+    background-color: $color-visuals;
+}
+.mandala.subjects {
+    background-color: $color-subjects;
+}
+.mandala.collections {
+    background-color: $color-mandala1;
 }
 
 .sui-color-all {
-    color: rgb(91, 102, 203);
+    color: $color-mandala1;
 }
-
+.sui-color-terms {
+    color: $color-terms;
+    font-size: 90%;
+}
 .sui-color-audio-video {
-    color: rgb(88, 170, 180);
+    color: $color-audio-video;
 }
-
 .sui-color-images {
-    color: rgb(180, 156, 89);
+    color: $color-images;
 }
-
 .sui-color-sources {
-    color: rgb(90, 87, 173);
+    color: $color-sources;
 }
-
 .sui-color-texts {
-    color: rgb(139, 90, 161);
+    color: $color-texts;
 }
-
 .sui-color-visuals {
-    color: rgb(110, 148, 86);
+    color: $color-visuals;
 }
-
 .sui-color-subjects {
-    color: rgb(204, 76, 57);
+    color: $color-subjects;
 }
-
 .sui-color-collections {
-    color: rgb(91, 102, 203);
+    color: $color-mandala1;
 }

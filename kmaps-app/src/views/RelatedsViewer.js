@@ -42,10 +42,10 @@ export function RelatedsViewer(props) {
                                 className={`sui-relatedItem  sui-color-terms ${locMatch['home']}`}
                                 id="sui-rl-Home"
                             >
-                                <span className={'icon sui-relatedItem-icon'}>
-                                    
-                                </span>{' '}
-                                <b>Home</b>
+                                <span
+                                    className={'icon u-icon--overview'}
+                                ></span>{' '}
+                                FRONT
                             </div>
                         </Link>
 
