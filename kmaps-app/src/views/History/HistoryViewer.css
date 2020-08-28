@@ -1,42 +1,37 @@
 .c-HistoryViewer {
-    font-size: 12px;
+    font-size: 0.93em;
     color: #222;
     padding: 0;
     max-height: 84px;
     user-select: none;
     overflow-x: hidden;
     cursor: pointer;
-    margin-right: 12px;
+    position: relative;
 }
 
 .c-HistoryViewer__relatedRecentItem {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 98%;
 }
 
 .c-HistoryViewer__relatedRecentItem:hover {
-    background-color: #a4baec;
 }
 
 .c-HistoryViewer__removeItem {
-    display: none;
     cursor: pointer;
-    margin-right: 4px;
-    float: right;
-    margin-top: 0.6rem;
-    pointer: hand;
+    font-size: 1.25em;
+    color: transparent;
+    transition: color 200ms ease 0s;
+    position: absolute;
+    right: 0.2rem;
 }
 
 .c-HistoryViewer__relatedRecentItem:hover .c-HistoryViewer__removeItem {
-    display: inline-block;
+    color: #777;
 }
 .c-HistoryViewer__title {
-    width: 88%;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     line-height: normal;
 }
 .c-HistoryViewer__relatedTitle {

@@ -24,7 +24,7 @@ export function FeatureCard(props) {
     const [modalShow, setModalShow] = React.useState(false);
 
     const typeGlyph = props.doc.uid ? (
-        <span className={'u-icon--' + props.doc.asset_type}></span>
+        <span className={'u-icon__' + props.doc.asset_type}></span>
     ) : null;
 
     const assetGlyph =
@@ -33,9 +33,9 @@ export function FeatureCard(props) {
         props.doc.asset_type !== 'audio-video' ? (
             <span
                 className={
-                    'u-icon--' +
+                    'u-icon__' +
                     props.doc.asset_type +
-                    ' sui-color-' +
+                    ' u-color__' +
                     props.doc.asset_type
                 }
             ></span>
@@ -82,7 +82,7 @@ export function FeatureCard(props) {
     const date = props.doc.timestamp?.split('T')[0];
 
     const footer_text = props.doc.collection_title ? (
-        <span className={'icon u-icon--collections'}>
+        <span className={'icon u-icon__collections'}>
             {' '}
             {props.doc.collection_title}{' '}
         </span>
@@ -92,7 +92,7 @@ export function FeatureCard(props) {
                 <div className="info shanti-field-path">
                     <span
                         className={
-                            'shanti-field-content u-icon--' +
+                            'shanti-field-content u-icon__' +
                             props.doc.asset_type
                         }
                     >
@@ -178,7 +178,7 @@ export function FeatureCard(props) {
 
                 <div className={'c-button__json'}>
                     <span
-                        className={'sui-showinfo u-icon--info float-right'}
+                        className={'sui-showinfo u-icon__info float-right'}
                         onClick={() => setModalShow(true)}
                     ></span>
                     <DetailModal
