@@ -20,32 +20,33 @@ export function FeatureFilters(props) {
 
     const removeIconClass = 'sui-advTermRem shanticon-cancel-circle icon';
 
-    const entries = filters.map((entry) => {
-        // console.log('FeatureFilters x = ', entry);
-        return (
-            <CSSTransition key={entry.id} timeout={1000} classNames="item">
-                {/*<Badge*/}
-                {/*    key={entry.id}*/}
-                {/*    pill*/}
-                {/*    variant={'secondary'}*/}
-                {/*    className={'m-2 p-2 pr-3'}*/}
-                {/*>*/}
-                <FacetChoice
-                    mode={'remove'}
-                    key={`Remove ${entry.id}`}
-                    className={removeIconClass}
-                    value={entry.id}
-                    labelText={entry.label}
-                    label={entry.label}
-                    facetType={entry.field}
-                    onFacetClick={(msg) => {
-                        handleFacetClick({ ...msg, action: 'remove' });
-                    }}
-                />
-                {/*</Badge>*/}
-            </CSSTransition>
-        );
-    });
+    const entries =
+        filters?.map((entry) => {
+            // console.log('FeatureFilters x = ', entry);
+            return (
+                <CSSTransition key={entry.id} timeout={1000} classNames="item">
+                    {/*<Badge*/}
+                    {/*    key={entry.id}*/}
+                    {/*    pill*/}
+                    {/*    variant={'secondary'}*/}
+                    {/*    className={'m-2 p-2 pr-3'}*/}
+                    {/*>*/}
+                    <FacetChoice
+                        mode={'remove'}
+                        key={`Remove ${entry.id}`}
+                        className={removeIconClass}
+                        value={entry.id}
+                        labelText={entry.label}
+                        label={entry.label}
+                        facetType={entry.field}
+                        onFacetClick={(msg) => {
+                            handleFacetClick({ ...msg, action: 'remove' });
+                        }}
+                    />
+                    {/*</Badge>*/}
+                </CSSTransition>
+            );
+        }) || [];
 
     if (entries.length) {
         entries.unshift(

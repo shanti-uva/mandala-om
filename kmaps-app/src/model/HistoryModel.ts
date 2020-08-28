@@ -14,7 +14,7 @@ import _ from 'lodash';
 export interface HistoryModel {
     historyStack: Location[];
     addLocation: Action<HistoryModel, Location>;
-    removeLocation: Action<HistoryModel, string>;
+    removeLocation: Action<HistoryModel, Location>;
     clear: Action<HistoryModel>;
 }
 
@@ -26,10 +26,24 @@ export interface Location {
     state: any | null | undefined;
 }
 
+function sameLocation(x: Location, location: Location) {
+    if (x.key === location.key) return true;
+
+    // compare all fields except "key" and "name"
+    const a = JSON.stringify({ ...x, key: null, name: null });
+    const b = JSON.stringify({ ...location, key: null, name: null });
+
+    if (a === b) {
+        return true;
+    }
+
+    return false;
+}
+
 export const historyModel: HistoryModel = {
     addLocation: action((state, location) => {
         const ind = state.historyStack.findIndex((x) => {
-            return x.pathname === location.pathname;
+            return sameLocation(x, location);
         });
         // console.log('pathname = ', location.pathname, ' ind = ', ind);
 
@@ -46,15 +60,15 @@ export const historyModel: HistoryModel = {
         state.historyStack = [];
     }),
 
-    removeLocation: action((state, locationKey) => {
-        console.error('removeLocation!!!');
+    removeLocation: action((state, location) => {
+        // console.error('removeLocation: ', location);
         const ind = state.historyStack.findIndex((x) => {
-            return x.key === locationKey;
+            return sameLocation(x, location);
         });
-        // console.log('locationKey = ', locationKey, ' ind = ', ind);
 
         // remove it, if its there
         if (ind > -1) {
+            console.log('removing item number ' + ind);
             state.historyStack.splice(ind, 1);
         }
     }),

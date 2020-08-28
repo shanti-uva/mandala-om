@@ -1,15 +1,34 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import React from 'react';
+import { useHistory } from 'react-router';
 import { useStoreState } from 'easy-peasy';
-
-import { Link } from 'react-router-dom';
 import { useStoreActions } from '../../model/StoreModel';
-import useAsset from '../../hooks/useAsset';
 import * as PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 
 import './HistoryViewer.css';
 
+export function HistoryViewer(props) {
+    /*
+    const kmasset = useStoreState((state) => state.kmap.asset);
+*/
+    const historyStack = useStoreState((state) => state.history.historyStack);
+
+    let historyList = [];
+    historyStack.forEach((location, key) => {
+        const isSearch = location.search?.length ? true : false;
+        // console.log("HISTORY VIEWER: location = ", location);
+        if (
+            (isSearch && props.mode === 'search') ||
+            (!isSearch && props.mode !== 'search')
+        ) {
+            historyList.unshift(
+                <HistoryLocation key={location.key} location={location} />
+            );
+        }
+    });
+    return <div className="c-HistoryViewer">{historyList}</div>;
+}
+
+// inner component
 function HistoryLocation(props) {
     const { removeLocation } = useStoreActions((actions) => actions.history);
     const history = useHistory();
@@ -31,7 +50,7 @@ function HistoryLocation(props) {
     return (
         <div
             className="c-HistoryViewer__relatedRecentItem"
-            onClick={(event) => history.push(props.location.pathname)}
+            onClick={(event) => history.push(props.location)}
         >
             {loc}
             <span
@@ -41,7 +60,8 @@ function HistoryLocation(props) {
                 aria-label={'Remove from list'}
                 onClick={(event) => {
                     console.log('delete:', event.target.dataset.key);
-                    removeLocation(event.target.dataset.key);
+                    // removeLocation(event.target.dataset.key);
+                    removeLocation(props.location);
                     event.stopPropagation();
                 }}
             ></span>
@@ -50,20 +70,5 @@ function HistoryLocation(props) {
 }
 
 HistoryLocation.propTypes = { location: PropTypes.any };
-
-export function HistoryViewer(props) {
-    /*
-    const kmasset = useStoreState((state) => state.kmap.asset);
-*/
-    const historyStack = useStoreState((state) => state.history.historyStack);
-
-    let historyList = [];
-    historyStack.forEach((location, key) => {
-        // console.log('HISTORY STACK = ', location, ' key= ', key);
-        const z = <HistoryLocation key={location.key} location={location} />;
-        historyList.unshift(z);
-    });
-    return <div className="c-HistoryViewer">{historyList}</div>;
-}
 
 export default HistoryViewer;
