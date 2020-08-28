@@ -204,6 +204,10 @@ $color-visuals: #558e3c;
 .c-card__listItem--related .c-card__content-field::after {
     content: ',';
     display: inline-block;
+    margin-right: 0.4rem;
+}
+.c-card__listItem--related .c-card__content-field:last-child::after {
+    content: '';
 }
 .c-card__listItem--related .c-card__content-field > span::before {
     display: none;
