@@ -12,22 +12,22 @@
 [class*='u-icon--'],
 [class^='shanticon-'],
 [class*=' shanticon-'] {
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon::before,
+[class^='u-icon--']::before,
+[class*='u-icon--']::before,
+[class^='shanticon-']::before,
+[class*='shanticon-']::before {
+    font-family: 'shanticon', sans-serif;
     speak: never;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-.icon,
-[class^='u-icon--']::before,
-[class*='u-icon--']::before,
-[class^='shanticon-']::before,
-[class*='shanticon-']::before {
-    font-family: 'shanticon', sans-serif;
 }
 .u-icon--agents::before,
 .shanticon-agents:before {

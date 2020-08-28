@@ -14,7 +14,6 @@ import { SmartRelateds } from '../SmartRelateds';
 
 import './FeatureCard.scss';
 import '../../../css/fonts/shanticon/style.css';
-
 // import '../../../om-global-var.scss';
 
 export function FeatureCard(props) {
@@ -48,7 +47,7 @@ export function FeatureCard(props) {
         const [name, id] = x.split('|');
         return (
             <div key={i} className="c-card__content-field shanti-field-place">
-                <span className="shanti-field-content">
+                <span className="icon shanti-field-content">
                     <KmapLink uid={id} label={name} />
                 </span>
             </div>
@@ -59,7 +58,7 @@ export function FeatureCard(props) {
         const [name, id] = x.split('|');
         return (
             <div key={i} className="c-card__content-field shanti-field-subject">
-                <span className="shanti-field-content">
+                <span className="icon shanti-field-content">
                     <KmapLink uid={id} label={name} />
                 </span>
             </div>
@@ -73,7 +72,7 @@ export function FeatureCard(props) {
                 key={id}
                 className="c-card__content-field shanti-field-subject"
             >
-                <span className="shanti-field-content">
+                <span className="icon shanti-field-content">
                     <KmapLink uid={id} label={name} />
                 </span>
             </div>
@@ -124,13 +123,13 @@ export function FeatureCard(props) {
             key={props.doc.uid}
             className={'c-card__grid-' + props.doc.asset_type}
         >
-            <Link to={asset_view} className={'c-card__assetLink'}>
-                {/*<Link to={`./view/${props.doc.uid}`}> }*/}
-                <div className={'card__imageWrap'}>
-                    <Card.Img variant="top" src={props.doc.url_thumb} />
-                    <div className={'card__typeGlyph'}>{typeGlyph}</div>
-                    <div className={'card__assetGlyph'}>{assetGlyph}</div>
-                </div>
+            <Link
+                to={asset_view}
+                className={'c-card__assetLink card__imageWrap'}
+            >
+                <Card.Img variant="top" src={props.doc.url_thumb} />
+                <div className={'card__typeGlyph'}>{typeGlyph}</div>
+                <div className={'card__assetGlyph'}>{assetGlyph}</div>
             </Link>
 
             <Card.Body>
@@ -144,7 +143,7 @@ export function FeatureCard(props) {
                     <ListGroup.Item className={'c-card__listItem--creator'}>
                         {props.doc.creator && (
                             <div className="info shanti-field-creator">
-                                <span className="shanti-field-content">
+                                <span className="icon shanti-field-content">
                                     {props.doc.creator.join(', ')}
                                 </span>
                             </div>
@@ -153,7 +152,7 @@ export function FeatureCard(props) {
                     <ListGroup.Item className={'c-card__listItem--duration'}>
                         {props.doc.duration_s && (
                             <div className="info shanti-field-duration">
-                                <span className="shanti-field-content">
+                                <span className="icon shanti-field-content">
                                     {props.doc.duration_s}
                                 </span>
                             </div>
@@ -169,7 +168,7 @@ export function FeatureCard(props) {
                     <ListGroup.Item className={'c-card__listItem--created'}>
                         {date && (
                             <div className="shanti-field-created">
-                                <span className="shanti-field-content">
+                                <span className="icon shanti-field-content">
                                     {date}
                                 </span>
                             </div>

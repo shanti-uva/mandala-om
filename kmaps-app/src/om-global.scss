@@ -1,22 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
-/*
-@font-face {
-    font-family: 'museo-sans-300';
-    src: url('css/fonts/Museosans/museosans-300-webfont.eot');
-    src: url('css/fonts/Museosans/museosans-300-webfont.eot?#iefix')
-            format('embedded-opentype'),
-        url('css/fonts/Museosans/museosans-300-webfont.woff2') format('woff2'),
-        url('css/fonts/Museosans/museosans-300-webfont.woff') format('woff'),
-        url('css/fonts/Museosans/museosans-300-webfont.ttf') format('truetype'),
-        url('css/fonts/Museosans/museosans-300-webfont.svg#svgFontName')
-            format('svg');
-}
-*/
+
 html {
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
     overflow-y: scroll;
     font-family: serif;
+    font-size: 62.5%;
+    color: #2d3748;
 }
 
 body {
@@ -159,3 +149,41 @@ div.image-wrapper.center figcaption {
 /**
  ** END - Global Styles copied from ShantiSarvaka shanti-main.css for fonts etc (ndg, 2020-07-14)
  **/
+
+// START - NEW CSS
+
+.shanti-field-itemcount,
+.shanti-field-path,
+.shanti-field-type,
+.shanti-field-author,
+.shanti-field-creator,
+.shanti-field-registrar,
+.shanti-field-languages,
+.shanti-field-duration,
+.shanti-field-created,
+.shanti-field-place,
+.shanti-field-subject {
+    font-size: 1.18rem;
+}
+.shanti-field-itemcount span::before,
+.shanti-field-path span::before,
+.shanti-field-type span::before,
+.shanti-field-author > span::before,
+.shanti-field-creator > span::before,
+.shanti-field-registrar > span::before,
+.shanti-field-languages span::before,
+.shanti-field-duration span::before,
+.shanti-field-created span::before,
+.shanti-field-place > span::before,
+.shanti-field-subject > span::before {
+    position: relative;
+    top: 2px;
+}
+
+.sui-adv .icon,
+.sui-adv [class^='u-icon--'],
+.sui-adv [class*='u-icon--'],
+.sui-adv [class^='shanticon-'],
+.sui-adv [class*=' shanticon-'] {
+    font-family: 'shanticon';
+}

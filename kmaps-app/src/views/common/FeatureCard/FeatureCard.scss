@@ -1,23 +1,23 @@
 /* Colors
 // ========================================================================== */
-$color-audio-video: #31acb6 !default;
-$color-images: #b5953b !default;
-$color-mandala: #4d59ca !default; /* theme primary color */
-$color-places: #3297f7 !default;
-$color-subjects: #cc4c39 !default;
-$color-sources: #6f69ae !default;
-$color-texts: #8c48a1 !default;
-$color-terms: #b5953b !default;
-$color-visuals: #558e3c !default;
+$color-audio-video: #31acb6;
+$color-images: #b5953b;
+$color-mandala: #4d59ca; /* theme primary color */
+$color-places: #3297f7;
+$color-subjects: #cc4c39;
+$color-sources: #6f69ae;
+$color-texts: #8c48a1;
+$color-terms: #b5953b;
+$color-visuals: #558e3c;
 
-html .card-deck {
+.card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 0.75rem;
     justify-content: space-between;
     margin: 1rem 1rem 2rem;
 }
-html .card-deck .card {
+.card-deck .card {
     min-width: 200px;
     max-width: 235px;
     border-radius: 0 0 0.5rem 0.5rem;
@@ -28,30 +28,32 @@ html .card-deck .card {
     margin: 0.3rem 0.3rem 1rem;
     font-size: 1.5rem; // reset font size with rem value
 }
-html .card-deck .card:hover {
+.card-deck .card:hover {
     //   transform: scale(1.001);
     box-shadow: 0 8px 15px 2px #c0c0c0;
 }
-html .card-deck .card:active {
+.card-deck .card:active {
     //   transform: scale(1);
     box-shadow: 0 2px 5px #ccc;
 }
-html .card-deck .card a {
+
+.card-deck .card a {
 }
-html .card-deck .card a:hover {
+.card-deck .card a:hover {
     text-decoration: none;
     color: inherit;
 }
+
 .card__imageWrap {
     //   max-height: 110px;
     //   overflow: hidden;
 }
-html .card-image,
-html .card-img-top {
+.card-image,
+.card-img-top {
     border-radius: 0;
     height: 130px;
 }
-html .card__typeGlyph span {
+.card__typeGlyph span {
     position: absolute;
     top: 0;
     right: 0;
@@ -70,7 +72,7 @@ html .card__typeGlyph span {
     box-shadow: none;
     border: none;
 }
-html .card__assetGlyph {
+.card__assetGlyph {
     position: absolute;
     top: 4.5rem;
     left: 50%;
@@ -79,12 +81,13 @@ html .card__assetGlyph {
     opacity: 0.4;
     font-size: 2em;
 }
-html .card__assetGlyph span {
+.card__assetGlyph span {
     color: #555;
 }
-html .card-body {
+
+.card-body {
     max-height: 250px;
-    max-height: 200px;
+    //    max-height: 200px;
     min-height: 100px;
     //   height:150px;
     overflow-y: auto;
@@ -93,16 +96,18 @@ html .card-body {
     white-space: normal;
     word-break: break-word;
     position: relative;
-    top: -130px;
+    // top: -130px;
     top: 0;
     background: white;
     z-index: 1;
 }
-html .card-title {
-    margin: 0.65rem 0 0.5rem;
+
+.card-title {
+    margin: 0 0 0.5rem;
     font-size: 0.5em;
+    padding-top: 0.75rem;
 }
-html .card-title a {
+.card-title a {
     color: #333;
     font-size: 1.44em;
     line-height: 1.44em;
@@ -113,21 +118,23 @@ html .card-title a {
     display: inline-block;
     width: 100%;
 }
-html .list-group {
+
+.list-group {
     border-top: 1px solid rgba(205, 169, 66, 1);
     padding: 0.5rem 0;
 }
-html .list-group-item {
+.list-group-item {
     /*padding: 0.15rem 1.15rem 0.25rem 0.3rem;*/
     padding: 0.075rem;
     border: none;
     /*line-height: 0.88em;*/
 }
-html .list-group-item:empty {
+.list-group-item:empty {
     padding: 0 !important;
     border: none !important;
 }
-html .card-footer {
+
+.card-footer {
     background: rgba(142, 117, 46, 0.85);
     height: 3rem;
     font-size: 1.25rem;
@@ -136,37 +143,47 @@ html .card-footer {
     border: none;
     border-radius: 0 0 0.35rem 0.35rem !important;
 }
-html .card-footer:hover {
+.card-footer:hover {
     background-color: rgba(105, 79, 4, 0.85);
 }
-html .card-footer:active {
+.card-footer:active {
     background-color: rgba(142, 117, 46, 0.85);
 }
-html .card-footer a {
+.card-footer a {
+    display: block;
+    color: #fff;
+    border: none !important;
+    padding: 0.6rem 0 0.5rem 1.2rem;
+    line-height: 1em;
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #fff;
-    border: none !important;
-    padding: 0.6rem 0 0.5rem 1.4rem;
-    line-height: 1em;
     width: 98%;
+    font-weight: 600;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
 }
-html .card-footer a:hover {
+.card-footer a:hover {
     background-color: transparent;
     color: #fff !important;
 }
-html .card-footer .icon::before {
+.card-footer .icon::before {
     margin-right: 0.2rem;
     font-size: 1.25em;
     position: relative;
     top: 0.25rem;
 }
-html .card-footer .shanti-field-path {
+.card-footer .shanti-field-path {
     color: #fff;
-    padding-left: 0;
-    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 98%;
+    display: block;
+}
+.card-footer .shanti-field-path .shanti-field-content:empty {
+    display: none;
 }
 .card-footer .shanti-field-path span::before {
     /* this targets only kmaps info in footer */
@@ -183,6 +200,7 @@ html .card-footer .shanti-field-path {
 
 .c-card__listItem--related .c-card__content-field {
     display: inline;
+    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif !important;
 }
 .c-card__listItem--related .c-card__content-field::after {
     content: ',';
@@ -193,6 +211,25 @@ html .card-footer .shanti-field-path {
 }
 .c-card__listItem--related .c-card__content-field:first-of-type > span::before {
     display: inline-block;
+}
+
+.c-card__listItem--related
+    .c-smartRelateds__limited
+    .shanti-field-place:first-child
+    .icon::before {
+    content: '\e62b';
+}
+.c-card__listItem--related
+    .c-smartRelateds__limited
+    .shanti-field-subjects:first-child
+    .icon::before {
+    content: '\e634';
+}
+.c-card__listItem--related
+    .c-smartRelateds__limited
+    .shanti-field-terms:first-child
+    .icon::before {
+    content: '\e635';
 }
 
 .c-card__grid-audio-video .card__typeGlyph span {
@@ -221,34 +258,6 @@ html .card-footer .shanti-field-path {
 }
 .c-card__grid-visuals .card__typeGlyph span {
     background-color: $color-visuals;
-}
-
-.shanti-field-itemcount,
-.shanti-field-path,
-.shanti-field-type,
-.shanti-field-author,
-.shanti-field-creator,
-.shanti-field-registrar,
-.shanti-field-languages,
-.shanti-field-duration,
-.shanti-field-created,
-.shanti-field-place,
-.shanti-field-subject {
-    font-size: 1.18rem;
-}
-.shanti-field-itemcount span::before,
-.shanti-field-path span::before,
-.shanti-field-type span::before,
-.shanti-field-author > span::before,
-.shanti-field-creator > span::before,
-.shanti-field-registrar > span::before,
-.shanti-field-languages span::before,
-.shanti-field-duration span::before,
-.shanti-field-created span::before,
-.shanti-field-place > span::before,
-.shanti-field-subject > span::before {
-    position: relative;
-    top: 2px;
 }
 
 .c-card__content-field.shanti-field-type {

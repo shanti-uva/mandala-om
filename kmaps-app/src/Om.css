@@ -1,11 +1,6 @@
 /*@import url('https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,500%7COpen+Sans:400,400i,600&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext');*/
 /*@font-face { font-family: 'shanticon'; src: url('shanticon.ttf?ueun15') format('truetype'); font-weight: normal; font-style: normal; }*/
 
-html {
-    font-size: 62.5%;
-    color: #2d3748;
-}
-
 .sui-main {
     all: initial;
     position: absolute;
@@ -316,7 +311,7 @@ html {
 /* LIST RESULTS */
 
 .sui-item {
-    border-top: 0.5px solid #cde3f7;
+    border-top: 0.05rem solid #cde3f7;
     margin-left: 30px;
     padding: 6px 0;
 }
@@ -1834,7 +1829,6 @@ a {
     font-weight: 400;
     font-size: 0.85em;
     line-height: 1.68em;
-    padding-left: 0.4rem;
 }
 
 .shanti-field-type {
