@@ -2014,8 +2014,8 @@ a {
 
 .sui-contentHeader-id {
     font-style: italic;
-    font-size: smaller;
-    color: #aaaaaa;
+    font-size: 0.75em;
+    color: #eee;
 }
 
 .sui-contentHeader-sub {
