@@ -23,7 +23,7 @@ const TermDefinitionsResources = ({ defID, resCounts }) => {
                     .map((key) => (
                         <Button key={key} variant="outline-dark" size="lg">
                             <span
-                                className={`sui-color-${key} shanticon-${key} icon`}
+                                className={`u-color__${key} u-icon__${key} icon`}
                             ></span>
                             <span className="btn-text">
                                 {key.toUpperCase()}

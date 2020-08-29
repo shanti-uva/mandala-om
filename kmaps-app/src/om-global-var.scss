@@ -18,13 +18,17 @@ $font-weight-serif: (
 // ========================================================================== */
 $color-audio-video: #2ea3ac;
 $color-images: #cc761a;
-$color-mandala1: #2c67c0; /* theme primary color */
+$color-mandala: #2c67c0; /* theme primary color */
 $color-places: #3297f7;
 $color-subjects: #cc4c39;
 $color-sources: #5a57ad;
 $color-texts: #8c48a1;
 $color-terms: #91693c;
 $color-visuals: #558e3c;
+
+// * Colors --- Utility
+$color-anchor: orange;
+$color-anchor-hover: #df3d26;
 
 /* Breakpoints
 // ========================================================================== */
@@ -41,7 +45,7 @@ $break-4: 75em; /* 1200px */
 .mandala.all,
 .mandala.sui-header,
 .mandala.collections {
-    background-color: $color-mandala1;
+    background-color: $color-mandala;
 }
 .mandala.places {
     background-color: $color-places;
@@ -65,12 +69,13 @@ $break-4: 75em; /* 1200px */
     background-color: $color-subjects;
 }
 .mandala.collections {
-    background-color: $color-mandala1;
+    background-color: $color-mandala;
 }
 
+.u-color__all,
 .u-color__mandala,
 .sui-color-all {
-    color: $color-mandala1;
+    color: $color-mandala;
 }
 .u-color__terms,
 .sui-color-terms {
@@ -103,5 +108,5 @@ $break-4: 75em; /* 1200px */
 }
 .u-color__collections,
 .sui-color-collections {
-    color: $color-mandala1;
+    color: $color-mandala;
 }

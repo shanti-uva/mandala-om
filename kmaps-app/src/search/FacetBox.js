@@ -73,8 +73,8 @@ export function FacetBox(props) {
     // console.log("FacetBox (" + facetType + ") chosenHash: ", chosenHash );
 
     const ICON_MAP = {
-        'audio-video': <span className={'icon shanticon-audio-video'} />,
-        texts: <span className={'shanticon-texts icon'} />,
+        'audio-video': <span className={'icon u-icon__audio-video'} />,
+        texts: <span className={'u-icon__texts icon'} />,
         'texts:pages': <span className={'shanticon-texts icon'} />,
         images: '\ue62a',
         sources: '\ue631',
@@ -88,13 +88,13 @@ export function FacetBox(props) {
         users: '\ue600',
         creator: '\ue600',
         languages: '\ue670',
-        feature_types: <span className={'shanticon-uniE626 icon'} />,
+        feature_types: <span className={'u-icon__uniE626 icon'} />,
     };
 
     chosen_icon = chosen_icon || ICON_MAP[facetType];
     const icon = chosen_icon;
-    const plus = <span className={'shanticon-plus icon'} />;
-    const minus = <span className={'shanticon-minus icon'} />;
+    const plus = <span className={'u-icon__plus icon'} />;
+    const minus = <span className={'u-icon__minus icon'} />;
     const label = props.label || 'UNKNOWN LABEL';
 
     // console.debug("FacetBox: props = ", props);
@@ -130,7 +130,7 @@ export function FacetBox(props) {
     function chooseIconClass(entry) {
         let icoclass = entry.val;
         icoclass = icoclass === 'texts:pages' ? 'file-text-o' : icoclass;
-        return 'shanticon-' + icoclass + ' icon';
+        return 'u-icon__' + icoclass + ' icon';
     }
 
     function parseId(id) {
@@ -166,7 +166,7 @@ export function FacetBox(props) {
         );
     });
     const chosenList = _.map(props.chosenFacets, (entry) => {
-        const removeIconClass = 'sui-advTermRem shanticon-cancel-circle icon';
+        const removeIconClass = 'sui-advTermRem u-icon__cancel-circle icon';
         // console.log("Creating removal FacetChoice from ", entry);
 
         return (
@@ -259,7 +259,7 @@ export function FacetBox(props) {
                                 value={'desc'}
                             >
                                 <span
-                                    className={'icon shanticon-arrow-tip-down'}
+                                    className={'icon u-icon__arrow-tip-down'}
                                 ></span>
                             </ToggleButton>
                             <ToggleButton
@@ -268,7 +268,7 @@ export function FacetBox(props) {
                                 value={'asc'}
                             >
                                 <span
-                                    className={'icon shanticon-arrow-tip-up'}
+                                    className={'icon u-icon__arrow-tip-up'}
                                 ></span>
                             </ToggleButton>
                         </ToggleButtonGroup>

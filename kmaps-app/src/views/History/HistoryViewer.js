@@ -40,7 +40,7 @@ function HistoryLocation(props) {
         <span className={'c-HistoryViewer__title'}>
             <span
                 className={
-                    'icon shanticon-' + props.location?.asset_type || 'shanti'
+                    'icon u-icon__' + props.location?.asset_type || 'shanti'
                 }
             ></span>{' '}
             {props.location?.name}
@@ -54,7 +54,7 @@ function HistoryLocation(props) {
         >
             {loc}
             <span
-                className="c-HistoryViewer__removeItem shanticon-cancel-circle icon"
+                className="c-HistoryViewer__removeItem u-icon__cancel-circle icon"
                 data-key={props.location.key}
                 alt={'Remove from list'}
                 aria-label={'Remove from list'}

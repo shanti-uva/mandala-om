@@ -89,7 +89,7 @@ export function MandalaPopover(props) {
                     onMouseOver={() => setShow(true)}
                     onMouseOut={() => setShow(false)}
                 >
-                    <span className="icon shanticon-menu3" />
+                    <span className="icon u-icon__menu3" />
                 </span>
             </>
         );
@@ -246,7 +246,7 @@ function MandalaPopoverBody(props) {
                     'Related ' +
                     assettype[0].toUpperCase() +
                     assettype.substr(1).replace('-v', ' V').replace('-', ' ');
-                const iconclass = 'icon shanticon-' + assettype;
+                const iconclass = 'icon u-icon__' + assettype;
                 return (
                     <div className="popover-footer-button">
                         <a href={myurl} className={iconclass}>
@@ -275,7 +275,7 @@ function MandalaPopoverBody(props) {
             <div className="popover-footer">
                 <div className="popover-footer-button">
                     <a
-                        className="icon shanticon-link-external"
+                        className="icon u-icon__link-external"
                         href={kmap_item_page}
                     >
                         Full Entry

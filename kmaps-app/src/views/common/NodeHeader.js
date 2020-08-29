@@ -40,7 +40,7 @@ function NodeHeader(props) {
 
         itemHeader = docs?.length ? (
             <div className={'sui-nodeHeader-itemHeader'}>
-                <span className={'icon shanticon-' + docs[0].asset_type}></span>
+                <span className={'icon u-icon__' + docs[0].asset_type}></span>
                 <span className={'sui-nodeHeader-itemHeader-subType'}>
                     {docs[0].asset_subtype}
                 </span>
@@ -77,12 +77,12 @@ function NodeHeader(props) {
             {back && (
                 <span>
                     <Link to={'..'}>
-                        <span className={'icon shanticon-arrow-left_2'}></span>
+                        <span className={'icon u-icon__arrow-left_2'}></span>
                     </Link>
                 </span>
             )}
             <span
-                className={`icon shanticon-${props.kmasset?.asset_type} sui-color-${props.kmasset?.asset_type}`}
+                className={`icon u-icon__${props.kmasset?.asset_type} sui-color-${props.kmasset?.asset_type}`}
             ></span>
             &nbsp;
             <span className="sui-termTitle sui-nodeTitle" id="sui-termTitle">

@@ -14,11 +14,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 98%;
+    cursor: default;
 }
-
-.c-HistoryViewer__relatedRecentItem:hover {
-}
-
 .c-HistoryViewer__removeItem {
     cursor: pointer;
     font-size: 1.25em;
@@ -26,10 +23,14 @@
     transition: color 200ms ease 0s;
     position: absolute;
     right: 0.2rem;
+    transition: color 300ms ease 0s;
 }
 
 .c-HistoryViewer__relatedRecentItem:hover .c-HistoryViewer__removeItem {
-    color: #777;
+    color: #aaa;
+}
+.c-HistoryViewer__removeItem:hover::before {
+    color: #df3d26;
 }
 .c-HistoryViewer__title {
     line-height: normal;
