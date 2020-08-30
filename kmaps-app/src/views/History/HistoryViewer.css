@@ -22,8 +22,8 @@
     color: transparent;
     transition: color 200ms ease 0s;
     position: absolute;
-    right: 0.2rem;
-    transition: color 300ms ease 0s;
+    right: 0.8rem;
+    transition: color 350ms ease-in;
 }
 
 .c-HistoryViewer__relatedRecentItem:hover .c-HistoryViewer__removeItem {
@@ -32,6 +32,10 @@
 .c-HistoryViewer__removeItem:hover::before {
     color: #df3d26;
 }
+.c-HistoryViewer__removeItem:active::before {
+    color: #aaa;
+}
+
 .c-HistoryViewer__title {
     line-height: normal;
 }

@@ -27,7 +27,7 @@ $color-terms: #91693c;
 $color-visuals: #558e3c;
 
 // * Colors --- Utility
-$color-anchor-hover: #df3d26;
+$color-link-hover: #df3d26;
 
 $color-golden: #a27f1c;
 
@@ -38,10 +38,6 @@ $break-1: 36em; /* 576px */
 $break-2: 48em; /* 768px */
 $break-3: 62em; /* 992px */
 $break-4: 75em; /* 1200px */
-
-.mandala.terms {
-    background-color: $color-terms;
-}
 
 .mandala.all,
 .mandala.sui-header,
@@ -59,6 +55,9 @@ $break-4: 75em; /* 1200px */
 }
 .mandala.sources {
     background-color: $color-sources;
+}
+.mandala.terms {
+    background-color: $color-terms;
 }
 .mandala.texts {
     background-color: $color-texts;
