@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import './src/om-global-var.scss';
 
 html {
     -webkit-tap-highlight-color: transparent;
@@ -15,7 +16,7 @@ body {
     -moz-osx-font-smoothing: grayscale; /* FF fonts */
     overflow: hidden;
     margin-top: 0 !important;
-    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     /*text-rendering: optimizeSpeed;
     letter-spacing: 0.01rem;*/
@@ -151,7 +152,6 @@ div.image-wrapper.center figcaption {
  **/
 
 // START - NEW CSS
-
 .shanti-field-itemcount,
 .shanti-field-path,
 .shanti-field-type,
@@ -180,10 +180,105 @@ div.image-wrapper.center figcaption {
     top: 2px;
 }
 
-.sui-adv .icon,
-.sui-adv [class^='u-icon__'],
-.sui-adv [class*='u-icon__'],
-.sui-adv [class^='shanticon-'],
-.sui-adv [class*=' shanticon-'] {
+.c-searchColumn .icon,
+.c-searchColumn [class^='u-icon__'],
+.c-searchColumn [class*='u-icon__'],
+.c-searchColumn [class^='shanticon-'],
+.c-searchColumn [class*='shanticon-'] {
     font-family: 'shanticon';
+}
+
+.sui-terms > .c-nodeHeader .icon {
+    font-size: 1.32em;
+    margin-right: 0.5rem;
+    position: relative;
+    top: 0.1rem;
+
+    top: 0.2rem;
+    font-size: 2.5rem;
+}
+
+.mandala.all,
+.mandala.sui-header,
+.mandala.collections {
+    background-color: $color-mandala;
+}
+.mandala.places {
+    background-color: $color-places;
+}
+.mandala.audio-video {
+    background-color: $color-audio-video;
+}
+.mandala.images {
+    background-color: $color-images;
+}
+.mandala.sources {
+    background-color: $color-sources;
+}
+.mandala.terms {
+    background-color: $color-terms;
+}
+.mandala.texts {
+    background-color: $color-texts;
+}
+.mandala.visuals {
+    background-color: $color-visuals;
+}
+.mandala.subjects {
+    background-color: $color-subjects;
+}
+.mandala.collections {
+    background-color: $color-mandala;
+}
+
+.u-color__all,
+.sui-color-all,
+.u-color__mandala,
+.u-icon__mandala,
+.u-icon__audio,
+.u-color__collections,
+.sui-color-collections,
+.u-icon__collections {
+    color: $color-mandala;
+}
+.u-color__terms,
+.sui-color-terms,
+.u-icon__terms {
+    color: $color-terms;
+    font-size: 90%;
+}
+.u-color__audio-video,
+.sui-color-audio-video,
+.u-icon__audio-video {
+    color: $color-audio-video;
+}
+.u-color__images,
+.sui-color-images,
+.u-icon__images {
+    color: $color-images;
+}
+.u-color__sources,
+.sui-color-sources,
+.u-icon__sources {
+    color: $color-sources;
+}
+.u-color__texts,
+.sui-color-texts,
+.u-icon__texts {
+    color: $color-texts;
+}
+.u-color__visuals,
+.sui-color-visuals,
+.u-icon__visuals {
+    color: $color-visuals;
+}
+.u-color__subjects,
+.sui-color-subjects,
+.u-icon__subjects {
+    color: $color-subjects;
+}
+.u-color__places,
+.sui-color-places,
+.u-icon__places {
+    color: $color-places;
 }

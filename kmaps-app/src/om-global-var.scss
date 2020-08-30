@@ -1,10 +1,10 @@
 /* Common Variables
 // ========================================================================== */
-$font-size-default: 16px;
-$font-family-body: 'Open Sans', sans-serif;
+$font-size-default: 1rem;
+$font-family-sans: 'Open Sans', sans-serif;
 $font-family-serif: 'EB Garamond', serif;
 
-$font-weight-sansSerif: (
+$font-weight-sans: (
     'regular': 400,
     'medium': 600,
 );
@@ -38,75 +38,3 @@ $break-1: 36em; /* 576px */
 $break-2: 48em; /* 768px */
 $break-3: 62em; /* 992px */
 $break-4: 75em; /* 1200px */
-
-.mandala.all,
-.mandala.sui-header,
-.mandala.collections {
-    background-color: $color-mandala;
-}
-.mandala.places {
-    background-color: $color-places;
-}
-.mandala.audio-video {
-    background-color: $color-audio-video;
-}
-.mandala.images {
-    background-color: $color-images;
-}
-.mandala.sources {
-    background-color: $color-sources;
-}
-.mandala.terms {
-    background-color: $color-terms;
-}
-.mandala.texts {
-    background-color: $color-texts;
-}
-.mandala.visuals {
-    background-color: $color-visuals;
-}
-.mandala.subjects {
-    background-color: $color-subjects;
-}
-.mandala.collections {
-    background-color: $color-mandala;
-}
-
-.u-color__all,
-.u-color__mandala,
-.sui-color-all {
-    color: $color-mandala;
-}
-.u-color__terms,
-.sui-color-terms {
-    color: $color-terms;
-    font-size: 90%;
-}
-.u-color__audio-video,
-.sui-color-audio-video {
-    color: $color-audio-video;
-}
-.u-color__images,
-.sui-color-images {
-    color: $color-images;
-}
-.u-color__sources,
-.sui-color-sources {
-    color: $color-sources;
-}
-.u-color__texts,
-.sui-color-texts {
-    color: $color-texts;
-}
-.u-color__visuals,
-.sui-color-visuals {
-    color: $color-visuals;
-}
-.u-color__subjects,
-.sui-color-subjects {
-    color: $color-subjects;
-}
-.u-color__collections,
-.sui-color-collections {
-    color: $color-mandala;
-}

@@ -153,7 +153,7 @@ function RelatedCount(props) {
                 href="#"
             >
                 <span
-                    className={'sui-color-' + props.type + ' ' + iconClass}
+                    className={'u-color__' + props.type + ' ' + iconClass}
                 ></span>
                 <span className={'sui-relatedItem-label'}> {props.type}</span>
                 &nbsp;(<span id="sui-rln-places">{count}</span>)

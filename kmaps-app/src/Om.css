@@ -167,11 +167,10 @@
 }
 
 .sui-header {
-    height: 60px;
-    width: 100%;
-    user-select: none;
-    background-color: #888;
     color: #fff;
+    padding: 1rem 0 0 3rem;
+    font-size: 1.5em;
+    height: 65px;
 }
 
 .sui-results {
@@ -179,13 +178,6 @@
 }
 
 .sui-contentHead {
-    user-select: none;
-    height: 100%;
-    float: left;
-    padding: 0 0 0 22px;
-    font-size: 19px;
-    width: 100%;
-    max-width: calc(100% - 20px);
 }
 
 .sui-type {
@@ -526,7 +518,7 @@
 
 /* ADVANCED SEARCH */
 
-.sui-adv {
+.c-searchColumn {
     position: absolute;
     z-index: 10;
     left: calc(100% - 361px);
@@ -859,8 +851,7 @@
 .sui-termTitle {
     font-family: 'EB Garamond', serif;
     font-weight: 500;
-    line-height: 24px;
-    font-size: 20px;
+    font-size: 2.25rem;
 }
 
 .sui-termSpeak {
@@ -1436,6 +1427,7 @@
     font-size: 13px;
     margin-left: 3px;
     cursor: pointer;
+    margin-top: 0.5rem;
 }
 
 .sui-crumb:hover {
@@ -1552,7 +1544,7 @@ a {
 }
 */
 .mandala > .sui-contentHead > div {
-    margin-top: 0.5em;
+    /*   margin-top: 0.5em; */
 }
 
 /* facetbox open/close sui-advEdit (part of sui-advBox) */
@@ -1562,19 +1554,19 @@ a {
    TODO: add slide-in/out css transition
 */
 
-.sui-adv.open {
+.c-searchColumn.open {
     display: block;
 }
 
-.sui-adv.closed {
+.c-searchColumn.closed {
     display: none;
 }
 
-.sui-adv nav {
+.c-searchColumn nav {
     font-size: small;
 }
 
-.sui-adv .nav-link {
+.c-searchColumn .nav-link {
     padding: 0.3rem 0.3rem;
 }
 
@@ -1958,64 +1950,11 @@ a {
     color: #222;
 }
 
-.shanti-thumbnail .footer-wrap {
-    background: rgba(142, 117, 46, 0.85);
-    border-radius: 0 0 0.5rem 0.5rem;
-    background-clip: padding-box;
-    width: 100%;
-    display: block;
-    padding: 0 0.9rem;
-    height: 2.8rem;
-}
-
-.shanti-thumbnail .footer-wrap:hover {
-    background-color: rgba(105, 79, 4, 0.85);
-}
-
-.shanti-thumbnail .footer-wrap:active {
-    background-color: rgba(142, 117, 46, 0.85);
-}
-
-.shanti-thumbnail .footer-wrap a {
-    font-size: 1.06em;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #fff;
-    font-style: italic;
-    border: none !important;
-    padding: 0.6rem 0;
-    line-height: 1.4em;
-}
-
-.shanti-thumbnail .footer-wrap a:hover {
-    background-color: transparent;
-}
-
-.shanti-thumbnail .footer-wrap a::before {
-    content: '\e633';
-    font-family: 'shanticon', sans-serif;
-    display: inline-block;
-    font-size: 1.32em;
-    color: #eee;
-    margin-right: 0.5rem;
-    float: left;
-    font-style: normal;
-}
-
-.shanti-thumbnail .footer-wrap a:empty {
-    display: none;
-}
-
-.shanti-thumbnail .footer-wrap:empty:active {
-    background-color: rgba(105, 79, 4, 0.85);
-}
-
 .sui-contentHeader-id {
     font-style: italic;
-    font-size: 0.75em;
+    font-size: 0.5em;
     color: #eee;
+    margin-right: 2rem;
 }
 
 .sui-contentHeader-sub {
@@ -2052,23 +1991,23 @@ a {
     text-transform: capitalize;
 }
 
-.sui-nodeHeader-itemHeader {
+.c-nodeHeader-itemHeader {
     margin: 1rem 0.3rem 0.3rem 0.3rem;
 }
 
-.sui-nodeHeader-itemHeader span {
+.c-nodeHeader-itemHeader span {
     margin: 0.3rem 0.3rem 3rem 0.3rem;
 }
 
-.sui-nodeHeader-itemHeader-subType {
+.c-nodeHeader-itemHeader-subType {
     text-transform: capitalize;
 }
 
-.sui-nodeHeader-itemHeader-subType:after {
+.c-nodeHeader-itemHeader-subType:after {
     content: ': ';
 }
 
-.sui-nodeHeader-itemHeader-caption {
+.c-nodeHeader-itemHeader-caption {
     font-style: italic;
 }
 

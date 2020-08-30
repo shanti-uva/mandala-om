@@ -200,7 +200,7 @@ div#av-trscrpt-wrapper {
     margin: 0 0.5rem 1rem;
 }
 
-.av #meta-mlt .shanti-thumbnail .shanticon-video:before {
+.av #meta-mlt .shanti-thumbnail .u-icon__video:before {
     font-family: shanticon;
     content: '\e63a';
 }

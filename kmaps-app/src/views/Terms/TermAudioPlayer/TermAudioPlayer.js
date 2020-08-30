@@ -24,15 +24,15 @@ function TermAudioPlayer(props) {
     const playButton = audioUrl ? (
         <>
             <button
-                className="sui-audioPlayer__button"
+                className="c-audioPlayer__button"
                 onClick={() => {
                     player.current.play();
                 }}
             >
-                <span className="sui-audioPlayer__icon">{'\ue60a'}</span>
+                <span className="icon u-icon__audio"></span>
             </button>
             <select
-                className="sui-audioPlayer__select"
+                className="c-audioPlayer__select"
                 onChange={(e) => handleSelect(e)}
             >
                 {option_list}
@@ -43,7 +43,7 @@ function TermAudioPlayer(props) {
     );
 
     return (
-        <div className="sui-audioPlayer">
+        <div className="c-audioPlayer">
             <audio src={audioUrl} ref={(ref) => (player.current = ref)} />
             <form
                 onSubmit={(event) => {

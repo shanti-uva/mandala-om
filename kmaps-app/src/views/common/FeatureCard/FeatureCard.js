@@ -24,7 +24,7 @@ export function FeatureCard(props) {
     const [modalShow, setModalShow] = React.useState(false);
 
     const typeGlyph = props.doc.uid ? (
-        <span className={'u-icon__' + props.doc.asset_type}></span>
+        <span className={'icon u-icon__' + props.doc.asset_type}></span>
     ) : null;
 
     const assetGlyph =
@@ -33,9 +33,9 @@ export function FeatureCard(props) {
         props.doc.asset_type !== 'audio-video' ? (
             <span
                 className={
-                    'u-icon__' +
+                    'icon u-icon__' +
                     props.doc.asset_type +
-                    ' u-color__' +
+                    'icon u-color__' +
                     props.doc.asset_type
                 }
             ></span>

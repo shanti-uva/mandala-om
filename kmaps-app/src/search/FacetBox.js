@@ -88,7 +88,7 @@ export function FacetBox(props) {
         users: '\ue600',
         creator: '\ue600',
         languages: '\ue670',
-        feature_types: <span className={'u-icon__uniE626 icon'} />,
+        feature_types: <span className={'u-icon__explore icon'} />,
     };
 
     chosen_icon = chosen_icon || ICON_MAP[facetType];

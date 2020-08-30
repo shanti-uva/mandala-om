@@ -1,33 +1,121 @@
-.sui-audioPlayer {
+.c-audioPlayer {
     margin-bottom: 3.2rem;
+    padding-left: 3rem;
 }
-.sui-audioPlayer__button {
-    background: transparent;
-    border: 1px solid #d48130;
+.c-audioPlayer__button {
+    width: 2.5em;
+    height: 2.5em;
+    border: 0.3rem double #fff;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    padding: 1px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin: 0;
+    opacity: 0.85;
+    transform: scale(1.175);
+    transition: all 0.15s ease-in-out;
+    background: #91693c;
 }
-.sui-audioPlayer__button:focus {
+.c-audioPlayer__button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+.c-audioPlayer__button:focus {
     outline: 0;
 }
-.sui-audioPlayer__icon {
-    background: #a2733f;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    color: #fff;
-    padding-top: 3.5px;
+.c-audioPlayer__button:focus,
+.c-audioPlayer__button:active {
+    transform: scale(1.15);
 }
-.sui-audioPlayer__select {
+.c-audioPlayer__button .u-icon__audio {
+    position: relative;
+    top: 0.15rem;
+    right: 0.05rem;
+}
+.c-audioPlayer__button .u-icon__audio::before {
+    position: relative;
+    top: 0.1rem;
+    left: 0.01rem;
+    color: #fff;
+    font-size: 1.25em;
+}
+
+.c-audioPlayer__select {
     margin-left: 1.6rem;
     background: #eee;
     padding: 0.8rem 1.6rem;
     border: none;
     border-radius: 6px;
     color: #2d3748;
+}
+
+/*
+** Recording Player
+*/
+/* { width: 40px; }*/
+
+.recording-wrapper,
+.recording-controls,
+.recording-list {
+    float: left;
+}
+
+.terms-audio-pronunciation-container {
+    position: relative;
+    left: 2rem;
+    height: 2.2rem;
+}
+
+.terms-audio-pronunciation-container .terms-audio-player-selector {
+    position: absolute;
+    top: -0.2rem;
+    left: 1.25rem;
+    display: inline;
+    width: 40px;
+}
+
+.recording-play-button {
+    width: 3rem;
+    height: 3rem;
+    border: 0.3rem double #fff;
+    border-radius: 50%;
+    color: white;
+    margin-right: 1.5rem;
+    cursor: pointer;
+    text-align: center;
+    margin-top: -0.15rem;
+    opacity: 0.85;
+    transform: scale(1.175);
+    transition: all 0.15s ease-in-out;
+}
+.recording-play-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.recording-play-button:focus,
+.recording-play-button:active {
+    transform: scale(1.225);
+}
+
+.recording-play-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.recording-play-button:focus,
+.recording-play-button:active {
+    transform: scale(1.225);
+}
+
+.recording-play-button .icon {
+    position: relative;
+    top: 0.15rem;
+    right: 0.05rem;
+}
+
+.recording-play-button .icon:before {
+    position: relative;
+    top: 0.1rem;
+    left: 0.025rem;
 }

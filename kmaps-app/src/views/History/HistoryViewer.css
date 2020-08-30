@@ -1,5 +1,5 @@
 .c-HistoryViewer {
-    font-size: 0.93em;
+    font-size: 1em;
     color: #222;
     padding: 0;
     max-height: 84px;
@@ -13,7 +13,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 98%;
+    width: 90%;
     cursor: default;
 }
 .c-HistoryViewer__removeItem {

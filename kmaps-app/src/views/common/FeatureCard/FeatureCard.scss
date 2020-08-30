@@ -1,14 +1,4 @@
-/* Colors
-// ========================================================================== */
-$color-audio-video: #2ea3ac;
-$color-images: #cc761a;
-$color-mandala: #2c67c0; /* theme primary color */
-$color-places: #3297f7;
-$color-subjects: #cc4c39;
-$color-sources: #5a57ad;
-$color-texts: #8c48a1;
-$color-terms: #91693c;
-$color-visuals: #558e3c;
+@import './src/om-global-var.scss';
 
 .card-deck {
     display: grid;
@@ -150,7 +140,7 @@ $color-visuals: #558e3c;
     background-color: rgba(142, 117, 46, 0.85);
 }
 .card-footer a {
-    color: #fff;
+    color: #fff !important;
     border: none !important;
     padding: 0.6rem 0 0.5rem 1.2rem;
     line-height: 1em;
@@ -160,11 +150,14 @@ $color-visuals: #558e3c;
     text-overflow: ellipsis;
     width: 98%;
     font-weight: 600;
-    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif;
+    font-family: $font-family-sans;
 }
 .card-footer a:hover {
     background-color: transparent;
-    color: #fff !important;
+    color: #fff;
+}
+.card-footer .icon {
+    color: #fff;
 }
 .card-footer .icon::before {
     margin-right: 0.2rem;
@@ -199,20 +192,26 @@ $color-visuals: #558e3c;
 
 .c-card__listItem--related .c-card__content-field {
     display: inline;
-    font-family: 'Open Sans', 'Segoe UI', 'Lucida Grande', Tahoma, sans-serif !important;
+    font-family: $font-family-sans;
 }
 .c-card__listItem--related .c-card__content-field::after {
+    // adding comma separators with space after
     content: ',';
     display: inline-block;
     margin-right: 0.4rem;
 }
 .c-card__listItem--related .c-card__content-field:last-child::after {
+    // removing the last comma
     content: '';
 }
-.c-card__listItem--related .c-card__content-field > span::before {
+.c-card__listItem--related .c-card__content-field > .icon::before {
+    // removing the icon on each list item
     display: none;
 }
-.c-card__listItem--related .c-card__content-field:first-of-type > span::before {
+.c-card__listItem--related
+    .c-card__content-field:first-of-type
+    > .icon::before {
+    // adding the icon on the first list item only
     display: inline-block;
 }
 
@@ -226,31 +225,31 @@ $color-visuals: #558e3c;
     content: '\e635';
 }
 
-.c-card__grid-audio-video .card__typeGlyph span {
+.c-card__grid-audio-video .card__typeGlyph .icon {
     background-color: $color-audio-video;
 }
-.c-card__grid-images .card__typeGlyph span {
+.c-card__grid-images .card__typeGlyph .icon {
     background-color: $color-images;
 }
-.c-card__grid-mandala .card__typeGlyph span {
+.c-card__grid-mandala .card__typeGlyph .icon {
     background-color: $color-mandala;
 }
-.c-card__grid-places .card__typeGlyph span {
+.c-card__grid-places .card__typeGlyph .icon {
     background-color: $color-places;
 }
-.c-card__grid-subjects .card__typeGlyph span {
+.c-card__grid-subjects .card__typeGlyph .icon {
     background-color: $color-subjects;
 }
-.c-card__grid-sources .card__typeGlyph span {
+.c-card__grid-sources .card__typeGlyph .icon {
     background-color: $color-sources;
 }
-.c-card__grid-terms .card__typeGlyph span {
+.c-card__grid-terms .card__typeGlyph .icon {
     background-color: $color-terms;
 }
-.c-card__grid-texts .card__typeGlyph span {
+.c-card__grid-texts .card__typeGlyph .icon {
     background-color: $color-texts;
 }
-.c-card__grid-visuals .card__typeGlyph span {
+.c-card__grid-visuals .card__typeGlyph .icon {
     background-color: $color-visuals;
 }
 
@@ -258,7 +257,7 @@ $color-visuals: #558e3c;
     font-size: 1em;
 }
 
-.c-card__content-field.shanti-field-type span {
+.c-card__content-field.shanti-field-type .icon {
     padding-left: 0.2rem;
 }
 

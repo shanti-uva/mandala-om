@@ -18,7 +18,7 @@ export function FeatureFilters(props) {
 
     // console.log('FeatureFilters filters = ', filters);
 
-    const removeIconClass = 'sui-advTermRem shanticon-cancel-circle icon';
+    const removeIconClass = 'sui-advTermRem u-icon__cancel-circle icon';
 
     const entries =
         filters?.map((entry) => {

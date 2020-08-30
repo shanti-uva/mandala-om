@@ -147,9 +147,7 @@ export default function HistoryListener() {
                             'c-HistoryViewer__title c-HistoryViewer__relatedTitle'
                         }
                     >
-                        <span
-                            className={`icon shanticon-${relatedType}`}
-                        ></span>{' '}
+                        <span className={`icon u-icon__${relatedType}`}></span>{' '}
                         {relLabel}
                     </span>
                 ) : null;

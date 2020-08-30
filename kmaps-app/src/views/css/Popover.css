@@ -15,7 +15,7 @@
     left: 0;
     top: 4px;
     margin: 0 1rem 0 0.35rem;
-    font-size: 20px;
+    font-size: 2rem;
 }
 .popover-link .icon::before {
     color: #5a65d1;
@@ -243,38 +243,38 @@
     height: 3.75rem;
 }
 
-.popover-footer .shanticon-link-external:before {
+.popover-footer .u-icon__link-external:before {
     color: #333333;
 }
 
-.popover-footer .shanticon-audio-video:before {
+.popover-footer .u-icon__audio-video:before {
     color: #58aab4 !important;
 }
 
-.popover-footer .shanticon-images:before {
+.popover-footer .u-icon__images:before {
     color: #b49c59 !important;
 }
 
-.popover-footer .shanticon-sources:before {
+.popover-footer .u-icon__sources:before {
     color: #5a57ad !important;
 }
 
-.popover-footer .shanticon-places:before {
+.popover-footer .u-icon__places:before {
     color: #6faaf1 !important;
 }
 
-.popover-footer .shanticon-subjects:before {
+.popover-footer .u-icon__subjects:before {
     color: #cc4c39 !important;
 }
 
-.popover-footer .shanticon-terms:before {
+.popover-footer .u-icon__terms:before {
     color: #a2733f !important;
 }
 
-.popover-footer .shanticon-texts:before {
+.popover-footer .u-icon__texts:before {
     color: #8b5aa1 !important;
 }
 
-.popover-footer .shanticon-visuals:before {
+.popover-footer .u-icon__visuals:before {
     color: #558e3c !important;
 }
