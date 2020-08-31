@@ -77,19 +77,17 @@
 
 .card-body {
     max-height: 250px;
-    //    max-height: 200px;
     min-height: 100px;
-    //   height:150px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0 0.8rem 1rem 1rem;
     white-space: normal;
     word-break: break-word;
     position: relative;
-    // top: -130px;
     top: 0;
     background: white;
     z-index: 1;
+    font-size: 115%;
 }
 
 .card-title {
@@ -182,6 +180,9 @@
     color: #fff;
     position: relative;
     top: 0.15rem;
+}
+.card-footer .u-icon__places {
+    color: #fff;
 }
 
 .c-button__json {

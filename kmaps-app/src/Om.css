@@ -166,13 +166,6 @@
     width: 150px;
 }
 
-.sui-header {
-    color: #fff;
-    padding: 1rem 0 0 3rem;
-    font-size: 1.5em;
-    height: 65px;
-}
-
 .sui-results {
     padding: 0 1.5rem;
 }
@@ -853,7 +846,9 @@
     font-weight: 500;
     font-size: 2.25rem;
 }
-
+.sui-termTitle .latin {
+    margin-left: 1rem;
+}
 .sui-termSpeak {
     border-radius: 16px;
     background-color: #f8f8f8;
@@ -1425,7 +1420,7 @@
     display: block;
     font-style: italic;
     font-size: 13px;
-    margin-left: 3px;
+    margin-left: 1.5rem;
     cursor: pointer;
     margin-top: 0.5rem;
 }

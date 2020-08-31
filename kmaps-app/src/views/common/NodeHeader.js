@@ -75,11 +75,11 @@ function NodeHeader(props) {
     return (
         <div className={'c-nodeHeader'}>
             {back && (
-                <span>
-                    <Link to={'..'}>
+                <div>
+                    <Link to={'..'} className={'c-nodeHeader__iconLink'}>
                         <span className={'icon u-icon__arrow-left_2'}></span>
                     </Link>
-                </span>
+                </div>
             )}
             <span
                 className={`icon u-icon__${props.kmasset?.asset_type}`}

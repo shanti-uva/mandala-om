@@ -29,14 +29,14 @@ export function ContentHeader(props) {
                         <span
                             className={`icon shanticon-${status.type}`}
                         ></span>
-                        <span className={'ml-2 sui-contentHeader-title'}>
+                        <span className={'sui-contentHeader-title'}>
                             {status.headerTitle}
                         </span>
                     </span>
                     <span className={'sui-contentHeader-id float-right'}>
                         {status.id}
                     </span>
-                    <span className={'ml-5 sui-contentHeader-sub'}>
+                    <span className={'sui-contentHeader-sub'}>
                         {status.subTitle}
                     </span>
                     <span className={'sui-breadCrumbs'}>{convertedPath}</span>

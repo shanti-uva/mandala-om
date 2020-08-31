@@ -187,15 +187,29 @@ div.image-wrapper.center figcaption {
 .c-searchColumn [class*='shanticon-'] {
     font-family: 'shanticon';
 }
-
-.sui-terms > .c-nodeHeader .icon {
-    font-size: 1.32em;
-    margin-right: 0.5rem;
+.c-nodeHeader .icon,
+.sui-contentHead .icon {
     position: relative;
-    top: 0.1rem;
-
     top: 0.2rem;
-    font-size: 2.5rem;
+    font-size: 1.75em;
+}
+
+.sui-contentHead .icon::before {
+    font-size: 1.8rem;
+}
+.c-nodeHeader .icon::before,
+.sui-contentHead .icon::before {
+    margin: 0 1rem 0 1rem;
+}
+.sui-header {
+    color: #fff;
+    padding: 0.25rem 0 0 1.5rem;
+    font-size: 1.5em;
+    height: 65px;
+}
+
+.jumbotron {
+    background-color: transparent;
 }
 
 .mandala.all,
@@ -245,7 +259,6 @@ div.image-wrapper.center figcaption {
 .sui-color-terms,
 .u-icon__terms {
     color: $color-terms;
-    font-size: 90%;
 }
 .u-color__audio-video,
 .sui-color-audio-video,
