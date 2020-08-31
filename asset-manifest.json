@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/mandala-om/static/css/main.5cfee3b7.chunk.css",
-    "main.js": "/mandala-om/static/js/main.c64a1461.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.c64a1461.chunk.js.map",
+    "main.css": "/mandala-om/static/css/main.834939e0.chunk.css",
+    "main.js": "/mandala-om/static/js/main.760f3e8a.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.760f3e8a.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.6b930fe2.js",
     "runtime-main.js.map": "/mandala-om/static/js/runtime-main.6b930fe2.js.map",
     "static/css/2.8ab1ff54.chunk.css": "/mandala-om/static/css/2.8ab1ff54.chunk.css",
-    "static/js/2.c3515def.chunk.js": "/mandala-om/static/js/2.c3515def.chunk.js",
-    "static/js/2.c3515def.chunk.js.map": "/mandala-om/static/js/2.c3515def.chunk.js.map",
+    "static/js/2.77a592c7.chunk.js": "/mandala-om/static/js/2.77a592c7.chunk.js",
+    "static/js/2.77a592c7.chunk.js.map": "/mandala-om/static/js/2.77a592c7.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.73ca18217cc37fd39da14af9f957d486.js": "/mandala-om/precache-manifest.73ca18217cc37fd39da14af9f957d486.js",
+    "precache-manifest.7496f5d295439f1b32fa35cf2dfe2ab8.js": "/mandala-om/precache-manifest.7496f5d295439f1b32fa35cf2dfe2ab8.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.8ab1ff54.chunk.css.map": "/mandala-om/static/css/2.8ab1ff54.chunk.css.map",
-    "static/css/main.5cfee3b7.chunk.css.map": "/mandala-om/static/css/main.5cfee3b7.chunk.css.map",
-    "static/js/2.c3515def.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.c3515def.chunk.js.LICENSE.txt",
+    "static/css/main.834939e0.chunk.css.map": "/mandala-om/static/css/main.834939e0.chunk.css.map",
+    "static/js/2.77a592c7.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.77a592c7.chunk.js.LICENSE.txt",
     "static/media/style.css": "/mandala-om/static/media/shanticon.be531d81.ttf",
     "static/media/Om.css": "/mandala-om/static/media/treebuts.bcb9b6f1.png"
   },
   "entrypoints": [
     "static/js/runtime-main.6b930fe2.js",
     "static/css/2.8ab1ff54.chunk.css",
-    "static/js/2.c3515def.chunk.js",
-    "static/css/main.5cfee3b7.chunk.css",
-    "static/js/main.c64a1461.chunk.js"
+    "static/js/2.77a592c7.chunk.js",
+    "static/css/main.834939e0.chunk.css",
+    "static/js/main.760f3e8a.chunk.js"
   ]
 }
