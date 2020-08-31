@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import React, { useState, useRef } from 'react';
 import NumericInput from 'react-numeric-input';
 
+import './FeaturePager.scss';
+
 export function FeaturePager(props) {
     const [pg, setPg] = useState(0);
     const pageInput = useRef(null);
@@ -59,30 +61,51 @@ export function FeaturePager(props) {
     }
 
     return (
-        <div>
-            <span
-                onClick={firstPage}
-                className={'shanticon-arrow-end-left icon'}
-            >
-                {' '}
-            </span>
-            <span onClick={prevPage} className={'shanticon-arrow3-left icon'}>
-                {' '}
-            </span>
-            <span>{wingo}</span> of <span>{props.pager.getMaxPage() + 1}</span>
-            &nbsp;
-            <span onClick={nextPage} className={'shanticon-arrow3-right icon'}>
-                {' '}
-            </span>
-            <span
-                onClick={lastPage}
-                className={'shanticon-arrow-end-right icon'}
-            >
-                {' '}
-            </span>
+        <div className={'c-featurePager__container'}>
+            <div className={'c-featurePager__navButtons'}>
+                <span
+                    onClick={firstPage}
+                    className={
+                        'icon u-icon__arrow-end-left c-pagerIcon__buttonFirst'
+                    }
+                >
+                    {' '}
+                </span>
+                <span
+                    onClick={prevPage}
+                    className={
+                        'icon u-icon__arrow3-left c-pagerIcon__buttonPrev'
+                    }
+                >
+                    {' '}
+                </span>
+                <span className={'c-pager__counterWrapper'}>
+                    <span className={'c-pager__counter-1'}>{wingo}</span>
+                    of
+                    <span className={'c-pager__counterMax'}>
+                        {props.pager.getMaxPage() + 1}
+                    </span>
+                </span>
+                <span
+                    onClick={nextPage}
+                    className={
+                        'icon u-icon__arrow3-right c-pagerIcon__buttonNext'
+                    }
+                >
+                    {' '}
+                </span>
+                <span
+                    onClick={lastPage}
+                    className={
+                        'icon u-icon__arrow-end-right c-pagerIcon__buttonLast'
+                    }
+                >
+                    {' '}
+                </span>
+            </div>
             {props.loadingState ? <span> loading...</span> : <span></span>}
-            <span className={'float-right'}>
-                <span>items per page:</span>
+            <div className={'c-featurePager__itemCount'}>
+                <span>Items per page:</span>
                 <NumericInput
                     aria-label="Set number of items per page"
                     min={1}
@@ -101,7 +124,7 @@ export function FeaturePager(props) {
                         'btnUp.mobile': {},
                     }}
                 />
-            </span>
+            </div>
         </div>
     );
 }

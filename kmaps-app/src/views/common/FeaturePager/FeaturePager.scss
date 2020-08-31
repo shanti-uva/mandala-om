@@ -1,0 +1,50 @@
+.c-featurePager__container {
+    text-align: right;
+    padding-right: 8rem;
+}
+.c-featurePager__navButtons {
+    display: inline;
+    margin-right: 3rem;
+}
+.c-featurePager__navButtons .icon {
+    margin: 0;
+    padding: 0.2rem 1.25rem;
+    //  font-size:90%;
+    color: #888;
+    cursor: pointer;
+}
+.c-featurePager__navButtons .icon:hover {
+    color: #555;
+}
+.c-featurePager__navButtons .icon {
+    font-size: 90%;
+}
+.c-pager__counterWrapper {
+    margin-right: 1rem;
+}
+.c-pager__counterWrapper span {
+    padding: 0 0.2rem;
+    margin: 0;
+    width: 15px;
+}
+.c-featurePager__navButtons span input {
+    height: 22px;
+    position: relative;
+    top: -0.05rem;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+.c-pager__counterWrapper .c-pager__counterMax {
+    padding: 0 1rem;
+}
+
+.c-featurePager__itemCount {
+    display: inline;
+}
+.c-featurePager__itemCount .react-numeric-input {
+    padding-right: 2rem;
+    padding-left: 0.5rem;
+}
+.c-featurePager__itemCount input {
+    margin-left: 0.5rem;
+}

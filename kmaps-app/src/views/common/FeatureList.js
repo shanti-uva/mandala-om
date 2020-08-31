@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeaturePager } from './FeaturePager';
+import { FeaturePager } from './FeaturePager/FeaturePager';
 import _ from 'lodash';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';

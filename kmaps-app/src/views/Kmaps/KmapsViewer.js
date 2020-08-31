@@ -214,7 +214,7 @@ export default function KmapsViewer(props) {
                 </div>
 
                 <span
-                    className={'sui-showinfo shanticon-info float-right'}
+                    className={'sui-showinfo u-icon__info float-right'}
                     onClick={() => setModalShow(true)}
                 ></span>
 

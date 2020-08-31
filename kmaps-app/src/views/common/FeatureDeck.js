@@ -6,7 +6,7 @@ import { FeatureCard } from './FeatureCard/FeatureCard';
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import CardDeck from 'react-bootstrap/CardDeck';
-import { FeaturePager } from './FeaturePager';
+import { FeaturePager } from './FeaturePager/FeaturePager';
 import Spinner from 'react-bootstrap/Spinner';
 
 // The length of the Rows at each Break Point
