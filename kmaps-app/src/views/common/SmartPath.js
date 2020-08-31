@@ -23,6 +23,5 @@ export function SmartPath(props) {
             smartPath = null;
             break;
     }
-
     return smartPath;
 }

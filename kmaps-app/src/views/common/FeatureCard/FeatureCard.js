@@ -110,7 +110,7 @@ export function FeatureCard(props) {
     // console.log("FOOTERING: ", props.doc);
     const asset_view = inline
         ? `./view/${props.doc.uid}?asset_type=${props.doc.asset_type}`
-        : `/${viewer}/${props.doc.uid}`;
+        : `/${viewer}/${props.doc.id}`;
     return (
         <Card
             key={props.doc.uid}

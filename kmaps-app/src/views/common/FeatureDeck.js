@@ -53,6 +53,20 @@ function insertBreakPoints(i, BP_SIZES, ret) {
     }
 }
 */
+/**
+ * Feature Deck : Returns a list of Feature Cards for creating galleries etc. Takes the following properties:
+ *      docs : a list of solr asset records
+ *      inline : boolean (meaning? render inline?)
+ *      pager : a FeaturePager component or false for no pager
+ *      loadingState : boolean (are we loading?)
+ *      title : the title for the deck/gallery
+ *
+ * @param props : {object}
+ * @returns {JSX.Element}
+ * @constructor
+ *
+ * @author ys2n
+ */
 export function FeatureDeck(props) {
     const shouldInline = (doc) => {
         let inline = true;
@@ -64,7 +78,6 @@ export function FeatureDeck(props) {
             case 'subjects':
             case 'terms':
             case 'places':
-                inline = false;
                 break;
             default:
                 inline = true;
@@ -125,7 +138,6 @@ export function FeatureDeck(props) {
             <FeaturePager pager={props.pager} />
             <CardDeck className={'c-card__grid'}>{LIST}</CardDeck>
             <FeaturePager pager={props.pager} />
-            <Jumbotron>{DEBUG_PRE}</Jumbotron>
         </React.Fragment>
     );
     return output;
