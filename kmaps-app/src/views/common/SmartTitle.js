@@ -32,7 +32,10 @@ export function SmartTitle(props) {
                 if (findIn(props.doc.feature_types_ss, 'County') > -1) {
                     smartTitle += ' County';
                 }
-                smartTitle += ', ' + state;
+
+                if (findIn(props.doc.feature_types_ss, 'State') === -1) {
+                    smartTitle += ', ' + state;
+                }
             }
             break;
         case 'subjects':
