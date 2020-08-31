@@ -31,14 +31,7 @@ export function FeatureCard(props) {
         props.doc.uid &&
         props.doc.asset_type !== 'images' &&
         props.doc.asset_type !== 'audio-video' ? (
-            <span
-                className={
-                    'icon u-icon__' +
-                    props.doc.asset_type +
-                    'icon u-color__' +
-                    props.doc.asset_type
-                }
-            ></span>
+            <span className={'icon u-icon__' + props.doc.asset_type}></span>
         ) : null;
 
     const viewer = props.doc.asset_type;
