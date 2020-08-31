@@ -152,6 +152,10 @@ div.image-wrapper.center figcaption {
  **/
 
 // START - NEW CSS
+// --- Some temp integrations
+.u-icon__terms::before {
+    font-size: 90%;
+}
 .shanti-field-itemcount,
 .shanti-field-path,
 .shanti-field-type,
@@ -187,6 +191,8 @@ div.image-wrapper.center figcaption {
 .c-searchColumn [class*='shanticon-'] {
     font-family: 'shanticon';
 }
+
+// --- temp integration process from prototype
 .c-nodeHeader .icon,
 .sui-contentHead .icon {
     position: relative;
@@ -194,7 +200,7 @@ div.image-wrapper.center figcaption {
     font-size: 1.75em;
 }
 .sui-contentHead .icon::before {
-    font-size: 2.25rem;
+    font-size: 2.1rem;
 }
 .c-nodeHeader .icon::before,
 .sui-contentHead .icon::before {
@@ -206,11 +212,17 @@ div.image-wrapper.center figcaption {
     font-size: 1.5em;
     height: 65px;
 }
+.sui-nameEntry-meta {
+    display: block;
+    margin-top: 0.75rem;
+}
 
+// --- JSON button on kmaps views
 .jumbotron {
     background-color: transparent;
 }
 
+// --- temp integration process from prototype
 .mandala.all,
 .mandala.sui-header,
 .mandala.collections {
@@ -243,7 +255,7 @@ div.image-wrapper.center figcaption {
 .mandala.collections {
     background-color: $color-mandala;
 }
-
+// --- temp integration process from prototype
 .u-color__all,
 .sui-color-all,
 .u-color__mandala,
