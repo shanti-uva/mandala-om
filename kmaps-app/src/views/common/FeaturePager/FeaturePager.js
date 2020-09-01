@@ -9,6 +9,10 @@ export function FeaturePager(props) {
     const [pg, setPg] = useState(0);
     const pageInput = useRef(null);
 
+    if (props.pager === undefined) {
+        return null;
+    }
+
     let wingo = (
         <NumericInput
             aria-label="Goto page"

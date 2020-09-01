@@ -9,7 +9,10 @@ import LinesEllipsis from 'react-lines-ellipsis';
  * @returns rendered title
  */
 export function SmartTitle(props) {
-    let smartTitle = props.doc.title[0]; // default
+    let smartTitle =
+        Array.isArray(props.doc.title) && props.doc.title.length > 0
+            ? props.doc.title[0]
+            : props.doc.title; // default
 
     function findIn(arr, value) {
         return _.findIndex(arr, (x) => x === value);
@@ -29,7 +32,10 @@ export function SmartTitle(props) {
                 if (findIn(props.doc.feature_types_ss, 'County') > -1) {
                     smartTitle += ' County';
                 }
-                smartTitle += ', ' + state;
+
+                if (findIn(props.doc.feature_types_ss, 'State') === -1) {
+                    smartTitle += ', ' + state;
+                }
             }
             break;
         case 'subjects':

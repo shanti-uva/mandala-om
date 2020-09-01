@@ -5,6 +5,7 @@ import jsonpAdapter from '../../logic/axios-jsonp';
 import { Tabs, Tab } from 'react-bootstrap';
 import './AVViewer.css';
 import $ from 'jquery';
+import { FeatureDeck } from '../common/FeatureDeck';
 import { convertNodeToElement } from 'react-html-parser';
 import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 
@@ -16,9 +17,13 @@ import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
  *      1. AudioVideoPlayer: This component defined below displays the video play and transcript in a single row,
  *      2. AudioVideoMeta: This component also defined below displays a row with the tabbed metadata information for the video.
  *
+ * The AudioVideoMeta displays two tabs: an info tab with the fields labels and information and a related AV assets tab
+ * which has a gallery of related AV assets.
+ *
  * @param props
  * @returns {JSX.Element}
  * @constructor
+ * @author ndg8f
  */
 export function AudioVideoViewer(props) {
     const id = props.id;
@@ -106,28 +111,6 @@ export function AudioVideoViewer(props) {
 }
 
 /**
- * A simple component to show the AV player and transcript in a row. A function has been added to Bill's legacy code in
- * audiovideo.js called "DrawPlayer" that takes an element ID and draws the player and transcript in that element.
- *
- * <AudioVideoPlayer
- id={id}
- asset={kmasset}
- sui={sui}
- node={nodejson}
- />
- * @param props
- * @returns {JSX.Element}
- * @constructor
- */
-function AudioVideoPlayer(props) {
-    const kmasset = props.asset;
-    const node = props.node;
-    const sui = props.sui;
-    sui.av.DrawPlayer(kmasset, node);
-    return <div id={'sui-av'}>Loading ...</div>;
-}
-
-/**
  * A component to show two bootstrap tabs for "Details" and "Related". The Details tab is populated by Bill's code audiovideo.js
  * A need function, DrawMetaNew has been added to that code that takes and element ID and draws the combined meta data
  * in that element. Previously Bill had different tabs for different types of metadata, but with the addition of the
@@ -148,10 +131,18 @@ function AudioVideoMeta(props) {
     const sui = props.sui;
     const metamarkup =
         kmasset && node ? sui.av.DrawMetaNew(kmasset, node) : 'Loading ...';
-
+    const [tabkey, setTabkey] = useState('details');
+    useEffect(() => {
+        $('.sui-content').scrollTop(0); // on smaller screens need to scroll down to get to related av items so when clicked scroll to top of div
+        setTabkey('details'); // Select and show the details tab when a new item is shown
+    }, [kmasset]);
     return (
         <div id="av-meta-row">
-            <Tabs defaultActiveKey="details" id="av-meta-tabs">
+            <Tabs
+                id="av-meta-tabs"
+                activeKey={tabkey}
+                onSelect={(k) => setTabkey(k)}
+            >
                 <Tab eventKey="details" title="DETAILS ">
                     <div id={'meta-details'}>
                         <HtmlWithPopovers markup={metamarkup} />
@@ -194,75 +185,16 @@ function AudioVideoRelated(props) {
                 setMlt(response.data);
             })
             .catch(function (error) {
-                setMlt(['<li>Loading ...</li>']);
+                setMlt([]);
             });
     }, [id]);
     return (
         <div id={'meta-mlt'}>
-            {mlt.map((tile, n) => {
-                return <AudioVideoMltTile key={'avmlt-' + n} markup={tile} />;
-            })}
+            <FeatureDeck
+                docs={mlt}
+                title={'Related AV Assets'}
+                inline={false}
+            />
         </div>
     );
-}
-
-/**
- * A component to process the HTML markup for a tile in the More Like This/Related gallery. It takes the given markup
- * and converts the link to the asset into an internal stand-alone links, e.g. ../audio-video/{nid}. It also removes
- * the link to the collection as there is currently no view for the collection in the stand alone.
- *
- * @param props
- * @returns {JSX.Element}
- * @constructor
- */
-function AudioVideoMltTile(props) {
-    const path = process.env.PUBLIC_URL;
-    const mu = props.markup;
-    const $mu = $(mu);
-    const nid = $mu.data('nid');
-    // Custom Transform function for HtmlCustom in MandalaMarkup.js which calls ReactHtmlConverter
-    const customTransform = (node, index) => {
-        if (node) {
-            // Change <li> to <div>
-            if (
-                node.name === 'li' &&
-                node.attribs &&
-                node.attribs['class'] &&
-                node.attribs['class'] === 'shanti-thumbnail'
-            ) {
-                node.name = 'div';
-                return convertNodeToElement(node, index, customTransform);
-            }
-            // Update links
-            else if (node.name === 'a') {
-                // Remove link to collection in footer for now
-                if (
-                    node.attribs &&
-                    node.attribs['href'] &&
-                    node.attribs['href'].includes('/collection')
-                ) {
-                    node.name = 'span';
-                    delete node.attribs['class'];
-                    delete node.attribs['href'];
-                    return convertNodeToElement(node, index, customTransform);
-                }
-                // Fix link to AV item
-                else if (
-                    node.attribs &&
-                    node.attribs['href'] &&
-                    node.attribs['href'].match(/\/(audio|video)/)
-                ) {
-                    node.attribs['href'] = path + '/audio-video/' + nid;
-                    return convertNodeToElement(node, index, customTransform);
-                }
-            }
-        }
-    };
-
-    const options = {
-        decodeEntities: true,
-        transform: customTransform,
-    };
-
-    return <HtmlCustom markup={mu} options={options} />;
 }
