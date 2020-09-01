@@ -16,6 +16,13 @@ import './FeatureCard.scss';
 import '../../../css/fonts/shanticon/style.css';
 // import '../../../om-global-var.scss';
 
+// Map of special type glyphs:  This uses a compound key of "<asset_type>/<asset_subtype>" so that special glyphs can be used.
+// If a type/subtype does not appear in this map, then the asset_type glyph is used.  -- ys2n
+const typeGlyphMap = {
+    'audio-video/video': <span className={'icon u-icon__video'} />,
+    'audio-video/audio': <span className={'icon u-icon__audio'} />,
+};
+
 export function FeatureCard(props) {
     // console.log('FeatureCard: doc = ', props.doc.uid);
     // console.log('FeatureCard: inline = ', props.inline);
@@ -23,8 +30,14 @@ export function FeatureCard(props) {
 
     const [modalShow, setModalShow] = React.useState(false);
 
+    const subTypeGlyph =
+        typeGlyphMap[props.doc.asset_type + '/' + props.doc.asset_subtype];
     const typeGlyph = props.doc.uid ? (
-        <span className={'icon u-icon__' + props.doc.asset_type}></span>
+        subTypeGlyph ? (
+            subTypeGlyph
+        ) : (
+            <span className={'icon u-icon__' + props.doc.asset_type}></span>
+        )
     ) : null;
 
     const assetGlyph =
@@ -78,13 +91,16 @@ export function FeatureCard(props) {
     date = date?.split('T')[0];
 
     let creator =
-        props.doc.creator.length > 0
+        props.doc.creator?.length > 0
             ? props.doc.creator.join(', ')
             : props.doc.node_user;
-    if (props.doc.creator.length > 3) {
+    if (props.doc.creator?.length > 3) {
         creator = props.doc.creator.slice(0, 3).join(', ') + '…';
     }
-    creator = creator.replace(/\&amp\;/g, '&');
+
+    if (creator) {
+        creator = creator.replace(/\&amp\;/g, '&');
+    }
 
     const footer_text = props.doc.collection_title ? (
         <span className={'icon u-icon__collections'}>
