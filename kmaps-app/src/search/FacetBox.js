@@ -89,9 +89,13 @@ export function FacetBox(props) {
         creator: <span className={'icon u-icon__agents'} />,
         languages: <span className={'icon u-icon__comments-o'} />,
         feature_types: <span className={'icon u-icon__explore'} />,
+        associated_subjects: <span className={'icon u-icon__essays'} />,
+        perspective: <span className={'icon u-icon__file-picture'} />,
     };
 
     chosen_icon = chosen_icon || ICON_MAP[facetType];
+    console.log('facetType = ', facetType, ' chosen_icon = ', chosen_icon);
+
     const icon = chosen_icon;
     const plus = <span className={'u-icon__plus icon'} />;
     const minus = <span className={'u-icon__minus icon'} />;

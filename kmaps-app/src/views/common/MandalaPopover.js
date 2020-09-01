@@ -65,10 +65,9 @@ export function MandalaPopover(props) {
         return <>No data!</>;
     }
     const isTib = kmapdata.tree == 'terms' && kmapdata.name_tibt;
-    const myhead = isTib ? kmapdata.name_tibt : kmapdata.header;
+    const myhead = isTib ? kmapdata.name_tibt[0] : kmapdata.header;
     let popoverLabel = '';
     if (props.children) {
-        console.log('rendering children');
         popoverLabel = (
             <span
                 className="popover-link-custom"
@@ -82,7 +81,7 @@ export function MandalaPopover(props) {
     } else {
         popoverLabel = (
             <>
-                <span className={isTib ? 'bo' : ''}>{myhead}</span>
+                <span className={isTib ? 'u-bo' : ''}>{myhead}</span>
                 <span
                     className="popover-link"
                     ref={target}
@@ -98,7 +97,7 @@ export function MandalaPopover(props) {
     return (
         <span
             key={kmkey}
-            className="kmap-tag-group"
+            className="kmap-tag-group processed"
             data-kmdomain={domain}
             data-kmid={kid}
         >
@@ -106,7 +105,7 @@ export function MandalaPopover(props) {
             <Overlay target={target.current} show={show} placement={placement}>
                 <Popover
                     data-kmid={kid}
-                    className={'related-resources-popover'}
+                    className={'related-resources-popover processed'}
                     onMouseOver={() => setShow(true)}
                     onMouseOut={() => setShow(false)}
                 >
