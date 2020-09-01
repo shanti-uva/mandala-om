@@ -312,9 +312,7 @@ export default class AudioVideo {
                 str += '<p><b>TERMS</b>&nbsp;&nbsp;';
                 for (i = 0; i < d.field_kmap_terms.und.length; ++i) {
                     str +=
-                        sui.pages.WrapInLangSpan(
-                            d.field_kmap_terms.und[i].header
-                        ) +
+                        d.field_kmap_terms.und[i].header +
                         sui.pages.AddPop(
                             d.field_kmap_terms.und[i].domain +
                                 '-' +
