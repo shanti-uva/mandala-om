@@ -11,12 +11,12 @@ html {
 }
 
 body {
-    color: #333;
+    color: $color-bodyText;
     -webkit-font-smoothing: antialiased; /* Chrome fonts */
     -moz-osx-font-smoothing: grayscale; /* FF fonts */
     overflow: hidden;
     margin-top: 0 !important;
-    font-family: 'Open Sans', sans-serif;
+    font-family: $font-family-sans;
     font-weight: 400;
     /*text-rendering: optimizeSpeed;
     letter-spacing: 0.01rem;*/
@@ -96,7 +96,7 @@ h3 {
 h4,
 h5,
 h6 {
-    //   letter-spacing: 0.0475rem;
+    //   letter-spacing: 0.0475rem; - use care with Tibetan fonts
 }
 
 .h4,
@@ -113,20 +113,19 @@ h6 {
 
 a {
     text-decoration: none;
-    color: #03038e;
+    color: $color-link-default;
 }
 
 a:hover,
 a:focus,
 a:active {
     text-decoration: none;
-    color: #df3d26;
+    color: $color-link-hover;
 }
 
 /*********************** Mandala Modal Styles ***********************/
 a.mandala-modal {
     text-decoration: none;
-    color: #03038e;
     cursor: pointer;
 }
 
@@ -151,8 +150,10 @@ div.image-wrapper.center figcaption {
  ** END - Global Styles copied from ShantiSarvaka shanti-main.css for fonts etc (ndg, 2020-07-14)
  **/
 
-// START - NEW CSS
-// --- Some temp integrations
+// START
+// ------- NEW CSS
+// -----------------------------------
+// --- NOTE: many are temp integrations and will evolve as css integration continues
 .u-icon__terms::before {
     font-size: 90%;
 }
@@ -168,6 +169,9 @@ div.image-wrapper.center figcaption {
 .shanti-field-place,
 .shanti-field-subject {
     font-size: 1.18rem;
+    font-family: $font-family-sans;
+    font-weight: 400;
+    line-height: 1.5em;
 }
 .shanti-field-itemcount span::before,
 .shanti-field-path span::before,
@@ -189,7 +193,7 @@ div.image-wrapper.center figcaption {
 .c-searchColumn [class*='u-icon__'],
 .c-searchColumn [class^='shanticon-'],
 .c-searchColumn [class*='shanticon-'] {
-    font-family: 'shanticon';
+    font-family: 'shanticon', sans-serif;
 }
 
 // --- temp integration process from prototype

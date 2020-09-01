@@ -16,7 +16,7 @@
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
     margin: 0.3rem 0.3rem 1rem;
-    font-size: 1.5rem; // reset font size with rem value
+    font-size: $font-size-default; // reset font size on cards with rem value
 }
 .card-deck .card:hover {
     //   transform: scale(1.001);
@@ -34,10 +34,6 @@
     color: #df3d26;
 }
 
-.card__imageWrap {
-    //   max-height: 110px;
-    //   overflow: hidden;
-}
 .card-image,
 .card-img-top {
     border-radius: 0;
@@ -55,7 +51,7 @@
     background-clip: padding-box;
     text-shadow: 0 0 1px #555;
     color: white;
-    font-size: 1.12em;
+    font-size: 1.06em;
     line-height: 1.88em;
     font-weight: normal;
     text-align: center;
@@ -87,7 +83,7 @@
     top: 0;
     background: white;
     z-index: 1;
-    font-size: 115%;
+    font-size: $font-size-default;
 }
 
 .card-title {
@@ -96,7 +92,6 @@
     padding-top: 0.75rem;
 }
 .card-title a {
-    color: #333;
     font-size: 1.5em;
     line-height: 1.44em;
     padding: 0 0.75rem 0 0.25rem;
@@ -107,29 +102,29 @@
     width: 100%;
 }
 
-.list-group {
+.card-body .list-group {
     border-top: 1px solid rgba(205, 169, 66, 1);
     padding: 0.5rem 0;
 }
-.list-group-item {
+.card-body .list-group-item {
     /*padding: 0.15rem 1.15rem 0.25rem 0.3rem;*/
     padding: 0.075rem;
     border: none;
     /*line-height: 0.88em;*/
 }
-.list-group-item:empty {
+.card-body .list-group-item:empty {
     padding: 0 !important;
     border: none !important;
 }
 
-.card-footer {
-    background: #a27f1c;
+.card-deck .card-footer {
+    background: $color-golden;
     height: 3rem;
     font-size: 1.25rem;
     text-transform: capitalize;
     padding: 0;
     border: none;
-    border-radius: 0 0 0.35rem 0.35rem !important;
+    border-radius: 0 0 0.35rem 0.35rem;
 }
 .card-footer:hover {
     background-color: rgba(105, 79, 4, 0.85);
@@ -187,55 +182,59 @@
     color: #fff;
 }
 
-.c-button__json {
+.card-body .c-button__json {
     position: absolute;
     bottom: 0.5rem;
     right: 1.35rem;
 }
 
+.c-card__content-field a {
+    font-weight: $font-weight-sans-bold;
+}
 .c-card__listItem--related .c-card__content-field {
     display: inline;
     font-family: $font-family-sans;
 }
 .c-card__listItem--related .c-card__content-field::after {
-    // adding comma separators with space after
-    content: ',';
+    content: ','; // adding comma separators, with spacing margin
     display: inline-block;
     margin-right: 0.4rem;
 }
 .c-card__listItem--related .c-card__content-field:last-child::after {
-    // removing the last comma
-    content: '';
+    content: ''; // removing the last comma
 }
 .c-card__listItem--related .c-card__content-field > .icon::before {
-    // removing the icon on each list item
-    display: none;
+    display: none; // removing the repeating icon preceding each list item
 }
 .c-card__listItem--related
     .c-card__content-field:first-of-type
     > .icon::before {
-    // adding the icon on the first list item only
-    display: inline-block;
+    display: inline-block; // adding the icon on the first list item only
 }
 
+// setup the icon at start of related asset lists
 .c-smartRelateds__limited .shanti-field-place:first-child .icon::before {
-    content: '\e62b';
+    content: '\e62b'; // Places
 }
 .c-smartRelateds__limited .shanti-field-subjects:first-child .icon::before {
-    content: '\e634';
+    content: '\e634'; // Subjects
 }
 .c-smartRelateds__limited .shanti-field-terms:first-child .icon::before {
-    content: '\e635';
+    content: '\e635'; // Terms
 }
 
+.card__typeGlyph .icon::before {
+    position: relative;
+    top: 0.1rem;
+}
+.c-card__grid-mandala .card__typeGlyph .icon {
+    background-color: $color-mandala;
+}
 .c-card__grid-audio-video .card__typeGlyph .icon {
     background-color: $color-audio-video;
 }
 .c-card__grid-images .card__typeGlyph .icon {
     background-color: $color-images;
-}
-.c-card__grid-mandala .card__typeGlyph .icon {
-    background-color: $color-mandala;
 }
 .c-card__grid-places .card__typeGlyph .icon {
     background-color: $color-places;
@@ -257,19 +256,19 @@
 }
 
 .c-card__content-field.shanti-field-type {
-    font-size: 1em;
+    //   font-size: 1em;
 }
 
 .c-card__content-field.shanti-field-type .icon {
-    padding-left: 0.2rem;
+    //   padding-left: 0.2rem;
 }
 
 .c-card__content-field.shanti-field-body {
-    padding: 0.3rem 0.5rem 0.5rem;
-    line-height: 1.25em;
-    font-size: 0.88em;
+    //    padding: 0.3rem 0.5rem 0.5rem;
+    //    line-height: 1.25em;
+    //   font-size: 0.88em;
 }
 
 .c-card__content-field.shanti-field-body p {
-    margin-bottom: 0;
+    //   margin-bottom: 0;
 }
