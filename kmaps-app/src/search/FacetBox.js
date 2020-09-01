@@ -85,8 +85,8 @@ export function FacetBox(props) {
         collections: <span className={'icon u-icon__collections'} />,
         'recent-searches': '\ue62e',
         asset_type: <span className={'icon u-icon__texts'} />,
-        users: <span className={'icon u-icon__agents'} />,
-        creator: <span className={'icon u-icon__address-card-o'} />,
+        users: <span className={'icon u-icon__community'} />,
+        creator: <span className={'icon u-icon__agents'} />,
         languages: <span className={'icon u-icon__comments-o'} />,
         feature_types: <span className={'icon u-icon__explore'} />,
     };
