@@ -197,6 +197,19 @@ div.image-wrapper.center figcaption {
 }
 
 // --- temp integration process from prototype
+
+.sui-terms .c-nodeHeader__iconLink .icon {
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    top: -1rem;
+    left: -2rem;
+}
+.sui-terms .c-nodeHeader__iconLink .icon::before {
+    margin-right: 0.5rem;
+    margin-left: 1.5rem;
+}
+
 .c-nodeHeader .icon,
 .sui-contentHead .icon {
     position: relative;

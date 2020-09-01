@@ -11,6 +11,16 @@ $font-weight-sans-bold: 600;
 $font-weight-serif: 400;
 $font-weight-serif-medium: 500;
 $font-weight-serif-bold: 600;
+
+// ===========================================
+// * Breakpoints
+// ===========================================
+$break-0: 0;
+$break-1: 36em; /* 576px */
+$break-2: 48em; /* 768px */
+$break-3: 62em; /* 992px */
+$break-4: 75em; /* 1200px */
+
 // ===========================================
 // * Colors
 // ===========================================
@@ -42,12 +52,3 @@ $color-grey-600: #ccc;
 $color-grey-700: #c0c0c0;
 $color-grey-800: #aaa;
 $color-grey-900: #999; // darkest grey
-
-// ===========================================
-// * Breakpoints
-// ===========================================
-$break-0: 0;
-$break-1: 36em; /* 576px */
-$break-2: 48em; /* 768px */
-$break-3: 62em; /* 992px */
-$break-4: 75em; /* 1200px */
