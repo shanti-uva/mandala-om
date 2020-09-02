@@ -13,6 +13,8 @@ const solrurls = {
  * A async function to perform a solr query provided a query object. The query object needs to have the following properties:
  *      index: (assets|terms),
  *      params: name-value pairs for params for the query
+ * For an example, see the useAsset hook
+ *
  * @param _
  * @param query
  * @returns {Promise<any>}
