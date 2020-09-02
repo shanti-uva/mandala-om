@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import useStatus from '../../hooks/useStatus';
 import { useSolr } from '../../hooks/useSolr';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -102,6 +103,19 @@ function ImageCarousel(props) {
     };
 
     const resource = useSolr('collitems', querySpecs);
+
+    useEffect(() => {
+        if ($('#image-carousel').length > 0) {
+            setTimeout(function () {
+                const scrollval = Math.floor(
+                    $('.thumb.current').get(0).offsetLeft -
+                        $('#image-carousel').get(0).offsetWidth / 2
+                );
+                $('#image-carousel').scrollLeft(scrollval);
+            }, 1000);
+        }
+    }, [$('#image-carousel')]);
+
     if (resource) {
         console.log('resource result', resource);
     }
@@ -123,18 +137,26 @@ function ImageCarousel(props) {
     const myindex = carouseldivs.findIndex(function (item) {
         return item.id == solrdoc.id;
     });
-    const showst = myindex > 20 ? myindex - 20 : 0;
+    const imgnum = 100;
+    const showst = myindex > imgnum ? myindex - imgnum : 0;
     const showend =
         myindex < carouseldivs.length - 1
-            ? myindex + 20
+            ? myindex + imgnum
             : carouseldivs.length - 1;
     const showdivs = carouseldivs.slice(showst, showend);
 
     return (
-        <div className={'c-image__carousel'}>
+        <div id="image-carousel" className={'c-image__carousel'}>
             {showdivs.map((item, index) => (
-                <div id={'carousel-slide-' + index} className="thumb">
-                    <img src={item.url_thumb} />
+                <div
+                    id={'carousel-slide-' + index}
+                    className={
+                        'thumb' + (item.id === solrdoc.id ? ' current' : '')
+                    }
+                >
+                    <Link to={item.id}>
+                        <img src={item.url_thumb} />
+                    </Link>
                 </div>
             ))}
         </div>
