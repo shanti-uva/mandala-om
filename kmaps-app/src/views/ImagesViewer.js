@@ -6,40 +6,32 @@ import { fitDimensions, grokId } from './common/utils';
 import { Viewer } from 'react-iiif-viewer'; // see https://www.npmjs.com/package/react-iiif-viewer
 
 export function ImagesViewer(props) {
-    const match = useRouteMatch();
-    console.log('ImagesViewer: match params = ', match.params);
-    console.log('ImagesViewer: props = ', props);
-
-    const { nid, relId, id, viewerType } = match.params;
+    const solrdoc = props.mdlasset;
+    const nodejson = props.nodejson;
     const status = useStatus();
 
     // TODO: should we calculate MAX_HEIGHT and MAX_WIDTH?
     const MAX_HEIGHT = 800;
     const MAX_WIDTH = 1024;
 
-    const targetId = relId || id;
-    const imageId = grokId(targetId);
-    const imageData = useAsset('images', imageId);
-    const loaded = (imageData && true) || false;
+    const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
 
     useEffect(() => {
-        if (!props.inline) {
-            let imgDoc = null;
-            imgDoc = imageData?.docs?.length ? imageData.docs[0] : null;
+        if (solrdoc) {
             status.clear();
             status.setHeaderTitle(
-                imgDoc?.caption || imgDoc?.title || 'ImageViewer'
+                solrdoc?.caption || solrdoc?.title || 'ImageViewer'
             );
             status.setType('images');
         }
-    }, [imageData]);
+    }, [solrdoc]);
 
     let thumbUrl, imgHeight, imgWidth, fullUrl;
-    if (loaded) {
-        console.log(imageData.docs[0]);
-        thumbUrl = imageData.docs[0]?.url_thumb;
-        imgHeight = imageData.docs[0]?.img_height_s;
-        imgWidth = imageData.docs[0]?.img_width_s;
+    if (solrdoc) {
+        console.log(solrdoc);
+        thumbUrl = solrdoc?.url_thumb;
+        imgHeight = solrdoc?.img_height_s;
+        imgWidth = solrdoc?.img_width_s;
         fullUrl = thumbUrl
             ? thumbUrl.replace('200,200', MAX_WIDTH + ',' + MAX_HEIGHT)
             : '';
@@ -49,13 +41,16 @@ export function ImagesViewer(props) {
             imgHeight,
             imgWidth
         );
+        // solrdoc.url_iiif_s
         return (
             <div className={'images legacy'}>
-                {loaded && (
-                    <img src={fullUrl} height={dispHeight} width={dispWidth} />
-                )}
+                <Viewer iiifUrl={solrdoc.url_iiif_s} />
+                {/*
+
+                <img src={fullUrl} height={dispHeight} width={dispWidth} />
+                   */}
                 <h4>NOT YET IMPLEMENTED IMAGES</h4>{' '}
-                <pre>{JSON.stringify(imageData, undefined, 3)}</pre>
+                <pre>{JSON.stringify(solrdoc, undefined, 3)}</pre>
                 <pre>
                     {JSON.stringify({ ...props, sui: null }, undefined, 3)}
                 </pre>

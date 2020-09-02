@@ -63,7 +63,7 @@ export function ContentPane(props) {
 
                     {/* IMAGES */}
                     <Route path={`${path}images/:id`}>
-                        <GenAssetContext assettype={'images'}>
+                        <GenAssetContext assetType={'images'}>
                             <ImagesViewer sui={props.sui} />
                         </GenAssetContext>
                     </Route>
