@@ -104,17 +104,23 @@ function ImageCarousel(props) {
 
     const resource = useSolr('collitems', querySpecs);
 
+    const centerCarousel = () => {
+        clearTimeout(window.centerCarousel);
+        window.centerCarousel = setTimeout(function () {
+            if ($('.thumb.current').length === 0) {
+                return;
+            }
+            const scrollval = Math.floor(
+                $('.thumb.current').get(0).offsetLeft -
+                    $('#image-carousel').get(0).offsetWidth / 2
+            );
+            $('#image-carousel').scrollLeft(scrollval);
+        }, 10);
+    };
     useEffect(() => {
         if ($('#image-carousel').length > 0) {
             setTimeout(function () {
-                if ($('.thumb.current').length === 0) {
-                    return;
-                }
-                const scrollval = Math.floor(
-                    $('.thumb.current').get(0).offsetLeft -
-                        $('#image-carousel').get(0).offsetWidth / 2
-                );
-                $('#image-carousel').scrollLeft(scrollval);
+                centerCarousel();
             }, 1000);
         }
     }, [$('#image-carousel')]);
@@ -158,7 +164,7 @@ function ImageCarousel(props) {
                     }
                 >
                     <Link to={item.id}>
-                        <img src={item.url_thumb} />
+                        <img src={item.url_thumb} onLoad={centerCarousel} />
                     </Link>
                 </div>
             ))}
