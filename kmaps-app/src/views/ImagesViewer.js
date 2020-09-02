@@ -3,6 +3,7 @@ import useStatus from '../hooks/useStatus';
 import useAsset from '../hooks/useAsset';
 import { useRouteMatch } from 'react-router';
 import { fitDimensions, grokId } from './common/utils';
+import { Viewer } from 'react-iiif-viewer'; // see https://www.npmjs.com/package/react-iiif-viewer
 
 export function ImagesViewer(props) {
     const match = useRouteMatch();
@@ -35,10 +36,13 @@ export function ImagesViewer(props) {
 
     let thumbUrl, imgHeight, imgWidth, fullUrl;
     if (loaded) {
+        console.log(imageData.docs[0]);
         thumbUrl = imageData.docs[0]?.url_thumb;
         imgHeight = imageData.docs[0]?.img_height_s;
         imgWidth = imageData.docs[0]?.img_width_s;
-        fullUrl = thumbUrl.replace('200,200', MAX_WIDTH + ',' + MAX_HEIGHT);
+        fullUrl = thumbUrl
+            ? thumbUrl.replace('200,200', MAX_WIDTH + ',' + MAX_HEIGHT)
+            : '';
         const { height: dispHeight, width: dispWidth } = fitDimensions(
             MAX_HEIGHT,
             MAX_WIDTH,

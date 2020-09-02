@@ -63,13 +63,9 @@ export function ContentPane(props) {
 
                     {/* IMAGES */}
                     <Route path={`${path}images/:id`}>
-                        <MdlAssetContext assettype={'images'} sui={props.sui}>
-                            <ImagesViewer
-                                id={props.id}
-                                sui={props.sui}
-                                onStateChange={props.onStateChange}
-                            />
-                        </MdlAssetContext>
+                        <GenAssetContext assettype={'images'}>
+                            <ImagesViewer sui={props.sui} />
+                        </GenAssetContext>
                     </Route>
                     <Route path={`${path}images`}>
                         <ImagesHome />

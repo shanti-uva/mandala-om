@@ -99,6 +99,46 @@ export function Home(props) {
                                 </li>
                             </ul>
 
+                            <h4>Images</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/images/1421596'}>
+                                        Image: Dudul Dorjay Festival Photo
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/images/160186'}>
+                                        Image: High Tibet Chu ser
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/images/45806'}>
+                                        Image: Woman on Basum Island
+                                    </Link>
+                                </li>
+                            </ul>
+
+                            <h4>Audio-Video</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/audio-video/256'}>
+                                        Video: Women Discuss Their Dreams
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/audio-video/306'}>
+                                        Video: Dawa and Pudrön Flirt
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/audio-video/9246'}>
+                                        Video: Riddle of the Terma Vase
+                                    </Link>{' '}
+                                    (Many Agents, Transcript, Tibetan and
+                                    Chinese text)
+                                </li>
+                            </ul>
+
                             <h4>Texts</h4>
                             <ul>
                                 <li>
@@ -123,27 +163,6 @@ export function Home(props) {
                                         Text: Hagar of The Pawn-Shop
                                     </Link>{' '}
                                     has Hagar... and a Pawn Shop.
-                                </li>
-                            </ul>
-
-                            <h4>Audio-Video</h4>
-                            <ul>
-                                <li>
-                                    <Link to={'/audio-video/256'}>
-                                        Video: Women Discuss Their Dreams
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/audio-video/306'}>
-                                        Video: Dawa and Pudrön Flirt
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/audio-video/9246'}>
-                                        Video: Riddle of the Terma Vase
-                                    </Link>{' '}
-                                    (Many Agents, Transcript, Tibetan and
-                                    Chinese text)
                                 </li>
                             </ul>
 

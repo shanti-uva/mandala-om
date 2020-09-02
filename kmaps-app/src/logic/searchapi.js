@@ -662,7 +662,7 @@ function constructTextQuery(searchString) {
 
 function constructFilters(filters) {
     function arrayToHash(array, keyField) {
-        console.log('received: ', array);
+        // console.log('received: ', array);
         if (!array) {
             array = [];
         }
@@ -676,9 +676,9 @@ function constructFilters(filters) {
         }, {});
     }
 
-    console.log('constructFilters: received filters: ', filters);
+    // console.log('constructFilters: received filters: ', filters);
     const hashedFilters = arrayToHash(filters, 'field');
-    console.log('constructFilters: sorted filters = ', hashedFilters);
+    // console.log('constructFilters: sorted filters = ', hashedFilters);
 
     const facets = Object.keys(hashedFilters);
     // console.log('constructFilters: keys = ', facets);

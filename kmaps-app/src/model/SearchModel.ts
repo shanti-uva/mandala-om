@@ -207,7 +207,7 @@ export const searchModel: SearchModel = {
 
         const perf = performance.getEntriesByName('SearchModelSearchUpdate');
         perf.forEach((x) => {
-            console.log('SearchModelSearchUpdate duration: ' + x.duration);
+            // console.log('SearchModelSearchUpdate duration: ' + x.duration);
         });
         performance.clearMeasures();
 

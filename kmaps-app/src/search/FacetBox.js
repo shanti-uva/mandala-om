@@ -94,7 +94,7 @@ export function FacetBox(props) {
     };
 
     chosen_icon = chosen_icon || ICON_MAP[facetType];
-    console.log('facetType = ', facetType, ' chosen_icon = ', chosen_icon);
+    // console.log('facetType = ', facetType, ' chosen_icon = ', chosen_icon);
 
     const icon = chosen_icon;
     const plus = <span className={'u-icon__plus icon'} />;
