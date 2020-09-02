@@ -107,6 +107,9 @@ function ImageCarousel(props) {
     useEffect(() => {
         if ($('#image-carousel').length > 0) {
             setTimeout(function () {
+                if ($('.thumb.current').length === 0) {
+                    return;
+                }
                 const scrollval = Math.floor(
                     $('.thumb.current').get(0).offsetLeft -
                         $('#image-carousel').get(0).offsetWidth / 2
@@ -137,7 +140,7 @@ function ImageCarousel(props) {
     const myindex = carouseldivs.findIndex(function (item) {
         return item.id == solrdoc.id;
     });
-    const imgnum = 100;
+    const imgnum = 30;
     const showst = myindex > imgnum ? myindex - imgnum : 0;
     const showend =
         myindex < carouseldivs.length - 1
