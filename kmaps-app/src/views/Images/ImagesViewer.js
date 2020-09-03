@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useStatus from '../../hooks/useStatus';
 import { useSolr } from '../../hooks/useSolr';
@@ -7,18 +7,32 @@ import { Viewer } from 'react-iiif-viewer'; // see https://www.npmjs.com/package
 import $ from 'jquery';
 import './images.sass';
 
+/**
+ * Compontent that creates the Image Viewer page, including:
+ *      1. Main Image which is an instance of the SeaDragon IIIF viewer (Viewer)
+ *      2. Title and Byline
+ *      3. Carousel of all images in the main images collection (ImageCarousel)
+ *      4. Metadata about the image
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ * @author ndg8f (2020-09-02)
+ */
 export function ImagesViewer(props) {
     const solrdoc = props.mdlasset;
     const nodejson = props.nodejson;
     const status = useStatus();
 
-    // TODO: should we calculate MAX_HEIGHT and MAX_WIDTH?
-    const HEIGHT = '600px';
-    const WIDTH = '1000px';
+    // This is the Height and Width of the Viewer. Settled on
+    const HEIGHT = '500px';
+    const WIDTH = '950px';
 
     const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
 
+    // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
     useEffect(() => {
+        // Setting title in header and other status options
         if (solrdoc) {
             status.clear();
             status.setHeaderTitle(
@@ -26,10 +40,10 @@ export function ImagesViewer(props) {
             );
             status.setType('images');
         }
+        // Updating button controls for fullscreen and zoom
         const iiifview = $('.react-iiif-viewer');
         if (iiifview.length > 0) {
             const iiifchild = iiifview.children();
-            console.log(iiifchild);
             if (iiifchild.length > 2) {
                 $(iiifchild[1]).addClass('zoom');
                 const zoomin = $(iiifchild[1]).children().eq(0);
@@ -51,18 +65,46 @@ export function ImagesViewer(props) {
         }
     }, [solrdoc]);
 
+    const arrowClick = function (e) {
+        const $this = $(e.target);
+        const curr = $('.thumb.current');
+        const dir = $this.parent().hasClass('before') ? 'prev' : 'next';
+        const newcurr =
+            dir === 'prev'
+                ? curr.prev('div').find('a')
+                : curr.next('div').find('a');
+        try {
+            $(newcurr).get(0).click();
+        } catch (e) {}
+    };
+
+    // JSX Markup for the ImagesViewer component
     if (solrdoc) {
-        //console.log(solrdoc);
-        //console.log("width: " + WIDTH)
         return (
             <Container fluid className={'c-image'}>
                 <Row>
                     <Col className={'c-image__viewer'}>
-                        <Viewer
-                            iiifUrl={solrdoc.url_iiif_s}
-                            width={WIDTH}
-                            height={HEIGHT}
-                        />
+                        <Row className={'c-image__viewer-row'}>
+                            <Col className={'page-control before'}>
+                                <span
+                                    className={'u-icon__arrow3-left'}
+                                    onClick={arrowClick}
+                                ></span>
+                            </Col>
+                            <Col>
+                                <Viewer
+                                    iiifUrl={solrdoc.url_iiif_s}
+                                    width={WIDTH}
+                                    height={HEIGHT}
+                                />
+                            </Col>
+                            <Col className={'page-control after'}>
+                                <span
+                                    className={'u-icon__arrow3-right'}
+                                    onClick={arrowClick}
+                                ></span>
+                            </Col>
+                        </Row>
                         <div className={'c-image__caption'}>
                             <h1 className={'c-image__title'}>
                                 <span className={'u-icon__images'}></span>
@@ -126,7 +168,7 @@ function ImageCarousel(props) {
     }, [$('#image-carousel')]);
 
     if (resource) {
-        console.log('resource result', resource);
+        // console.log('resource result', resource);
     }
     if (
         typeof solrdoc === 'undefined' ||
@@ -149,7 +191,7 @@ function ImageCarousel(props) {
     const imgnum = 30;
     const showst = myindex > imgnum ? myindex - imgnum : 0;
     const showend =
-        myindex < carouseldivs.length - 1
+        myindex + imgnum < carouseldivs.length - 1
             ? myindex + imgnum
             : carouseldivs.length - 1;
     const showdivs = carouseldivs.slice(showst, showend);

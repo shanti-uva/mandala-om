@@ -2,28 +2,62 @@
 .c-image__viewer
   background-color: #222
 
-  .react-iiif-viewer
-    margin: 30px auto 10px
+  .c-image__viewer-row
+    margin-top: 30px
+    margin-bottom: 10px
+    text-align: center
 
+    .page-control span
+      display: block
+      position: absolute
+      margin-top: 45%
+      color: #555
+      font-size: 3rem
+      cursor: pointer
+
+      @media (max-width: 1440px)
+        margin-top: 110%
+
+
+    .page-control span:hover
+      color: #DDD
+
+    .page-control span:hover
+      font-weight: bolder
+
+    .page-control.before span
+      margin-left: 89%
+      margin-right: 0
+
+      @media (max-width: 1440px)
+        margin-left: 78%
+
+  .react-iiif-viewer
     .fullscreen
       position: absolute
       left: 47%
       top: -40px
-
-      button
-        color: white
-
-        svg
-          display: none
 
     button
       font-weight: bold
       background: transparent
       color: white
 
+    button svg
+      display: none
+
+    button span
+      color: #999
+      font-size: 1.75rem
+
+    button span:hover
+      color: #DDD
+
     .zoom button
       border: none
       border-bottom: none!important
+
+
 
   .c-image__caption
     color: white
