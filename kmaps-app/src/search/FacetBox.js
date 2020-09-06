@@ -8,6 +8,8 @@ import { useStoreState } from 'easy-peasy';
 import Spinner from 'react-bootstrap/Spinner';
 import { FacetChoice } from './FacetChoice';
 
+import { BsCheckCircle, BsMap } from 'react-icons/bs';
+import { ImStack } from 'react-icons/im';
 export function FacetBox(props) {
     const inputEl = useRef(null);
     const sortFieldEl = useRef(null);
@@ -82,13 +84,13 @@ export function FacetBox(props) {
         places: <span className={'icon u-icon__places'} />,
         subjects: <span className={'icon u-icon__subjects'} />,
         terms: <span className={'icon u-icon__terms'} />,
-        collections: <span className={'icon u-icon__collections'} />,
-        'recent-searches': '\ue62e',
-        asset_type: <span className={'icon u-icon__texts'} />,
+        collections: <ImStack />,
+        //       'recent-searches': '\ue62e',
+        asset_type: <BsCheckCircle />,
         users: <span className={'icon u-icon__community'} />,
         creator: <span className={'icon u-icon__agents'} />,
         languages: <span className={'icon u-icon__comments-o'} />,
-        feature_types: <span className={'icon u-icon__explore'} />,
+        feature_types: <BsMap />,
         associated_subjects: <span className={'icon u-icon__essays'} />,
         perspective: <span className={'icon u-icon__file-picture'} />,
     };

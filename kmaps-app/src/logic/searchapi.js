@@ -606,8 +606,8 @@ function cleanAssetData(data) {
         case 'places':
         case 'terms':
         case 'collections':
-            data.url_large = '/mandala-om/gradient.jpg';
-            data.url_thumb = '/mandala-om/gradient.jpg';
+            data.url_large = '/mandala-om/img/gradient.jpg';
+            data.url_thumb = '/mandala-om/img/gradient.jpg';
             data.url_thumb_height = 100.0;
             data.url_thumb_width = 150.0;
             break;

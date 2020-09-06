@@ -88,7 +88,7 @@ export function MandalaPopover(props) {
                     onMouseOver={() => setShow(true)}
                     onMouseOut={() => setShow(false)}
                 >
-                    <span className="icon u-icon__menu3" />
+                    <span className="icon u-icon__kmaps-popover" />
                 </span>
             </>
         );

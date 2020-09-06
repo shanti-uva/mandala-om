@@ -1,43 +1,41 @@
 @import './src/om-global-var.scss';
 
 .card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    // end fallback for flexbox
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 0.75rem;
-    justify-content: space-between;
     margin: 1rem 1rem 2rem;
 }
 .card-deck .card {
+    flex: 1 1 15%;
+    // end fallback for flexbox
     min-width: 200px;
     max-width: 235px;
     border-radius: 0 0 0.5rem 0.5rem;
     box-shadow: 0 2px 5px #ccc;
-    border-top: 2px solid rgba(205, 169, 66, 1) !important;
+    border-top: 2px solid rgba(205, 169, 66, 1);
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
-    margin: 0.3rem 0.3rem 1rem;
+    margin: 0 0.5rem 1rem;
     font-size: $font-size-default; // reset font size on cards with rem value
 }
 .card-deck .card:hover {
-    //   transform: scale(1.001);
     box-shadow: 0 8px 15px 2px #c0c0c0;
 }
 .card-deck .card:active {
-    //   transform: scale(1);
     box-shadow: 0 2px 5px #ccc;
 }
-
-.card-deck .card a {
+.card__imageWrap {
+    height: 130px;
+    overflow: hidden;
 }
-.card-deck .card a:hover {
-    text-decoration: none;
-    color: #df3d26;
-}
-
 .card-image,
 .card-img-top {
     border-radius: 0;
-    height: 130px;
+    display: block;
 }
 .card__typeGlyph span {
     position: absolute;
@@ -68,9 +66,10 @@
     font-size: 2em;
 }
 .card__assetGlyph span {
-    color: #555;
+    color: #aaa;
 }
-
+// ----------------------------------
+// * BEGIN Card text content
 .card-body {
     max-height: 250px;
     min-height: 100px;
@@ -189,7 +188,7 @@
 }
 
 .c-card__content-field a {
-    font-weight: $font-weight-sans-bold;
+    font-weight: bold;
 }
 .c-card__listItem--related .c-card__content-field {
     display: inline;
@@ -227,10 +226,11 @@
     position: relative;
     top: 0.1rem;
 }
-.c-card__grid-mandala .card__typeGlyph .icon {
+.c-card__grid-mandala .card__typeGlyph .icon,
+.c-card__grid-audio-video .card__typeGlyph .u-icon__audio {
     background-color: $color-mandala;
 }
-.c-card__grid-audio-video .card__typeGlyph .icon {
+.c-card__grid-audio-video .card__typeGlyph .u-icon__video {
     background-color: $color-audio-video;
 }
 .c-card__grid-images .card__typeGlyph .icon {

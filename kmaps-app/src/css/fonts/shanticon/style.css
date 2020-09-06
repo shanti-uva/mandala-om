@@ -133,6 +133,7 @@
 .shanticon-events:before {
     content: '\e619';
 }
+.shanticon-uniE626:before,
 .u-icon__explore::before,
 .shanticon-explore:before {
     content: '\e61a';
@@ -176,10 +177,6 @@
 .u-icon__map-marker::before,
 .shanticon-map-marker:before {
     content: '\e624';
-}
-.u-icon__uniE626::before,
-.shanticon-uniE626:before {
-    content: '\e625';
 }
 .u-icon__menu::before,
 .shanticon-menu:before {
