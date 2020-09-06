@@ -1,0 +1,24 @@
+{
+    "name": "shanti_sarvaka",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/sites/all/themes/shanti_sarvaka/images/favicons/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "density": "1.0"
+        },
+        {
+            "src": "/sites/all/themes/shanti_sarvaka/images/favicons/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "density": "1.0"
+        },
+        {
+            "src": "/sites/all/themes/shanti_sarvaka/images/favicons/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png",
+            "density": "1.0"
+        }
+    ]
+}
