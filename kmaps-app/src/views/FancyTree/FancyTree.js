@@ -78,7 +78,7 @@ function FancyTree({
         };
     }, []);
 
-    return <div className="suiFancyTree" ref={el}></div>;
+    return <div className="suiFancyTree view-wrap" ref={el}></div>;
 }
 
 export default FancyTree;
