@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import { HtmlWithPopovers, getRandomKey } from './common/MandalaMarkup';
 import { addBoClass } from './common/utils';
+import './TextsViewer.sass';
 import $ from 'jquery';
 
 /**
