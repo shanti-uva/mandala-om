@@ -60,6 +60,7 @@ function FancyTree({
             solrUtils: solrUtils,
             view,
             sortBy,
+            initialScrollToActive: true,
             extraFields: ['associated_subject_ids'],
             nodeMarkerPredicates: [
                 {
