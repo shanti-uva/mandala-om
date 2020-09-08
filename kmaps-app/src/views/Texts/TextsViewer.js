@@ -8,8 +8,8 @@ import {
     Tabs,
     Tab,
 } from 'react-bootstrap';
-import { HtmlWithPopovers, getRandomKey } from './common/MandalaMarkup';
-import { addBoClass } from './common/utils';
+import { HtmlWithPopovers, getRandomKey } from '../common/MandalaMarkup';
+import { addBoClass } from '../common/utils';
 import './TextsViewer.sass';
 import $ from 'jquery';
 

@@ -16,7 +16,7 @@ import useStatus from '../../hooks/useStatus';
 import { AudioVideoViewer } from '../AudioVideo/AudioVideoViewer';
 import MdlAssetContext from '../../context/MdlAssetContext';
 import GenAssetContext from '../../context/GenAssetContext';
-import { TextsViewer } from '../TextsViewer';
+import { TextsViewer } from '../Texts/TextsViewer';
 import { ImagesViewer } from '../ImagesViewer';
 import { SourcesViewer } from '../SourcesViewer';
 import { VisualsViewer } from '../VisualsViewer';
