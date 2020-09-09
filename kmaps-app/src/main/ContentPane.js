@@ -113,7 +113,7 @@ export function ContentPane(props) {
                             `${path}places/:id`,
                         ]}
                     >
-                        <KmapContext>
+                        <KmapContext assetType="places">
                             <RelatedsViewer />
                             <KmapsViewer
                                 id={props.id}
@@ -133,7 +133,7 @@ export function ContentPane(props) {
                             `${path}subjects/:id`,
                         ]}
                     >
-                        <KmapContext>
+                        <KmapContext assetType="subjects">
                             <RelatedsViewer />
                             <KmapsViewer
                                 id={props.id}
@@ -153,7 +153,7 @@ export function ContentPane(props) {
                             `${path}terms/:id`,
                         ]}
                     >
-                        <KmapContext>
+                        <KmapContext assetType="terms">
                             <RelatedsViewer />
                             <KmapsViewer
                                 id={props.id}
