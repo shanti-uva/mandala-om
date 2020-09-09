@@ -61,7 +61,7 @@ export default function KmapContext(props) {
     const { id: requestId, relatedType } = useParams();
     let prefix = '';
     if (requestId && !requestId.match(/[a-z]\-\d+/)) {
-        console.log('KmapContext: requestId=', requestId);
+        // console.log('KmapContext: requestId=', requestId);
         if (props.assetType) {
             prefix = props.assetType + '-';
         }
