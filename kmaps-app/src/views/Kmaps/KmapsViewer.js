@@ -17,7 +17,7 @@ import { AudioVideoViewer } from '../AudioVideo/AudioVideoViewer';
 import MdlAssetContext from '../../context/MdlAssetContext';
 import GenAssetContext from '../../context/GenAssetContext';
 import { TextsViewer } from '../Texts/TextsViewer';
-import { ImagesViewer } from '../ImagesViewer';
+import { ImagesViewer } from '../Images/ImagesViewer';
 import { SourcesViewer } from '../SourcesViewer';
 import { VisualsViewer } from '../VisualsViewer';
 import { useLocation } from 'react-router';
