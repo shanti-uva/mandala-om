@@ -16,6 +16,8 @@ import './FeatureCard.scss';
 import '../../../css/fonts/shanticon/style.css';
 // import '../../../om-global-var.scss';
 
+// import { BsFillAlarmFill } from 'react-icons/bs';
+
 // Map of special type glyphs:  This uses a compound key of "<asset_type>/<asset_subtype>" so that special glyphs can be used.
 // If a type/subtype does not appear in this map, then the asset_type glyph is used.  -- ys2n
 const typeGlyphMap = {

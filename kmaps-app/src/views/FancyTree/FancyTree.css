@@ -1,3 +1,7 @@
+.suiFancyTree.view-wrap {
+    overflow: auto;
+}
+
 ul.fancytree-container {
     margin: 0;
     padding: 0;
@@ -6,6 +10,8 @@ ul.fancytree-container {
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif;
     font-weight: 400;
     letter-spacing: normal;
+    height: 600px;
+    overflow-y: scroll;
 }
 
 .fancytree-container ul {
@@ -41,6 +47,10 @@ ul.fancytree-container {
 
 .fancytree-node:not(.fancytree-active):hover,
 .fancytree-node:not(.fancytree-active):active {
+    background-color: #fff !important;
+}
+
+.fancytree-node.fancytree-active {
     background-color: #fff !important;
 }
 

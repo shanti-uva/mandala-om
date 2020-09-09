@@ -2,17 +2,14 @@
 .c-smartRelateds__limited {
     overflow: hidden;
     position: relative;
-    line-height: 1.2em;
-    max-height: 3.75em;
-    /*text-align: justify;*/
-    margin-right: 0em;
-    padding-right: 1em;
+    line-height: 1em;
+    max-height: 3.5em;
 }
 .c-smartRelateds__limited:before {
     content: '...';
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 0.25em;
 }
 /* hide ... if we have text, which is less than or equal to max lines */
 .c-smartRelateds__limited:after {
@@ -23,4 +20,7 @@
     height: 1em;
     margin-top: 0.2em;
     background: white;
+}
+.c-card__listItem--related {
+    margin-bottom: 0.25rem;
 }

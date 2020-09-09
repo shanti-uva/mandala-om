@@ -3,10 +3,10 @@ import { ContentHeader } from './ContentHeader';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideo/AudioVideoViewer';
 import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
-import { ImagesViewer } from '../views/Images/ImagesViewer';
-import { ImagesHome } from '../views/Images/ImagesHome';
-import { TextsViewer } from '../views/TextsViewer';
-import { TextsHome } from '../views/TextsHome';
+import { ImagesViewer } from '../views/ImagesViewer';
+import { ImagesHome } from '../views/ImagesHome';
+import { TextsViewer } from '../views/Texts/TextsViewer';
+import { TextsHome } from '../views/Texts/TextsHome';
 import { SourcesViewer } from '../views/SourcesViewer';
 import { SourcesHome } from '../views/SourcesHome';
 import { VisualsViewer } from '../views/VisualsViewer';
@@ -63,9 +63,13 @@ export function ContentPane(props) {
 
                     {/* IMAGES */}
                     <Route path={`${path}images/:id`}>
-                        <GenAssetContext assetType={'images'}>
-                            <ImagesViewer sui={props.sui} />
-                        </GenAssetContext>
+                        <MdlAssetContext assettype={'images'} sui={props.sui}>
+                            <ImagesViewer
+                                id={props.id}
+                                sui={props.sui}
+                                onStateChange={props.onStateChange}
+                            />
+                        </MdlAssetContext>
                     </Route>
                     <Route path={`${path}images`}>
                         <ImagesHome />

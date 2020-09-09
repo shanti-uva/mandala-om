@@ -3,10 +3,7 @@ import SearchUI from './legacy/searchui';
 import Pages from './legacy/pages';
 
 import './Om.css';
-import './om-global.scss';
-import './om-global-var.scss';
-import './css/fonts/shanticon/style.css';
-import './views/css/Popover.css';
+//import './index.scss';
 
 // import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Main } from './main/Main';

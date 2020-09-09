@@ -2254,7 +2254,7 @@ export default class SearchUI {
             $('[id^=sui-loadingIcon]').remove(); // Remove it
             return; // Quit
         }
-        var str = "<img src='loading.gif' width='" + size + "' "; // Img
+        var str = "<img src='img/loading.gif' width='" + size + "' "; // Img
         str +=
             "id='sui-loadingIcon' style='position:absolute;top:calc(50% - " +
             size / 2 +

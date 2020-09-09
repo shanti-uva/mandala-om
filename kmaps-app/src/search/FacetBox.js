@@ -8,6 +8,55 @@ import { useStoreState } from 'easy-peasy';
 import Spinner from 'react-bootstrap/Spinner';
 import { FacetChoice } from './FacetChoice';
 
+import { BsCheckCircle, BsMap } from 'react-icons/bs';
+import { ImStack } from 'react-icons/im';
+
+function FacetControls(props) {
+    return (
+        <span className={'sui-advEdit-facet-ctrls-btns'}>
+            <ToggleButtonGroup
+                onChange={props.onChange}
+                name={props.name + '_field'}
+                type={'radio'}
+                value={props.value}
+                ref={props.ref}
+            >
+                <ToggleButton
+                    name={props.name + '_field'}
+                    type={'radio'}
+                    value={'count'}
+                    onClick={props.onClick}
+                >
+                    #
+                </ToggleButton>
+                <ToggleButton
+                    name={props.name + '_field'}
+                    type={'radio'}
+                    value={'index'}
+                    onClick={props.onClick}
+                >
+                    A-Z
+                </ToggleButton>
+            </ToggleButtonGroup>
+
+            {props.loadingState && (
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+            )}
+        </span>
+    );
+}
+
+FacetControls.propTypes = {
+    onChange: PropTypes.func,
+    name: PropTypes.string,
+    value: PropTypes.string,
+    ref: PropTypes.any,
+    onClick: PropTypes.func,
+    loadingState: PropTypes.bool,
+};
+
 export function FacetBox(props) {
     const inputEl = useRef(null);
     const sortFieldEl = useRef(null);
@@ -82,13 +131,13 @@ export function FacetBox(props) {
         places: <span className={'icon u-icon__places'} />,
         subjects: <span className={'icon u-icon__subjects'} />,
         terms: <span className={'icon u-icon__terms'} />,
-        collections: <span className={'icon u-icon__collections'} />,
-        'recent-searches': '\ue62e',
-        asset_type: <span className={'icon u-icon__texts'} />,
-        users: <span className={'icon u-icon__agents'} />,
-        creator: <span className={'icon u-icon__address-card-o'} />,
+        collections: <ImStack />,
+        //       'recent-searches': '\ue62e',
+        asset_type: <BsCheckCircle />,
+        users: <span className={'icon u-icon__community'} />,
+        creator: <span className={'icon u-icon__agents'} />,
         languages: <span className={'icon u-icon__comments-o'} />,
-        feature_types: <span className={'icon u-icon__explore'} />,
+        feature_types: <BsMap />,
         associated_subjects: <span className={'icon u-icon__essays'} />,
         perspective: <span className={'icon u-icon__file-picture'} />,
     };
@@ -190,6 +239,24 @@ export function FacetBox(props) {
     });
 
     const name = 'sort_' + props.id;
+
+    const handleSortClick = function (e) {
+        if (e.target.name) {
+            // console.log("ToggleButton CLICK name=", e.target.name, " value=", e.target.value);
+            // console.log("ToggleButton CLICK current sortDirection= ", sortDirection);
+            // console.log("ToggleButton CLICK current sortField= ", sortField);
+
+            // We're clicking on the currently selected sort type -- Let's toggle the sort direction
+            if (e.target.value === sortField) {
+                if (sortDirection === 'asc') {
+                    setSortDirection('desc');
+                } else {
+                    setSortDirection('asc');
+                }
+            }
+        }
+    };
+
     const facetBox = (
         <div className={'sui-advBox sui-advBox-' + props.id}>
             <div
@@ -227,62 +294,14 @@ export function FacetBox(props) {
                         ref={inputEl}
                     />
 
-                    <span className={'sui-advEdit-facet-ctrls-btns'}>
-                        <ToggleButtonGroup
-                            onChange={setSortField}
-                            name={name + '_field'}
-                            type={'radio'}
-                            value={sortField}
-                            ref={sortFieldEl}
-                        >
-                            <ToggleButton
-                                name={name + '_field'}
-                                type={'radio'}
-                                value={'count'}
-                            >
-                                #
-                            </ToggleButton>
-                            <ToggleButton
-                                name={name + '_field'}
-                                type={'radio'}
-                                value={'index'}
-                            >
-                                A-Z
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                        <span> </span>
-                        <ToggleButtonGroup
-                            onChange={setSortDirection}
-                            name={name + '_direction'}
-                            value={sortDirection}
-                            ref={sortDirectionEl}
-                        >
-                            <ToggleButton
-                                name={name + '_direction'}
-                                type={'radio'}
-                                value={'desc'}
-                            >
-                                <span
-                                    className={'icon u-icon__arrow-tip-down'}
-                                ></span>
-                            </ToggleButton>
-                            <ToggleButton
-                                name={name + '_direction'}
-                                type={'radio'}
-                                value={'asc'}
-                            >
-                                <span
-                                    className={'icon u-icon__arrow-tip-up'}
-                                ></span>
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-
-                        {loadingState && (
-                            <Spinner animation="border" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </Spinner>
-                        )}
-                    </span>
+                    <FacetControls
+                        onChange={setSortField}
+                        name={name}
+                        value={sortField}
+                        ref={sortFieldEl}
+                        onClick={handleSortClick}
+                        loadingState={loadingState}
+                    />
                 </div>
 
                 <div className={'sui-adv-facetlist overflow-auto'}>

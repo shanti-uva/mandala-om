@@ -4,26 +4,20 @@
 $font-size-default: 16px;
 $font-family-sans: 'Open Sans', sans-serif;
 $font-family-serif: 'EB Garamond', serif;
-// font weights
-$font-weight-sans: 400;
-$font-weight-sans-bold: 600;
-// note: font weights can vary between font sets
-$font-weight-serif: 400;
-$font-weight-serif-medium: 500;
-$font-weight-serif-bold: 600;
-
-// ===========================================
-// * Breakpoints
-// ===========================================
-$break-0: 0;
-$break-1: 36em; /* 576px */
-$break-2: 48em; /* 768px */
-$break-3: 62em; /* 992px */
-$break-4: 75em; /* 1200px */
 
 // ===========================================
 // * Colors
 // ===========================================
+$color-text--darker: #111;
+$color-text: #333;
+$color-text--lighter: #555;
+// * Links
+$link-color: #144792 !default;
+$link-decoration: none !default;
+$link-hover-color: #df3d26 !default;
+$link-hover-decoration: none !default;
+
+// --- Theme colors
 $color-audio-video: #2ea3ac;
 $color-images: #cc761a;
 $color-mandala: #2c67c0; /* theme primary color */
@@ -33,22 +27,48 @@ $color-sources: #5a57ad;
 $color-texts: #8c48a1;
 $color-terms: #91693c;
 $color-visuals: #558e3c;
-// decorative theme colors
-$color-golden: #a27f1c; // see Card Footer background-color in feature galleries
-// * Utility
-$color-bodyText--darker: #111;
-$color-bodyText: #333;
-$color-bodyText--lighter: #555;
-// * Links
-$color-link-default: #144792;
-$color-link-hover: #df3d26;
-// * Grey-Tones
-$color-grey-100: #f9f9f9; // lightest grey
-$color-grey-200: #f5f5f5;
-$color-grey-300: #f0f0f0;
-$color-grey-400: #eee;
-$color-grey-500: #ddd;
-$color-grey-600: #ccc;
-$color-grey-700: #c0c0c0;
-$color-grey-800: #aaa;
-$color-grey-900: #999; // darkest grey
+// --- Add-on Theme colors
+$color-amber: #a27f1c; // see Card Footer background-color in feature galleries
+
+// * Mapping for future styles
+$colors: () !default;
+$colors: map-merge(
+    (
+        'audio-video': $color-audio-video,
+        'images': $color-images,
+        'mandala': $color-mandala,
+        'places': $color-places,
+        'subjects': $color-subjects,
+        'sources': $color-sources,
+        'texts': $color-texts,
+        'terms': $color-terms,
+        'visuals': $color-visuals,
+        'amber': $color-amber,
+    ),
+    $colors
+);
+
+// --------------------------------------
+// * Theme colors
+$primary: $color-mandala;
+$secondary: $color-amber;
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+    (
+        'primary': $primary,
+        'secondary': $secondary,
+    ),
+    $theme-colors
+);
+
+// ===========================================
+// * Breakpoints
+// ===========================================
+// $break-0: 0;
+// $break-1: 36em; /* 576px */
+// $break-2: 48em; /* 768px */
+// $break-3: 62em; /* 992px */
+// $break-4: 75em; /* 1200px */
+
+// @import '~bootstrap/scss/bootstrap';
