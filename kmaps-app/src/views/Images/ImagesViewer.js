@@ -222,6 +222,16 @@ function ImageCarousel(props) {
 function ImageMetadata(props) {
     const solrdoc = props.solrdoc;
     const nodejson = props.nodejson;
+    console.log(nodejson);
+    const titles = nodejson.field_image_descriptions?.und.map((item, n) => {
+        return (
+            <>
+                {item.title}
+                <br />
+            </>
+        );
+    });
+
     return (
         <>
             <Row className={'l-top'}>
@@ -240,6 +250,26 @@ function ImageMetadata(props) {
             </Row>
             <Row className={'l-meta'}>
                 <Col className={'l-first'}>
+                    <h5 className={'c-image__metatitle'}>{titles}</h5>
+                    <Row className={'c-image__caprow'}>
+                        <Col>
+                            <span className={'u-icon__images'} />{' '}
+                            <span className={'u-label'}>Caption</span>{' '}
+                        </Col>
+                        <Col className={'u-value'}>{titles}</Col>
+                    </Row>
+                    <hr />
+                    <ImageCreators json={nodejson?.field_image_agents} />
+                    <Row className={'u-data'}>
+                        <Col>
+                            <span className={'u-icon__square-o'} />{' '}
+                            <span className={'u-label'}>Type</span>{' '}
+                        </Col>
+                        <Col className={'text-capitalize'}>
+                            {nodejson?.field_image_type?.und[0].value}
+                        </Col>
+                    </Row>
+                    <hr />
                     first col Lectus aliqua ipsam consectetuer etiam esse?
                     Vivamus lectus quae? Mollis maecenas laudantium?
                     Necessitatibus commodi, ut! Mauris, primis consectetuer,
@@ -254,6 +284,52 @@ function ImageMetadata(props) {
                     soluta montes, ea diamlorem.
                 </Col>
             </Row>
+        </>
+    );
+}
+
+function processDate(dstr) {
+    const mydate = new Date(dstr);
+    return mydate.toLocaleString().split(',')[0];
+}
+
+function ImageCreators(props) {
+    const data = props?.json;
+    if (
+        !data ||
+        typeof data === 'undefined' ||
+        !data.und ||
+        data.und.length === 0
+    ) {
+        return (
+            <Row className={'u-data'}>
+                <Col>
+                    <span className={'u-icon__agents'} />{' '}
+                    <span className={'u-label'}>Creator</span>{' '}
+                </Col>
+                <Col className={'u-value'}>Unknown</Col>
+            </Row>
+        );
+    }
+
+    return (
+        <>
+            {data.und.map((item, n) => {
+                return (
+                    <Row className={'u-data'}>
+                        <Col>
+                            <span className={'u-icon__agents'} />{' '}
+                            <span className={'u-label'}>
+                                {item.field_agent_role.und[0].value.toUpperCase()}
+                            </span>{' '}
+                        </Col>
+                        <Col className={'u-value'}>
+                            {item.title} (
+                            {processDate(item.field_agent_dates.und[0].value)})
+                        </Col>
+                    </Row>
+                );
+            })}
         </>
     );
 }
