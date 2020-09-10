@@ -1,9 +1,14 @@
+.c-image__context
+  padding-left: 0
+  padding-right: 0
 
 .c-image__viewer
   background-color: #222
+  border-bottom: 10px solid #b49c59
+  width: 100%
 
   .c-image__viewer-row
-    margin-top: 30px
+    padding-top: 30px
     margin-bottom: 10px
     text-align: center
 
@@ -57,20 +62,19 @@
       border: none
       border-bottom: none!important
 
-
-
   .c-image__caption
     color: white
     text-align: center
-
+    letter-spacing: .15rem
 
   .c-image__title
     margin-top: 0px
     color: white
+    letter-spacing: .15rem
 
     span
       color: white
-      padding-right: 12px
+      padding-right: 1rem
       vertical-align: sub
 
   .c-image__byline span
@@ -78,7 +82,7 @@
 
   .c-image__carousel
     width: calc(100% - 24px)
-    overflow-x: scroll
+    overflow-x: auto
     overflow-y: hidden
     white-space: nowrap
     margin: 20px 12px 0 12px
@@ -97,3 +101,32 @@
     .thumb.current
       border-color: red
 
+.c-image__metadata
+  .l-top.row .l-first.col
+    padding-left: 5rem
+
+  h5.c-image__colhead
+    font-size: 120%
+    letter-spacing: 0.0475rem
+    text-transform: uppercase
+    margin-top: 2rem
+
+  span[class*="u-icon"]
+    padding-right: 4px
+
+  .u-visibility
+    &:before
+      margin-left: 4px
+      content: '('
+    &:after
+      content: ')'
+
+  .l-meta.row
+    min-height: 400px
+    margin-top: 2rem
+    border-top: 4px solid #b49c59
+    background-color: white
+    padding: 2rem 8rem
+
+.u-bo
+  font-size: 150%

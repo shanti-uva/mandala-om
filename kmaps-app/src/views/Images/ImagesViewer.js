@@ -4,6 +4,7 @@ import useStatus from '../../hooks/useStatus';
 import { useSolr } from '../../hooks/useSolr';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Viewer } from 'react-iiif-viewer'; // see https://www.npmjs.com/package/react-iiif-viewer
+import { CollectionField, KmapsFields } from '../common/utilcomponents';
 import $ from 'jquery';
 import './images.sass';
 
@@ -20,6 +21,7 @@ import './images.sass';
  * @author ndg8f (2020-09-02)
  */
 export function ImagesViewer(props) {
+    //console.log(props);
     const solrdoc = props.mdlasset;
     const nodejson = props.nodejson;
     const status = useStatus();
@@ -80,9 +82,12 @@ export function ImagesViewer(props) {
 
     // JSX Markup for the ImagesViewer component
     if (solrdoc) {
+        const creator = Array.isArray(solrdoc.creator)
+            ? solrdoc.creator.join(', ')
+            : solrdoc.creator;
         return (
-            <Container fluid className={'c-image'}>
-                <Row>
+            <div className={'c-image'}>
+                <Container fluid className={'c-image__context'}>
                     <Col className={'c-image__viewer'}>
                         <Row className={'c-image__viewer-row'}>
                             <Col className={'page-control before'}>
@@ -111,10 +116,7 @@ export function ImagesViewer(props) {
                                 {solrdoc.title}
                             </h1>
                             <div className={'c-image__byline'}>
-                                <span className={'author'}>
-                                    {solrdoc.creator.join(', ')}
-                                </span>
-                                |
+                                <span className={'author'}>{creator}</span>|
                                 <span className={'size'}>
                                     {solrdoc.img_width_s} x{' '}
                                     {solrdoc.img_height_s}
@@ -123,8 +125,11 @@ export function ImagesViewer(props) {
                         </div>
                         <ImageCarousel solrdoc={solrdoc} />
                     </Col>
-                </Row>
-            </Container>
+                </Container>
+                <Container className={'c-image__metadata'}>
+                    <ImageMetadata solrdoc={solrdoc} nodejson={nodejson} />
+                </Container>
+            </div>
         );
     } else {
         return <>Loading...</>;
@@ -211,5 +216,44 @@ function ImageCarousel(props) {
                 </div>
             ))}
         </div>
+    );
+}
+
+function ImageMetadata(props) {
+    const solrdoc = props.solrdoc;
+    const nodejson = props.nodejson;
+    return (
+        <>
+            <Row className={'l-top'}>
+                <Col className={'l-first'}>
+                    <h5 className={'c-image__colhead'}>Mandala Collections</h5>
+                    <div>
+                        <CollectionField solrdoc={solrdoc} />
+                    </div>
+                </Col>
+                <Col>
+                    <h5 className={'c-image__colhead'}>Classifications</h5>
+                    <div className={'c-kmaps-list'}>
+                        <KmapsFields nodejson={nodejson} />
+                    </div>
+                </Col>
+            </Row>
+            <Row className={'l-meta'}>
+                <Col className={'l-first'}>
+                    first col Lectus aliqua ipsam consectetuer etiam esse?
+                    Vivamus lectus quae? Mollis maecenas laudantium?
+                    Necessitatibus commodi, ut! Mauris, primis consectetuer,
+                    facilis orci mollis, egestas ornare omnis! Nascetur sint
+                    soluta montes, ea diamlorem.
+                </Col>
+                <Col className={'l-second'}>
+                    second col Lectus aliqua ipsam consectetuer etiam esse?
+                    Vivamus lectus quae? Mollis maecenas laudantium?
+                    Necessitatibus commodi, ut! Mauris, primis consectetuer,
+                    facilis orci mollis, egestas ornare omnis! Nascetur sint
+                    soluta montes, ea diamlorem.
+                </Col>
+            </Row>
+        </>
     );
 }
