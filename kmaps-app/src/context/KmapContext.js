@@ -56,7 +56,17 @@ export default function KmapContext(props) {
     const relatedPageSize = useStoreState(
         (state) => state.kmap.relatedsPage?.pageSize
     );
-    const { id, relatedType } = useParams();
+
+    // Handle cases where the id is "full" or numeric  e.g "places-637" vs. "637"
+    const { id: requestId, relatedType } = useParams();
+    let prefix = '';
+    if (requestId && !requestId.match(/[a-z]\-\d+/)) {
+        // console.log('KmapContext: requestId=', requestId);
+        if (props.assetType) {
+            prefix = props.assetType + '-';
+        }
+    }
+    const id = prefix + requestId;
 
     const pager = {
         getMaxPage: () => {

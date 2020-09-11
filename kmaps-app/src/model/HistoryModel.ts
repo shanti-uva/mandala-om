@@ -70,6 +70,11 @@ export const historyModel: HistoryModel = {
         if (ind > -1) {
             console.log('removing item number ' + ind);
             state.historyStack.splice(ind, 1);
+        } else {
+            console.log(
+                'HistoryModel.ts: remove failed:  location = ',
+                location
+            );
         }
     }),
 
