@@ -19,6 +19,7 @@
         "localforage": "^1.8.1",
         "lodash": "^4.17.19",
         "node-sass": "^4.14.1",
+        "openseadragon": "^2.4.2",
         "popper.js": "^1.16.1",
         "qs": "^6.9.4",
         "rc-input-number": "^5.1.1",

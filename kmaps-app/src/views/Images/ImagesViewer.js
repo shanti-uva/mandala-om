@@ -6,6 +6,7 @@ import { ImageCarousel } from './ImageCarousel';
 import { ImageMetadata } from './ImageMetadata';
 import $ from 'jquery';
 import './images.scss';
+import { ImagesOSDViewer } from './ImagesOSDViewer';
 
 /**
  * Compontent that creates the Image Viewer page, including:
@@ -82,10 +83,16 @@ export function ImagesViewer(props) {
 
     // JSX Markup for the ImagesViewer component
     if (solrdoc) {
+        console.log('nodejson', nodejson);
         const creator = Array.isArray(solrdoc.creator)
             ? solrdoc.creator.join(', ')
             : solrdoc.creator;
         const sizestr = solrdoc.img_width_s + ' x ' + solrdoc.img_height_s;
+        const rotation = nodejson?.field_image_rotation?.und[0]
+            ? nodejson.field_image_rotation.und[0].value
+            : 0;
+
+        console.log('rotation', rotation);
         return (
             <div className={'c-image'}>
                 <Container fluid className={'c-image__context'}>
@@ -98,10 +105,9 @@ export function ImagesViewer(props) {
                                 ></span>
                             </Col>
                             <Col>
-                                <Viewer
-                                    iiifUrl={solrdoc.url_iiif_s}
-                                    width={WIDTH}
-                                    height={HEIGHT}
+                                <ImagesOSDViewer
+                                    manifest={solrdoc.url_iiif_s}
+                                    rotation={rotation}
                                 />
                             </Col>
                             <Col className={'page-control after'}>
