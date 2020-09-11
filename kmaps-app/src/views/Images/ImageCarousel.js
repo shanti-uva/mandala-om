@@ -39,9 +39,6 @@ export function ImageCarousel(props) {
         }
     }, [$('#image-carousel')]);
 
-    if (resource) {
-        // console.log('resource result', resource);
-    }
     if (
         typeof solrdoc === 'undefined' ||
         typeof resource.docs === 'undefined'
