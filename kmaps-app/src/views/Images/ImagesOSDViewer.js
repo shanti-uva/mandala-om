@@ -6,15 +6,24 @@ import OpenSeadragon from 'openseadragon';
 export function ImagesOSDViewer(props) {
     const manifest = props.manifest;
     const rotation = props.rotation;
-
+    const defaultzoom = !rotation || rotation === 0 ? 0 : 1;
+    const [osdviewer, setOSDViewer] = useState(false);
     useEffect(() => {
-        if (manifest && $('#osdviewer').length === 1) {
+        if (manifest && rotation && $('#osdviewer').length === 1) {
             $('#osdviewer').html('');
-            var viewer = OpenSeadragon({
+            const viewer = OpenSeadragon({
                 id: 'osdviewer',
+                prefixUrl: '/mandala-om/seadragon/images/',
                 tileSources: manifest,
                 degrees: rotation,
+                showRotationControl: true,
+                // Enable touch rotation on tactile devices
+                gestureSettingsTouch: {
+                    pinchRotate: true,
+                },
+                defaultZoomLevel: defaultzoom,
             });
+            setOSDViewer(viewer);
         }
     }, [manifest, rotation]);
 

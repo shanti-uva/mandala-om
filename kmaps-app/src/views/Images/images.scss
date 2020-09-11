@@ -37,8 +37,9 @@
         }
     }
     .c-osdviewer {
-        height: 1000px;
-        width: 800px;
+        position: relative;
+        width: 950px;
+        height: 500px;
     }
     .react-iiif-viewer,
     .c-osdviewer {

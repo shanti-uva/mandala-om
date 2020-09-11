@@ -83,16 +83,15 @@ export function ImagesViewer(props) {
 
     // JSX Markup for the ImagesViewer component
     if (solrdoc) {
-        console.log('nodejson', nodejson);
+        //console.log('nodejson', nodejson);
         const creator = Array.isArray(solrdoc.creator)
             ? solrdoc.creator.join(', ')
             : solrdoc.creator;
         const sizestr = solrdoc.img_width_s + ' x ' + solrdoc.img_height_s;
         const rotation = nodejson?.field_image_rotation?.und[0]
             ? nodejson.field_image_rotation.und[0].value
-            : 0;
+            : false;
 
-        console.log('rotation', rotation);
         return (
             <div className={'c-image'}>
                 <Container fluid className={'c-image__context'}>
