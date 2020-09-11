@@ -78,7 +78,7 @@
       vertical-align: sub
 
   .c-image__byline span
-      margin: 0 6px
+    margin: 0 6px
 
   .c-image__carousel
     width: calc(100% - 24px)
@@ -140,7 +140,20 @@
   .c-image__caprow
     margin-bottom: 1rem
 
+  .o-desc__title
+    font-weight: bold
+
+  .o-desc__byline
+    text-align: right
+    margin-top: -2.5rem
+    font-size: 90%
+    font-style: italic
+    &:before
+      content: 'by '
+
+
 .u-bo
+  font-family: Jomolhari, 'Tibetan Machine Uni', sans
   font-size: 150%
 
 .u-label
@@ -152,3 +165,7 @@
 .u-value
   font-family: "EB Garamond",serif
   font-size: 125%
+
+.u-icon__copyright:before
+  content: '© '
+  font-size: 1.8rem

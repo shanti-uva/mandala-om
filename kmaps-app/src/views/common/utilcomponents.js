@@ -34,15 +34,18 @@ export function KmapsFields(props) {
     if (!nodejson || typeof nodejson === 'undefined') {
         return null;
     }
-    console.log(nodejson);
+    const kcolls_field_name = props.collfield
+        ? props.collfield
+        : 'field_kmap_collections';
+    const kcolls = nodejson[kcolls_field_name]?.und?.map((item, n) => {
+        return <MandalaPopover domain={item.domain} kid={item.id} />;
+    });
     const sub_field_name = props.subjectfield
         ? props.subjectfield
         : 'field_subjects';
-    console.log(sub_field_name);
     const subjects = nodejson[sub_field_name]?.und?.map((item, n) => {
         return <MandalaPopover domain={item.domain} kid={item.id} />;
     });
-    console.log(subjects);
     const places = nodejson.field_places?.und?.map((item, n) => {
         return <MandalaPopover domain={item.domain} kid={item.id} />;
     });
@@ -52,11 +55,16 @@ export function KmapsFields(props) {
     let terms = termsorig?.und?.map((item, n) => {
         return <MandalaPopover domain={item.domain} kid={item.id} />;
     });
+    const kcollclass = !kcolls || kcolls.length === 0 ? ' d-none' : '';
     const subjclass = !subjects || subjects.length === 0 ? ' d-none' : '';
     const placeclass = !places || places.length === 0 ? ' d-none' : '';
     const termsclass = !terms || terms.length === 0 ? ' d-none' : '';
     return (
         <>
+            <div className={'c-kmaps__collections' + kcollclass}>
+                <span className="u-icon__collections" title="Collections" />{' '}
+                {kcolls}{' '}
+            </div>
             <div className={'c-kmaps__subjects' + subjclass}>
                 <span className="u-icon__subjects" title="Subjects" />{' '}
                 {subjects}{' '}
