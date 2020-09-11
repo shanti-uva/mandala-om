@@ -112,7 +112,7 @@ export function ImagesViewer(props) {
                             </h1>
                             <div className={'c-image__byline'}>
                                 <span className={'author'}>
-                                    {solrdoc.creator.join(', ')}
+                                    {solrdoc.creator?.join(', ')}
                                 </span>
                                 |
                                 <span className={'size'}>
