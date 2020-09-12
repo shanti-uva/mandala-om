@@ -11,7 +11,7 @@ import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 
 /**
  * AudioVideoViewer is called from ContentPane.js and is wrapped in a MdlAssetContext that supplies it with a SOLR
- * record for the AV asset being viewed. It creates a single div#av-viewer inside of the #sui-results div
+ * record for the AV asset being viewed. It creates a single div#av-viewer inside of the #u-wrapContent__searchResults div
  *
  * The AudioVideoViewer has two children representing the two rows of the Bootstrap container:
  *      1. AudioVideoPlayer: This component defined below displays the video play and transcript in a single row,
@@ -95,7 +95,7 @@ export function AudioVideoViewer(props) {
             $('#sui-avlang').toggle();
             this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
         });
-        $('#sui-main').addClass('av');
+        $('#l-wrapAll').addClass('av');
     }, []);
 
     useEffect(() => {
@@ -133,7 +133,7 @@ function AudioVideoMeta(props) {
         kmasset && node ? sui.av.DrawMetaNew(kmasset, node) : 'Loading ...';
     const [tabkey, setTabkey] = useState('details');
     useEffect(() => {
-        $('.sui-content').scrollTop(0); // on smaller screens need to scroll down to get to related av items so when clicked scroll to top of div
+        $('.c-columnContent__main').scrollTop(0); // on smaller screens need to scroll down to get to related av items so when clicked scroll to top of div
         setTabkey('details'); // Select and show the details tab when a new item is shown
     }, [kmasset]);
     return (

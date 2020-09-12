@@ -38,7 +38,7 @@ export function ContentPane(props) {
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
-        <div id="sui-content" className="sui-content">
+        <article id="c-column__main" className="c-column__main">
             <KmapContext>
                 <ContentHeader
                     siteClass={siteClass}
@@ -46,7 +46,7 @@ export function ContentPane(props) {
                     sui={props.sui}
                 />
             </KmapContext>
-            <div id={'sui-results'}>
+            <section id="c-content__main" className="c-content__main">
                 <Switch>
                     {/* AUDIO-VIDEO */}
                     <Route path={`${path}audio-video/:id`}>
@@ -215,8 +215,8 @@ export function ContentPane(props) {
                         <Error404 />
                     </Route>
                 </Switch>
-            </div>
-        </div>
+            </section>
+        </article>
     );
     return left;
 }

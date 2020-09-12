@@ -286,11 +286,14 @@ export default class SearchUI {
         this.ss.mode = mode ? 'advanced' : 'simple'; // Set mode
         $('#sui-adv').css({ display: mode ? 'block' : 'none' }); // Hide/show adv ui
         if (mode)
-            $('#sui-content').css({
-                width: $('#sui-main').width() - $('#sui-adv').width() + 'px',
+            $('#c-columnContent__main').css({
+                width: $('#l-wrapAll').width() - $('#sui-adv').width() + 'px',
             });
         // Size results area to fit advanced
-        else $('#sui-content').css({ width: $('#sui-main').width() + 'px' }); // 100%
+        else
+            $('#c-content__main').css({
+                width: $('#l-wrapAll').width() + 'px',
+            }); // 100%
         this.DrawAdvanced(); // Draw search UI if active
     }
 
@@ -405,9 +408,12 @@ export default class SearchUI {
             sui.ss.mode = 'simple'; // Simple display mode
             sui.ss.page = 0; // Start at beginning
             $('#sui-legacy').scrollTop(0); // Scroll to top
-            $('#sui-content').scrollTop(0); // Scroll to top
+            $('#c-columnContent__main').scrollTop(0); // Scroll to top
             $('#plc-infoDiv').remove(); // Remove map buttons
-            $('#sui-content').css({ width: '100%', display: 'inline-block' }); // Size and show results area
+            $('#c-content__main').css({
+                width: '100%',
+                display: 'inline-block',
+            }); // Size and show results area
             $('#sui-adv').css({ display: 'none' }); // Hide search ui
             $('#sui-legacy').css({ display: 'block' }); // Show page
             sui.DrawHeader(true);
@@ -869,7 +875,7 @@ export default class SearchUI {
     ) {
         this.log('DrawResults() called', arguments);
 
-        $('#sui-content').scrollTop(0);
+        $('#c-columnContent__main').scrollTop(0);
         $('#sui-legacy').scrollTop(0); // Scroll to top
         $('#sui-legacy').css({ 'background-image': '' }); // Remove any backgeound image
         $('#sui-legacy').css({ display: 'block' }); // Show results page
@@ -896,12 +902,12 @@ export default class SearchUI {
             $('#sui-content').css({ width: '100%' }); // Size and show results area
             $('#sui-adv').css({ display: 'none' }); // Hide search ui
             $('#sui-content').slideDown(); // Slide down
-            $('#sui-content').css({ width: $('#sui-main').width() }); // Size and results area 100%
+            $('#sui-content').css({ width: $('#l-wrapAll').width() }); // Size and results area 100%
         } else if (this.ss.mode == 'advanced') {
             // Advanced search
             $('#sui-adv').css({ display: 'block' }); // Show search ui
             $('#sui-content').css({
-                width: $('#sui-main').width() - $('#sui-adv').width(),
+                width: $('#l-wrapAll').width() - $('#sui-adv').width(),
             }); // Size results area to fit advanced
         }
         $('#sui-mode').prop({
@@ -941,7 +947,7 @@ export default class SearchUI {
 			<div id='sui-pageLT' class='sui-resDisplay' title='Go to last page'>&#xe63d</div>
 			</div>`;
 
-        $('#sui-contentHead').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
+        $('#c-contentHeader__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
         $('#sui-header').css('background-color', '#888'); // Set b/g color
 
         $('#sui-typePageT').val(this.ss.page + 1); // Set page number
@@ -1161,7 +1167,7 @@ export default class SearchUI {
             var num = e.currentTarget.id.substring(13); // Get index of result
             var o = this.curResults[num]; // Point at item
             var str = '';
-            if (o.title) str += '<b>' + o.title + '</b><br><br>'; // Add title
+            if (o.title) str += '<strong>' + o.title + '</strong><br><br>'; // Add title
             str +=
                 this.assets[o.asset_type].g +
                 '&nbsp;&nbsp;' +
@@ -1344,9 +1350,9 @@ export default class SearchUI {
                 this.assets.places.c +
                 "'>";
             str +=
-                '<br><b>' +
+                '<br><strong>' +
                 this.assets.places.g +
-                '</b></span>&nbsp;RELATED PLACES'; // Add header
+                '</strong></span>&nbsp;RELATED PLACES'; // Add header
             if (places.length) {
                 // If any places
                 for (j = 0; j < places.length; ++j) {
@@ -1371,9 +1377,9 @@ export default class SearchUI {
                 this.assets.subjects.c +
                 "'>";
             str +=
-                '<br><b>' +
+                '<br><strong>' +
                 this.assets.subjects.g +
-                '</b></span>&nbsp;RELATED SUBJECTS'; // Add header
+                '</strong></span>&nbsp;RELATED SUBJECTS'; // Add header
             if (subjects.length) {
                 // If any subjects
                 for (j = 0; j < subjects.length; ++j) {
@@ -1472,7 +1478,7 @@ export default class SearchUI {
             "'";
         if (o.ancestors_txt && o.ancestors_txt.length > 2)
             str += "title='" + o.ancestors_txt.join('/') + "'"; // Add tooltip showing path
-        str += '><b>' + o.title + '</b><br></div>'; // Add title
+        str += '><strong>' + o.title + '</strong><br></div>'; // Add title
         str +=
             "<div style='border-top:.5px solid " +
             c +
@@ -1869,7 +1875,7 @@ export default class SearchUI {
         });
         $('#sui-advEditList-' + facet).css(
             'max-height',
-            $('#sui-main').height() -
+            $('#l-wrapAll').height() -
                 $('#sui-advTerm-' + facet).offset().top -
                 $('#sui-advTerm-' + facet).height() -
                 102 +
@@ -1964,7 +1970,7 @@ export default class SearchUI {
 
         $(div).css(
             'max-height',
-            $('#sui-main').height() -
+            $('#l-wrapAll').height() -
                 $('#sui-advTerm-' + facet).offset().top -
                 $('#sui-advTerm-' + facet).height() -
                 102 +
@@ -2261,7 +2267,7 @@ export default class SearchUI {
             'px);left:calc(50% - ' +
             size / 2 +
             "px);z-index:5000'>";
-        $('#sui-main').append(str); // Add icon to results
+        $('#l-wrapAll').append(str); // Add icon to results
     }
 
     SendMessage(
@@ -2286,7 +2292,7 @@ export default class SearchUI {
             y +
             "px'>"; // Add div
         str += msg + '</div>'; // Add content
-        $('#sui-main').append(str); // Add to div
+        $('#l-wrapAll').append(str); // Add to div
         $('#sui-popupDiv')
             .fadeIn(500)
             .delay(time ? time * 1000 : 3000)

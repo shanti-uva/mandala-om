@@ -13,10 +13,10 @@ import { SmartPath } from '../SmartPath';
 import { SmartRelateds } from '../SmartRelateds';
 
 import './FeatureCard.scss';
-import '../../../css/fonts/shanticon/style.css';
-// import '../../../om-global-var.scss';
+// import '../../../css/fonts/shanticon/style.css';
+// import '../../../_index-variables.scss';
 
-// import { BsFillAlarmFill } from 'react-icons/bs';
+// import {  } from 'react-icons/bs';
 
 // Map of special type glyphs:  This uses a compound key of "<asset_type>/<asset_subtype>" so that special glyphs can be used.
 // If a type/subtype does not appear in this map, then the asset_type glyph is used.  -- ys2n
@@ -38,7 +38,9 @@ export function FeatureCard(props) {
         subTypeGlyph ? (
             subTypeGlyph
         ) : (
-            <span className={'icon u-icon__' + props.doc.asset_type}></span>
+            <span
+                className={'icon color-invert u-icon__' + props.doc.asset_type}
+            ></span>
         )
     ) : null;
 
@@ -144,20 +146,24 @@ export function FeatureCard(props) {
     return (
         <Card
             key={props.doc.uid}
-            className={'c-card__grid-' + props.doc.asset_type}
+            className={'c-card__grid--' + props.doc.asset_type}
         >
             <Link
                 to={asset_view}
-                className={'c-card__assetLink card__imageWrap'}
+                className={'c-card__link--asset c-card__wrap--image'}
             >
-                <Card.Img variant="top" src={props.doc.url_thumb} />
-                <div className={'card__typeGlyph'}>{typeGlyph}</div>
-                <div className={'card__assetGlyph'}>{assetGlyph}</div>
+                <Card.Img
+                    className={'c-card__grid__image--top'}
+                    variant="top"
+                    src={props.doc.url_thumb}
+                />
+                <div className={'c-card__grid__glyph--type'}>{typeGlyph}</div>
+                <div className={'c-card__grid__glyph--asset'}>{assetGlyph}</div>
             </Link>
 
             <Card.Body>
                 <Card.Title>
-                    <Link to={asset_view} className={'c-card__assetLink'}>
+                    <Link to={asset_view} className={'c-card__link--asset'}>
                         <SmartTitle doc={props.doc} />
                     </Link>
                 </Card.Title>
@@ -213,7 +219,11 @@ export function FeatureCard(props) {
                 </div>
             </Card.Body>
 
-            <Card.Footer className={'c-card__footer--' + props.doc.asset_type}>
+            <Card.Footer
+                className={
+                    'c-card__footer c-card__footer--' + props.doc.asset_type
+                }
+            >
                 <Link>{footer_text}</Link>
             </Card.Footer>
         </Card>

@@ -85,7 +85,7 @@ export default class AudioVideo {
         }
         str += `<div class='sui-vPlayer' id='sui-kplayer'>
         <img src="https://cfvod.kaltura.com/p/${partnerId}/sp/${partnerId}00/thumbnail/entry_id/${entryId}/version/100301/width/560/height/0" fill-height"></div>`;
-        str += `<br><br><div style='display:inline-block;width:300px;margin-left:16px'>
+        str += `<div style='display:inline-block;width:300px;margin-left:16px'>
                 <div title='Published'>&#xe60c&nbsp;&nbsp;&nbsp;`;
         if (d.field_year_published && d.field_year_published.en) {
             str += sui.pages.FormatDate(d.field_year_published.en[0].value);
@@ -148,7 +148,7 @@ export default class AudioVideo {
             d.field_pbcore_description.und.length
         ) {
             str += `<div class='sui-avMore1'><a class='sui-avMore2'>
-            SHOW MORE</a></div><br>`;
+            SHOW MORE</a></div>`;
             str += "<div id='sui-avlang' style='display:none'>";
             let morecnt = '';
             for (i = 0; i < d.field_pbcore_description.und.length; ++i) {
@@ -159,8 +159,8 @@ export default class AudioVideo {
                         const moretext = sui.pages.WrapInLangSpan(
                             f.field_description.und[0].value
                         );
-                        morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b><br>
-                            ${moretext}<br>`;
+                        morecnt += `<strong>${f.field_language.und[0].value.toUpperCase()}</strong>
+                            ${moretext}`;
                     }
                 } catch (e) {}
             }
@@ -225,20 +225,20 @@ export default class AudioVideo {
         try {
             if (o.title)
                 str +=
-                    "<p title='Title'><b>TITLE</b>&nbsp;&nbsp;" +
+                    "<p title='Title'><strong>TITLE</strong>&nbsp;&nbsp;" +
                     o.title +
                     '</p>';
         } catch (e) {}
         try {
             if (o.collection_title)
                 str +=
-                    "<p title='Collection'><b>COLLECTION</b>&nbsp;&nbsp;" +
+                    "<p title='Collection'><strong>COLLECTION</strong>&nbsp;&nbsp;" +
                     o.collection_title +
                     '</p>';
         } catch (e) {}
         try {
             if (d.field_subcollection_new.und.length > 0) {
-                str += '<p><b>SUBCOLLECTION</b>&nbsp;&nbsp;';
+                str += '<p><strong>SUBCOLLECTION</strong>&nbsp;&nbsp;';
                 for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
                     str +=
                         d.field_subcollection_new.und[i].header +
@@ -255,7 +255,7 @@ export default class AudioVideo {
 
         try {
             if (d.field_subject.und.length > 0) {
-                str += '<p><b>SUBJECT</b>&nbsp;&nbsp;';
+                str += '<p><strong>SUBJECT</strong>&nbsp;&nbsp;';
                 for (i = 0; i < d.field_subject.und.length; ++i) {
                     str +=
                         d.field_subject.und[i].header +
@@ -271,7 +271,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             if (d.field_location.und.length > 0) {
-                str += '<p><b>REFERENCED PLACES</b>&nbsp;&nbsp;';
+                str += '<p><strong>REFERENCED PLACES</strong>&nbsp;&nbsp;';
                 for (i = 0; i < d.field_location.und.length; ++i) {
                     str +=
                         d.field_location.und[i].header +
@@ -287,7 +287,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>RECORDING LOCATION</b>&nbsp;&nbsp;' +
+                '<p><strong>RECORDING LOCATION</strong>&nbsp;&nbsp;' +
                 d.field_recording_location_new.und[0].header +
                 sui.pages.AddPop(
                     d.field_recording_location_new.und[0].domain +
@@ -298,7 +298,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>LANGUAGE</b>&nbsp;&nbsp;' +
+                '<p><strong>LANGUAGE</strong>&nbsp;&nbsp;' +
                 d.field_language_kmap.und[0].header +
                 sui.pages.AddPop(
                     d.field_language_kmap.und[0].domain +
@@ -309,7 +309,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             if (d.field_kmap_terms.und.length > 0) {
-                str += '<p><b>TERMS</b>&nbsp;&nbsp;';
+                str += '<p><strong>TERMS</strong>&nbsp;&nbsp;';
                 for (i = 0; i < d.field_kmap_terms.und.length; ++i) {
                     str +=
                         d.field_kmap_terms.und[i].header +
@@ -325,25 +325,25 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>COPYRIGHT OWNER</b>&nbsp;&nbsp;' +
+                '<p><strong>COPYRIGHT OWNER</strong>&nbsp;&nbsp;' +
                 d.field_copyright_owner.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>YEAR PUBLISHED</b>&nbsp;&nbsp;' +
+                '<p><strong>YEAR PUBLISHED</strong>&nbsp;&nbsp;' +
                 d.field_year_published.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>RIGHTS SUMMARY</b>&nbsp;&nbsp;' +
+                '<p><strong>RIGHTS SUMMARY</strong>&nbsp;&nbsp;' +
                 d.field_pbcore_rights_summary.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>UPLOADED</b>&nbsp;&nbsp;' +
+                '<p><strong>UPLOADED</strong>&nbsp;&nbsp;' +
                 o.timestamp.substr(0, 10) +
                 ' by ' +
                 o.node_user_full_s +
@@ -362,7 +362,7 @@ export default class AudioVideo {
                 // For each creator
                 f = d.field_pbcore_creator.und[i]; // Point at it
                 try {
-                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                    str += `<p><strong>${f.field_creator_role.und[0].value.toUpperCase()}</strong>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                         f.field_creator.und[0].value
                     )}</p>`;
                 } catch (e) {}
@@ -389,7 +389,7 @@ export default class AudioVideo {
                 for (agrole in agents) {
                     let agrolelabel =
                         agents[agrole].length > 1 ? agrole + 's' : agrole;
-                    str += `<p><b>${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
+                    str += `<p><strong>${agrolelabel.toUpperCase()}</strong>&nbsp;&nbsp;${agents[
                         agrole
                     ].join(', ')}</p>`;
                 }
@@ -408,7 +408,7 @@ export default class AudioVideo {
                 // For each item
                 f = d.field_pbcore_contributor.und[i]; // Point at it
                 try {
-                    str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                    str += `<p><strong>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</strong>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                         f.field_contributor.und[0].value
                     )}</p>`;
                 } catch (e) {}
@@ -439,7 +439,7 @@ export default class AudioVideo {
                 for (agrole in agents) {
                     let agrolelabel =
                         agents[agrole].length > 1 ? agrole + 's' : agrole;
-                    str += `<p><b>${agroleprefix} ${agrolelabel.toUpperCase()}</b>&nbsp;&nbsp;${agents[
+                    str += `<p><strong>${agroleprefix} ${agrolelabel.toUpperCase()}</strong>&nbsp;&nbsp;${agents[
                         agrole
                     ].join(', ')}</p>`;
                 }
@@ -449,13 +449,13 @@ export default class AudioVideo {
         }
         try {
             str +=
-                '<p><b>PUBLISHER</b>&nbsp;&nbsp;' +
+                '<p><strong>PUBLISHER</strong>&nbsp;&nbsp;' +
                 d.field_pbcore_publisher.und[0].field_publisher.und[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>DATA ENTRY</b>&nbsp;&nbsp;' +
+                '<p><strong>DATA ENTRY</strong>&nbsp;&nbsp;' +
                 o.node_user_full_s +
                 '</p>';
         } catch (e) {}
@@ -471,7 +471,7 @@ export default class AudioVideo {
                 v = d.field_pbcore_instantiation.und[0][i]; // Point at it
                 t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
                 try {
-                    str += `<p><b>${t.toUpperCase()}</b>&nbsp;&nbsp;<span>${v.und[0].value.replace(
+                    str += `<p><strong>${t.toUpperCase()}</strong>&nbsp;&nbsp;<span>${v.und[0].value.replace(
                         /(<([^>]+)>)/gi,
                         ''
                     )}</span></p>`;
@@ -480,11 +480,12 @@ export default class AudioVideo {
         }
         try {
             str +=
-                '<p><b>FORMAT ID</b>&nbsp;&nbsp;' +
+                '<p><strong>FORMAT ID</strong>&nbsp;&nbsp;' +
                 d.field_video.und[0].entryid +
                 '</p>';
         } catch (e) {}
-        str += '<p><b>FORMAT ID SOURCE</b>&nbsp;&nbsp;(Kaltura.com)</p>';
+        str +=
+            '<p><strong>FORMAT ID SOURCE</strong>&nbsp;&nbsp;(Kaltura.com)</p>';
         return '<div>' + str + '</div>';
     }
 
@@ -574,7 +575,7 @@ export default class AudioVideo {
                     try {
                         f = d.field_pbcore_description.und[i]; // Point at it
                         if (f.field_description.und[0].value.length > 0) {
-                            morecnt += `<b>${f.field_language.und[0].value.toUpperCase()}</b><br>${
+                            morecnt += `<strong>${f.field_language.und[0].value.toUpperCase()}</strong><br>${
                                 f.field_description.und[0].value
                             }<br>`;
                         }
@@ -672,21 +673,21 @@ export default class AudioVideo {
         try {
             if (o.title)
                 str +=
-                    "<p title='Title'><b>TITLE</b>&nbsp;&nbsp;" +
+                    "<p title='Title'><strong>TITLE</strong>&nbsp;&nbsp;" +
                     o.title +
                     '</p>';
         } catch (e) {}
         try {
             if (o.collection_title)
                 str +=
-                    "<p title='Collection'><b>COLLECTION</b>&nbsp;&nbsp;" +
+                    "<p title='Collection'><strong>COLLECTION</strong>&nbsp;&nbsp;" +
                     o.collection_title +
                     '</p>';
         } catch (e) {}
 
         try {
             if (d.field_subcollection_new.und.length > 0) {
-                str += '<p><b>SUBCOLLECTION</b>&nbsp;&nbsp;';
+                str += '<p><strong>SUBCOLLECTION</strong>&nbsp;&nbsp;';
                 for (i = 0; i < d.field_subcollection_new.und.length; ++i) {
                     str +=
                         d.field_subcollection_new.und[i].header +
@@ -701,7 +702,7 @@ export default class AudioVideo {
             }
         } catch (e) {}
         try {
-            str += '<p><b>SUBJECT</b>&nbsp;&nbsp;';
+            str += '<p><strong>SUBJECT</strong>&nbsp;&nbsp;';
             for (i = 0; i < d.field_subject.und.length; ++i) {
                 str +=
                     d.field_subject.und[i].header +
@@ -716,7 +717,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>RECORDING LOCATION</b>&nbsp;&nbsp;' +
+                '<p><strong>RECORDING LOCATION</strong>&nbsp;&nbsp;' +
                 d.field_recording_location_new.und[0].header +
                 sui.pages.AddPop(
                     d.field_recording_location_new.und[0].domain +
@@ -727,7 +728,7 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                "<p'><b>LANGUAGE</b>&nbsp;&nbsp;" +
+                "<p'><strong>LANGUAGE</strong>&nbsp;&nbsp;" +
                 d.field_language_kmap.und[0].header +
                 sui.pages.AddPop(
                     d.field_language_kmap.und[0].domain +
@@ -738,31 +739,31 @@ export default class AudioVideo {
         } catch (e) {}
         try {
             str +=
-                '<p><b>TERMS</b>&nbsp;&nbsp;' +
+                '<p><strong>TERMS</strong>&nbsp;&nbsp;' +
                 d.field_terms.und[0].header +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>COPYRIGHT OWNER</b>&nbsp;&nbsp;' +
+                '<p><strong>COPYRIGHT OWNER</strong>&nbsp;&nbsp;' +
                 d.field_copyright_owner.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>YEAR PUBLISHED</b>&nbsp;&nbsp;' +
+                '<p><strong>YEAR PUBLISHED</strong>&nbsp;&nbsp;' +
                 d.field_year_published.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>RIGHTS SUMMARY</b>&nbsp;&nbsp;' +
+                '<p><strong>RIGHTS SUMMARY</strong>&nbsp;&nbsp;' +
                 d.field_pbcore_rights_summary.en[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>UPLOADED</b>&nbsp;&nbsp;' +
+                '<p><strong>UPLOADED</strong>&nbsp;&nbsp;' +
                 o.timestamp.substr(0, 10) +
                 ' by ' +
                 o.node_user_full_s +
@@ -781,7 +782,7 @@ export default class AudioVideo {
                 // For each creator
                 f = d.field_pbcore_creator.und[i]; // Point at it
                 try {
-                    str += `<p><b>${f.field_creator_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
+                    str += `<p><strong>${f.field_creator_role.und[0].value.toUpperCase()}</strong>&nbsp;&nbsp;${sui.pages.WrapInLangSpan(
                         f.field_creator.und[0].value
                     )}</p>`;
                 } catch (e) {}
@@ -797,7 +798,7 @@ export default class AudioVideo {
                 // For each item
                 f = d.field_pbcore_contributor.und[i]; // Point at it
                 try {
-                    str += `<p><b>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</b>&nbsp;&nbsp;${
+                    str += `<p><strong>CONTRIBUTING ${f.field_contributor_role.und[0].value.toUpperCase()}</strong>&nbsp;&nbsp;${
                         f.field_contributor.und[0].value
                     }</p>`;
                 } catch (e) {}
@@ -805,13 +806,13 @@ export default class AudioVideo {
         }
         try {
             str +=
-                '<p><b>PUBLISHER</b>&nbsp;&nbsp;' +
+                '<p><strong>PUBLISHER</strong>&nbsp;&nbsp;' +
                 d.field_pbcore_publisher.und[0].field_publisher.und[0].value +
                 '</p>';
         } catch (e) {}
         try {
             str +=
-                '<p><b>DATA ENTRY</b>&nbsp;&nbsp;' +
+                '<p><strong>DATA ENTRY</strong>&nbsp;&nbsp;' +
                 o.node_user_full_s +
                 '</p>';
         } catch (e) {}
@@ -829,7 +830,7 @@ export default class AudioVideo {
                 v = d.field_pbcore_instantiation.und[0][i]; // Point at it
                 t = i.replace(/field_/, '').replace(/_/g, ' '); // Remove header and spaces
                 try {
-                    str += `<p><b>${t.toUpperCase()}</b>&nbsp;&nbsp;${
+                    str += `<p><strong>${t.toUpperCase()}</strong>&nbsp;&nbsp;${
                         v.und[0].value
                     }</p>`;
                 } catch (e) {}
@@ -837,11 +838,12 @@ export default class AudioVideo {
         }
         try {
             str +=
-                '<p><b>FORMAT ID</b>&nbsp;&nbsp;' +
+                '<p><strong>FORMAT ID</strong>&nbsp;&nbsp;' +
                 d.field_video.und[0].entryid +
                 '</p>';
         } catch (e) {}
-        str += '<p><b>FORMAT ID SOURCE</b>&nbsp;&nbsp;(Kaltura.com)</p>';
+        str +=
+            '<p><strong>FORMAT ID SOURCE</strong>&nbsp;&nbsp;(Kaltura.com)</p>';
         this.content[2] = "<div style='height:2px'/>" + str + '<br>'; // Add to tab
     } //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

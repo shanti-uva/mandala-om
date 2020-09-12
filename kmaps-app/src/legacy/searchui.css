@@ -1,5 +1,5 @@
 .sui-main {
-    all: initial;
+    /*    all: initial;
     position: absolute;
     left: 0;
     top: 0;
@@ -10,23 +10,20 @@
     margin: 0;
     -moz-box-sizing: initial;
     -webkit-box-sizing: initial;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
-}
-.sui-main b {
-    font-weight: 600;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;  */
 }
 .sui-top {
-    position: absolute;
+    /*   position: absolute;
     right: 12px;
     top: 7px;
-    user-select: none;
+    user-select: none; */
 }
 .sui-topBar {
-    height: 43px;
+    /*   height: 43px;
     width: 100%;
-    background-color: #eee;
+    background-color: #eee;  */
 }
 .sui-editBut {
     float: right;
@@ -107,7 +104,7 @@
     color: #668eec;
 }
 
-/* HAMBURGER MENU */
+/* HAMBURGER MENU
 
 .sui-hamBut {
     display: inline-block;
@@ -136,7 +133,7 @@
     text-align: right;
     width: 150px;
 }
-
+*/
 .sui-header {
     height: 52px;
     width: 100%;
@@ -144,15 +141,15 @@
     background-color: #888;
     color: #fff;
 }
-.sui-contentHead {
-    user-select: none;
+.c-contentHeader__main {
+    /*    user-select: none;
     height: 100%;
     float: left;
     padding: 6px 12px 0 22px;
     font-size: 20px;
     line-height: 20px;
     width: 100%;
-    max-width: calc(100% - 80px);
+    max-width: calc(100% - 80px); */
 }
 .sui-type {
     background-color: #fff;
@@ -209,16 +206,6 @@
 }
 .sui-typeItem:hover {
     background-color: #dee7f1;
-}
-.sui-content {
-    position: absolute;
-    left: 0;
-    top: 43px;
-    width: 100%;
-    height: calc(100% - 73px);
-    background-color: #fff;
-    display: none;
-    overflow-y: auto;
 }
 .sui-legacy {
     position: absolute;
@@ -405,63 +392,10 @@
     font-size: 12px;
 }
 
-/* CARD RESULTS */
-
-.sui-card {
-    display: inline-block;
-    border-top: 3px solid #9e894d;
-    margin: 6px;
-    background-color: #fff;
-    width: 180px;
-    height: 232px;
-    vertical-align: top;
-    overflow: hidden;
-    border-radius: 0 0 5px 8px;
-}
-.sui-card:hover {
-    border-top: 3px solid #a4baec;
-}
-.sui-cardPic {
-    width: 180px;
-    cursor: pointer;
-}
-.sui-cardInfo {
-    padding: 10px;
-    color: #666;
-    font-size: 11px;
-    line-height: 17px;
-    margin-top: -6px;
-    height: 92px;
-    overflow: hidden;
-}
-.sui-cardGlyph {
-    position: absolute;
-    width: 180px;
-    font-size: 36px;
-    text-align: center;
-    pointer-events: none;
-    margin-top: -68px;
-}
-.sui-cardType {
-    display: inline-block;
-    margin-left: -23px;
-    vertical-align: top;
-    padding-top: 5px;
-    color: #fff;
-    text-shadow: 1px 1px 2px #666;
-}
-.sui-cardFooter {
-    background-color: #9e894d;
-    height: 21px;
-    color: #fff;
-    border-radius: 0 0 5px 8px;
-    padding: 3px 0 0 8px;
-}
-
 /* ADVANCED SEARCH */
 
-.c-searchColumn {
-    position: absolute;
+.c-columnSearch {
+    /*  position: absolute;
     left: calc(100% - 361px);
     top: 43px;
     height: calc(100% - 75px);
@@ -472,7 +406,7 @@
     padding: 16px 16px 0 0;
     color: #333;
     font-size: 15px;
-    overflow: hidden;
+    overflow: hidden;*/
 }
 .sui-advTop {
     text-align: center;
@@ -1273,7 +1207,7 @@
 }
 
 /* MISC PAGES */
-.sui-breadCrumbs {
+/*.sui-breadCrumbs {
     display: inline-block;
     font-size: 13px;
     margin-left: 24x;
@@ -1281,7 +1215,7 @@
 }
 .sui-crumb:hover {
     text-decoration: underline;
-}
+}*/
 .sui-popItem {
     color: #ddd;
 }
@@ -1325,31 +1259,6 @@
 
 /* PSUEDO ELEMENTS */
 
-.sui-main ::-webkit-scrollbar {
-    width: 10px;
-    height: 8px;
-}
-.sui-main ::-webkit-scrollbar-track {
-    background: transparent;
-    border-left: 1px solid #aaa;
-}
-.sui-main ::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background: #ccc;
-}
-.sui-main ::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-}
-.sui-main ::-webkit-input-placeholder {
-    color: #bbb;
-}
-::placeholder {
-    color: #bbb;
-}
-
-a {
-    text-decoration: none;
-}
 .sui-noA {
     border-bottom: hidden;
     cursor: default;

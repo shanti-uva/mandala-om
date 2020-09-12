@@ -76,7 +76,10 @@ function NodeHeader(props) {
         <div className={'c-nodeHeader'}>
             {back && (
                 <div>
-                    <Link to={'..'} className={'c-nodeHeader__iconLink'}>
+                    <Link
+                        to={'..'}
+                        className={'c-contentHeader__main__iconLink'}
+                    >
                         <span className={'icon u-icon__arrow-left_2'}>
                             Return
                         </span>

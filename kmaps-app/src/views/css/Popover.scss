@@ -9,7 +9,7 @@
     vertical-align: super;
     font-size: 80%;
 }
-
+// icon button for hover-over -- Kmaps Popover
 .popover-link {
     position: relative;
     left: 0;
@@ -18,19 +18,19 @@
     font-size: 2rem;
 }
 .popover-link .icon::before {
-    color: #5a65d1;
+    color: $color-mandala;
 }
 
+// BEGIN Popover Container
 .related-resources-popover {
-    font-size: 1.2em !important;
-    line-height: 1.18em;
+    font-size: 1.25rem !important;
+    line-height: 1.25em;
     width: 320px !important;
     max-width: 320px !important;
     font-style: normal;
     padding: 3px 3px 0px 3px;
     border-radius: 0.8rem !important;
 }
-
 .related-resources-popover .popover-title .kmid,
 .related-resources-popover .popover-header .kmid {
     font-size: 0.8em;
@@ -39,21 +39,19 @@
     top: 0.3rem;
     right: 0.75rem;
 }
-
 .related-resources-popover .react-popover-body .kmdomain,
 .related-resources-popover .react-popover-body .kmid {
     display: none;
 }
-
 .related-resources-popover .popover-body {
     padding: 0.5rem 0.5rem 0 !important;
+    font-size: 1.32rem;
 }
-
 .related-resources-popover .popover-body .desc {
     font-size: 1.22rem;
     letter-spacing: normal;
+    margin-bottom: 1rem;
 }
-
 .related-resources-popover .popover-title,
 .related-resources-popover .popover-header {
     display: block;
@@ -63,7 +61,7 @@
     background: transparent;
     border: none;
     border-bottom: 1px solid #ccc;
-    color: #444;
+    color: $gray-800;
     font-weight: 600;
     text-transform: capitalize;
     z-index: 1000;
@@ -77,31 +75,31 @@
 
 .related-resources-popover .desc p {
     font-size: 0.88em;
-    line-height: 1.25em;
-    color: #333;
+    //    line-height: 1.25em;
+    //   color: $gray-700;
 }
 
 .related-resources-popover .parents,
 .related-resources-popover .other,
 .related-resources-popover .defs {
-    line-height: 1em;
-    margin-top: 0.75rem;
+    //   line-height: 1em;
+    //    margin-top: 0.75rem;
 }
 
 .related-resources-popover .parents p,
 .related-resources-popover .other p,
 .related-resources-popover .defs p {
-    line-height: 1.12em;
-    margin-bottom: 0;
+    //   line-height: 1.12em;
+    //    margin-bottom: 0;
 }
 
 .related-resources-popover .parents strong,
 .related-resources-popover .other strong,
 .related-resources-popover .defs strong {
-    color: #222;
+    //   color: $gray-800;
     font-size: 0.93em;
     letter-spacing: 0.0275rem;
-    margin-top: -0.12em;
+    //   margin-top: -0.12em;
 }
 
 .related-resources-popover .other strong:after {
@@ -122,7 +120,7 @@
     border-bottom-width: 0;
     display: inline;
     white-space: normal;
-    color: #03038e;
+    //   color: $gray-700;
 }
 
 .related-resources-popover .parents a::after {
@@ -137,7 +135,7 @@
 .related-resources-popover .parents a:active,
 .related-resources-popover .defs a:hover,
 .related-resources-popover .defs a:active {
-    color: #cf2f1e;
+    //  color: #cf2f1e;
 }
 
 .related-resources-popover .termtypes {
@@ -146,135 +144,79 @@
 
 .related-resources-popover .other.featuretypes a,
 .related-resources-popover .termtypes a {
-    color: #03038e;
+    //   color: #03038e;
 }
 
 .related-resources-popover .other.featuretypes a:after,
 .related-resources-popover .termtypes a:after {
     content: ', ';
 }
-
 .related-resources-popover .other.featuretypes a:last-child:after,
 .related-resources-popover .termtypes a:last-child:after {
     content: '';
 }
-
 .popover-footer {
     margin: 10px -7px 1px;
-    background: #333;
     border-radius: 0 0 0.8rem 0.8rem !important;
-    background-clip: padding-box;
 }
-
 .popover-footer-button {
-    background: #333;
+    background-color: $gray-700;
     padding: 0 0 0 1.3rem;
     margin: 0;
 }
-
 .popover-footer-button:hover {
     color: #fff;
-    background: #5a65d1;
+    background-color: $color-mandala;
 }
-
 .popover-footer-button:active {
-    background-color: #424a9a;
+    background-color: $gray-800;
 }
-
 .popover-footer-button a {
-    color: #ddd;
+    color: $gray-100;
     border-bottom: none;
     display: block;
     width: 100%;
-    font-size: 1.16em;
+    font-size: 1.06em;
     line-height: 1.2em;
-    height: 2.2em;
+    height: 2.5em;
     text-transform: capitalize;
     letter-spacing: 0.05rem;
-    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-weight: 400;
-    padding-top: 0.5rem;
+    padding-top: 0.9rem;
+    vertical-align: middle;
 }
-
 .popover-footer-button a:hover {
     color: #f0f0f0;
 }
-
-.popover-footer-button a:active {
-    color: #fff;
-}
-
 .popover-footer-button a.icon::before {
-    color: #fff;
+    color: #fff !important;
     margin-right: 12px;
     font-size: 1.12em;
     position: relative;
     top: 0.25rem;
     left: 0.1rem;
-    font-family: 'shanticon';
+    font-family: 'shanticon', sans-serif;
 }
-
 .popover-footer-button:hover .icon,
 .popover-footer-button:active .icon {
     color: #fff;
     text-decoration: none;
 }
-
-.popover-footer-button:first-child {
-    padding-bottom: 0.8rem;
-}
-
 .popover-footer-button:first-child .icon {
-    text-transform: uppercase;
     font-size: 1.06em;
-    line-height: 2.25em;
 }
-
 .popover-footer .popover-footer-button:first-child .icon::before {
     margin-right: 1.3rem;
     content: '\e629';
     position: relative;
     left: 0.2rem;
 }
-
 .popover-footer-button:last-child {
     border-radius: 0 0 0.8rem 0.8rem !important;
-    background-clip: padding-box;
-    height: 3.75rem;
+    padding-bottom: 0.5rem;
 }
 
 .popover-footer .u-icon__link-external:before {
-    color: #333333;
-}
-
-.popover-footer .u-icon__audio-video:before {
-    color: #58aab4 !important;
-}
-
-.popover-footer .u-icon__images:before {
-    color: #b49c59 !important;
-}
-
-.popover-footer .u-icon__sources:before {
-    color: #5a57ad !important;
-}
-
-.popover-footer .u-icon__places:before {
-    color: #6faaf1 !important;
-}
-
-.popover-footer .u-icon__subjects:before {
-    color: #cc4c39 !important;
-}
-
-.popover-footer .u-icon__terms:before {
-    color: #a2733f !important;
-}
-
-.popover-footer .u-icon__texts:before {
-    color: #8b5aa1 !important;
-}
-
-.popover-footer .u-icon__visuals:before {
-    color: #558e3c !important;
+    //   color: #333333;
 }

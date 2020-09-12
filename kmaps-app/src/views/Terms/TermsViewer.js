@@ -68,10 +68,10 @@ export default function TermsViewer(props) {
         })
         .value();
 
-    let output = <div className="termsviewer">Loading...</div>;
+    let output = <div className="c-column__main--kmapsViewer">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
         output = (
-            <div className="termsviewer">
+            <div className="c-column__main--kmapsViewer">
                 <div className="sui-terms">
                     <Switch>
                         <Route

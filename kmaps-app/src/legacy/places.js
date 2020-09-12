@@ -465,7 +465,7 @@ export default class Places {
                 // For each one
                 str += `<div style='margin-left:${l[i].tab * 16}px'>`; // Header
                 if (i) str += '&bull; '; // Add bullet
-                str += `<b>${l[i].lab} </b>&nbsp; (${l[i].lang}, ${l[i].write}, ${l[i].rel})</div>`; // Text
+                str += `<strong>${l[i].lab} </strong>&nbsp; (${l[i].lang}, ${l[i].write}, ${l[i].rel})</div>`; // Text
             }
             str += `<br></div><div style='display:inline-block;width:calc(50% - 24px);vertical-align:top;border-left:1px solid #ccc; padding-left:12px;margin-top:22px'>
 			<div style='font-weight:bold;color:#6faaf1;margin-bottom:8px'>ETYMOLOGY</div>`;
@@ -475,7 +475,7 @@ export default class Places {
                 ++i // For each one
             )
                 if (l[i].ety)
-                    str += `<div>Etymology for <b>${l[i].lab}</b>: &nbsp; ${l[i].ety}</div>`; // Text
+                    str += `<div>Etymology for <strong>${l[i].lab}</strong>: &nbsp; ${l[i].ety}</div>`; // Text
             str += '</div><br>';
             this.content[1] = str.replace(/\t|\n|\r|/g, ''); // Set tab
         });
@@ -685,7 +685,7 @@ export default class Places {
             sups = d[0].ancestors.length - 2;
         let str = `<br><div class='sui-spHead'>Places related to ${o.title}</div>
 		<div style='max-width:900px'>
-		<b>${o.title[0]}</b> has <b>${sups}</b> superordinate places and<b> TBD </b> immediately subordinate places. 
+		<strong>${o.title[0]}</strong> has <strong>${sups}</strong> superordinate places and<strong> TBD </strong> immediately subordinate places. 
 		You can browse these subordinate places as well as its superordinate categories with the tree below. 
 		See the RELATED PLACES tab if you instead prefer to view only its immediately subordinate places grouped together in useful ways, 
 		as well as places non-hierarchically related to it.</div><br>
@@ -778,7 +778,7 @@ export default class Places {
             o.title
         }</div>
 			<div style='max-width:900px'>
-			<b>${o.title[0]}</b> has <b>${'TBD'}</b> other place${
+			<strong>${o.title[0]}</strong> has <strong>${'TBD'}</strong> other place${
             n > 1 ? 's' : ''
         } directly related to it, which is presented here. 
 			See the PLACE CONTEXT tab if you instead prefer to browse all subordinate and superordinate places for ${
@@ -814,7 +814,7 @@ export default class Places {
                         "<div style='background-color:#999' class='sui-spDot' id='sui-spSub-" +
                         s[f][i].id +
                         "'>&ndash;</div>"; // Add folding dot
-                    str += '<b>' + sub + '</b></div>'; // Add sub title
+                    str += '<strong>' + sub + '</strong></div>'; // Add sub title
                     str +=
                         "<ul id='sui-spSubUL-" +
                         s[f][i].id +

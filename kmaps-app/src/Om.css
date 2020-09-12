@@ -166,11 +166,11 @@
     width: 150px;
 }
 
-.sui-results {
-    padding: 0 1.5rem;
+.c-content__main {
+    /*  padding: 0 1.5rem; */
 }
 
-.sui-contentHead {
+.c-contentHeader__main {
 }
 
 .sui-type {
@@ -234,26 +234,26 @@
     background-color: #dee7f1;
 }
 
-.sui-content {
-    position: absolute;
+.c-columnContent__main {
+    /*   position: absolute;
     left: 0;
     top: 43px;
     width: 100%;
     height: calc(100% - 73px);
     background-color: #dddddd;
     display: block;
-    overflow-y: auto;
+    overflow-y: auto; */
 }
 
-.sui-results {
-    position: absolute;
+.c-content__main {
+    /*   position: absolute;
     left: 0;
     top: 52px;
     min-height: calc(100% - 77px);
     width: calc(100% - 24px);
     background-color: #ddd;
     overflow-x: hidden;
-    padding: 12px;
+    padding: 12px; */
 }
 
 .sui-resDisplay {
@@ -263,7 +263,7 @@
 }
 
 .sui-footer {
-    position: absolute;
+    /*   position: absolute;
     left: 0;
     top: calc(100% - 31px);
     width: 100%;
@@ -273,7 +273,7 @@
     text-align: center;
     padding-top: 6px;
     user-select: none;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 .sui-infoBottom {
@@ -511,8 +511,8 @@
 
 /* ADVANCED SEARCH */
 
-.c-searchColumn {
-    position: absolute;
+.c-columnSearch {
+    /*   position: absolute;
     z-index: 10;
     left: calc(100% - 361px);
     top: 43px;
@@ -526,7 +526,7 @@
     border-bottom: 1px solid #aaa;
     border-bottom-left-radius: 5px;
     font-size: 15px;
-    overflow: hidden;
+    overflow: hidden;*/
 }
 
 .sui-advTop {
@@ -1417,12 +1417,14 @@
 
 /* MISC PAGES */
 .sui-breadCrumbs {
-    display: block;
-    font-style: italic;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    /*  font-style: italic;
     font-size: 13px;
     margin-left: 1.5rem;
     cursor: pointer;
-    margin-top: 0.5rem;
+    margin-top: 0.5rem;*/
 }
 
 .sui-crumb:hover {
@@ -1533,13 +1535,13 @@ a {
     display: none;
 }
 /*
-.mandala.sui-results {
+.mandala.u-wrapContent__searchResults {
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
 }
 */
-.mandala > .sui-contentHead > div {
+.mandala > .c-contentHeader__main > div {
     /*   margin-top: 0.5em; */
 }
 
@@ -1550,19 +1552,19 @@ a {
    TODO: add slide-in/out css transition
 */
 
-.c-searchColumn.open {
+.c-columnSearch.open {
     display: block;
 }
 
-.c-searchColumn.closed {
+.c-columnSearch.closed {
     display: none;
 }
 
-.c-searchColumn nav {
+.c-columnSearch nav {
     font-size: small;
 }
 
-.c-searchColumn .nav-link {
+.c-columnSearch .nav-link {
     padding: 0.3rem 0.3rem;
 }
 
@@ -1924,29 +1926,29 @@ a {
     color: #222;
 }
 
-.sui-contentHeader-id {
+.c-contentHeader__main__id {
     font-style: italic;
     font-size: 0.5em;
     color: #eee;
     margin-right: 2rem;
 }
 
-.sui-contentHeader-sub {
+.c-contentHeader__main__sub {
     font-style: italic;
     font-size: smaller;
     color: #aaaaaa;
 }
 
-.sui-contentHead a {
+.c-contentHeader__main a {
     color: #eeeeee;
     margin: 0.3em;
 }
 
-.sui-contentHead a:hover {
+.c-contentHeader__main a:hover {
     color: #bbbbbb;
 }
 
-.sui-contentHead a:visited {
+.c-contentHeader__main a:visited {
     color: #eeeeee;
 }
 

@@ -62,13 +62,10 @@ $theme-colors: map-merge(
     $theme-colors
 );
 
-// ===========================================
-// * Breakpoints
-// ===========================================
-// $break-0: 0;
-// $break-1: 36em; /* 576px */
-// $break-2: 48em; /* 768px */
-// $break-3: 62em; /* 992px */
-// $break-4: 75em; /* 1200px */
+$siteBanner-height: 40px;
+$pageBanner-height: 65px;
+$pageFooter-height: 90px;
 
-// @import '~bootstrap/scss/bootstrap';
+// ===========================================
+// * Breakpoints - SEE BOOTSTRAP variables
+// ===========================================

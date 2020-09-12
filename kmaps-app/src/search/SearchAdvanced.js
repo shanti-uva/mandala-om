@@ -105,8 +105,8 @@ export function SearchAdvanced(props) {
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components as they are now.
     const advanced = (
         <div
-            id="c-searchColumn"
-            className={`c-searchColumn ${openclass} overflow-auto`}
+            id="c-columnSearch"
+            className={`c-columnSearch ${openclass} overflow-auto`}
         >
             {typeof props.onStateChange === 'function' && (
                 <Navbar className={'justify-content-end'}>

@@ -14,7 +14,7 @@ ndg, 2020-07-14
     -webkit-tap-highlight-color: transparent;
 }
 
-.texts .sui-content {
+.texts .c-column__main {
     background-color: #eee;
     overflow-x: hidden;
     position: relative;
@@ -22,7 +22,7 @@ ndg, 2020-07-14
     height: inherit;
 }
 
-.texts #sui-results,
+.texts #c-content__main,
 .astviewer,
 .astviewer.texts #shanti-texts-container {
     height: inherit !important;

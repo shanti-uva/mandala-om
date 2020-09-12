@@ -47,7 +47,7 @@ export function TextsViewer(props) {
     // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
     useEffect(() => {
         // add class "texts" to sui-main
-        $('.sui-main').addClass('texts');
+        $('.l-wrapAll').addClass('texts');
 
         // Add customs CSS styles
         const headel = $('head');
@@ -219,12 +219,12 @@ function TextBody(props) {
     // Adjust CSS for Texts only
     useEffect(() => {
         $(
-            '.sui-content, #sui-results,.astviewer, .astviewer.texts #shanti-texts-container'
+            '.u-wrapContent, #c-content__main,.astviewer, .astviewer.texts #shanti-texts-container'
         ).css('height', 'inherit');
     }, []);
 
     useEffect(() => {
-        addBoClass('#sui-results');
+        addBoClass('#c-content__main');
     });
 
     return (
@@ -235,9 +235,7 @@ function TextBody(props) {
                     target={'_blank'}
                     title={'View Text in Mandala'}
                 >
-                    <span
-                        className={'shanticon shanticon-link-external'}
-                    ></span>
+                    <span className={'icon u-icon__external'}></span>
                 </a>
             </div>
             <HtmlWithPopovers markup={props.markup} />
