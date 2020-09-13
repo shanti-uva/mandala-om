@@ -28,7 +28,16 @@ a:active {
     color: $link-hover-color;
 }
 
-/*
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+    font-weight: 400;
+    font-family: $font-family-sans, sans-serif;
+}
+/**
 .l-wrapAll ::-webkit-scrollbar {
     width: 10px;
     height: 8px;
@@ -50,9 +59,9 @@ a:active {
 ::placeholder {
     color: #bbb;
 }
-*/
 
-/** Mandala Modal Styles
+
+----- ** Mandala Modal Styles **
 a.mandala-modal {
     text-decoration: none;
     cursor: pointer;
@@ -64,7 +73,7 @@ iframe.mdlmodal {
     width: 100%;
     border: none;
 }
-----------** End Mandala Modal Styles */
+*/
 
 /*** Inline Styles for HTML from Mandala included in Stand alone ***/
 figure.image.center img,
@@ -133,7 +142,6 @@ footer,
 }
 .u-footer {
 }
-
 footer,
 .c-siteHeader,
 .c-column__main,
@@ -144,10 +152,39 @@ footer,
 .u-columnSecond {
     //   padding: 1em;
 }
+.c-contentHeader__main {
+    padding: 0.25rem 1rem 1rem;
+}
+.c-contentHeader__main__id {
+    font-style: italic;
+    color: #eee;
+    position: absolute;
+    right: 2rem;
+    top: 80px;
+}
+.c-contentHeader__main__sub {
+    font-style: italic;
+    font-size: smaller;
+    color: #aaaaaa;
+}
+/*
+.c-contentHeader__main a {
+    color: #eeeeee;
+    margin: 0.3em;
+}
 
-// -----------------
+.c-contentHeader__main a:hover {
+    color: #bbbbbb;
+}
+
+.c-contentHeader__main a:visited {
+    color: #eeeeee;
+}
+*/
+
+// ------------------------------
 // ------- ICONS
-// -----------------
+// ------------------------------
 .icon.white {
     color: #fff;
 }
@@ -176,7 +213,7 @@ footer,
 
 .c-contentHeader__main .icon {
     position: relative;
-    top: 0.2rem;
+    top: 0.3rem;
     font-size: 1.75em;
     display: flex;
 }
@@ -332,17 +369,23 @@ body {
 .c-content__main {
     /*  display:none !important;*/
 }
-.c-siteHeader__search {
-    /* display:none !important;*/
+// ----------------------------
+// * HEADER - Site Header Logo-Search-Nav Section
+.c-siteHeader {
+    height: 40px;
+    padding: 0;
 }
 .c-siteHeader__search {
     position: absolute;
     top: 0.5rem;
     right: 30px;
 }
-.c-siteHeader {
-    height: 40px;
-    padding: 0;
+
+// ----------------------------
+// * BEGIN CONTENT Section
+.c-contentHeader__main {
+    width: 100%;
+    height: 65px;
 }
 .c-contentHeader,
 .c-contentHeader__main__title {
@@ -350,11 +393,25 @@ body {
     display: flex;
     flex-grow: 1;
     flex-direction: row;
+    margin-bottom: 0;
 }
-.c-contentHeader__main {
-    width: 100%;
-    height: 65px;
+.c-contentHeader__main__title {
+    // page header text on colored banner
+    font-size: 2.25em;
 }
-.c-contentHeader__main__breadcrumb {
+.c-contentHeader__breadcrumb {
     background-color: transparent;
+    font-size: 1.32em;
+    padding: 0;
+    margin: 0.75rem 0.5rem 0.25rem 3rem;
+}
+.c-contentHeader__breadcrumb,
+.c-contentHeader__breadcrumb a {
+    color: #fff;
+}
+.c-contentHeader__breadcrumb a {
+    padding: 0 0.5rem;
+}
+// gallery display buttons for view options
+.c-buttoneGroup__viewMode {
 }

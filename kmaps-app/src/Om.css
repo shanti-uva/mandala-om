@@ -822,8 +822,8 @@
 .sui-subText {
     font-family: 'EB Garamond', serif, shanticon;
     font-weight: 500;
-    line-height: 24px;
-    font-size: 20px;
+    line-height: 1;
+    font-size: 1.5em;
 }
 
 /* TERMS PAGE */
@@ -835,12 +835,12 @@
     border-radius: 6px;
     padding: 20px;
     color: #000;
-} */
+}
 
 .sui-terms {
     max-width: 1500px !important;
 }
-
+*/
 .sui-termTitle {
     font-family: 'EB Garamond', serif;
     font-weight: 500;
@@ -1924,32 +1924,6 @@ a {
     position: relative;
     top: 0.15rem;
     color: #222;
-}
-
-.c-contentHeader__main__id {
-    font-style: italic;
-    font-size: 0.5em;
-    color: #eee;
-    margin-right: 2rem;
-}
-
-.c-contentHeader__main__sub {
-    font-style: italic;
-    font-size: smaller;
-    color: #aaaaaa;
-}
-
-.c-contentHeader__main a {
-    color: #eeeeee;
-    margin: 0.3em;
-}
-
-.c-contentHeader__main a:hover {
-    color: #bbbbbb;
-}
-
-.c-contentHeader__main a:visited {
-    color: #eeeeee;
 }
 
 .sui-showinfo {

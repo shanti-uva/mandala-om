@@ -39,7 +39,7 @@ export function ContentHeader(props) {
                     {status.headerTitle}
                 </h1>
 
-                <div className={'c-contentHeader__main__breadcrumb breadcrumb'}>
+                <div className={'c-contentHeader__breadcrumb breadcrumb'}>
                     {convertedPath}
                 </div>
                 <span className={'c-contentHeader__main__id'}>{status.id}</span>
