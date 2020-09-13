@@ -3,19 +3,16 @@ import { ContentHeader } from './ContentHeader';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideo/AudioVideoViewer';
 import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
-import { ImagesViewer } from '../views/ImagesViewer';
-import { ImagesHome } from '../views/ImagesHome';
-import { TextsViewer } from '../views/TextsViewer';
-import { TextsHome } from '../views/TextsHome';
+import { ImagesViewer } from '../views/Images/ImagesViewer';
+import { ImagesHome } from '../views/Images/ImagesHome';
+import { TextsViewer } from '../views/Texts/TextsViewer';
+import { TextsHome } from '../views/Texts/TextsHome';
 import { SourcesViewer } from '../views/SourcesViewer';
 import { SourcesHome } from '../views/SourcesHome';
 import { VisualsViewer } from '../views/VisualsViewer';
 import { VisualsHome } from '../views/VisualsHome';
-import { PlacesViewer } from '../views/PlacesViewer';
-import { SubjectsViewer } from '../views/SubjectsViewer';
 import { RelatedsViewer } from '../views/RelatedsViewer';
 import LegacyViewer from '../views/LegacyViewer';
-import TermsViewer from '../views/Terms/TermsViewer';
 import { SearchViewer } from '../views/SearchViewer';
 import { CollectionsViewer } from '../views/CollectionsViewer';
 import { CollectionsHome } from '../views/CollectionsHome';
@@ -116,7 +113,7 @@ export function ContentPane(props) {
                             `${path}places/:id`,
                         ]}
                     >
-                        <KmapContext>
+                        <KmapContext assetType="places">
                             <RelatedsViewer />
                             <KmapsViewer
                                 id={props.id}
@@ -136,7 +133,7 @@ export function ContentPane(props) {
                             `${path}subjects/:id`,
                         ]}
                     >
-                        <KmapContext>
+                        <KmapContext assetType="subjects">
                             <RelatedsViewer />
                             <KmapsViewer
                                 id={props.id}
@@ -156,7 +153,7 @@ export function ContentPane(props) {
                             `${path}terms/:id`,
                         ]}
                     >
-                        <KmapContext>
+                        <KmapContext assetType="terms">
                             <RelatedsViewer />
                             <KmapsViewer
                                 id={props.id}

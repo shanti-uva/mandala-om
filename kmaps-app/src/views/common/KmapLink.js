@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 
-export function KmapLink({ uid, label, key }) {
+export function KmapLink({ uid, label, key, className }) {
     const [type, id] = uid.split('-');
 
     if (!key) {
         key = uid;
     }
     return (
-        <Link key={key} to={'/' + type + '/' + uid}>
+        <Link className={className} key={key} to={'/' + type + '/' + uid}>
             {label}
         </Link>
     );

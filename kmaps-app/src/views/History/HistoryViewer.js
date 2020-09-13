@@ -1,10 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router';
 import { useStoreState } from 'easy-peasy';
-import { useStoreActions } from '../../model/StoreModel';
-import * as PropTypes from 'prop-types';
 
 import './HistoryViewer.css';
+import { HistoryLocation } from './HistoryLocation';
 
 export function HistoryViewer(props) {
     /*
@@ -27,48 +25,5 @@ export function HistoryViewer(props) {
     });
     return <div className="c-HistoryViewer">{historyList}</div>;
 }
-
-// inner component
-function HistoryLocation(props) {
-    const { removeLocation } = useStoreActions((actions) => actions.history);
-    const history = useHistory();
-    // console.log("HistoryLocation location: ", props.location);
-
-    const loc = props.location?.relTitle ? (
-        props.location.relTitle
-    ) : (
-        <span className={'c-HistoryViewer__title'}>
-            <span
-                className={
-                    'icon u-icon__' + props.location?.asset_type || 'shanti'
-                }
-            ></span>{' '}
-            {props.location?.name}
-        </span>
-    );
-
-    return (
-        <div
-            className="c-HistoryViewer__relatedRecentItem"
-            onClick={(event) => history.push(props.location)}
-        >
-            {loc}
-            <span
-                className="c-HistoryViewer__removeItem u-icon__cancel-circle icon"
-                data-key={props.location.key}
-                alt={'Remove from list'}
-                aria-label={'Remove from list'}
-                onClick={(event) => {
-                    console.log('delete:', event.target.dataset.key);
-                    // removeLocation(event.target.dataset.key);
-                    removeLocation(props.location);
-                    event.stopPropagation();
-                }}
-            ></span>
-        </div>
-    );
-}
-
-HistoryLocation.propTypes = { location: PropTypes.any };
 
 export default HistoryViewer;

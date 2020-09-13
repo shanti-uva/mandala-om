@@ -19,7 +19,10 @@ import 'rc-input-number/assets/index.css';
 
 // Bootstrap
 
-export default function TermsViewer(props) {
+//
+// THIS COMPONENT IS DEPRECATED.   See TermsInfo and KmapsViewer which comprises its former functionality
+//
+export default function TermsViewer_Deprecated(props) {
     //  assembles a path from the data is has...
     function assemblePath(kmap, kmasset) {
         // console.log("assemble kmap = ", kmap);

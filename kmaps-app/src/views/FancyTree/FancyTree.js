@@ -29,7 +29,7 @@ function FancyTree({
         const solrUtils = kmapsSolrUtils.init({
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
             assetIndex: process.env.REACT_APP_SOLR_KMASSETS,
-            featureId: '',
+            featureId: params.id,
             domain,
             perspective,
             mandalaURL:
@@ -44,7 +44,7 @@ function FancyTree({
         const elCopy = $(el.current);
         elCopy.kmapsRelationsTree({
             domain,
-            featureId: '',
+            featureId: params.id,
             featuresPath:
                 process.env.REACT_APP_PUBLIC_URL +
                 `/${domain}/${domain}-%%ID%%`,
@@ -52,6 +52,7 @@ function FancyTree({
             tree,
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
             descendants,
+            descendantsFullDetail: false,
             directAncestors,
             displayPopup,
             mandalaURL:
@@ -60,6 +61,7 @@ function FancyTree({
             solrUtils: solrUtils,
             view,
             sortBy,
+            initialScrollToActive: true,
             extraFields: ['associated_subject_ids'],
             nodeMarkerPredicates: [
                 {
@@ -77,7 +79,7 @@ function FancyTree({
         };
     }, []);
 
-    return <div className="suiFancyTree" ref={el}></div>;
+    return <div className="suiFancyTree view-wrap" ref={el}></div>;
 }
 
 export default FancyTree;

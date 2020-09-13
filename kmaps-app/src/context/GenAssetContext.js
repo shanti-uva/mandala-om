@@ -24,6 +24,7 @@ import { useParams } from 'react-router';
  * */
 export default function GenAssetContext(props) {
     const [asset_type, setAssetType] = useState(props.assetType);
+    const [mdlasset, setMdlAsset] = useState(null);
 
     const params = useParams();
     let nid = params.relId || params.id || params.nid; // When ID param is just a number
@@ -34,15 +35,18 @@ export default function GenAssetContext(props) {
     const solrdata = useAsset(asset_type, nid);
     const nodejson = useMandala(solrdata);
 
+    useEffect(() => {
+        if (solrdata?.docs && solrdata.docs.length > 0) {
+            setMdlAsset(solrdata.docs[0]);
+        }
+    }, [solrdata]);
+
     return React.Children.map(props.children, (child) => {
         if (child.type) {
             return React.cloneElement(child, {
                 asset_type: asset_type,
                 id: nid,
-                mdlasset:
-                    solrdata && solrdata.docs && solrdata.docs.length > 0
-                        ? solrdata.docs[0]
-                        : false,
+                mdlasset: mdlasset,
                 nodejson: nodejson,
             });
         } else {
