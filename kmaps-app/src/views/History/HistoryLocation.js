@@ -10,15 +10,20 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 
 function SearchCriteriaMini(props) {
-    console.log(
-        'SearchCriteriaMini state = ',
-        JSON.stringify(props.location?.state, undefined, 3)
-    );
+    // console.log(
+    //     'SearchCriteriaMini state = ',
+    //     JSON.stringify(props.location, undefined, 2))
     const state = props.location?.state;
+    const kmasset = props.location?.kmasset;
 
     let output = [];
     if (!state) {
-        return <>No Filters</>;
+        return (
+            <>
+                {' '}
+                {selectIcon(kmasset?.asset_type)} {kmasset.uid}
+            </>
+        );
     } else {
         output.push(
             <div>
@@ -30,8 +35,7 @@ function SearchCriteriaMini(props) {
             const filter = state.filters[i];
             output.push(
                 <div>
-                    <span className={'icon u-icon__' + filter.field}></span>{' '}
-                    {filter.label}
+                    {selectIcon(filter.field)} {filter.label}
                 </div>
             );
         }
@@ -45,31 +49,36 @@ SearchCriteriaMini.propTypes = { location: PropTypes.any };
 export function HistoryLocation(props) {
     const { removeLocation } = useStoreActions((actions) => actions.history);
     const history = useHistory();
-    const renderTooltip = (p) => (
-        <Popover {...p}>
-            <Popover.Content>
-                <SearchCriteriaMini location={props.location} />
-            </Popover.Content>
-        </Popover>
-    );
+    const renderTooltip = (p) => {
+        return (
+            <Popover {...p}>
+                <Popover.Content>
+                    <SearchCriteriaMini location={props.location} />
+                </Popover.Content>
+            </Popover>
+        );
+    };
+
+    const type = props.location.kmasset
+        ? props.location.kmasset?.asset_type
+        : 'search';
     const loc = props.location?.relTitle ? (
         props.location.relTitle
     ) : (
         <OverlayTrigger
-            placement="left"
+            placement="top-start"
             delay={{ show: 250, hide: 400 }}
             overlay={renderTooltip}
             data-filters={props.location?.state?.filters}
         >
             <span className={'c-HistoryViewer__title'}>
-                <span className={'icon u-icon__search'}></span>{' '}
-                {props.location?.name}
+                {selectIcon(type)} {props.location?.name}
                 <FacetIcons state={props.location.state} />
             </span>
         </OverlayTrigger>
     );
 
-    console.log('HistoryLocation: location = ', props.location);
+    // console.log('HistoryLocation: location = ', props.location);
 
     return (
         <div
@@ -96,7 +105,7 @@ HistoryLocation.propTypes = { location: PropTypes.any };
 
 function FacetIcons(props) {
     const state = props.state;
-    console.log('Statey = ', state);
+    // console.log('Statey = ', state);
 
     if (!state) {
         return null;
@@ -157,6 +166,7 @@ function selectIcon(type) {
             <span className={'facetItem icon u-icon__essays'} />
         ),
         perspective: <span className={'facetItem icon u-icon__file-picture'} />,
+        search: <span className={'facetItem icon u-icon__search'} />,
     };
 
     return ICON_MAP[type];
