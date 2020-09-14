@@ -22,6 +22,9 @@ export function ImagesOSDViewer(props) {
                     pinchRotate: true,
                 },
                 defaultZoomLevel: defaultzoom,
+                minZoomImageRatio: 0,
+                maxZoomPixelRatio: 100,
+                maxZoomLevel: 100,
             });
             setOSDViewer(viewer);
         }
