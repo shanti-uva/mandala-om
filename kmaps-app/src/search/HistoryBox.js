@@ -8,6 +8,7 @@ import { useStoreState } from 'easy-peasy';
 import Spinner from 'react-bootstrap/Spinner';
 import { FacetChoice } from './FacetChoice';
 import HistoryViewer from '../views/History/HistoryViewer';
+
 import { BsArrowCounterclockwise } from 'react-icons/bs';
 
 function countSearchItems(historyStack) {

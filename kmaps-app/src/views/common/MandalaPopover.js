@@ -16,7 +16,7 @@ import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
  *                      kid="8260"
  *                  />
  *
- *  Styling instructions for Popovers are in: ./views/css/Popover.css which is included by call in App.js
+ *  Styling instructions for Popovers are in: ./views/css/Popover.scss which is included by call in App.js
  * @param props
  * @returns {*}
  * @constructor

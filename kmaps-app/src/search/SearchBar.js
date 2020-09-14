@@ -31,22 +31,20 @@ export function SearchBar(props) {
     }
 
     const searchbar = (
-        <div id="sui-top" className="sui-top">
+        <section id="c-siteHeader__search" className="c-siteHeader__search">
             {/*<form onSubmit={this.handleSubmit}>*/}
-            <div style={{ display: 'inline-block' }}>
-                <SearchContext>
-                    <BasicSearch
-                        onSubmit={handleSubmit}
-                        onChange={handleInputChange}
-                    />
-                    <AdvancedToggle
-                        onToggleAdvanced={toggleAdvanced}
-                        advanced={props.advanced}
-                    />
-                </SearchContext>
-            </div>
+            <SearchContext>
+                <BasicSearch
+                    onSubmit={handleSubmit}
+                    onChange={handleInputChange}
+                />
+                <AdvancedToggle
+                    onToggleAdvanced={toggleAdvanced}
+                    advanced={props.advanced}
+                />
+            </SearchContext>
             {/*</form>*/}
-        </div>
+        </section>
     );
     return searchbar;
 }

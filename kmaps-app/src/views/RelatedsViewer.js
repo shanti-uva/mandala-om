@@ -27,9 +27,9 @@ export function RelatedsViewer(props) {
     }
 
     return (
-        <div className={'relatedsviewer'}>
+        <aside className={'c-columnRelated'}>
             <div className="sui-related">
-                <div className="sui-relatedList__wrapper">
+                <section className="sui-relatedList__wrapper">
                     RELATED RESOURCES
                     <hr />
                     <div className="sui-relatedList">
@@ -39,7 +39,7 @@ export function RelatedsViewer(props) {
                             }
                         >
                             <div
-                                className={`sui-relatedItem  u-color__terms ${locMatch['home']}`}
+                                className={`sui-relatedItem ${locMatch['home']}`}
                                 id="sui-rl-Home"
                             >
                                 <span
@@ -100,13 +100,15 @@ export function RelatedsViewer(props) {
                             className={locMatch.collections}
                         />
                     </div>
-                </div>
-                <div className="sui-recently-viewed__wrapper">
+                </section>
+
+                <section className="sui-recently-viewed__wrapper">
                     RECENTLY VIEWED
                     <hr />
                     <HistoryViewer />
-                </div>
-                <div className="sui-termsTree__wrapper">
+                </section>
+
+                <section className="sui-termsTree__wrapper">
                     BROWSE TERMS
                     <hr />
                     <FancyTree
@@ -119,9 +121,9 @@ export function RelatedsViewer(props) {
                         view="roman.scholar"
                         sortBy="position_i+ASC"
                     />
-                </div>
+                </section>
             </div>
-        </div>
+        </aside>
     );
 }
 

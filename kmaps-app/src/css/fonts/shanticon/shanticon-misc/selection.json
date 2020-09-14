@@ -3802,7 +3802,7 @@
         "showQuickUse2": true,
         "showSVGs": true,
         "fontPref": {
-            "prefix": "shanticon-",
+            "prefix": "u-icon__",
             "metadata": {
                 "fontFamily": "shanticon",
                 "majorVersion": 2,
@@ -3821,7 +3821,7 @@
             "showMetrics": false
         },
         "imagePref": {
-            "prefix": "shanticon-",
+            "prefix": "u-icon__",
             "png": true,
             "useClassSelector": true,
             "color": 0,

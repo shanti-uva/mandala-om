@@ -37,48 +37,46 @@ export function Main(props) {
 
     const main = (
         <Router basename={'/mandala-om'}>
-            <div id={'sui-main'} className={'sui-main'}>
-                <div>
-                    <HistoryListener />
-                    <TopBar />
-                    {/* Commented this out to get Asset Views to work (ndg) */}
-                    <SearchBar
+            <div id={'u-wrapAll'} className={'u-wrapAll'}>
+                <HistoryListener />
+                <TopBar />
+                {/* Commented this out to get Asset Views to work (ndg) */}
+                <SearchBar
+                    advanced={state.advanced}
+                    onStateChange={handleStateChange}
+                />
+
+                <Switch>
+                    <Route path={'/home'}>
+                        <Home />
+                    </Route>
+                    <Route exact path={'/'}>
+                        <Redirect to={'/home'} />
+                    </Route>
+                    <Route path={'/'}>
+                        <ContentPane
+                            site={'mandala'}
+                            mode={'development'}
+                            title={'Mandala'}
+                            sui={props.sui}
+                            kmasset={state.kmasset}
+                            kmap={state.kmap}
+                            onStateChange={handleStateChange}
+                        />
+                    </Route>
+                    <Route path={'*'}>
+                        <Error404 />
+                        <Home />
+                    </Route>
+                </Switch>
+                {/* Commented this out to get Asset Views to work (ndg) */}
+                <SearchContext>
+                    <SearchAdvanced
                         advanced={state.advanced}
                         onStateChange={handleStateChange}
                     />
-
-                    <Switch>
-                        <Route path={'/home'}>
-                            <Home />
-                        </Route>
-                        <Route exact path={'/'}>
-                            <Redirect to={'/home'} />
-                        </Route>
-                        <Route path={'/'}>
-                            <ContentPane
-                                site={'mandala'}
-                                mode={'development'}
-                                title={'Mandala'}
-                                sui={props.sui}
-                                kmasset={state.kmasset}
-                                kmap={state.kmap}
-                                onStateChange={handleStateChange}
-                            />
-                        </Route>
-                        <Route path={'*'}>
-                            <Error404 />
-                            <Home />
-                        </Route>
-                    </Switch>
-                    {/* Commented this out to get Asset Views to work (ndg) */}
-                    <SearchContext>
-                        <SearchAdvanced
-                            advanced={state.advanced}
-                            onStateChange={handleStateChange}
-                        />
-                    </SearchContext>
-                    <Hamburger hamburgerOpen={state.hamburgerOpen} />
-                </div>
+                </SearchContext>
+                <Hamburger hamburgerOpen={state.hamburgerOpen} />
             </div>
         </Router>
     );

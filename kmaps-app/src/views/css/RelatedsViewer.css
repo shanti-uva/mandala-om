@@ -1,20 +1,30 @@
 /* RELATED */
 .sui-related {
-    position: absolute;
-    top: 52px;
-    left: 0;
     width: 17.5rem;
-    height: 100%;
-    margin: 8px 10px 8px 0.5px;
-    /* background-color: #ddd;
-    border: 1px solid #999; */
-    border-radius: 6px;
-    padding: 18px 0 0 12px;
+    height: 100vh;
+    margin: 0;
+    padding: 1rem 2rem;
     color: #4a5568;
+
+    position: ABSOLUTE;
 }
 
 .sui-related > * {
     margin-bottom: 3.2rem;
+}
+
+.sui-relatedHeader {
+    text-transform: uppercase;
+}
+
+.sui-relatedSubHeader {
+    text-transform: capitalize;
+}
+
+.sui-relatedSubHeader::before {
+    content: ' / ';
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 .sui-relatedImg {
@@ -73,20 +83,6 @@
 
 .sui-relatedRecentItem:hover {
     background-color: #a4baec;
-}
-
-.sui-relatedHeader {
-    text-transform: uppercase;
-}
-
-.sui-relatedSubHeader {
-    text-transform: capitalize;
-}
-
-.sui-relatedSubHeader::before {
-    content: ' / ';
-    margin-left: 0.5em;
-    margin-right: 0.5em;
 }
 
 .sui-recent {

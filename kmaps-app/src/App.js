@@ -2,8 +2,7 @@ import React from 'react';
 import SearchUI from './legacy/searchui';
 import Pages from './legacy/pages';
 
-import './Om.css';
-//import './index.scss';
+// import './Om.css';
 
 // import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Main } from './main/Main';

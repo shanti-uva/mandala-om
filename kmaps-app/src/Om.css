@@ -3,7 +3,7 @@
 
 .sui-main {
     all: initial;
-    position: absolute;
+    position: ABSOLUTE;
     left: 0;
     top: 0;
     line-height: 2.2rem;
@@ -23,7 +23,7 @@
 }
 
 .sui-top {
-    position: absolute;
+    position: ABSOLUTE;
     right: 4rem;
     top: 7px;
     user-select: none;
@@ -149,7 +149,8 @@
 }
 
 .sui-hamburger {
-    position: absolute;
+    position: ABSOLUTE;
+
     font-size: 14px;
     background-color: #666;
     color: #fff;
@@ -166,11 +167,11 @@
     width: 150px;
 }
 
-.sui-results {
-    padding: 0 1.5rem;
+.c-content__main {
+    /*  padding: 0 1.5rem; */
 }
 
-.sui-contentHead {
+.c-contentHeader__main {
 }
 
 .sui-type {
@@ -216,7 +217,8 @@
 }
 
 .sui-typeList {
-    position: absolute;
+    position: ABSOLUTE;
+
     left: calc(100% - 560px);
     top: 34px;
     background-color: #fff;
@@ -234,26 +236,26 @@
     background-color: #dee7f1;
 }
 
-.sui-content {
-    position: absolute;
+.c-columnContent__main {
+    /*   position: absolute;
     left: 0;
     top: 43px;
     width: 100%;
     height: calc(100% - 73px);
     background-color: #dddddd;
     display: block;
-    overflow-y: auto;
+    overflow-y: auto; */
 }
 
-.sui-results {
-    position: absolute;
+.c-content__main {
+    /*   position: absolute;
     left: 0;
     top: 52px;
     min-height: calc(100% - 77px);
     width: calc(100% - 24px);
     background-color: #ddd;
     overflow-x: hidden;
-    padding: 12px;
+    padding: 12px; */
 }
 
 .sui-resDisplay {
@@ -263,7 +265,7 @@
 }
 
 .sui-footer {
-    position: absolute;
+    /*   position: absolute;
     left: 0;
     top: calc(100% - 31px);
     width: 100%;
@@ -273,11 +275,12 @@
     text-align: center;
     padding-top: 6px;
     user-select: none;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 .sui-infoBottom {
-    position: absolute;
+    position: ABSOLUTE;
+
     left: 12px;
     height: 33%;
     width: 33%;
@@ -414,7 +417,8 @@
 }
 
 .sui-gridInfo {
-    position: absolute;
+    position: ABSOLUTE;
+
     cursor: pointer;
     color: #fff;
     margin-left: 128px;
@@ -425,7 +429,8 @@
 }
 
 .sui-gridGlyph {
-    position: absolute;
+    position: ABSOLUTE;
+
     font-size: 36px;
     pointer-events: none;
     width: 138px;
@@ -437,7 +442,8 @@
 }
 
 .sui-gridPopup {
-    position: absolute;
+    position: ABSOLUTE;
+
     width: 300px;
     left: calc(50% - 250px);
     top: calc(50% - 50px);
@@ -484,7 +490,8 @@
 }
 
 .sui-cardGlyph {
-    position: absolute;
+    position: ABSOLUTE;
+
     width: 180px;
     font-size: 36px;
     text-align: center;
@@ -511,8 +518,8 @@
 
 /* ADVANCED SEARCH */
 
-.c-searchColumn {
-    position: absolute;
+.c-columnSearch {
+    /*   position: absolute;
     z-index: 10;
     left: calc(100% - 361px);
     top: 43px;
@@ -526,7 +533,7 @@
     border-bottom: 1px solid #aaa;
     border-bottom-left-radius: 5px;
     font-size: 15px;
-    overflow: hidden;
+    overflow: hidden;*/
 }
 
 .sui-advTop {
@@ -731,7 +738,9 @@
     display: block;
     height: 15px;
     left: 0;
-    position: absolute;
+
+    position: ABSOLUTE;
+
     top: 2px;
     width: 15px;
     background-position: 0;
@@ -759,7 +768,8 @@
 }
 
 #plc-infoDiv {
-    position: absolute;
+    position: ABSOLUTE;
+
     top: 292px;
     left: 219px;
 }
@@ -822,12 +832,12 @@
 .sui-subText {
     font-family: 'EB Garamond', serif, shanticon;
     font-weight: 500;
-    line-height: 24px;
-    font-size: 20px;
+    line-height: 1;
+    font-size: 1.5em;
 }
 
 /* TERMS PAGE */
-/* .sui-terms {
+/* .c-contentMain__kmaps {
     max-width: 1060px;
     margin: 8px 10px 8px 192px;
     background-color: #f7f7f7;
@@ -835,12 +845,12 @@
     border-radius: 6px;
     padding: 20px;
     color: #000;
-} */
+}
 
 .sui-terms {
     max-width: 1500px !important;
 }
-
+*/
 .sui-termTitle {
     font-family: 'EB Garamond', serif;
     font-weight: 500;
@@ -1073,7 +1083,8 @@
 }
 
 .sui-transOps {
-    position: absolute;
+    position: ABSOLUTE;
+
     background-color: #f7f7f7;
     border: 1px solid #999;
     border-radius: 0 0 6px 6px;
@@ -1417,12 +1428,14 @@
 
 /* MISC PAGES */
 .sui-breadCrumbs {
-    display: block;
-    font-style: italic;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    /*  font-style: italic;
     font-size: 13px;
     margin-left: 1.5rem;
     cursor: pointer;
-    margin-top: 0.5rem;
+    margin-top: 0.5rem;*/
 }
 
 .sui-crumb:hover {
@@ -1438,7 +1451,7 @@
 }
 
 .sui-popover {
-    position: absolute;
+    position: ABSOLUTE;
     width: 300px;
     min-height: 100px;
     padding: 12px;
@@ -1533,13 +1546,13 @@ a {
     display: none;
 }
 /*
-.mandala.sui-results {
+.mandala.u-wrapContent__searchResults {
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
 }
 */
-.mandala > .sui-contentHead > div {
+.mandala > .c-contentHeader__main > div {
     /*   margin-top: 0.5em; */
 }
 
@@ -1550,19 +1563,19 @@ a {
    TODO: add slide-in/out css transition
 */
 
-.c-searchColumn.open {
+.c-columnSearch.open {
     display: block;
 }
 
-.c-searchColumn.closed {
+.c-columnSearch.closed {
     display: none;
 }
 
-.c-searchColumn nav {
+.c-columnSearch nav {
     font-size: small;
 }
 
-.c-searchColumn .nav-link {
+.c-columnSearch .nav-link {
     padding: 0.3rem 0.3rem;
 }
 
@@ -1922,32 +1935,6 @@ a {
     position: relative;
     top: 0.15rem;
     color: #222;
-}
-
-.sui-contentHeader-id {
-    font-style: italic;
-    font-size: 0.5em;
-    color: #eee;
-    margin-right: 2rem;
-}
-
-.sui-contentHeader-sub {
-    font-style: italic;
-    font-size: smaller;
-    color: #aaaaaa;
-}
-
-.sui-contentHead a {
-    color: #eeeeee;
-    margin: 0.3em;
-}
-
-.sui-contentHead a:hover {
-    color: #bbbbbb;
-}
-
-.sui-contentHead a:visited {
-    color: #eeeeee;
 }
 
 .sui-showinfo {

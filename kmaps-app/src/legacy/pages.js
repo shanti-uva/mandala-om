@@ -228,9 +228,9 @@ export default class Pages {
             str = `<div style='float:right;margin-top:-8px;font-size:10px'>${
                 o.id
             }</div>
-			<b>${
+			<strong>${
                 o.title ? o.title[0] : 'untitled'
-            }</b><hr style='border-top:1px solid #ccc'>
+            }</strong><hr style='border-top:1px solid #ccc'>
 			<span style='font-size:12px;text-transform:capitalize'>
 			For more information about this ${o.asset_type.slice(
                 0,
@@ -238,7 +238,7 @@ export default class Pages {
             )}, see Full Entry below.<p>`;
             if (o.feature_types_idfacet && o.asset_type == 'places') {
                 // Show Feature types in places
-                str += '<b>Feature types: </b>'; // Add title
+                str += '<strong>Feature types: </strong>'; // Add title
                 for (i = 0; i < o.feature_types_idfacet.length; ++i) {
                     // For each feature
                     v = o.feature_types_idfacet[i].split('|'); // Split title and id
@@ -250,7 +250,7 @@ export default class Pages {
                 }
             }
             if (o.ancestors_txt && o.ancestors_txt.length > 1)
-                str += `<b>${o.asset_type}: </b>`; // Show header if any breadcrumbs
+                str += `<strong>${o.asset_type}: </strong>`; // Show header if any breadcrumbs
             if (o.ancestors_txt)
                 // If breadcrumbs
                 for (i = 0; i < o.ancestors_txt.length - 1; ++i) {
@@ -465,7 +465,7 @@ export default class Pages {
             sk = o.asset_subtype.toLowerCase(); // Get asset sub-type
         }
 
-        $('#sui-content').scrollTop(0);
+        $('#c-columnContent__main').scrollTop(0);
         $(this.div).scrollTop(0); // Scroll to top
         k = o.asset_type; // Get this asset type
         str += `<div class='sui-related' style='border-color:${
@@ -481,7 +481,7 @@ export default class Pages {
             sui.assets[k].g +
             " </span> <b style='color:" +
             sui.assets[k].c +
-            "'>Home</b></div>";
+            "'>Home</strong></div>";
         if (p.asset_type == 'collections')
             str +=
                 "<div class='sui-relatedItem' id='sui-rl-" +
@@ -662,7 +662,7 @@ export default class Pages {
         if (o.ancestors_txt && o.ancestors_txt.length) {
             // If has an ancestors trail
             str +=
-                "<br><div class='sui-breadCrumbs'>" +
+                "<div class='breadcrumb'>" +
                 o.asset_type.toUpperCase() +
                 ':&nbsp; '; // Header
             for (i = 0; i < o.ancestors_txt.length; ++i) {
@@ -683,7 +683,7 @@ export default class Pages {
         //console.error("EXAMINE sui");
         //console.dir(sui);
 
-        $('#sui-contentHead').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
+        $('#c-contentHeader__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
         $('#sui-footer').html(
             `<div style='float:right;font-size:14px;margin-right:16px'>${o.asset_type.toUpperCase()} ID: ${
                 o.id
@@ -728,8 +728,10 @@ export default class Pages {
         if (marker)
             s += `<div class='sui-spDot' id='sui-spDot-${path}'>${marker}</div>`;
         // If a dot, add it
-        else s += "<div class='sui-spLoner'><b>&bull;&nbsp;&nbsp;</b></div>"; // If a loner
-        s += `<a class='sui-noA' href='#p=${id}' id='sui-spLab-${id}'>${lab}</b>${sui.pages.AddPop(
+        else
+            s +=
+                "<div class='sui-spLoner'><strong>&bull;&nbsp;&nbsp;</strong></div>"; // If a loner
+        s += `<a class='sui-noA' href='#p=${id}' id='sui-spLab-${id}'>${lab}</strong>${sui.pages.AddPop(
             id
         )}</a>`;
         return s; // Return line

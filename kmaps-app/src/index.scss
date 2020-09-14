@@ -1,118 +1,19 @@
-@import './om-global-var.scss';
-@import '~bootstrap/scss/bootstrap';
-@import 'css/fonts/shanticon/style.css';
-@import './views/css/Popover.css';
+@import 'index-variables'; // * CUSTOM --- Thematic SCSS Variables
+@import '~bootstrap/scss/bootstrap'; // * VENDOR --- Base files for Bootstrap
+@import 'css/fonts/shanticon/style.css'; // * CUSTOM --- Icon set for Mandala
+@import 'views/css/Popover'; // * CUSTOM --- Icon set for Mandala
 
 html {
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
-    overflow-y: scroll;
     font-family: sans-serif;
     font-size: 62.5%;
 }
-
 body {
-    color: $color-text;
-    -webkit-font-smoothing: antialiased; /* Chrome fonts */
-    -moz-osx-font-smoothing: grayscale; /* FF fonts */
-    overflow: hidden;
-    //  margin-top: 0 !important;
-    margin-top: 0;
-    font-family: $font-family-sans;
-    font-weight: 400;
-    /*text-rendering: optimizeSpeed;
-  letter-spacing: 0.01rem;*/
-    //   text-rendering: optimizeLegibility !important;
     text-rendering: optimizeLegibility;
-    //   letter-spacing: normal !important;
-    letter-spacing: normal; // letter-spacing >>> use care with Tibetan fonts
 }
-
 body.html {
-    //   background-color: #222;
-    //   color: #ccc;
-}
-/* reset modal popups, lightboxes, iframe backgrounds to white */
-body.html .main-col body,
-body.page-media-browser,
-body.lightbox-processed {
-    //   background-color: #fff;
-    //   color: #333;
-}
-
-.h1,
-h1 {
-    font-size: 1.56em;
-}
-.h2,
-h2 {
-    font-size: 1.44em;
-}
-.h3,
-h3 {
-    font-size: 1.32em;
-}
-.h4,
-h4 {
-    font-size: 1.18em;
-}
-.h5,
-h5 {
-    font-size: 1.06em;
-}
-.h6,
-h6 {
-    font-size: 1em;
-}
-
-/* Note: header classes & elements */
-.h1,
-.h2,
-.h3,
-h1,
-h2,
-h3,
-.h4,
-.h5,
-.h6,
-h4,
-h5,
-h6 {
-    color: #444;
-    line-height: 1.5;
-    text-rendering: optimizeLegibility;
-}
-.h1,
-.h2,
-.h3,
-h1,
-h2,
-h3 {
-    margin-top: 20px;
-    margin-bottom: 5px;
-    letter-spacing: 0.0175rem; // letter-spacing >>> use care with Tibetan fonts
-    font-weight: 400;
-}
-
-.h4,
-.h5,
-.h6,
-h4,
-h5,
-h6 {
-    letter-spacing: 0.0475rem; // letter-spacing >>> use care with Tibetan fonts
-}
-
-.h4,
-h4 {
-    margin-top: 15px;
-}
-
-.h5,
-.h6,
-h5,
-h6 {
-    margin-top: 10px;
+    font-family: $font-family-sans, sans-serif;
 }
 
 a {
@@ -127,7 +28,40 @@ a:active {
     color: $link-hover-color;
 }
 
-/*********************** Mandala Modal Styles ***********************/
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+    font-weight: 400;
+    font-family: $font-family-sans, sans-serif;
+}
+/**
+.l-wrapAll ::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+}
+.l-wrapAll ::-webkit-scrollbar-track {
+    background: transparent;
+    border-left: 1px solid #aaa;
+}
+.l-wrapAll ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #ccc;
+}
+.l-wrapAll ::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+.l-wrapAll ::-webkit-input-placeholder {
+    color: #bbb;
+}
+::placeholder {
+    color: #bbb;
+}
+
+
+----- ** Mandala Modal Styles **
 a.mandala-modal {
     text-decoration: none;
     cursor: pointer;
@@ -139,8 +73,7 @@ iframe.mdlmodal {
     width: 100%;
     border: none;
 }
-
-/*********************** End Mandala Modal Styles ***********************/
+*/
 
 /*** Inline Styles for HTML from Mandala included in Stand alone ***/
 figure.image.center img,
@@ -150,137 +83,114 @@ div.image-wrapper.center figcaption {
     margin-left: auto;
     margin-right: auto;
 }
-/**
- ** END - Global Styles copied from ShantiSarvaka shanti-main.css for fonts etc (ndg, 2020-07-14)
- **/
 
-// START
-// ------- NEW CSS
-// -----------------------------------
-// --- NOTE: many are temp integrations and will evolve as css integration continues
-.u-icon__terms::before {
-    font-size: 90%;
+// --------------------------------------------------------------------
+// ------- SITE LAYOUT ---- lots of testing still, pardon the mess
+// --------------------------------------------------------------------
+#root {
+    height: 100vh;
+    width: 100%;
 }
-.shanti-field-itemcount,
-.shanti-field-path,
-.shanti-field-type,
-.shanti-field-author,
-.shanti-field-creator,
-.shanti-field-registrar,
-.shanti-field-languages,
-.shanti-field-duration,
-.shanti-field-created,
-.shanti-field-place,
-.shanti-field-subject {
-    font-size: 1.18rem;
-    //   font-family: $font-family-sans;
-    font-weight: 400;
-    line-height: 1.62em;
+.l-wrapAll {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(
+        4,
+        $siteBanner-height $pageBanner-height auto $pageFooter-height
+    );
+    grid-template-columns: 300px 1fr;
+    height: 100vh;
 }
-.c-smartRelateds__limited > div {
-    line-height: 1.38em;
+article {
+    grid-template-columns: 250px auto 350px;
+    grid-template-rows: repeat(1, auto);
+    grid-gap: 1em;
 }
-
-.shanti-field-itemcount span::before,
-.shanti-field-path span::before,
-.shanti-field-type span::before,
-.shanti-field-author > span::before,
-.shanti-field-creator > span::before,
-.shanti-field-registrar > span::before,
-.shanti-field-languages span::before,
-.shanti-field-duration span::before,
-.shanti-field-created span::before,
-.shanti-field-place > span::before,
-.shanti-field-subject > span::before {
-    position: relative;
-    top: 2px;
+footer,
+article,
+.c-siteHeader,
+.c-column__main,
+.c-content__main,
+.c-contentHeader__main,
+.c-contentHeader {
+    display: grid !important;
+}
+footer,
+.c-columnSearch,
+.c-siteHeader,
+.c-column__main,
+.c-content__main,
+.c-contentHeader__main,
+.c-contentHeader {
+    grid-column: 1 / 4;
 }
 
-.c-searchColumn .icon,
-.c-searchColumn [class^='u-icon__'],
-.c-searchColumn [class*='u-icon__'],
-.c-searchColumn [class^='shanticon-'],
-.c-searchColumn [class*='shanticon-'] {
-    font-family: 'shanticon', sans-serif;
+.c-column__main {
+}
+.c-columnSearch.open {
+    position: absolute;
+    top: 120px;
+    right: 1rem;
+    z-index: 100;
+    height: 100vh;
+    background: white;
+    font-size: 1.32rem;
+}
+.u-columnFirst {
+}
+.u-columnSecond {
+}
+.u-footer {
+}
+footer,
+.c-siteHeader,
+.c-column__main,
+.c-content__main,
+.c-contentHeader__main,
+.c-contentHeader,
+.u-columnFirst,
+.u-columnSecond {
+    //   padding: 1em;
 }
 
-// --- temp integration process from prototype
-
-.sui-terms .c-nodeHeader__iconLink .icon {
-    font-size: 13px;
-    font-weight: bold;
-    position: relative;
-    top: -1rem;
-    left: -2rem;
-}
-.sui-terms .c-nodeHeader__iconLink .icon::before {
-    margin-right: 0.5rem;
-    margin-left: 1.5rem;
-}
-
-.c-nodeHeader .icon,
-.sui-contentHead .icon {
-    position: relative;
-    top: 0.2rem;
-    font-size: 1.75em;
-}
-.sui-contentHead .icon::before {
-    font-size: 2.1rem;
-}
-.c-nodeHeader .icon::before,
-.sui-contentHead .icon::before {
-    margin: 0 1rem 0 1rem;
-}
-.sui-header {
-    color: #fff;
-    padding: 0.25rem 0 0 1.5rem;
-    font-size: 1.5em;
-    height: 65px;
-}
-.sui-nameEntry-meta {
-    display: block;
-    margin-top: 0.75rem;
-}
-
+//---------------------------------------
 // --- JSON button on kmaps views
+//---------------------------------------
 .jumbotron {
     background-color: transparent;
 }
 
-// --- temp integration process from prototype
-.mandala.all,
-.mandala.sui-header,
-.mandala.collections {
-    background-color: $color-mandala;
+// * Temporary fix for responsive display
+.c-contentMain__kmaps .images.legacy img {
+    height: auto !important;
+    max-width: 100% !important;
 }
-.mandala.places {
-    background-color: $color-places;
+
+//---------------------------------------
+// *** THEME COLORS & ICONS
+//---------------------------------------
+.icon.white {
+    color: #fff;
 }
-.mandala.audio-video {
-    background-color: $color-audio-video;
+.u-icon__terms::before {
+    font-size: 90%;
 }
-.mandala.images {
-    background-color: $color-images;
+.c-columnSearch .icon,
+.c-columnSearch [class^='u-icon__'],
+.c-columnSearch [class*='u-icon__'],
+.c-columnSearch [class^='shanticon-'],
+.c-columnSearch [class*='shanticon-'] {
+    font-family: 'shanticon', sans-serif;
 }
-.mandala.sources {
-    background-color: $color-sources;
+
+/*  Style for Icons color invert; background-color swap w/text color
+ ** background-colors also set below further down
+ ** Match "color-invert" with "icon"
+ */
+.icon.color-invert {
+    color: #fff !important;
 }
-.mandala.terms {
-    background-color: $color-terms;
-}
-.mandala.texts {
-    background-color: $color-texts;
-}
-.mandala.visuals {
-    background-color: $color-visuals;
-}
-.mandala.subjects {
-    background-color: $color-subjects;
-}
-.mandala.collections {
-    background-color: $color-mandala;
-}
-// --- temp integration process from prototype
+
 .u-color__all,
 .sui-color-all,
 .u-color__mandala,
@@ -332,9 +242,172 @@ div.image-wrapper.center figcaption {
     color: $color-places;
 }
 
-// * Temporary fix
+// --- temp integration process from prototype
+.mandala.all,
+.mandala.sui-header,
+.mandala.collections,
+.u-icon__collections.color-invert {
+    background-color: $color-mandala;
+}
+.mandala.places,
+.u-icon__places.color-invert {
+    background-color: $color-places;
+}
+.mandala.audio-video,
+.u-icon__audio-video.color-invert {
+    background-color: $color-audio-video;
+}
+.mandala.images,
+.u-icon__images.color-invert {
+    background-color: $color-images;
+}
+.mandala.sources,
+.u-icon__sources.color-invert {
+    background-color: $color-sources;
+}
+.mandala.terms,
+.u-icon__terms.color-invert {
+    background-color: $color-terms;
+}
+.mandala.texts,
+.u-icon__texts.color-invert {
+    background-color: $color-texts;
+}
+.mandala.visuals,
+.u-icon__visuals.color-invert {
+    background-color: $color-visuals;
+}
+.mandala.subjects,
+.u-icon__subjects.color-invert {
+    background-color: $color-subjects;
+}
 
-.sui-terms .images.legacy img {
-    height: auto !important;
-    max-width: 100% !important;
+// --------------------------------------------------------
+// TOP BANNER ---- BEGIN: Headroom script/css testing
+// --------------------------------------------------------
+.headroom--pinned {
+    display: block;
+}
+.headroom--unpinned {
+    display: none;
+}
+.headroom {
+    will-change: transform;
+    transition: transform 200ms linear;
+}
+/*
+.headroom--pinned {
+    transform: translateY(0%);
+}
+.headroom--unpinned {
+    transform: translateY(-100%);
+}
+ */
+html,
+body {
+    scroll-padding-top: 40px; /* set to the height of your header */
+}
+// --------------------------------------
+// END of Headroom script/css testing
+// --------------------------------------
+
+.sui-nameEntry-meta {
+    display: block;
+    margin-top: 0.75rem;
+}
+
+// --------------------------------------
+// * TOP BANNER: Site Header
+// --------------------------------------
+.c-siteHeader {
+    height: 40px;
+    padding: 0;
+}
+.c-siteHeader__search {
+    position: absolute;
+    top: 0.5rem;
+    right: 30px;
+}
+
+// --------------------------------------
+// * CONTENT SECTION: Content Header
+// --------------------------------------
+
+.c-contentHeader__main {
+    padding: 0.25rem 1rem 1rem;
+    width: 100%;
+    height: 65px;
+}
+.c-contentHeader,
+.c-contentHeader__main__title {
+    color: #fff;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    margin-bottom: 0;
+}
+.c-contentHeader__main__title {
+    // page header text on colored banner
+    font-size: 2.25em;
+}
+.c-contentHeader__main__title .icon {
+    margin-right: 0.75rem;
+    position: relative;
+    top: 0.3rem;
+}
+.c-contentHeader__main__id {
+    font-style: italic;
+    color: #eee;
+    position: absolute;
+    right: 2rem;
+    top: 80px;
+}
+.c-contentHeader__main__sub {
+    font-style: italic;
+    font-size: smaller;
+    color: #aaaaaa;
+}
+
+.c-contentHeader__breadcrumb {
+    background-color: transparent;
+    font-size: 1.32em;
+    padding: 0;
+    margin: 0.75rem 0.5rem 0.25rem 3rem;
+}
+.c-contentHeader__breadcrumb,
+.c-contentHeader__breadcrumb a {
+    color: #fff;
+}
+.c-contentHeader__breadcrumb a {
+    padding: 0 0.5rem;
+}
+// gallery display buttons for view options
+.c-buttoneGroup__viewMode {
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: '';
+}
+
+// --------------------------------------
+// * CONTENT SECTION: Node Header
+// --------------------------------------
+.c-nodeHeader {
+}
+.c-nodeHeader__main__backLink {
+}
+.c-nodeHeader .icon {
+    font-size: 2em;
+    margin: 0 1.5rem 0 1rem;
+    position: relative;
+    top: 0.25rem;
+}
+
+.c-contentMain__kmaps {
+    margin: 1rem 1rem 1rem 192px;
+    background-color: #f7f7f7;
+    border: 1px solid #999;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem 2rem 2rem;
+    font-size: 1.3rem;
 }

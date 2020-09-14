@@ -1,5 +1,13 @@
-@import './src/om-global-var.scss';
+@import '../../../index-variables';
 
+// JSON Dev Utility -
+.card-body .c-button__json {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1.35rem;
+}
+
+// Grid Card
 .card-deck {
     display: flex;
     flex-wrap: wrap;
@@ -28,16 +36,17 @@
 .card-deck .card:active {
     box-shadow: 0 2px 5px #ccc;
 }
-.card__imageWrap {
+.c-card__wrap--image {
     height: 130px;
     overflow: hidden;
 }
 .card-image,
-.card-img-top {
+.card-img-top,
+.c-card__grid__image--top {
     border-radius: 0;
     display: block;
 }
-.card__typeGlyph span {
+.c-card__grid__glyph--type span {
     position: absolute;
     top: 0;
     right: 0;
@@ -56,7 +65,7 @@
     box-shadow: none;
     border: none;
 }
-.card__assetGlyph {
+.c-card__grid__glyph--asset {
     position: absolute;
     top: 5.25rem;
     left: 50%;
@@ -65,7 +74,7 @@
     opacity: 0.4;
     font-size: 2em;
 }
-.card__assetGlyph span {
+.c-card__grid__glyph--asset span {
     color: #aaa;
 }
 // ----------------------------------
@@ -116,7 +125,7 @@
     border: none;
 }
 
-.card-deck .card-footer {
+.card-deck .c-card__footer {
     background: $color-amber;
     height: 3rem;
     font-size: 1.25rem;
@@ -125,13 +134,13 @@
     border: none;
     border-radius: 0 0 0.35rem 0.35rem;
 }
-.card-footer:hover {
+.c-card__footer:hover {
     background-color: rgba(105, 79, 4, 0.85);
 }
-.card-footer:active {
+.c-card__footer:active {
     background-color: rgba(142, 117, 46, 0.85);
 }
-.card-footer a {
+.c-card__footer a {
     color: #fff;
     border: none !important;
     padding: 0.6rem 0 0.5rem 1.2rem;
@@ -144,23 +153,23 @@
     font-weight: 600;
     font-family: $font-family-sans;
 }
-.card-footer a:hover {
+.c-card__footer a:hover {
     background-color: transparent;
     color: #fff;
 }
-.card-footer .icon {
+.c-card__footer .icon {
     color: #fff;
 }
-.card-footer .icon::before {
+.c-card__footer .icon::before {
     margin-right: 0.2rem;
     font-size: 1.25em;
     position: relative;
     top: 0.25rem;
 }
-.card-footer .shanti-field-content {
+.c-card__footer .shanti-field-content {
     color: #fff;
 }
-.card-footer .shanti-field-path {
+.c-card__footer .shanti-field-path {
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
@@ -168,23 +177,17 @@
     width: 98%;
     display: block;
 }
-.card-footer .shanti-field-path .shanti-field-content:empty {
+.c-card__footer .shanti-field-path .shanti-field-content:empty {
     display: none;
 }
-.card-footer .shanti-field-path span::before {
+.c-card__footer .shanti-field-path span::before {
     /* this targets only kmaps info in footer */
     color: #fff;
     position: relative;
     top: 0.15rem;
 }
-.card-footer .u-icon__places {
+.c-card__footer .u-icon__places {
     color: #fff;
-}
-
-.card-body .c-button__json {
-    position: absolute;
-    bottom: 0.5rem;
-    right: 1.35rem;
 }
 
 .c-card__content-field a {
@@ -222,10 +225,11 @@
     content: '\e635'; // Terms
 }
 
-.card__typeGlyph .icon::before {
+.c-card__grid__glyph--type .icon::before {
     position: relative;
     top: 0.1rem;
 }
+/*
 .c-card__grid-mandala .card__typeGlyph .icon,
 .c-card__grid-audio-video .card__typeGlyph .u-icon__audio {
     background-color: $color-mandala;
@@ -254,7 +258,7 @@
 .c-card__grid-visuals .card__typeGlyph .icon {
     background-color: $color-visuals;
 }
-
+*/
 .c-card__content-field.shanti-field-type {
     //   font-size: 1em;
 }
@@ -271,4 +275,39 @@
 
 .c-card__content-field.shanti-field-body p {
     //   margin-bottom: 0;
+}
+
+.shanti-field-itemcount,
+.shanti-field-path,
+.shanti-field-type,
+.shanti-field-author,
+.shanti-field-creator,
+.shanti-field-registrar,
+.shanti-field-languages,
+.shanti-field-duration,
+.shanti-field-created,
+.shanti-field-place,
+.shanti-field-subject {
+    font-size: 1.18rem;
+    //   font-family: $font-family-sans;
+    font-weight: 400;
+    line-height: 1.62em;
+}
+.c-smartRelateds__limited > div {
+    line-height: 1.38em;
+}
+
+.shanti-field-itemcount span::before,
+.shanti-field-path span::before,
+.shanti-field-type span::before,
+.shanti-field-author > span::before,
+.shanti-field-creator > span::before,
+.shanti-field-registrar > span::before,
+.shanti-field-languages span::before,
+.shanti-field-duration span::before,
+.shanti-field-created span::before,
+.shanti-field-place > span::before,
+.shanti-field-subject > span::before {
+    position: relative;
+    top: 2px;
 }
