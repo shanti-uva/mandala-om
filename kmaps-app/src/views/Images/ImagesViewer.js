@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import useStatus from '../../hooks/useStatus';
-import { useSolr } from '../../hooks/useSolr';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Viewer } from 'react-iiif-viewer'; // see https://www.npmjs.com/package/react-iiif-viewer
+import { ImageCarousel } from './ImageCarousel';
+import { ImageMetadata } from './ImageMetadata';
 import $ from 'jquery';
-import './images.sass';
+import './images.scss';
+import { ImagesOSDViewer } from './ImagesOSDViewer';
 
 /**
  * Compontent that creates the Image Viewer page, including:
@@ -20,6 +21,7 @@ import './images.sass';
  * @author ndg8f (2020-09-02)
  */
 export function ImagesViewer(props) {
+    //console.log(props);
     const solrdoc = props.mdlasset;
     const nodejson = props.nodejson;
     const status = useStatus();
@@ -54,13 +56,14 @@ export function ImagesViewer(props) {
                 zoomout.html('<span class="u-icon__zoom-out"></span>');
 
                 $(iiifchild[2]).addClass('fullscreen');
-                $(iiifchild[2])
-                    .children('button')
-                    .eq(0)
-                    .prepend(
-                        '<span id="expand-proxy" class="u-icon__enlarge"></span>'
-                    );
-                // fullscreen.html();
+                if ($('#expand-proxy').length === 0) {
+                    $(iiifchild[2])
+                        .children('button')
+                        .eq(0)
+                        .prepend(
+                            '<span id="expand-proxy" class="u-icon__enlarge"></span>'
+                        );
+                }
             }
         }
     }, [solrdoc]);
@@ -80,9 +83,18 @@ export function ImagesViewer(props) {
 
     // JSX Markup for the ImagesViewer component
     if (solrdoc) {
+        //console.log('nodejson', nodejson);
+        const creator = Array.isArray(solrdoc.creator)
+            ? solrdoc.creator.join(', ')
+            : solrdoc.creator;
+        const sizestr = solrdoc.img_width_s + ' x ' + solrdoc.img_height_s;
+        const rotation = nodejson?.field_image_rotation?.und[0]
+            ? nodejson.field_image_rotation.und[0].value
+            : false;
+
         return (
-            <Container fluid className={'c-image'}>
-                <Row>
+            <div className={'c-image'}>
+                <Container fluid className={'c-image__context'}>
                     <Col className={'c-image__viewer'}>
                         <Row className={'c-image__viewer-row'}>
                             <Col className={'page-control before'}>
@@ -92,10 +104,9 @@ export function ImagesViewer(props) {
                                 ></span>
                             </Col>
                             <Col>
-                                <Viewer
-                                    iiifUrl={solrdoc.url_iiif_s}
-                                    width={WIDTH}
-                                    height={HEIGHT}
+                                <ImagesOSDViewer
+                                    manifest={solrdoc.url_iiif_s}
+                                    rotation={rotation}
                                 />
                             </Col>
                             <Col className={'page-control after'}>
@@ -111,105 +122,23 @@ export function ImagesViewer(props) {
                                 {solrdoc.title}
                             </h1>
                             <div className={'c-image__byline'}>
-                                <span className={'author'}>
-                                    {solrdoc.creator?.join(', ')}
-                                </span>
-                                |
-                                <span className={'size'}>
-                                    {solrdoc.img_width_s} x{' '}
-                                    {solrdoc.img_height_s}
-                                </span>
+                                <span className={'author'}>{creator}</span>|
+                                <span className={'size'}>{sizestr}</span>
                             </div>
                         </div>
                         <ImageCarousel solrdoc={solrdoc} />
                     </Col>
-                </Row>
-            </Container>
+                </Container>
+                <Container className={'c-image__metadata'}>
+                    <ImageMetadata
+                        solrdoc={solrdoc}
+                        nodejson={nodejson}
+                        sizestr={sizestr}
+                    />
+                </Container>
+            </div>
         );
     } else {
         return <>Loading...</>;
     }
-}
-
-function ImageCarousel(props) {
-    const solrdoc = props.solrdoc;
-    const atype = solrdoc?.asset_type;
-    const coll_id = solrdoc?.collection_nid;
-    const querySpecs = {
-        index: 'assets',
-        params: {
-            q: `asset_type:${atype} AND collection_nid:${coll_id}`,
-            fl: ['id', 'title', 'url_thumb'],
-            rows: 10000,
-        },
-    };
-
-    const resource = useSolr('collitems', querySpecs);
-
-    const centerCarousel = () => {
-        clearTimeout(window.centerCarousel);
-        window.centerCarousel = setTimeout(function () {
-            if ($('.thumb.current').length === 0) {
-                return;
-            }
-            const scrollval = Math.floor(
-                $('.thumb.current').get(0).offsetLeft -
-                    $('#image-carousel').get(0).offsetWidth / 2
-            );
-            $('#image-carousel').scrollLeft(scrollval);
-        }, 10);
-    };
-    useEffect(() => {
-        if ($('#image-carousel').length > 0) {
-            setTimeout(function () {
-                centerCarousel();
-            }, 1000);
-        }
-    }, [$('#image-carousel')]);
-
-    if (resource) {
-        // console.log('resource result', resource);
-    }
-    if (
-        typeof solrdoc === 'undefined' ||
-        typeof resource.docs === 'undefined'
-    ) {
-        return null;
-    }
-
-    let carouseldivs = resource.docs;
-    carouseldivs.sort(function (a, b) {
-        if (a.id === b.id) {
-            return 0;
-        }
-        return a.id < b.id ? -1 : 1;
-    });
-
-    const myindex = carouseldivs.findIndex(function (item) {
-        return item.id == solrdoc.id;
-    });
-    const imgnum = 30;
-    const showst = myindex > imgnum ? myindex - imgnum : 0;
-    const showend =
-        myindex + imgnum < carouseldivs.length - 1
-            ? myindex + imgnum
-            : carouseldivs.length - 1;
-    const showdivs = carouseldivs.slice(showst, showend);
-
-    return (
-        <div id="image-carousel" className={'c-image__carousel'}>
-            {showdivs.map((item, index) => (
-                <div
-                    id={'carousel-slide-' + index}
-                    className={
-                        'thumb' + (item.id === solrdoc.id ? ' current' : '')
-                    }
-                >
-                    <Link to={item.id}>
-                        <img src={item.url_thumb} onLoad={centerCarousel} />
-                    </Link>
-                </div>
-            ))}
-        </div>
-    );
 }
