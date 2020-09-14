@@ -15,16 +15,19 @@ export function ImagesOSDViewer(props) {
                 id: 'osdviewer',
                 prefixUrl: '/mandala-om/seadragon/images/',
                 tileSources: manifest,
+                //showNavigator: true,
                 degrees: rotation,
                 showRotationControl: true,
                 // Enable touch rotation on tactile devices
+                /*
                 gestureSettingsTouch: {
                     pinchRotate: true,
-                },
+                },*/
                 defaultZoomLevel: defaultzoom,
-                minZoomImageRatio: 0,
+                minZoomImageRatio: 0.1,
                 maxZoomPixelRatio: 1.8,
                 maxZoomLevel: 10,
+                minZoomLevel: 0.5,
             });
             setOSDViewer(viewer);
         }
