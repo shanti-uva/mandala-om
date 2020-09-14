@@ -23,8 +23,8 @@ export function ImagesOSDViewer(props) {
                 },
                 defaultZoomLevel: defaultzoom,
                 minZoomImageRatio: 0,
-                maxZoomPixelRatio: 100,
-                maxZoomLevel: 100,
+                maxZoomPixelRatio: 1.8,
+                maxZoomLevel: 10,
             });
             setOSDViewer(viewer);
         }
