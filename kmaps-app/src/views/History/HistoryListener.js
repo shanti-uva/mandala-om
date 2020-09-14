@@ -111,8 +111,9 @@ export default function HistoryListener() {
 
             const searchLocation = {
                 ...location,
-                name: '"' + ss.searchString + '"' + filterNote,
+                name: '"' + ss.searchString + '"',
                 pathname: match.url,
+                state: ss,
             };
 
             // console.log(
