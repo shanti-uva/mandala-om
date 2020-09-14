@@ -9,14 +9,48 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 
+function SearchCriteriaMini(props) {
+    console.log(
+        'SearchCriteriaMini state = ',
+        JSON.stringify(props.location?.state, undefined, 3)
+    );
+    const state = props.location?.state;
+
+    let output = [];
+    if (!state) {
+        return <>No Filters</>;
+    } else {
+        output.push(
+            <div>
+                {selectIcon('search')} "{state.searchString}"{' '}
+            </div>
+        );
+
+        for (let i = 0; i < state.filters.length; i++) {
+            const filter = state.filters[i];
+            output.push(
+                <div>
+                    <span className={'icon u-icon__' + filter.field}></span>{' '}
+                    {filter.label}
+                </div>
+            );
+        }
+
+        return <>{output}</>;
+    }
+}
+
+SearchCriteriaMini.propTypes = { location: PropTypes.any };
+
 export function HistoryLocation(props) {
     const { removeLocation } = useStoreActions((actions) => actions.history);
     const history = useHistory();
     const renderTooltip = (p) => (
-        <Tooltip {...p}>
-            Simple tooltip
-            {JSON.stringify(props.location?.state, undefined, 3)}
-        </Tooltip>
+        <Popover {...p}>
+            <Popover.Content>
+                <SearchCriteriaMini location={props.location} />
+            </Popover.Content>
+        </Popover>
     );
     const loc = props.location?.relTitle ? (
         props.location.relTitle
