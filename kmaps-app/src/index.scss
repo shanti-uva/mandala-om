@@ -234,7 +234,18 @@ footer,
     background-color: transparent;
 }
 
-// --- temp integration process from prototype
+//---------------------------
+// *** COLORS ---------------
+//---------------------------
+
+/*  Style for Icons color invert; background-color swap w/text color
+ ** background-colors also set below further down
+ ** Match "color-invert" with "icon"
+ */
+.icon.color-invert {
+    color: #fff !important;
+}
+
 .u-color__all,
 .sui-color-all,
 .u-color__mandala,
@@ -326,10 +337,6 @@ footer,
     background-color: $color-subjects;
 }
 
-.icon.color-invert {
-    color: #fff !important;
-}
-
 // * Temporary fix for responsive display
 .sui-terms .images.legacy img {
     height: auto !important;
@@ -414,4 +421,8 @@ body {
 }
 // gallery display buttons for view options
 .c-buttoneGroup__viewMode {
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: '';
 }

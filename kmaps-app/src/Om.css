@@ -3,7 +3,7 @@
 
 .sui-main {
     all: initial;
-    position: absolute;
+    position: ABSOLUTE;
     left: 0;
     top: 0;
     line-height: 2.2rem;
@@ -23,7 +23,7 @@
 }
 
 .sui-top {
-    position: absolute;
+    position: ABSOLUTE;
     right: 4rem;
     top: 7px;
     user-select: none;
@@ -149,7 +149,8 @@
 }
 
 .sui-hamburger {
-    position: absolute;
+    position: ABSOLUTE;
+
     font-size: 14px;
     background-color: #666;
     color: #fff;
@@ -216,7 +217,8 @@
 }
 
 .sui-typeList {
-    position: absolute;
+    position: ABSOLUTE;
+
     left: calc(100% - 560px);
     top: 34px;
     background-color: #fff;
@@ -277,7 +279,8 @@
 }
 
 .sui-infoBottom {
-    position: absolute;
+    position: ABSOLUTE;
+
     left: 12px;
     height: 33%;
     width: 33%;
@@ -414,7 +417,8 @@
 }
 
 .sui-gridInfo {
-    position: absolute;
+    position: ABSOLUTE;
+
     cursor: pointer;
     color: #fff;
     margin-left: 128px;
@@ -425,7 +429,8 @@
 }
 
 .sui-gridGlyph {
-    position: absolute;
+    position: ABSOLUTE;
+
     font-size: 36px;
     pointer-events: none;
     width: 138px;
@@ -437,7 +442,8 @@
 }
 
 .sui-gridPopup {
-    position: absolute;
+    position: ABSOLUTE;
+
     width: 300px;
     left: calc(50% - 250px);
     top: calc(50% - 50px);
@@ -484,7 +490,8 @@
 }
 
 .sui-cardGlyph {
-    position: absolute;
+    position: ABSOLUTE;
+
     width: 180px;
     font-size: 36px;
     text-align: center;
@@ -731,7 +738,9 @@
     display: block;
     height: 15px;
     left: 0;
-    position: absolute;
+
+    position: ABSOLUTE;
+
     top: 2px;
     width: 15px;
     background-position: 0;
@@ -759,7 +768,8 @@
 }
 
 #plc-infoDiv {
-    position: absolute;
+    position: ABSOLUTE;
+
     top: 292px;
     left: 219px;
 }
@@ -1073,7 +1083,8 @@
 }
 
 .sui-transOps {
-    position: absolute;
+    position: ABSOLUTE;
+
     background-color: #f7f7f7;
     border: 1px solid #999;
     border-radius: 0 0 6px 6px;
@@ -1440,7 +1451,7 @@
 }
 
 .sui-popover {
-    position: absolute;
+    position: ABSOLUTE;
     width: 300px;
     min-height: 100px;
     padding: 12px;
