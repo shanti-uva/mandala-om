@@ -683,14 +683,14 @@
 }
 
 /* TERMS PAGE */
-.sui-terms {
-    /*  max-width: 900px; */
+.c-contentMain__kmaps {
+    /*  max-width: 900px;
     margin: 8px auto 8px 192px;
     background-color: #f7f7f7;
     border: 1px solid #999;
     border-radius: 6px;
     padding: 50px;
-    color: #000;
+    color: #000; */
 }
 .sui-termTitle {
     font-family: 'EB Garamond', serif;

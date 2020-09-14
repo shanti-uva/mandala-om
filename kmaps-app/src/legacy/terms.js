@@ -51,7 +51,7 @@ export default class Terms {
         const LEGACY_SUI = this.sui;
         let audioURLs = [''];
         this.kmap = o;
-        var str = `<div class='sui-terms' id='sui-terms' style=''>
+        var str = `<div class='c-contentMain__kmaps' id='sui-terms' style=''>
 		<span class='sui-termIcon'>${
             LEGACY_SUI.assets[o.asset_type].g
         }</span>&nbsp;&nbsp;&nbsp;

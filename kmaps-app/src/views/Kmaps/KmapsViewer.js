@@ -81,11 +81,11 @@ export default function KmapsViewer(props) {
         }
     }, [props.kmasset?.uid, route]);
 
-    let output = <div className="c-column__main--kmapsViewer">Loading...</div>;
+    let output = <div className="c-columnMain">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
         output = (
-            <div className="c-column__main--kmapsViewer">
-                <div className="sui-terms">
+            <div className="c-columnMain">
+                <div className="c-contentMain__kmaps">
                     {/*<NodeHeader kmasset={props.kmasset} />*/}
                     <Switch>
                         <Route

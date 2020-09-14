@@ -152,39 +152,23 @@ footer,
 .u-columnSecond {
     //   padding: 1em;
 }
-.c-contentHeader__main {
-    padding: 0.25rem 1rem 1rem;
-}
-.c-contentHeader__main__id {
-    font-style: italic;
-    color: #eee;
-    position: absolute;
-    right: 2rem;
-    top: 80px;
-}
-.c-contentHeader__main__sub {
-    font-style: italic;
-    font-size: smaller;
-    color: #aaaaaa;
-}
-/*
-.c-contentHeader__main a {
-    color: #eeeeee;
-    margin: 0.3em;
+
+//---------------------------------------
+// --- JSON button on kmaps views
+//---------------------------------------
+.jumbotron {
+    background-color: transparent;
 }
 
-.c-contentHeader__main a:hover {
-    color: #bbbbbb;
+// * Temporary fix for responsive display
+.c-contentMain__kmaps .images.legacy img {
+    height: auto !important;
+    max-width: 100% !important;
 }
 
-.c-contentHeader__main a:visited {
-    color: #eeeeee;
-}
-*/
-
-// ------------------------------
-// ------- ICONS
-// ------------------------------
+//---------------------------------------
+// *** THEME COLORS & ICONS
+//---------------------------------------
 .icon.white {
     color: #fff;
 }
@@ -198,45 +182,6 @@ footer,
 .c-columnSearch [class*='shanticon-'] {
     font-family: 'shanticon', sans-serif;
 }
-// --- temp integration process from prototype
-.c-contentHeader__main__iconLink .icon {
-    font-size: 13px;
-    font-weight: bold;
-    position: relative;
-    top: -1rem;
-    left: -2rem;
-}
-.c-contentHeader__main__iconLink .icon::before {
-    margin-right: 0.5rem;
-    margin-left: 1.5rem;
-}
-
-.c-contentHeader__main .icon {
-    position: relative;
-    top: 0.3rem;
-    font-size: 1.75em;
-    display: flex;
-}
-.c-contentHeader__main .icon::before {
-    font-size: 2.1rem;
-}
-.c-contentHeader__main .icon::before {
-    margin: 0 1rem 0 1rem;
-}
-
-.sui-nameEntry-meta {
-    display: block;
-    margin-top: 0.75rem;
-}
-
-// --- JSON button on kmaps views
-.jumbotron {
-    background-color: transparent;
-}
-
-//---------------------------
-// *** COLORS ---------------
-//---------------------------
 
 /*  Style for Icons color invert; background-color swap w/text color
  ** background-colors also set below further down
@@ -337,13 +282,9 @@ footer,
     background-color: $color-subjects;
 }
 
-// * Temporary fix for responsive display
-.sui-terms .images.legacy img {
-    height: auto !important;
-    max-width: 100% !important;
-}
-
-// * Headroom Script in testing
+// --------------------------------------------------------
+// TOP BANNER ---- BEGIN: Headroom script/css testing
+// --------------------------------------------------------
 .headroom--pinned {
     display: block;
 }
@@ -366,18 +307,18 @@ html,
 body {
     scroll-padding-top: 40px; /* set to the height of your header */
 }
-
+// --------------------------------------
 // END of Headroom script/css testing
+// --------------------------------------
 
-// .c-contentHeader__main__wrap, .sui-contentHeader-title,
-.c-column__main--kmapsViewer,
-.c-columnRelated, // left side column
-.c-columnSearch,  // right side column
-.c-content__main {
-    /*  display:none !important;*/
+.sui-nameEntry-meta {
+    display: block;
+    margin-top: 0.75rem;
 }
-// ----------------------------
-// * HEADER - Site Header Logo-Search-Nav Section
+
+// --------------------------------------
+// * TOP BANNER: Site Header
+// --------------------------------------
 .c-siteHeader {
     height: 40px;
     padding: 0;
@@ -388,9 +329,12 @@ body {
     right: 30px;
 }
 
-// ----------------------------
-// * BEGIN CONTENT Section
+// --------------------------------------
+// * CONTENT SECTION: Content Header
+// --------------------------------------
+
 .c-contentHeader__main {
+    padding: 0.25rem 1rem 1rem;
     width: 100%;
     height: 65px;
 }
@@ -406,6 +350,24 @@ body {
     // page header text on colored banner
     font-size: 2.25em;
 }
+.c-contentHeader__main__title .icon {
+    margin-right: 0.75rem;
+    position: relative;
+    top: 0.3rem;
+}
+.c-contentHeader__main__id {
+    font-style: italic;
+    color: #eee;
+    position: absolute;
+    right: 2rem;
+    top: 80px;
+}
+.c-contentHeader__main__sub {
+    font-style: italic;
+    font-size: smaller;
+    color: #aaaaaa;
+}
+
 .c-contentHeader__breadcrumb {
     background-color: transparent;
     font-size: 1.32em;
@@ -425,4 +387,27 @@ body {
 
 .breadcrumb-item + .breadcrumb-item::before {
     content: '';
+}
+
+// --------------------------------------
+// * CONTENT SECTION: Node Header
+// --------------------------------------
+.c-nodeHeader {
+}
+.c-nodeHeader__main__backLink {
+}
+.c-nodeHeader .icon {
+    font-size: 2em;
+    margin: 0 1.5rem 0 1rem;
+    position: relative;
+    top: 0.25rem;
+}
+
+.c-contentMain__kmaps {
+    margin: 1rem 1rem 1rem 192px;
+    background-color: #f7f7f7;
+    border: 1px solid #999;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem 2rem 2rem;
+    font-size: 1.3rem;
 }
