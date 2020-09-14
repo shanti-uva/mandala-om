@@ -116,7 +116,6 @@ article,
     display: grid !important;
 }
 footer,
-.c-columnSearch,
 .c-siteHeader,
 .c-column__main,
 .c-content__main,
@@ -135,6 +134,11 @@ footer,
     height: 100vh;
     background: white;
     font-size: 1.32rem;
+    width: 290px;
+}
+.c-columnSearch pre,
+.sui-advFooter {
+    text-align: center;
 }
 .u-columnFirst {
 }
