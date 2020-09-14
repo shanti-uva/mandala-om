@@ -1,6 +1,10 @@
+.c-image {
+    border-top: 2px solid #eee;
+}
 .c-image__context {
     padding-left: 0;
     padding-right: 0;
+    border-top: 10px solid #b49c59;
 }
 
 .c-image__viewer {
@@ -8,18 +12,19 @@
     border-bottom: 10px solid #b49c59;
     width: 100%;
     .c-image__viewer-row {
-        padding-top: 30px;
+        padding-top: 35px;
         margin-bottom: 10px;
-        text-align: center;
+        // text-align: center;
         .page-control span {
-            display: block;
-            position: absolute;
-            margin-top: 45%;
+            display: inline-block;
+            //  position: absolute;
+            position: relative;
+            top: 45%;
             color: #555;
             font-size: 3rem;
             cursor: pointer;
             @media (max-width: 1440px) {
-                margin-top: 110%;
+                //  margin-top: 110%;
             }
         }
         .page-control span:hover {
@@ -94,24 +99,34 @@
         margin: 20px 12px 0 12px;
         .thumb {
             display: inline-block;
-            height: 80px;
-            margin-bottom: 4px;
+            height: 100px;
+            margin: 0 0.15rem 1rem;
             cursor: pointer;
             border-radius: 3px;
-            border: 2px solid #000;
+            border: 1px solid transparent;
             img {
                 height: 100%;
             }
+            &:hover {
+                border-color: #ccc;
+            }
+            &:active {
+                border-color: transparent;
+            }
         }
+
         .thumb.current {
-            border-color: red;
+            border-width: 2px;
+            border-color: white;
         }
     }
 }
 
 .c-image__metadata {
+    font-size: 1.25rem;
+    max-width: 1000px;
     .l-top.row .l-first.col {
-        padding-left: 5rem;
+        //  padding-left: 5rem;
     }
     h5.c-image__colhead {
         font-size: 120%;
@@ -140,7 +155,7 @@
         border-top: 4px solid #b49c59;
         color: #000000;
         background-color: white;
-        padding: 2rem 8rem;
+        padding: 2rem 0;
     }
     .c-image__metatitle {
         color: #777;
