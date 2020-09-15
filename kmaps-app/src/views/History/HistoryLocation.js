@@ -65,39 +65,39 @@ export function HistoryLocation(props) {
     const loc = props.location?.relTitle ? (
         props.location.relTitle
     ) : (
-        <OverlayTrigger
-            placement="top-start"
-            delay={{ show: 250, hide: 400 }}
-            overlay={renderTooltip}
-            data-filters={props.location?.state?.filters}
-        >
-            <span className={'c-HistoryViewer__title'}>
-                {selectIcon(type)} {props.location?.name}
-                <FacetIcons state={props.location.state} />
-            </span>
-        </OverlayTrigger>
+        <span className={'c-HistoryViewer__title'}>
+            {selectIcon(type)} {props.location?.name}
+            <FacetIcons state={props.location.state} />
+        </span>
     );
 
     // console.log('HistoryLocation: location = ', props.location);
 
     return (
-        <div
-            className="c-HistoryViewer__relatedRecentItem"
-            onClick={(event) => history.push(props.location)}
+        <OverlayTrigger
+            placement="auto"
+            delay={{ show: 250, hide: 400 }}
+            overlay={renderTooltip}
+            data-filters={props.location?.state?.filters}
         >
-            {loc}
-            <span
-                className="c-HistoryViewer__removeItem u-icon__cancel-circle icon"
-                data-key={props.location.key}
-                alt={'Remove from list'}
-                aria-label={'Remove from list'}
-                onClick={(event) => {
-                    console.log('delete:', event.target.dataset.key);
-                    removeLocation(props.location);
-                    event.stopPropagation();
-                }}
-            ></span>
-        </div>
+            <div
+                className="c-HistoryViewer__relatedRecentItem"
+                onClick={(event) => history.push(props.location)}
+            >
+                {loc}
+                <span
+                    className="c-HistoryViewer__removeItem u-icon__cancel-circle icon"
+                    data-key={props.location.key}
+                    alt={'Remove from list'}
+                    aria-label={'Remove from list'}
+                    onClick={(event) => {
+                        console.log('delete:', event.target.dataset.key);
+                        removeLocation(props.location);
+                        event.stopPropagation();
+                    }}
+                ></span>
+            </div>
+        </OverlayTrigger>
     );
 }
 

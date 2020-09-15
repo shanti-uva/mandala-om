@@ -39,9 +39,7 @@ export function Main(props) {
         <Router basename={'/mandala-om'}>
             <div id={'l-wrapAll'} className={'l-wrapAll'}>
                 <HistoryListener />
-                <TopBar />
-                {/* Commented this out to get Asset Views to work (ndg) */}
-                <SearchBar
+                <TopBar
                     advanced={state.advanced}
                     onStateChange={handleStateChange}
                 />
