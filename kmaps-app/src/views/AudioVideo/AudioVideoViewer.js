@@ -99,7 +99,10 @@ export function AudioVideoViewer(props) {
     }, []);
 
     useEffect(() => {
-        sui.av.DrawPlayer(kmasset, nodejson);
+        if (kmasset && nodejson) {
+            console.log('in use effect', kmasset, nodejson);
+            sui.av.DrawPlayer(kmasset, nodejson);
+        }
     }, [kmasset, nodejson]);
 
     return (
