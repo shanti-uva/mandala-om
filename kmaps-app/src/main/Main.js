@@ -37,7 +37,7 @@ export function Main(props) {
 
     const main = (
         <Router basename={'/mandala-om'}>
-            <div id={'u-wrapAll'} className={'u-wrapAll'}>
+            <div id={'l-wrapAll'} className={'l-wrapAll'}>
                 <HistoryListener />
                 <TopBar />
                 {/* Commented this out to get Asset Views to work (ndg) */}

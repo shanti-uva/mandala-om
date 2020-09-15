@@ -95,11 +95,8 @@ div.image-wrapper.center figcaption {
 .l-wrapAll {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: repeat(
-        4,
-        $siteBanner-height $pageBanner-height auto $pageFooter-height
-    );
-    grid-template-columns: 300px 1fr;
+    grid-template-rows: repeat(3, $siteBanner-height auto $pageFooter-height);
+    //  grid-template-columns: 300px 1fr;
     height: 100vh;
 }
 // article
@@ -372,6 +369,7 @@ body {
     font-style: italic;
     font-size: smaller;
     color: #aaaaaa;
+    display: none;
 }
 
 .c-contentHeader__breadcrumb {
@@ -401,14 +399,14 @@ body {
 .c-nodeHeader {
 }
 
-.c-nodeHeader .icon {
-    font-size: 2em;
+.c-nodeHeader > .icon {
     margin: 0 1.25rem 0 0;
     position: relative;
-    top: 0.3rem;
+    top: 0.4rem;
+    font-size: 1.8em;
 }
 .c-nodeHeader__main__backLink {
-    font-size: 1em;
+    font-size: 1.12em;
     position: relative;
     left: -1rem;
     top: -0.5rem;

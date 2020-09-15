@@ -157,7 +157,9 @@ export function FeatureCard(props) {
                     variant="top"
                     src={props.doc.url_thumb}
                 />
-                <div className={'c-card__grid__glyph--type'}>{typeGlyph}</div>
+                <div className={'c-card__grid__glyph--type color-invert'}>
+                    {typeGlyph}
+                </div>
                 <div className={'c-card__grid__glyph--asset'}>{assetGlyph}</div>
             </Link>
 

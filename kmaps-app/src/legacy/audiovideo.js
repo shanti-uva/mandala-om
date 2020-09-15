@@ -56,7 +56,7 @@ export default class AudioVideo {
         var entryId = ''; // Media id
         this.inPlay = false; // Not playying yet
         let w = $(this.div).width(); // Width of area
-        _this.css('background-color', '#eee'); // BG color
+        //    _this.css('background-color', '#eee'); // BG color
         //$(this.div).html("<div id='sui-av'></div>"); // Clear screen
         //sui.pages.DrawRelatedAssets(o); // Draw related assets menu if active
         this.kmap = o; // Save kmap
