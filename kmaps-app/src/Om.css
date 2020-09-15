@@ -567,7 +567,7 @@
     text-transform: uppercase;
 }
 
-.sui-advHeader .icon {
+.sui-advHeader > .icon {
     margin: 0 0.5rem;
 }
 .sui-advHeader .badge {

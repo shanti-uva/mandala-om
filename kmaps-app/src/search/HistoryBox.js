@@ -207,7 +207,9 @@ export function HistoryBox(props) {
                 id={'sui-advHeader-A'}
                 onClick={() => setOpen(!open)}
             >
-                <BsArrowCounterclockwise />
+                <span className={'icon'}>
+                    <BsArrowCounterclockwise />
+                </span>
                 <span>{label}</span>
                 <span id={'sui-advPlus-' + props.id} className={'sui-advPlus'}>
                     <Badge
