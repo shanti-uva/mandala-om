@@ -131,6 +131,7 @@ export function ImagesViewer(props) {
                 </Container>
                 <Container className={'c-image__metadata'}>
                     <ImageMetadata
+                        q
                         solrdoc={solrdoc}
                         nodejson={nodejson}
                         sizestr={sizestr}
