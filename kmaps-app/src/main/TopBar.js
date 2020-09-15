@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { SearchBar } from '../search/SearchBar';
 import Headroom from 'headroom.js';
 
-export function TopBar() {
+export function TopBar(props) {
     useLayoutEffect(() => {
         var myElement = document.querySelector('.c-siteHeader');
         var headroom = new Headroom(myElement);
@@ -18,6 +18,10 @@ export function TopBar() {
                     className={'c-siteHeader__logo__image'}
                 />
             </Link>
+            <SearchBar
+                advanced={props.advanced}
+                onStateChange={props.onStateChange}
+            />
         </div>
     );
     return topBar;

@@ -267,10 +267,6 @@ export function SearchAdvanced(props) {
                     label="recent searches"
                     facetType="recent-searches"
                 />
-
-                <pre>
-                    {JSON.stringify(props.search.query?.filters, undefined, 2)}
-                </pre>
             </div>
             <div className={'sui-advFooter'}>
                 Show Boolean Controls? &nbsp;
