@@ -21,7 +21,7 @@ function SearchCriteriaMini(props) {
         return (
             <>
                 {' '}
-                {selectIcon(kmasset?.asset_type)} {kmasset.uid}
+                {selectIcon(kmasset?.asset_type)} {kmasset?.uid}
             </>
         );
     } else {
