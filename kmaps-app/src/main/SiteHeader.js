@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { SearchBar } from '../search/SearchBar';
 import Headroom from 'headroom.js';
 
-export function TopBar(props) {
+export function SiteHeader(props) {
     useLayoutEffect(() => {
         var myElement = document.querySelector('.c-siteHeader');
         var headroom = new Headroom(myElement);

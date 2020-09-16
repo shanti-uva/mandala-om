@@ -167,13 +167,6 @@
     width: 150px;
 }
 
-.c-content__main {
-    /*  padding: 0 1.5rem; */
-}
-
-.c-contentHeader__main {
-}
-
 .sui-type {
     background-color: #fff;
     font-size: 12px;
@@ -236,46 +229,10 @@
     background-color: #dee7f1;
 }
 
-.c-columnContent__main {
-    /*   position: absolute;
-    left: 0;
-    top: 43px;
-    width: 100%;
-    height: calc(100% - 73px);
-    background-color: #dddddd;
-    display: block;
-    overflow-y: auto; */
-}
-
-.c-content__main {
-    /*   position: absolute;
-    left: 0;
-    top: 52px;
-    min-height: calc(100% - 77px);
-    width: calc(100% - 24px);
-    background-color: #ddd;
-    overflow-x: hidden;
-    padding: 12px; */
-}
-
 .sui-resDisplay {
     cursor: pointer;
     display: inline-block;
     margin: 0 12px;
-}
-
-.sui-footer {
-    /*   position: absolute;
-    left: 0;
-    top: calc(100% - 31px);
-    width: 100%;
-    height: 25px;
-    background-color: #888;
-    color: #fff;
-    text-align: center;
-    padding-top: 6px;
-    user-select: none;
-    overflow: hidden; */
 }
 
 .sui-infoBottom {

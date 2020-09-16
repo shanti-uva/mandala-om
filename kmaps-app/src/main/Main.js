@@ -6,7 +6,7 @@ import {
     Switch,
 } from 'react-router-dom';
 
-import { TopBar } from './TopBar';
+import { SiteHeader } from './SiteHeader';
 import { Home } from './Home';
 import { ContentPane } from './ContentPane';
 import { Hamburger } from './Hamburger';
@@ -39,7 +39,7 @@ export function Main(props) {
         <Router basename={'/mandala-om'}>
             <div id={'l-wrapAll'} className={'l-wrapAll'}>
                 <HistoryListener />
-                <TopBar
+                <SiteHeader
                     advanced={state.advanced}
                     onStateChange={handleStateChange}
                 />
