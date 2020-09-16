@@ -13,8 +13,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 90%;
+    width: 95%;
     cursor: default;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .c-HistoryViewer__removeItem {

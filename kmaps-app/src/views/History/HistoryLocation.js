@@ -21,7 +21,7 @@ function SearchCriteriaMini(props) {
         return (
             <>
                 {' '}
-                {selectIcon(kmasset?.asset_type)} {kmasset.uid}
+                {selectIcon(kmasset?.asset_type)} {kmasset?.uid}
             </>
         );
     } else {
@@ -51,7 +51,7 @@ export function HistoryLocation(props) {
     const history = useHistory();
     const renderTooltip = (p) => {
         return (
-            <Popover {...p}>
+            <Popover {...p} className={'c-HistoryLocation--popover'}>
                 <Popover.Content>
                     <SearchCriteriaMini location={props.location} />
                 </Popover.Content>

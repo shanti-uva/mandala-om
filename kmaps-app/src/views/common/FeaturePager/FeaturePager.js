@@ -115,6 +115,7 @@ export function FeaturePager(props) {
                     min={1}
                     max={100}
                     size={3}
+                    step={10}
                     // style={{width: "4em"}}
                     value={props.pager.getPageSize()}
                     onChange={(ps) => {
