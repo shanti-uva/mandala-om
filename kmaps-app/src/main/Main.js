@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { SiteHeader } from './SiteHeader/SiteHeader';
-import { Home } from './Home';
+import { Home } from './HomePage/Home';
 import { ContentPane } from './ContentPane';
 import { Hamburger } from './MainNavToggle/Hamburger';
 

@@ -609,7 +609,7 @@
     color: #222;
     padding: 0;
 }
-.c-related__list__item {
+.c-related__item {
     cursor: pointer;
     padding: 6px 3px 3px 6px;
     border-radius: 4px;

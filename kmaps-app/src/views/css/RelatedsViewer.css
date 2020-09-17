@@ -40,7 +40,7 @@
     padding: 0;
 }
 
-.c-related__list__item {
+.c-related__item {
     cursor: pointer;
     padding: 6px 3px 3px 6px;
     border-radius: 4px;
@@ -49,11 +49,11 @@
     display: block;
 }
 
-.c-related__list__item.selected {
+.c-related__item.selected {
     background: #f7f7f7;
 }
 
-.c-related__list__item:not(.selected):hover {
+.c-related__item:not(.selected):hover {
     background: #efefef;
 }
 
@@ -66,7 +66,7 @@
     height: 6px;
 }
 
-.c-related__list__item--label {
+.c-related__item__label {
     text-transform: capitalize;
 }
 

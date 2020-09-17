@@ -31,6 +31,7 @@ export function RelatedsViewer(props) {
             <div className="l-column__related__wrap">
                 <section className="l-related__list__wrap">
                     <h5>RELATED RESOURCES</h5>
+                    <hr />
                     <div className="c-relatedViewer">
                         <Link
                             to={
@@ -102,13 +103,13 @@ export function RelatedsViewer(props) {
                 </section>
 
                 <section className="l-history__list__wrap">
-                    RECENTLY VIEWED
+                    <h5>RECENTLY VIEWED</h5>
                     <hr />
                     <HistoryViewer />
                 </section>
 
                 <section className="l-termsTree__wrap">
-                    BROWSE TERMS
+                    <h5>BROWSE TERMS</h5>
                     <hr />
                     <FancyTree
                         domain="terms"
@@ -138,7 +139,7 @@ function RelatedCount(props) {
     // return null if the count doesn't exist or is === 0
     return count ? (
         <Link
-            className={'c-related__list__link--' + props.type}
+            className={'c-related__link--' + props.type}
             to={
                 '/' +
                 props.baseType +
@@ -150,17 +151,14 @@ function RelatedCount(props) {
             }
         >
             <span
-                className={'c-related__list__item'}
+                className={'c-related__item'}
                 id={'sui-rl-' + props.type}
                 href="#"
             >
                 <span
                     className={'u-icon__' + props.type + ' ' + iconClass}
                 ></span>
-                <span className={'c-related__list__item--label'}>
-                    {' '}
-                    {props.type}
-                </span>
+                <span className={'c-related__item__label'}> {props.type}</span>
                 &nbsp;(<span id="sui-rln-places">{count}</span>)
             </span>
         </Link>

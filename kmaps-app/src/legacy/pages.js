@@ -475,7 +475,7 @@ export default class Pages {
         if (sui.ss.mode != 'related') str += 'RELATED RESOURCES<hr>';
         str += "<div class='c-relatedViewer'>";
         str +=
-            "<div class='c-related__list__item' id='sui-rl-Home'><span style='font-size:18px; vertical-align:-3px; color:" +
+            "<div class='c-related__item' id='sui-rl-Home'><span style='font-size:18px; vertical-align:-3px; color:" +
             sui.assets[k].c +
             "'>" +
             sui.assets[k].g +
@@ -484,7 +484,7 @@ export default class Pages {
             "'>Home</strong></div>";
         if (p.asset_type == 'collections')
             str +=
-                "<div class='c-related__list__item' id='sui-rl-" +
+                "<div class='c-related__item' id='sui-rl-" +
                 sk +
                 "'><span style='font-size:18px; vertical-align:-3px; color:" +
                 sui.assets[sk].c +
@@ -496,7 +496,7 @@ export default class Pages {
         for (k in sui.assets) {
             // For each asset type
             str +=
-                "<a class='c-related__list__item' style='display:none' id='sui-rl-" +
+                "<a class='c-related__item' style='display:none' id='sui-rl-" +
                 k.toLowerCase();
             str +=
                 "' href='#r=" +
