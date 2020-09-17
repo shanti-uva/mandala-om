@@ -27,7 +27,7 @@ export function ContentHeader(props) {
 
     const cheader = (
         <header
-            id="c-contentHeader"
+            id="c-contentHeader__main"
             className={`c-contentHeader__main sui-header legacy ${props.siteClass} ${status.type}`}
         >
             <div
