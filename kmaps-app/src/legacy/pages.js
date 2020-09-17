@@ -468,14 +468,14 @@ export default class Pages {
         $('#c-columnContent__main').scrollTop(0);
         $(this.div).scrollTop(0); // Scroll to top
         k = o.asset_type; // Get this asset type
-        str += `<div class='sui-related' style='border-color:${
+        str += `<div class='l-related__wrap' style='border-color:${
             sui.ss.mode == 'related' ? sui.assets[k].c : 'transparent'
         };
 			height:${$(this.div).height() + 6}px'>`;
         if (sui.ss.mode != 'related') str += 'RELATED RESOURCES<hr>';
-        str += "<div class='sui-relatedList'>";
+        str += "<div class='c-relatedViewer'>";
         str +=
-            "<div class='sui-relatedItem' id='sui-rl-Home'><span style='font-size:18px; vertical-align:-3px; color:" +
+            "<div class='c-related__item' id='sui-rl-Home'><span style='font-size:18px; vertical-align:-3px; color:" +
             sui.assets[k].c +
             "'>" +
             sui.assets[k].g +
@@ -484,7 +484,7 @@ export default class Pages {
             "'>Home</strong></div>";
         if (p.asset_type == 'collections')
             str +=
-                "<div class='sui-relatedItem' id='sui-rl-" +
+                "<div class='c-related__item' id='sui-rl-" +
                 sk +
                 "'><span style='font-size:18px; vertical-align:-3px; color:" +
                 sui.assets[sk].c +
@@ -496,7 +496,7 @@ export default class Pages {
         for (k in sui.assets) {
             // For each asset type
             str +=
-                "<a class='sui-relatedItem' style='display:none' id='sui-rl-" +
+                "<a class='c-related__item' style='display:none' id='sui-rl-" +
                 k.toLowerCase();
             str +=
                 "' href='#r=" +

@@ -27,12 +27,12 @@ export function RelatedsViewer(props) {
     }
 
     return (
-        <aside className={'c-columnRelated'}>
-            <div className="sui-related">
-                <section className="sui-relatedList__wrapper">
-                    RELATED RESOURCES
+        <aside className={'l-column__related'}>
+            <div className="l-column__related__wrap">
+                <section className="l-related__list__wrap">
+                    <h5>RELATED RESOURCES</h5>
                     <hr />
-                    <div className="sui-relatedList">
+                    <div className="c-relatedViewer">
                         <Link
                             to={
                                 '/' + baseArgs.baseType + '/' + baseArgs.baseUid
@@ -45,14 +45,14 @@ export function RelatedsViewer(props) {
                                 <span
                                     className={'icon u-icon__overview'}
                                 ></span>{' '}
-                                FRONT
+                                <span>Home</span>
                             </div>
                         </Link>
 
                         <RelatedCount
                             type={'all'}
                             {...baseArgs}
-                            className={locMatch['all']}
+                            className={locMatch['mandala']}
                         />
                         <RelatedCount
                             type={'places'}
@@ -102,14 +102,14 @@ export function RelatedsViewer(props) {
                     </div>
                 </section>
 
-                <section className="sui-recently-viewed__wrapper">
-                    RECENTLY VIEWED
+                <section className="l-history__list__wrap">
+                    <h5>RECENTLY VIEWED</h5>
                     <hr />
                     <HistoryViewer />
                 </section>
 
-                <section className="sui-termsTree__wrapper">
-                    BROWSE TERMS
+                <section className="l-termsTree__wrap">
+                    <h5>BROWSE TERMS</h5>
                     <hr />
                     <FancyTree
                         domain="terms"
@@ -134,11 +134,12 @@ function RelatedCount(props) {
 
     // assign shanticon class according to type.  "all" type should get the "shanticon-logo-shanti" icon.
     const iconClass =
-        'icon shanticon-' + (props.type === 'all' ? 'logo-shanti' : props.type);
+        'icon u-icon__' + (props.type === 'all' ? 'logo-shanti' : props.type);
 
     // return null if the count doesn't exist or is === 0
     return count ? (
         <Link
+            className={'c-related__link--' + props.type}
             to={
                 '/' +
                 props.baseType +
@@ -150,14 +151,14 @@ function RelatedCount(props) {
             }
         >
             <span
-                className={'sui-relatedItem ' + props.className}
+                className={'c-related__item'}
                 id={'sui-rl-' + props.type}
                 href="#"
             >
                 <span
-                    className={'u-color__' + props.type + ' ' + iconClass}
+                    className={'u-icon__' + props.type + ' ' + iconClass}
                 ></span>
-                <span className={'sui-relatedItem-label'}> {props.type}</span>
+                <span className={'c-related__item__label'}> {props.type}</span>
                 &nbsp;(<span id="sui-rln-places">{count}</span>)
             </span>
         </Link>

@@ -104,7 +104,7 @@ export function SearchAdvanced(props) {
 
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components as they are now.
     const advanced = (
-        <div
+        <aside
             id="c-columnSearch"
             className={`c-columnSearch ${openclass} overflow-auto`}
         >
@@ -145,7 +145,7 @@ export function SearchAdvanced(props) {
                 </Navbar.Collapse>
             </Navbar>
 
-            <div className={'overflow-auto'}>
+            <section>
                 <FacetBox
                     id="asset_type"
                     label="item type"
@@ -267,7 +267,7 @@ export function SearchAdvanced(props) {
                     label="recent searches"
                     facetType="recent-searches"
                 />
-            </div>
+            </section>
             <div className={'sui-advFooter'}>
                 Show Boolean Controls? &nbsp;
                 <input
@@ -276,7 +276,7 @@ export function SearchAdvanced(props) {
                     defaultChecked={'checked'}
                 ></input>
             </div>
-        </div>
+        </aside>
     );
     return advanced;
 }

@@ -588,7 +588,7 @@
 }
 
 /* RELATED */
-.sui-related {
+.l-related__list__wrap {
     position: absolute;
     top: 0;
     left: 0;
@@ -604,12 +604,12 @@
     outline: 1px solid #999;
     outline-offset: 4px;
 }
-.sui-relatedList {
+.c-relatedViewer {
     font-size: 14px;
     color: #222;
     padding: 0;
 }
-.sui-relatedItem {
+.c-related__item {
     cursor: pointer;
     padding: 6px 3px 3px 6px;
     border-radius: 4px;

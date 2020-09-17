@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentHeader } from './ContentHeader';
+import { ContentHeader } from './ContentHeader/ContentHeader';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideo/AudioVideoViewer';
 import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
@@ -35,7 +35,7 @@ export function ContentPane(props) {
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
-        <article id="c-column__main" className="c-column__main">
+        <article id="l-column__main" className="l-column__main">
             <KmapContext>
                 <ContentHeader
                     siteClass={siteClass}
@@ -43,7 +43,7 @@ export function ContentPane(props) {
                     sui={props.sui}
                 />
             </KmapContext>
-            <section id="c-content__main" className="c-content__main">
+            <section id="l-content__main" className="l-content__main">
                 <Switch>
                     {/* AUDIO-VIDEO */}
                     <Route path={`${path}audio-video/:id`}>

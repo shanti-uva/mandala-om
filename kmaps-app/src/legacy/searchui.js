@@ -291,7 +291,7 @@ export default class SearchUI {
             });
         // Size results area to fit advanced
         else
-            $('#c-content__main').css({
+            $('#l-content__main').css({
                 width: $('#l-wrapAll').width() + 'px',
             }); // 100%
         this.DrawAdvanced(); // Draw search UI if active
@@ -410,7 +410,7 @@ export default class SearchUI {
             $('#sui-legacy').scrollTop(0); // Scroll to top
             $('#c-columnContent__main').scrollTop(0); // Scroll to top
             $('#plc-infoDiv').remove(); // Remove map buttons
-            $('#c-content__main').css({
+            $('#l-content__main').css({
                 width: '100%',
                 display: 'inline-block',
             }); // Size and show results area

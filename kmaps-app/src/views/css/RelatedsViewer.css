@@ -1,5 +1,5 @@
 /* RELATED */
-.sui-related {
+.l-column__related__wrap {
     width: 17.5rem;
     height: 100vh;
     margin: 0;
@@ -9,7 +9,7 @@
     position: ABSOLUTE;
 }
 
-.sui-related > * {
+.l-column__related__wrap > * {
     margin-bottom: 3.2rem;
 }
 
@@ -34,13 +34,13 @@
     outline-offset: 4px;
 }
 
-.sui-relatedList {
+.c-relatedViewer {
     font-size: 14px;
     color: #222;
     padding: 0;
 }
 
-.sui-relatedItem {
+.c-related__item {
     cursor: pointer;
     padding: 6px 3px 3px 6px;
     border-radius: 4px;
@@ -49,24 +49,24 @@
     display: block;
 }
 
-.sui-relatedItem.selected {
+.c-related__item.selected {
     background: #f7f7f7;
 }
 
-.sui-relatedItem:not(.selected):hover {
+.c-related__item:not(.selected):hover {
     background: #efefef;
 }
 
-.sui-relatedList a:hover {
+.c-related__list a:hover {
     text-decoration: none;
 }
 
-.sui-relatedItem-icon {
+.c-related__list--icon {
     border-color: transparent;
     height: 6px;
 }
 
-.sui-relatedItem-label {
+.c-related__item__label {
     text-transform: capitalize;
 }
 

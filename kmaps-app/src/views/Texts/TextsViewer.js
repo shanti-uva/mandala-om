@@ -220,12 +220,12 @@ function TextBody(props) {
     // Adjust CSS for Texts only
     useEffect(() => {
         $(
-            '.u-wrapContent, #c-content__main,.astviewer, .astviewer.texts #shanti-texts-container'
+            '.l-content__wrap, #l-content__main,.astviewer, .astviewer.texts #shanti-texts-container'
         ).css('height', 'inherit');
     }, []);
 
     useEffect(() => {
-        addBoClass('#c-content__main');
+        addBoClass('#l-content__main');
     });
 
     return (

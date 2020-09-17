@@ -22,9 +22,7 @@ const TermDefinitionsResources = ({ defID, resCounts }) => {
                     .filter((key) => key !== 'all')
                     .map((key) => (
                         <Button key={key} variant="outline-dark" size="lg">
-                            <span
-                                className={`u-color__${key} u-icon__${key} icon`}
-                            ></span>
+                            <span className={`u-icon__${key} icon`}></span>
                             <span className="btn-text">
                                 {key.toUpperCase()}
                             </span>{' '}

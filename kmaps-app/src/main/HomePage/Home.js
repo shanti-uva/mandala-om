@@ -5,7 +5,7 @@ import JSXExpressionContainerMock from 'eslint-plugin-jsx-a11y/__mocks__/JSXExpr
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import '../Om.css';
+import '../../Om.css';
 
 export function Home(props) {
     return (

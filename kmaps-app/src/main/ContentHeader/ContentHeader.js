@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { useStoreState } from '../model/StoreModel';
-import { KmapLink } from '../views/common/KmapLink';
+import { useStoreState } from '../../model/StoreModel';
+import { KmapLink } from '../../views/common/KmapLink';
+import './ContentHeader.scss';
+
 export function ContentHeader(props) {
     const status = useStoreState((state) => state.status);
     // console.error("ContentHeader status = " , status);
