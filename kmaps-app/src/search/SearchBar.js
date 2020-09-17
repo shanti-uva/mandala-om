@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BasicSearch } from './BasicSearch';
-import { AdvancedToggle } from '../main/AdvancedToggle';
-import { HamburgerToggle } from '../main/HamburgerToggle';
+import { AdvancedToggle } from '../main/MainSearchToggle/AdvancedToggle';
+import { MainNavToggle } from '../main/MainNavToggle/MainNavToggle';
 import SearchContext from '../context/SearchContext';
 
 export function SearchBar(props) {

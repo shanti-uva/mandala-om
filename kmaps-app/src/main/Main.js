@@ -6,10 +6,10 @@ import {
     Switch,
 } from 'react-router-dom';
 
-import { SiteHeader } from './SiteHeader';
+import { SiteHeader } from './SiteHeader/SiteHeader';
 import { Home } from './Home';
 import { ContentPane } from './ContentPane';
-import { Hamburger } from './Hamburger';
+import { Hamburger } from './MainNavToggle/Hamburger';
 
 import { SearchBar } from '../search/SearchBar';
 import { SearchAdvanced } from '../search/SearchAdvanced';

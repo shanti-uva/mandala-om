@@ -1,0 +1,54 @@
+// --------------------------------------
+// * TOP BANNER: Site Header
+// --------------------------------------
+.c-siteHeader {
+    height: 40px;
+    padding: 0;
+    background: #fff;
+}
+.c-siteHeader__search {
+    position: absolute;
+    top: 0.5rem;
+    right: 30px;
+}
+.c-siteHeader__logo__link {
+    display: inline-block;
+}
+
+// --------------------------------------------------------
+// TOP BANNER ---- Headroom ------ script/css testing
+// --------------------------------------------------------
+html,
+body {
+    // scroll-padding-top: 4rem; /* set to the height of your header */
+}
+.headroom {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    will-change: transform;
+    transition: all 2000ms ease-in-out;
+}
+.headroom--scrolled {
+}
+.headroom--unpinned {
+    position: fixed;
+    transform: translateY(-100%);
+    display: none;
+}
+.headroom--pinned {
+    position: fixed;
+    transform: translateY(0%);
+    display: block;
+}
+.headroom--top {
+}
+.headroom--top,
+.headroom--unfixed {
+    position: relative;
+    transform: translateY(0);
+}
+// --------------------------------------
+// END of Headroom script/css testing
+// ----------------------

@@ -30,8 +30,7 @@ export function RelatedsViewer(props) {
         <aside className={'l-column__related'}>
             <div className="l-column__related__wrap">
                 <section className="l-related__list__wrap">
-                    RELATED RESOURCES
-                    <hr />
+                    <h5>RELATED RESOURCES</h5>
                     <div className="c-related__list">
                         <Link
                             to={
@@ -45,7 +44,7 @@ export function RelatedsViewer(props) {
                                 <span
                                     className={'icon u-icon__overview'}
                                 ></span>{' '}
-                                FRONT
+                                <span>Home</span>
                             </div>
                         </Link>
 

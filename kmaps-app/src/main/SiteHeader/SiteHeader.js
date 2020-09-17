@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import React, { useLayoutEffect, useState } from 'react';
-import { SearchBar } from '../search/SearchBar';
-import Headroom from 'headroom.js';
+import { SearchBar } from '../../search/SearchBar';
+import Headroom from '../../../node_modules/headroom.js/dist/headroom';
+import './SiteHeader.scss';
 
 export function SiteHeader(props) {
     useLayoutEffect(() => {

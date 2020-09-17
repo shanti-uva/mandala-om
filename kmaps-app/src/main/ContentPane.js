@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentHeader } from './ContentHeader';
+import { ContentHeader } from './ContentHeader/ContentHeader';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideo/AudioVideoViewer';
 import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
