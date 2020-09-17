@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import $ from 'jquery';
+import { BsCheckCircle, BsMap, ImStack } from 'react-icons/all';
+import React from 'react';
 
 export function buildNestedDocs(docs, child_type, path_field) {
     path_field = path_field ? path_field : child_type + '_path_s';
@@ -147,4 +149,45 @@ export function fitDimensions(maxHeight, maxWidth, imgHeight, imgWidth) {
         targetHeight = Math.floor(imgHeight * (maxWidth / imgWidth));
     }
     return { height: targetHeight, width: targetWidth };
+}
+
+export function selectIcon(type) {
+    const ICON_MAP = {
+        'audio-video': (
+            <span className={'facetItem icon u-icon__audio-video'} />
+        ),
+        texts: <span className={'facetItem icon u-icon__texts'} />,
+        'texts:pages': <span className={'facetItem icon u-icon__texts'} />,
+        images: <span className={'facetItem icon u-icon__images'} />,
+        sources: <span className={'facetItem icon u-icon__sources'} />,
+        visuals: <span className={'facetItem icon u-icon__visuals'} />,
+        places: <span className={'facetItem icon u-icon__places'} />,
+        subjects: <span className={'facetItem icon u-icon__subjects'} />,
+        terms: <span className={'facetItem icon u-icon__terms'} />,
+        collections: (
+            <span className={'facetItem'}>
+                <ImStack />
+            </span>
+        ),
+        asset_type: (
+            <span className={'facetItem'}>
+                <BsCheckCircle />
+            </span>
+        ),
+        users: <span className={'facetItem icon u-icon__community'} />,
+        creator: <span className={'facetItem icon u-icon__agents'} />,
+        languages: <span className={'facetItem icon u-icon__comments-o'} />,
+        feature_types: (
+            <span className={'facetItem'}>
+                <BsMap />
+            </span>
+        ),
+        associated_subjects: (
+            <span className={'facetItem icon u-icon__essays'} />
+        ),
+        perspective: <span className={'facetItem icon u-icon__file-picture'} />,
+        search: <span className={'facetItem icon u-icon__search'} />,
+    };
+
+    return ICON_MAP[type];
 }

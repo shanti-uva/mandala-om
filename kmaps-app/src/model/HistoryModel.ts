@@ -14,6 +14,7 @@ import _ from 'lodash';
 export interface HistoryModel {
     historyStack: Location[];
     addLocation: Action<HistoryModel, Location>;
+    removeType: Action<HistoryModel, Type>;
     removeLocation: Action<HistoryModel, Location>;
     clear: Action<HistoryModel>;
 }
@@ -24,6 +25,11 @@ export interface Location {
     pathname: string;
     search: string | null;
     state: any | null | undefined;
+}
+
+export enum Type {
+    'search',
+    'visit',
 }
 
 function sameLocation(x: Location, location: Location) {
@@ -38,6 +44,18 @@ function sameLocation(x: Location, location: Location) {
     }
 
     return false;
+}
+
+function isHistoryType(loc: Location, type: Type) {
+    switch (type) {
+        case Type.search:
+            break;
+
+        case Type.visit:
+            break;
+
+        default:
+    }
 }
 
 export const historyModel: HistoryModel = {
@@ -58,6 +76,26 @@ export const historyModel: HistoryModel = {
 
     clear: action((state) => {
         state.historyStack = [];
+    }),
+
+    removeType: action((state, type) => {
+        console.log('HistoryModel: type = ', type.valueOf());
+        console.log('HistoryModel: Type.search = ', Type.search);
+        console.log(type == Type.search);
+        const newStack = state.historyStack.filter((x) => {
+            console.log(' x====> ', JSON.stringify(x));
+            if (
+                type.valueOf() == Type.search &&
+                x.pathname.startsWith('/search/')
+            ) {
+                console.log('omitting: ', x);
+
+                return false;
+            } else {
+                return true;
+            }
+        });
+        state.historyStack = newStack;
     }),
 
     removeLocation: action((state, location) => {

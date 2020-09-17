@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
+import { selectIcon } from '../views/common/utils';
 
 export function FacetChoice(props) {
     function handleFacetAdd() {
@@ -13,6 +14,7 @@ export function FacetChoice(props) {
     }
 
     const chosen = props.chosen ? 'chosen' : '';
+    const icon = selectIcon(props.facetType);
 
     const choice =
         props.mode === 'add' ? (
@@ -29,7 +31,7 @@ export function FacetChoice(props) {
                     onClick={handleFacetRemove}
                     className={props.className}
                 ></span>{' '}
-                {props.label}
+                {icon} {props.label}
             </div>
         );
     return choice;
