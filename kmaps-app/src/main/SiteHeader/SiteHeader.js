@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import React, { useLayoutEffect, useState } from 'react';
 import { SearchBar } from '../../search/SearchBar';
-import Headroom from '../../../node_modules/headroom.js/dist/headroom';
+// import Headroom from '../../../node_modules/headroom.js';
 import './SiteHeader.scss';
 
 export function SiteHeader(props) {
-    useLayoutEffect(() => {
-        var myElement = document.querySelector('.c-siteHeader');
-        var headroom = new Headroom(myElement);
-        headroom.init();
-    }, []);
+    //   useLayoutEffect(() => {
+    //       var myElement = document.querySelector('.c-siteHeader');
+    //       var headroom = new Headroom(myElement);
+    //       headroom.init();
+    //   }, []);
     const topBar = (
-        <div className={'c-siteHeader headroom'}>
+        <section className={'c-siteHeader'}>
             <Link to={'/home'} className={'c-siteHeader__logo__link'}>
                 <img
                     src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}
@@ -23,7 +23,7 @@ export function SiteHeader(props) {
                 advanced={props.advanced}
                 onStateChange={props.onStateChange}
             />
-        </div>
+        </section>
     );
     return topBar;
 }

@@ -31,7 +31,7 @@ export function RelatedsViewer(props) {
             <div className="l-column__related__wrap">
                 <section className="l-related__list__wrap">
                     <h5>RELATED RESOURCES</h5>
-                    <div className="c-related__list">
+                    <div className="c-relatedViewer">
                         <Link
                             to={
                                 '/' + baseArgs.baseType + '/' + baseArgs.baseUid

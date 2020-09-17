@@ -95,7 +95,10 @@ div.image-wrapper.center figcaption {
 .l-wrapAll {
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: repeat(3, $siteBanner-height auto $pageFooter-height);
+    grid-template-rows: repeat(
+        4,
+        $siteBanner-height $contentBanner-height auto $pageFooter-height
+    );
     //  grid-template-columns: 300px 1fr;
     height: 100vh;
 }
@@ -249,6 +252,7 @@ footer,
 .mandala.all,
 .mandala.sui-header,
 .mandala.collections,
+.u-icon__audio.color-invert,
 .u-icon__collections.color-invert {
     background-color: $color-mandala;
 }
@@ -257,6 +261,7 @@ footer,
     background-color: $color-places;
 }
 .mandala.audio-video,
+.u-icon__video.color-invert,
 .u-icon__audio-video.color-invert {
     background-color: $color-audio-video;
 }

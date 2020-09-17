@@ -21,8 +21,8 @@ import './FeatureCard.scss';
 // Map of special type glyphs:  This uses a compound key of "<asset_type>/<asset_subtype>" so that special glyphs can be used.
 // If a type/subtype does not appear in this map, then the asset_type glyph is used.  -- ys2n
 const typeGlyphMap = {
-    'audio-video/video': <span className={'icon u-icon__video'} />,
-    'audio-video/audio': <span className={'icon u-icon__audio'} />,
+    'audio-video/video': <span className={'icon color-invert u-icon__video'} />,
+    'audio-video/audio': <span className={'icon color-invert u-icon__audio'} />,
 };
 
 export function FeatureCard(props) {

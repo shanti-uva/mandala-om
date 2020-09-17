@@ -20,17 +20,18 @@
 // --------------------------------------------------------
 html,
 body {
-    // scroll-padding-top: 4rem; /* set to the height of your header */
+    scroll-padding-top: 4rem; /* set to the height of your header */
 }
 .headroom {
     top: 0;
     left: 0;
     right: 0;
     z-index: 2000;
-    will-change: transform;
-    transition: all 2000ms ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 1px;
 }
 .headroom--scrolled {
+    will-change: transform;
+    transition: transform 200ms ease-in-out;
 }
 .headroom--unpinned {
     position: fixed;

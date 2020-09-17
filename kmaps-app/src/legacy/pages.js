@@ -473,7 +473,7 @@ export default class Pages {
         };
 			height:${$(this.div).height() + 6}px'>`;
         if (sui.ss.mode != 'related') str += 'RELATED RESOURCES<hr>';
-        str += "<div class='c-related__list'>";
+        str += "<div class='c-relatedViewer'>";
         str +=
             "<div class='c-related__list__item' id='sui-rl-Home'><span style='font-size:18px; vertical-align:-3px; color:" +
             sui.assets[k].c +
