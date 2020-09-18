@@ -11,7 +11,7 @@ export function SiteHeader(props) {
     //       headroom.init();
     //   }, []);
     const topBar = (
-        <section className={'c-siteHeader'}>
+        <section className={'l-siteHeader'}>
             <Link to={'/home'} className={'c-siteHeader__logo__link'}>
                 <img
                     src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}

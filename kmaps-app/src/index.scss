@@ -110,7 +110,7 @@ div.image-wrapper.center figcaption {
 }
 footer,
 article,
-.c-siteHeader,
+.l-siteHeader,
 .l-column__main,
 .l-content__main,
 .c-contentHeader__main,
@@ -118,7 +118,7 @@ article,
     //   display: flex !important;
 }
 footer,
-.c-siteHeader,
+.l-siteHeader,
 //.c-column__main,
 //.c-content__main,
 .c-contentHeader__main,
@@ -128,7 +128,7 @@ footer,
 
 .l-column__main {
 }
-.c-columnSearch.open {
+.l-column__search.open {
     position: absolute;
     top: 120px;
     right: 1rem;
@@ -139,7 +139,7 @@ footer,
     width: 290px;
 }
 .sui-advFooter,
-.c-columnSearch pre {
+.l-column__search pre {
     text-align: center;
 }
 .u-columnFirst {
@@ -149,7 +149,7 @@ footer,
 .u-footer {
 }
 footer,
-.c-siteHeader,
+.l-siteHeader,
 .l-column__main,
 .l-content__main,
 .c-contentHeader__main,
@@ -181,11 +181,11 @@ footer,
 .u-icon__terms::before {
     font-size: 90%;
 }
-.c-columnSearch .icon,
-.c-columnSearch [class^='u-icon__'],
-.c-columnSearch [class*='u-icon__'],
-.c-columnSearch [class^='shanticon-'],
-.c-columnSearch [class*='shanticon-'] {
+.icon,
+[class^='u-icon__'],
+[class*='u-icon__'],
+[class^='shanticon-'],
+[class*='shanticon-'] {
     font-family: 'shanticon', sans-serif;
 }
 
