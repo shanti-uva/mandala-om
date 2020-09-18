@@ -45,7 +45,11 @@
     color: #fff;
 }
 .c-contentHeader__breadcrumb a {
-    padding: 0 0.75rem 0 0;
+    padding: 0 0.75rem 0 0.5rem;
+    border-bottom: 1px solid transparent;
+}
+.c-contentHeader__breadcrumb a:hover {
+    border-bottom-color: #ddd;
 }
 // gallery display buttons for view options
 .c-buttoneGroup__viewMode {
