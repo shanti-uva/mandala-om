@@ -1,8 +1,6 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import { selectIcon } from '../views/common/utils';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
 
 export function FacetChoice(props) {
     function handleFacetAdd() {
@@ -24,7 +22,7 @@ export function FacetChoice(props) {
                 onClick={handleFacetAdd}
                 className={'sui-advEditLine ' + chosen}
             >
-                <span className={props.className}></span> {icon} {props.label}(
+                <span className={props.className}></span> {props.label}(
                 {props.count}){' '}
             </div>
         ) : (
@@ -36,40 +34,7 @@ export function FacetChoice(props) {
                 {icon} {props.label}
             </div>
         );
-
-    const renderTooltip = (p) => {
-        // console.log("renderToolTip: p = ", p);
-        // console.log("renderToolTip: props = ", props);
-
-        return (
-            <Popover {...p} className={'c-FacetChoice--popover'}>
-                <Popover.Content>{props.value}</Popover.Content>
-            </Popover>
-        );
-    };
-
-    const wrapped_choice = (
-        <OverlayTrigger
-            placement="auto"
-            delay={{ show: 250, hide: 400 }}
-            overlay={renderTooltip}
-            data-filters={props.location?.state?.filters}
-            popperConfig={{
-                modifiers: [
-                    {
-                        name: 'offset',
-                        options: {
-                            offset: [0, 10],
-                        },
-                    },
-                ],
-            }}
-        >
-            {choice}
-        </OverlayTrigger>
-    );
-
-    return wrapped_choice;
+    return choice;
 }
 
 FacetChoice.propTypes = {

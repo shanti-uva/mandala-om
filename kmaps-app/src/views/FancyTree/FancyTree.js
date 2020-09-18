@@ -62,15 +62,15 @@ function FancyTree({
             view,
             sortBy,
             initialScrollToActive: true,
-            // extraFields: ['associated_subject_ids'],
-            // nodeMarkerPredicates: [
-            //     {
-            //         field: 'associated_subject_ids',
-            //         value: 9315,
-            //         operation: '!includes',
-            //         mark: 'nonInteractiveNode',
-            //     },
-            // ],
+            extraFields: ['associated_subject_ids'],
+            nodeMarkerPredicates: [
+                {
+                    field: 'associated_subject_ids',
+                    value: 9315,
+                    operation: '!includes',
+                    mark: 'nonInteractiveNode',
+                },
+            ],
             history,
             params,
         });

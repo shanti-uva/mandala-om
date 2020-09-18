@@ -6,18 +6,13 @@ import SearchContext from '../context/SearchContext';
 
 export function SearchBar(props) {
     const [search, setSearch] = useState('');
-    const [viewMode, setViewMode] = useState('off');
 
-    function chooseViewMode(mode) {
-        console.log('chooseViewMode = ', mode);
-        setViewMode(mode);
-        if (mode === 'off') {
-            props.onStateChange({ advanced: false, tree: false });
-        } else if (mode === 'tree') {
-            props.onStateChange({ advanced: false, tree: true });
-        } else if (mode === 'advanced') {
-            props.onStateChange({ advanced: true, tree: false });
-        }
+    function toggleAdvanced() {
+        props.onStateChange({ advanced: !props.advanced });
+    }
+
+    function toggleHamburger() {
+        props.onStateChange({ hamburgerOpen: !props.hamburgerOpen });
     }
 
     function handleInputChange(event) {
@@ -44,8 +39,8 @@ export function SearchBar(props) {
                     onChange={handleInputChange}
                 />
                 <AdvancedToggle
-                    chooseViewMode={chooseViewMode}
-                    viewMode={viewMode}
+                    onToggleAdvanced={toggleAdvanced}
+                    advanced={props.advanced}
                 />
             </SearchContext>
             {/*</form>*/}
