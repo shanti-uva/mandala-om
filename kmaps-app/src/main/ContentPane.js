@@ -35,8 +35,8 @@ export function ContentPane(props) {
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
-        <main className="l-column__main__wrap">
-            <article id="l-column__main" className="l-column__main">
+        <main className="l-column__main">
+            <article id="l-column__main__wrap" className="l-column__main__wrap">
                 <KmapContext>
                     <ContentHeader
                         siteClass={siteClass}

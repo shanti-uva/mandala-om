@@ -3,20 +3,16 @@
 // --------------------------------------
 
 .c-contentHeader__main {
-    padding: 0.25rem 1rem 0.75rem;
-    width: 100%;
-    height: 65px;
+    padding: 0.25rem 0 0.75rem;
+    width: 100vw;
+    height: 6.5rem;
 }
 .c-contentHeader,
 .c-contentHeader__main__title {
     color: #fff;
-    //   display: flex;
-    //   flex-grow: 1;
-    //   flex-direction: row;
-    margin-bottom: 0;
+    margin: 0 0 0 1.5rem;
 }
 .c-contentHeader__main__title {
-    // page header text on colored banner
     font-size: 2.25em;
 }
 .c-contentHeader__main__title .icon {
@@ -29,7 +25,7 @@
     color: #eee;
     position: absolute;
     right: 2rem;
-    top: 80px;
+    top: 8rem;
 }
 .c-contentHeader__main__sub {
     font-style: italic;
@@ -40,16 +36,16 @@
 
 .c-contentHeader__breadcrumb {
     background-color: transparent;
-    font-size: 1.32em;
+    font-size: 1.275rem;
     padding: 0;
-    margin: 0.75rem 0.5rem 0.25rem 3rem;
+    margin: 0.75rem 0 0.25rem 1.5rem;
 }
 .c-contentHeader__breadcrumb,
 .c-contentHeader__breadcrumb a {
     color: #fff;
 }
 .c-contentHeader__breadcrumb a {
-    padding: 0 0.5rem;
+    padding: 0 0.75rem 0 0;
 }
 // gallery display buttons for view options
 .c-buttoneGroup__viewMode {

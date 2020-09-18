@@ -1414,40 +1414,6 @@
     border-color: #fff;
 }
 
-/* PSUEDO ELEMENTS
-
-.sui-main ::-webkit-scrollbar {
-    width: 10px;
-    height: 8px;
-}
-
-.sui-main ::-webkit-scrollbar-track {
-    background: transparent;
-    border-left: 1px solid #aaa;
-}
-
-.sui-main ::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background: #ccc;
-}
-
-.sui-main ::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-}
-
-.sui-main ::-webkit-input-placeholder {
-    color: #bbb;
-}
-
-::placeholder {
-    color: #bbb;
-}
- */
-
-a {
-    text-decoration: none;
-}
-
 .sui-noA {
     border-bottom: hidden;
     cursor: default;
@@ -1462,14 +1428,6 @@ a {
     content: '\e635';
 }
 
-/* ys2n: action css */
-.open {
-    display: block;
-}
-
-.closed {
-    display: none;
-}
 /*
 .mandala.u-wrapContent__searchResults {
     background-size: 100% auto;
@@ -1487,18 +1445,6 @@ a {
 /* override plain .open .closed to customize effect
    TODO: add slide-in/out css transition
 */
-
-.l-column__search.open {
-    display: block;
-}
-
-.l-column__search.closed {
-    display: none;
-}
-
-.l-column__search nav {
-    font-size: small;
-}
 
 .l-column__search .nav-link {
     padding: 0.3rem 0.3rem;

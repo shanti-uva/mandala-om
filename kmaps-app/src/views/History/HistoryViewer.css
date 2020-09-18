@@ -1,12 +1,12 @@
 .c-HistoryViewer {
-    font-size: 1em;
-    color: #222;
-    padding: 0;
-    max-height: 84px;
-    user-select: none;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin: 0 1rem 0 1.25rem;
+    max-height: 12rem;
     overflow-x: hidden;
-    cursor: pointer;
     position: relative;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 0 8px #ddd;
 }
 
 .c-HistoryViewer__relatedRecentItem {
@@ -42,7 +42,7 @@
 }
 
 .c-HistoryViewer__title {
-    line-height: normal;
+    line-height: 1.25;
 }
 
 .c-HistoryViewer__relatedTitle {
