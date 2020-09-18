@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
-import _ from 'lodash';
-import * as PropTypes from 'prop-types';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/cjs/Nav';
+import NavItem from 'react-bootstrap/NavItem';
+import NavLink from 'react-bootstrap/NavLink';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { useStoreState } from 'easy-peasy';
 import Spinner from 'react-bootstrap/Spinner';
 import { FacetChoice } from './FacetChoice';
 import HistoryViewer from '../views/History/HistoryViewer';
-
 import { BsArrowCounterclockwise } from 'react-icons/bs';
+import * as PropTypes from 'prop-types';
+import _ from 'lodash';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+import { Type } from '../model/HistoryModel';
 
 function countSearchItems(historyStack) {
     return historyStack.filter((x) => {
@@ -32,6 +36,7 @@ export function HistoryBox(props) {
 
     const loadingState = useStoreState((state) => state.search.loadingState);
     const historyStack = useStoreState((state) => state.history.historyStack);
+    const { removeType } = useStoreActions((actions) => actions.history);
 
     // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
     // useEffect(() => {
@@ -153,53 +158,11 @@ export function HistoryBox(props) {
 
     const historyList = <HistoryViewer mode={'search'} />;
 
-    // const historyList = _.map(facets?.buckets, (entry) => {
-    //     // Adjust
-    //     const iconClass = chooseIconClass(entry);
-    //     const { label, fullLabel, value } = parseEntry(entry, false);
-    //     const count = entry.count;
-    //     const id = facetType + ':' + parseId(entry.val);
-    //     return (
-    //         <FacetChoice
-    //             mode={'add'}
-    //             key={`${value} ${label} ${facetType}`}
-    //             className={iconClass}
-    //             value={value}
-    //             labelText={label}
-    //             label={fullLabel}
-    //             count={count}
-    //             facetType={facetType}
-    //             chosen={isChosen(id)}
-    //             onFacetClick={(msg) => {
-    //                 props.onFacetClick({
-    //                     ...msg,
-    //                     action: isChosen(id) ? 'remove' : 'add',
-    //                 });
-    //             }}
-    //         />
-    //     );
-    // });
-    // const chosenList = _.map(props.chosenFacets, (entry) => {
-    //     const removeIconClass = 'sui-advTermRem u-icon__cancel-circle icon';
-    //     // console.log("Creating removal FacetChoice from ", entry);
-    //
-    //     return (
-    //         <FacetChoice
-    //             mode={'remove'}
-    //             key={`Remove ${entry.match} ${label} ${facetType}`}
-    //             className={removeIconClass}
-    //             value={entry.match}
-    //             labelText={entry.label}
-    //             label={entry.label}
-    //             facetType={facetType}
-    //             onFacetClick={(msg) => {
-    //                 props.onFacetClick({ ...msg, action: 'remove' });
-    //             }}
-    //         />
-    //     );
-    // });
-
     const name = 'sort_' + props.id;
+    const handleResetHistory = () => {
+        console.log('HistoryBox:  RESET HISTORY');
+        removeType(Type.search);
+    };
     const historyBox = (
         <div className={'sui-advBox sui-advBox-' + props.id}>
             <div
@@ -229,6 +192,27 @@ export function HistoryBox(props) {
                 className={'sui-advEdit ' + (open ? 'open' : 'closed')}
                 id={'sui-advEdit-' + props.id}
             >
+                <Navbar>
+                    <Nav.Item className={'sui-advEdit-facet-ctrls'}>
+                        <input
+                            type={'text'}
+                            placeholder="Filter this list"
+                            onChange={handleChange}
+                            defaultValue={''}
+                            onKeyDownCapture={handleKey}
+                            ref={inputEl}
+                        />
+                    </Nav.Item>
+                    <Navbar.Collapse className="justify-content-end">
+                        <Nav.Link
+                            eventKey="resetHistory"
+                            onClick={handleResetHistory}
+                        >
+                            clear
+                        </Nav.Link>
+                    </Navbar.Collapse>
+                </Navbar>
+
                 <div className={'sui-adv-facetlist overflow-auto'}>
                     {historyLength ? historyList : 'Search History is empty.'}
                 </div>

@@ -3,11 +3,10 @@ import { useStoreActions } from '../../model/StoreModel';
 import { useHistory } from 'react-router';
 import * as PropTypes from 'prop-types';
 import React from 'react';
-import { BsCheckCircle, BsMap, ImStack } from 'react-icons/all';
 import './HistoryViewer.css';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
+import { selectIcon } from '../common/utils';
 
 function SearchCriteriaMini(props) {
     // console.log(
@@ -26,7 +25,7 @@ function SearchCriteriaMini(props) {
         );
     } else {
         output.push(
-            <div>
+            <div key={props.key}>
                 {selectIcon('search')} "{state.searchString}"{' '}
             </div>
         );
@@ -53,7 +52,10 @@ export function HistoryLocation(props) {
         return (
             <Popover {...p} className={'c-HistoryLocation--popover'}>
                 <Popover.Content>
-                    <SearchCriteriaMini location={props.location} />
+                    <SearchCriteriaMini
+                        location={props.location}
+                        key={props.location?.key}
+                    />
                 </Popover.Content>
             </Popover>
         );
@@ -79,6 +81,16 @@ export function HistoryLocation(props) {
             delay={{ show: 250, hide: 400 }}
             overlay={renderTooltip}
             data-filters={props.location?.state?.filters}
+            popperConfig={{
+                modifiers: [
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 10],
+                        },
+                    },
+                ],
+            }}
         >
             <div
                 className="c-HistoryViewer__relatedRecentItem"
@@ -130,44 +142,3 @@ function FacetIcons(props) {
 }
 
 FacetIcons.propTypes = { state: PropTypes.any };
-
-function selectIcon(type) {
-    const ICON_MAP = {
-        'audio-video': (
-            <span className={'facetItem icon u-icon__audio-video'} />
-        ),
-        texts: <span className={'facetItem icon u-icon__texts'} />,
-        'texts:pages': <span className={'facetItem icon u-icon__texts'} />,
-        images: <span className={'facetItem icon u-icon__images'} />,
-        sources: <span className={'facetItem icon u-icon__sources'} />,
-        visuals: <span className={'facetItem icon u-icon__visuals'} />,
-        places: <span className={'facetItem icon u-icon__places'} />,
-        subjects: <span className={'facetItem icon u-icon__subjects'} />,
-        terms: <span className={'facetItem icon u-icon__terms'} />,
-        collections: (
-            <span className={'facetItem'}>
-                <ImStack />
-            </span>
-        ),
-        asset_type: (
-            <span className={'facetItem'}>
-                <BsCheckCircle />
-            </span>
-        ),
-        users: <span className={'facetItem icon u-icon__community'} />,
-        creator: <span className={'facetItem icon u-icon__agents'} />,
-        languages: <span className={'facetItem icon u-icon__comments-o'} />,
-        feature_types: (
-            <span className={'facetItem'}>
-                <BsMap />
-            </span>
-        ),
-        associated_subjects: (
-            <span className={'facetItem icon u-icon__essays'} />
-        ),
-        perspective: <span className={'facetItem icon u-icon__file-picture'} />,
-        search: <span className={'facetItem icon u-icon__search'} />,
-    };
-
-    return ICON_MAP[type];
-}
