@@ -81,10 +81,10 @@ export default function KmapsViewer(props) {
         }
     }, [props.kmasset?.uid, route]);
 
-    let output = <div className="l-column__contentMain">Loading...</div>;
+    let output = <div className="l-contentMain__wrap">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
         output = (
-            <main className="l-column__contentMain">
+            <section className="l-contentMain__wrap">
                 <div className="c-contentMain__kmaps">
                     {/*<NodeHeader kmasset={props.kmasset} />*/}
                     <Switch>
@@ -224,7 +224,7 @@ export default function KmapsViewer(props) {
                     data={props.kmasset}
                     scrollable={true}
                 />
-            </main>
+            </section>
         );
     }
 

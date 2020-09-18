@@ -440,7 +440,7 @@
 
 /* ADVANCED SEARCH */
 
-.c-columnSearch {
+.l-column__search {
     /*   position: absolute;
     z-index: 10;
     left: calc(100% - 361px);
@@ -1488,19 +1488,19 @@ a {
    TODO: add slide-in/out css transition
 */
 
-.c-columnSearch.open {
+.l-column__search.open {
     display: block;
 }
 
-.c-columnSearch.closed {
+.l-column__search.closed {
     display: none;
 }
 
-.c-columnSearch nav {
+.l-column__search nav {
     font-size: small;
 }
 
-.c-columnSearch .nav-link {
+.l-column__search .nav-link {
     padding: 0.3rem 0.3rem;
 }
 
