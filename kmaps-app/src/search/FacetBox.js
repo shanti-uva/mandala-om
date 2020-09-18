@@ -298,7 +298,6 @@ export function FacetBox(props) {
                         onChange={setSortField}
                         name={name}
                         value={sortField}
-                        ref={sortFieldEl}
                         onClick={handleSortClick}
                         loadingState={loadingState}
                     />

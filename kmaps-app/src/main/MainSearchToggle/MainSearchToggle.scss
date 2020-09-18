@@ -1,0 +1,28 @@
+.c-MainSearchToggle--button {
+    color: black;
+    background-color: white;
+}
+
+.c-MainSearchToggle--button.active {
+    color: white;
+    background-color: green;
+}
+
+.c-MainSearchToggle--button:hover {
+    color: inherit;
+    background-color: #a4baec;
+}
+
+.c-MainSearchToggle--button.active:hover {
+    color: white;
+    background-color: inherit;
+}
+
+.c-MainSearchToggle--button.focus {
+    color: black;
+    background-color: white;
+}
+
+.c-MainSearchToggle--button .btn {
+    border: 0px;
+}

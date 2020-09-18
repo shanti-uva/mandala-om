@@ -21,6 +21,7 @@ export function SiteHeader(props) {
             </Link>
             <SearchBar
                 advanced={props.advanced}
+                tree={props.tree}
                 onStateChange={props.onStateChange}
             />
         </section>

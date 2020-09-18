@@ -968,7 +968,7 @@ var kmapsSolrUtils = (function ($, window, document, undefined) {
                                 }
                             } else if (marker['operation'] == '!includes') {
                                 if (
-                                    !currentNode[marker['field']].includes(
+                                    !currentNode[marker['field']]?.includes(
                                         marker['value']
                                     )
                                 ) {
