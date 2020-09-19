@@ -115,6 +115,9 @@ div.image-wrapper.center figcaption {
     max-width: 100% !important;
 }
 
+.c-buttoneGroup__viewMode {
+    float: left;
+}
 //---------------------------------------
 // *** THEME COLORS & ICONS
 //---------------------------------------
@@ -265,10 +268,11 @@ div.image-wrapper.center figcaption {
 .c-contentMain__kmaps {
     margin: 1rem 1rem 1rem 0;
     background-color: #f7f7f7;
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
     font-size: 1.3rem;
+    height: 100vh;
 }
 
 .l-column__search {
