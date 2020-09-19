@@ -17,6 +17,18 @@ body.html {
     font-family: $font-family-sans, sans-serif;
 }
 
+.l-content__main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+.l-wrapAll > *,
+.l-content__main,
+.l-content__main > *,
+.c-content__header__main {
+    flex: 1;
+}
+
 a {
     text-decoration: none;
     color: $link-color;
@@ -83,24 +95,6 @@ figure.image.center figcaption,
 div.image-wrapper.center figcaption {
     margin-left: auto;
     margin-right: auto;
-}
-
-// --------------------------------------------------------------------
-// ------- SITE LAYOUT ---- lots of testing still, pardon the mess
-// --------------------------------------------------------------------
-#root {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-}
-.l-content__main {
-    display: flex;
-}
-.l-wrapAll > *,
-.l-column__main__wrap,
-.l-content__main > *,
-.c-content__header__main {
-    flex: 1;
 }
 
 //---------------------------------------
@@ -267,6 +261,7 @@ div.image-wrapper.center figcaption {
     position: relative;
     top: 0.1rem;
 }
+
 .c-contentMain__kmaps {
     margin: 1rem 1rem 1rem 0;
     background-color: #f7f7f7;
@@ -274,14 +269,6 @@ div.image-wrapper.center figcaption {
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
     font-size: 1.3rem;
-}
-
-.open {
-    display: block;
-}
-
-.closed {
-    display: none;
 }
 
 .l-column__search {
@@ -299,6 +286,14 @@ div.image-wrapper.center figcaption {
     right: 1rem;
 }
 
-.l-history__list__wrap .l-related__list__header {
-    margin-bottom: 0.75rem;
+// gallery display buttons for view options
+.c-buttoneGroup__viewMode {
+}
+
+.open {
+    display: block;
+}
+
+.closed {
+    display: none;
 }

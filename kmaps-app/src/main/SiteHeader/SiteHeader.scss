@@ -1,12 +1,12 @@
 // --------------------------------------
 // * TOP BANNER: Site Header
 // --------------------------------------
-.l-siteHeader {
+.c-siteHeader {
     height: 40px;
     padding: 0;
     background: #fff;
 }
-.c-siteHeader__search {
+.c-siteHeader__search__wrap {
     position: absolute;
     top: 0.5rem;
     right: 30px;
@@ -28,10 +28,10 @@ body {
     right: 0;
     z-index: 2000;
     box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 1px;
+    will-change: transform;
+    transition: transform 400ms ease-in-out;
 }
 .headroom--scrolled {
-    will-change: transform;
-    transition: transform 200ms ease-in-out;
 }
 .headroom--unpinned {
     position: fixed;
@@ -40,7 +40,7 @@ body {
 }
 .headroom--pinned {
     position: fixed;
-    transform: translateY(0%);
+    transform: translateY(0);
     display: block;
 }
 .headroom--top {
@@ -49,6 +49,9 @@ body {
 .headroom--unfixed {
     position: relative;
     transform: translateY(0);
+}
+.headroom--pinned.headroom--not-top {
+    //  display:none;
 }
 // --------------------------------------
 // END of Headroom script/css testing

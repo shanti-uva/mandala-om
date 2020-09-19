@@ -31,7 +31,10 @@ export function SearchBar(props) {
     }
 
     const searchbar = (
-        <section id="c-siteHeader__search" className="c-siteHeader__search">
+        <section
+            id="c-siteHeader__search__wrap"
+            className="c-siteHeader__search__wrap"
+        >
             {/*<form onSubmit={this.handleSubmit}>*/}
             <SearchContext>
                 <BasicSearch

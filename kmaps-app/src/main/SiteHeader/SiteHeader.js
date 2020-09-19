@@ -1,17 +1,23 @@
 import { Link } from 'react-router-dom';
 import React, { useLayoutEffect, useState } from 'react';
 import { SearchBar } from '../../search/SearchBar';
-// import Headroom from '../../../node_modules/headroom.js';
+import Headroom from '../../../node_modules/headroom.js'; // see https://wicky.nillia.ms/headroom.js/
 import './SiteHeader.scss';
 
 export function SiteHeader(props) {
-    //   useLayoutEffect(() => {
-    //       var myElement = document.querySelector('.c-siteHeader');
-    //       var headroom = new Headroom(myElement);
-    //       headroom.init();
-    //   }, []);
+    useLayoutEffect(() => {
+        var myElement = document.querySelector('.c-siteHeader');
+        var headroom = new Headroom(myElement, {
+            tolerance: {
+                down: 0,
+                up: 20,
+            },
+            offset: 0,
+        });
+        headroom.init();
+    });
     const topBar = (
-        <section className={'l-siteHeader'}>
+        <section className={'c-siteHeader'}>
             <Link to={'/home'} className={'c-siteHeader__logo__link'}>
                 <img
                     src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}
