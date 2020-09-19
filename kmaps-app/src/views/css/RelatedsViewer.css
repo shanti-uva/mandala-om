@@ -19,7 +19,7 @@
     color: #555;
 }
 .l-related__list__wrap .u-icon__logo-shanti {
-    font-size: 135%;
+    /* font-size: 135%;*/
 }
 .l-related__list__wrap .u-icon__overview {
     font-size: 100%;
@@ -115,12 +115,13 @@
     padding: 1rem 0 0.25rem 0.5rem;
     margin: 0 1rem;
     font-size: 1.5rem;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.075rem;
     border-bottom: 1px solid #ddd;
 }
 .l-related__list__wrap > .l-related__list__header {
-    padding-top: 1.5rem;
+    padding-top: 0;
 }
+
 /*
 .sui-relatedRecent {
     font-size: 12px;

@@ -1,40 +1,32 @@
 #l-site__wrap.av {
     /*   width: 98.9vw; */
 }
-
 #av-viewer {
-    max-width: 1800px;
+    max-width: 180rem;
     margin: 0 auto;
 }
-
 .av .c-columnContent__main {
     overflow-x: hidden;
 }
-
 .av .c-content__header__main__sub {
     display: block;
     font-style: italic;
-    font-size: 13px;
-    margin: 5px 0 0 2rem !important;
+    font-size: 1.3rem;
+    margin: 0.5rem 0 0 2rem !important;
     cursor: pointer;
     color: white;
-
     display: none; /* temp */
 }
-
 .av .c-content__header__main__sub a {
     text-transform: capitalize;
 }
-
 .av .c-content__header__main__sub a:hover {
     color: #fff;
     text-decoration: none;
 }
-
 .av .c-content__header__main__sub a.self {
     cursor: default;
 }
-
 .av .c-content__header__main__sub a.self:hover {
     color: #eee;
     text-decoration: none;
@@ -45,21 +37,21 @@
     overflow: visible;
     margin-top: 2rem !important;
     width: 98%;
-    max-width: 2000px;
+    max-width: 200rem;
     margin: 0 auto;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
 }
 
 #sui-viewerSide {
-    padding-top: 10px;
+    padding-top: 1rem;
     padding-left: 2.5rem;
-    max-width: 900px;
+    max-width: 90rem;
 }
 
 #sui-kplayer {
     width: 100%;
-    max-width: 850px;
-    height: 500px;
+    max-width: 85rem;
+    height: 50rem;
 }
 
 #av-player-row {
@@ -83,15 +75,15 @@ div#av-trscrpt-wrapper {
 }
 
 #av-meta-row {
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 #av-meta-row .nav-tabs a {
     height: 36px;
     width: 50%;
     text-align: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     background-color: rgb(88, 170, 180);
 }
 
@@ -108,21 +100,21 @@ div#av-trscrpt-wrapper {
 }
 
 #av-meta-row .tab-content .tab-pane {
-    padding: 12px 24px;
-    min-height: 500px;
+    padding: 1.2rem 2.4rem;
+    min-height: 50rem;
     background-color: #fff;
     border: 2px solid rgb(88, 170, 180);
     border-top: none;
     width: 100%;
-    margin-right: 6px;
+    margin-right: 0.6rem;
 }
 
 .sui-popover {
-    padding: 0px;
+    padding: 0;
 }
 
 .sui-popover-body {
-    padding: 12px;
+    padding: 1.2rem;
 }
 
 #sui-popbot {
