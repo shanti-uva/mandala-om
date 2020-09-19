@@ -29,14 +29,15 @@ body {
     z-index: 2000;
     box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 1px;
     will-change: transform;
-    transition: transform 400ms ease-in-out;
+    transition: transform 500ms ease-in-out;
 }
 .headroom--scrolled {
 }
 .headroom--unpinned {
     position: fixed;
     transform: translateY(-100%);
-    display: none;
+    //   display: none;
+    visibility: hidden;
 }
 .headroom--pinned {
     position: fixed;
@@ -49,9 +50,6 @@ body {
 .headroom--unfixed {
     position: relative;
     transform: translateY(0);
-}
-.headroom--pinned.headroom--not-top {
-    //  display:none;
 }
 // --------------------------------------
 // END of Headroom script/css testing
