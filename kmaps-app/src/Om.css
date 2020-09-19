@@ -1428,37 +1428,9 @@
     content: '\e635';
 }
 
-/*
-.mandala.u-wrapContent__searchResults {
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
-}
-*/
-.mandala > .c-contentHeader__main > div {
-    /*   margin-top: 0.5em; */
-}
-
-/* facetbox open/close sui-advEdit (part of sui-advBox) */
-/* TODO: refactor to "sliding" effect css */
-
-/* override plain .open .closed to customize effect
-   TODO: add slide-in/out css transition
-*/
-
 .l-column__search .nav-link {
     padding: 0.3rem 0.3rem;
 }
-
-/*
-.sui-nameEntry span {
-    margin-right: 0.2em;
-}
-
-.sui-nameEntry {
-    list-style-type: none;
-}
-*/
 
 .sui-definitionEntry {
     list-style-type: none;
@@ -1476,6 +1448,29 @@
     margin-bottom: 1em;
 }
 
+/*
+.mandala.u-wrapContent__searchResults {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
+}
+*/
+
+/* facetbox open/close sui-advEdit (part of sui-advBox) */
+/* TODO: refactor to "sliding" effect css */
+
+/* override plain .open .closed to customize effect
+   TODO: add slide-in/out css transition
+*/
+/*
+.sui-nameEntry span {
+    margin-right: 0.2em;
+}
+
+.sui-nameEntry {
+    list-style-type: none;
+}
+*/
 /*
 .sui-nameEntry li:before {
     content: '> ';
@@ -1508,23 +1503,6 @@
     padding: 0.3em;
 }
 */
-
-.zoom {
-    transition: transform 0.2s;
-}
-
-.zoom:hover {
-    transform: scale(1.2);
-    z-index: 100;
-}
-
-.zoom > img {
-    object-fit: cover;
-    height: 9rem;
-    max-height: 14rem;
-    max-width: 19rem;
-    width: 99%;
-}
 
 /*CARD SIZE ADJUSTMENTS
 .card .h1 {
@@ -1573,6 +1551,24 @@
     overflow-y: auto;
 }
 */
+
+.zoom {
+    transition: transform 0.2s;
+}
+
+.zoom:hover {
+    transform: scale(1.2);
+    z-index: 100;
+}
+
+.zoom > img {
+    object-fit: cover;
+    height: 9rem;
+    max-height: 14rem;
+    max-width: 19rem;
+    width: 99%;
+}
+
 .loading-msg {
     font-size: 1.5rem;
     margin: 20px;

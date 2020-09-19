@@ -2,53 +2,52 @@
 // * CONTENT SECTION: Content Header
 // --------------------------------------
 
-.c-contentHeader__main {
+.c-content__header__main__wrap {
     padding: 0.25rem 0 0.75rem;
     width: 100vw;
     height: 6.5rem;
 }
-.c-contentHeader,
-.c-contentHeader__main__title {
+// .c-contentHeader,
+.c-content__header__main__title {
     color: #fff;
     margin: 0 0 0 1.8rem;
+    font-size: 2.1rem;
+    line-height: 1.3;
 }
-.c-contentHeader__main__title {
-    font-size: 2.5em;
-}
-.c-contentHeader__main__title .icon {
+.c-content__header__main__title .icon {
     margin-right: 0.75rem;
     position: relative;
     top: 0.3rem;
 }
-.c-contentHeader__main__id {
+.c-content__header__main__id {
     font-style: italic;
     color: #eee;
     position: absolute;
     right: 2rem;
     top: 8rem;
 }
-.c-contentHeader__main__sub {
+.c-content__header__main__sub {
     font-style: italic;
     font-size: 1.2rem;
     color: #aaaaaa;
     display: none;
 }
 
-.c-contentHeader__breadcrumb {
+.c-content__header__breadcrumb {
     background-color: transparent;
     font-size: 1.275rem;
     padding: 0;
     margin: 0.75rem 0 0.25rem 1.5rem;
 }
-.c-contentHeader__breadcrumb,
-.c-contentHeader__breadcrumb a {
+.c-content__header__breadcrumb,
+.c-content__header__breadcrumb a {
     color: #fff;
 }
-.c-contentHeader__breadcrumb a {
+.c-content__header__breadcrumb a {
     padding: 0 0.75rem 0 0.75rem;
     border-bottom: 1px solid transparent;
 }
-.c-contentHeader__breadcrumb a:hover {
+.c-content__header__breadcrumb a:hover {
     border-bottom-color: #ddd;
 }
 // gallery display buttons for view options

@@ -1,8 +1,8 @@
 #l-wrapAll.av {
-    width: 98.9vw;
+    /*   width: 98.9vw; */
 }
 
-div#av-viewer {
+#av-viewer {
     max-width: 1800px;
     margin: 0 auto;
 }
@@ -11,7 +11,7 @@ div#av-viewer {
     overflow-x: hidden;
 }
 
-.av .c-contentHeader__main__sub {
+.av .c-content__header__main__sub {
     display: block;
     font-style: italic;
     font-size: 13px;
@@ -22,33 +22,22 @@ div#av-viewer {
     display: none; /* temp */
 }
 
-.av .c-contentHeader__main__sub a {
+.av .c-content__header__main__sub a {
     text-transform: capitalize;
 }
 
-.av .c-contentHeader__main__sub a:hover {
+.av .c-content__header__main__sub a:hover {
     color: #fff;
     text-decoration: none;
 }
 
-.av .c-contentHeader__main__sub a.self {
+.av .c-content__header__main__sub a.self {
     cursor: default;
 }
 
-.av .c-contentHeader__main__sub a.self:hover {
+.av .c-content__header__main__sub a.self:hover {
     color: #eee;
     text-decoration: none;
-}
-
-.av .c-contentHeader__main__sub a:not(:last-child):after {
-    /*    content: ' > ';
-    display: inline-block;
-    padding-left: 3px;
-    position: relative; */
-}
-
-.av .sui-breadCrumbs {
-    /*   display: none; */
 }
 
 #sui-av,

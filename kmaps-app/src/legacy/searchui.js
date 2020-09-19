@@ -947,7 +947,7 @@ export default class SearchUI {
 			<div id='sui-pageLT' class='sui-resDisplay' title='Go to last page'>&#xe63d</div>
 			</div>`;
 
-        $('#c-contentHeader__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
+        $('#c-content__header__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
         $('#sui-header').css('background-color', '#888'); // Set b/g color
 
         $('#sui-typePageT').val(this.ss.page + 1); // Set page number
