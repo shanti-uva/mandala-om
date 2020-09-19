@@ -18,6 +18,8 @@ div#av-viewer {
     margin: 5px 0 0 2rem !important;
     cursor: pointer;
     color: white;
+
+    display: none; /* temp */
 }
 
 .av .c-contentHeader__main__sub a {

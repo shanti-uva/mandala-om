@@ -10,10 +10,10 @@
 .c-contentHeader,
 .c-contentHeader__main__title {
     color: #fff;
-    margin: 0 0 0 1.5rem;
+    margin: 0 0 0 1.8rem;
 }
 .c-contentHeader__main__title {
-    font-size: 2.25em;
+    font-size: 2.5em;
 }
 .c-contentHeader__main__title .icon {
     margin-right: 0.75rem;
@@ -29,7 +29,7 @@
 }
 .c-contentHeader__main__sub {
     font-style: italic;
-    font-size: smaller;
+    font-size: 1.2rem;
     color: #aaaaaa;
     display: none;
 }
@@ -45,7 +45,7 @@
     color: #fff;
 }
 .c-contentHeader__breadcrumb a {
-    padding: 0 0.75rem 0 0.5rem;
+    padding: 0 0.75rem 0 0.75rem;
     border-bottom: 1px solid transparent;
 }
 .c-contentHeader__breadcrumb a:hover {

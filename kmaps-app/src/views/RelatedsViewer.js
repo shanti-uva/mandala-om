@@ -36,10 +36,10 @@ export function RelatedsViewer(props) {
                     <div className="c-relatedViewer">
                         <Link
                             id="sui-rl-Home"
-                            className={`c-related__link--home c-related__item ${locMatch['home']}`}
                             to={
                                 '/' + baseArgs.baseType + '/' + baseArgs.baseUid
                             }
+                            className={`c-related__link--home c-related__item ${locMatch['home']}`}
                         >
                             <span className={'icon u-icon__overview'}></span>{' '}
                             <span>Home</span>

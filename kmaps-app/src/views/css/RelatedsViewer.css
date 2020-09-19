@@ -28,20 +28,18 @@
 }
 .c-relatedViewer {
     font-size: 14px;
-    color: #222;
     padding: 0;
 }
 .c-relatedViewer > * {
     padding: 0 1rem 0 2rem;
 }
 .c-related__item {
-    color: #000;
     display: block;
-    line-height: 2.25;
-    padding: 0 0 0 1.75rem;
+    line-height: 2;
+    padding: 0 0 0.4rem 1.75rem;
 }
 .c-related__item.selected {
-    background: #f7f7f7;
+    /*  background: #f7f7f7; */
 }
 .c-related__item:not(.selected):hover {
     background: #eee;
