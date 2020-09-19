@@ -95,7 +95,7 @@ export function AudioVideoViewer(props) {
             $('#sui-avlang').toggle();
             this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
         });
-        $('#l-wrapAll').addClass('av');
+        $('#l-site__wrap').addClass('av');
     }, []);
 
     useEffect(() => {

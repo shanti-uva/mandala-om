@@ -37,7 +37,7 @@ export function Main(props) {
 
     const main = (
         <Router basename={'/mandala-om'}>
-            <div id={'l-wrapAll'} className={'l-wrapAll'}>
+            <div id={'l-site__wrap'} className={'l-site__wrap'}>
                 <HistoryListener />
                 <SiteHeader
                     advanced={state.advanced}
