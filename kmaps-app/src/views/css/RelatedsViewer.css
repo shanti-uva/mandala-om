@@ -104,7 +104,7 @@
     position: relative;
     left: -0.1rem;
     font-size: 120%;
-    color: #c0c0c0;
+    color: #999;
     font-weight: normal;
 }
 .c-relatedViewer #sui-rln-places::after {
@@ -112,7 +112,7 @@
     position: relative;
     right: -0.1rem;
     font-size: 120%;
-    color: #c0c0c0;
+    color: #999;
     font-weight: normal;
 }
 .c-related__link--home {

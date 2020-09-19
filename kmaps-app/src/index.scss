@@ -115,7 +115,7 @@ div.image-wrapper.center figcaption {
 
 .c-buttoneGroup__viewMode {
     margin-left: 4rem;
-    display: inline-block;
+    float: left;
 }
 //---------------------------------------
 // *** THEME COLORS & ICONS
@@ -276,7 +276,7 @@ div.image-wrapper.center figcaption {
     top: 0.15rem;
 }
 .c-content__main__kmaps {
-    margin: 1rem 1rem 1rem 0;
+    margin: 0 1rem 0 0;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     border-radius: 0.5rem;

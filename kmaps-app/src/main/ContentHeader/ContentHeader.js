@@ -35,21 +35,17 @@ export function ContentHeader(props) {
                 className="c-content__header__main__wrap legacy"
             >
                 <h1 className={'c-content__header__main__title'}>
-                    <span
-                        className={`icon white u-icon__${status.type}`}
-                    ></span>
+                    <span className={`icon u-icon__${status.type}`}></span>
                     {status.headerTitle}
                 </h1>
 
                 <div className={'c-content__header__breadcrumb breadcrumb'}>
                     {convertedPath}
                 </div>
-                <span className={'c-content__header__main__id'}>
-                    {status.id}
-                </span>
-                <div className={'c-content__header__main__sub'}>
+                <h5 className={'c-content__header__main__id'}>{status.id}</h5>
+                <h4 className={'c-content__header__main__sub'}>
                     {status.subTitle}
-                </div>
+                </h4>
             </div>
         </header>
     );
