@@ -96,6 +96,25 @@
 .c-related__item.selected {
     background: #f0f0f0;
 }
+.c-relatedViewer #sui-rln-places {
+    font-size: 1.1rem;
+}
+.c-relatedViewer #sui-rln-places::before {
+    content: '(';
+    position: relative;
+    left: -0.1rem;
+    font-size: 120%;
+    color: #c0c0c0;
+    font-weight: normal;
+}
+.c-relatedViewer #sui-rln-places::after {
+    content: ')';
+    position: relative;
+    right: -0.1rem;
+    font-size: 120%;
+    color: #c0c0c0;
+    font-weight: normal;
+}
 .c-related__link--home {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -109,6 +128,7 @@
 }
 .c-related__item__label {
     text-transform: capitalize;
+    margin-right: 0.8rem;
 }
 
 .l-related__list__header {

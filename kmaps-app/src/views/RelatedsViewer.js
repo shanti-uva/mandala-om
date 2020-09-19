@@ -150,7 +150,7 @@ function RelatedCount(props) {
         >
             <span className={'u-icon__' + props.type + ' ' + iconClass}></span>
             <span className={'c-related__item__label'}> {props.type}</span>
-            &nbsp;(<span id="sui-rln-places">{count}</span>)
+            <span id="sui-rln-places">{count}</span>
         </Link>
     ) : null;
 }
