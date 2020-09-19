@@ -1,7 +1,7 @@
-@import 'index-variables'; // * CUSTOM --- Thematic SCSS Variables
-@import '~bootstrap/scss/bootstrap'; // * VENDOR --- Base files for Bootstrap
-@import 'css/fonts/shanticon/style.css'; // * CUSTOM --- Icon set for Mandala
-@import 'views/css/Popover'; // * CUSTOM --- Icon set for Mandala
+@import 'index-variables';
+@import '~bootstrap/scss/bootstrap';
+@import 'css/fonts/shanticon/style.css';
+@import 'views/css/Popover';
 
 html {
     -webkit-tap-highlight-color: transparent;
@@ -16,7 +16,6 @@ body {
 body.html {
     font-family: $font-family-sans, sans-serif;
 }
-
 .l-content__main {
     height: 100vh;
     width: 100vw;
@@ -28,19 +27,16 @@ body.html {
 .c-content__header__main {
     flex: 1;
 }
-
 a {
     text-decoration: none;
     color: $link-color;
 }
-
 a:hover,
 a:focus,
 a:active {
     text-decoration: none;
     color: $link-hover-color;
 }
-
 h1,
 .h1,
 h2,
@@ -50,6 +46,7 @@ h3,
     font-weight: 400;
     font-family: $font-family-sans, sans-serif;
 }
+
 /**
 .l-wrapAll ::-webkit-scrollbar {
     width: 10px;
@@ -109,8 +106,8 @@ div.image-wrapper.center figcaption {
 }
 
 // * Temporary fix for responsive display
-.c-contentMain__kmaps img,
-.c-contentMain__kmaps .images.legacy img {
+.c-content__main__kmaps img,
+.c-content__main__kmaps .images.legacy img {
     height: auto !important;
     max-width: 100% !important;
 }
@@ -236,11 +233,6 @@ div.image-wrapper.center figcaption {
     background-color: $color-subjects;
 }
 
-.sui-nameEntry-meta {
-    display: block;
-    margin-top: 0.75rem;
-}
-
 // --------------------------------------
 // * CONTENT SECTION: Node Header
 // --------------------------------------
@@ -265,7 +257,7 @@ div.image-wrapper.center figcaption {
     top: 0.1rem;
 }
 
-.c-contentMain__kmaps {
+.c-content__main__kmaps {
     margin: 1rem 1rem 1rem 0;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
@@ -288,6 +280,11 @@ div.image-wrapper.center figcaption {
     position: absolute;
     top: 11rem;
     right: 1rem;
+}
+
+.sui-nameEntry-meta {
+    display: block;
+    margin-top: 0.75rem;
 }
 
 // gallery display buttons for view options

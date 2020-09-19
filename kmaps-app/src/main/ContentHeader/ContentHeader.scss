@@ -26,9 +26,11 @@
 .c-content__header__main__sub {
     font-style: italic;
     font-size: 1.2rem;
-    color: #aaaaaa;
+    color: #aaa;
     display: none;
 }
+
+// Breadcrumbs
 .c-content__header__breadcrumb {
     background-color: transparent;
     font-size: 1.275rem;
@@ -36,14 +38,14 @@
     margin: 1rem 0 0.25rem 1.5rem;
 }
 .c-content__header__breadcrumb,
-.c-content__header__breadcrumb a {
+.c-content__header__breadcrumb .breadcrumb-item {
     color: #fff;
 }
-.c-content__header__breadcrumb a {
-    padding: 0 0.75rem 0 0.75rem;
+.c-content__header__breadcrumb .breadcrumb-item {
+    padding: 0 0.75rem 0 0 !important;
     border-bottom: 1px solid transparent;
 }
-.c-content__header__breadcrumb a:hover {
+.c-content__header__breadcrumb .breadcrumb-item:hover {
     border-bottom-color: #ddd;
 }
 .breadcrumb-item + .breadcrumb-item::before {
