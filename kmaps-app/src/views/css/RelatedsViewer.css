@@ -26,6 +26,7 @@
     font-size: 100%;
     margin-left: 0.25rem;
 }
+
 .c-relatedViewer {
     font-size: 14px;
     padding: 0;
@@ -39,18 +40,32 @@
     padding: 0 0 0.4rem 1.75rem;
 }
 .c-related__item.selected {
-    /*  background: #f7f7f7; */
+    background: #f0f0f0;
+}
+.c-related__link--home {
+    padding-top: 0.75rem;
+    padding-bottom: 0.25rem;
 }
 .c-related__item:not(.selected):hover {
     background: #eee;
 }
-
 .c-related__list--icon {
     border-color: transparent;
     height: 6px;
 }
 .c-related__item__label {
     text-transform: capitalize;
+}
+
+.l-related__list__header {
+    padding: 2.5rem 0 0.25rem 0.5rem;
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+    border-bottom: 1px solid #ddd;
+}
+.l-related__list__wrap > .l-related__list__header {
+    padding-top: 0.5rem;
 }
 
 .sui-relatedRecent {
@@ -88,15 +103,4 @@
     margin: 12px 0 12px 0;
     outline: 1px solid #999;
     outline-offset: 4px;
-}
-
-.l-related__list__header {
-    padding: 2.5rem 0 0.25rem 0.5rem;
-    margin: 0 1rem 0.75rem;
-    font-size: 1.5rem;
-    letter-spacing: 0.1rem;
-    border-bottom: 1px solid #ddd;
-}
-.l-related__list__wrap > .l-related__list__header {
-    padding-top: 0.5rem;
 }

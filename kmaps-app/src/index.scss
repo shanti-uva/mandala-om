@@ -96,18 +96,11 @@ div.image-wrapper.center figcaption {
 .l-content__main {
     display: flex;
 }
-.l-content__main > * {
-    flex: 1;
-}
 .l-wrapAll > *,
 .l-column__main__wrap,
-// .c-contentHeader,
+.l-content__main > *,
 .c-content__header__main {
     flex: 1;
-}
-.sui-advFooter,
-.l-column__search pre {
-    text-align: center;
 }
 
 //---------------------------------------
@@ -116,8 +109,13 @@ div.image-wrapper.center figcaption {
 .jumbotron {
     background-color: transparent;
 }
+.sui-advFooter,
+.l-column__search pre {
+    text-align: center;
+}
 
 // * Temporary fix for responsive display
+.c-contentMain__kmaps img,
 .c-contentMain__kmaps .images.legacy img {
     height: auto !important;
     max-width: 100% !important;
@@ -299,4 +297,8 @@ div.image-wrapper.center figcaption {
     position: absolute;
     top: 11rem;
     right: 1rem;
+}
+
+.l-history__list__wrap .l-related__list__header {
+    margin-bottom: 0.75rem;
 }
