@@ -30,7 +30,7 @@ export function RelatedsViewer(props) {
         <aside className={'l-column__related'}>
             <div className="l-column__related__wrap">
                 <section className="l-related__list__wrap">
-                    <div className="l-related__list__header">
+                    <div className="u-related__list__header">
                         Related Resources
                     </div>
                     <div className="c-relatedViewer">
@@ -99,14 +99,14 @@ export function RelatedsViewer(props) {
                 </section>
 
                 <section className="l-history__list__wrap">
-                    <div className="l-related__list__header">
+                    <div className="u-related__list__header">
                         Recently Viewed
                     </div>
                     <HistoryViewer />
                 </section>
 
-                <section className="l-termsTree__wrap">
-                    <div className="l-related__list__header">Browse Terms</div>
+                <section className="l-terms__tree__wrap">
+                    <div className="u-related__list__header">Browse Terms</div>
                     <FancyTree
                         domain="terms"
                         tree="terms"

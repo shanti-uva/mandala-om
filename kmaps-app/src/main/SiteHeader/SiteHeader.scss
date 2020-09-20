@@ -1,17 +1,17 @@
 // --------------------------------------
 // * TOP BANNER: Site Header
 // --------------------------------------
-.c-siteHeader {
+.c-site__header {
     height: 40px;
     padding: 0;
     background: #fff;
 }
-.c-siteHeader__search__wrap {
+.c-site__search {
     position: absolute;
     top: 0.5rem;
     right: 30px;
 }
-.c-siteHeader__logo__link {
+.c-logoLink {
     display: inline-block;
 }
 
@@ -20,7 +20,7 @@
 // --------------------------------------------------------
 html,
 body {
-    scroll-padding-top: 4rem; /* set to the height of your header */
+    scroll-padding-top: 4rem; /* set to the height of header */
 }
 .headroom {
     top: 0;

@@ -6,7 +6,7 @@ import './SiteHeader.scss';
 
 export function SiteHeader(props) {
     useLayoutEffect(() => {
-        var myElement = document.querySelector('.c-siteHeader');
+        var myElement = document.querySelector('.c-site__header');
         var headroom = new Headroom(myElement, {
             tolerance: {
                 down: 0,
@@ -17,12 +17,12 @@ export function SiteHeader(props) {
         headroom.init();
     });
     const topBar = (
-        <section className={'c-siteHeader'}>
-            <Link to={'/home'} className={'c-siteHeader__logo__link'}>
+        <section className={'c-site__header'}>
+            <Link to={'/home'} className={'u-link-logo'}>
                 <img
                     src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}
                     alt={'Home Page'}
-                    className={'c-siteHeader__logo__image'}
+                    className={'o-image-logo'}
                 />
             </Link>
             <SearchBar
