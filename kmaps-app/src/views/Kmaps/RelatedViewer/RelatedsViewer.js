@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import FancyTree from './FancyTree';
-import HistoryViewer from './History/HistoryViewer';
-import './css/RelatedsViewer.css';
+import FancyTree from '../../FancyTree';
+import HistoryViewer from '../../History/HistoryViewer';
+import './RelatedsViewer.scss';
 
 export function RelatedsViewer(props) {
     // console.log('Relateds props = ', props);

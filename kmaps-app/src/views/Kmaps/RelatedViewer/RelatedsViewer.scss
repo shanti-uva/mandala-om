@@ -1,3 +1,5 @@
+@import '../../../index-variables';
+
 .l-column__related {
     width: 18rem;
     max-width: 18rem;
@@ -97,7 +99,7 @@
     background: #f0f0f0;
 }
 .c-relatedViewer #sui-rln-places {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 .c-relatedViewer #sui-rln-places::before {
     content: '(';
@@ -133,14 +135,42 @@
 
 .u-related__list__header {
     padding: 1rem 0 0.25rem 0.5rem;
-    margin: 0 1rem;
+    margin: 0 1rem 0.8rem;
     font-size: 1.5rem;
     letter-spacing: 0.075rem;
     border-bottom: 1px solid #ddd;
 }
 .l-related__list__wrap > .u-related__list__header {
     padding-top: 0;
-    color: #000;
+}
+
+.l-terms__tree__wrap .view-wrap {
+    padding: 0 1.2rem !important;
+}
+.l-terms__tree__wrap .fancytree-container {
+    border: 1px solid #ddd !important;
+    box-shadow: inset 0 0 8px #ddd;
+    padding: 0.5rem;
+    height: auto;
+    max-height: 50rem;
+}
+.l-terms__tree__wrap .fancytree-container li {
+}
+.l-terms__tree__wrap .fancytree-node {
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.l-terms__tree__wrap .fancytree-exp-n .fancytree-title::before {
+    content: '– ';
+}
+.l-terms__tree__wrap .fancytree-exp-n:hover .fancytree-title::before {
+    background: transparent;
+}
+.l-terms__tree__wrap span[role='button'] {
+    transform: scale(1.15);
+    margin-right: 0.75rem;
+    color: $color-terms !important;
 }
 
 /*

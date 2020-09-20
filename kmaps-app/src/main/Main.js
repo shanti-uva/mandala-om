@@ -8,7 +8,7 @@ import {
 
 import { SiteHeader } from './SiteHeader/SiteHeader';
 import { Home } from './HomePage/Home';
-import { ContentPane } from './ContentPane';
+import { ContentMain } from './ContentMain';
 import { Hamburger } from './MainNavToggle/Hamburger';
 
 import { SearchBar } from '../search/SearchBar';
@@ -43,6 +43,7 @@ export function Main(props) {
                     advanced={state.advanced}
                     onStateChange={handleStateChange}
                 />
+                <Hamburger hamburgerOpen={state.hamburgerOpen} />
 
                 <Switch>
                     <Route path={'/home'}>
@@ -52,7 +53,7 @@ export function Main(props) {
                         <Redirect to={'/home'} />
                     </Route>
                     <Route path={'/'}>
-                        <ContentPane
+                        <ContentMain
                             site={'mandala'}
                             mode={'development'}
                             title={'Mandala'}
@@ -74,7 +75,6 @@ export function Main(props) {
                         onStateChange={handleStateChange}
                     />
                 </SearchContext>
-                <Hamburger hamburgerOpen={state.hamburgerOpen} />
             </div>
         </Router>
     );
