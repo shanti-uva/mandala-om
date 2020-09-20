@@ -252,7 +252,7 @@ div.image-wrapper.center figcaption {
     left: -2rem;
     top: -0.8rem;
     padding: 0.5rem 1rem 0.4rem;
-    background: $gray-500;
+    background: #999;
     color: #fff;
     border-radius: 0.6rem 0 0.2rem 0;
 }
@@ -282,6 +282,7 @@ div.image-wrapper.center figcaption {
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
     font-size: 1.3rem;
+    min-height: 75rem;
 }
 
 .l-column__search {
@@ -335,12 +336,12 @@ div.image-wrapper.center figcaption {
     padding: 0 1.2rem !important;
 }
 .l-terms__tree__wrap .view-wrap > ul {
-    border: 1px solid #ccc !important;
+    border: 1px solid #ddd !important;
     box-shadow: inset 0 0 8px #ddd;
     padding: 0.5rem;
     margin-top: 0.8rem;
+    height: auto;
 }
-
 .l-terms__tree__wrap .fancytree-container li {
     line-height: 1.82em !important;
 }
