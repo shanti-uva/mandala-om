@@ -1819,26 +1819,6 @@
     text-transform: capitalize;
 }
 
-.c-nodeHeader-itemHeader {
-    margin: 1rem 0.3rem 0.3rem 0.3rem;
-}
-
-.c-nodeHeader-itemHeader span {
-    margin: 0.3rem 0.3rem 3rem 0.3rem;
-}
-
-.c-nodeHeader-itemHeader-subType {
-    text-transform: capitalize;
-}
-
-.c-nodeHeader-itemHeader-subType:after {
-    content: ': ';
-}
-
-.c-nodeHeader-itemHeader-caption {
-    font-style: italic;
-}
-
 .sui-featureDeck {
     /*min-height: 30rem;*/
 }

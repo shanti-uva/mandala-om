@@ -58,7 +58,7 @@ export function FeatureCollection(props) {
     }
 
     return (
-        <div>
+        <div className={'c-buttoneGroup__viewMode__wrap'}>
             <div className={'c-buttoneGroup__viewMode'}>
                 View Mode:{' '}
                 <FeatureCollectionViewModeSelector viewMode={viewMode} />

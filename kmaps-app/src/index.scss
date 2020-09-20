@@ -16,6 +16,13 @@ body {
 body.html {
     font-family: $font-family-sans, sans-serif;
 }
+.l-site__wrap,
+.l-column__main,
+.l-column__main__wrap,
+.l-content__main,
+.l-content__main__wrap {
+    height: 100vh;
+}
 .l-content__main {
     height: 100vh;
     width: 100vw;
@@ -105,18 +112,32 @@ div.image-wrapper.center figcaption {
 .l-column__search pre {
     text-align: center;
 }
-
-// * Temporary fix for responsive display
+// MAIN Kmaps Column ------- move this
+.c-content__main__kmaps {
+    margin: 0 1rem 0 0;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem 2rem 2rem;
+    font-size: 1.3rem;
+    min-height: 75rem;
+}
+// * Local fix for responsive display - temp
 .c-content__main__kmaps img,
 .c-content__main__kmaps .images.legacy img {
     height: auto !important;
     max-width: 100% !important;
 }
 
+// View mode for content column ---- move this
 .c-buttoneGroup__viewMode {
     margin-left: 4rem;
     float: left;
 }
+.c-buttoneGroup__viewMode__wrap {
+    margin-top: 0.8rem;
+}
+
 //---------------------------------------
 // *** THEME COLORS & ICONS
 //---------------------------------------
@@ -236,39 +257,59 @@ div.image-wrapper.center figcaption {
 }
 
 // --------------------------------------
-// * CONTENT SECTION: Node Header
+// * CONTENT SECTION: Node Header -- move this
 // --------------------------------------
 .c-nodeHeader {
 }
 .c-nodeHeader > .icon {
     margin: 0 1.25rem 0 0;
     position: relative;
-    top: 0.4rem;
-    font-size: 1.8em;
+    top: 0.3rem;
+    left: 0.1rem;
+    font-size: 2.5rem;
 }
-.c-nodeHeader__main__backLink {
+.c-nodeHeader__backLink__wrap {
+    display: flex;
+}
+.c-nodeHeader__backLink {
     font-size: 1.06em;
-    position: relative;
-    left: -2rem;
-    top: -0.8rem;
     letter-spacing: 0.0275rem;
-    padding: 0.5rem 1rem 0.4rem;
-    background: #999;
-    color: #fff;
-    border-radius: 0.6rem 0 0.2rem 0;
+    color: #555;
+    display: flex;
+    position: relative;
+    left: 0.5rem;
+    top: -0.3rem;
 }
-.c-nodeHeader__main__backLink:hover {
-    color: #fff;
-    background: $gray-600;
+.c-nodeHeader__backLink:hover {
+    //  color: #fff;
+    //  background: $gray-600;
 }
-.c-nodeHeader__main__backLink:active {
-    color: #fff;
-    background: $gray-700;
+.c-nodeHeader__backLink:active {
+    //   color: #fff;
+    //  background: $gray-700;
 }
-.c-nodeHeader__main__backLink .icon::before {
+.c-nodeHeader__backLink .icon::before {
     margin-right: 0.8rem;
     position: relative;
     top: 0.1rem;
+}
+.c-nodeHeader-itemHeader {
+    margin: 0.5rem 0.3rem 0.5rem -0.5rem;
+    padding-bottom: 0.85rem;
+    padding-left: 0.7rem;
+    border-bottom: 1px solid $color-amber;
+}
+.c-nodeHeader-itemHeader span {
+    margin: 0.3rem;
+}
+.c-nodeHeader-itemHeader-subType {
+    text-transform: capitalize;
+}
+.c-nodeHeader-itemHeader-subType:after {
+    content: ': ';
+}
+.c-nodeHeader-itemHeader-caption {
+    font-style: italic;
 }
 .c-nodeHeader-itemHeader .icon {
     font-size: 1.38em;
@@ -276,16 +317,8 @@ div.image-wrapper.center figcaption {
     position: relative;
     top: 0.15rem;
 }
-.c-content__main__kmaps {
-    margin: 0 1rem 0 0;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    padding: 1rem 1.5rem 2rem 2rem;
-    font-size: 1.3rem;
-    min-height: 75rem;
-}
 
+// SEARCH Section ------- move this
 .l-column__search {
     height: 100vw;
     width: 20vw;
@@ -313,6 +346,16 @@ div.image-wrapper.center figcaption {
     margin-top: 0.75rem;
 }
 
+.u-search__results__wrap {
+    width: 100vw;
+    text-align: center;
+}
+.u-search__noresults__header {
+    font-size: 1.6rem;
+    white-space: nowrap;
+    margin-top: 3rem;
+}
+
 // gallery display buttons for view options
 .c-buttoneGroup__viewMode {
 }
@@ -323,14 +366,4 @@ div.image-wrapper.center figcaption {
 
 .closed {
     display: none;
-}
-
-.u-search__results__wrap {
-    width: 100vw;
-    text-align: center;
-}
-.u-search__noresults__header {
-    font-size: 1.6rem;
-    white-space: nowrap;
-    margin-top: 3rem;
 }
