@@ -282,15 +282,19 @@ div.image-wrapper.center figcaption {
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
     font-size: 1.3rem;
-    height: 100vh;
 }
 
 .l-column__search {
-    height: 100vh;
+    height: 100vw;
     width: 20vw;
     max-width: 290px;
     background: white;
     font-size: 1.3rem;
+    position: absolute;
+    top: 10.5rem;
+    right: 1rem;
+    z-index: 1000;
+    border-left: 2px solid #ddd;
 }
 .l-column__search.open {
     z-index: 1000;

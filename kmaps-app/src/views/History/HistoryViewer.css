@@ -21,7 +21,7 @@
 
 .c-HistoryViewer__removeItem {
     cursor: pointer;
-    font-size: 1.25em;
+    font-size: 1.2rem;
     color: transparent;
     transition: color 200ms ease 0s;
     position: absolute;

@@ -142,7 +142,13 @@ div#av-trscrpt-wrapper {
 
 #av-trscrpt-wrapper .av-trscrpt-ctrls .sui-transTab {
     height: 52px;
-    padding-top: 10px;
+    padding-top: 1.4rem;
+}
+#av-trscrpt-wrapper .av-trscrpt-ctrls .sui-transTab {
+    font-size: 2rem;
+}
+#av-trscrpt-wrapper .av-trscrpt-ctrls #sui-transTab1 {
+    font-size: 1.75rem;
 }
 
 /** Thumbnail Styles **/
