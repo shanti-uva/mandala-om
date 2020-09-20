@@ -327,9 +327,16 @@ div.image-wrapper.center figcaption {
     margin-top: 3rem;
 }
 
+.l-terms__tree__wrap .view-wrap {
+    padding: 0 1.2rem !important;
+}
 .l-terms__tree__wrap .view-wrap > ul {
     border: 1px solid #ccc !important;
     box-shadow: inset 0 0 8px #ddd;
     padding: 0.5rem;
     margin-top: 0.8rem;
+}
+
+.l-terms__tree__wrap .fancytree-container li {
+    line-height: 1.82em !important;
 }
