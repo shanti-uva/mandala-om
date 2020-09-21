@@ -24,7 +24,7 @@ body.html {
     height: 100vh;
 }
 .l-content__main {
-    height: 100vh;
+    height: 100vw;
     width: 100vw;
     display: flex;
     margin: 1rem 0 0 0;
@@ -294,13 +294,16 @@ div.image-wrapper.center figcaption {
     top: 0.1rem;
 }
 .c-nodeHeader-itemHeader {
-    margin: 0.5rem 0.3rem 0.5rem -0.5rem;
-    padding-bottom: 0.85rem;
-    padding-left: 0.7rem;
-    border-bottom: 1px solid $color-amber;
+    background-color: $color-amber;
+    color: #fff;
+    padding: 0.1rem 1rem 0.75rem 1.5rem;
+    margin-top: 0.5rem;
+    margin-left: -0.75rem;
+    font-size: 1.44rem;
+    line-height: 1.3;
 }
-.c-nodeHeader-itemHeader span {
-    margin: 0.3rem;
+.av .c-nodeHeader-itemHeader {
+    background-color: $color-audio-video;
 }
 .c-nodeHeader-itemHeader-subType {
     text-transform: capitalize;
@@ -313,9 +316,10 @@ div.image-wrapper.center figcaption {
 }
 .c-nodeHeader-itemHeader .icon {
     font-size: 1.38em;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
     position: relative;
-    top: 0.15rem;
+    top: 0.35rem;
+    color: #fff;
 }
 
 // SEARCH Section ------- move this
