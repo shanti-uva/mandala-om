@@ -24,10 +24,10 @@
     cursor: pointer;
     font-size: 1.2rem;
     color: transparent;
-    transition: color 200ms ease 0s;
+    margin-top: 0.35rem;
     position: absolute;
     right: 0.8rem;
-    transition: color 350ms ease-in;
+    transition: color 250ms ease-in;
 }
 
 .c-HistoryViewer__relatedRecentItem:hover .c-HistoryViewer__removeItem {
