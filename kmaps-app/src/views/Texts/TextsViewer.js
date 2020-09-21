@@ -48,7 +48,7 @@ export function TextsViewer(props) {
     // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
     useEffect(() => {
         // add class "texts" to sui-main
-        $('.l-wrapAll').addClass('texts');
+        $('.l-site__wrap').addClass('texts');
 
         // Add customs CSS styles
         const headel = $('head');

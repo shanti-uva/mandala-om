@@ -20,7 +20,7 @@ import useStatus from '../hooks/useStatus';
  *    When a new app is added the JSON API call must be added to getMandalaAssetDataPromise for that particular
  *    asset type.
  *
- *    This is evoked within the ContentPane.js and should wrap the component of the Mandala App in question
+ *    This is evoked within the ContentMain.js and should wrap the component of the Mandala App in question
  *    As for instance was done for texts:
  *           <MdlAssetContext assettype={'texts'}>
  *               <TextsViewer onStateChange={props.onStateChange}/>

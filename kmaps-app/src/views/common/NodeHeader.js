@@ -39,7 +39,7 @@ function NodeHeader(props) {
         }
 
         itemHeader = docs?.length ? (
-            <div className={'c-nodeHeader-itemHeader'}>
+            <h5 className={'c-nodeHeader-itemHeader'}>
                 <span className={'icon u-icon__' + docs[0].asset_type}></span>
                 <span className={'c-nodeHeader-itemHeader-subType'}>
                     {docs[0].asset_subtype}
@@ -47,7 +47,7 @@ function NodeHeader(props) {
                 <span className={'c-nodeHeader-itemHeader-caption'}>
                     {caption}
                 </span>
-            </div>
+            </h5>
         ) : null;
         // console.log("NodeHeader itemHeader = ", itemHeader);
     }
@@ -75,8 +75,8 @@ function NodeHeader(props) {
     return (
         <div className={'c-nodeHeader'}>
             {back && (
-                <div>
-                    <Link to={'..'} className={'c-nodeHeader__main__backLink'}>
+                <div className={'c-nodeHeader__backLink__wrap'}>
+                    <Link to={'..'} className={'c-nodeHeader__backLink'}>
                         <span className={'icon u-icon__arrow-left_2'}>
                             Return
                         </span>
@@ -93,7 +93,6 @@ function NodeHeader(props) {
                 <span className={'sui-relatedSubHeader'}>{subHeader}</span>
             )}
             {itemHeader}
-            <hr style={{ borderTop: '1px solid rgb(162, 115, 63)' }} />
         </div>
     );
 }

@@ -780,9 +780,16 @@
     font-family: 'EB Garamond', serif;
     font-weight: 500;
     font-size: 2.25rem;
+    margin-right: 1.25rem;
 }
 .sui-termTitle .latin {
-    margin-left: 1rem;
+    margin-left: 0.25rem;
+}
+
+.sui-relatedSubHeader {
+    font-size: 1.75rem;
+    font-family: 'EB Garamond', serif;
+    text-transform: capitalize;
 }
 .sui-termSpeak {
     border-radius: 16px;
@@ -996,7 +1003,7 @@
     width: calc(16.6667% - 1px);
     text-align: center;
     font-weight: 500;
-    font-size: 25px;
+    font-size: 2rem;
     color: #fff;
     cursor: pointer;
     padding-top: 12px;
@@ -1009,13 +1016,14 @@
 
 .sui-transOps {
     position: ABSOLUTE;
-
+    top: 5.25rem;
     background-color: #f7f7f7;
-    border: 1px solid #999;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 0.5rem #ccc;
     border-radius: 0 0 6px 6px;
     display: none;
     width: 180px;
-    font-size: 13px;
+    font-size: 1.3rem;
 }
 
 .sui-transSrc {
@@ -1414,40 +1422,6 @@
     border-color: #fff;
 }
 
-/* PSUEDO ELEMENTS
-
-.sui-main ::-webkit-scrollbar {
-    width: 10px;
-    height: 8px;
-}
-
-.sui-main ::-webkit-scrollbar-track {
-    background: transparent;
-    border-left: 1px solid #aaa;
-}
-
-.sui-main ::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background: #ccc;
-}
-
-.sui-main ::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-}
-
-.sui-main ::-webkit-input-placeholder {
-    color: #bbb;
-}
-
-::placeholder {
-    color: #bbb;
-}
- */
-
-a {
-    text-decoration: none;
-}
-
 .sui-noA {
     border-bottom: hidden;
     cursor: default;
@@ -1462,57 +1436,9 @@ a {
     content: '\e635';
 }
 
-/* ys2n: action css */
-.open {
-    display: block;
-}
-
-.closed {
-    display: none;
-}
-/*
-.mandala.u-wrapContent__searchResults {
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
-}
-*/
-.mandala > .c-contentHeader__main > div {
-    /*   margin-top: 0.5em; */
-}
-
-/* facetbox open/close sui-advEdit (part of sui-advBox) */
-/* TODO: refactor to "sliding" effect css */
-
-/* override plain .open .closed to customize effect
-   TODO: add slide-in/out css transition
-*/
-
-.l-column__search.open {
-    display: block;
-}
-
-.l-column__search.closed {
-    display: none;
-}
-
-.l-column__search nav {
-    font-size: small;
-}
-
 .l-column__search .nav-link {
     padding: 0.3rem 0.3rem;
 }
-
-/*
-.sui-nameEntry span {
-    margin-right: 0.2em;
-}
-
-.sui-nameEntry {
-    list-style-type: none;
-}
-*/
 
 .sui-definitionEntry {
     list-style-type: none;
@@ -1530,6 +1456,29 @@ a {
     margin-bottom: 1em;
 }
 
+/*
+.mandala.u-wrapContent__searchResults {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-image: url('https://cicada.shanti.virginia.edu/images/mandala/shanti-image-517836/full/!3000,/0/default.jpg');
+}
+*/
+
+/* facetbox open/close sui-advEdit (part of sui-advBox) */
+/* TODO: refactor to "sliding" effect css */
+
+/* override plain .open .closed to customize effect
+   TODO: add slide-in/out css transition
+*/
+/*
+.sui-nameEntry span {
+    margin-right: 0.2em;
+}
+
+.sui-nameEntry {
+    list-style-type: none;
+}
+*/
 /*
 .sui-nameEntry li:before {
     content: '> ';
@@ -1562,23 +1511,6 @@ a {
     padding: 0.3em;
 }
 */
-
-.zoom {
-    transition: transform 0.2s;
-}
-
-.zoom:hover {
-    transform: scale(1.2);
-    z-index: 100;
-}
-
-.zoom > img {
-    object-fit: cover;
-    height: 9rem;
-    max-height: 14rem;
-    max-width: 19rem;
-    width: 99%;
-}
 
 /*CARD SIZE ADJUSTMENTS
 .card .h1 {
@@ -1627,6 +1559,24 @@ a {
     overflow-y: auto;
 }
 */
+
+.zoom {
+    transition: transform 0.2s;
+}
+
+.zoom:hover {
+    transform: scale(1.2);
+    z-index: 100;
+}
+
+.zoom > img {
+    object-fit: cover;
+    height: 9rem;
+    max-height: 14rem;
+    max-width: 19rem;
+    width: 99%;
+}
+
 .loading-msg {
     font-size: 1.5rem;
     margin: 20px;
@@ -1875,26 +1825,6 @@ a {
     display: inline;
     margin-right: 1em;
     text-transform: capitalize;
-}
-
-.c-nodeHeader-itemHeader {
-    margin: 1rem 0.3rem 0.3rem 0.3rem;
-}
-
-.c-nodeHeader-itemHeader span {
-    margin: 0.3rem 0.3rem 3rem 0.3rem;
-}
-
-.c-nodeHeader-itemHeader-subType {
-    text-transform: capitalize;
-}
-
-.c-nodeHeader-itemHeader-subType:after {
-    content: ': ';
-}
-
-.c-nodeHeader-itemHeader-caption {
-    font-style: italic;
 }
 
 .sui-featureDeck {

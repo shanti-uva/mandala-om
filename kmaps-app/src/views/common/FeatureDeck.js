@@ -108,7 +108,7 @@ export function FeatureDeck(props) {
             //    LIST.push(...REMAINDER);
         } else {
             LIST = (
-                <div className={'d-flex justify-content-center'}>
+                <div className={'u-search__results__wrap'}>
                     {props.loadingState ? (
                         <Spinner animation="border" role="status">
                             <span className="sr-only">Loading...</span>
@@ -181,5 +181,9 @@ function FeatureGalleryHeaderLine(props) {
 }
 
 function NoResults(props) {
-    return <h2>No results. Your query yielded no results.</h2>;
+    return (
+        <h2 className={'u-search__noresults__header'}>
+            No results. Your query yielded no results.
+        </h2>
+    );
 }

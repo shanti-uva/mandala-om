@@ -11,7 +11,7 @@ import { SourcesViewer } from '../views/SourcesViewer';
 import { SourcesHome } from '../views/SourcesHome';
 import { VisualsViewer } from '../views/VisualsViewer';
 import { VisualsHome } from '../views/VisualsHome';
-import { RelatedsViewer } from '../views/RelatedsViewer';
+import { RelatedsViewer } from '../views/Kmaps/RelatedViewer/RelatedsViewer';
 import LegacyViewer from '../views/LegacyViewer';
 import { SearchViewer } from '../views/SearchViewer';
 import { CollectionsViewer } from '../views/CollectionsViewer';
@@ -27,16 +27,16 @@ import PlacesHome from '../views/PlacesHome';
 import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
 
-export function ContentPane(props) {
+export function ContentMain(props) {
     // console.log('ContentPanel: props =  ', props);
 
     let { path } = useRouteMatch();
-    // console.log('ContentPane path = ', path);
+    // console.log('ContentMain path = ', path);
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'defauit';
     const left = (
-        <main className="l-column__main__wrap">
-            <article id="l-column__main" className="l-column__main">
+        <main className="l-column__main">
+            <article id="l-column__main__wrap" className="l-column__main__wrap">
                 <KmapContext>
                     <ContentHeader
                         siteClass={siteClass}

@@ -10,7 +10,7 @@ import { convertNodeToElement } from 'react-html-parser';
 import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 
 /**
- * AudioVideoViewer is called from ContentPane.js and is wrapped in a MdlAssetContext that supplies it with a SOLR
+ * AudioVideoViewer is called from ContentMain.js and is wrapped in a MdlAssetContext that supplies it with a SOLR
  * record for the AV asset being viewed. It creates a single div#av-viewer inside of the #u-wrapContent__searchResults div
  *
  * The AudioVideoViewer has two children representing the two rows of the Bootstrap container:
@@ -95,7 +95,7 @@ export function AudioVideoViewer(props) {
             $('#sui-avlang').toggle();
             this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
         });
-        $('#l-wrapAll').addClass('av');
+        $('#l-site__wrap').addClass('av');
     }, []);
 
     useEffect(() => {

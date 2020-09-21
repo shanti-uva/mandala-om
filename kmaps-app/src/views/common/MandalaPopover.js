@@ -287,7 +287,7 @@ function MandalaPopoverBody(props) {
 }
 
 /**
- * A test function returned from the path in ContentPane.js. Path is: /poptest/{domain}/{kid}
+ * A test function returned from the path in ContentMain.js. Path is: /poptest/{domain}/{kid}
  *
  * @param props
  * @returns {*}

@@ -35,6 +35,7 @@ ul.sui-nameEntry.first-entry
     > span.sui-nameEntry-header:first-child {
     font-size: 2.12em;
     color: #555;
+    font-weight: lighter;
 }
 
 .sui-nameEntry-meta {

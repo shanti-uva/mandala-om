@@ -683,7 +683,7 @@ export default class Pages {
         //console.error("EXAMINE sui");
         //console.dir(sui);
 
-        $('#c-contentHeader__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
+        $('#c-content__header__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
         $('#sui-footer').html(
             `<div style='float:right;font-size:14px;margin-right:16px'>${o.asset_type.toUpperCase()} ID: ${
                 o.id

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import FancyTree from './FancyTree';
-import HistoryViewer from './History/HistoryViewer';
-import './css/RelatedsViewer.css';
+import FancyTree from '../../FancyTree';
+import HistoryViewer from '../../History/HistoryViewer';
+import './RelatedsViewer.scss';
 
 export function RelatedsViewer(props) {
     // console.log('Relateds props = ', props);
@@ -30,23 +30,19 @@ export function RelatedsViewer(props) {
         <aside className={'l-column__related'}>
             <div className="l-column__related__wrap">
                 <section className="l-related__list__wrap">
-                    <h5>RELATED RESOURCES</h5>
-                    <hr />
+                    <div className="u-related__list__header">
+                        Related Resources
+                    </div>
                     <div className="c-relatedViewer">
                         <Link
+                            id="sui-rl-Home"
                             to={
                                 '/' + baseArgs.baseType + '/' + baseArgs.baseUid
                             }
+                            className={`c-related__link--home c-related__item ${locMatch['home']}`}
                         >
-                            <div
-                                className={`sui-relatedItem ${locMatch['home']}`}
-                                id="sui-rl-Home"
-                            >
-                                <span
-                                    className={'icon u-icon__overview'}
-                                ></span>{' '}
-                                <span>Home</span>
-                            </div>
+                            <span className={'icon u-icon__overview'}></span>{' '}
+                            <span>Home</span>
                         </Link>
 
                         <RelatedCount
@@ -103,14 +99,14 @@ export function RelatedsViewer(props) {
                 </section>
 
                 <section className="l-history__list__wrap">
-                    <h5>RECENTLY VIEWED</h5>
-                    <hr />
+                    <div className="u-related__list__header">
+                        Recently Viewed
+                    </div>
                     <HistoryViewer />
                 </section>
 
-                <section className="l-termsTree__wrap">
-                    <h5>BROWSE TERMS</h5>
-                    <hr />
+                <section className="l-terms__tree__wrap">
+                    <div className="u-related__list__header">Browse Terms</div>
                     <FancyTree
                         domain="terms"
                         tree="terms"
@@ -139,7 +135,9 @@ function RelatedCount(props) {
     // return null if the count doesn't exist or is === 0
     return count ? (
         <Link
-            className={'c-related__link--' + props.type}
+            id={'sui-rl-' + props.type}
+            href="#"
+            className={'c-related__item c-related__link--' + props.type}
             to={
                 '/' +
                 props.baseType +
@@ -150,17 +148,9 @@ function RelatedCount(props) {
                 '/default'
             }
         >
-            <span
-                className={'c-related__item'}
-                id={'sui-rl-' + props.type}
-                href="#"
-            >
-                <span
-                    className={'u-icon__' + props.type + ' ' + iconClass}
-                ></span>
-                <span className={'c-related__item__label'}> {props.type}</span>
-                &nbsp;(<span id="sui-rln-places">{count}</span>)
-            </span>
+            <span className={'u-icon__' + props.type + ' ' + iconClass}></span>
+            <span className={'c-related__item__label'}> {props.type}</span>
+            <span id="sui-rln-places">{count}</span>
         </Link>
     ) : null;
 }

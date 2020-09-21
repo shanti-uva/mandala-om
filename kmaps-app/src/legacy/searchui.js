@@ -287,12 +287,13 @@ export default class SearchUI {
         $('#sui-adv').css({ display: mode ? 'block' : 'none' }); // Hide/show adv ui
         if (mode)
             $('#c-columnContent__main').css({
-                width: $('#l-wrapAll').width() - $('#sui-adv').width() + 'px',
+                width:
+                    $('#l-site__wrap').width() - $('#sui-adv').width() + 'px',
             });
         // Size results area to fit advanced
         else
             $('#l-content__main').css({
-                width: $('#l-wrapAll').width() + 'px',
+                width: $('#l-site__wrap').width() + 'px',
             }); // 100%
         this.DrawAdvanced(); // Draw search UI if active
     }
@@ -902,12 +903,12 @@ export default class SearchUI {
             $('#sui-content').css({ width: '100%' }); // Size and show results area
             $('#sui-adv').css({ display: 'none' }); // Hide search ui
             $('#sui-content').slideDown(); // Slide down
-            $('#sui-content').css({ width: $('#l-wrapAll').width() }); // Size and results area 100%
+            $('#sui-content').css({ width: $('#l-site__wrap').width() }); // Size and results area 100%
         } else if (this.ss.mode == 'advanced') {
             // Advanced search
             $('#sui-adv').css({ display: 'block' }); // Show search ui
             $('#sui-content').css({
-                width: $('#l-wrapAll').width() - $('#sui-adv').width(),
+                width: $('#l-site__wrap').width() - $('#sui-adv').width(),
             }); // Size results area to fit advanced
         }
         $('#sui-mode').prop({
@@ -947,7 +948,7 @@ export default class SearchUI {
 			<div id='sui-pageLT' class='sui-resDisplay' title='Go to last page'>&#xe63d</div>
 			</div>`;
 
-        $('#c-contentHeader__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
+        $('#c-content__header__main').html(str.replace(/\t|\n|\r/g, '')); // Remove format and add to div
         $('#sui-header').css('background-color', '#888'); // Set b/g color
 
         $('#sui-typePageT').val(this.ss.page + 1); // Set page number
@@ -1875,7 +1876,7 @@ export default class SearchUI {
         });
         $('#sui-advEditList-' + facet).css(
             'max-height',
-            $('#l-wrapAll').height() -
+            $('#l-site__wrap').height() -
                 $('#sui-advTerm-' + facet).offset().top -
                 $('#sui-advTerm-' + facet).height() -
                 102 +
@@ -1970,7 +1971,7 @@ export default class SearchUI {
 
         $(div).css(
             'max-height',
-            $('#l-wrapAll').height() -
+            $('#l-site__wrap').height() -
                 $('#sui-advTerm-' + facet).offset().top -
                 $('#sui-advTerm-' + facet).height() -
                 102 +
@@ -2267,7 +2268,7 @@ export default class SearchUI {
             'px);left:calc(50% - ' +
             size / 2 +
             "px);z-index:5000'>";
-        $('#l-wrapAll').append(str); // Add icon to results
+        $('#l-site__wrap').append(str); // Add icon to results
     }
 
     SendMessage(
@@ -2292,7 +2293,7 @@ export default class SearchUI {
             y +
             "px'>"; // Add div
         str += msg + '</div>'; // Add content
-        $('#l-wrapAll').append(str); // Add to div
+        $('#l-site__wrap').append(str); // Add to div
         $('#sui-popupDiv')
             .fadeIn(500)
             .delay(time ? time * 1000 : 3000)

@@ -71,11 +71,11 @@ export default function TermsViewer_Deprecated(props) {
         })
         .value();
 
-    let output = <div className="l-contentMain__wrap">Loading...</div>;
+    let output = <div className="l-content__main__wrap">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
         output = (
-            <div className="l-contentMain__wrap">
-                <div className="c-contentMain__kmaps">
+            <div className="l-content__main__wrap">
+                <div className="c-content__main__kmaps">
                     <Switch>
                         <Route
                             path={

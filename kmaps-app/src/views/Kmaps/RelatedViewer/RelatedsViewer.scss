@@ -1,0 +1,218 @@
+@import '../../../index-variables';
+
+.l-column__related {
+    width: 20rem;
+    max-width: 20rem;
+    height: 100vh;
+    margin: 0;
+    font-size: 1.9rem;
+    padding: 0;
+    flex: 1;
+}
+.l-column__related__wrap {
+    padding-top: 0.5rem;
+}
+.l-related__list__wrap .icon {
+    margin-right: 0.75rem;
+    position: relative;
+    top: 0.2rem;
+    color: #555;
+}
+.l-related__list__wrap .u-icon__logo-shanti {
+    /* font-size: 135%;*/
+}
+.l-related__list__wrap .u-icon__overview {
+    font-size: 90%;
+    margin-left: 0.1rem;
+}
+
+/**
+  * css brought from searchui.css
+  */
+/*
+.l-related__list__wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 168px;
+    background-color: #ddd;
+    border-left: 12px solid transparent;
+    padding: 18px 0 0 12px;
+    color: #000;
+}
+.sui-relatedImg {
+    width: 150px;
+    margin: 12px 0 12px 0;
+    outline: 1px solid #999;
+    outline-offset: 4px;
+}
+.c-relatedViewer {
+    font-size: 1.4rem;
+    color: #222;
+    padding: 0;
+}
+.c-related__item {
+    cursor: pointer;
+    padding: 6px 3px 3px 6px;
+    border-radius: 4px;
+    color: #000;
+    font-weight: normal;
+}
+.sui-relatedRecent {
+    font-size: 12px;
+    color: #222;
+    padding: 0;
+    max-height: 84px;
+    user-select: none;
+    overflow-x: hidden;
+    cursor: pointer;
+    margin-right: 12px;
+}
+.sui-relatedRecentItem:hover {
+    background-color: #a4baec;
+}
+*/
+/**
+  * END ---------------------
+  * This code needs to be integrated with css below
+  * css brought from searchui.css
+  */
+
+.c-relatedViewer {
+    font-size: 1.5rem;
+    padding: 0;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+.c-relatedViewer > * {
+    padding: 0 1rem 0 2rem;
+}
+.c-related__item {
+    display: block;
+    line-height: 2;
+    padding: 0 0 0.4rem 0.75rem;
+    color: #707070;
+    font-weight: bold;
+}
+.c-related__item.selected {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 0 8px #ddd;
+}
+.c-relatedViewer #sui-rln-places {
+    font-size: 1.08rem;
+}
+.c-relatedViewer #sui-rln-places::before {
+    content: '(';
+    position: relative;
+    left: -0.1rem;
+    font-size: 120%;
+    color: #999;
+    font-weight: normal;
+}
+.c-relatedViewer #sui-rln-places::after {
+    content: ')';
+    position: relative;
+    right: -0.1rem;
+    font-size: 120%;
+    color: #999;
+    font-weight: normal;
+}
+.c-related__link--home {
+    padding-top: 0.3rem;
+    line-height: 1.75;
+}
+.c-related__item:not(.selected):hover {
+    background: #fff;
+}
+.c-related__list--icon {
+    border-color: transparent;
+    height: 6px;
+}
+.c-related__item__label {
+    text-transform: capitalize;
+    margin-right: 0.8rem;
+}
+
+.u-related__list__header {
+    padding: 1rem 0 0.25rem 0.5rem;
+    margin: 0 1rem 0.8rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.075rem;
+    border-bottom: 1px solid #ddd;
+}
+.l-related__list__wrap > .u-related__list__header {
+    padding-top: 0;
+}
+
+.l-terms__tree__wrap .view-wrap {
+    padding: 0 1.2rem !important;
+}
+.l-terms__tree__wrap .fancytree-container {
+    border: 1px solid #ddd !important;
+    box-shadow: inset 0 0 8px #ddd;
+    padding: 0.5rem;
+    height: auto;
+    max-height: 50rem;
+}
+.l-terms__tree__wrap .fancytree-container li {
+}
+.l-terms__tree__wrap .fancytree-node {
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.l-terms__tree__wrap .fancytree-exp-n .fancytree-title::before {
+    content: '– ';
+}
+.l-terms__tree__wrap .fancytree-exp-n:hover .fancytree-title::before {
+    background: transparent;
+}
+.l-terms__tree__wrap span[role='button'] {
+    transform: scale(1.15);
+    margin-right: 0.75rem;
+    color: $color-terms !important;
+}
+
+/*
+.sui-relatedRecent {
+    font-size: 12px;
+    color: #222;
+    padding: 0;
+    max-height: 84px;
+    user-select: none;
+    overflow-x: hidden;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.sui-relatedRecentItem:hover {
+    background-color: #a4baec;
+}
+
+.sui-recent {
+    margin-top: 2em;
+}
+
+.sui-relatedHeader {
+    text-transform: uppercase;
+}
+.sui-relatedSubHeader {
+    text-transform: capitalize;
+}
+.sui-relatedSubHeader::before {
+    content: ' / ';
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+.sui-relatedImg {
+    width: 150px;
+    margin: 12px 0 12px 0;
+    outline: 1px solid #999;
+    outline-offset: 4px;
+}
+*/
+
+.l-history__list__wrap .u-related__list__header {
+    margin-bottom: 0.75rem;
+}

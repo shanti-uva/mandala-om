@@ -16,14 +16,13 @@
 
 .sui-hamburger {
     position: ABSOLUTE;
-
     font-size: 14px;
     background-color: #666;
-    color: #fff;
-    width: calc(100% - 12px);
-    height: 38px;
-    display: none;
     padding: 16px 12px 0 0;
+    color: #fff;
+    width: 3rem;
+    height: 3rem;
+    //      display: none;
 }
 
 .sui-hamItem {

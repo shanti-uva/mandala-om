@@ -1,5 +1,6 @@
 .suiFancyTree.view-wrap {
     overflow: auto;
+    padding: 0 1.5rem;
 }
 
 ul.fancytree-container {

@@ -27,27 +27,25 @@ export function ContentHeader(props) {
 
     const cheader = (
         <header
-            id="c-contentHeader__main"
-            className={`c-contentHeader__main sui-header legacy ${props.siteClass} ${status.type}`}
+            id="c-content__header__main"
+            className={`c-content__header__main sui-header legacy ${props.siteClass} ${status.type}`}
         >
             <div
-                id="c-contentHeader__main"
-                className="c-contentHeader__main legacy"
+                id="c-content__header__main__wrap"
+                className="c-content__header__main__wrap legacy"
             >
-                <h1 className={'c-contentHeader__main__title'}>
-                    <span
-                        className={`icon white u-icon__${status.type}`}
-                    ></span>
+                <h1 className={'c-content__header__main__title'}>
+                    <span className={`icon u-icon__${status.type}`}></span>
                     {status.headerTitle}
                 </h1>
 
-                <div className={'c-contentHeader__breadcrumb breadcrumb'}>
+                <div className={'c-content__header__breadcrumb breadcrumb'}>
                     {convertedPath}
                 </div>
-                <span className={'c-contentHeader__main__id'}>{status.id}</span>
-                <div className={'c-contentHeader__main__sub'}>
+                <h5 className={'c-content__header__main__id'}>{status.id}</h5>
+                <h4 className={'c-content__header__main__sub'}>
                     {status.subTitle}
-                </div>
+                </h4>
             </div>
         </header>
     );
