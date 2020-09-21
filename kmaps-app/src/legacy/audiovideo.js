@@ -1086,15 +1086,15 @@ export default class AudioVideo {
         });
 
         $('#sui-transTab0').on('click', () => {
-            $('#sui-transOps').slideToggle();
+            $('#sui-transOps').slideToggle('fast');
         }); // ON OPTIONS MENU CLICK
 
         $('.sui-transCheck.trans-opts-close').on('click', () => {
-            $('#sui-transOps').slideToggle();
+            $('#sui-transOps').slideToggle('fast');
         });
 
         $('#sui-transTab5').on('click', () => {
-            $('#sui-transSrc').slideToggle();
+            $('#sui-transSrc').slideToggle('fast');
         }); // ON SEARCH MENU CLICK
 
         $('#sui-transTab1').on('click', (e) => {

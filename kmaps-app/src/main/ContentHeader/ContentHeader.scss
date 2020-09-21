@@ -2,8 +2,8 @@
 // * CONTENT SECTION: Content Header
 // --------------------------------------
 .c-content__header__main {
-    padding: 0.75rem 0 0;
-    height: 6.5rem;
+    padding: 0.7rem 0 0;
+    height: 5.5rem;
     color: #fff;
 }
 .c-content__header__main__title {
@@ -22,6 +22,7 @@
     position: absolute;
     right: 2rem;
     top: 4.75rem;
+    display: none;
 }
 .c-content__header__main__sub {
     font-style: italic;
@@ -35,7 +36,7 @@
     background-color: transparent;
     font-size: 1.275rem;
     padding: 0;
-    margin: 1rem 0 0.25rem 1.5rem;
+    margin: 0.25rem 0 0.25rem 1.5rem;
 }
 .c-content__header__breadcrumb,
 .c-content__header__breadcrumb .breadcrumb-item {

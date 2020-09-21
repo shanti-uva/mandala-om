@@ -779,16 +779,17 @@
 .sui-termTitle {
     font-family: 'EB Garamond', serif;
     font-weight: 500;
-    font-size: 2.5rem;
-    margin-right: 1.5rem;
+    font-size: 2.25rem;
+    margin-right: 1.25rem;
 }
 .sui-termTitle .latin {
-    margin-left: 1rem;
+    margin-left: 0.25rem;
 }
 
 .sui-relatedSubHeader {
     font-size: 1.75rem;
     font-family: 'EB Garamond', serif;
+    text-transform: capitalize;
 }
 .sui-termSpeak {
     border-radius: 16px;
@@ -1015,13 +1016,14 @@
 
 .sui-transOps {
     position: ABSOLUTE;
-
+    top: 5.25rem;
     background-color: #f7f7f7;
-    border: 1px solid #999;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 0.5rem #ccc;
     border-radius: 0 0 6px 6px;
     display: none;
     width: 180px;
-    font-size: 13px;
+    font-size: 1.3rem;
 }
 
 .sui-transSrc {

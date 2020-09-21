@@ -21,10 +21,10 @@ body.html {
 .l-column__main__wrap,
 .l-content__main,
 .l-content__main__wrap {
-    height: 100vw;
+    height: 100vh;
 }
 .l-content__main {
-    height: 100vw;
+    height: 100vh;
     width: 100vw;
     display: flex;
     margin: 1rem 0 0 0;
@@ -326,7 +326,7 @@ div.image-wrapper.center figcaption {
 
 // SEARCH Section ------- move this
 .l-column__search {
-    height: 100vw;
+    height: 100vh;
     width: 20vw;
     max-width: 290px;
     background: white;
