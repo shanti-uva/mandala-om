@@ -41,17 +41,22 @@
     margin: 0 auto;
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
 }
-
+.c-content__main__kmaps #av-meta-row {
+    margin: 0;
+}
 #sui-viewerSide {
     padding-top: 1rem;
     padding-left: 2.5rem;
     max-width: 90rem;
 }
-
+.c-content__main__kmaps #sui-viewerSide {
+    padding: 0;
+}
 #sui-kplayer {
     width: 100%;
     max-width: 85rem;
     height: 50rem;
+    margin-bottom: 1rem;
 }
 
 #av-player-row {
@@ -79,7 +84,7 @@ div#av-trscrpt-wrapper {
 }
 
 #av-meta-row .nav-tabs a {
-    height: 36px;
+    line-height: 3rem;
     width: 50%;
     text-align: center;
     border-top-left-radius: 1rem;
@@ -203,4 +208,9 @@ div#meta-details p b:after {
     text-rendering: optimizeLegibility !important;
     font-family: 'Arial', 'Heiti SC', 'Microsoft Yahei', simsun, sans-serif;
     font-size: 120%;
+}
+
+#av-meta-row .nav-tabs a.active,
+#av-meta-row .tab-content .tab-pane {
+    border-width: 0.15rem;
 }
