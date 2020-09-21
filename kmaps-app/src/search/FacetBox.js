@@ -11,6 +11,8 @@ import { FacetChoice } from './FacetChoice';
 import { BsCheckCircle, BsMap } from 'react-icons/bs';
 import { ImStack } from 'react-icons/im';
 
+import './FacetBox.scss';
+
 function FacetControls(props) {
     return (
         <span className={'sui-advEdit-facet-ctrls-btns'}>
@@ -281,7 +283,10 @@ export function FacetBox(props) {
                 {chosenList}
             </div>
             <div
-                className={'sui-advEdit ' + (open ? 'open' : 'closed')}
+                className={
+                    'sui-advEdit c-FacetBox--expander ' +
+                    (open ? 'open' : 'closed')
+                }
                 id={'sui-advEdit-' + props.id}
             >
                 <div className={'sui-advEdit-facet-ctrls'}>
