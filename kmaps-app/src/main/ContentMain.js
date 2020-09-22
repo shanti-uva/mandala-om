@@ -51,6 +51,7 @@ export function ContentMain(props) {
                             <GenAssetContext assetType={'audio-video'}>
                                 <AudioVideoViewer
                                     sui={props.sui}
+                                    ismain={true}
                                     /*onStateChange={props.onStateChange}*/
                                 />
                             </GenAssetContext>
