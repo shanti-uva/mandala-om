@@ -147,12 +147,6 @@ export function Home(props) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/texts/63401'}>
-                                        Text: Bogus Multi Page Doc
-                                    </Link>{' '}
-                                    has popover examples
-                                </li>
-                                <li>
                                     <Link to={'/texts/46641'}>
                                         Text: Veronoica’s Test
                                     </Link>{' '}

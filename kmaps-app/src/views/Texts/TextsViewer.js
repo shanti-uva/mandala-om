@@ -37,8 +37,9 @@ import $ from 'jquery';
  * @constructor
  */
 export function TextsViewer(props) {
-    const tid = props.mdlasset ? props.mdlasset.nid : '';
-    const title = props.mdlasset ? props.mdlasset.title : '';
+    const mdlasset = props.mdlasset ? props.mdlasset : '';
+    const tid = mdlasset ? mdlasset.nid : '';
+    const title = mdlasset ? mdlasset.title : '';
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
@@ -169,27 +170,25 @@ export function TextsViewer(props) {
     );
     // Set output to return. If there's an asset, then output with text BS Container with one BS Row
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
-    if (props.mdlasset && props.mdlasset.nid) {
-        const currast = props.mdlasset;
+    if (mdlasset && mdlasset.nid) {
         //console.log("Currast", currast);
-        if (currast.bibl_summary === '') {
-            currast.bibl_summary = '<div>Description is loading!</div>';
+        if (mdlasset.bibl_summary === '') {
+            mdlasset.bibl_summary = '<div>Description is loading!</div>';
         }
-
         output = (
             <>
                 <Container className={'astviewer texts'} fluid>
                     <Row id={'shanti-texts-container'}>
                         <TextBody
-                            id={props.mdlasset.nid}
-                            alias={props.mdlasset.alias}
-                            markup={currast.full_markup}
+                            id={mdlasset.nid}
+                            alias={mdlasset.alias}
+                            markup={mdlasset.full_markup}
                             listener={handleScroll}
                         />
                         <TextTabs
-                            toc={currast.toc_links}
-                            meta={currast.bibl_summary}
-                            links={currast.views_links}
+                            toc={mdlasset.toc_links}
+                            meta={mdlasset.bibl_summary}
+                            links={mdlasset.views_links}
                             title={title}
                             sections={section_showing}
                             altChange={setAltViewerUrl}
@@ -357,9 +356,14 @@ function TextTabs(props) {
  * @constructor
  */
 function TextsAltViewer(props) {
-    const iframe_url = props.url;
-    const clname = props.url === '' ? 'hidden' : 'shown';
-    const text_title = props.title;
+    const iframe_url = props.url ? props.url : '';
+    const clname = iframe_url ? 'hidden' : 'shown';
+    const text_title = props.title ? props.title : '';
+    const iframe = iframe_url ? (
+        <iframe src={iframe_url} className={'full-page-frame'} />
+    ) : (
+        ' '
+    );
     return (
         <div id={'text-alt-viewer'} className={clname}>
             <div className={'close-iframe'}>
@@ -373,7 +377,7 @@ function TextsAltViewer(props) {
                     <span className={'icon shanticon-cancel'}></span>
                 </a>
             </div>
-            <iframe src={iframe_url} className={'full-page-frame'} />
+            {iframe}
         </div>
     );
 }
