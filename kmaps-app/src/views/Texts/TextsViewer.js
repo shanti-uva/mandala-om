@@ -52,30 +52,23 @@ export function TextsViewer(props) {
 
     const status = useStatus();
 
-    if (kmasset && ismain) {
-        status.setType('texts');
-        const mytitle =
-            kmasset.title && kmasset.title.length > 0 ? kmasset.title[0] : '';
-        status.setHeaderTitle(mytitle);
-    }
-
-    // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
+    // Effect to change banner and title if the viewer is the main component
     useEffect(() => {
-        // add class "texts" to sui-main
+        if (ismain) {
+            status.setType('texts');
+            const mytitle = kmasset.title ? kmasset.title : 'Loading ...';
+            if (mytitle) {
+                status.setHeaderTitle(mytitle);
+            }
+        }
+    }, [kmasset]);
+
+    // Add Custom Body Class for Text component (one time) and timeout to show not found div
+    useEffect(() => {
+        // add class "texts" to the main div for CSS styles
         $('.l-site__wrap').addClass('texts');
 
-        // Add customs CSS styles
-        const headel = $('head');
-        if (headel.length > 0 && $('#textcsslnk').length === 0) {
-            const pubfolder = process.env.PUBLIC_URL;
-            const csslink = $(
-                '<link rel="stylesheet" type="text/css" href="' +
-                    pubfolder +
-                    '/css/component-text-viewer.css" id="textcsslnk" >'
-            );
-            headel.append(csslink);
-        }
-
+        // Show not found div if it still exists after 10 seconds.
         setTimeout(function () {
             $('.not-found-msg').removeClass('d-none');
         }, 10000);
@@ -89,9 +82,12 @@ export function TextsViewer(props) {
             text_sections.length == 0 &&
             $('#shanti-texts-body .shanti-texts-section').length > 0
         ) {
+            // Get all sections in text
             const sections_tmp = $(
                 '#shanti-texts-body .shanti-texts-section'
             ).toArray();
+
+            // Map Section array to an array of standardized objects with el, id, title, and getTop() function
             const sections_new = $.map(sections_tmp, function (s, n) {
                 const sel = $(s);
                 let nexttop = 1000000;
@@ -110,6 +106,7 @@ export function TextsViewer(props) {
                     },
                 };
             });
+            // Set Sections state to array of section objects
             setSections(sections_new);
 
             // Highlight first link in TOC
