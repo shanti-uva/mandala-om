@@ -21,7 +21,9 @@ const getMandalaAPI = async (_, { query }) => {
         callbackParamName: 'callback',
         url: query,
     };
+
     const { data } = await axios.request(request);
+    //console.log("isloading", isLoading);
     const retdata = data && data.response ? data.response : data;
     return retdata;
 };
@@ -53,6 +55,7 @@ const useMandala = (solrobj) => {
     const res = useQuery([QUERY_KEY, { query: json_url }], getMandalaAPI, {
         enabled: json_url,
     });
+    //console.log("use mandala error", error);
     return res && res.data ? res.data : false;
 };
 

@@ -37,9 +37,9 @@ import $ from 'jquery';
  * @constructor
  */
 export function TextsViewer(props) {
-    const mdlasset = props.mdlasset ? props.mdlasset : '';
-    const tid = mdlasset ? mdlasset.nid : '';
-    const title = mdlasset ? mdlasset.title : '';
+    const nodejson = props.nodejson ? props.nodejson : '';
+    const tid = nodejson ? nodejson.nid : '';
+    const title = nodejson ? nodejson.title : '';
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
@@ -62,6 +62,10 @@ export function TextsViewer(props) {
             );
             headel.append(csslink);
         }
+
+        setTimeout(function () {
+            $('.not-found-msg').removeClass('d-none');
+        }, 10000);
     }, []);
 
     // Setting text_sections variable with array of sections in text for TOC highlighting on scrolling and
@@ -158,7 +162,7 @@ export function TextsViewer(props) {
                         ></Spinner>
                         Loading text...
                     </div>
-                    <div className={'not-found-msg hidden'}>
+                    <div className={'not-found-msg d-none'}>
                         <h1>Text Not Found!</h1>
                         <p className={'error'}>
                             Could not find the requested text: {props.id}
@@ -168,27 +172,28 @@ export function TextsViewer(props) {
             </Container>
         </>
     );
+
     // Set output to return. If there's an asset, then output with text BS Container with one BS Row
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
-    if (mdlasset && mdlasset.nid) {
+    if (nodejson && nodejson.nid) {
         //console.log("Currast", currast);
-        if (mdlasset.bibl_summary === '') {
-            mdlasset.bibl_summary = '<div>Description is loading!</div>';
+        if (nodejson.bibl_summary === '') {
+            nodejson.bibl_summary = '<div>Description is loading!</div>';
         }
         output = (
             <>
                 <Container className={'astviewer texts'} fluid>
                     <Row id={'shanti-texts-container'}>
                         <TextBody
-                            id={mdlasset.nid}
-                            alias={mdlasset.alias}
-                            markup={mdlasset.full_markup}
+                            id={nodejson.nid}
+                            alias={nodejson.alias}
+                            markup={nodejson.full_markup}
                             listener={handleScroll}
                         />
                         <TextTabs
-                            toc={mdlasset.toc_links}
-                            meta={mdlasset.bibl_summary}
-                            links={mdlasset.views_links}
+                            toc={nodejson.toc_links}
+                            meta={nodejson.bibl_summary}
+                            links={nodejson.views_links}
                             title={title}
                             sections={section_showing}
                             altChange={setAltViewerUrl}

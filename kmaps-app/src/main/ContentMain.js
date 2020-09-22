@@ -71,11 +71,11 @@ export function ContentMain(props) {
 
                         {/* TEXTS */}
                         <Route path={`${path}texts/:id`}>
-                            <MdlAssetContext assettype={'texts'}>
+                            <GenAssetContext assetType={'texts'}>
                                 <TextsViewer
                                     onStateChange={props.onStateChange}
                                 />
-                            </MdlAssetContext>
+                            </GenAssetContext>
                         </Route>
                         <Route path={`${path}texts`}>
                             <TextsHome />
