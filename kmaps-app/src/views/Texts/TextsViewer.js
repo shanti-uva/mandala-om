@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useStatus from '../../hooks/useStatus';
 import {
     Container,
     Col,
@@ -38,13 +39,25 @@ import $ from 'jquery';
  */
 export function TextsViewer(props) {
     const nodejson = props.nodejson ? props.nodejson : '';
+    const kmasset = props.mdlasset ? props.mdlasset : '';
     const tid = nodejson ? nodejson.nid : '';
     const title = nodejson ? nodejson.title : '';
+    const ismain = props.ismain ? props.ismain : false;
+
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
     ]);
     const [alt_viewer_url, setAltViewerUrl] = useState(''); // alt_viewer has url for alt view to show if showing or empty string is hidden
+
+    const status = useStatus();
+
+    if (kmasset && ismain) {
+        status.setType('texts');
+        const mytitle =
+            kmasset.title && kmasset.title.length > 0 ? kmasset.title[0] : '';
+        status.setHeaderTitle(mytitle);
+    }
 
     // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
     useEffect(() => {

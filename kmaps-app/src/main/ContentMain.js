@@ -74,6 +74,7 @@ export function ContentMain(props) {
                         <Route path={`${path}texts/:id`}>
                             <GenAssetContext assetType={'texts'}>
                                 <TextsViewer
+                                    ismain={true}
                                     onStateChange={props.onStateChange}
                                 />
                             </GenAssetContext>
