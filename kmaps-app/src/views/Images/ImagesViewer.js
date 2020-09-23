@@ -24,6 +24,8 @@ export function ImagesViewer(props) {
     //console.log(props);
     const solrdoc = props.mdlasset;
     const nodejson = props.nodejson;
+    const ismain = props.ismain;
+
     const status = useStatus();
 
     // This is the Height and Width of the Viewer. Settled on
@@ -35,7 +37,7 @@ export function ImagesViewer(props) {
     // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
     useEffect(() => {
         // Setting title in header and other status options
-        if (solrdoc) {
+        if (solrdoc && ismain) {
             status.clear();
             status.setHeaderTitle(
                 solrdoc?.caption || solrdoc?.title || 'ImageViewer'

@@ -63,7 +63,7 @@ export function ContentMain(props) {
                         {/* IMAGES */}
                         <Route path={`${path}images/:id`}>
                             <GenAssetContext assetType={'images'}>
-                                <ImagesViewer sui={props.sui} />
+                                <ImagesViewer ismain={true} sui={props.sui} />
                             </GenAssetContext>
                         </Route>
                         <Route path={`${path}images`}>
