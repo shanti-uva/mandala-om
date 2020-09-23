@@ -112,6 +112,11 @@ export function Home(props) {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link to={'/images/1243906'}>
+                                        Image: Lhasa Mural Painting
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to={'/images/45806'}>
                                         Image: Woman on Basum Island
                                     </Link>
