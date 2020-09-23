@@ -38,22 +38,34 @@ export function KmapsFields(props) {
         ? props.collfield
         : 'field_kmap_collections';
     const kcolls = nodejson[kcolls_field_name]?.und?.map((item, n) => {
-        return <MandalaPopover domain={item.domain} kid={item.id} />;
+        const mykey = 'kmcolls-' + item.domain + '-' + item.id + '-' + n;
+        return (
+            <MandalaPopover key={mykey} domain={item.domain} kid={item.id} />
+        );
     });
     const sub_field_name = props.subjectfield
         ? props.subjectfield
         : 'field_subjects';
     const subjects = nodejson[sub_field_name]?.und?.map((item, n) => {
-        return <MandalaPopover domain={item.domain} kid={item.id} />;
+        const mykey = 'kmsubj-' + item.domain + '-' + item.id + '-' + n;
+        return (
+            <MandalaPopover key={mykey} domain={item.domain} kid={item.id} />
+        );
     });
     const places = nodejson.field_places?.und?.map((item, n) => {
-        return <MandalaPopover domain={item.domain} kid={item.id} />;
+        const mykey = 'kmplc-' + item.domain + '-' + item.id + '-' + n;
+        return (
+            <MandalaPopover key={mykey} domain={item.domain} kid={item.id} />
+        );
     });
     const termsorig = nodejson.field_terms
         ? nodejson.field_terms
         : nodejson.field_kmap_terms;
     let terms = termsorig?.und?.map((item, n) => {
-        return <MandalaPopover domain={item.domain} kid={item.id} />;
+        const mykey = 'kmterm-' + item.domain + '-' + item.id + '-' + n;
+        return (
+            <MandalaPopover key={mykey} domain={item.domain} kid={item.id} />
+        );
     });
     const kcollclass = !kcolls || kcolls.length === 0 ? ' d-none' : '';
     const subjclass = !subjects || subjects.length === 0 ? ' d-none' : '';

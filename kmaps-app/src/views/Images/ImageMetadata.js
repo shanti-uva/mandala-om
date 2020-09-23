@@ -57,7 +57,6 @@ export function ImageMetadata(props) {
         : [];
 
     const capkey = 'ir-caption-main-' + Math.floor(Math.random() * 3333333);
-    console.log('capkey: ' + capkey);
     return (
         <>
             <Row className={'l-top'}>
@@ -115,6 +114,7 @@ export function ImageMetadata(props) {
                     {imgdescs.map((desc, dn) => {
                         return (
                             <ImageDescription
+                                key={'im-desc-' + dn}
                                 data={imgdescs[dn]}
                                 defaultauth={photographer}
                             />
