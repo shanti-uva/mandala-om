@@ -65,7 +65,7 @@ export function HistoryLocation(props) {
         ? props.location.kmasset?.asset_type
         : 'search';
     const loc = props.location?.relTitle ? (
-        props.location.relTitle
+        <>{JSON.stringify(props.location.relTitle)}</>
     ) : (
         <span className={'c-HistoryViewer__title'}>
             {selectIcon(type)} {props.location?.name}
