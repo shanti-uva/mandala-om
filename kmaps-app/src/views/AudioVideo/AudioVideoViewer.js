@@ -31,12 +31,13 @@ export function AudioVideoViewer(props) {
     const nodejson = props.nodejson;
     const sui = props.sui;
     const base_path = process.env.PUBLIC_URL;
+    const ismain = props.ismain ? props.ismain : false; // set to true when the av viewer is the main component on the page
 
     const status = useStatus();
-    status.setType('audio-video');
 
     // Do Status Stuff (Title and Breadcrumbs)
-    if (kmasset) {
+    if (kmasset && ismain) {
+        status.setType('audio-video');
         // Set the Title
         const mytitle =
             kmasset.title && kmasset.title.length > 0 ? kmasset.title[0] : '';
@@ -100,7 +101,6 @@ export function AudioVideoViewer(props) {
 
     useEffect(() => {
         if (kmasset && nodejson) {
-            console.log('in use effect', kmasset, nodejson);
             sui.av.DrawPlayer(kmasset, nodejson);
         }
     }, [kmasset, nodejson]);

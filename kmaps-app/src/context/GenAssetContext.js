@@ -5,7 +5,9 @@ import { useParams } from 'react-router';
 
 /**
  *    Container which injects the Mandala asset data, before rendering it.
- *    It injects the props:
+ *    It takes a prop "assetType" set to the asset type and uses any of the following params:
+ *          relId, id, nid
+ *    It injects the props into the viewer for that asset type:
  *          id: The integer part of the asset's ID
  *          asset_type: The name of the asset app, e.g. texts, visuals, etc. (necessary to make the api call)
  *          mdlasset:  The current ASSET data in json from Mandala
@@ -17,7 +19,7 @@ import { useParams } from 'react-router';
  *
  *    This is evoked within the ContentMain.js and should wrap the component of the Mandala App in question
  *    As for instance was done for texts:
- *           <MdlAssetContext assettype={'texts'}>
+ *           <MdlAssetContext assetType={'texts'}>
  *               <TextsViewer onStateChange={props.onStateChange}/>
  *           </MdlAssetContext>
  *

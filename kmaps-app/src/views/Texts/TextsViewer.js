@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useStatus from '../../hooks/useStatus';
 import {
     Container,
     Col,
@@ -37,30 +38,40 @@ import $ from 'jquery';
  * @constructor
  */
 export function TextsViewer(props) {
-    const tid = props.mdlasset ? props.mdlasset.nid : '';
-    const title = props.mdlasset ? props.mdlasset.title : '';
+    const nodejson = props.nodejson ? props.nodejson : '';
+    const kmasset = props.mdlasset ? props.mdlasset : '';
+    const tid = nodejson ? nodejson.nid : '';
+    const title = nodejson ? nodejson.title : '';
+    const ismain = props.ismain ? props.ismain : false;
+
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
     ]);
     const [alt_viewer_url, setAltViewerUrl] = useState(''); // alt_viewer has url for alt view to show if showing or empty string is hidden
 
-    // Add Custom Body Class and Stylesheet (public/css/component-text-viewer.css) for Text component (one time)
+    const status = useStatus();
+
+    // Effect to change banner and title if the viewer is the main component
     useEffect(() => {
-        // add class "texts" to sui-main
+        if (ismain) {
+            status.setType('texts');
+            const mytitle = kmasset.title ? kmasset.title : 'Loading ...';
+            if (mytitle) {
+                status.setHeaderTitle(mytitle);
+            }
+        }
+    }, [kmasset]);
+
+    // Add Custom Body Class for Text component (one time) and timeout to show not found div
+    useEffect(() => {
+        // add class "texts" to the main div for CSS styles
         $('.l-site__wrap').addClass('texts');
 
-        // Add customs CSS styles
-        const headel = $('head');
-        if (headel.length > 0 && $('#textcsslnk').length === 0) {
-            const pubfolder = process.env.PUBLIC_URL;
-            const csslink = $(
-                '<link rel="stylesheet" type="text/css" href="' +
-                    pubfolder +
-                    '/css/component-text-viewer.css" id="textcsslnk" >'
-            );
-            headel.append(csslink);
-        }
+        // Show not found div if it still exists after 10 seconds.
+        setTimeout(function () {
+            $('.not-found-msg').removeClass('d-none');
+        }, 10000);
     }, []);
 
     // Setting text_sections variable with array of sections in text for TOC highlighting on scrolling and
@@ -71,9 +82,12 @@ export function TextsViewer(props) {
             text_sections.length == 0 &&
             $('#shanti-texts-body .shanti-texts-section').length > 0
         ) {
+            // Get all sections in text
             const sections_tmp = $(
                 '#shanti-texts-body .shanti-texts-section'
             ).toArray();
+
+            // Map Section array to an array of standardized objects with el, id, title, and getTop() function
             const sections_new = $.map(sections_tmp, function (s, n) {
                 const sel = $(s);
                 let nexttop = 1000000;
@@ -92,6 +106,7 @@ export function TextsViewer(props) {
                     },
                 };
             });
+            // Set Sections state to array of section objects
             setSections(sections_new);
 
             // Highlight first link in TOC
@@ -157,7 +172,7 @@ export function TextsViewer(props) {
                         ></Spinner>
                         Loading text...
                     </div>
-                    <div className={'not-found-msg hidden'}>
+                    <div className={'not-found-msg d-none'}>
                         <h1>Text Not Found!</h1>
                         <p className={'error'}>
                             Could not find the requested text: {props.id}
@@ -167,29 +182,28 @@ export function TextsViewer(props) {
             </Container>
         </>
     );
+
     // Set output to return. If there's an asset, then output with text BS Container with one BS Row
     // Row contains: TextBody (main part of text) and Text Tabs (Collapsible tabs on right side including TOC)
-    if (props.mdlasset && props.mdlasset.nid) {
-        const currast = props.mdlasset;
+    if (nodejson && nodejson.nid) {
         //console.log("Currast", currast);
-        if (currast.bibl_summary === '') {
-            currast.bibl_summary = '<div>Description is loading!</div>';
+        if (nodejson.bibl_summary === '') {
+            nodejson.bibl_summary = '<div>Description is loading!</div>';
         }
-
         output = (
             <>
                 <Container className={'astviewer texts'} fluid>
                     <Row id={'shanti-texts-container'}>
                         <TextBody
-                            id={props.mdlasset.nid}
-                            alias={props.mdlasset.alias}
-                            markup={currast.full_markup}
+                            id={nodejson.nid}
+                            alias={nodejson.alias}
+                            markup={nodejson.full_markup}
                             listener={handleScroll}
                         />
                         <TextTabs
-                            toc={currast.toc_links}
-                            meta={currast.bibl_summary}
-                            links={currast.views_links}
+                            toc={nodejson.toc_links}
+                            meta={nodejson.bibl_summary}
+                            links={nodejson.views_links}
                             title={title}
                             sections={section_showing}
                             altChange={setAltViewerUrl}
@@ -357,9 +371,14 @@ function TextTabs(props) {
  * @constructor
  */
 function TextsAltViewer(props) {
-    const iframe_url = props.url;
-    const clname = props.url === '' ? 'hidden' : 'shown';
-    const text_title = props.title;
+    const iframe_url = props.url ? props.url : '';
+    const clname = iframe_url ? 'hidden' : 'shown';
+    const text_title = props.title ? props.title : '';
+    const iframe = iframe_url ? (
+        <iframe src={iframe_url} className={'full-page-frame'} />
+    ) : (
+        ' '
+    );
     return (
         <div id={'text-alt-viewer'} className={clname}>
             <div className={'close-iframe'}>
@@ -373,7 +392,7 @@ function TextsAltViewer(props) {
                     <span className={'icon shanticon-cancel'}></span>
                 </a>
             </div>
-            <iframe src={iframe_url} className={'full-page-frame'} />
+            {iframe}
         </div>
     );
 }

@@ -112,6 +112,11 @@ export function Home(props) {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link to={'/images/1243906'}>
+                                        Image: Lhasa Mural Painting
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to={'/images/45806'}>
                                         Image: Woman on Basum Island
                                     </Link>
@@ -121,8 +126,8 @@ export function Home(props) {
                             <h4>Audio-Video</h4>
                             <ul>
                                 <li>
-                                    <Link to={'/audio-video/256'}>
-                                        Video: Women Discuss Their Dreams
+                                    <Link to={'/audio-video/825'}>
+                                        Video: Carpenter of Lhagya Ri Palace
                                     </Link>
                                 </li>
                                 <li>
@@ -145,12 +150,6 @@ export function Home(props) {
                                     <Link to={'/texts/16230'}>
                                         Text: Introduction to Drepung Colleges
                                     </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/texts/63401'}>
-                                        Text: Bogus Multi Page Doc
-                                    </Link>{' '}
-                                    has popover examples
                                 </li>
                                 <li>
                                     <Link to={'/texts/46641'}>

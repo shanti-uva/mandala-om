@@ -51,6 +51,7 @@ export function ContentMain(props) {
                             <GenAssetContext assetType={'audio-video'}>
                                 <AudioVideoViewer
                                     sui={props.sui}
+                                    ismain={true}
                                     /*onStateChange={props.onStateChange}*/
                                 />
                             </GenAssetContext>
@@ -62,7 +63,7 @@ export function ContentMain(props) {
                         {/* IMAGES */}
                         <Route path={`${path}images/:id`}>
                             <GenAssetContext assetType={'images'}>
-                                <ImagesViewer sui={props.sui} />
+                                <ImagesViewer ismain={true} sui={props.sui} />
                             </GenAssetContext>
                         </Route>
                         <Route path={`${path}images`}>
@@ -71,11 +72,12 @@ export function ContentMain(props) {
 
                         {/* TEXTS */}
                         <Route path={`${path}texts/:id`}>
-                            <MdlAssetContext assettype={'texts'}>
+                            <GenAssetContext assetType={'texts'}>
                                 <TextsViewer
+                                    ismain={true}
                                     onStateChange={props.onStateChange}
                                 />
-                            </MdlAssetContext>
+                            </GenAssetContext>
                         </Route>
                         <Route path={`${path}texts`}>
                             <TextsHome />
