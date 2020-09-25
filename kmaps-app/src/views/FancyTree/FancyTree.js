@@ -26,7 +26,7 @@ function FancyTree({
 
     useEffect(() => {
         //Setup solr utils
-        const solrUtils = kmapsSolrUtils.init({
+        const ks_opts = {
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
             assetIndex: process.env.REACT_APP_SOLR_KMASSETS,
             featureId: params.id,
@@ -39,10 +39,14 @@ function FancyTree({
                 process.env.REACT_APP_PUBLIC_URL +
                 `/${domain}/${domain}-%%ID%%`,
             tree,
-        });
+        };
+
+        console.log('FancyTree: kmapSolrUtil opts = ', ks_opts);
+
+        const solrUtils = kmapsSolrUtils.init(ks_opts);
 
         const elCopy = $(el.current);
-        elCopy.kmapsRelationsTree({
+        const tree_opts = {
             domain,
             featureId: params.id,
             featuresPath:
@@ -73,7 +77,11 @@ function FancyTree({
             // ],
             history,
             params,
-        });
+        };
+
+        console.log('FancyTree: tree_opts = ', tree_opts);
+
+        elCopy.kmapsRelationsTree(tree_opts);
         return () => {
             elCopy.fancytree('destroy');
         };

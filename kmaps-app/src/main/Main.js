@@ -95,10 +95,8 @@ export function Main(props) {
                         advanced={state.advanced}
                         onStateChange={handleStateChange}
                     />
+                    <TreeNav tree={state.tree} />
                 </SearchContext>
-
-                <TreeNav tree={state.tree} />
-
                 <Hamburger hamburgerOpen={state.hamburgerOpen} />
             </div>
         </Router>
@@ -112,12 +110,17 @@ function TreeNav(props) {
     const openclass = props.tree ? 'open' : 'closed';
 
     const tabs = (
-        <Container>
-            <aside
-                id="c-columnSearch"
-                className={`c-columnSearch ${openclass} overflow-auto`}
-            >
-                <Tabs defaultActiveKey="places" id="uncontrolled-tab-example">
+        <aside
+            id="l-column__search--treeNav"
+            className={`l-column__search c-TreeNav--tabs ${openclass} overflow-auto`}
+        >
+            <div>
+                <span
+                    class={
+                        'sacrifical-dummy-element-that-is-not-displayed-for-some-reason'
+                    }
+                ></span>
+                <Tabs defaultActiveKey="places" id="kmaps-tab">
                     <Tab eventKey="places" title="Places">
                         <PlacesTree />
                     </Tab>
@@ -128,8 +131,8 @@ function TreeNav(props) {
                         <TermsTree />
                     </Tab>
                 </Tabs>
-            </aside>
-        </Container>
+            </div>
+        </aside>
     );
     return tabs;
 }
@@ -172,7 +175,8 @@ function SubjectsTree(props) {
             descendants={true}
             directAncestors={false}
             displayPopup={false}
-            view="roman.scholar"
+            perspective={'gen'}
+            view="gen"
             sortBy="position_i+ASC"
         />
     );
