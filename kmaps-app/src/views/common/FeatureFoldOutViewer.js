@@ -25,7 +25,7 @@ export function FeatureFoldOutPortal({
     galleryRef,
 }) {
     const mount = document.getElementById(portalRootId);
-    console.log('Looking for portalRootId: ', mount);
+    // console.log('Looking for portalRootId: ', mount);
     const el = document.createElement('div');
     useEffect(() => {
         if (mount) {

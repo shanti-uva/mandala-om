@@ -142,16 +142,7 @@ export default function HistoryListener() {
                 const title = fixTitle(kmasset.docs);
                 const relLabel = fixTitle(relAsset.docs);
 
-                const relTitle = relatedType ? (
-                    <span
-                        className={
-                            'c-HistoryViewer__title c-HistoryViewer__relatedTitle'
-                        }
-                    >
-                        <span className={`icon u-icon__${relatedType}`}></span>{' '}
-                        {relLabel}
-                    </span>
-                ) : null;
+                const relTitle = relatedType ? relLabel : null;
 
                 // Create base location
                 const baseLocation = {
