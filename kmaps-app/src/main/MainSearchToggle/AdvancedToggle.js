@@ -9,13 +9,13 @@ export function AdvancedToggle(props) {
     }
 
     return (
-        <div
+        <span
             onClick={toggleAdvanced}
             id="sui-mode"
             className="sui-search5"
             title="{label}"
         >
             {label}
-        </div>
+        </span>
     );
 }

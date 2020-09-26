@@ -1,18 +1,47 @@
 // --------------------------------------
 // * TOP BANNER: Site Header
 // --------------------------------------
+
 .c-site__header {
     height: 40px;
     padding: 0;
     background: #fff;
+    display: flex;
 }
-.c-site__search {
-    position: absolute;
-    top: 0.5rem;
-    right: 30px;
-}
-.c-logoLink {
+.navbar-brand {
     display: inline-block;
+}
+.navbar-brand img {
+    position: relative;
+    top: -0.2rem;
+}
+.navbar-brand h1 {
+}
+.c-site__header h1 {
+    font-size: 2rem;
+    display: inline;
+    margin: 0 0 0 2rem;
+    padding: 0;
+    line-height: 1.75;
+}
+.c-site__header > nav {
+    flex: 1 1;
+    padding: 0;
+    font-size: 1.5rem;
+}
+.c-site__header .navbar-collapse {
+    justify-content: center;
+}
+
+.c-site__search {
+    //   align-items: center;
+    //   justify-content: flex-end;
+    //   flex:1;
+    display: flex;
+    //   max-width: 250px;
+}
+.c-site__search > * {
+    display: inline;
 }
 
 // --------------------------------------------------------

@@ -877,7 +877,7 @@
     cursor: pointer;
 }
 .sui-transRow:hover {
-    background-color: #eee;
+    background-color: #f5f5f5;
 }
 .sui-transLab {
     padding: 0.5rem 1.2rem;

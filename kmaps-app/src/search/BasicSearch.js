@@ -57,20 +57,23 @@ export function BasicSearch(props) {
                     onKeyDownCapture={handleKey}
                     ref={inputEl}
                 />
-                <div
-                    id="sui-clear"
-                    className="sui-search3"
-                    onClick={clearInput}
-                >
-                    &#xe610;
-                </div>
-            </div>
-            <div
-                id="sui-searchgo"
-                className="sui-search4"
-                onClick={handleSubmit}
-            >
-                &#xe623;
+                <span className={'l-search__input__buttons'}>
+                    <span
+                        id="sui-searchgo"
+                        className="sui-search4"
+                        onClick={handleSubmit}
+                    >
+                        <span className={'icon'}></span>
+                    </span>
+                    <span
+                        id="sui-clear"
+                        className="sui-search3"
+                        onClick={clearInput}
+                    >
+                        {' '}
+                        x{' '}
+                    </span>
+                </span>
             </div>
         </>
     );

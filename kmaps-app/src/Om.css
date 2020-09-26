@@ -52,7 +52,7 @@
 /* SEARCH BOX */
 
 .sui-search1 {
-    float: left;
+    /*  float: left;
     background-color: #fafafa;
     font-size: 16px;
     color: #ccc;
@@ -63,11 +63,11 @@
     border-left: 1px solid #999;
     border-top: 1px solid #999;
     border-bottom: 1px solid #999;
-    box-sizing: content-box;
+    box-sizing: content-box;*/
 }
 
 .sui-search2 {
-    float: left;
+    /*  float: left;
     background-color: #fafafa;
     color: #888;
     height: 17px;
@@ -81,11 +81,11 @@
     appearance: none;
     -webkit-appearance: none;
     box-shadow: none;
-    box-sizing: content-box;
+    box-sizing: content-box;*/
 }
 
 .sui-search3 {
-    float: right;
+    /*   float: right;
     font-family: 'shanticon', serif;
     font-size: 0.62em;
     color: #ccc;
@@ -93,11 +93,11 @@
     box-sizing: content-box;
     position: relative;
     top: -0.15rem;
-    right: 2px;
+    right: 2px; */
 }
 
 .sui-search4 {
-    display: inline-block;
+    /*   display: inline-block;
     background-color: #ddd;
     font-size: 16px;
     color: #999;
@@ -109,15 +109,15 @@
     cursor: pointer;
     vertical-align: top;
     box-sizing: content-box;
-    font-family: 'shanticon', serif;
+    font-family: 'shanticon', serif;*/
 }
 
 .sui-search4:hover {
-    opacity: 0.66;
+    /*  opacity: 0.66; */
 }
 
 .sui-search5 {
-    display: inline-block;
+    /*  display: inline-block;
     font-size: 10px;
     cursor: pointer;
     color: #666;
@@ -125,7 +125,7 @@
     padding: 5px 0 0 12px;
     line-height: 10px;
     width: 60px;
-    text-transform: uppercase;
+    text-transform: uppercase;*/
 }
 
 .sui-search5:hover {
@@ -1017,7 +1017,7 @@
 .sui-transOps {
     position: ABSOLUTE;
     top: 5.25rem;
-    background-color: #f7f7f7;
+    background-color: #fff;
     border: 1px solid #ccc;
     box-shadow: 0 0 0.5rem #ccc;
     border-radius: 0 0 6px 6px;
