@@ -38,10 +38,10 @@ export function ImageMetadata(props) {
     const sizestr = props.sizestr ? props.sizestr : '';
     const titles = nodejson?.field_image_descriptions?.und?.map((item, n) => {
         return (
-            <>
+            <span key={'im-title-n' + n}>
                 {item.title}
                 <br />
-            </>
+            </span>
         );
     });
 
@@ -51,10 +51,12 @@ export function ImageMetadata(props) {
         nodejson['copyright_statement'] = constructCopyright(nodejson);
         nodejson['location_constructed'] = constructLocation(nodejson);
     }
-    const imgsize = '9x10';
+
     const imgdescs = nodejson?.field_image_descriptions?.und
         ? nodejson.field_image_descriptions.und
         : [];
+
+    const capkey = 'ir-caption-main-' + Math.floor(Math.random() * 3333333);
     return (
         <>
             <Row className={'l-top'}>
@@ -73,8 +75,8 @@ export function ImageMetadata(props) {
             </Row>
             <Row className={'l-meta'}>
                 <Col className={'l-first col-sm-12 col-md-6'}>
-                    {/* <h5 className={'c-image__metatitle'}>{titles}</h5> */}
                     <ImageRow
+                        key={capkey}
                         cls={'c-image__caprow'}
                         icon={'images'}
                         label={'Caption'}
@@ -82,11 +84,11 @@ export function ImageMetadata(props) {
                     />
 
                     <hr />
-                    <ImageCreators
-                        json={nodejson?.field_image_agents}
-                        setMain={setPhotographer}
-                    />
+
+                    {/* Image creators had "setMain={setPhotographer}" but can't set parent state from child */}
+                    <ImageCreators json={nodejson?.field_image_agents} />
                     <ImageRow
+                        key={'ir-uploader'}
                         cls={'u-data'}
                         icon={'agents'}
                         label={'Uploader'}
@@ -94,6 +96,7 @@ export function ImageMetadata(props) {
                         date={processDate(nodejson.created, 'ts')}
                     />
                     <ImageRow
+                        key={'ir-image-type'}
                         cls={'u-data'}
                         icon={'square-o'}
                         label={'Type'}
@@ -101,6 +104,7 @@ export function ImageMetadata(props) {
                         valclass={'text-capitalize'}
                     />
                     <ImageRow
+                        key={'ir-image-size'}
                         cls={'u-data'}
                         icon={'arrows'}
                         label={'size'}
@@ -110,6 +114,7 @@ export function ImageMetadata(props) {
                     {imgdescs.map((desc, dn) => {
                         return (
                             <ImageDescription
+                                key={'im-desc-' + dn}
                                 data={imgdescs[dn]}
                                 defaultauth={photographer}
                             />
@@ -126,6 +131,7 @@ export function ImageMetadata(props) {
                         }
                         return (
                             <ImageInfoField
+                                key={pts[0]}
                                 fieldName={pts[0]}
                                 label={pts[1]}
                                 icon={pts[2]}
@@ -233,13 +239,17 @@ function ImageRow(props) {
     const value = props.value ? props.value : '';
     const valclass = props.valclass ? ' ' + props.valclass : '';
     const mydate = props.date ? ' (' + props.date + ')' : '';
+    const mykey =
+        'ir-' +
+        label.toLowerCase().replace(' ', '-') +
+        Math.floor(Math.random() * 888888);
     return (
-        <Row className={myclass}>
-            <Col>
+        <Row className={myclass} key={mykey}>
+            <Col key={mykey + '-c1'}>
                 <span className={'u-icon__' + icon} />{' '}
                 <span className={'u-label' + labclass}>{label}</span>{' '}
             </Col>
-            <Col className={'u-value' + valclass}>
+            <Col className={'u-value' + valclass} key={mykey + '-c2'}>
                 {value}
                 {mydate}
             </Col>
@@ -283,14 +293,22 @@ function ImageCreators(props) {
                     item.field_agent_dates.und.length > 0
                         ? processDate(item.field_agent_dates.und[0].value)
                         : '';
+                {
+                    /* doesn't work
                 if (
-                    item.field_agent_role.und[0].value.toLocaleLowerCase() ===
-                    'photographer'
+                    item.field_agent_role.und[0].value.toLocaleLowerCase() === 'photographer'
                 ) {
                     props.setMain(item.title);
                 }
+                */
+                }
+                let mykey =
+                    item.field_agent_role.und[0].value.toLowerCase() +
+                    item.title.toLowerCase();
+                mykey = mykey.replace(' ', '-');
                 return (
                     <ImageRow
+                        key={mykey}
                         cls={'u-data'}
                         icon={'agents'}
                         label={item.field_agent_role.und[0].value.toUpperCase()}

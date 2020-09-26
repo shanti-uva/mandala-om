@@ -31,7 +31,7 @@ export function MandalaPopover(props) {
     const domain = props.domain;
     const kid = props.kid;
     const placement = props.placement ? props.placement : 'bottom';
-    const kmkey = props.key;
+    const kmkey = props.mykey;
 
     // Query Custom Hooks (see hooks/useKmaps.js)
     // Info for Kmap Itself: kmapRes
@@ -202,7 +202,12 @@ function MandalaPopoverBody(props) {
                             '-' +
                             aid;
                         const label = ancestor_labels[index];
-                        return <a href={aurl}>{label}</a>;
+                        const akey = 'akey-' + aid + '-' + index;
+                        return (
+                            <a key={akey} href={aurl}>
+                                {label}
+                            </a>
+                        );
                     })}
                 </p>
             </div>

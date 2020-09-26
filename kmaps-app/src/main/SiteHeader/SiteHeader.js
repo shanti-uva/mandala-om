@@ -54,6 +54,7 @@ export function SiteHeader(props) {
 
                 <SearchBar
                     advanced={props.advanced}
+                    tree={props.tree}
                     onStateChange={props.onStateChange}
                 />
 

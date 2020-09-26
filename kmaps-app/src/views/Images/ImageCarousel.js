@@ -69,6 +69,7 @@ export function ImageCarousel(props) {
         <div id="image-carousel" className={'c-image__carousel'}>
             {showdivs.map((item, index) => (
                 <div
+                    key={'cs-' + index}
                     id={'carousel-slide-' + index}
                     className={
                         'thumb' + (item.id === solrdoc.id ? ' current' : '')

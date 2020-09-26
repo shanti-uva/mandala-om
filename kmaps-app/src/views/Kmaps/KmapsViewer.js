@@ -113,9 +113,9 @@ export default function KmapsViewer(props) {
                                 relatedType={'texts'}
                                 back={'true'}
                             />
-                            <MdlAssetContext assettype={'texts'} inline={true}>
-                                <TextsViewer />
-                            </MdlAssetContext>
+                            <GenAssetContext assetType={'texts'}>
+                                <TextsViewer inline={true} />
+                            </GenAssetContext>
                         </Route>
 
                         <Route
@@ -129,7 +129,9 @@ export default function KmapsViewer(props) {
                                 relatedType={'images'}
                                 back={'true'}
                             />
-                            <ImagesViewer inline={true} />
+                            <GenAssetContext assetType={'images'}>
+                                <ImagesViewer inline={true} />
+                            </GenAssetContext>
                         </Route>
 
                         <Route
