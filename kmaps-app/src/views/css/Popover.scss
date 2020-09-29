@@ -7,15 +7,15 @@
 }
 .kmap-tag-group .deflinks {
     vertical-align: super;
-    font-size: 80%;
+    font-size: 1.3rem;
 }
 // icon button for hover-over -- Kmaps Popover
 .popover-link {
     position: relative;
     left: 0;
-    top: 4px;
+    top: 0.4rem;
     margin: 0 1rem 0 0.35rem;
-    font-size: 2rem;
+    font-size: 2.15rem;
 }
 .popover-link .icon::before {
     color: $color-mandala;
@@ -24,16 +24,16 @@
 // BEGIN Popover Container
 .related-resources-popover {
     font-size: 1.25rem !important;
-    line-height: 1.25em;
-    width: 320px !important;
-    max-width: 320px !important;
+    line-height: 1;
+    width: 30.2rem !important;
+    max-width: 30.2rem !important;
     font-style: normal;
-    padding: 3px 3px 0px 3px;
+    padding: 0.3rem 0.3rem 0 0.3rem;
     border-radius: 0.8rem !important;
 }
 .related-resources-popover .popover-title .kmid,
 .related-resources-popover .popover-header .kmid {
-    font-size: 0.8em;
+    font-size: 1.1rem;
     font-weight: 400;
     position: absolute;
     top: 0.3rem;
@@ -44,20 +44,21 @@
     display: none;
 }
 .related-resources-popover .popover-body {
-    padding: 0.5rem 0.5rem 0 !important;
+    padding: 0.5rem 0.75rem 0;
     font-size: 1.32rem;
 }
 .related-resources-popover .popover-body .desc {
-    font-size: 1.22rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
     letter-spacing: normal;
     margin-bottom: 1rem;
 }
 .related-resources-popover .popover-title,
 .related-resources-popover .popover-header {
     display: block;
-    font-size: 14px;
-    padding: 10px 0 6px !important;
-    margin: 0 14px;
+    font-size: 1.4rem;
+    padding: 1rem 0 0.6rem;
+    margin: 0 1.4rem;
     background: transparent;
     border: none;
     border-bottom: 1px solid #ccc;
@@ -70,12 +71,10 @@
 .related-resources-popover .popover-title.bo,
 .related-resources-popover .popover-header.bo {
     font-family: Jomolhari;
-    font-size: 18px;
+    font-size: 1.8rem;
 }
 
 .related-resources-popover .desc p {
-    font-size: 0.88em;
-    //    line-height: 1.25em;
     //   color: $gray-700;
 }
 
@@ -97,13 +96,13 @@
 .related-resources-popover .other strong,
 .related-resources-popover .defs strong {
     //   color: $gray-800;
-    font-size: 0.93em;
+    font-size: 1.3rem;
     letter-spacing: 0.0275rem;
     //   margin-top: -0.12em;
 }
 
 .related-resources-popover .other strong:after {
-    padding-right: 3px;
+    padding-right: 0.3rem;
 }
 
 .related-resources-popover .parents strong::after,
@@ -115,8 +114,8 @@
 
 .related-resources-popover .parents a,
 .related-resources-popover .defs a {
-    font-size: 0.93em;
-    line-height: 1.32em;
+    font-size: 1.25rem;
+    line-height: 1.25;
     border-bottom-width: 0;
     display: inline;
     white-space: normal;
@@ -139,12 +138,14 @@
 }
 
 .related-resources-popover .termtypes {
-    margin: 0.5em auto;
+    margin: 0.9rem auto;
 }
 
 .related-resources-popover .other.featuretypes a,
 .related-resources-popover .termtypes a {
     //   color: #03038e;
+    line-height: 1.25;
+    font-size: 1.25rem;
 }
 
 .related-resources-popover .other.featuretypes a:after,
@@ -156,13 +157,15 @@
     content: '';
 }
 .popover-footer {
-    margin: 10px -7px 1px;
+    margin: 1rem -0.95rem 0.1rem;
     border-radius: 0 0 0.8rem 0.8rem !important;
 }
 .popover-footer-button {
     background-color: $gray-900;
-    padding: 0 0 0 1.3rem;
+    padding: 0 0 0 1.35rem;
     margin: 0;
+    font-size: 2rem;
+    line-height: 2;
 }
 .popover-footer-button:hover {
     color: #fff;
@@ -176,14 +179,12 @@
     border-bottom: none;
     display: block;
     width: 100%;
-    font-size: 1.06em;
-    line-height: 1.2em;
-    height: 2.5em;
+    font-size: 1.4rem !important;
+    line-height: 2;
     text-transform: capitalize;
     letter-spacing: 0.05rem;
-    font-family: 'Open Sans', sans-serif !important;
-    font-weight: 400;
-    padding-top: 0.9rem;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0.6rem 0 0.4rem;
     vertical-align: middle;
 }
 .popover-footer-button a:hover {
@@ -191,10 +192,10 @@
 }
 .popover-footer-button a.icon::before {
     color: #fff !important;
-    margin-right: 12px;
-    font-size: 1.12em;
+    margin-right: 1.2rem;
+    font-size: 1.5rem;
     position: relative;
-    top: 0.25rem;
+    top: 0.1rem;
     left: 0.1rem;
     font-family: 'shanticon', sans-serif;
 }
@@ -203,18 +204,22 @@
     color: #fff;
     text-decoration: none;
 }
+.popover-footer-button a:first-child {
+    padding: 0.6rem 0 0.4rem;
+    line-height: 2.2;
+    font-size: 1.2rem;
+}
 .popover-footer-button:first-child .icon {
-    font-size: 1.06em;
+    font-size: 1.2rem;
 }
 .popover-footer .popover-footer-button:first-child .icon::before {
     margin-right: 1.3rem;
     content: '\e629';
     position: relative;
-    left: 0.2rem;
 }
 .popover-footer-button:last-child {
-    border-radius: 0 0 0.8rem 0.8rem !important;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-radius: 0 0 0.8rem 0.8rem;
 }
 
 .popover-footer .u-icon__link-external:before {

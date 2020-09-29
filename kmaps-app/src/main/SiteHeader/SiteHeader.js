@@ -17,20 +17,60 @@ export function SiteHeader(props) {
     //    headroom.init();
     //  });
     const topBar = (
-        <section className={'c-site__header'}>
-            <Link to={'/home'} className={'u-link-logo'}>
-                <img
-                    src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}
-                    alt={'Home Page'}
-                    className={'o-image-logo'}
+        <header className={'c-site__header'}>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <Link to={'/home'} className={'navbar-brand'}>
+                    <img
+                        src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}
+                        alt={'Home Page'}
+                        className={'o-image-logo d-inline-block align-top'}
+                    />
+                    <h1 className="sr-only">Bhutan Library</h1>
+                </Link>
+
+                <div
+                    className="collapse navbar-collapse"
+                    id="navbarNav"
+                    role="navigation"
+                >
+                    <ul className="navbar-nav">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="#">
+                                Home <span className="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">
+                                About
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">
+                                Documentation
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <SearchBar
+                    advanced={props.advanced}
+                    tree={props.tree}
+                    onStateChange={props.onStateChange}
                 />
-            </Link>
-            <SearchBar
-                advanced={props.advanced}
-                tree={props.tree}
-                onStateChange={props.onStateChange}
-            />
-        </section>
+
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+        </header>
     );
     return topBar;
 }

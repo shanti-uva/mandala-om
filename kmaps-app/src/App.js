@@ -7,7 +7,7 @@ import Pages from './legacy/pages';
 // import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Main } from './main/Main';
 
-export const ADVANCED_LABEL = 'Advanced Search';
+export const ADVANCED_LABEL = 'Advanced';
 export const BASIC_LABEL = 'Basic Search';
 
 class App extends React.Component {

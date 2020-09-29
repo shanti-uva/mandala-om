@@ -11,13 +11,15 @@
 }
 
 .c-HistoryViewer__relatedRecentItem {
+    line-height: 1.5;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 95%;
     cursor: default;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+}
+.c-HistoryViewer__relatedRecentItem:hover {
+    background: white;
 }
 
 .c-HistoryViewer__removeItem {
@@ -26,7 +28,7 @@
     color: transparent;
     margin-top: 0.35rem;
     position: absolute;
-    right: 0.8rem;
+    right: 0.1rem;
     transition: color 250ms ease-in;
 }
 
@@ -43,9 +45,13 @@
 }
 
 .c-HistoryViewer__title {
-    line-height: 1.75;
+    padding-left: 0.25rem;
+    padding-right: 0.5rem;
 }
-
+.c-HistoryViewer__title .icon {
+    margin-right: 0.25rem;
+    font-size: 120%;
+}
 .c-HistoryViewer__relatedTitle {
     font-style: italic;
 }
