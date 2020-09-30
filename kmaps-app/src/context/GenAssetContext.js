@@ -40,6 +40,8 @@ export default function GenAssetContext(props) {
     useEffect(() => {
         if (solrdata?.docs && solrdata.docs.length > 0) {
             setMdlAsset(solrdata.docs[0]);
+        } else if (solrdata.status === 'success') {
+            setMdlAsset('not-found');
         }
     }, [solrdata]);
 
