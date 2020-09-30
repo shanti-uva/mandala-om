@@ -28,10 +28,6 @@ export function ImagesViewer(props) {
 
     const status = useStatus();
 
-    // This is the Height and Width of the Viewer. Settled on
-    const HEIGHT = '500px';
-    const WIDTH = '950px';
-
     const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
 
     // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
@@ -40,7 +36,7 @@ export function ImagesViewer(props) {
         if (solrdoc && ismain) {
             status.clear();
             status.setHeaderTitle(
-                solrdoc?.caption || solrdoc?.title || 'ImageViewer'
+                solrdoc?.title || solrdoc?.caption || 'ImageViewer'
             );
             status.setType('images');
         }
@@ -105,7 +101,8 @@ export function ImagesViewer(props) {
                 </div>
             );
         } // Otherwise it's found a solrdoc
-        //console.log('nodejson', nodejson);
+        console.log('nodejson', nodejson);
+        console.log('solrdoc', solrdoc);
         const creator = Array.isArray(solrdoc.creator)
             ? solrdoc.creator.join(', ')
             : solrdoc.creator;

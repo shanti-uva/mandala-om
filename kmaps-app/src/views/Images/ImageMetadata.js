@@ -36,14 +36,7 @@ export function ImageMetadata(props) {
     const solrdoc = props.solrdoc;
     const nodejson = props.nodejson;
     const sizestr = props.sizestr ? props.sizestr : '';
-    const titles = nodejson?.field_image_descriptions?.und?.map((item, n) => {
-        return (
-            <span key={'im-title-n' + n}>
-                {item.title}
-                <br />
-            </span>
-        );
-    });
+    const title = nodejson?.title;
 
     const [photographer, setPhotographer] = useState('');
 
@@ -80,7 +73,7 @@ export function ImageMetadata(props) {
                         cls={'c-image__caprow'}
                         icon={'images'}
                         label={'Caption'}
-                        value={titles}
+                        value={title}
                     />
 
                     <hr />
