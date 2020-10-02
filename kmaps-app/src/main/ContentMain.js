@@ -19,7 +19,6 @@ import { CollectionsHome } from '../views/CollectionsHome';
 import { Error404 } from '../App';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
-import MdlAssetContext from '../context/MdlAssetContext';
 import GenAssetContext from '../context/GenAssetContext';
 import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';

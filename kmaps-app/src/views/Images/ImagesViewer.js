@@ -38,7 +38,6 @@ export function ImagesViewer(props) {
             status.setHeaderTitle(
                 solrdoc?.title || solrdoc?.caption || 'ImageViewer'
             );
-            status.setType('images');
         }
         // Updating button controls for fullscreen and zoom
         const iiifview = $('.react-iiif-viewer');
@@ -81,28 +80,6 @@ export function ImagesViewer(props) {
 
     // JSX Markup for the ImagesViewer component
     if (solrdoc) {
-        // when GenAssetContext returns "not-found"...
-        if (solrdoc === 'not-found') {
-            return (
-                <div className={'c-image'}>
-                    <Container fluid>
-                        <Col>
-                            <Row>
-                                <Col>
-                                    <h1>Image Not Found</h1>
-                                    <p class={'h4'}>
-                                        The image ID, {nid}, does not exist. Try
-                                        again!
-                                    </p>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Container>
-                </div>
-            );
-        } // Otherwise it's found a solrdoc
-        console.log('nodejson', nodejson);
-        console.log('solrdoc', solrdoc);
         const creator = Array.isArray(solrdoc.creator)
             ? solrdoc.creator.join(', ')
             : solrdoc.creator;

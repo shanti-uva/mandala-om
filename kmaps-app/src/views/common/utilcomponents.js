@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MandalaPopover } from './MandalaPopover';
+import { Col, Container, Row, Button } from 'react-bootstrap';
 
 export function CollectionField(props) {
     const solrdoc = props.solrdoc;
@@ -88,5 +89,62 @@ export function KmapsFields(props) {
                 <span className="u-icon__terms" title="Terms" /> {terms}{' '}
             </div>
         </>
+    );
+}
+
+// TODO: Actually use the react history object here
+const backbutton = () => {
+    window.history.back();
+    setTimeout(function () {
+        window.location.reload();
+    }, 1000);
+};
+
+/**
+ * The Component for when an asset page is not found.
+ * TODO: Could be broadened to other not-found contexts.
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export function NotFoundPage(props) {
+    let atype = props.type;
+    if (atype[atype.length - 1] === 's') {
+        atype = atype.substr(0, atype.length - 1);
+    }
+    if ('aeiou'.includes(atype[0])) {
+        atype = 'an ' + atype;
+    } else {
+        atype = 'a ' + atype;
+    }
+    const aid = props.id;
+
+    return (
+        <div className={'c-not-found'}>
+            <Container fluid>
+                <Row className="justify-content-md-center">
+                    <Col lg={'auto'}>
+                        <img
+                            className={'logo'}
+                            src={'/mandala-om/img/logo-shanti.png'}
+                            alt={'mandala logo'}
+                        />
+                        <h1>Page Not Found!</h1>
+                        <p>
+                            Sorry, {atype} with ID, {aid}, does not exist.
+                            <br />
+                            If you followed a link to an item, you may have the
+                            wrong item ID,
+                            <br />
+                            or the item may have been deleted or is private.
+                        </p>
+                        <Button variant="primary" href="#" onClick={backbutton}>
+                            Back
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
     );
 }
