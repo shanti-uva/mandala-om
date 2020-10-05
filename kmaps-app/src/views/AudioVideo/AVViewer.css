@@ -71,7 +71,7 @@ div#av-trscrpt-wrapper {
 }
 
 #av-trscrpt-wrapper #sui-trans {
-    height: 90%;
+    /* height: 90%;*/
 }
 
 #av-player-row .sui-sourceText,
@@ -155,30 +155,104 @@ div#av-trscrpt-wrapper {
 #av-trscrpt-wrapper .av-trscrpt-ctrls #sui-transTab1 {
     font-size: 1.75rem;
 }
+#sui-transSrc .transSrcWrap {
+    display: flex;
+}
+
+#sui-transSrc .navigator {
+    display: inline-block;
+    margin: 14px 0 0 16px;
+    user-select: none;
+    flex-grow: 2;
+}
+
+div#sui-transSrcGo {
+    padding-top: 1.25rem;
+    padding-right: 1rem;
+}
+
+div#sui-transSrcGo input#sui-transSrcInp {
+    color: #333;
+    border: 1px solid #d0d0d0;
+    border-radius: 1.8rem;
+    background-clip: padding-box;
+    font-size: 1.38em;
+    height: 2.25em;
+    margin: 0.2rem 2rem 0.3rem 2rem;
+    padding: 0.2rem 4rem 0 3.7rem;
+    max-width: 88%;
+    overflow: auto;
+    vertical-align: middle;
+    box-shadow: 0 2px 4px #999 inset;
+    border-collapse: separate;
+    background: #fff;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 400ms;
+    transition-duration: 400ms;
+}
+
+div#sui-transSrcGo .icon.search {
+    position: absolute;
+    right: 44%;
+    top: 7.4rem;
+    font-size: 1.38rem;
+    color: #999;
+}
+
+div#sui-transSrcGo button.search {
+    position: absolute;
+    right: 6.6%;
+    top: 6.9rem;
+    width: 3.5rem;
+    height: 2.76rem;
+    border-radius: 0 1.5rem 1.5rem 0;
+    border: none;
+    font-size: 2rem;
+    background-color: #ccc;
+}
+
+div#sui-transSrcGo button.search .icon {
+    margin-top: -15px;
+    display: inline-block;
+}
+
+div#sui-transSrcGo .icon.clear {
+    position: absolute;
+    top: 7.7rem;
+    right: 12%;
+    color: #aaa;
+}
 
 /** Thumbnail Styles **/
 .av #meta-mlt {
     margin-top: 0.5rem;
 }
 
-div#meta-details p {
-    margin: 0;
+div#meta-details {
+    font-size: 1.25rem;
 }
 
-div#meta-details p b {
+div#meta-details p {
+    margin: 0;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif, shanticon;
+}
+
+div#meta-details p strong {
     width: 15em !important;
     display: inline-block;
     border-right: 2px solid #ddd;
     margin-right: 1rem;
     padding-bottom: 1rem;
     text-transform: uppercase;
+    letter-spacing: 0.0475rem;
     font-weight: 400;
     font-size: 1.25rem;
     margin-bottom: -3px;
     padding-top: 3px;
 }
 
-div#meta-details p b:after {
+div#meta-details p strong:after {
     content: '';
 }
 
