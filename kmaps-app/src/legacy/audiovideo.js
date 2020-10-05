@@ -953,6 +953,12 @@ export default class AudioVideo {
     DrawTranscriptMenu() {
         // DRAW TRANSCRIPT MENU
         var res = this.transRes; // Point at res
+        var browser = navigator.userAgent.includes('Chrome')
+            ? 'chrome'
+            : navigator.userAgent.includes('Firefox')
+            ? 'firefox'
+            : 'safari';
+
         var str = `<div id='av-trscrpt-wrapper' class='col'>
             <div class='av-trscrpt-ctrls row'>
                 <div id='sui-transTab0' class='sui-transTab col' title='Options'>&#xe66f&#xe609</div>
@@ -962,7 +968,7 @@ export default class AudioVideo {
                 <div id='sui-transTab4' class='sui-transTab col' title='Next line'>&#xe604</div>
                 <div id='sui-transTab5' class='sui-transTab col' style='border:none' title='Search transcript'>&#xe623</div>
                 <div id='sui-transSrc' class='sui-transSrc'>
-                    <div class="transSrcWrap">
+                    <div class="transSrcWrap ${browser}">
                         <div class="navigator">
                             <div class="navwrapper" style="display: none;">
                                 <div id='sui-transSrcB' style='display:inline-block;color:#fff;font-size:20px;cursor:pointer' title='Previous result'>&#xe640</div>

@@ -204,6 +204,14 @@ div#sui-transSrcGo .icon.search {
     color: #999;
 }
 
+.firefox div#sui-transSrcGo .icon.search {
+    right: 50%;
+}
+
+.safari div#sui-transSrcGo .icon.search {
+    right: 50%;
+}
+
 div#sui-transSrcGo button.search {
     position: absolute;
     right: 6.65%;
@@ -250,10 +258,22 @@ div#sui-transSrcGo .icon.clear {
         right: 54.5%;
     }
 
+    .firefox div#sui-transSrcGo .icon.search {
+        right: 62%;
+    }
+    .safari div#sui-transSrcGo .icon.search {
+        right: 61%;
+    }
     div#sui-transSrcGo button.search {
         right: 8.2%;
     }
 
+    .firefox div#sui-transSrcGo button.search {
+        right: 9%;
+    }
+    .safari div#sui-transSrcGo button.search {
+        right: 9%;
+    }
     div#sui-transSrcGo .icon.clear {
         right: 14.5%;
     }
