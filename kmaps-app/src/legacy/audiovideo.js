@@ -1011,9 +1011,10 @@ export default class AudioVideo {
                     for (lang in res.languages) // For each language
                         if (res.segs[i][lang] && res.segs[i][lang].match(r))
                             hits.push(i); // If something there
-                windows.sui.av.transhits = hits;
+                window.sui.av.transhits = hits;
             }
             show(hits); // Show status
+            $('#sui-transSrcGo .icon.clear').show();
         });
 
         $('#sui-transSrcInp').on('change', () => {
@@ -1028,12 +1029,38 @@ export default class AudioVideo {
             show();
         }); // ON NEXT
 
+        $('div#sui-transSrcGo .icon.clear').on('click', () => {
+            $('.srchit').each(function () {
+                var mytxt = $(this).text();
+                $(this).replaceWith(mytxt);
+            });
+            $('#sui-transSrcInp').val('');
+            $(
+                'div#sui-transSrcGo .icon.clear, .transSrcWrap .navwrapper'
+            ).hide();
+        });
+
         function show(hits) {
             // SHOW STATUS
             const sui = window.sui;
             if (typeof hits == 'undefined') {
                 hits = sui.av.transhits;
             }
+            // Remove previous highlights
+            $('.srchit').each(function () {
+                var mytxt = $(this).text();
+                $(this).replaceWith(mytxt);
+            });
+            // Highlight all hits
+            hits.map(function (hid) {
+                var segtxt = $('#sui-transBox-' + hid + ' span').html();
+                var srchstr = $('#sui-transSrcInp').val();
+                segtxt = segtxt.replace(
+                    srchstr,
+                    `<span class="srchit">${srchstr}</span>`
+                );
+                $('#sui-transBox-' + hid + ' span').html(segtxt);
+            });
             var t = hits.length ? curHit + 1 : 0; // Current number
             if (hits.length > 0) {
                 $('.transSrcWrap .navwrapper').show();
@@ -1043,7 +1070,6 @@ export default class AudioVideo {
                 // If somthing
                 sui.av.curTransSeg = hits[curHit]; // Set cur seg
                 sui.av.HighlightSeg(sui.av.curTransSeg, undefined); // Highlight seg
-                console.log('cur trans seg', sui.av.curTransSeg);
             }
         }
 
@@ -1332,7 +1358,6 @@ export default class AudioVideo {
         num,
         start // HIGHLIGHT A SEGMENT
     ) {
-        console.log('in highlight seg', num, start);
         let t =
             $(
                 `#sui-trans${

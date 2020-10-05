@@ -71,7 +71,7 @@ div#av-trscrpt-wrapper {
 }
 
 #av-trscrpt-wrapper #sui-trans {
-    /* height: 90%;*/
+    z-index: 100;
 }
 
 #av-player-row .sui-sourceText,
@@ -178,7 +178,7 @@ div#sui-transSrcGo input#sui-transSrcInp {
     background-clip: padding-box;
     font-size: 1.38em;
     height: 2.25em;
-    margin: 0.2rem 2rem 0.3rem 2rem;
+    margin: 0rem 2rem 0rem 2rem;
     padding: 0.2rem 4rem 0 3.7rem;
     max-width: 88%;
     overflow: auto;
@@ -192,24 +192,38 @@ div#sui-transSrcGo input#sui-transSrcInp {
     transition-duration: 400ms;
 }
 
+div#sui-transSrcGo input#sui-transSrcInp:focus {
+    outline: none;
+}
+
 div#sui-transSrcGo .icon.search {
     position: absolute;
     right: 44%;
-    top: 7.4rem;
+    top: 7.2rem;
     font-size: 1.38rem;
     color: #999;
 }
 
 div#sui-transSrcGo button.search {
     position: absolute;
-    right: 6.6%;
-    top: 6.9rem;
+    right: 6.65%;
+    top: 6.7rem;
     width: 3.5rem;
     height: 2.76rem;
     border-radius: 0 1.5rem 1.5rem 0;
     border: none;
     font-size: 2rem;
     background-color: #ccc;
+    z-index: 10;
+}
+
+div#sui-transSrcGo button.search:hover {
+    background-color: #777;
+    color: #ddd;
+}
+
+div#sui-transSrcGo button.search:focus {
+    outline: none;
 }
 
 div#sui-transSrcGo button.search .icon {
@@ -219,9 +233,72 @@ div#sui-transSrcGo button.search .icon {
 
 div#sui-transSrcGo .icon.clear {
     position: absolute;
-    top: 7.7rem;
-    right: 12%;
+    top: 7.2rem;
+    right: 11.25%;
     color: #aaa;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+#sui-trans .sui-transBox .srchit {
+    background-color: #f6f872;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 1440px) {
+    div#sui-transSrcGo .icon.search {
+        right: 54.5%;
+    }
+
+    div#sui-transSrcGo button.search {
+        right: 8.2%;
+    }
+
+    div#sui-transSrcGo .icon.clear {
+        right: 14.5%;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    div#sui-transSrcGo .icon.search {
+        right: 61%;
+    }
+
+    div#sui-transSrcGo button.search {
+        right: 9%;
+    }
+
+    div#sui-transSrcGo .icon.clear {
+        right: 16%;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    div#sui-transSrcGo .icon.search {
+        right: 49.5%;
+    }
+
+    div#sui-transSrcGo button.search {
+        right: 7.7%;
+    }
+
+    div#sui-transSrcGo .icon.clear {
+        right: 13%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    div#sui-transSrcGo .icon.search {
+        right: 75%;
+    }
+
+    div#sui-transSrcGo button.search {
+        right: 9%;
+    }
+
+    div#sui-transSrcGo .icon.clear {
+        right: 17%;
+    }
 }
 
 /** Thumbnail Styles **/
