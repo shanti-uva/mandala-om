@@ -1054,10 +1054,10 @@ export default class AudioVideo {
             // Highlight all hits
             hits.map(function (hid) {
                 var segtxt = $('#sui-transBox-' + hid + ' span').html();
-                var srchstr = $('#sui-transSrcInp').val();
+                var srchval = $('#sui-transSrcInp').val();
                 segtxt = segtxt.replace(
-                    srchstr,
-                    `<span class="srchit">${srchstr}</span>`
+                    new RegExp(srchval, 'g'),
+                    `<span class="srchit">${srchval}</span>`
                 );
                 $('#sui-transBox-' + hid + ' span').html(segtxt);
             });
