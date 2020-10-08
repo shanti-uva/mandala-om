@@ -10,14 +10,18 @@ import localForage from 'localforage';
 import { createStore, StoreProvider, persist } from 'easy-peasy';
 const store = createStore(persist(storeModel, { storage: localForage }));
 
-ReactDOM.render(
-    <React.StrictMode>
-        <StoreProvider store={store}>
-            <App />
-        </StoreProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+const target = document.getElementById('root');
+
+if (target) {
+    ReactDOM.render(
+        <React.StrictMode>
+            <StoreProvider store={store}>
+                <App />
+            </StoreProvider>
+        </React.StrictMode>,
+        target
+    );
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
