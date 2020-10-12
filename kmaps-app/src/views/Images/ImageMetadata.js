@@ -84,7 +84,7 @@ export function ImageMetadata(props) {
                         key={'ir-uploader'}
                         cls={'u-data'}
                         icon={'agents'}
-                        label={'Uploader'}
+                        label={'Data Entry'}
                         value={solrdoc.node_user_full_s}
                         date={processDate(nodejson.created, 'ts')}
                     />
@@ -342,26 +342,34 @@ function ImageInfoField(props) {
     if (!node[field_name]?.und) {
         return null;
     }
+    let rowclass = 'u-data';
     let value = node[field_name]?.und[0].value;
+
+    // Custom field instructions
     if (field_name === 'location_constructed' && !value) {
         return null;
-    }
-    if (value.substr(0, 4) === 'http') {
+    } else if (field_name === 'field_original_filename') {
+        value = <span className={'t-overwrap-any'}>{value}</span>;
+    } else if (field_name === 'field_license_url') {
+        const lnktxt = node[field_name].und[0].title
+            .replace(/&mdash;/g, '—')
+            .replace(/&amp;/g, '&');
+        value = (
+            <a href={value} target={'_blank'} className={'t-overwrap-any'}>
+                {lnktxt}
+            </a>
+        );
+    } else if (value.substr(0, 4) === 'http') {
         value = (
             <a href={value} target={'_blank'}>
                 {value}
             </a>
         );
-    }
-    if (field_name === 'field_image_digital') {
+    } else if (field_name === 'field_image_digital') {
         value = value === '0' ? 'No' : 'Yes';
-    }
-    if (field_name === 'field_image_rotation') {
+    } else if (field_name === 'field_image_rotation') {
         value += '°';
-    }
-    let rowclass = 'u-data';
-    // Special return for copyright statement to put person and date above with full-column-width description below
-    if (field_name === 'copyright_statement') {
+    } else if (field_name === 'copyright_statement') {
         let valpts = value.split('|');
         if (valpts[0] === '') {
             return null;
@@ -384,12 +392,9 @@ function ImageInfoField(props) {
             </>
         );
     }
-    if (
-        field_name === 'field_original_filename' ||
-        field_name === 'field_license_url'
-    ) {
-        value = <span className={'t-overwrap-any'}>{value}</span>;
-    }
+
+    // Special return for copyright statement to put person and date above with full-column-width description below
+
     return (
         <ImageRow
             cls={rowclass}
