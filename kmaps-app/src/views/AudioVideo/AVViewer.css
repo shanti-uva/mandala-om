@@ -62,7 +62,7 @@
 #av-player-row {
     overflow-x: hidden;
     overflow-y: visible;
-    height: auto;
+    height: 800px;
 }
 
 div#av-trscrpt-wrapper {
@@ -72,6 +72,7 @@ div#av-trscrpt-wrapper {
 
 #av-trscrpt-wrapper #sui-trans {
     z-index: 100;
+    overflow-y: scroll;
 }
 
 #av-player-row .sui-sourceText,

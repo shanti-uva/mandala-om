@@ -1024,14 +1024,20 @@ export default class AudioVideo {
         });
 
         $('#sui-transSrcInp').on('change', () => {
-            $('#sui-transSrcGo').trigger('click');
+            $('#sui-transSrcGo button.search').trigger('click');
         }); // ON TEXT CHANGED
+
         $('#sui-transSrcB').on('click', () => {
-            curHit = Math.max(0, curHit - 1);
+            console.log('Prev: ' + curHit, hits.length);
+            curHit = curHit > 0 ? Math.max(0, curHit - 1) : hits.length - 1;
             show();
         }); // ON PREVIOUS
         $('#sui-transSrcF').on('click', () => {
-            curHit = Math.min(hits.length - 1, curHit + 1);
+            console.log('Next: ' + curHit, hits.length);
+            curHit =
+                curHit < hits.length - 1
+                    ? Math.min(hits.length - 1, curHit + 1)
+                    : 0;
             show();
         }); // ON NEXT
 
