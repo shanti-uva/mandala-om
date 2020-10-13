@@ -323,13 +323,16 @@ function ImageDescription(props) {
             ? desc.field_author.und[0].value
             : defaultauth;
     const clsstr = author === '' ? 'byline noauthor' : 'byline';
+    const desctxt = desc?.field_description?.und
+        ? desc.field_description.und[0].value
+        : '';
     return (
         <div className={'o-desc'}>
             <h5 className={'o-desc__title'}>{desc.title}</h5>
             <p className={'o-desc__' + clsstr}>
                 {author} ({descdate})
             </p>
-            <HtmlCustom markup={desc.field_description.und[0].value} />
+            <HtmlCustom markup={desctxt} />
         </div>
     );
 }
