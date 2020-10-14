@@ -7,8 +7,8 @@ import { ImagesViewer } from '../views/Images/ImagesViewer';
 import { ImagesHome } from '../views/Images/ImagesHome';
 import { TextsViewer } from '../views/Texts/TextsViewer';
 import { TextsHome } from '../views/Texts/TextsHome';
-import { SourcesViewer } from '../views/SourcesViewer';
-import { SourcesHome } from '../views/SourcesHome';
+import { SourcesViewer } from '../views/Sources/SourcesViewer';
+import { SourcesHome } from '../views/Sources/SourcesHome';
 import { VisualsViewer } from '../views/VisualsViewer';
 import { VisualsHome } from '../views/VisualsHome';
 import { RelatedsViewer } from '../views/Kmaps/RelatedViewer/RelatedsViewer';
@@ -84,11 +84,12 @@ export function ContentMain(props) {
 
                         {/* SOURCES */}
                         <Route path={`${path}sources/:id`}>
-                            <SourcesViewer
-                                id={props.id}
-                                sui={props.sui}
-                                onStateChange={props.onStateChange}
-                            />
+                            <GenAssetContext assetType={'sources'}>
+                                <SourcesViewer
+                                    ismain={true}
+                                    onStateChange={props.onStateChange}
+                                />
+                            </GenAssetContext>
                         </Route>
                         <Route path={`${path}sources`}>
                             <SourcesHome />

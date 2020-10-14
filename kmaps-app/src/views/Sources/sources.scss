@@ -1,0 +1,26 @@
+main.l-column__main.sources {
+    background-color: #ddd;
+}
+
+.c-source {
+    max-width: 1000px;
+    margin: 8px auto 8px 0;
+    background-color: #f7f7f7;
+    border: 1px solid #999;
+    border-radius: 6px;
+    padding: 50px;
+    font-weight: 400;
+    color: #000;
+
+    .c-source__head {
+        padding-bottom: 1rem;
+        border-bottom: thin solid #000;
+    }
+    .c-source__title {
+        font-family: 'EB Garamond', serif;
+        font-weight: 500;
+        color: #000;
+        line-height: 24px;
+        font-size: 20px;
+    }
+}
