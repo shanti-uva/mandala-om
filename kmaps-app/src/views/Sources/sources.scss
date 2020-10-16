@@ -16,11 +16,71 @@ main.l-column__main.sources {
         padding-bottom: 1rem;
         border-bottom: thin solid #000;
     }
+
     .c-source__title {
+        font-weight: 400;
+        color: #000;
+        letter-spacing: 0.0575rem;
+    }
+
+    h2.c-source__second-head {
         font-family: 'EB Garamond', serif;
         font-weight: 500;
         color: #000;
         line-height: 24px;
-        font-size: 20px;
+        font-size: 2.25rem;
+        font-style: italic;
+    }
+
+    h3.c-source__third-head {
+        color: #000;
+        font-family: 'EB Garamond', serif;
+        line-height: 1.25em;
+        font-weight: 500;
+        font-size: 2rem;
+    }
+    .row {
+        font-size: 1.4rem;
+        line-height: 3rem;
+    }
+
+    .row .u-label {
+        font-size: 1.2rem !important;
+        padding-top: 0.15rem;
+    }
+    .row .u-label:after {
+        content: ': ';
+        padding-right: 1rem !important;
+    }
+
+    .row.agents {
+        line-height: inherit;
+        font-size: 1.2rem;
+    }
+
+    .row.agents .u-icon__agents {
+        color: #6e65cc;
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+    }
+
+    .row.agents .agent:after {
+        content: ', ';
+        padding-right: 4px;
+    }
+
+    .row.agents .agent:last-child:after {
+        content: '';
+    }
+
+    .row.collection .u-value a:after {
+        content: '>';
+        padding: 0 1rem;
+    }
+    .row.collection .u-value a:last-child:after {
+        content: '';
+    }
+    .row.abstract .u-value {
+        line-height: 2.5rem;
     }
 }
