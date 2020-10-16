@@ -98,6 +98,25 @@ export function Home(props) {
                                     <Link to={'/search'}>/search</Link>
                                 </li>
                             </ul>
+                            <h4>Sources</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/sources/26856'}>
+                                        Source: Winternitz Dummy Test
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/sources/87826'}>
+                                        Source: 100% Renewable Energy Systems
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/sources/87476'}>
+                                        Source: Accounting for Nat. Resources
+                                        &amp; Env. Sustainability
+                                    </Link>
+                                </li>
+                            </ul>
 
                             <h4>Images</h4>
                             <ul>
