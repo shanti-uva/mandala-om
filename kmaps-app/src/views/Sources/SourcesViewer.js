@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import $ from 'jquery';
 import './sources.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
+import { MandalaPopover } from '../common/MandalaPopover';
 
 export function SourcesViewer(props) {
     const solrdoc = props.mdlasset;
@@ -39,6 +40,7 @@ export function SourcesViewer(props) {
 
     {
         /* Returning fields conditional on having value. This is the bulk of the component */
+        /* Need to deal with field_kmaps_subjects, field_kmaps_places field_language_kmaps, field_kmaps_terms */
     }
     return (
         <Container fluid className={'c-source__container'}>
@@ -86,6 +88,23 @@ export function SourcesViewer(props) {
                 <SourcesRow
                     label={'Source ID'}
                     value={'sources-' + nodejson.nid}
+                />
+
+                <SourcesKmap
+                    label={'Language'}
+                    field={nodejson.field_language_kmaps}
+                />
+                <SourcesKmap
+                    label={'Places'}
+                    field={nodejson.field_kmaps_places}
+                />
+                <SourcesKmap
+                    label={'Subjects'}
+                    field={nodejson.field_kmaps_subjects}
+                />
+                <SourcesKmap
+                    label={'Terms'}
+                    field={nodejson.field_kmaps_terms}
                 />
 
                 {/* Abstract, Link, Etc. */}
@@ -196,6 +215,17 @@ function SourcesCollection(props) {
         return <SourcesRow label={'Collection'} value={colpath} />;
     }
     return null;
+}
+
+function SourcesKmap(props) {
+    const kmfield = props.field;
+    if (!kmfield || !kmfield?.und || kmfield.und.length == 0) {
+        return null;
+    }
+    const kmchildren = kmfield.und.map((kmitem) => {
+        return <MandalaPopover domain={kmitem.domain} kid={kmitem.id} />;
+    });
+    return <SourcesRow label={props.label} value={kmchildren} />;
 }
 
 function SourcesRow(props) {

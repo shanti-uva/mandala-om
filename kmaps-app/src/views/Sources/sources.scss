@@ -60,7 +60,7 @@ main.l-column__main.sources {
 
     .row.agents .u-icon__agents {
         color: #6e65cc;
-        font-size: 1.25rem;
+        font-size: 1.4rem;
         margin-right: 0.75rem;
     }
 
@@ -82,5 +82,9 @@ main.l-column__main.sources {
     }
     .row.abstract .u-value {
         line-height: 2.5rem;
+    }
+
+    .row .u-bo {
+        font-size: 120%;
     }
 }
