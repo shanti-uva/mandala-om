@@ -49,7 +49,7 @@ export function SourcesViewer(props) {
                     length: 45,
                     separator: ' ',
                 });
-                colpaths.push({ uid: '', name: trunctitle });
+                colpaths.push({ uid: 'sources-' + nid, name: trunctitle });
                 status.setPath(colpaths);
             }
         }
