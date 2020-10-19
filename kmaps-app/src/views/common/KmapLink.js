@@ -8,6 +8,18 @@ export function KmapLink({ uid, label, key, className }) {
     if (!key) {
         key = uid;
     }
+
+    if (id == 'collection') {
+        const pts = uid.split('-');
+        const cid = pts.pop();
+        const ctype = pts.join('-');
+        return (
+            <Link className={className} key={key} to={'/' + ctype + '/' + cid}>
+                {label}
+            </Link>
+        );
+    }
+
     return (
         <Link className={className} key={key} to={'/' + type + '/' + uid}>
             {label}

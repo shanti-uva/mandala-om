@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import useStatus from '../../hooks/useStatus';
 import { Col, Container, Row } from 'react-bootstrap';
 import $ from 'jquery';
+import _ from 'lodash';
 import './sources.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
@@ -19,11 +20,38 @@ export function SourcesViewer(props) {
     useEffect(() => {
         // Setting title in header and other status options
         if (solrdoc && ismain) {
-            status.clear();
+            status.clear(); // Clear previous status
+
+            // Set Page title
             let pgtitle = solrdoc?.title || solrdoc?.caption;
-            pgtitle = pgtitle === '' ? 'Sources Viewer' : 'Sources: ' + pgtitle;
+            pgtitle = pgtitle === '' ? 'Sources Viewer' : pgtitle;
             status.setHeaderTitle(pgtitle);
+
+            // Add Asset specific clss to main for styling
             $('main.l-column__main').addClass('sources');
+
+            // Set Breadcrumbs with Collections
+            const titles = solrdoc?.collection_title_path_ss
+                ? solrdoc.collection_title_path_ss
+                : [];
+            const nids = solrdoc?.collection_nid_path_is
+                ? solrdoc.collection_nid_path_is
+                : [];
+            if (titles.length > 0) {
+                let colpaths = titles.map((title, ind) => {
+                    return {
+                        uid: 'sources-collection-' + nids[ind],
+                        name: title,
+                    };
+                });
+                colpaths.unshift({ uid: 'sources', name: 'Sources' });
+                const trunctitle = _.truncate(solrdoc?.title, {
+                    length: 45,
+                    separator: ' ',
+                });
+                colpaths.push({ uid: '', name: trunctitle });
+                status.setPath(colpaths);
+            }
         }
     }, [solrdoc]);
 
@@ -204,15 +232,15 @@ function SourcesCollection(props) {
         ? sdata.collection_nid_path_is
         : [];
     if (titles.length > 0) {
-        const colpath = titles.map((title, ind) => {
-            const colurl = url + nids[ind];
-            return (
-                <a href={colurl} target={'_blank'}>
-                    {title}
-                </a>
-            );
-        });
-        return <SourcesRow label={'Collection'} value={colpath} />;
+        const lastind = titles.length - 1;
+        const colurl = url + nids[lastind];
+        const coltitle = titles[lastind];
+        const collink = (
+            <a href={colurl} target={'_blank'}>
+                {coltitle}
+            </a>
+        );
+        return <SourcesRow label={'Collection'} value={collink} />;
     }
     return null;
 }
@@ -237,7 +265,7 @@ function SourcesRow(props) {
     let value = props.value ? props.value : '';
     if (has_markup) {
         value = <HtmlCustom markup={value} />;
-    } else if (value.indexOf('http') == 0) {
+    } else if (typeof value == 'string' && value.indexOf('http') == 0) {
         value = (
             <a href={value} target={'_blank'}>
                 {value}
