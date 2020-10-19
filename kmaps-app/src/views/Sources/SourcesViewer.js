@@ -68,7 +68,6 @@ export function SourcesViewer(props) {
 
     {
         /* Returning fields conditional on having value. This is the bulk of the component */
-        /* Need to deal with field_kmaps_subjects, field_kmaps_places field_language_kmaps, field_kmaps_terms */
     }
     return (
         <Container fluid className={'c-source__container'}>
