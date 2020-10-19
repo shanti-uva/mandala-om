@@ -18,9 +18,10 @@ main.l-column__main.sources {
     }
 
     .c-source__title {
-        font-weight: 400;
-        color: #000;
-        letter-spacing: 0.0575rem;
+        font-family: 'EB Garamond', serif;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #333;
     }
 
     h2.c-source__second-head {
@@ -42,6 +43,8 @@ main.l-column__main.sources {
     .row {
         font-size: 1.4rem;
         line-height: 3rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .row .u-label {
@@ -56,6 +59,7 @@ main.l-column__main.sources {
     .row.agents {
         line-height: inherit;
         font-size: 1.2rem;
+        margin-top: 1.25rem;
     }
 
     .row.agents .u-icon__agents {
