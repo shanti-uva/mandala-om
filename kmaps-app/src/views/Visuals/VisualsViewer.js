@@ -151,6 +151,7 @@ export function VisualsViewer(props) {
                         field={nodejson?.field_terms_kmap}
                         icon={'terms'}
                     />
+                    {/*
                     {nodejson?.shivanode_description?.und &&
                         nodejson?.shivanode_description?.und.length > 0 && (
                             <VisualsRow
@@ -180,6 +181,7 @@ export function VisualsViewer(props) {
                             icon={'list-alt'}
                         />
                     )}
+                    */}
                 </div>
             </Col>
         </Container>
