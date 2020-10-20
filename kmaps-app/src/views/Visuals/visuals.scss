@@ -1,7 +1,66 @@
 .c-visual {
     .c-visual__player {
+        iframe {
+            border: 3px inset #efefef;
+            border-radius: 12px;
+        }
         figure > figcaption {
             display: none;
+        }
+    }
+    .c-visual__info {
+        margin-top: 2rem;
+        padding: 1rem 4rem 10rem 4rem;
+        border: 1px solid #ddd;
+        background-color: white;
+        border-radius: 12px;
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+            border-bottom: thin solid #333;
+            span.u-icon__visuals {
+                padding-right: 1rem;
+            }
+        }
+
+        .row {
+            margin-left: inherit;
+            margin-right: inherit;
+            margin-top: 0.75rem;
+            font-size: 1.35rem;
+        }
+
+        .row.kmapfield {
+            margin-top: 1rem;
+        }
+
+        .row .u-value {
+            display: inline-block;
+            margin-top: -0.3rem;
+        }
+
+        .u-value.kmapval {
+            margin-top: -1rem;
+        }
+
+        .row.visdesc .u-label {
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+        .icon {
+            padding-right: 0.7rem;
+        }
+
+        .u-label:after {
+            content: ':';
+            padding-right: 1rem;
+        }
+
+        .u-bo {
+            font-size: 2rem;
         }
     }
 }
