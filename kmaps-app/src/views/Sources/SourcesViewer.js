@@ -6,6 +6,7 @@ import _ from 'lodash';
 import './sources.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
+import { Link } from 'react-router-dom';
 
 export function SourcesViewer(props) {
     const solrdoc = props.mdlasset;
@@ -40,16 +41,17 @@ export function SourcesViewer(props) {
             if (titles.length > 0) {
                 let colpaths = titles.map((title, ind) => {
                     return {
-                        uid: 'sources-collection-' + nids[ind],
+                        uid: '/sources/collection/' + nids[ind],
                         name: title,
                     };
                 });
-                colpaths.unshift({ uid: 'sources', name: 'Sources' });
+                colpaths.unshift({ uid: '/sources', name: 'Sources' });
                 const trunctitle = _.truncate(solrdoc?.title, {
                     length: 45,
                     separator: ' ',
                 });
-                colpaths.push({ uid: 'sources-' + nid, name: trunctitle });
+                colpaths.push({ uid: '/sources/' + nid, name: trunctitle });
+                console.log('colpaths', colpaths);
                 status.setPath(colpaths);
             }
         }
@@ -262,12 +264,10 @@ function SourcesCollection(props) {
         : [];
     if (titles.length > 0) {
         const lastind = titles.length - 1;
-        const colurl = url + nids[lastind];
+        const collid = nids[lastind];
         const coltitle = titles[lastind];
         const collink = (
-            <a href={colurl} target={'_blank'}>
-                {coltitle}
-            </a>
+            <Link to={'/sources/collection/' + collid}>{coltitle}</Link>
         );
         return <SourcesRow label={'Collection'} value={collink} />;
     }

@@ -14,8 +14,8 @@ import { VisualsHome } from '../views/Visuals/VisualsHome';
 import { RelatedsViewer } from '../views/Kmaps/RelatedViewer/RelatedsViewer';
 import LegacyViewer from '../views/LegacyViewer';
 import { SearchViewer } from '../views/SearchViewer';
-import { CollectionsViewer } from '../views/CollectionsViewer';
-import { CollectionsHome } from '../views/CollectionsHome';
+import { CollectionsViewer } from '../views/Collections/CollectionsViewer';
+import { CollectionsHome } from '../views/Collections/CollectionsHome';
 import { Error404 } from '../App';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
@@ -45,6 +45,15 @@ export function ContentMain(props) {
                 </KmapContext>
                 <section id="l-content__main" className="l-content__main">
                     <Switch>
+                        {/* COLLECTIONS */}
+                        <Route path={`${path}collections`}>
+                            <CollectionsHome />
+                        </Route>
+
+                        <Route path={`${path}:asset_type/collection/:id`}>
+                            <CollectionsViewer ismain={true} />
+                        </Route>
+
                         {/* AUDIO-VIDEO */}
                         <Route path={`${path}audio-video/:id`}>
                             <GenAssetContext assetType={'audio-video'}>
@@ -173,17 +182,6 @@ export function ContentMain(props) {
                             <Redirect to={'./default'} />
                         </Route>
 
-                        {/* COLLECTIONS */}
-                        <Route path={`${path}collections/:id`}>
-                            <CollectionsViewer
-                                id={props.id}
-                                sui={props.sui}
-                                onStateChange={props.onStateChange}
-                            />
-                        </Route>
-                        <Route path={`${path}collections`}>
-                            <CollectionsHome />
-                        </Route>
                         <Route path={`${path}search/:viewMode`}>
                             <SearchContext>
                                 <SearchViewer />

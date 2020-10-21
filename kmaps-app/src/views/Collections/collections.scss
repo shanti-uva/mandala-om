@@ -1,0 +1,23 @@
+.c-collection {
+    font-size: 1.4rem;
+
+    padding: 1rem;
+    border: thin solid #aaa;
+    background-color: white;
+    height: fit-content;
+
+    .c-collection__body {
+        p.source {
+            margin-left: 4rem;
+            text-indent: -2rem;
+
+            a {
+                color: #333;
+            }
+
+            a span.biblio-title {
+                color: #144792;
+            }
+        }
+    }
+}

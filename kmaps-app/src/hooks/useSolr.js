@@ -39,6 +39,7 @@ const getSolrData = async (_, { query }) => {
         url: solrurls[query.index],
         params: myparams,
     };
+    console.log('solr request', request);
     const { data } = await axios.request(request);
     const retdata = data && data.response ? data.response : data;
 
