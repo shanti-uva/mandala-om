@@ -98,6 +98,31 @@ export function Home(props) {
                                     <Link to={'/search'}>/search</Link>
                                 </li>
                             </ul>
+
+                            <h4>Visuals</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/visuals/4451'}>
+                                        Visuals: Bloodtype Pie Chart
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5821'}>
+                                        Visuals: Vimeo Video
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/1806'}>
+                                        Visuals: Graph Indo-European Languages
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5266'}>
+                                        Visuals: Timeline DH Chronology
+                                    </Link>
+                                </li>
+                            </ul>
+
                             <h4>Sources</h4>
                             <ul>
                                 <li>
