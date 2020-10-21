@@ -48,6 +48,12 @@ main.l-column__main.sources {
         margin-right: 0;
     }
 
+    .c-sources__data {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+    }
+
     .row .u-label {
         font-size: 1.2rem !important;
         padding-top: 0.15rem;
@@ -91,5 +97,9 @@ main.l-column__main.sources {
 
     .row .u-bo {
         font-size: 120%;
+    }
+
+    span.kmap-tag-group.processed {
+        margin-top: -1rem;
     }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import useStatus from '../../hooks/useStatus';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Image } from 'react-bootstrap';
 import $ from 'jquery';
 import _ from 'lodash';
 import './sources.scss';
@@ -66,9 +66,10 @@ export function SourcesViewer(props) {
         );
     }
 
-    {
-        /* Returning fields conditional on having value. This is the bulk of the component */
-    }
+    // console.log(nodejson);
+    const data_col_width = solrdoc?.url_thumb?.length > 0 ? 8 : 12;
+
+    /* This is the bulk of the component here */
     return (
         <Container fluid className={'c-source__container'}>
             <Col className={'c-source'}>
@@ -77,75 +78,104 @@ export function SourcesViewer(props) {
                     <span className={'u-icon__sources'} />{' '}
                     <span className={'c-source__title'}>{solrdoc?.title}</span>
                 </h1>
+
                 {nodejson?.biblio_secondary_title?.length > 0 && (
                     <h2 className={'c-source__second-head'}>
                         {nodejson.biblio_secondary_title}
                     </h2>
                 )}
+
                 {nodejson?.biblio_tertiary_title?.length > 0 && (
                     <h3 className={'c-source__third-head'}>
                         {nodejson.biblio_tertiary_title}
                     </h3>
                 )}
+                <Row>
+                    <Col md={data_col_width} className={'c-sources__data'}>
+                        {nodejson?.biblio_contributors?.length > 0 && (
+                            <SourcesAgents
+                                agents={nodejson.biblio_contributors}
+                            />
+                        )}
 
-                <SourcesAgents agents={nodejson.biblio_contributors} />
+                        <SourcesCollection sdata={solrdoc} />
 
-                <SourcesCollection sdata={solrdoc} />
+                        {/* Publication Info */}
+                        <SourcesRow
+                            label={'Format'}
+                            value={nodejson.biblio_type_name}
+                        />
 
-                {/* Publication Info */}
-                <SourcesRow
-                    label={'Format'}
-                    value={nodejson.biblio_type_name}
-                />
-                {nodejson?.biblio_year?.length > 0 && (
-                    <SourcesRow
-                        label={'Publication Year'}
-                        value={nodejson.biblio_year}
-                    />
-                )}
-                {nodejson?.biblio_place_published?.length > 0 && (
-                    <SourcesRow
-                        label={'Place of Publication'}
-                        value={nodejson.biblio_place_published}
-                    />
-                )}
-                {nodejson?.biblio_pages?.length > 0 && (
-                    <SourcesRow label={'Pages'} value={nodejson.biblio_pages} />
-                )}
-                <SourcesRow
-                    label={'Source ID'}
-                    value={'sources-' + nodejson.nid}
-                />
+                        {nodejson?.biblio_year?.length > 0 && (
+                            <SourcesRow
+                                label={'Publication Year'}
+                                value={nodejson.biblio_year}
+                            />
+                        )}
 
-                <SourcesKmap
-                    label={'Language'}
-                    field={nodejson.field_language_kmaps}
-                />
-                <SourcesKmap
-                    label={'Places'}
-                    field={nodejson.field_kmaps_places}
-                />
-                <SourcesKmap
-                    label={'Subjects'}
-                    field={nodejson.field_kmaps_subjects}
-                />
-                <SourcesKmap
-                    label={'Terms'}
-                    field={nodejson.field_kmaps_terms}
-                />
+                        {nodejson?.biblio_publisher?.length > 0 && (
+                            <SourcesRow
+                                label={'Publisher'}
+                                value={nodejson.biblio_publisher}
+                            />
+                        )}
 
-                {/* Abstract, Link, Etc. */}
-                {nodejson?.biblio_abst_e?.length > 0 && (
-                    <SourcesRow
-                        label={'Abstract'}
-                        value={nodejson.biblio_abst_e}
-                        has_markup={true}
-                    />
-                )}
+                        {nodejson?.biblio_place_published?.length > 0 && (
+                            <SourcesRow
+                                label={'Place of Publication'}
+                                value={nodejson.biblio_place_published}
+                            />
+                        )}
+                        {nodejson?.biblio_pages?.length > 0 && (
+                            <SourcesRow
+                                label={'Pages'}
+                                value={nodejson.biblio_pages}
+                            />
+                        )}
+                        <SourcesRow
+                            label={'Source ID'}
+                            value={'sources-' + nodejson.nid}
+                        />
 
-                {nodejson?.biblio_url?.length > 0 && (
-                    <SourcesRow label={'url'} value={nodejson.biblio_url} />
-                )}
+                        <SourcesKmap
+                            label={'Language'}
+                            field={nodejson.field_language_kmaps}
+                        />
+                        <SourcesKmap
+                            label={'Places'}
+                            field={nodejson.field_kmaps_places}
+                        />
+                        <SourcesKmap
+                            label={'Subjects'}
+                            field={nodejson.field_kmaps_subjects}
+                        />
+                        <SourcesKmap
+                            label={'Terms'}
+                            field={nodejson.field_kmaps_terms}
+                        />
+
+                        {/* Abstract, Link, Etc. */}
+                        {nodejson?.biblio_abst_e?.length > 0 && (
+                            <SourcesRow
+                                label={'Abstract'}
+                                value={nodejson.biblio_abst_e}
+                                has_markup={true}
+                            />
+                        )}
+
+                        {nodejson?.biblio_url?.length > 0 && (
+                            <SourcesRow
+                                label={'url'}
+                                value={nodejson.biblio_url}
+                            />
+                        )}
+                    </Col>
+                    {solrdoc?.url_thumb && solrdoc.url_thumb.length > 0 && (
+                        <Col className={'c-source__thumb'}>
+                            <Image src={solrdoc.url_thumb} fluid />
+                        </Col>
+                    )}
+                </Row>
             </Col>
         </Container>
     );
