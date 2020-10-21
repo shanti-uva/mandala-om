@@ -18,6 +18,7 @@ export function CollectionsViewer(props) {
         params: {
             fq: 'asset_type:' + asset_type,
             q: 'collection_nid_path_is:' + asset_id,
+            sort: 'title_s asc',
             rows: 30,
         },
     };
@@ -86,8 +87,8 @@ export function CollectionsViewer(props) {
     }
 
     return (
-        <Container className={'c-collection ' + asset_type}>
-            <Col className={'c-collection__body'}>
+        <Container fluid className={'c-collection__container ' + asset_type}>
+            <Col className={'c-collection'}>
                 <h1>Collection Test</h1>
                 {collbody}
             </Col>
