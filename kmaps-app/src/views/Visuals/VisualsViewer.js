@@ -125,7 +125,7 @@ export function VisualsViewer(props) {
                         icon={'calendar'}
                     />
                     <VisualsRow
-                        label={'Creator'}
+                        label={'Data Entry'}
                         value={solrdoc?.node_user}
                         icon={'agents'}
                     />
