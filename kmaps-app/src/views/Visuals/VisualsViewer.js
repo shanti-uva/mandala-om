@@ -91,10 +91,12 @@ export function VisualsViewer(props) {
     return (
         <Container fluid className={'c-visual__container'}>
             <Col className={'c-visual'}>
+                {/*
                 <h1 className={'c-visual__head'}>
                     <span className={'u-icon__visuals'} />{' '}
                     <span className={'c-visual__title'}>{solrdoc?.title}</span>
                 </h1>
+                */}
                 <div className={'c-visual__player'}>
                     <HtmlCustom markup={nodejson.iframe} />
                 </div>

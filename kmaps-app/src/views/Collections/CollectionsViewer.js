@@ -67,7 +67,7 @@ export function CollectionsViewer(props) {
         }
     }, [collnids]);
 
-    let collbody = <p>There is nothing in this collection!</p>;
+    let collbody = <p>Loading ...</p>;
 
     if (solrq?.docs && solrq.docs?.length > 0) {
         if (asset_type == 'sources') {
