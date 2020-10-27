@@ -99,47 +99,33 @@ export function Home(props) {
                                 </li>
                             </ul>
 
-                            <h4>Visuals</h4>
+                            <h4>Collections</h4>
                             <ul>
                                 <li>
-                                    <Link to={'/visuals/4451'}>
-                                        Visuals: Bloodtype Pie Chart
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/visuals/5821'}>
-                                        Visuals: Vimeo Video
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/visuals/1806'}>
-                                        Visuals: Graph Indo-European Languages
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/visuals/5266'}>
-                                        Visuals: Timeline DH Chronology
+                                    <Link to={'/sources/collection/23541'}>
+                                        Collection: Sources Example
                                     </Link>
                                 </li>
                             </ul>
 
-                            <h4>Sources</h4>
+                            <h4>Audio-Video</h4>
                             <ul>
                                 <li>
-                                    <Link to={'/sources/26856'}>
-                                        Source: Winternitz Dummy Test
+                                    <Link to={'/audio-video/825'}>
+                                        Video: Carpenter of Lhagya Ri Palace
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/sources/87826'}>
-                                        Source: 100% Renewable Energy Systems
+                                    <Link to={'/audio-video/306'}>
+                                        Video: Dawa and Pudrön Flirt
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/sources/87476'}>
-                                        Source: Accounting for Nat. Resources
-                                        &amp; Env. Sustainability
-                                    </Link>
+                                    <Link to={'/audio-video/9246'}>
+                                        Video: Riddle of the Terma Vase
+                                    </Link>{' '}
+                                    (Many Agents, Transcript, Tibetan and
+                                    Chinese text)
                                 </li>
                             </ul>
 
@@ -167,24 +153,23 @@ export function Home(props) {
                                 </li>
                             </ul>
 
-                            <h4>Audio-Video</h4>
+                            <h4>Sources</h4>
                             <ul>
                                 <li>
-                                    <Link to={'/audio-video/825'}>
-                                        Video: Carpenter of Lhagya Ri Palace
+                                    <Link to={'/sources/26856'}>
+                                        Source: Winternitz Dummy Test
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/audio-video/306'}>
-                                        Video: Dawa and Pudrön Flirt
+                                    <Link to={'/sources/87826'}>
+                                        Source: 100% Renewable Energy Systems
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/audio-video/9246'}>
-                                        Video: Riddle of the Terma Vase
-                                    </Link>{' '}
-                                    (Many Agents, Transcript, Tibetan and
-                                    Chinese text)
+                                    <Link to={'/sources/87476'}>
+                                        Source: Accounting for Nat. Resources
+                                        &amp; Env. Sustainability
+                                    </Link>
                                 </li>
                             </ul>
 
@@ -206,6 +191,30 @@ export function Home(props) {
                                         Text: Hagar of The Pawn-Shop
                                     </Link>{' '}
                                     has Hagar... and a Pawn Shop.
+                                </li>
+                            </ul>
+
+                            <h4>Visuals</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/visuals/4451'}>
+                                        Visuals: Bloodtype Pie Chart
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5821'}>
+                                        Visuals: Vimeo Video
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/1806'}>
+                                        Visuals: Graph Indo-European Languages
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5266'}>
+                                        Visuals: Timeline DH Chronology
+                                    </Link>
                                 </li>
                             </ul>
 
