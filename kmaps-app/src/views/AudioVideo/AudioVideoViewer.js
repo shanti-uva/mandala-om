@@ -33,6 +33,7 @@ export function AudioVideoViewer(props) {
     const base_path = process.env.PUBLIC_URL;
     const ismain = props.ismain ? props.ismain : false; // set to true when the av viewer is the main component on the page
 
+    const [playerDrawn, setPlayerDrawn] = useState(false);
     const status = useStatus();
 
     // Do Status Stuff (Title and Breadcrumbs)
@@ -99,12 +100,20 @@ export function AudioVideoViewer(props) {
         $('#l-site__wrap').addClass('av');
     }, []);
 
+    // Effect to Draw AV player once kmasset and nodejson return
     useEffect(() => {
         if (kmasset && nodejson) {
-            sui.av.DrawPlayer(kmasset, nodejson);
+            // Should only redraw if kmasset and nodejson change but redrawns on some clicks
+            // So created a state variable playerDrawn so it doesn't redraw the player
+            if (!playerDrawn) {
+                sui.av.DrawPlayer(kmasset, nodejson);
+                window.sui = sui;
+                setPlayerDrawn(true);
+            }
         }
-    }, [kmasset, nodejson]);
+    }, [kmasset, nodejson]); // Depend on kmasset and nodejson
 
+    // Return the av-viewer div with div for Bill's drawing of AV player and AV metadata
     return (
         <div id={'av-viewer'}>
             <div id={'sui-av'}>Loading ...</div>

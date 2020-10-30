@@ -99,26 +99,11 @@ export function Home(props) {
                                 </li>
                             </ul>
 
-                            <h4>Images</h4>
+                            <h4>Collections</h4>
                             <ul>
                                 <li>
-                                    <Link to={'/images/1421596'}>
-                                        Image: Dudul Dorjay Festival Photo
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/images/160186'}>
-                                        Image: High Tibet Chu ser
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/images/1243906'}>
-                                        Image: Lhasa Mural Painting
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to={'/images/45806'}>
-                                        Image: Woman on Basum Island
+                                    <Link to={'/sources/collection/23541'}>
+                                        Collection: Sources Example
                                     </Link>
                                 </li>
                             </ul>
@@ -144,6 +129,50 @@ export function Home(props) {
                                 </li>
                             </ul>
 
+                            <h4>Images</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/images/1421596'}>
+                                        Image: Dudul Dorjay Festival Photo
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/images/160186'}>
+                                        Image: High Tibet Chu ser
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/images/1243906'}>
+                                        Image: Lhasa Mural Painting
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/images/45806'}>
+                                        Image: Woman on Basum Island
+                                    </Link>
+                                </li>
+                            </ul>
+
+                            <h4>Sources</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/sources/26856'}>
+                                        Source: Winternitz Dummy Test
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/sources/87826'}>
+                                        Source: 100% Renewable Energy Systems
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/sources/87476'}>
+                                        Source: Accounting for Nat. Resources
+                                        &amp; Env. Sustainability
+                                    </Link>
+                                </li>
+                            </ul>
+
                             <h4>Texts</h4>
                             <ul>
                                 <li>
@@ -162,6 +191,30 @@ export function Home(props) {
                                         Text: Hagar of The Pawn-Shop
                                     </Link>{' '}
                                     has Hagar... and a Pawn Shop.
+                                </li>
+                            </ul>
+
+                            <h4>Visuals</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/visuals/4451'}>
+                                        Visuals: Bloodtype Pie Chart
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5821'}>
+                                        Visuals: Vimeo Video
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/1806'}>
+                                        Visuals: Graph Indo-European Languages
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5266'}>
+                                        Visuals: Timeline DH Chronology
+                                    </Link>
                                 </li>
                             </ul>
 

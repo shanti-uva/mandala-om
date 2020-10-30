@@ -41,7 +41,7 @@ function FancyTree({
             tree,
         };
 
-        console.log('FancyTree: tree=', tree, ' kmapSolrUtil opts = ', ks_opts);
+        // console.log('FancyTree: tree=', tree, ' kmapSolrUtil opts = ', ks_opts);
 
         const solrUtils = kmapsSolrUtils.init(ks_opts);
 
@@ -79,7 +79,7 @@ function FancyTree({
             params,
         };
 
-        console.log('FancyTree: tree=', tree, ' tree_opts = ', tree_opts);
+        // console.log('FancyTree: tree=', tree, ' tree_opts = ', tree_opts);
 
         elCopy.kmapsRelationsTree(tree_opts);
         return () => {

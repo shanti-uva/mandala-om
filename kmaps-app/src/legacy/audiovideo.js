@@ -953,6 +953,12 @@ export default class AudioVideo {
     DrawTranscriptMenu() {
         // DRAW TRANSCRIPT MENU
         var res = this.transRes; // Point at res
+        var browser = navigator.userAgent.includes('Chrome')
+            ? 'chrome'
+            : navigator.userAgent.includes('Firefox')
+            ? 'firefox'
+            : 'safari';
+
         var str = `<div id='av-trscrpt-wrapper' class='col'>
             <div class='av-trscrpt-ctrls row'>
                 <div id='sui-transTab0' class='sui-transTab col' title='Options'>&#xe66f&#xe609</div>
@@ -962,16 +968,27 @@ export default class AudioVideo {
                 <div id='sui-transTab4' class='sui-transTab col' title='Next line'>&#xe604</div>
                 <div id='sui-transTab5' class='sui-transTab col' style='border:none' title='Search transcript'>&#xe623</div>
                 <div id='sui-transSrc' class='sui-transSrc'>
-                    <div style='display:inline-block;margin:14px 0 0 16px;user-select:none'>
-                        <div id='sui-transSrcB' style='display:inline-block;color:#fff;;font-size:20px;cursor:pointer' title='Previous result'>&#xe640</div>
-                        <div id='sui-transSrcN' style='display:inline-block;color:#fff;margin:0 16px;font-size:12px;cursor:pointer;vertical-align:4px'>0 of 0</div>
-                        <div id='sui-transSrcF' style='display:inline-block;color:#fff;font-size:20px;cursor:pointer' title='Previous result'>&#xe641</div>
+                    <div class="transSrcWrap ${browser}">
+                        <div class="navigator">
+                            <div class="navwrapper" style="display: none;">
+                                <div id='sui-transSrcB' style='display:inline-block;color:#fff;font-size:20px;cursor:pointer' title='Previous result'>&#xe640</div>
+                                <div id='sui-transSrcN' style='display:inline-block;color:#fff;margin:0 16px;font-size:12px;cursor:pointer;vertical-align:4px'>0 of 0</div>
+                                <div id='sui-transSrcF' style='display:inline-block;color:#fff;font-size:20px;cursor:pointer' title='Previous result'>&#xe641</div>
+                            </div>
                         </div>
-                    <div id='sui-transSrcGo' class='sui-search4' style='float:right;margin:12px 16px 0 0'>&#xe623</div>
-                    <div class='sui-search1' style='float:right;margin-top:12px'>
-                        <input type='text' id='sui-transSrcInp' class='sui-search2' placeholder='Search this transcript'>
-                        <div id='sui-clear' class='sui-search3'>&#xe610</div>
-                    </div>
+                        <div id='sui-transSrcGo' class='sui-search4'>
+                            <input type='text' id='sui-transSrcInp' class='sui-search2' size='40' placeholder='Search this transcript'/>
+                            <span class="icon shanticon-magnify search"></span>
+                            <span class="icon shanticon-cancel clear" style="display: none;"></span>
+                            <button class="search"><span class="icon shanticon-angle-right"></span></button>
+                        </div>
+                        <!--
+                        <div id='sui-transSrcGo' class='sui-search4'>&#xe623</div> &lt;!&ndash; style='float:right;margin:12px 16px 0 0' &ndash;&gt;
+                            <div class='sui-search1'> &lt;!&ndash; style='float:right;margin-top:12px' &ndash;&gt;
+                                <input type='text' id='sui-transSrcInp' class='sui-search2' placeholder='Search this transcript'>
+                                <div id='sui-clear' class='sui-search3'>&#xe610</div>
+                            </div>
+                        </div>-->
                     </div>
                 <div id='sui-transOps' class='sui-transOps'></div>
             </div>
@@ -982,13 +999,14 @@ export default class AudioVideo {
         var curHit = 0,
             hits = []; // Holds search hits
 
-        $('#sui-transSrcGo').on('click', () => {
+        $('#sui-transSrcGo button.search').on('click', () => {
             // ON SEARCH
             let i, r, lang;
             hits = [];
             curHit = 0; // Reset hits
 
             if ($('#sui-transSrcInp').val()) {
+                //console.log("Trans Search val: " + $('#sui-transSrcInp').val());
                 // If a valid term
                 r = RegExp($('#sui-transSrcInp').val(), 'i'); // Turn into regex
                 for (
@@ -999,26 +1017,64 @@ export default class AudioVideo {
                     for (lang in res.languages) // For each language
                         if (res.segs[i][lang] && res.segs[i][lang].match(r))
                             hits.push(i); // If something there
+                window.sui.av.transhits = hits;
             }
-            show(); // Show status
+            show(hits); // Show status
+            $('#sui-transSrcGo .icon.clear').show();
         });
 
         $('#sui-transSrcInp').on('change', () => {
-            $('#sui-transSrcGo').trigger('click');
+            $('#sui-transSrcGo button.search').trigger('click');
         }); // ON TEXT CHANGED
+
         $('#sui-transSrcB').on('click', () => {
-            curHit = Math.max(0, curHit - 1);
+            curHit = curHit > 0 ? Math.max(0, curHit - 1) : hits.length - 1;
             show();
         }); // ON PREVIOUS
         $('#sui-transSrcF').on('click', () => {
-            curHit = Math.min(hits.length - 1, curHit + 1);
+            curHit =
+                curHit < hits.length - 1
+                    ? Math.min(hits.length - 1, curHit + 1)
+                    : 0;
             show();
         }); // ON NEXT
 
-        function show() {
+        $('div#sui-transSrcGo .icon.clear').on('click', () => {
+            $('.srchit').each(function () {
+                var mytxt = $(this).text();
+                $(this).replaceWith(mytxt);
+            });
+            $('#sui-transSrcInp').val('');
+            $(
+                'div#sui-transSrcGo .icon.clear, .transSrcWrap .navwrapper'
+            ).hide();
+        });
+
+        function show(hits) {
             // SHOW STATUS
-            const sui = this.sui;
+            const sui = window.sui;
+            if (typeof hits == 'undefined') {
+                hits = sui.av.transhits;
+            }
+            // Remove previous highlights
+            $('.srchit').each(function () {
+                var mytxt = $(this).text();
+                $(this).replaceWith(mytxt);
+            });
+            // Highlight all hits
+            hits.map(function (hid) {
+                var segtxt = $('#sui-transBox-' + hid + ' span').html();
+                var srchval = $('#sui-transSrcInp').val();
+                segtxt = segtxt.replace(
+                    new RegExp(srchval, 'g'),
+                    `<span class="srchit">${srchval}</span>`
+                );
+                $('#sui-transBox-' + hid + ' span').html(segtxt);
+            });
             var t = hits.length ? curHit + 1 : 0; // Current number
+            if (hits.length > 0) {
+                $('.transSrcWrap .navwrapper').show();
+            }
             $('#sui-transSrcN').html(t + ' of ' + hits.length); // Set number found
             if (hits.length) {
                 // If somthing
@@ -1095,6 +1151,12 @@ export default class AudioVideo {
 
         $('#sui-transTab5').on('click', () => {
             $('#sui-transSrc').slideToggle('fast');
+
+            if ($('#av-trscrpt-wrapper #sui-trans').hasClass('searchshown')) {
+                $('#av-trscrpt-wrapper #sui-trans').removeClass('searchshown');
+            } else {
+                $('#av-trscrpt-wrapper #sui-trans').addClass('searchshown');
+            }
         }); // ON SEARCH MENU CLICK
 
         $('#sui-transTab1').on('click', (e) => {

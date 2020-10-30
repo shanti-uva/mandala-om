@@ -39,6 +39,7 @@ const getSolrData = async (_, { query }) => {
         url: solrurls[query.index],
         params: myparams,
     };
+    console.log('solr request', request);
     const { data } = await axios.request(request);
     const retdata = data && data.response ? data.response : data;
 
@@ -56,7 +57,11 @@ export function useSolr(qkey, queryobj) {
     // console.log("useSolr: qkey = ", qkey, " queryobj = ", queryobj);
     const res = useQuery([qkey, { query: queryobj }], getSolrData);
     // console.log("useSolr: res = ", res);
-    return res && res.data ? res.data : false;
+    if (res && res.data) {
+        res.data['status'] = res.status; // Add the result status ('loading', 'success') to the data object returned. Used in GenAssetContext
+        return res.data;
+    }
+    return false;
 }
 
 /**
@@ -71,7 +76,11 @@ export function useSolrEnabled(qkey, queryobj, depvar) {
     const res = useQuery([qkey, { query: queryobj }], getSolrData, {
         enabled: depvar,
     });
-    return res && res.data ? res.data : false;
+    if (res && res.data) {
+        res.data['status'] = res.status;
+        return res.data;
+    }
+    return false;
 }
 
 /**

@@ -116,7 +116,7 @@ function TreeNav(props) {
         >
             <div>
                 <span
-                    class={
+                    className={
                         'sacrifical-dummy-element-that-is-not-displayed-for-some-reason'
                     }
                 ></span>

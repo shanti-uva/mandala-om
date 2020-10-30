@@ -1,0 +1,25 @@
+.c-collection__container {
+    .c-collection {
+        max-width: 1000px;
+        height: fit-content;
+        margin: 8px auto 8px 0;
+        padding: 2rem 4rem;
+        border: thin solid #aaa;
+        border-radius: 0.6rem;
+        background-color: white;
+        font-size: 1.4rem;
+
+        p.source {
+            margin-left: 4rem;
+            text-indent: -2rem;
+
+            a {
+                color: #333;
+            }
+
+            a span.biblio-title {
+                color: #144792;
+            }
+        }
+    }
+}

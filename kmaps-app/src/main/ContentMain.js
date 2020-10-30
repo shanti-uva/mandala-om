@@ -7,19 +7,18 @@ import { ImagesViewer } from '../views/Images/ImagesViewer';
 import { ImagesHome } from '../views/Images/ImagesHome';
 import { TextsViewer } from '../views/Texts/TextsViewer';
 import { TextsHome } from '../views/Texts/TextsHome';
-import { SourcesViewer } from '../views/SourcesViewer';
-import { SourcesHome } from '../views/SourcesHome';
-import { VisualsViewer } from '../views/VisualsViewer';
-import { VisualsHome } from '../views/VisualsHome';
+import { SourcesViewer } from '../views/Sources/SourcesViewer';
+import { SourcesHome } from '../views/Sources/SourcesHome';
+import { VisualsViewer } from '../views/Visuals/VisualsViewer';
+import { VisualsHome } from '../views/Visuals/VisualsHome';
 import { RelatedsViewer } from '../views/Kmaps/RelatedViewer/RelatedsViewer';
 import LegacyViewer from '../views/LegacyViewer';
 import { SearchViewer } from '../views/SearchViewer';
-import { CollectionsViewer } from '../views/CollectionsViewer';
-import { CollectionsHome } from '../views/CollectionsHome';
+import { CollectionsViewer } from '../views/Collections/CollectionsViewer';
+import { CollectionsHome } from '../views/Collections/CollectionsHome';
 import { Error404 } from '../App';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
-import MdlAssetContext from '../context/MdlAssetContext';
 import GenAssetContext from '../context/GenAssetContext';
 import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
@@ -46,6 +45,15 @@ export function ContentMain(props) {
                 </KmapContext>
                 <section id="l-content__main" className="l-content__main">
                     <Switch>
+                        {/* COLLECTIONS */}
+                        <Route path={`${path}collections`}>
+                            <CollectionsHome />
+                        </Route>
+
+                        <Route path={`${path}:asset_type/collection/:id`}>
+                            <CollectionsViewer ismain={true} />
+                        </Route>
+
                         {/* AUDIO-VIDEO */}
                         <Route path={`${path}audio-video/:id`}>
                             <GenAssetContext assetType={'audio-video'}>
@@ -85,11 +93,12 @@ export function ContentMain(props) {
 
                         {/* SOURCES */}
                         <Route path={`${path}sources/:id`}>
-                            <SourcesViewer
-                                id={props.id}
-                                sui={props.sui}
-                                onStateChange={props.onStateChange}
-                            />
+                            <GenAssetContext assetType={'sources'}>
+                                <SourcesViewer
+                                    ismain={true}
+                                    onStateChange={props.onStateChange}
+                                />
+                            </GenAssetContext>
                         </Route>
                         <Route path={`${path}sources`}>
                             <SourcesHome />
@@ -97,11 +106,12 @@ export function ContentMain(props) {
 
                         {/* VISUALS */}
                         <Route path={`${path}visuals/:id`}>
-                            <VisualsViewer
-                                id={props.id}
-                                sui={props.sui}
-                                onStateChange={props.onStateChange}
-                            />
+                            <GenAssetContext assetType={'visuals'}>
+                                <VisualsViewer
+                                    ismain={true}
+                                    onStateChange={props.onStateChange}
+                                />
+                            </GenAssetContext>
                         </Route>
                         <Route path={`${path}visuals`}>
                             <VisualsHome />
@@ -172,17 +182,6 @@ export function ContentMain(props) {
                             <Redirect to={'./default'} />
                         </Route>
 
-                        {/* COLLECTIONS */}
-                        <Route path={`${path}collections/:id`}>
-                            <CollectionsViewer
-                                id={props.id}
-                                sui={props.sui}
-                                onStateChange={props.onStateChange}
-                            />
-                        </Route>
-                        <Route path={`${path}collections`}>
-                            <CollectionsHome />
-                        </Route>
                         <Route path={`${path}search/:viewMode`}>
                             <SearchContext>
                                 <SearchViewer />

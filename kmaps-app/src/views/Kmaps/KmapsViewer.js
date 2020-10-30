@@ -18,8 +18,8 @@ import MdlAssetContext from '../../context/MdlAssetContext';
 import GenAssetContext from '../../context/GenAssetContext';
 import { TextsViewer } from '../Texts/TextsViewer';
 import { ImagesViewer } from '../Images/ImagesViewer';
-import { SourcesViewer } from '../SourcesViewer';
-import { VisualsViewer } from '../VisualsViewer';
+import { SourcesViewer } from '../Sources/SourcesViewer';
+import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
 
 export default function KmapsViewer(props) {

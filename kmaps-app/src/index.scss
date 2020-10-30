@@ -373,3 +373,32 @@ div.image-wrapper.center figcaption {
 .closed {
     display: none;
 }
+
+// Not Found Page for Assets
+.c-not-found {
+    text-align: center;
+    font-size: 1.75rem !important;
+
+    .logo {
+        margin: 1rem 0 2rem;
+        max-height: 25vh;
+        opacity: 0.35;
+    }
+    h1 {
+        text-transform: capitalize;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-style: italic;
+        line-height: 3rem;
+    }
+
+    button,
+    a.btn {
+        color: lightgrey;
+        font-size: 1.5rem;
+        padding: 0.25rem 1.5rem;
+        border-radius: 2rem;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useStatus from '../hooks/useStatus';
+import useStatus from '../../hooks/useStatus';
 
 export function VisualsHome(props) {
     const status = useStatus();
