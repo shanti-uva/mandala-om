@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useStatus from '../../hooks/useStatus';
 import { useParams } from 'react-router';
 import { useSolr } from '../../hooks/useSolr';
@@ -6,12 +6,17 @@ import { Link } from 'react-router-dom';
 import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 import { Container, Col, Row } from 'react-bootstrap';
 import './collections.scss';
+import { FeatureCollection } from '../common/FeatureCollection';
 
 export function CollectionsViewer(props) {
+    const status = useStatus();
     const params = useParams();
     const asset_type = params?.asset_type;
     const asset_id = params?.id;
-    const status = useStatus();
+
+    const [startRow, setStartRow] = useState(0);
+    const [pageNum, setPageNum] = useState(0);
+    const [pageSize, setPageSize] = useState(100);
 
     const query = {
         index: 'assets',
@@ -19,11 +24,59 @@ export function CollectionsViewer(props) {
             fq: 'asset_type:' + asset_type,
             q: 'collection_nid_path_is:' + asset_id,
             sort: 'title_s asc',
-            rows: 30,
+            start: startRow,
+            rows: pageSize,
         },
     };
+
     const qkey = 'collection-' + asset_type + '-' + asset_id;
     const solrq = useSolr(qkey, query);
+
+    const pager = {
+        numFound: solrq?.numFound || 0,
+        getMaxPage: () => {
+            return Math.floor(pager.numFound / pager.getPageSize());
+        },
+        getPage: () => {
+            return pageNum;
+        },
+        setPage: (pg) => {
+            console.log('in set pg: ', pg);
+            pg = parseInt(pg);
+            if (!isNaN(pg) && pg > -1 && pg < pager.getMaxPage()) {
+                console.log('setting page num: ' + pg);
+                setPageNum(pg);
+            } else {
+                console.log('no deal', pg, isNaN(pg), pager.getMaxPage());
+            }
+        },
+        setPageSize: (size) => {
+            size = parseInt(size);
+            if (!isNaN(size) && size > 0 && size < 101) {
+                setPageSize(size);
+            }
+        },
+        getPageSize: () => {
+            return pageSize;
+        },
+        nextPage: () => {
+            pager.setPage(pager.getPage() + 1);
+        },
+        prevPage: () => {
+            pager.setPage(pager.getPage() - 1);
+        },
+        lastPage: () => {
+            pager.setPage(pager.getMaxPage());
+        },
+        firstPage: () => {
+            pager.setPage(0);
+        },
+    };
+
+    useEffect(() => {
+        console.log('Updating query ...');
+        setStartRow(pageNum * pageSize);
+    }, [pageNum, pageSize]);
 
     console.log(solrq);
     // Get the collnid list from the first record. Use in useEffect below
@@ -65,7 +118,7 @@ export function CollectionsViewer(props) {
                 status.clear();
             }
         }
-    }, [collnids]);
+    }, [asset_type, asset_id]);
 
     let collbody = <p>Loading ...</p>;
 
@@ -90,7 +143,11 @@ export function CollectionsViewer(props) {
         <Container fluid className={'c-collection__container ' + asset_type}>
             <Col className={'c-collection'}>
                 <h1>Collection Test</h1>
-                {collbody}
+                <FeatureCollection
+                    docs={solrq?.docs}
+                    pager={pager}
+                    viewMode={'deck'}
+                />
             </Col>
         </Container>
     );
