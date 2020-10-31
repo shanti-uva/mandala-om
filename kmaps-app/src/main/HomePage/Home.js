@@ -102,8 +102,13 @@ export function Home(props) {
                             <h4>Collections</h4>
                             <ul>
                                 <li>
+                                    <Link to={'/audio-video/collection/3'}>
+                                        Audio-Video Collection: THL
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to={'/sources/collection/23541'}>
-                                        Collection: Sources Example
+                                        Collection Sources: Yogācāra Example
                                     </Link>
                                 </li>
                             </ul>
