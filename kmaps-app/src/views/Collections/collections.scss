@@ -1,9 +1,8 @@
 .c-collection__container {
     .c-collection {
         .c-collection__items {
-            max-width: 1000px;
             height: fit-content;
-            margin: 8px auto 8px 0;
+            margin: 6px 0 8px 12px;
             padding: 2rem 4rem;
             border: thin solid #aaa;
             border-radius: 0.6rem;
@@ -11,10 +10,64 @@
             font-size: 1.4rem;
 
             p.colldesc {
+                min-height: 170px;
                 img.float-left {
                     margin: 0 1rem 0.5rem 0;
                     max-width: 220px;
+                    background: #fff;
+                    border-radius: 0.3rem !important;
+                    border: 2px solid #fff !important;
+                    padding: 0.8rem;
+                    box-shadow: 0 0 5px 1px #aaa inset;
                 }
+            }
+        }
+
+        .c-collection__metadata {
+            margin: -12px 0 0;
+            font-size: 1.2rem;
+
+            h3 {
+                color: #333;
+                letter-spacing: 0.15rem;
+                font-size: 1.06em;
+                text-transform: uppercase;
+                letter-spacing: 0.175rem;
+                margin-bottom: 0.6rem;
+                margin-top: 2rem;
+                background: #fff;
+                padding: 1rem 0.5rem 0.8rem 1.5rem;
+                margin-right: 0.8rem;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            ul {
+                list-style-type: disc;
+            }
+
+            ul li:before {
+                content: '';
+                width: 1rem;
+                height: 1rem;
+                background: transparent;
+                border: 1px solid #454fa4;
+                display: inline-block;
+                border-radius: 50%;
+                background-clip: padding-box;
+                margin-right: 0.65rem;
+                margin-left: -2.2rem;
+                position: relative;
+                top: 0.1rem;
+            }
+
+            ul li {
+                list-style-type: none;
+                display: block;
+                line-height: 2.3rem;
+            }
+
+            ul li a {
+                letter-spacing: 0.04rem;
             }
         }
     }

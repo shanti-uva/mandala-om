@@ -7,8 +7,8 @@ import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 import { Container, Col, Row } from 'react-bootstrap';
 import './collections.scss';
 import { FeatureCollection } from '../common/FeatureCollection';
-import useMandala from '../../hooks/useMandala';
 import useCollection from '../../hooks/useCollection';
+import $ from 'jquery';
 
 export function CollectionsViewer(props) {
     const status = useStatus();
@@ -86,6 +86,7 @@ export function CollectionsViewer(props) {
     useEffect(() => {
         if (props.ismain) {
             if (collsolr) {
+                console.log('Coll solr!', collsolr);
                 status.setHeaderTitle(collsolr.title + ' (Collection)');
                 let coll_paths = [
                     {
@@ -107,6 +108,21 @@ export function CollectionsViewer(props) {
         }
     }, [collsolr]);
 
+    // Do Owner
+    const owner = collsolr?.node_user_full_s
+        ? collsolr.node_user_full_s
+        : collsolr.node_user;
+    // Do Parent collection
+    let parentcoll = collsolr?.collection_nid;
+    if (parentcoll) {
+        parentcoll = (
+            <li>
+                <Link to={parentcoll}>{collsolr.collection_title}</Link>
+            </li>
+        );
+    }
+
+    // Do subcollections
     const subcollids = collsolr?.subcollection_id_is;
     const subcolltitles = collsolr?.subcollection_name_ss;
     let subcolldata = subcollids?.map(function (item, n) {
@@ -117,7 +133,7 @@ export function CollectionsViewer(props) {
     }
     const subcolls = subcolldata?.map(function (item) {
         const [sctitle, scid] = item.split('###');
-        const scurl = asset_type + '/collection/' + scid;
+        const scurl = scid;
         return (
             <li>
                 <Link to={scurl}>{sctitle}</Link>
@@ -129,15 +145,18 @@ export function CollectionsViewer(props) {
     return (
         <Container fluid className={'c-collection__container ' + asset_type}>
             <Row className={'c-collection'}>
-                <Col className={'c-collection__items'}>
-                    <p className={'colldesc'}>
-                        <img
-                            src={collsolr.url_thumb}
-                            className={'rounded float-left'}
-                            alt={'alignment'}
-                        />
-                        {collsolr?.summary}
-                    </p>
+                <Col md={'6'} className={'c-collection__items'}>
+                    {(collsolr?.url_thumb?.length > 0 ||
+                        $.trim(collsolr?.summary).length > 0) && (
+                        <p className={'colldesc'}>
+                            <img
+                                src={collsolr.url_thumb}
+                                className={'rounded float-left'}
+                                alt={'alignment'}
+                            />
+                            {collsolr?.summary}
+                        </p>
+                    )}
                     <h3>{atypeLabel} Items in This Collection</h3>
                     <FeatureCollection
                         docs={solrq?.docs}
@@ -145,10 +164,31 @@ export function CollectionsViewer(props) {
                         viewMode={'deck'}
                     />
                 </Col>
-                <Col className={'c-collection__metadata'}>
-                    <h3>Subcollections</h3>
-                    <ul>{subcolls}</ul>
+                <Col md={2} className={'c-collection__metadata'}>
+                    {parentcoll && (
+                        <>
+                            <h3>Parent Collection</h3>
+                            <ul>{parentcoll}</ul>
+                        </>
+                    )}
+
+                    {subcolls && (
+                        <>
+                            <h3>Subcollections</h3>
+                            <p>
+                                This collection has {subcolls.length}{' '}
+                                subcollections.
+                            </p>
+                            <ul>{subcolls}</ul>
+                        </>
+                    )}
+
+                    <h3>Owner</h3>
+                    <ul>
+                        <li>{owner}</li>
+                    </ul>
                 </Col>
+                <Col md={4}></Col>
             </Row>
         </Container>
     );
