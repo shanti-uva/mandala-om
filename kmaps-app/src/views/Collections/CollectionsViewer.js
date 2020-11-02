@@ -148,7 +148,7 @@ export function CollectionsViewer(props) {
                 <Col md={'6'} className={'c-collection__items'}>
                     {(collsolr?.url_thumb?.length > 0 ||
                         $.trim(collsolr?.summary).length > 0) && (
-                        <p className={'colldesc'}>
+                        <p className={'colldesc clearfix'}>
                             <img
                                 src={collsolr.url_thumb}
                                 className={'rounded float-left'}
@@ -157,7 +157,9 @@ export function CollectionsViewer(props) {
                             {collsolr?.summary}
                         </p>
                     )}
-                    <h3>{atypeLabel} Items in This Collection</h3>
+                    <h3 className={'clearfix'}>
+                        {atypeLabel} Items in This Collection
+                    </h3>
                     <FeatureCollection
                         docs={solrq?.docs}
                         pager={pager}

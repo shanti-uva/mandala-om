@@ -10,10 +10,12 @@
             font-size: 1.4rem;
 
             p.colldesc {
+                height: fit-content;
                 min-height: 170px;
-                img.float-left {
+                img {
                     margin: 0 1rem 0.5rem 0;
                     max-width: 220px;
+                    max-height: 250px;
                     background: #fff;
                     border-radius: 0.3rem !important;
                     border: 2px solid #fff !important;
