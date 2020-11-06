@@ -25,6 +25,7 @@ import KmapsViewer from '../views/Kmaps/KmapsViewer';
 import PlacesHome from '../views/PlacesHome';
 import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
+import { CollectionsRedirect } from '../views/Collections/CollectionsRedirect';
 
 export function ContentMain(props) {
     // console.log('ContentPanel: props =  ', props);
@@ -50,8 +51,14 @@ export function ContentMain(props) {
                             <CollectionsHome />
                         </Route>
 
-                        <Route path={`${path}:asset_type/collection/:id`}>
+                        <Route
+                            path={`${path}:asset_type/collection/:id/:view_mode`}
+                        >
                             <CollectionsViewer ismain={true} />
+                        </Route>
+
+                        <Route path={`${path}:asset_type/collection/:id`}>
+                            <CollectionsRedirect />
                         </Route>
 
                         {/* AUDIO-VIDEO */}

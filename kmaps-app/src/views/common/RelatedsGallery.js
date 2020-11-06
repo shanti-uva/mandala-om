@@ -16,6 +16,7 @@ export function RelatedsGallery(props) {
         <FeatureCollection
             docs={docs}
             pager={props.pager}
+            numFound={assets.count}
             title={title}
             viewMode={'gallery'}
             inline={true}

@@ -8,26 +8,31 @@ import { Container, Col, Row } from 'react-bootstrap';
 import './collections.scss';
 import { FeatureCollection } from '../common/FeatureCollection';
 import useCollection from '../../hooks/useCollection';
+import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 
 export function CollectionsViewer(props) {
     const status = useStatus();
     const params = useParams();
+    const view_mode = params?.view_mode;
     const asset_type = params?.asset_type;
     const asset_id = params?.id;
+
+    const atypeLabel = <span className={'text-capitalize'}>{asset_type}</span>;
     const collsolr = useCollection(asset_type, asset_id);
-    console.log('collsolr', collsolr);
+    //console.log('coll solr', collsolr);
 
     const [startRow, setStartRow] = useState(0);
     const [pageNum, setPageNum] = useState(0);
     const [pageSize, setPageSize] = useState(100);
+    const [numFound, setNumFound] = useState(0);
 
     const query = {
         index: 'assets',
         params: {
-            fq: 'asset_type:' + asset_type,
+            fq: ['asset_type:' + asset_type, '-asset_subtype:page'],
             q: 'collection_nid_path_is:' + asset_id,
-            sort: 'title_s asc',
+            sort: 'title_sort_s asc',
             start: startRow,
             rows: pageSize,
         },
@@ -35,9 +40,11 @@ export function CollectionsViewer(props) {
 
     const qkey = 'collection-' + asset_type + '-' + asset_id;
     const solrq = useSolr(qkey, query);
-    const atypeLabel = <span className={'text-capitalize'}>{asset_type}</span>;
+
+    //console.log(solrq);
+
     const pager = {
-        numFound: solrq?.numFound || 0,
+        numFound: numFound,
         getMaxPage: () => {
             return Math.floor(pager.numFound / pager.getPageSize());
         },
@@ -46,14 +53,16 @@ export function CollectionsViewer(props) {
         },
         setPage: (pg) => {
             pg = parseInt(pg);
-            if (!isNaN(pg) && pg > -1 && pg < pager.getMaxPage()) {
+            if (!isNaN(pg) && pg > -1 && pg <= pager.getMaxPage()) {
                 setPageNum(pg);
+                pager.pgnum = pg;
             }
         },
         setPageSize: (size) => {
             size = parseInt(size);
             if (!isNaN(size) && size > 0 && size < 101) {
                 setPageSize(size);
+                pager.pgsize = size;
             }
         },
         getPageSize: () => {
@@ -77,6 +86,10 @@ export function CollectionsViewer(props) {
         setStartRow(pageNum * pageSize);
     }, [pageNum, pageSize]);
 
+    useEffect(() => {
+        setNumFound(solrq.numFound);
+    }, [solrq?.numFound]);
+
     // console.log(solrq);
     // Get the collnid list from the first record. Use in useEffect below
     const collnids =
@@ -86,7 +99,7 @@ export function CollectionsViewer(props) {
     useEffect(() => {
         if (props.ismain) {
             if (collsolr) {
-                console.log('Coll solr!', collsolr);
+                // console.log('Coll solr!', collsolr);
                 status.setHeaderTitle(collsolr.title + ' (Collection)');
                 let coll_paths = [
                     {
@@ -116,8 +129,10 @@ export function CollectionsViewer(props) {
     let parentcoll = collsolr?.collection_nid;
     if (parentcoll) {
         parentcoll = (
-            <li>
-                <Link to={parentcoll}>{collsolr.collection_title}</Link>
+            <li className={'text-nowrap'}>
+                <Link to={`/${asset_type}/collection/${parentcoll}`}>
+                    {collsolr.collection_title}
+                </Link>
             </li>
         );
     }
@@ -133,28 +148,39 @@ export function CollectionsViewer(props) {
     }
     const subcolls = subcolldata?.map(function (item) {
         const [sctitle, scid] = item.split('###');
-        const scurl = scid;
+        const scurl = `/${asset_type}/collection/${scid}`;
+        const key = `${scid}-${sctitle}`;
         return (
-            <li>
+            <li key={key} className={'text-nowrap'}>
                 <Link to={scurl}>{sctitle}</Link>
             </li>
         );
     });
 
-    // const thumburl = 'https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg';
+    let thumburl = $.trim(collsolr?.url_thumb);
+    if (thumburl && thumburl.length > 0) {
+        thumburl = (
+            <img
+                src={thumburl}
+                className={'rounded float-left'}
+                alt={'alignment'}
+            />
+        );
+    }
+    let summary = $.trim(collsolr?.summary);
+    if (summary && summary.length == 0) {
+        summary = false;
+    }
+
     return (
         <Container fluid className={'c-collection__container ' + asset_type}>
             <Row className={'c-collection'}>
-                <Col md={'6'} className={'c-collection__items'}>
+                <Col lg={8} md={9} sm={10} className={'c-collection__items'}>
                     {(collsolr?.url_thumb?.length > 0 ||
                         $.trim(collsolr?.summary).length > 0) && (
                         <p className={'colldesc clearfix'}>
-                            <img
-                                src={collsolr.url_thumb}
-                                className={'rounded float-left'}
-                                alt={'alignment'}
-                            />
-                            {collsolr?.summary}
+                            {thumburl}
+                            {summary}
                         </p>
                     )}
                     <h3 className={'clearfix'}>
@@ -162,11 +188,13 @@ export function CollectionsViewer(props) {
                     </h3>
                     <FeatureCollection
                         docs={solrq?.docs}
+                        numFound={solrq?.numFound}
                         pager={pager}
-                        viewMode={'deck'}
+                        viewMode={view_mode}
+                        inline={false}
                     />
                 </Col>
-                <Col md={2} className={'c-collection__metadata'}>
+                <Col md={2} sm={3} className={'c-collection__metadata'}>
                     {parentcoll && (
                         <>
                             <h3>Parent Collection</h3>
@@ -190,7 +218,7 @@ export function CollectionsViewer(props) {
                         <li>{owner}</li>
                     </ul>
                 </Col>
-                <Col md={4}></Col>
+                <Col sm={'auto'}></Col>
             </Row>
         </Container>
     );

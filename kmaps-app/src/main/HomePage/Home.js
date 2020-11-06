@@ -107,8 +107,25 @@ export function Home(props) {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link to={'/images/collection/45316'}>
+                                        Image Collection: Central Tibet
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to={'/sources/collection/23541'}>
-                                        Collection Sources: Yogācāra Example
+                                        Source Collection: Yogācāra Example
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/texts/collection/48596'}>
+                                        Text Collection: University of
+                                        Flourishing
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/collection/5786'}>
+                                        Visual Collection: University of
+                                        Flourishing
                                     </Link>
                                 </li>
                             </ul>

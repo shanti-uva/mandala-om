@@ -30,6 +30,7 @@ export default function KmapsViewer(props) {
     const status = useStatus();
 
     const queryParams = new URLSearchParams(useLocation().search);
+
     function grokAssetType(route, queryParams) {
         // console.log("grokAssetType props = ", props);
         // console.log("grokAssetType route = ", route  );

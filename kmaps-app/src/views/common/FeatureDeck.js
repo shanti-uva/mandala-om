@@ -134,13 +134,13 @@ export function FeatureDeck(props) {
     }
 
     const output = (
-        <React.Fragment>
-            <FeaturePager pager={props.pager} />
+        <div className={'c-view'}>
+            <FeaturePager {...props} />
             <CardDeck className={'c-card__grid'}>{LIST}</CardDeck>
-            <FeaturePager pager={props.pager} />
-        </React.Fragment>
+            <FeaturePager {...props} />
+        </div>
     );
-    return output;
+    return <div className={'c-view__wrapper deck'}>{output}</div>;
 }
 
 /* utility function to fill the remaining spaces in the last row

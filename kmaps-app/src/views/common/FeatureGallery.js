@@ -216,16 +216,16 @@ export function FeatureGallery(props) {
     // This basic markup.
     // TODO: Eventually we might not use a pager here and load the data progressively.
     const output = (
-        <React.Fragment>
+        <div className={'c-view'}>
             <FeatureGalleryHeaderLine title={props.title} />
             <FeaturePager pager={props.pager} />
             {gallery}
             <FeaturePager pager={props.pager} />
 
             <Jumbotron>{DEBUG_PRE}</Jumbotron>
-        </React.Fragment>
+        </div>
     );
-    return output;
+    return <div className={'c-view__wrapper gallery'}>{output}</div>;
 }
 
 function FeatureGalleryHeaderLine(props) {

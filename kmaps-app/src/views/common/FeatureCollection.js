@@ -1,6 +1,6 @@
 import { FeatureGallery } from './FeatureGallery';
 import React, { useState } from 'react';
-import { Redirect, useHistory, useParams } from 'react-router';
+import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import _ from 'lodash';
 import { FeatureDeck } from './FeatureDeck';
 import { FeatureList } from './FeatureList';
@@ -60,7 +60,7 @@ export function FeatureCollection(props) {
     return (
         <div className={'c-buttoneGroup__viewMode__wrap'}>
             <div className={'c-buttoneGroup__viewMode'}>
-                View Mode:{' '}
+                {/* View Mode:{' '} */}
                 <FeatureCollectionViewModeSelector viewMode={viewMode} />
                 {props.loadingState && (
                     <Spinner animation="border" role="status">
@@ -77,18 +77,19 @@ export function FeatureCollection(props) {
 
 function FeatureCollectionViewModeSelector(props) {
     const history = useHistory();
+    const qs = useLocation().search;
     const { viewMode } = props;
     const deck = { active: `viewMode === "deck"` };
     const gallery = { active: `viewMode === "gallery"` };
     const list = { active: `viewMode === "list"` };
 
     function navigate(viewMode) {
-        // console.log("navigating ", viewMode);
-        history.push(viewMode);
+        // console.log("navigating ", viewMode, qs);
+        history.push(viewMode + qs);
     }
 
-    const deckLabel = <span className={'u-icon__vcard-o icon'}></span>; // card deck
-    const galleryLabel = <span className={'u-icon__image icon'}></span>; // Gallery
+    const deckLabel = <span className={'u-icon__address-card-o icon'}></span>; // card deck
+    const galleryLabel = <span className={'u-icon__th icon'}></span>; // Gallery
     const listLabel = <span className={'u-icon__list2 icon'}></span>; // List
     return (
         <ToggleButtonGroup
@@ -97,13 +98,28 @@ function FeatureCollectionViewModeSelector(props) {
             type={'radio'}
             onChange={(mode) => navigate(mode)}
         >
-            <ToggleButton name={'viewMode'} value={'deck'} type={'radio'}>
+            <ToggleButton
+                name={'viewMode'}
+                value={'deck'}
+                type={'radio'}
+                title={'View Mode: Cards'}
+            >
                 {deckLabel}
             </ToggleButton>
-            <ToggleButton name={'viewMode'} value={'gallery'} type={'radio'}>
+            <ToggleButton
+                name={'viewMode'}
+                value={'gallery'}
+                type={'radio'}
+                title={'View Mode: Gallery'}
+            >
                 {galleryLabel}
             </ToggleButton>
-            <ToggleButton name={'viewMode'} value={'list'} type={'radio'}>
+            <ToggleButton
+                name={'viewMode'}
+                value={'list'}
+                type={'radio'}
+                title={'View Mode: List'}
+            >
                 {listLabel}
             </ToggleButton>
         </ToggleButtonGroup>

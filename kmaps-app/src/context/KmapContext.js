@@ -57,6 +57,10 @@ export default function KmapContext(props) {
         (state) => state.kmap.relatedsPage?.pageSize
     );
 
+    if (isNaN(relatedPageSize) || relatedPageSize === 0) {
+        setRelatedsPageSize(100); // TODO: Use default page size constant/variable?
+    }
+
     // Handle cases where the id is "full" or numeric  e.g "places-637" vs. "637"
     const { id: requestId, relatedType } = useParams();
     let prefix = '';
@@ -71,7 +75,7 @@ export default function KmapContext(props) {
     const pager = {
         getMaxPage: () => {
             if (!relateds.assets || !relateds.assets[relatedType]) {
-                return 0;
+                return 1;
             } else {
                 const maxCount = relateds.assets[relatedType].count;
                 const maxPage = Math.floor((maxCount - 1) / relatedPageSize);
