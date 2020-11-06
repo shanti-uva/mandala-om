@@ -51,7 +51,6 @@ export function SourcesViewer(props) {
                     separator: ' ',
                 });
                 colpaths.push({ uid: '/sources/' + nid, name: trunctitle });
-                console.log('colpaths', colpaths);
                 status.setPath(colpaths);
             }
         }

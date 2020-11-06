@@ -11,7 +11,7 @@
 
             p.colldesc {
                 height: fit-content;
-                min-height: 170px;
+                /* min-height: 170px; doesn't work when no pic and little text */
                 img {
                     margin: 0 1rem 0.5rem 0;
                     max-width: 220px;
@@ -23,7 +23,30 @@
                     box-shadow: 0 0 5px 1px #aaa inset;
                 }
             }
-        }
+
+            .card.sources {
+                border: none;
+                margin-left: 3rem !important;
+                text-indent: -3rem;
+            }
+
+            .card.texts {
+                .info {
+                    margin-left: 5rem;
+                }
+                .info .img,
+                .info img {
+                    max-width: 50px;
+                    display: none;
+                }
+            }
+
+            .card.visuals {
+                .info img {
+                    max-width: 75px;
+                }
+            }
+        } /** end of .c-collection__items **/
 
         .c-collection__metadata {
             margin: -12px 0 0;
@@ -71,6 +94,10 @@
             ul li a {
                 letter-spacing: 0.04rem;
             }
+        }
+
+        .collapse {
+            width: 100%;
         }
     }
 }

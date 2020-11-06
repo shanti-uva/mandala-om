@@ -1,10 +1,31 @@
 .c-featurePager__container {
     text-align: end;
+    margin: 0;
     padding: 0 4rem;
+
+    &.top {
+        margin-bottom: 1rem;
+    }
+
+    &.bottom {
+        margin-top: 0.5rem;
+    }
+}
+
+.c-featurePager__resultSummary {
+    float: left;
+    margin-left: 0rem;
+    font-size: 1.3rem;
+    .start,
+    .end {
+        display: inline-block;
+        margin-left: 0px;
+        margin-right: 4px;
+    }
 }
 .c-featurePager__navButtons {
     display: inline;
-    margin-right: 3rem;
+    margin-right: 1rem;
 }
 .c-featurePager__navButtons .icon {
     margin: 0;

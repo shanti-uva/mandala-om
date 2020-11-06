@@ -17,15 +17,19 @@ export function ContentHeader(props) {
         if (link.uid.charAt(0) == '/') {
             // Allow regular relative links without processing as kmaps
             pathy.push(
-                <Link to={link.uid} className={'breadcrumb-item'}>
+                <Link
+                    key={link.uid}
+                    to={link.uid}
+                    className={'breadcrumb-item'}
+                >
                     {link.name}
                 </Link>
             );
         } else {
             pathy.push(
                 <KmapLink
-                    className={'breadcrumb-item'}
                     key={link.uid}
+                    className={'breadcrumb-item'}
                     uid={link.uid}
                     label={link.name}
                 />

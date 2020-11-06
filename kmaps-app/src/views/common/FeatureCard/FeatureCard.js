@@ -106,11 +106,19 @@ export function FeatureCard(props) {
         creator = creator.replace(/\&amp\;/g, '&');
     }
 
+    let footer_coll_link = props.doc?.collection_uid_path_ss;
+    if (footer_coll_link && footer_coll_link.length > 0) {
+        footer_coll_link = footer_coll_link[footer_coll_link.length - 1];
+        footer_coll_link =
+            '/' + footer_coll_link.replace('-collection-', '/collection/');
+    }
     const footer_text = props.doc.collection_title ? (
-        <span className={'icon u-icon__collections'}>
-            {' '}
-            {props.doc.collection_title}{' '}
-        </span>
+        <Link to={footer_coll_link}>
+            <span className={'icon u-icon__collections'}>
+                {' '}
+                {props.doc.collection_title}{' '}
+            </span>
+        </Link>
     ) : (
         <span>
             {props.doc.ancestors_txt && props.doc.asset_type !== 'terms' && (
@@ -143,6 +151,7 @@ export function FeatureCard(props) {
     const asset_view = inline
         ? `./view/${props.doc.uid}?asset_type=${props.doc.asset_type}`
         : `/${viewer}/${props.doc.id}`;
+
     return (
         <Card
             key={props.doc.uid}
@@ -226,7 +235,7 @@ export function FeatureCard(props) {
                     'c-card__footer c-card__footer--' + props.doc.asset_type
                 }
             >
-                <Link>{footer_text}</Link>
+                {footer_text}
             </Card.Footer>
         </Card>
     );
