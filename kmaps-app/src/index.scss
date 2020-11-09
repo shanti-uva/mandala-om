@@ -14,14 +14,6 @@ body {
     background-color: #fafafa;
 }
 
-@media (min-width: 1940px) {
-    body,
-    * {
-        max-width: 1940px;
-        margin: 0 auto;
-    }
-}
-
 body.html {
     font-family: $font-family-sans, sans-serif;
 }
