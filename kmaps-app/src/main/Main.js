@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-    HashRouter as Router,
-    Route,
-    Redirect,
-    Switch,
-} from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import Router from './RouterSelect';
 
 import { SiteHeader } from './SiteHeader/SiteHeader';
 import { Home } from './HomePage/Home';
@@ -53,7 +49,11 @@ export function Main(props) {
 
     const searchClasses = stateList.join(' ');
     const main = (
-        <Router>
+        <Router
+            {...(process.env.REACT_APP_STANDALONE !== 'standalone'
+                ? { basename: '/mandala-om' }
+                : {})}
+        >
             <div
                 id={'l-site__wrap'}
                 className={`l-site__wrap  ${searchClasses}`}
