@@ -90,13 +90,6 @@ export function Main(props) {
                     </Route>
                 </Switch>
                 {/* Commented this out to get Asset Views to work (ndg) */}
-                <SearchContext>
-                    <SearchAdvanced
-                        advanced={state.advanced}
-                        onStateChange={handleStateChange}
-                    />
-                    <TreeNav tree={state.tree} />
-                </SearchContext>
                 <Hamburger hamburgerOpen={state.hamburgerOpen} />
             </div>
         </Router>
@@ -106,8 +99,8 @@ export function Main(props) {
     return ret;
 }
 
-function TreeNav(props) {
-    const openclass = props.tree ? 'open' : 'closed';
+export function TreeNav(props) {
+    const openclass = props.tree === 'open' ? 'open' : 'closed';
 
     const tabs = (
         <aside
