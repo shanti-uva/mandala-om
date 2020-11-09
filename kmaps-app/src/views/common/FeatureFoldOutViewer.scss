@@ -70,10 +70,9 @@
         .c-foviewer__details {
             display: flex;
             flex-direction: column;
-            min-width: 48%;
             color: white;
             margin: auto 0;
-            padding-left: 8%;
+            padding-left: 2rem;
             .info,
             .ids,
             .summary {
