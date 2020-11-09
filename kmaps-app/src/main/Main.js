@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Redirect,
     Switch,
@@ -53,7 +53,7 @@ export function Main(props) {
 
     const searchClasses = stateList.join(' ');
     const main = (
-        <Router basename={'/mandala-om'}>
+        <Router>
             <div
                 id={'l-site__wrap'}
                 className={`l-site__wrap  ${searchClasses}`}

@@ -49,6 +49,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "standalone": "REACT_APP_STANDALONE=standalone react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "predeploy": "npm run build",
