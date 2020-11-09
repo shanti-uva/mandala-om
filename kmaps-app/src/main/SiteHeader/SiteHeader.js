@@ -17,7 +17,13 @@ export function SiteHeader(props) {
     //    headroom.init();
     //  });
     const topBar = (
-        <header className={'c-site__header'}>
+        <header
+            className={
+                process.env.REACT_APP_STANDALONE !== 'standalone'
+                    ? 'c-site__header'
+                    : 'c-site__header-standalone'
+            }
+        >
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to={'/home'} className={'navbar-brand'}>
                     <img

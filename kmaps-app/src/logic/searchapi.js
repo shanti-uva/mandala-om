@@ -597,6 +597,12 @@ function cleanAssetData(data) {
 
     const asset_type = data.asset_type;
 
+    // Set the image path to account for standalone apps
+    const img_path =
+        process.env.REACT_APP_STANDALONE === 'standalone'
+            ? '/wp-content/uploads/gradient.jpg'
+            : '/mandala-om/img/gradient.jpg';
+
     //console.log("cleanAssetData ", asset_type);
 
     switch (asset_type) {
@@ -606,8 +612,8 @@ function cleanAssetData(data) {
         case 'places':
         case 'terms':
         case 'collections':
-            data.url_large = '/mandala-om/img/gradient.jpg';
-            data.url_thumb = '/mandala-om/img/gradient.jpg';
+            data.url_large = img_path;
+            data.url_thumb = img_path;
             data.url_thumb_height = 100.0;
             data.url_thumb_width = 150.0;
             break;

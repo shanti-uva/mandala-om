@@ -21,10 +21,10 @@ body.html {
 .l-column__main__wrap,
 .l-content__main,
 .l-content__main__wrap {
-    height: 100vh;
+    //height: 100vh; //causing issues with standalone
 }
 .l-content__main {
-    height: 100vh;
+    //height: 100vh; //causing issues with standalone
     width: 100vw;
     display: flex;
     margin: 1rem 0 0 0;
@@ -343,6 +343,17 @@ div.image-wrapper.center figcaption {
     position: absolute;
     top: 11rem;
     right: 1rem;
+}
+.l-column__search.open.standalone {
+    z-index: inherit;
+    flex: inherit;
+    position: relative;
+    top: inherit;
+    right: inherit;
+    width: inherit;
+    max-width: inherit;
+    background: inherit;
+    border-left: none;
 }
 .l-column__search nav:first-child {
     display: none;
