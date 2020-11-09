@@ -32,17 +32,21 @@ import { TreeNav } from './Main';
 
 export function ContentMain(props) {
     // console.log('ContentPanel: props =  ', props);
-    const [viewMode, setViewMode] = useState('off');
+    const [viewMode, setViewMode] = useState('advanced');
+    const [state, setState] = useState({});
+    const handleStateChange = (new_state) => {
+        setState({ ...state, ...new_state });
+    };
 
     function chooseViewMode(mode) {
         console.log('chooseViewMode = ', mode);
         setViewMode(mode);
         if (mode === 'off') {
-            props.onStateChange({ advanced: false, tree: false });
+            handleStateChange({ advanced: false, tree: false });
         } else if (mode === 'tree') {
-            props.onStateChange({ advanced: false, tree: true });
+            handleStateChange({ advanced: false, tree: true });
         } else if (mode === 'advanced') {
-            props.onStateChange({ advanced: true, tree: false });
+            handleStateChange({ advanced: true, tree: false });
         }
     }
 
@@ -252,10 +256,10 @@ export function ContentMain(props) {
                         <div className="advanced-search-and-tree">
                             <SearchContext>
                                 <SearchAdvanced
-                                    advanced="open"
+                                    advanced={state.advanced}
                                     onStateChange={props.onStateChange}
                                 />
-                                <TreeNav tree={`closed`} />
+                                <TreeNav tree={state.tree} />
                             </SearchContext>
                         </div>
                     </section>

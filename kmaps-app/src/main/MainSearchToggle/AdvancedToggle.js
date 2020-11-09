@@ -33,7 +33,8 @@ export function AdvancedToggle(props) {
                 onClick={(evt) => {
                     if (evt.target.value === 'tree') {
                         if (mode === 'tree') {
-                            setMode('off');
+                            evt.stopPropagation();
+                            return false;
                         } else {
                             setMode('tree');
                         }
@@ -52,7 +53,8 @@ export function AdvancedToggle(props) {
                 onClick={(evt) => {
                     if (evt.target.value === 'advanced') {
                         if (mode === 'advanced') {
-                            setMode('off');
+                            evt.stopPropagation();
+                            return false;
                         } else {
                             setMode('advanced');
                         }

@@ -100,7 +100,7 @@ export function Main(props) {
 }
 
 export function TreeNav(props) {
-    const openclass = props.tree === 'open' ? 'open' : 'closed';
+    const openclass = props.tree ? 'open' : 'closed';
 
     const tabs = (
         <aside
