@@ -88,6 +88,7 @@ export function FeatureGallery(props) {
 
     if (docs) {
         LIST = docs?.map((doc, i) => {
+            //console.log("doc", doc);
             const calc_thumb_width = doc.url_thumb_width
                 ? Number(doc.url_thumb_width)
                 : 200;
@@ -95,14 +96,29 @@ export function FeatureGallery(props) {
                 ? Number(doc.url_thumb_height)
                 : 200;
 
+            const thumb = doc.url_thumb.replace('!200,200', '!400,400');
+            const large = doc.url_thumb.replace('!200,200', '!800,800');
             const featureCard = {
-                original: doc.url_large ? doc.url_large : doc.url_thumb,
-                thumbnail: doc.url_thumb,
-                src: doc.url_thumb,
+                id: doc?.id,
+                asset_type: doc?.asset_type,
+                original: large,
+                thumbnail: thumb,
+                src: thumb,
                 width: calc_thumb_width,
                 height: calc_thumb_height,
                 key: doc.uid,
                 alt: doc.uid,
+                caption: doc.caption,
+                summary: doc?.summary,
+                creator: doc?.creator.join(', '),
+                date_created: doc?.date_start
+                    ? doc.date_start
+                    : doc.node_created,
+                full_width: doc?.img_width_s,
+                full_height: doc?.img_height_s,
+                places: doc?.kmapid_places_idfacet,
+                subjects: doc?.kmapid_subjects_idfacet,
+                terms: doc?.kmapid_terms_idfacet,
             };
             return featureCard;
         });
@@ -129,11 +145,11 @@ export function FeatureGallery(props) {
 
         // find the VIEWER by ID
         let viewer = document.getElementById(VIEWER_ID);
-
         // if its not to be found, create it.
         if (!viewer) {
             viewer = document.createElement('div');
             viewer.id = VIEWER_ID;
+            console.log('Viewer created: ', viewer);
         }
         // viewer.innerText = 'VIEWER: ' + chosen.photo.alt;
 
@@ -218,9 +234,9 @@ export function FeatureGallery(props) {
     const output = (
         <div className={'c-view'}>
             <FeatureGalleryHeaderLine title={props.title} />
-            <FeaturePager pager={props.pager} />
+            <FeaturePager {...props} />
             {gallery}
-            <FeaturePager pager={props.pager} />
+            <FeaturePager {...props} />
 
             <Jumbotron>{DEBUG_PRE}</Jumbotron>
         </div>
