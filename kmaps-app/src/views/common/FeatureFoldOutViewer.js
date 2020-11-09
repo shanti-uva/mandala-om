@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import './FeatureFoldOutViewer.scss';
 import { Link } from 'react-router-dom';
 import { MandalaPopover } from './MandalaPopover';
+import $ from 'jquery';
 
 export function FeatureFoldOutViewer(props) {
     const [uid, setUid] = useState();
@@ -35,14 +36,14 @@ export function FeatureFoldOutViewer(props) {
         ''
     );
     return (
-        <div className={'c-foviewer__inner'}>
-            <span className={'c-foviewer__close'}>
+        <>
+            <span id={'fov-close'} className={'c-foviewer__close'}>
                 <span className={'u-icon__close2'}></span>{' '}
             </span>
-            <span className="prev arrow">
-                <span className="icon"></span>
-            </span>
-            <div className={'c-foviewer__content'}>
+            <div className={'c-foviewer__inner'}>
+                <div id="previmg" className="prev arrow">
+                    <span className="u-icon__arrow3-left"></span>
+                </div>
                 <div className={'c-foviewer__image'}>
                     <img src={currimg.original} />
                 </div>
@@ -68,11 +69,11 @@ export function FeatureFoldOutViewer(props) {
                 <div className={'d-none'}>
                     <pre>focus = {JSON.stringify(currimg, undefined, 2)}</pre>
                 </div>
+                <div id="nextimg" className="next arrow">
+                    <span className="u-icon__arrow3-right"></span>
+                </div>
             </div>
-            <span className="next arrow">
-                <span className="icon"></span>
-            </span>
-        </div>
+        </>
     );
 }
 
@@ -83,7 +84,10 @@ export function FeatureFoldOutPortal({
     galleryRef,
 }) {
     const mount = document.getElementById(portalRootId);
-    const el = document.createElement('div');
+    const el =
+        mount && mount?.children?.length > 0
+            ? mount.children[0]
+            : document.createElement('div');
     useEffect(() => {
         if (mount) {
             mount.appendChild(el);

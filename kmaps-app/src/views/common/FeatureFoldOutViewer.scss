@@ -2,43 +2,78 @@
     background-color: #222;
     padding: 2rem;
 
+    // Icons and arrows
     .c-foviewer__close {
         color: white;
         font-size: 2rem;
         position: relative;
-        left: 100%;
-        top: -3rem;
+        left: 98%;
+        top: -1rem;
         cursor: pointer;
         z-index: 100;
     }
 
     .c-foviewer__inner {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
         padding: 2rem;
 
-        .c-foviewer__content {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: center;
+        .arrow {
+            color: #aaa;
+            background-color: #292929;
+            font-size: 3rem;
+            border: thin solid #444;
+            height: 14rem;
+            width: 5rem;
+            margin: auto 0;
+            padding-left: 1rem;
+            cursor: pointer;
+
+            span {
+                display: inline-block;
+                padding-top: 4.5rem;
+            }
+
+            &.prev {
+                margin-left: -4rem;
+                margin-right: 4rem;
+                border-top-right-radius: 0.5rem;
+                border-bottom-right-radius: 0.5rem;
+            }
+
+            &.next {
+                margin-left: 4rem;
+                margin-right: -4rem;
+                border-top-left-radius: 0.5rem;
+                border-bottom-left-radius: 0.5rem;
+            }
+
+            &:hover {
+                color: #ddd;
+                background-color: #393939;
+            }
         }
 
         .c-foviewer__image,
         .c-foviewer__details {
-            flex-basis: 48%;
+            /* flex-basis: 48%; */
         }
 
         .c-foviewer__image img {
             max-width: 100%;
             max-height: 500px;
-            margin: auto;
+            margin-right: 4rem;
+            /* margin: auto; */
         }
 
         .c-foviewer__details {
+            display: flex;
+            flex-direction: column;
+            min-width: 48%;
             color: white;
-            width: 100%;
-            margin: auto;
-            margin-left: 10rem;
-
+            margin: auto 0;
+            padding-left: 8%;
             .info,
             .ids,
             .summary {
@@ -58,9 +93,9 @@
             }
 
             .link {
-                background: #333;
+                color: #aaa;
+                background-color: #292929;
                 border: 1px solid #888 !important;
-                color: #eee;
                 border-radius: 0.25em;
                 background-clip: padding-box;
                 box-shadow: none;
@@ -69,10 +104,15 @@
                 padding: 1.2rem 1.5rem 1.1rem 2rem;
                 max-width: 13rem;
                 margin: 3rem auto 0 25%;
+
+                &:hover {
+                    color: #eee;
+                    background-color: #393939;
+                }
             }
 
             .link a {
-                color: #eee;
+                color: inherit;
             }
 
             .kmaprow > .icon {

@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container';
-import CardDeck from 'react-bootstrap/CardDeck';
-import CardGroup from 'react-bootstrap/CardGroup';
 import { FeaturePager } from './FeaturePager/FeaturePager';
-import { FeatureCard } from './FeatureCard/FeatureCard';
 import PhotoGallery, { Photo } from 'react-photo-gallery';
-import ImageGallery from 'react-image-gallery';
 
 import 'react-image-gallery/styles/css/image-gallery.css';
 import {
@@ -75,9 +69,44 @@ export function FeatureGallery(props) {
     // const viewerRef = useRef();
 
     useEffect((x) => {
-        // console.log('FeatureGallery  useEffect: ', x);
-        // console.log('FeatureGallery  galleryRef= ', galleryRef.current);
-        // // console.log("FeatureGallery  viewerRef= ", viewerRef.current);
+        // Effect to close Fold Out
+        const foclose = document.getElementById('fov-close');
+        if (foclose) {
+            const closehandler = (e) => {
+                const foel = document.getElementById(VIEWER_ID);
+                if (foel) {
+                    foel.remove();
+                }
+            };
+            foclose.onclick = closehandler;
+        }
+        setTimeout(checkFoPos, 1000);
+
+        // Button navigator function
+        const navigator = (e) => {
+            const buttid = e.target.parentElement.id;
+            const imgid =
+                buttid === 'previmg'
+                    ? focusedFeature.previous.id
+                    : buttid === 'nextimg'
+                    ? focusedFeature.next.id
+                    : false;
+            if (imgid) {
+                document.getElementById(imgid).click();
+            }
+        };
+
+        // Previous button
+        const prevbutt = document.getElementById('previmg');
+        if (prevbutt) {
+            prevbutt.onclick = navigator;
+        }
+
+        // Next Button
+        const nextbutt = document.getElementById('nextimg');
+        if (nextbutt) {
+            nextbutt.onclick = navigator;
+        }
     });
 
     // console.log('FeatureGallery');
@@ -141,7 +170,7 @@ export function FeatureGallery(props) {
         // console.log('FeatureGallery CLICKED galleryRef = ', galleryRef);
         // // console.log("FeatureGallery CLICKED viewerRef = ", viewerRef);
 
-        setFocusedFeature(chosen.photo);
+        setFocusedFeature(chosen);
 
         // find the VIEWER by ID
         let viewer = document.getElementById(VIEWER_ID);
@@ -205,7 +234,7 @@ export function FeatureGallery(props) {
                     onClick={handleImageClick}
                     renderImage={(props) => {
                         let atts =
-                            props.key === focusedFeature?.alt
+                            props.key === focusedFeature?.photo?.alt
                                 ? { className: SELECTED_IMG_CLASS }
                                 : {};
                         return (
@@ -222,9 +251,9 @@ export function FeatureGallery(props) {
                 into the DOM */}
             <FeatureFoldOutPortal
                 portalRootId={VIEWER_ID}
-                focus={focusedFeature}
+                focus={focusedFeature?.photo}
             >
-                <FeatureFoldOutViewer focus={focusedFeature} />
+                <FeatureFoldOutViewer focus={focusedFeature?.photo} />
             </FeatureFoldOutPortal>
         </>
     );
@@ -249,5 +278,18 @@ function FeatureGalleryHeaderLine(props) {
         return <h5 className={'sui-relatedHeader'}>{props.title}</h5>;
     } else {
         return null;
+    }
+}
+
+function checkFoPos() {
+    const foel = document.getElementById(VIEWER_ID);
+    if (foel) {
+        const brect = foel.getBoundingClientRect();
+        const winbott = window.pageYOffset + window.innerHeight;
+        if (brect.y + brect.height > winbott) {
+            const newY =
+                window.pageYOffset + brect.y + brect.height - winbott + 10;
+            window.scrollTo(0, newY);
+        }
     }
 }
