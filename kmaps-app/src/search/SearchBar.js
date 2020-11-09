@@ -43,10 +43,6 @@ export function SearchBar(props) {
                     onSubmit={handleSubmit}
                     onChange={handleInputChange}
                 />
-                <AdvancedToggle
-                    chooseViewMode={chooseViewMode}
-                    viewMode={viewMode}
-                />
             </SearchContext>
             {/*</form>*/}
         </section>

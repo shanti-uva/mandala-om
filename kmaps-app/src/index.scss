@@ -14,17 +14,14 @@ body {
     background-color: #fafafa;
 }
 
-@media (min-width: 1940px) {
-    body,
-    * {
-        max-width: 1940px;
-        margin: 0 auto;
-    }
-}
-
 body.html {
     font-family: $font-family-sans, sans-serif;
 }
+
+.two-columns {
+    display: flex;
+}
+
 .l-site__wrap,
 .l-column__main,
 .l-column__main__wrap,
@@ -44,6 +41,11 @@ body.html {
 .c-content__header__main {
     flex: 1;
 }
+
+.l-content__rightsidebar {
+    flex: 0 0 25.6rem;
+}
+
 a {
     text-decoration: none;
     color: $link-color;
@@ -123,7 +125,6 @@ div.image-wrapper.center figcaption {
 }
 // MAIN Kmaps Column ------- move this
 .c-content__main__kmaps {
-    margin: 0 1rem 0 0;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
@@ -325,24 +326,20 @@ div.image-wrapper.center figcaption {
 }
 
 // SEARCH Section ------- move this
+.advanced-search-and-tree {
+    position: relative;
+    & > * {
+        position: absolute;
+        width: 100%;
+    }
+}
 .l-column__search {
     height: 100vh;
-    width: 20vw;
-    max-width: 290px;
-    background: white;
     font-size: 1.3rem;
-    position: absolute;
-    top: 10.5rem;
-    right: 1rem;
     z-index: 1000;
-    border-left: 2px solid #ddd;
 }
 .l-column__search.open {
     z-index: 1000;
-    flex: 1;
-    position: absolute;
-    top: 11rem;
-    right: 1rem;
 }
 .l-column__search.open.standalone {
     z-index: inherit;
