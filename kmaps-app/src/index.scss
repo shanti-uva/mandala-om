@@ -474,6 +474,7 @@ div.image-wrapper.center figcaption {
             color: #fff;
         }
     }
+
     .title {
         padding-top: 0.5rem;
     }
@@ -617,6 +618,30 @@ div.image-wrapper.center figcaption {
         }
     }
 } // End list view styles
+
+// Asset Home Pages
+.assethome {
+    & > .desc {
+        font-size: 1.5rem;
+
+        & > * {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }
+
+    &.sources {
+        .c-view {
+            margin: 0 2rem;
+            font-size: 1.45rem;
+        }
+        .card {
+            border: none;
+            margin-left: 3rem !important;
+            text-indent: -3rem;
+        }
+    }
+}
 
 // Not Found Page for Assets
 .c-not-found {

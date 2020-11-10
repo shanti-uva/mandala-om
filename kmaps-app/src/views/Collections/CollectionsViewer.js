@@ -10,6 +10,8 @@ import { FeatureCollection } from '../common/FeatureCollection';
 import useCollection from '../../hooks/useCollection';
 import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
+import jsonpAdapter from '../../logic/axios-jsonp';
+import axios from 'axios';
 
 export function CollectionsViewer(props) {
     const status = useStatus();
