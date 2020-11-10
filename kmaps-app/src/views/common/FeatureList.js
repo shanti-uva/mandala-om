@@ -105,7 +105,9 @@ function FeatureAssetCard(props) {
                         <span
                             className={`shanticon-${doc.asset_type} type icon`}
                         />{' '}
-                        <Link to={doc_url}>{doc.title}</Link>
+                        <Link className={'header'} to={doc_url}>
+                            {doc.title}
+                        </Link>
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
                         <span className={'uid'}>{doc.uid}</span>
