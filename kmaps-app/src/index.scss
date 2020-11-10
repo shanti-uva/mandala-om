@@ -571,10 +571,12 @@ div.image-wrapper.center figcaption {
         opacity: 0.85;
     }
 
-    // Ancestors for kmaps
+    // Ancestors for kmaps in list view
     .ancestors {
         margin-left: 5.5rem;
         font-size: 1.3rem;
+        white-space: nowrap;
+
         span {
             display: inline-block;
             margin-left: 0.25rem;
@@ -669,5 +671,13 @@ div.image-wrapper.center figcaption {
         font-size: 1.5rem;
         padding: 0.25rem 1.5rem;
         border-radius: 2rem;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .list .c-view .ancestors {
+        white-space: normal;
+        line-height: 1.5rem;
+        font-size: 1.1rem;
     }
 }
