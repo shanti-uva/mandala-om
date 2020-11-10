@@ -69,7 +69,9 @@ function FeatureAssetCard(props) {
     const doc = props.doc;
     const doc_url = `/${doc.asset_type}/${doc.id}`;
     const collection = (
-        <Link to={`/${asset_type}/${doc.id}`}>{doc.collection_title}</Link>
+        <Link to={`/${asset_type}/collection/${doc.collection_nid}`}>
+            {doc.collection_title}
+        </Link>
     );
     let summary = doc.summary;
     if (!summary) {
