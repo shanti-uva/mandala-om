@@ -26,7 +26,7 @@ export function MandalaPopover(props) {
     // Basic Hooks
     const [show, setShow] = useState(false);
     const target = useRef(null);
-    const popref = useRef(null);
+
     // Props
     const domain = props.domain;
     const kid = props.kid;
@@ -241,6 +241,9 @@ function MandalaPopoverBody(props) {
         <>
             {related.map((item, index) => {
                 const assettype = item.groupValue;
+                if (assettype == 'picture') {
+                    return;
+                }
                 if (assettype == 'texts:pages') {
                     return;
                 }
@@ -252,7 +255,7 @@ function MandalaPopoverBody(props) {
                     assettype.substr(1).replace('-v', ' V').replace('-', ' ');
                 const iconclass = 'icon u-icon__' + assettype;
                 return (
-                    <div className="popover-footer-button">
+                    <div className="popover-footer-button" key={myurl}>
                         <a href={myurl} className={iconclass}>
                             {label} ({item.doclist.numFound})
                         </a>

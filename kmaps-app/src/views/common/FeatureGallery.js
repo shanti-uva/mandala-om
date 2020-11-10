@@ -178,7 +178,6 @@ export function FeatureGallery(props) {
         if (!viewer) {
             viewer = document.createElement('div');
             viewer.id = VIEWER_ID;
-            console.log('Viewer created: ', viewer);
         }
         // viewer.innerText = 'VIEWER: ' + chosen.photo.alt;
 

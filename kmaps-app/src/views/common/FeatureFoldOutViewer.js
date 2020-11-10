@@ -49,7 +49,8 @@ export function FeatureFoldOutViewer(props) {
                 </div>
                 <div className={'c-foviewer__details'}>
                     <h2>
-                        <span class={'u-icon__images'}></span> {currimg.caption}
+                        <span className={'u-icon__images'}></span>{' '}
+                        {currimg.caption}
                     </h2>
                     {info}
                     <div className={'ids'}>ID: {currimg?.id}</div>
@@ -110,7 +111,8 @@ function KmapsRow(props) {
         if (!kid) {
             return null;
         }
-        return <MandalaPopover domain={domain} kid={kid} />;
+        const mykey = domain + '-' + kid + Math.ceil(Math.random() * 10000);
+        return <MandalaPopover domain={domain} kid={kid} key={mykey} />;
     });
 
     return (
