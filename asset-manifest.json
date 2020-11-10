@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/mandala-om/static/css/main.ef35d315.chunk.css",
-    "main.js": "/mandala-om/static/js/main.10dca884.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.10dca884.chunk.js.map",
+    "main.css": "/mandala-om/static/css/main.00d8153d.chunk.css",
+    "main.js": "/mandala-om/static/js/main.d1dc6284.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.d1dc6284.chunk.js.map",
     "runtime-main.js": "/mandala-om/static/js/runtime-main.6b930fe2.js",
     "runtime-main.js.map": "/mandala-om/static/js/runtime-main.6b930fe2.js.map",
-    "static/css/2.8ab1ff54.chunk.css": "/mandala-om/static/css/2.8ab1ff54.chunk.css",
-    "static/js/2.7960beed.chunk.js": "/mandala-om/static/js/2.7960beed.chunk.js",
-    "static/js/2.7960beed.chunk.js.map": "/mandala-om/static/js/2.7960beed.chunk.js.map",
+    "static/css/2.c61feb1d.chunk.css": "/mandala-om/static/css/2.c61feb1d.chunk.css",
+    "static/js/2.803e0905.chunk.js": "/mandala-om/static/js/2.803e0905.chunk.js",
+    "static/js/2.803e0905.chunk.js.map": "/mandala-om/static/js/2.803e0905.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.043a8cbfc5a100bfce8214c8bcea58dd.js": "/mandala-om/precache-manifest.043a8cbfc5a100bfce8214c8bcea58dd.js",
+    "precache-manifest.d323290e97cf61a44d048ee9eb833f81.js": "/mandala-om/precache-manifest.d323290e97cf61a44d048ee9eb833f81.js",
     "service-worker.js": "/mandala-om/service-worker.js",
-    "static/css/2.8ab1ff54.chunk.css.map": "/mandala-om/static/css/2.8ab1ff54.chunk.css.map",
-    "static/css/main.ef35d315.chunk.css.map": "/mandala-om/static/css/main.ef35d315.chunk.css.map",
-    "static/js/2.7960beed.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.7960beed.chunk.js.LICENSE.txt",
+    "static/css/2.c61feb1d.chunk.css.map": "/mandala-om/static/css/2.c61feb1d.chunk.css.map",
+    "static/css/main.00d8153d.chunk.css.map": "/mandala-om/static/css/main.00d8153d.chunk.css.map",
+    "static/js/2.803e0905.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.803e0905.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/mandala-om/static/media/shanticon.be531d81.ttf",
     "static/media/Om.css": "/mandala-om/static/media/treebuts.bcb9b6f1.png"
   },
   "entrypoints": [
     "static/js/runtime-main.6b930fe2.js",
-    "static/css/2.8ab1ff54.chunk.css",
-    "static/js/2.7960beed.chunk.js",
-    "static/css/main.ef35d315.chunk.css",
-    "static/js/main.10dca884.chunk.js"
+    "static/css/2.c61feb1d.chunk.css",
+    "static/js/2.803e0905.chunk.js",
+    "static/css/main.00d8153d.chunk.css",
+    "static/js/main.d1dc6284.chunk.js"
   ]
 }
