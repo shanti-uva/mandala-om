@@ -26,7 +26,7 @@ export function MandalaPopover(props) {
     // Basic Hooks
     const [show, setShow] = useState(false);
     const target = useRef(null);
-
+    const popref = useRef(null);
     // Props
     const domain = props.domain;
     const kid = props.kid;

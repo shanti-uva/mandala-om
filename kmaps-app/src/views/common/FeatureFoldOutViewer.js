@@ -89,14 +89,9 @@ export function FeatureFoldOutPortal({
             ? mount.children[0]
             : document.createElement('div');
     useEffect(() => {
-        if (mount) {
+        if (mount && el !== mount.children[0]) {
             mount.appendChild(el);
         }
-        return () => {
-            if (mount) {
-                console.log('mount = ', mount);
-            }
-        };
     }, [el, mount]);
     return createPortal(children, el);
 }

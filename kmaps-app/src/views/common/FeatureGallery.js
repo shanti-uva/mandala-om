@@ -64,7 +64,6 @@ export function FeatureGallery(props) {
         insert.id = VIEWER_ID;
     }
     const [focusedFeature, setFocusedFeature] = useState(null);
-
     const galleryRef = useRef();
     // const viewerRef = useRef();
 
@@ -80,7 +79,8 @@ export function FeatureGallery(props) {
             };
             foclose.onclick = closehandler;
         }
-        setTimeout(checkFoPos, 1000);
+
+        setTimeout(checkFoPos, 800);
 
         // Button navigator function
         const navigator = (e) => {
@@ -233,12 +233,14 @@ export function FeatureGallery(props) {
                     photos={LIST}
                     onClick={handleImageClick}
                     renderImage={(props) => {
+                        const mykey = props.key;
+                        delete props.key;
                         let atts =
-                            props.key === focusedFeature?.photo?.alt
+                            mykey === focusedFeature?.photo?.alt
                                 ? { className: SELECTED_IMG_CLASS }
                                 : {};
                         return (
-                            <div photoKey={props.key} {...atts}>
+                            <div photokey={mykey} key={mykey} {...atts}>
                                 <Photo {...props} />
                             </div>
                         );
@@ -285,10 +287,10 @@ function checkFoPos() {
     const foel = document.getElementById(VIEWER_ID);
     if (foel) {
         const brect = foel.getBoundingClientRect();
-        const winbott = window.pageYOffset + window.innerHeight;
-        if (brect.y + brect.height > winbott) {
-            const newY =
-                window.pageYOffset + brect.y + brect.height - winbott + 10;
+        const winbott = window.innerHeight;
+        const mybottom = brect.bottom;
+        if (mybottom > winbott) {
+            const newY = window.pageYOffset + mybottom - winbott + 50;
             window.scrollTo(0, newY);
         }
     }
