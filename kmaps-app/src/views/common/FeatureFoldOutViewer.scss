@@ -73,10 +73,20 @@
             color: white;
             margin: auto 0;
             padding-left: 2rem;
+            h2 {
+                font-size: 1.6rem;
+                margin-left: 2rem;
+                text-indent: -2rem;
+            }
             .info,
             .ids,
             .summary {
-                margin: 0.5rem 0;
+                margin: 0.5rem 0 0.5rem 2rem;
+                font-size: 1.2rem;
+            }
+
+            .info {
+                white-space: nowrap;
             }
 
             .info span {
@@ -113,7 +123,10 @@
             .link a {
                 color: inherit;
             }
-
+            .kmaprow {
+                margin-left: 2rem;
+                font-size: 1.2rem;
+            }
             .kmaprow > .icon {
                 display: inline-block;
                 margin-right: 1rem;
