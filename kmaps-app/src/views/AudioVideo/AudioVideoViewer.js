@@ -8,6 +8,7 @@ import $ from 'jquery';
 import { FeatureDeck } from '../common/FeatureDeck';
 import { convertNodeToElement } from 'react-html-parser';
 import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
+import { createAssetCrumbs } from '../common/utils';
 
 /**
  * AudioVideoViewer is called from ContentMain.js and is wrapped in a MdlAssetContext that supplies it with a SOLR
@@ -30,7 +31,6 @@ export function AudioVideoViewer(props) {
     const kmasset = props.mdlasset;
     const nodejson = props.nodejson;
     const sui = props.sui;
-    const base_path = process.env.PUBLIC_URL;
     const ismain = props.ismain ? props.ismain : false; // set to true when the av viewer is the main component on the page
 
     const [playerDrawn, setPlayerDrawn] = useState(false);
@@ -38,57 +38,6 @@ export function AudioVideoViewer(props) {
 
     // Do Status Stuff (Title and Breadcrumbs)
     if (kmasset && ismain) {
-        status.setType('audio-video');
-        // Set the Title
-        const mytitle =
-            kmasset.title && kmasset.title.length > 0 ? kmasset.title[0] : '';
-        status.setHeaderTitle(mytitle);
-
-        // Set the Breadcrumbs
-        let c = 2;
-        let bcrumbs = [
-            <a key="bc1" href={base_path + '/audio-video'}>
-                Audio-Video
-            </a>,
-        ];
-        if (
-            kmasset.collection_title_path_ss &&
-            kmasset.collection_title_path_ss.length > 0
-        ) {
-            for (
-                var bcn = 0;
-                bcn < kmasset.collection_title_path_ss.length;
-                bcn++
-            ) {
-                c++;
-                const colltitle = kmasset.collection_title_path_ss[bcn];
-                const collpath =
-                    base_path +
-                    '/' +
-                    kmasset.collection_uid_path_ss[bcn].replace(
-                        'audio-video-collection-',
-                        'audio-video-collection/'
-                    );
-                let bc = (
-                    <a key={'bc' + c} href={collpath}>
-                        {colltitle}
-                    </a>
-                );
-                bcrumbs.push(bc);
-            }
-            c++;
-            const mytitle =
-                kmasset.title && kmasset.title.length > 0
-                    ? kmasset.title[0]
-                    : kmasset.caption;
-            let selfbc = (
-                <a key={'bc' + c} className={'self'} name={'selflink'}>
-                    {mytitle}
-                </a>
-            );
-            bcrumbs.push(selfbc);
-            status.setSubTitle(bcrumbs);
-        }
     }
 
     // TODO: is this necessary? Are there situations where it's better to hide the extra content? Need to hide if there is no extra content.
@@ -102,13 +51,26 @@ export function AudioVideoViewer(props) {
 
     // Effect to Draw AV player once kmasset and nodejson return
     useEffect(() => {
-        if (kmasset && nodejson) {
-            // Should only redraw if kmasset and nodejson change but redrawns on some clicks
-            // So created a state variable playerDrawn so it doesn't redraw the player
-            if (!playerDrawn) {
-                sui.av.DrawPlayer(kmasset, nodejson);
-                window.sui = sui;
-                setPlayerDrawn(true);
+        if (kmasset) {
+            status.setType('audio-video');
+            // Set the Title
+            const mytitle =
+                kmasset.title && kmasset.title.length > 0
+                    ? kmasset.title[0]
+                    : '';
+            status.setHeaderTitle(mytitle);
+
+            // Set the Breadcrumbs (Not needed here while SUI is still setting breadcurmbs )
+            const bcrumbs = createAssetCrumbs(kmasset);
+            status.setPath(bcrumbs);
+            if (nodejson) {
+                // Should only redraw if kmasset and nodejson change but redrawns on some clicks
+                // So created a state variable playerDrawn so it doesn't redraw the player
+                if (!playerDrawn) {
+                    sui.av.DrawPlayer(kmasset, nodejson);
+                    window.sui = sui;
+                    setPlayerDrawn(true);
+                }
             }
         }
     }, [kmasset, nodejson]); // Depend on kmasset and nodejson

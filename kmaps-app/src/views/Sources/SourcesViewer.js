@@ -7,6 +7,7 @@ import './sources.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
 import { Link } from 'react-router-dom';
+import { createAssetCrumbs } from '../common/utils';
 
 export function SourcesViewer(props) {
     const solrdoc = props.mdlasset;
@@ -31,28 +32,9 @@ export function SourcesViewer(props) {
             // Add Asset specific clss to main for styling
             $('main.l-column__main').addClass('sources');
 
-            // Set Breadcrumbs with Collections
-            const titles = solrdoc?.collection_title_path_ss
-                ? solrdoc.collection_title_path_ss
-                : [];
-            const nids = solrdoc?.collection_nid_path_is
-                ? solrdoc.collection_nid_path_is
-                : [];
-            if (titles.length > 0) {
-                let colpaths = titles.map((title, ind) => {
-                    return {
-                        uid: '/sources/collection/' + nids[ind],
-                        name: title,
-                    };
-                });
-                colpaths.unshift({ uid: '/sources', name: 'Sources' });
-                const trunctitle = _.truncate(solrdoc?.title, {
-                    length: 45,
-                    separator: ' ',
-                });
-                colpaths.push({ uid: '/sources/' + nid, name: trunctitle });
-                status.setPath(colpaths);
-            }
+            // Set Breadcrumbs
+            const bcrumbs = createAssetCrumbs(solrdoc);
+            status.setPath(bcrumbs);
         }
     }, [solrdoc]);
 
