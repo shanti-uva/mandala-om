@@ -94,11 +94,18 @@ function FeatureAssetCard(props) {
                             as={'span'}
                             eventKey="0"
                             onClick={(x) => {
-                                const targ = $(x.target);
-                                if (targ.hasClass('open')) {
-                                    targ.removeClass('open');
+                                let targ = $(x.target);
+                                if (
+                                    targ &&
+                                    !targ.hasClass('u-icon__plus') &&
+                                    targ.find('span').length > 0
+                                ) {
+                                    targ = $(targ.find('span').eq(0));
+                                }
+                                if (targ.hasClass('openitem')) {
+                                    targ.removeClass('openitem');
                                 } else {
-                                    targ.addClass('open');
+                                    targ.addClass('openitem');
                                 }
                             }}
                         >
