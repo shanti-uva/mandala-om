@@ -23,13 +23,12 @@ export function FeaturePager(props) {
             size={5}
             value={pager.getPage() + 1}
             onChange={(pg) => {
-                console.log(
-                    'FeaturePager pg = ' +
-                        pg +
-                        ' maxPage = ' +
-                        pager.getMaxPage()
-                );
-                pager.setPage(pg - 1);
+                if (window?.fppgwait) {
+                    clearTimeout(window?.fppgwait);
+                }
+                window.fppgwait = setTimeout(function () {
+                    pager.setPage(pg - 1);
+                }, 800);
             }}
             mobile={false}
             noStyle={true}

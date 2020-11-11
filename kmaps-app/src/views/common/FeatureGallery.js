@@ -139,10 +139,10 @@ export function FeatureGallery(props) {
                 alt: doc.uid,
                 caption: doc.caption,
                 summary: doc?.summary,
-                creator: doc?.creator.join(', '),
+                creator: doc?.creator?.join(', '),
                 date_created: doc?.date_start
                     ? doc.date_start
-                    : doc.node_created,
+                    : doc?.node_created,
                 full_width: doc?.img_width_s,
                 full_height: doc?.img_height_s,
                 places: doc?.kmapid_places_idfacet,
