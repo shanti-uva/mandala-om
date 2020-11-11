@@ -21,6 +21,7 @@ import { ImagesViewer } from '../Images/ImagesViewer';
 import { SourcesViewer } from '../Sources/SourcesViewer';
 import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
+import { KmapsRelatedsViewer } from './KmapsRelatedsViewer';
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);
@@ -179,12 +180,16 @@ export default function KmapsViewer(props) {
                             to={'/:viewerType/:relId'}
                         />
 
+                        <Route path={'/subjects/:id/related-subjects'}>
+                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <KmapsRelatedsViewer {...props} />
+                        </Route>
+
                         <Route
                             path={
                                 '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
-                            <h1>Hi in view mode</h1>
                             <NodeHeader {...props} kmasset={props.kmasset} />
                             <RelatedsGallery {...props} />
                         </Route>

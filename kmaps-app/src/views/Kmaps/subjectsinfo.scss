@@ -52,5 +52,24 @@ main.subjects {
                 font-size: 1.4rem;
             }
         }
+
+        .kmaps-related-viewer {
+            margin: 0 -1.6rem 0 -2.1rem;
+            a.nav-item {
+                width: 50%;
+                text-align: center;
+                line-height: 2em;
+                text-transform: uppercase;
+                letter-spacing: 0.1rem;
+                background-color: rgba(0, 0, 0, 0.4);
+                color: white;
+
+                &.active {
+                    background-color: transparent;
+                    color: #333;
+                    border-bottom: thin solid #f7f7f7;
+                }
+            }
+        }
     } /*  End of c-content__main__kmaps */
 } /* End of main.subjects */

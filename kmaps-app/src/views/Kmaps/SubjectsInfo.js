@@ -11,21 +11,10 @@ export function SubjectsInfo(props) {
 
     useEffect(() => {
         $('main.l-column__main').addClass('subjects');
-        /*
-        // If there's  featured image, move it up so it can float right and adjust header width
-        if ($('.c-subject-info .featured-image').length > 0) {
-            var fi = $('.featured-image').detach();
-            $('.c-content__main__kmaps').prepend(fi);
-            $('.subjects .c-content__main__kmaps .c-nodeHeader').css('width', '65%');
-        }
-        if (!kmap?.illustration_mms_url || kmap?.illustration_mms_url?.length === 0) {
-            if ($('.featured-image').length > 0) {
-                $('.featured-image').detach();
-            }
-        }
-        */
     }, [kmap]);
 
+    {
+        /* TODO: add feature image on the home page only of the subject so it can float right
     const featured_image =
         kmap?.illustration_mms_url?.length > 0 ? (
             <div className={'featured-image'}>
@@ -34,7 +23,8 @@ export function SubjectsInfo(props) {
                 />
             </div>
         ) : null;
-
+    */
+    }
     const desc =
         kmap?.summary_eng?.length > 0 ? (
             <div className={'desc'}>
@@ -44,7 +34,6 @@ export function SubjectsInfo(props) {
 
     return (
         <div className={'c-subject-info'}>
-            {featured_image}
             {desc}
             {/*
             <pre>{JSON.stringify({ ...props, sui: null }, undefined, 2)}</pre>
