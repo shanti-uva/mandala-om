@@ -1,0 +1,56 @@
+/**
+.subjects class added to the "<main>" element (parent of article) in SubjectsInfo.js
+used to override the NameEntry.css style that are quite specific (sticky).
+
+ndg, Nov. 11, 2020)
+ */
+main.subjects {
+    .c-content__main__kmaps {
+        max-width: 65vw;
+
+        .featured-image {
+            float: right;
+            padding: 0.5rem;
+            border: 3px inset rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            background-color: #ffffff;
+            margin-left: 2rem;
+            img {
+                max-height: 40rem;
+                max-width: 35rem !important;
+                border-radius: 5px;
+            }
+        }
+
+        .c-nodeHeader {
+            margin: 3rem 2rem 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #cc4c39;
+        }
+
+        .sui-nameEntry__wrapper {
+            margin-left: 2rem;
+        }
+
+        ul.sui-nameEntry.first-entry
+            > li.sui-nameEntry:first-child
+            > span.sui-nameEntry-header:first-child {
+            display: inline-block;
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .sui-nameEntry-meta {
+            display: inline-block;
+            font-style: italic;
+        }
+
+        .c-subject-info {
+            .desc {
+                margin-left: 2rem;
+                font-size: 1.4rem;
+            }
+        }
+    } /*  End of c-content__main__kmaps */
+} /* End of main.subjects */

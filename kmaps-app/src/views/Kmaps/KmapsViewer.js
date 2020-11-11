@@ -184,6 +184,7 @@ export default function KmapsViewer(props) {
                                 '/:viewerType/:id/related-:relatedType/:viewMode'
                             }
                         >
+                            <h1>Hi in view mode</h1>
                             <NodeHeader {...props} kmasset={props.kmasset} />
                             <RelatedsGallery {...props} />
                         </Route>

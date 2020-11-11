@@ -92,6 +92,30 @@ export function Home(props) {
                                     </li>
                                 </ul>
                             </ul>
+                            <h4>Subjects</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/subjects/subjects-20'}>
+                                        Geographical Features: (subjects-20)
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/subjects/subjects-8260'}>
+                                        Bhutan Cultural Library: (subjects-8260)
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/subjects/subjects-4058'}>
+                                        Murals: (subjects-4058)
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/subjects/subjects-4102'}>
+                                        Tibetan Contemporaneous Art:
+                                        (subjects-4102)
+                                    </Link>
+                                </li>
+                            </ul>
                             <h4>Search</h4>
                             <ul>
                                 <li>
