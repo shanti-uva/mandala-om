@@ -105,11 +105,24 @@ export function CollectionsViewer(props) {
                         name: atypeLabel,
                     },
                 ];
-                const collid = collsolr.id;
-                const colltitle = collsolr.title;
+                // Check and do parent collection link
+                if (
+                    collsolr?.collection_nid &&
+                    collsolr.collection_nid.length > 0
+                ) {
+                    coll_paths.push({
+                        uid:
+                            '/' +
+                            asset_type +
+                            '/collection/' +
+                            collsolr.collection_nid,
+                        name: collsolr.collection_title,
+                    });
+                }
+                // Do self link
                 coll_paths.push({
-                    uid: '/' + asset_type + '/' + collid,
-                    name: colltitle,
+                    uid: '/' + asset_type + '/collection/' + collsolr.id,
+                    name: collsolr.title,
                 });
                 status.setPath(coll_paths);
                 status.setType(asset_type);
