@@ -493,6 +493,8 @@ div.image-wrapper.center figcaption {
         min-height: 3rem;
         font-size: 1.4rem;
         min-width: 40vw;
+        overflow: visible;
+
         span.img {
             margin: 0 1rem 1rem 0;
             border: thin solid #aaa;
@@ -603,7 +605,8 @@ div.image-wrapper.center figcaption {
         }
     }
 
-    .collapse .info.kmaps {
+    .collapse .info.kmaps,
+    .collapsing .info.kmaps {
         margin-bottom: -1.5rem;
         & > * {
             margin-left: 5.5rem;
@@ -678,6 +681,6 @@ div.image-wrapper.center figcaption {
     .list .c-view .ancestors {
         white-space: normal;
         line-height: 1.5rem;
-        font-size: 1.1rem;
+        font-size: 1.1altnamesrem;
     }
 }
