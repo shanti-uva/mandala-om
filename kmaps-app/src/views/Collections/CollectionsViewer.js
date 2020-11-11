@@ -3,15 +3,11 @@ import useStatus from '../../hooks/useStatus';
 import { useParams } from 'react-router';
 import { useSolr } from '../../hooks/useSolr';
 import { Link } from 'react-router-dom';
-import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 import { Container, Col, Row } from 'react-bootstrap';
 import './collections.scss';
 import { FeatureCollection } from '../common/FeatureCollection';
 import useCollection from '../../hooks/useCollection';
-import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
-import jsonpAdapter from '../../logic/axios-jsonp';
-import axios from 'axios';
 
 export function CollectionsViewer(props) {
     const status = useStatus();
@@ -102,7 +98,7 @@ export function CollectionsViewer(props) {
         if (props.ismain) {
             if (collsolr) {
                 // console.log('Coll solr!', collsolr);
-                status.setHeaderTitle(collsolr.title + ' (Collection)');
+                status.setHeaderTitle(collsolr.title);
                 let coll_paths = [
                     {
                         uid: '/' + asset_type,
