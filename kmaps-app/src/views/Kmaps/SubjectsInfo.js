@@ -52,11 +52,11 @@ export function SubjectsInfo(props) {
         <div className={'c-subject-info'}>
             {imgel}
             {captions.length > 0 && (
-                <div class={'captions'}>
+                <div className={'captions'}>
                     <h3>Captions</h3>
                     <ul>
                         {$.map(captions, function (item, n) {
-                            return <li>{item}</li>;
+                            return <li key={'sub-cap-' + n}>{item}</li>;
                         })}
                     </ul>
                 </div>

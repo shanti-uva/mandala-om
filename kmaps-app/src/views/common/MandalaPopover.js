@@ -164,7 +164,9 @@ function MandalaPopoverBody(props) {
                         const url = mandala_base + '/subjects/subjects-' + item;
                         return (
                             <>
-                                <a href={url}>{kminfo.feature_types[index]}</a>
+                                <a href={url} key={domain + kid + index}>
+                                    {kminfo.feature_types[index]}
+                                </a>
                             </>
                         );
                     })}
@@ -228,7 +230,9 @@ function MandalaPopoverBody(props) {
                         const myurl =
                             mandala_base + '/subjects/subjects-' + item;
                         return (
-                            <a href={myurl}>{kminfo.associated_subjects[n]}</a>
+                            <a href={myurl} key={myurl + n}>
+                                {kminfo.associated_subjects[n]}
+                            </a>
                         );
                     })}
                 </div>
