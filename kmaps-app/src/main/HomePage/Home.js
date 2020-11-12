@@ -105,8 +105,8 @@ export function Home(props) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/subjects/subjects-4058'}>
-                                        Murals: (subjects-4058)
+                                    <Link to={'/subjects/subjects-3719'}>
+                                        Whaling Station Test: (subjects-3719)
                                     </Link>
                                 </li>
                                 <li>

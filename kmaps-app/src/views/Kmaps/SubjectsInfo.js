@@ -71,10 +71,9 @@ export function SubjectsInfo(props) {
                     />
                 </div>
             )}
-
             {/*
                 <pre>{JSON.stringify({ ...props, sui: null }, undefined, 2)}</pre>
-            */}
+                */}
         </div>
     );
 }
@@ -82,7 +81,13 @@ export function SubjectsInfo(props) {
 function SubjectTextDescription(props) {
     const txtjson = useMandala(props.solrdoc);
     const txtmup = txtjson?.full_markup ? (
-        <HtmlWithPopovers markup={txtjson?.full_markup} />
+        <>
+            <div className={'desc-toc'}>
+                <h3>Table of Contents</h3>
+                <HtmlCustom markup={txtjson.toc_links} />
+            </div>
+            <HtmlWithPopovers markup={txtjson?.full_markup} />
+        </>
     ) : null;
     return txtmup;
 }
