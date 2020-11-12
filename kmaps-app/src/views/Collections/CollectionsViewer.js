@@ -3,12 +3,10 @@ import useStatus from '../../hooks/useStatus';
 import { useParams } from 'react-router';
 import { useSolr } from '../../hooks/useSolr';
 import { Link } from 'react-router-dom';
-import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 import { Container, Col, Row } from 'react-bootstrap';
 import './collections.scss';
 import { FeatureCollection } from '../common/FeatureCollection';
 import useCollection from '../../hooks/useCollection';
-import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 
 export function CollectionsViewer(props) {
@@ -100,18 +98,31 @@ export function CollectionsViewer(props) {
         if (props.ismain) {
             if (collsolr) {
                 // console.log('Coll solr!', collsolr);
-                status.setHeaderTitle(collsolr.title + ' (Collection)');
+                status.setHeaderTitle(collsolr.title);
                 let coll_paths = [
                     {
                         uid: '/' + asset_type,
                         name: atypeLabel,
                     },
                 ];
-                const collid = collsolr.id;
-                const colltitle = collsolr.title;
+                // Check and do parent collection link
+                if (
+                    collsolr?.collection_nid &&
+                    collsolr.collection_nid.length > 0
+                ) {
+                    coll_paths.push({
+                        uid:
+                            '/' +
+                            asset_type +
+                            '/collection/' +
+                            collsolr.collection_nid,
+                        name: collsolr.collection_title,
+                    });
+                }
+                // Do self link
                 coll_paths.push({
-                    uid: '/' + asset_type + '/' + collid,
-                    name: colltitle,
+                    uid: '/' + asset_type + '/collection/' + collsolr.id,
+                    name: collsolr.title,
                 });
                 status.setPath(coll_paths);
                 status.setType(asset_type);

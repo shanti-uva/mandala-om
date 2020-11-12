@@ -10,7 +10,7 @@ import {
     Tab,
 } from 'react-bootstrap';
 import { HtmlWithPopovers, getRandomKey } from '../common/MandalaMarkup';
-import { addBoClass } from '../common/utils';
+import { addBoClass, createAssetCrumbs } from '../common/utils';
 import './TextsViewer.sass';
 import $ from 'jquery';
 
@@ -54,12 +54,16 @@ export function TextsViewer(props) {
 
     // Effect to change banner and title if the viewer is the main component
     useEffect(() => {
-        if (ismain) {
+        if (kmasset && ismain) {
             status.setType('texts');
             const mytitle = kmasset.title ? kmasset.title : 'Loading ...';
             if (mytitle) {
                 status.setHeaderTitle(mytitle);
             }
+
+            // Set Breadcrumbs
+            const bcrumbs = createAssetCrumbs(kmasset);
+            status.setPath(bcrumbs);
         }
     }, [kmasset]);
 

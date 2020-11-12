@@ -7,6 +7,7 @@ import { ImageMetadata } from './ImageMetadata';
 import $ from 'jquery';
 import './images.scss';
 import { ImagesOSDViewer } from './ImagesOSDViewer';
+import { createAssetCrumbs } from '../common/utils';
 
 /**
  * Compontent that creates the Image Viewer page, including:
@@ -38,6 +39,8 @@ export function ImagesViewer(props) {
             status.setHeaderTitle(
                 solrdoc?.title || solrdoc?.caption || 'ImageViewer'
             );
+            const bcrumbs = createAssetCrumbs(solrdoc);
+            status.setPath(bcrumbs);
         }
         // Updating button controls for fullscreen and zoom
         const iiifview = $('.react-iiif-viewer');

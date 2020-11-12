@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
-import useStatus from '../../hooks/useStatus';
+import React, { useEffect, useState } from 'react';
+import { AssetHomeCollection } from '../common/AssetHomeCollection';
+
 export function ImagesHome(props) {
-    const status = useStatus();
-
-    useEffect(() => {
-        status.clear();
-        status.setHeaderTitle('Images Home');
-    });
-
-    return <> Images Home: Not much here yet.. </>;
+    return (
+        <div className={'assethome images'}>
+            <div className={'desc'}>
+                <p>This pages shows all images in this project.</p>
+            </div>
+            <AssetHomeCollection asset_type={'images'} />
+        </div>
+    );
 }
 
 export default ImagesHome;

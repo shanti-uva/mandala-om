@@ -431,7 +431,7 @@ div.image-wrapper.center figcaption {
             opacity: 0.8;
         }
 
-        &.open {
+        &.openitem {
             transform: rotate(45deg);
         }
     }
@@ -474,6 +474,7 @@ div.image-wrapper.center figcaption {
             color: #fff;
         }
     }
+
     .title {
         padding-top: 0.5rem;
     }
@@ -492,6 +493,8 @@ div.image-wrapper.center figcaption {
         min-height: 3rem;
         font-size: 1.4rem;
         min-width: 40vw;
+        overflow: visible;
+
         span.img {
             margin: 0 1rem 1rem 0;
             border: thin solid #aaa;
@@ -570,10 +573,12 @@ div.image-wrapper.center figcaption {
         opacity: 0.85;
     }
 
-    // Ancestors for kmaps
+    // Ancestors for kmaps in list view
     .ancestors {
         margin-left: 5.5rem;
         font-size: 1.3rem;
+        white-space: nowrap;
+
         span {
             display: inline-block;
             margin-left: 0.25rem;
@@ -600,7 +605,8 @@ div.image-wrapper.center figcaption {
         }
     }
 
-    .collapse .info.kmaps {
+    .collapse .info.kmaps,
+    .collapsing .info.kmaps {
         margin-bottom: -1.5rem;
         & > * {
             margin-left: 5.5rem;
@@ -617,6 +623,30 @@ div.image-wrapper.center figcaption {
         }
     }
 } // End list view styles
+
+// Asset Home Pages
+.assethome {
+    & > .desc {
+        font-size: 1.5rem;
+
+        & > * {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }
+
+    &.sources {
+        .c-view {
+            margin: 0 2rem;
+            font-size: 1.45rem;
+        }
+        .card {
+            border: none;
+            margin-left: 3rem !important;
+            text-indent: -3rem;
+        }
+    }
+}
 
 // Not Found Page for Assets
 .c-not-found {
@@ -644,5 +674,13 @@ div.image-wrapper.center figcaption {
         font-size: 1.5rem;
         padding: 0.25rem 1.5rem;
         border-radius: 2rem;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .list .c-view .ancestors {
+        white-space: normal;
+        line-height: 1.5rem;
+        font-size: 1.1altnamesrem;
     }
 }
