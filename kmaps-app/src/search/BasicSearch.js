@@ -87,10 +87,7 @@ export function BasicSearch(props) {
     );
 
     if (target) {
-        return ReactDOM.createPortal(
-            basicSearchPortal,
-            document.getElementById('basicSearchPortal')
-        );
+        return ReactDOM.createPortal(basicSearchPortal, target);
     } else {
         return basicSearchPortal;
     }

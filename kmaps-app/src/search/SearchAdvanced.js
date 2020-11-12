@@ -1,27 +1,17 @@
-import ReactDOM from 'react-dom';
 import { FacetBox } from './FacetBox';
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import { HistoryBox } from './HistoryBox';
 import { useStoreState } from 'easy-peasy';
 
 const SEARCH_PATH = '/search';
-const target = document.getElementById('advancedSearchPortal');
 
 export function SearchAdvanced(props) {
     const history = useHistory();
-    const query = '';
     let openclass = props.advanced ? 'open' : 'closed';
-    openclass =
-        process.env.REACT_APP_STANDALONE === 'standalone'
-            ? 'open standalone'
-            : openclass;
     let [reset, setReset] = useState(0);
     const historyStack = useStoreState((state) => state.history.historyStack);
 
@@ -307,12 +297,5 @@ export function SearchAdvanced(props) {
         </aside>
     );
 
-    if (target) {
-        return ReactDOM.createPortal(
-            advanced,
-            document.getElementById('advancedSearchPortal')
-        );
-    } else {
-        return advanced;
-    }
+    return advanced;
 }

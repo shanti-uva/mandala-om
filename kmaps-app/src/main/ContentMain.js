@@ -26,30 +26,9 @@ import PlacesHome from '../views/PlacesHome';
 import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
 import { CollectionsRedirect } from '../views/Collections/CollectionsRedirect';
-import { AdvancedToggle } from './MainSearchToggle/AdvancedToggle';
-import { SearchAdvanced } from '../search/SearchAdvanced';
-import { TreeNav } from './Main';
+import { RightSideBar } from './RightSideBar';
 
 export function ContentMain(props) {
-    // console.log('ContentPanel: props =  ', props);
-    const [viewMode, setViewMode] = useState('advanced');
-    const [state, setState] = useState({});
-    const handleStateChange = (new_state) => {
-        setState({ ...state, ...new_state });
-    };
-
-    function chooseViewMode(mode) {
-        console.log('chooseViewMode = ', mode);
-        setViewMode(mode);
-        if (mode === 'off') {
-            handleStateChange({ advanced: false, tree: false });
-        } else if (mode === 'tree') {
-            handleStateChange({ advanced: false, tree: true });
-        } else if (mode === 'advanced') {
-            handleStateChange({ advanced: true, tree: false });
-        }
-    }
-
     let { path } = useRouteMatch();
     // console.log('ContentMain path = ', path);
     const title = props.title || 'Untitled';
@@ -246,23 +225,7 @@ export function ContentMain(props) {
                             </Route>
                         </Switch>
                     </section>
-                    <section className="l-content__rightsidebar">
-                        <SearchContext>
-                            <AdvancedToggle
-                                chooseViewMode={chooseViewMode}
-                                viewMode={viewMode}
-                            />
-                        </SearchContext>
-                        <div className="advanced-search-and-tree">
-                            <SearchContext>
-                                <SearchAdvanced
-                                    advanced={state.advanced}
-                                    onStateChange={props.onStateChange}
-                                />
-                                <TreeNav tree={state.tree} />
-                            </SearchContext>
-                        </div>
-                    </section>
+                    <RightSideBar onStateChange={props.onStateChange} />
                 </div>
             </article>
         </main>
