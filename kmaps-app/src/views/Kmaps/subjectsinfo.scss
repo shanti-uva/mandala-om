@@ -6,7 +6,8 @@ ndg, Nov. 11, 2020)
  */
 main.subjects {
     .c-content__main__kmaps {
-        max-width: 65vw;
+        background-color: #fff;
+        font-size: 1.4rem;
 
         .featured-image {
             float: right;
@@ -14,7 +15,7 @@ main.subjects {
             border: 3px inset rgba(0, 0, 0, 0.4);
             border-radius: 5px;
             background-color: #ffffff;
-            margin-left: 2rem;
+            margin: -14rem 2rem 1rem 1rem;
             img {
                 max-height: 40rem;
                 max-width: 35rem !important;
@@ -26,6 +27,7 @@ main.subjects {
             margin: 3rem 2rem 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #cc4c39;
+            max-width: 70%;
         }
 
         .sui-nameEntry__wrapper {
@@ -46,11 +48,9 @@ main.subjects {
             font-style: italic;
         }
 
-        .c-subject-info {
-            .desc {
-                margin-left: 2rem;
-                font-size: 1.4rem;
-            }
+        .c-subject-info > div {
+            margin-left: 2rem;
+            font-size: 1.4rem;
         }
 
         .kmaps-related-viewer {

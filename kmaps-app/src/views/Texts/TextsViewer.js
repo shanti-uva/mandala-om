@@ -83,7 +83,7 @@ export function TextsViewer(props) {
     useEffect(() => {
         // Set the text section state var if empty. Only need to do once on load
         if (
-            text_sections.length == 0 &&
+            text_sections.length === 0 &&
             $('#shanti-texts-body .shanti-texts-section').length > 0
         ) {
             // Get all sections in text
