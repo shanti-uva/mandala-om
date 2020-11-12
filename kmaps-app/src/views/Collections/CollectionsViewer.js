@@ -8,6 +8,7 @@ import './collections.scss';
 import { FeatureCollection } from '../common/FeatureCollection';
 import useCollection from '../../hooks/useCollection';
 import $ from 'jquery';
+import { NotFoundPage } from '../common/utilcomponents';
 
 export function CollectionsViewer(props) {
     const status = useStatus();
@@ -16,14 +17,20 @@ export function CollectionsViewer(props) {
     const asset_type = params?.asset_type;
     const asset_id = params?.id;
 
+    status.setType(asset_type);
+
     const atypeLabel = <span className={'text-capitalize'}>{asset_type}</span>;
     const collsolr = useCollection(asset_type, asset_id);
-    //console.log('coll solr', collsolr);
 
     const [startRow, setStartRow] = useState(0);
     const [pageNum, setPageNum] = useState(0);
     const [pageSize, setPageSize] = useState(100);
     const [numFound, setNumFound] = useState(0);
+
+    useEffect(() => {
+        status.clear();
+        status.setType('collections');
+    }, []);
 
     const query = {
         index: 'assets',
@@ -39,7 +46,7 @@ export function CollectionsViewer(props) {
     const qkey = 'collection-' + asset_type + '-' + asset_id;
     const solrq = useSolr(qkey, query);
 
-    //console.log(solrq);
+    //console.log("collections solr doc", solrq);
 
     const pager = {
         numFound: numFound,
@@ -94,12 +101,14 @@ export function CollectionsViewer(props) {
         solrq?.docs && solrq.docs?.length > 0
             ? solrq.docs[0].collection_nid_path_is
             : [];
+    let coll_paths = [];
+
     useEffect(() => {
         if (props.ismain) {
             if (collsolr) {
                 // console.log('Coll solr!', collsolr);
                 status.setHeaderTitle(collsolr.title);
-                let coll_paths = [
+                coll_paths = [
                     {
                         uid: '/' + asset_type,
                         name: atypeLabel,
@@ -126,8 +135,6 @@ export function CollectionsViewer(props) {
                 });
                 status.setPath(coll_paths);
                 status.setType(asset_type);
-            } else {
-                status.clear();
             }
         }
     }, [collsolr]);
@@ -181,6 +188,24 @@ export function CollectionsViewer(props) {
     let summary = $.trim(collsolr?.summary);
     if (summary && summary.length == 0) {
         summary = false;
+    }
+
+    if (collsolr?.numFound === 0) {
+        coll_paths = [
+            {
+                uid: '/' + asset_type,
+                name: atypeLabel,
+            },
+        ];
+        coll_paths.push({
+            uid: '#',
+            name: 'Not Found',
+        });
+        status.setHeaderTitle(
+            asset_type[0].toUpperCase() + asset_type.substr(1)
+        );
+        status.setPath(coll_paths);
+        return <NotFoundPage type={asset_type + ' collection'} id={asset_id} />;
     }
 
     return (

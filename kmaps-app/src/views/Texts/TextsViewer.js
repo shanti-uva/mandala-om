@@ -69,9 +69,15 @@ export function TextsViewer(props) {
 
     // Add Custom Body Class for Text component (one time) and timeout to show not found div
     useEffect(() => {
-        // add class "texts" to the main div for CSS styles
-        $('.l-site__wrap').addClass('texts');
+        if (ismain) {
+            status.clear();
+            status.setType('texts');
 
+            // add class "texts" to the main div for CSS styles
+            $('.l-site__wrap').addClass('texts');
+        }
+
+        // TODO: switch to use the <NotFound> component in utils
         // Show not found div if it still exists after 10 seconds.
         setTimeout(function () {
             $('.not-found-msg').removeClass('d-none');

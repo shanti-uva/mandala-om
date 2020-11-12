@@ -37,16 +37,19 @@ export function AudioVideoViewer(props) {
     const status = useStatus();
 
     // Do Status Stuff (Title and Breadcrumbs)
-    if (kmasset && ismain) {
-    }
 
     // TODO: is this necessary? Are there situations where it's better to hide the extra content? Need to hide if there is no extra content.
     useEffect(() => {
-        $('body').on('click', 'a.sui-avMore2', function () {
-            $('#sui-avlang').toggle();
-            this.text = this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
-        });
-        $('#l-site__wrap').addClass('av');
+        if (ismain) {
+            status.clear();
+            status.setType('audio-video');
+            $('body').on('click', 'a.sui-avMore2', function () {
+                $('#sui-avlang').toggle();
+                this.text =
+                    this.text == 'SHOW MORE' ? 'SHOW LESS' : 'SHOW MORE';
+            });
+            $('#l-site__wrap').addClass('av');
+        }
     }, []);
 
     // Effect to Draw AV player once kmasset and nodejson return

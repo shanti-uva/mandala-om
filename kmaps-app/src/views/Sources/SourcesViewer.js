@@ -18,6 +18,13 @@ export function SourcesViewer(props) {
 
     const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
 
+    useEffect(() => {
+        if (ismain) {
+            status.clear();
+            status.setType('sources');
+        }
+    }, []);
+
     // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
     useEffect(() => {
         // Setting title in header and other status options

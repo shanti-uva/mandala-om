@@ -19,12 +19,17 @@ export function VisualsViewer(props) {
 
     const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
 
+    useEffect(() => {
+        if (ismain) {
+            status.clear();
+            status.setType('visuals');
+        }
+    }, []);
+
     // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
     useEffect(() => {
         // Setting title in header and other status options
         if (solrdoc && ismain) {
-            status.clear(); // Clear previous status
-
             // Set Page title
             let pgtitle = solrdoc?.title || solrdoc?.caption;
             pgtitle = pgtitle === '' ? 'Visuals Viewer' : pgtitle;
