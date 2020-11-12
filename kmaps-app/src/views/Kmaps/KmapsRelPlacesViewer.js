@@ -7,7 +7,6 @@ import './subjectsinfo.scss';
 import { MandalaPopover } from '../common/MandalaPopover';
 
 export function KmapsRelPlacesViewer(props) {
-    console.log(props);
     const { kmap, kmasset } = props;
 
     const kmaphead = kmap.header;
@@ -21,13 +20,15 @@ export function KmapsRelPlacesViewer(props) {
         <div className={'related-places'}>
             <h1>Related Places Tree</h1>
             <FancyTree
-                domain={'places'}
-                tree={'places'}
-                featuresId={kid}
-                featuresPath={base_path + '/%%ID%%'}
+                domain="places"
+                tree="places"
                 descendants={true}
                 directAncestors={true}
                 displayPopup={false}
+                perspective="pol.admin.hier"
+                view="roman.scholar"
+                sortBy="position_i+ASC"
+                isme={true}
             />
         </div>
     );
