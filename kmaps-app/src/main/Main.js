@@ -70,9 +70,11 @@ export function Main(props) {
                     <Route path={'/home'}>
                         <Home />
                     </Route>
-                    <Route exact path={'/'}>
-                        <Redirect to={'/home'} />
-                    </Route>
+                    {process.env.REACT_APP_STANDALONE !== 'standalone' && (
+                        <Route exact path={'/'}>
+                            <Redirect to={'/home'} />
+                        </Route>
+                    )}
                     <Route path={'/'}>
                         <ContentMain
                             site={'mandala'}
