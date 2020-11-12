@@ -67,6 +67,7 @@ export function FacetBox(props) {
     const [sortDirection, setSortDirection] = useState('desc');
 
     const [open, setOpen] = useState(false);
+
     let chosen_icon = props.icon;
     const facetType = props.facetType;
     const facets = props.facets;

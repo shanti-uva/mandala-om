@@ -4,9 +4,8 @@ import crypto from 'crypto';
 import _ from 'lodash';
 import localforage from 'localforage';
 // import Qs from 'qs';
-import spexLib from 'spex';
-
-const spex = spexLib(Promise);
+// import spexLib from 'spex';
+// const spex = spexLib(Promise);
 
 function checksum(data) {
     return crypto.createHash('sha1').update(data).digest('base64');
@@ -16,7 +15,8 @@ export async function search(searchstate) {
     return await getAssetSearchPromise(searchstate);
 }
 
-//  TODO: Maybe refactor to use declarative caching instead...?
+//  TODO: Maybe refactor to use declarative caching instead.?
+//  OR Maybe caching should left to the calling implementations (e.g. using React Query)
 function getCached(request) {
     localforage
         .getItem(checksum(JSON.stringify(request)))
@@ -67,6 +67,9 @@ function narrowData(data, narrowFilters) {
         // console.log(" limit = " + limit);
         // console.log(" offset = " + offset);
         // console.log(" sort = " + sort);
+
+        // TODO: need better config management.  To map "key" to "facet"
+
         let facet = '';
         if (key === 'subjects') {
             facet = 'related_subjects';
@@ -104,46 +107,25 @@ export function getAssetSearchPromise(search) {
     //console.log("UNPACKING page: ", page);
     // console.log('UNPACKING query: ', query);
 
+    // TODO: refactor how settings are defined.
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
     const selectUrl = 'https://' + host + '/solr/' + index + '/select';
     const startRec = page.start || 0;
     const rowsRec = page.rows || 100;
 
-    // const qaxios = axios.create({
-    //     paramsSerializer: (params) =>
-    //         Qs.stringify(params, { arrayFormat: 'repeat' }),
-    // });
-
     let filters = [];
-
     const ff = query.facetFilters;
-    // console.log('UNPACKING facetFilters: ', query.facetFilters);
-    // Object.entries(query.facetFilters).forEach((x) => {
-    //     const [key, searchObj] = x;
-    //     const search = searchObj.search;
-    //     const limit = searchObj.limit || 500;
-    //     const offset = searchObj.offset || 0;
-    //     const sort = searchObj.sort || "alpha";
-    //     console.log(" search = " + search);
-    //     console.log(" limit = " + limit);
-    //     console.log(" offset = " + offset);
-    //     console.log(" sort = " + sort);
-    //     let facet = "";
-    //     if (key === "subjects") {
-    //         facet = "related_subjects";
-    //     } else if (key === "places") {
-    //         facet = "related_places"
-    //     } else if (key === "terms") {
-    //         facet = "related_terms";
-    //     } else if (key === "users") {
-    //         facet = "node_user";
-    //     } else {
-    //         facet = key;
-    //     }
-    // });
 
     // TODO: Parameterize facets.  e.g. You won't need all of them, every time.
+    // One design pattern that could be used:
+    //      All facet configurations are in one configuration object.
+    //      There is an overridable/extendable/stackable implementation which chooses which of the facets
+    //      to use for a given query and assembles the jsonFacet blob accordingly.
+    // This would alleviate the performance hit of having all the facets calculated with each query.
+    //
+
+    // TODO: factor out the default values...
     const jsonFacet = {
         asset_count: {
             type: 'terms',
@@ -203,6 +185,7 @@ export function getAssetSearchPromise(search) {
             offset: ff['collection_nid']?.offset || 0,
             sort: ff['collection_nid']?.sort || 'count desc',
         },
+
         collection_uid: {
             type: 'terms',
             field: 'collection_uid_s',
@@ -268,7 +251,6 @@ export function getAssetSearchPromise(search) {
         // 'text': search.query.searchText,
         'json.facet': JSON.stringify(jsonFacet),
     };
-
     const queryParams = constructTextQuery(search.query.searchText);
     const filterParams = constructFilters(search.query.filters);
 
@@ -320,26 +302,7 @@ export function getAssetSearchPromise(search) {
                 );
                 reject(reason);
             })
-            .finally(() => {
-                // performance.mark('getAssetSearchPromise:done');
-                // performance.measure(
-                //     'getAssetSearchPromise',
-                //     'getAssetSearchPromise:start',
-                //     'getAssetSearchPromise:done'
-                // );
-                // //                 console.log('performance:',performance.getEntriesByName('getAssetSearchPromise'));
-                //
-                // const perf = performance.getEntriesByName(
-                //     'getAssetSearchPromise'
-                // );
-                // perf.forEach((x) => {
-                //     console.log(
-                //         'getAssetSearchPromise() duration:' + x.duration
-                //     );
-                // });
-                // //console.log("performance getEntries:", performance.getEntries());
-                // performance.clearMeasures();
-            });
+            .finally(() => {});
     });
 
     const promise = new Promise((resolve, reject) => {
