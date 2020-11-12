@@ -173,7 +173,7 @@ export function HistoryBox(props) {
                 <span className={'icon'}>
                     <BsArrowCounterclockwise />
                 </span>
-                <span>{label}</span>
+                <span className="app-name">{label}</span>
                 <span id={'sui-advPlus-' + props.id} className={'sui-advPlus'}>
                     <Badge
                         pill

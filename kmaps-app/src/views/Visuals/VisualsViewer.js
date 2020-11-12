@@ -6,6 +6,7 @@ import _ from 'lodash';
 import './visuals.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
+import { createAssetCrumbs } from '../common/utils';
 
 export function VisualsViewer(props) {
     const solrdoc = props.mdlasset;
@@ -33,28 +34,8 @@ export function VisualsViewer(props) {
             $('main.l-column__main').addClass('visuals');
 
             // Set Breadcrumbs with Collections
-            const titles = solrdoc?.collection_title_path_ss
-                ? solrdoc.collection_title_path_ss
-                : [];
-            const nids = solrdoc?.collection_nid_path_is
-                ? solrdoc.collection_nid_path_is
-                : [];
-            if (titles.length > 0) {
-                let colpaths = titles.map((title, ind) => {
-                    return {
-                        uid: 'visuals-collection-' + nids[ind],
-                        name: title,
-                    };
-                });
-                setMyColl(colpaths[colpaths.length - 1]);
-                colpaths.unshift({ uid: 'visuals', name: 'Visuals' });
-                const trunctitle = _.truncate(solrdoc?.title, {
-                    length: 45,
-                    separator: ' ',
-                });
-                colpaths.push({ uid: 'visuals-' + nid, name: trunctitle });
-                status.setPath(colpaths);
-            }
+            const bcrumbs = createAssetCrumbs(solrdoc);
+            status.setPath(bcrumbs);
         }
     }, [solrdoc]);
 

@@ -69,7 +69,9 @@ function FeatureAssetCard(props) {
     const doc = props.doc;
     const doc_url = `/${doc.asset_type}/${doc.id}`;
     const collection = (
-        <Link to={`/${asset_type}/${doc.id}`}>{doc.collection_title}</Link>
+        <Link to={`/${asset_type}/collection/${doc.collection_nid}`}>
+            {doc.collection_title}
+        </Link>
     );
     let summary = doc.summary;
     if (!summary) {
@@ -92,11 +94,18 @@ function FeatureAssetCard(props) {
                             as={'span'}
                             eventKey="0"
                             onClick={(x) => {
-                                const targ = $(x.target);
-                                if (targ.hasClass('open')) {
-                                    targ.removeClass('open');
+                                let targ = $(x.target);
+                                if (
+                                    targ &&
+                                    !targ.hasClass('u-icon__plus') &&
+                                    targ.find('span').length > 0
+                                ) {
+                                    targ = $(targ.find('span').eq(0));
+                                }
+                                if (targ.hasClass('openitem')) {
+                                    targ.removeClass('openitem');
                                 } else {
-                                    targ.addClass('open');
+                                    targ.addClass('openitem');
                                 }
                             }}
                         >
@@ -105,7 +114,9 @@ function FeatureAssetCard(props) {
                         <span
                             className={`shanticon-${doc.asset_type} type icon`}
                         />{' '}
-                        <Link to={doc_url}>{doc.title}</Link>
+                        <Link className={'header'} to={doc_url}>
+                            {doc.title}
+                        </Link>
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
                         <span className={'uid'}>{doc.uid}</span>

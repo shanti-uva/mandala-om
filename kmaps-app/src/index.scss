@@ -14,26 +14,23 @@ body {
     background-color: #fafafa;
 }
 
-@media (min-width: 1940px) {
-    body,
-    * {
-        max-width: 1940px;
-        margin: 0 auto;
-    }
-}
-
 body.html {
     font-family: $font-family-sans, sans-serif;
 }
+
+.two-columns {
+    display: flex;
+}
+
 .l-site__wrap,
 .l-column__main,
 .l-column__main__wrap,
 .l-content__main,
 .l-content__main__wrap {
-    height: 100vh;
+    //height: 100vh; //causing issues with standalone
 }
 .l-content__main {
-    height: 100vh;
+    //height: 100vh; //causing issues with standalone
     width: 100vw;
     display: flex;
     margin: 1rem 0 0 0;
@@ -44,6 +41,11 @@ body.html {
 .c-content__header__main {
     flex: 1;
 }
+
+.l-content__rightsidebar {
+    flex: 0 0 25.6rem;
+}
+
 a {
     text-decoration: none;
     color: $link-color;
@@ -123,7 +125,6 @@ div.image-wrapper.center figcaption {
 }
 // MAIN Kmaps Column ------- move this
 .c-content__main__kmaps {
-    margin: 0 1rem 0 0;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
@@ -325,24 +326,31 @@ div.image-wrapper.center figcaption {
 }
 
 // SEARCH Section ------- move this
+.advanced-search-and-tree {
+    position: relative;
+    & > * {
+        position: absolute;
+        width: 100%;
+    }
+}
 .l-column__search {
     height: 100vh;
-    width: 20vw;
-    max-width: 290px;
-    background: white;
     font-size: 1.3rem;
-    position: absolute;
-    top: 10.5rem;
-    right: 1rem;
     z-index: 1000;
-    border-left: 2px solid #ddd;
 }
 .l-column__search.open {
     z-index: 1000;
-    flex: 1;
-    position: absolute;
-    top: 11rem;
-    right: 1rem;
+}
+.l-column__search.open.standalone {
+    z-index: inherit;
+    flex: inherit;
+    position: relative;
+    top: inherit;
+    right: inherit;
+    width: inherit;
+    max-width: inherit;
+    background: inherit;
+    border-left: none;
 }
 .l-column__search nav:first-child {
     display: none;
@@ -423,7 +431,7 @@ div.image-wrapper.center figcaption {
             opacity: 0.8;
         }
 
-        &.open {
+        &.openitem {
             transform: rotate(45deg);
         }
     }
@@ -466,6 +474,7 @@ div.image-wrapper.center figcaption {
             color: #fff;
         }
     }
+
     .title {
         padding-top: 0.5rem;
     }
@@ -484,6 +493,8 @@ div.image-wrapper.center figcaption {
         min-height: 3rem;
         font-size: 1.4rem;
         min-width: 40vw;
+        overflow: visible;
+
         span.img {
             margin: 0 1rem 1rem 0;
             border: thin solid #aaa;
@@ -562,10 +573,12 @@ div.image-wrapper.center figcaption {
         opacity: 0.85;
     }
 
-    // Ancestors for kmaps
+    // Ancestors for kmaps in list view
     .ancestors {
         margin-left: 5.5rem;
         font-size: 1.3rem;
+        white-space: nowrap;
+
         span {
             display: inline-block;
             margin-left: 0.25rem;
@@ -592,7 +605,8 @@ div.image-wrapper.center figcaption {
         }
     }
 
-    .collapse .info.kmaps {
+    .collapse .info.kmaps,
+    .collapsing .info.kmaps {
         margin-bottom: -1.5rem;
         & > * {
             margin-left: 5.5rem;
@@ -609,6 +623,30 @@ div.image-wrapper.center figcaption {
         }
     }
 } // End list view styles
+
+// Asset Home Pages
+.assethome {
+    & > .desc {
+        font-size: 1.5rem;
+
+        & > * {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }
+
+    &.sources {
+        .c-view {
+            margin: 0 2rem;
+            font-size: 1.45rem;
+        }
+        .card {
+            border: none;
+            margin-left: 3rem !important;
+            text-indent: -3rem;
+        }
+    }
+}
 
 // Not Found Page for Assets
 .c-not-found {
@@ -636,5 +674,13 @@ div.image-wrapper.center figcaption {
         font-size: 1.5rem;
         padding: 0.25rem 1.5rem;
         border-radius: 2rem;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .list .c-view .ancestors {
+        white-space: normal;
+        line-height: 1.5rem;
+        font-size: 1.1altnamesrem;
     }
 }

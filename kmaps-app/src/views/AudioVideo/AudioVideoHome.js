@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
-import useStatus from '../../hooks/useStatus';
+import React, { useEffect, useState } from 'react';
+import { AssetHomeCollection } from '../common/AssetHomeCollection';
 
 export function AudioVideoHome(props) {
-    const status = useStatus();
-
-    useEffect(() => {
-        status.clear();
-        status.setHeaderTitle('Audio Video Home');
-    });
-
-    return <> Audio Video Home: Not much here yet.. </>;
+    return (
+        <div className={'assethome audio-video'}>
+            <div className={'desc'}>
+                <p>
+                    This pages shows all the audio-video resources in this
+                    project.
+                </p>
+            </div>
+            <AssetHomeCollection asset_type={'audio-video'} />
+        </div>
+    );
 }
 
 export default AudioVideoHome;
