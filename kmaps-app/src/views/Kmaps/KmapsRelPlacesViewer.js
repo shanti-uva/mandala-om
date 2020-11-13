@@ -29,10 +29,9 @@ export function KmapsRelPlacesViewer(props) {
             q:
                 '({!parent which=block_type:parent}related_subjects_id_s:' +
                 uid +
-                ' OR feature_type_id_i:' +
-                kid +
-                ') AND tree:places',
-            fl: 'tree,uid,uid_i,header',
+                ' AND tree:places) OR feature_type_id_i:' +
+                kid,
+            fl: 'tree,uid,uid_i,header,origin_uid_s',
             sort: 'header ASC',
             rows: pageSize,
             start: startRow,
@@ -87,19 +86,34 @@ export function KmapsRelPlacesViewer(props) {
 
     // Process into list items
     const placeitems = $.map(placedata.docs, function (item, n) {
-        const kid = Math.floor(item.uid_i / 100); // Remove 01 places suffix
-        return (
-            <li key={item.uid + '-' + n}>
-                <MandalaPopover domain={item.tree} kid={kid} />
-            </li>
-        );
+        const rndn = Math.ceil(Math.random() * 10000);
+        if (item.uid.includes('_featureType')) {
+            const uid = item.origin_uid_s;
+            const mykey = uid + '-' + rndn;
+            const pts = uid.split('-');
+            if (pts.length === 2) {
+                return (
+                    <li key={mykey}>
+                        <MandalaPopover domain={pts[0]} kid={pts[1]} />
+                    </li>
+                );
+            }
+        } else {
+            const mykey = item.uid + '-' + n + rndn;
+            const kid = Math.floor(item.uid_i / 100); // Remove 01 places suffix
+            return (
+                <li key={mykey}>
+                    <MandalaPopover domain={item.tree} kid={kid} />
+                </li>
+            );
+        }
     });
     const chunks = chunkIt(placeitems, colSize);
 
     return (
         <Container fluid className={'c-relplaces-list'}>
             <h2 className={'row'}>Related Places </h2>
-            {numFound && numFound > pageSize && (
+            {numFound > pageSize && (
                 <FeaturePager
                     pager={pager}
                     position={'top'}
@@ -115,7 +129,7 @@ export function KmapsRelPlacesViewer(props) {
                     );
                 })}
             </Row>
-            {numFound && numFound > pageSize && (
+            {numFound > pageSize && (
                 <FeaturePager
                     pager={pager}
                     position={'bottom'}
