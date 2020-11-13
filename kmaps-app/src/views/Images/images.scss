@@ -228,3 +228,13 @@
     display: inline-block;
     line-height: 2.2rem;
 }
+
+@media only screen and (max-width: 1490px) {
+    .c-image__context {
+        max-width: 80vw;
+    }
+
+    .c-image__viewer .c-image__carousel {
+        width: calc(80vw - 50px);
+    }
+}
