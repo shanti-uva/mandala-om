@@ -56,16 +56,19 @@ main.subjects {
             font-size: 1.4rem;
         }
 
+        .summary {
+            max-width: 75%;
+        }
+
         .desc > h3 {
             margin-top: 2rem;
             margin-bottom: -1rem;
             margin-left: -1rem;
             padding: 0.5rem 0.5rem 0.5rem 1rem;
-            border: thin solid #777;
+            border-bottom: thin solid #777;
             width: 75%;
-            border-radius: 0.8rem;
             color: #ffffff;
-            background-color: $color-subjects; // rgba(204, 76, 57, 0.8);
+            background-color: rgba(204, 76, 57, 0.8);
             font-weight: bold;
         }
 

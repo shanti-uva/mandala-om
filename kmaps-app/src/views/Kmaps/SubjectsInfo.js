@@ -88,6 +88,12 @@ function SubjectTextDescription(props) {
             </div>
             <HtmlWithPopovers markup={txtjson?.full_markup} />
         </>
-    ) : null;
+    ) : (
+        <>
+            <div className={'mt-5'}>
+                <h5>Loading ...</h5>
+            </div>
+        </>
+    );
     return txtmup;
 }
