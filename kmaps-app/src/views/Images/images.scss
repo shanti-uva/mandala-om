@@ -5,6 +5,7 @@
     padding-left: 0;
     padding-right: 0;
     border-top: 10px solid #b49c59;
+    max-width: 85vw;
 }
 .c-image {
     //  background-color: #fafafa;
@@ -95,7 +96,7 @@
         margin: 0 6px;
     }
     .c-image__carousel {
-        width: calc(98vw - 50px);
+        width: calc(85vw - 50px);
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
