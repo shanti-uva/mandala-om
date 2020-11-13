@@ -151,6 +151,41 @@ main.subjects {
         .kmap-related h3 {
             margin-top: 1rem;
         }
+
+        .c-relplaces-list.container-fluid {
+            margin: 2rem;
+            .c-featurePager__container.row {
+                padding: 1rem;
+                margin-left: -1.75rem;
+                background-color: #777;
+                color: white;
+                max-width: 1100px;
+
+                .c-featurePager__navButtons .icon {
+                    color: #bcbcbc;
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
+            .c-featurePager__container.row > div {
+                width: 30%;
+                text-align: left;
+            }
+
+            .row > div {
+                padding-left: 0;
+            }
+
+            ul,
+            li {
+                list-style-type: none;
+                padding-inline-start: 0px;
+                margin: 0;
+                padding: 0;
+            }
+        }
     } /*  End of c-content__main__kmaps */
 
     /* Styles from mandala that possible should be global */
