@@ -105,7 +105,10 @@ import { MandalaPopover } from '../common/MandalaPopover';
                 activate: function (event, data) {
                     var node = data.node,
                         orgEvent = data.originalEvent;
-                    if (node.data.marks.includes('nonInteractiveNode')) {
+                    if (
+                        node.data.marks &&
+                        node.data.marks.includes('nonInteractiveNode')
+                    ) {
                         node.toggleExpanded();
                     } else {
                         if (node.data.href) {

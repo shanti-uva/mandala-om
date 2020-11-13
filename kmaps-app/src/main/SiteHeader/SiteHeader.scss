@@ -8,6 +8,12 @@
     background: #fff;
     display: flex;
 }
+.c-site__header-standalone {
+    height: 40px;
+    padding: 0;
+    background: #fff;
+    display: none;
+}
 .navbar-brand {
     display: inline-block;
 }

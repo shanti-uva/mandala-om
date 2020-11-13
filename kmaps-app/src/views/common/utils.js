@@ -2,6 +2,7 @@ import _ from 'lodash';
 import $ from 'jquery';
 import { BsCheckCircle, BsMap, ImStack } from 'react-icons/all';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export function buildNestedDocs(docs, child_type, path_field) {
     path_field = path_field ? path_field : child_type + '_path_s';
@@ -190,4 +191,46 @@ export function selectIcon(type) {
     };
 
     return ICON_MAP[type];
+}
+
+export function createAssetCrumbs(kmasset) {
+    const asset_type = kmasset.asset_type;
+    let bcrumbs = [
+        {
+            uid: '/' + asset_type,
+            name: capitalAsset(asset_type),
+        },
+    ];
+    if (
+        kmasset.collection_title_path_ss &&
+        kmasset.collection_title_path_ss.length > 0
+    ) {
+        for (
+            var bcn = 0;
+            bcn < kmasset.collection_title_path_ss.length;
+            bcn++
+        ) {
+            const colltitle = kmasset.collection_title_path_ss[bcn];
+            const collnid = kmasset.collection_nid_path_is[bcn];
+            const colluid = `/${asset_type}/collection/${collnid}`;
+            bcrumbs.push({
+                uid: colluid,
+                name: colltitle,
+            });
+        }
+        const mytitle =
+            kmasset.title && kmasset.title.length > 0
+                ? kmasset.title[0]
+                : kmasset.caption;
+        let selfbc = {
+            uid: '#',
+            name: mytitle,
+        };
+        bcrumbs.push(selfbc);
+    }
+    return bcrumbs;
+}
+
+export function capitalAsset(asn) {
+    return asn[0].toUpperCase() + asn.substr(1).replace('-v', '-V');
 }

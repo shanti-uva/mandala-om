@@ -164,7 +164,9 @@ function MandalaPopoverBody(props) {
                         const url = mandala_base + '/subjects/subjects-' + item;
                         return (
                             <>
-                                <a href={url}>{kminfo.feature_types[index]}</a>
+                                <a href={url} key={domain + kid + index}>
+                                    {kminfo.feature_types[index]}
+                                </a>
                             </>
                         );
                     })}
@@ -228,7 +230,9 @@ function MandalaPopoverBody(props) {
                         const myurl =
                             mandala_base + '/subjects/subjects-' + item;
                         return (
-                            <a href={myurl}>{kminfo.associated_subjects[n]}</a>
+                            <a href={myurl} key={myurl + n}>
+                                {kminfo.associated_subjects[n]}
+                            </a>
                         );
                     })}
                 </div>
@@ -241,6 +245,9 @@ function MandalaPopoverBody(props) {
         <>
             {related.map((item, index) => {
                 const assettype = item.groupValue;
+                if (assettype == 'picture') {
+                    return;
+                }
                 if (assettype == 'texts:pages') {
                     return;
                 }
@@ -252,7 +259,7 @@ function MandalaPopoverBody(props) {
                     assettype.substr(1).replace('-v', ' V').replace('-', ' ');
                 const iconclass = 'icon u-icon__' + assettype;
                 return (
-                    <div className="popover-footer-button">
+                    <div className="popover-footer-button" key={myurl}>
                         <a href={myurl} className={iconclass}>
                             {label} ({item.doclist.numFound})
                         </a>

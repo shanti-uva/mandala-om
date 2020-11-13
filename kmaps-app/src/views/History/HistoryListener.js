@@ -56,6 +56,7 @@ export default function HistoryListener() {
         return title;
     }
 
+    // HERE IS WHERE THE HISTORY LISTENER LOOKS AT THE QUERY STRING TO DETERMINE THE SEARCH STATE
     const qObj = qs.parse(location.search, {
         allowDots: true,
         ignoreQueryPrefix: true,
@@ -91,9 +92,14 @@ export default function HistoryListener() {
 
     // console.log('HISTORY LISTENER INIT setSearchState = ', ss);
 
+    // HERE'S WHERE WE SHORT-CIRCUIT REDIRECT LOOPING BY NOT REDIRECTING WHEN internal=true
+    // SearchViewer sets that flag when trying to set the url according the search state
     useEffect(() => {
-        if (location.search?.length) {
-            setSearchState(ss);
+        const searchParams = qs.parse(location.search);
+        if (searchParams.internal !== 'true') {
+            if (location.search?.length) {
+                setSearchState(ss);
+            }
         }
     }, [location.search]);
 

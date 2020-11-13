@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Redirect,
-    Switch,
-} from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import Router from './RouterSelect';
 
 import { SiteHeader } from './SiteHeader/SiteHeader';
 import { Home } from './HomePage/Home';
@@ -57,7 +53,11 @@ export function Main(props) {
 
     const searchClasses = stateList.join(' ');
     const main = (
-        <Router basename={'/mandala-om'}>
+        <Router
+            {...(process.env.REACT_APP_STANDALONE !== 'standalone'
+                ? { basename: '/mandala-om' }
+                : {})}
+        >
             <div
                 id={'l-site__wrap'}
                 className={`l-site__wrap  ${searchClasses}`}
@@ -74,9 +74,11 @@ export function Main(props) {
                     <Route path={'/home'}>
                         <Home />
                     </Route>
-                    <Route exact path={'/'}>
-                        <Redirect to={'/home'} />
-                    </Route>
+                    {process.env.REACT_APP_STANDALONE !== 'standalone' && (
+                        <Route exact path={'/'}>
+                            <Redirect to={'/home'} />
+                        </Route>
+                    )}
                     <Route path={'/'}>
                         <ContentMain
                             site={'mandala'}
@@ -110,7 +112,7 @@ export function Main(props) {
     return ret;
 }
 
-function TreeNav(props) {
+export function TreeNav(props) {
     const openclass = props.tree ? 'open' : 'closed';
 
     const tabs = (
@@ -120,7 +122,7 @@ function TreeNav(props) {
         >
             <div>
                 <span
-                    class={
+                    className={
                         'sacrifical-dummy-element-that-is-not-displayed-for-some-reason'
                     }
                 ></span>

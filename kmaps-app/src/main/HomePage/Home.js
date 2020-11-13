@@ -92,10 +92,86 @@ export function Home(props) {
                                     </li>
                                 </ul>
                             </ul>
+                            <h4>Subjects</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/subjects/subjects-20'}>
+                                        Geographical Features: (subjects-20)
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/subjects/subjects-8260'}>
+                                        Bhutan Cultural Library: (subjects-8260)
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/subjects/subjects-3719'}>
+                                        Whaling Station Test: (subjects-3719)
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/subjects/subjects-4102'}>
+                                        Tibetan Contemporaneous Art:
+                                        (subjects-4102)
+                                    </Link>
+                                </li>
+                            </ul>
                             <h4>Search</h4>
                             <ul>
                                 <li>
                                     <Link to={'/search'}>/search</Link>
+                                </li>
+                            </ul>
+
+                            <h4>Collections</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/audio-video/collection/3'}>
+                                        Audio-Video Collection: THL
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/images/collection/45316'}>
+                                        Image Collection: Central Tibet
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/sources/collection/23541'}>
+                                        Source Collection: Yogācāra Example
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/texts/collection/48596'}>
+                                        Text Collection: University of
+                                        Flourishing
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/collection/5786'}>
+                                        Visual Collection: University of
+                                        Flourishing
+                                    </Link>
+                                </li>
+                            </ul>
+
+                            <h4>Audio-Video</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/audio-video/825'}>
+                                        Video: Carpenter of Lhagya Ri Palace
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/audio-video/306'}>
+                                        Video: Dawa and Pudrön Flirt
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/audio-video/9246'}>
+                                        Video: Riddle of the Terma Vase
+                                    </Link>{' '}
+                                    (Many Agents, Transcript, Tibetan and
+                                    Chinese text)
                                 </li>
                             </ul>
 
@@ -123,24 +199,23 @@ export function Home(props) {
                                 </li>
                             </ul>
 
-                            <h4>Audio-Video</h4>
+                            <h4>Sources</h4>
                             <ul>
                                 <li>
-                                    <Link to={'/audio-video/825'}>
-                                        Video: Carpenter of Lhagya Ri Palace
+                                    <Link to={'/sources/26856'}>
+                                        Source: Winternitz Dummy Test
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/audio-video/306'}>
-                                        Video: Dawa and Pudrön Flirt
+                                    <Link to={'/sources/87826'}>
+                                        Source: 100% Renewable Energy Systems
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/audio-video/9246'}>
-                                        Video: Riddle of the Terma Vase
-                                    </Link>{' '}
-                                    (Many Agents, Transcript, Tibetan and
-                                    Chinese text)
+                                    <Link to={'/sources/87476'}>
+                                        Source: Accounting for Nat. Resources
+                                        &amp; Env. Sustainability
+                                    </Link>
                                 </li>
                             </ul>
 
@@ -162,6 +237,30 @@ export function Home(props) {
                                         Text: Hagar of The Pawn-Shop
                                     </Link>{' '}
                                     has Hagar... and a Pawn Shop.
+                                </li>
+                            </ul>
+
+                            <h4>Visuals</h4>
+                            <ul>
+                                <li>
+                                    <Link to={'/visuals/4451'}>
+                                        Visuals: Bloodtype Pie Chart
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5821'}>
+                                        Visuals: Vimeo Video
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/1806'}>
+                                        Visuals: Graph Indo-European Languages
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/visuals/5266'}>
+                                        Visuals: Timeline DH Chronology
+                                    </Link>
                                 </li>
                             </ul>
 

@@ -470,10 +470,10 @@
 
 .sui-advBox {
     border: 1px solid #a4baec;
-    width: calc(100% - 28px);
-    margin: 0 0 8px 12px;
-    padding: 4px 8px 2px 8px;
-    border-radius: 6px;
+    /* width: calc(100% - 28px); */
+    margin: 12px 8px;
+    padding: 4px 6px 2px 2px;
+    border-radius: 4px;
 }
 
 .sui-advBox-asset_type {
@@ -487,11 +487,17 @@
 .sui-advHeader {
     cursor: pointer;
     text-transform: uppercase;
+    display: flex;
 }
 
 .sui-advHeader > .icon {
     margin: 0 0.5rem;
 }
+
+.sui-advHeader > .app-name {
+    flex: 1;
+}
+
 .sui-advHeader .badge {
     position: relative;
     bottom: 0.3rem;
@@ -514,7 +520,7 @@
 .sui-advEdit {
     display: none;
     border: 1px solid #ccc;
-    width: calc(100% - 18px);
+    /* width: calc(100% - 18px); */
     background-color: #fff;
     text-align: left;
     border-radius: 5px;

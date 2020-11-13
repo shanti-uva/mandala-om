@@ -67,6 +67,7 @@ export function FacetBox(props) {
     const [sortDirection, setSortDirection] = useState('desc');
 
     const [open, setOpen] = useState(false);
+
     let chosen_icon = props.icon;
     const facetType = props.facetType;
     const facets = props.facets;
@@ -267,7 +268,7 @@ export function FacetBox(props) {
                 onClick={() => setOpen(!open)}
             >
                 <span className={'icon'}>{icon}</span>
-                <span>{label}</span>
+                <span className="app-name">{label}</span>
                 <span id={'sui-advPlus-' + props.id} className={'sui-advPlus'}>
                     <Badge
                         pill

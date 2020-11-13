@@ -1,0 +1,105 @@
+main.l-column__main.sources {
+    background-color: #ddd;
+}
+
+.c-source {
+    max-width: 1000px;
+    margin: 8px auto 8px 0;
+    background-color: #f7f7f7;
+    border: 1px solid #999;
+    border-radius: 0.6rem;
+    padding: 4rem;
+    font-weight: 400;
+    color: #000;
+
+    .c-source__head {
+        padding-bottom: 1rem;
+        border-bottom: thin solid #000;
+    }
+
+    .c-source__title {
+        font-family: 'EB Garamond', serif;
+        font-size: 2.25rem;
+        font-weight: 500;
+        color: #333;
+    }
+
+    h2.c-source__second-head {
+        font-family: 'EB Garamond', serif;
+        font-weight: 500;
+        color: #000;
+        line-height: 24px;
+        font-size: 2.25rem;
+        font-style: italic;
+    }
+
+    h3.c-source__third-head {
+        color: #000;
+        font-family: 'EB Garamond', serif;
+        line-height: 1.25em;
+        font-weight: 500;
+        font-size: 1.75rem;
+    }
+
+    .row {
+        font-size: 1.4rem;
+        line-height: 2.5rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .c-sources__data {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+    .row .u-label {
+        font-size: 1.2rem !important;
+        padding-top: 0.15rem;
+    }
+    .row .u-label:after {
+        content: ': ';
+        padding-right: 1rem !important;
+    }
+
+    .row.agents {
+        line-height: inherit;
+        font-size: 1.2rem;
+        margin-top: 1.25rem;
+    }
+
+    .row.agents .u-icon__agents {
+        color: #6e65cc;
+        font-size: 1.4rem;
+        margin-right: 0.75rem;
+    }
+
+    .row.agents .agent:after {
+        content: ', ';
+        padding-right: 4px;
+    }
+
+    .row.agents .agent:last-child:after {
+        content: '';
+    }
+
+    .row.collection .u-value a:after {
+        content: '>';
+        padding: 0 1rem;
+    }
+    .row.collection .u-value a:last-child:after {
+        content: '';
+    }
+    .row.abstract .u-value {
+        line-height: 2.5rem;
+    }
+
+    .row .u-bo {
+        font-size: 120%;
+    }
+
+    span.kmap-tag-group.processed {
+        margin-top: -1rem;
+    }
+}

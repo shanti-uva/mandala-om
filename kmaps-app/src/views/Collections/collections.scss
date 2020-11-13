@@ -1,0 +1,103 @@
+.c-collection__container {
+    .c-collection {
+        .c-collection__items {
+            height: fit-content;
+            margin: 6px 0 8px 12px;
+            padding: 2rem 4rem;
+            border: thin solid #aaa;
+            border-radius: 0.6rem;
+            background-color: white;
+            font-size: 1.4rem;
+
+            p.colldesc {
+                height: fit-content;
+                /* min-height: 170px; doesn't work when no pic and little text */
+                img {
+                    margin: 0 1rem 0.5rem 0;
+                    max-width: 220px;
+                    max-height: 250px;
+                    background: #fff;
+                    border-radius: 0.3rem !important;
+                    border: 2px solid #fff !important;
+                    padding: 0.8rem;
+                    box-shadow: 0 0 5px 1px #aaa inset;
+                }
+            }
+
+            .card.sources {
+                border: none;
+                margin-left: 3rem !important;
+                text-indent: -3rem;
+            }
+
+            .card.texts {
+                .info {
+                    margin-left: 5rem;
+                }
+                .info .img,
+                .info img {
+                    max-width: 50px;
+                    display: none;
+                }
+            }
+
+            .card.visuals {
+                .info img {
+                    max-width: 75px;
+                }
+            }
+        } /** end of .c-collection__items **/
+
+        .c-collection__metadata {
+            margin: -12px 0 0;
+            font-size: 1.2rem;
+
+            h3 {
+                color: #333;
+                letter-spacing: 0.15rem;
+                font-size: 1.06em;
+                text-transform: uppercase;
+                letter-spacing: 0.175rem;
+                margin-bottom: 0.6rem;
+                margin-top: 2rem;
+                background: #fff;
+                padding: 1rem 0.5rem 0.8rem 1.5rem;
+                margin-right: 0.8rem;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            ul {
+                list-style-type: disc;
+            }
+
+            ul li:before {
+                content: '';
+                width: 1rem;
+                height: 1rem;
+                background: transparent;
+                border: 1px solid #454fa4;
+                display: inline-block;
+                border-radius: 50%;
+                background-clip: padding-box;
+                margin-right: 0.65rem;
+                margin-left: -2.2rem;
+                position: relative;
+                top: 0.1rem;
+            }
+
+            ul li {
+                list-style-type: none;
+                display: block;
+                line-height: 2.3rem;
+            }
+
+            ul li a {
+                letter-spacing: 0.04rem;
+            }
+        }
+
+        .collapse {
+            width: 100%;
+        }
+    }
+}

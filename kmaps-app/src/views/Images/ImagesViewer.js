@@ -7,6 +7,7 @@ import { ImageMetadata } from './ImageMetadata';
 import $ from 'jquery';
 import './images.scss';
 import { ImagesOSDViewer } from './ImagesOSDViewer';
+import { createAssetCrumbs } from '../common/utils';
 
 /**
  * Compontent that creates the Image Viewer page, including:
@@ -30,14 +31,22 @@ export function ImagesViewer(props) {
 
     const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
 
+    useEffect(() => {
+        if (ismain) {
+            status.clear();
+            status.setType('images');
+        }
+    }, []);
+
     // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
     useEffect(() => {
         // Setting title in header and other status options
         if (solrdoc && ismain) {
-            status.clear();
             status.setHeaderTitle(
                 solrdoc?.title || solrdoc?.caption || 'ImageViewer'
             );
+            const bcrumbs = createAssetCrumbs(solrdoc);
+            status.setPath(bcrumbs);
         }
         // Updating button controls for fullscreen and zoom
         const iiifview = $('.react-iiif-viewer');

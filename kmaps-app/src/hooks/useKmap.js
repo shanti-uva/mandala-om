@@ -1,5 +1,4 @@
-import React from 'react';
-import { useQuery, queryCache } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import jsonpAdapter from '../logic/axios-jsonp';
 

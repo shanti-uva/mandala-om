@@ -6,28 +6,29 @@ import NumericInput from 'react-numeric-input';
 import './FeaturePager.scss';
 
 export function FeaturePager(props) {
-    const [pg, setPg] = useState(0);
+    // const [pg, setPg] = useState(0);
     const pageInput = useRef(null);
 
     if (props.pager === undefined) {
         return null;
     }
 
+    const pager = props.pager;
+
     let wingo = (
         <NumericInput
             aria-label="Goto page"
             min={1}
-            max={props.pager.getMaxPage() + 1}
+            max={pager.getMaxPage() + 1}
             size={5}
-            value={props.pager.getPage() + 1}
+            value={pager.getPage() + 1}
             onChange={(pg) => {
-                console.log(
-                    'FeaturePager pg = ' +
-                        pg +
-                        ' maxPage = ' +
-                        props.pager.getMaxPage()
-                );
-                props.pager.setPage(pg - 1);
+                if (window?.fppgwait) {
+                    clearTimeout(window?.fppgwait);
+                }
+                window.fppgwait = setTimeout(function () {
+                    pager.setPage(pg - 1);
+                }, 800);
             }}
             mobile={false}
             noStyle={true}
@@ -36,36 +37,51 @@ export function FeaturePager(props) {
     );
 
     function firstPage() {
-        props.pager.firstPage();
-        console.log('firstPage()', pageInput.current);
-        console.log('getPage()', props.pager.getPage());
-        pageInput.current.refsInput.setValue(props.pager.getPage() + 1);
+        pager.firstPage();
+        pageInput.current.refsInput.setValue(pager.getPage() + 1);
     }
 
     function nextPage() {
-        props.pager.nextPage();
-        console.log('getPage()', props.pager.getPage());
-        pageInput.current.refsInput.setValue(props.pager.getPage() + 1);
+        pager.nextPage();
+        pageInput.current.refsInput.setValue(pager.getPage() + 1);
     }
 
     function prevPage() {
-        props.pager.prevPage();
-        console.log('getPage()', props.pager.getPage());
-        pageInput.current.refsInput.setValue(props.pager.getPage() + 1);
+        pager.prevPage();
+        pageInput.current.refsInput.setValue(pager.getPage() + 1);
     }
 
     function lastPage() {
-        props.pager.lastPage();
-        console.log('getPage()', props.pager.getPage());
-        pageInput.current.refsInput.setValue(props.pager.getPage() + 1);
+        pager.lastPage();
+        pageInput.current.refsInput.setValue(pager.getPage() + 1);
     }
-
-    if (props.pager.getMaxPage() < props.pager.getPage()) {
-        props.pager.setPage(props.pager.getMaxPage());
+    /*
+    if (pager.getMaxPage() < pager.getPage()) {
+        pager.setPage(pager.getMaxPage());
     }
+    */
+    let numFound = props?.numFound ? props.numFound : pager?.numFound;
+    if (!numFound) {
+        numFound = pager.getPageSize();
+    }
+    const startnum = pager.getPage() * pager.getPageSize() + 1;
+    let endnum = startnum + pager.getPageSize() - 1;
+    if (numFound < endnum) {
+        endnum = numFound;
+    }
+    const position = props?.position ? ' ' + props.position : '';
+    let maxpg = pager.getMaxPage() + 1;
+    maxpg = isNaN(maxpg) ? '...' : maxpg;
 
     return (
-        <div className={'c-featurePager__container'}>
+        <div className={`c-featurePager__container${position}`}>
+            {props?.docs && (
+                <div className={'c-featurePager__resultSummary'}>
+                    (Displaying <span className={'start'}>{startnum}</span>
+                    to <span className={'end'}>{endnum}</span>
+                    of <span className={'total'}>{numFound}</span>)
+                </div>
+            )}
             <div className={'c-featurePager__navButtons'}>
                 <span
                     onClick={firstPage}
@@ -86,9 +102,7 @@ export function FeaturePager(props) {
                 <span className={'c-pager__counterWrapper'}>
                     <span className={'c-pager__counter-1'}>{wingo}</span>
                     of
-                    <span className={'c-pager__counterMax'}>
-                        {props.pager.getMaxPage() + 1}
-                    </span>
+                    <span className={'c-pager__counterMax'}>{maxpg}</span>
                 </span>
                 <span
                     onClick={nextPage}
@@ -117,9 +131,9 @@ export function FeaturePager(props) {
                     size={3}
                     step={10}
                     // style={{width: "4em"}}
-                    value={props.pager.getPageSize()}
+                    value={pager.getPageSize()}
                     onChange={(ps) => {
-                        props.pager.setPageSize(ps);
+                        pager.setPageSize(ps);
                     }}
                     mobile={false}
                     style={{

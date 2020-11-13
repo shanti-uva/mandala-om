@@ -1,11 +1,8 @@
 import { FacetBox } from './FacetBox';
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import { HistoryBox } from './HistoryBox';
 import { useStoreState } from 'easy-peasy';
@@ -14,8 +11,7 @@ const SEARCH_PATH = '/search';
 
 export function SearchAdvanced(props) {
     const history = useHistory();
-    const query = '';
-    const openclass = props.advanced ? 'open' : 'closed';
+    let openclass = props.advanced ? 'open' : 'closed';
     let [reset, setReset] = useState(0);
     const historyStack = useStoreState((state) => state.history.historyStack);
 
@@ -26,7 +22,13 @@ export function SearchAdvanced(props) {
     // console.log("SearchAdvance searchView = ", searchView);
 
     function gotoSearchPage() {
-        if (!searchView) history.push(SEARCH_PATH);
+        if (!searchView) {
+            if (process.env.REACT_APP_STANDALONE === 'standalone') {
+                window.location.href = `${process.env.REACT_APP_STANDALONE_PATH}/#/search`;
+            } else {
+                history.push(SEARCH_PATH);
+            }
+        }
     }
 
     function handleFacetChange(msg) {
@@ -56,18 +58,22 @@ export function SearchAdvanced(props) {
         } else if (command.action === 'remove') {
             search.removeFilters([{ id: compound_id }]);
         }
-        gotoSearchPage(); // declaratively navigate to search
+        if (command.action !== 'remove') {
+            gotoSearchPage(); // declaratively navigate to search
+        }
     }
 
     function handleNarrowFilters(narrowFilter) {
         // console.log('handleNarrowFilters narrowFilter = ', narrowFilter);
-        const search = props.search;
-        search.narrowFilters(narrowFilter);
+        const search = props?.search;
+        if (search) {
+            search.narrowFilters(narrowFilter);
+        }
     }
 
     function getChosenFacets(type) {
         // console.log("getChosenFacets: finding in:", props.search.query.filters)
-        return props.search.query?.filters?.filter((x) => x.field === type);
+        return props?.search?.query?.filters?.filter((x) => x.field === type);
     }
 
     function handleResetFilters() {
@@ -118,14 +124,26 @@ export function SearchAdvanced(props) {
             <Navbar>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />
-                {!searchView && (
-                    <Link to={SEARCH_PATH}>
-                        {'<<'} Show Results{' '}
-                        <Badge pill variant={'secondary'}>
-                            {props.pager.numFound}
-                        </Badge>
-                    </Link>
-                )}
+                {!searchView &&
+                    process.env.REACT_APP_STANDALONE !== 'standalone' && (
+                        <Link to={SEARCH_PATH}>
+                            {'<<'} Show Results{' '}
+                            <Badge pill variant={'secondary'}>
+                                {props?.pager?.numFound}
+                            </Badge>
+                        </Link>
+                    )}
+                {!searchView &&
+                    process.env.REACT_APP_STANDALONE === 'standalone' && (
+                        <a
+                            href={`${process.env.REACT_APP_STANDALONE_PATH}/#/search`}
+                        >
+                            {'<<'} Show Results{' '}
+                            <Badge pill variant={'secondary'}>
+                                {props?.pager?.numFound}
+                            </Badge>
+                        </a>
+                    )}
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>Reset: </Navbar.Text>
                     <Nav.Link
@@ -278,5 +296,6 @@ export function SearchAdvanced(props) {
             </div>
         </aside>
     );
+
     return advanced;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStoreState } from '../../model/StoreModel';
+import { Link } from 'react-router-dom';
 import { KmapLink } from '../../views/common/KmapLink';
 import './ContentHeader.scss';
 
@@ -13,14 +14,27 @@ export function ContentHeader(props) {
         if (i !== 0) {
             pathy.push(sep);
         }
-        pathy.push(
-            <KmapLink
-                className={'breadcrumb-item'}
-                key={link.uid}
-                uid={link.uid}
-                label={link.name}
-            />
-        );
+        if (link.uid.charAt(0) == '/') {
+            // Allow regular relative links without processing as kmaps
+            pathy.push(
+                <Link
+                    key={link.uid}
+                    to={link.uid}
+                    className={'breadcrumb-item'}
+                >
+                    {link.name}
+                </Link>
+            );
+        } else {
+            pathy.push(
+                <KmapLink
+                    key={link.uid}
+                    className={'breadcrumb-item'}
+                    uid={link.uid}
+                    label={link.name}
+                />
+            );
+        }
     });
 
     const convertedPath = pathy;

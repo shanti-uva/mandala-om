@@ -5,6 +5,7 @@
     padding-left: 0;
     padding-right: 0;
     border-top: 10px solid #b49c59;
+    max-width: 85vw;
 }
 .c-image {
     //  background-color: #fafafa;
@@ -95,7 +96,7 @@
         margin: 0 6px;
     }
     .c-image__carousel {
-        width: calc(98vw - 50px);
+        width: calc(85vw - 50px);
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
@@ -226,4 +227,14 @@
     overflow-wrap: anywhere;
     display: inline-block;
     line-height: 2.2rem;
+}
+
+@media only screen and (max-width: 1490px) {
+    .c-image__context {
+        max-width: 80vw;
+    }
+
+    .c-image__viewer .c-image__carousel {
+        width: calc(80vw - 50px);
+    }
 }

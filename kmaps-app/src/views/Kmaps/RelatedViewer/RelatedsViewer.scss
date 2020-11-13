@@ -223,3 +223,83 @@
 .l-history__list__wrap .u-related__list__header {
     margin-bottom: 0.75rem;
 }
+
+/* Related Icons Styles */
+.c-relateds-icons {
+    margin-top: 1rem;
+    li {
+        display: inline-block;
+        margin-right: 1.25rem;
+        padding: 0;
+    }
+
+    li > div {
+        display: inline-block;
+        background: #ddd;
+        border-radius: 0.2rem;
+        background-clip: padding-box;
+        width: 2.8rem;
+        height: 2.8rem;
+        -webkit-transition: all 100ms ease-in;
+        transition: all 100ms ease-in;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    li.audio-video a {
+        background-color: $color-places;
+    }
+    li.images a {
+        background-color: $color-images;
+    }
+    li.sources a {
+        background-color: $color-sources;
+    }
+    li.texts a {
+        background-color: $color-texts;
+    }
+    li.visuals a {
+        background-color: $color-visuals;
+    }
+    li.places a {
+        background-color: $color-places;
+    }
+    li.subjects a {
+        background-color: $color-subjects;
+    }
+    li.terms a {
+        background-color: $color-terms;
+    }
+
+    a {
+        border: none !important;
+        background: #777;
+        color: #222;
+        margin: 0.3rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        display: block;
+        text-align: center;
+        filter: alpha(opacity=90);
+        opacity: 0.9;
+        border-radius: 0.15rem;
+        box-shadow: 0 0 0.2rem 0.1rem #fff;
+    }
+
+    span.icon {
+        font-size: 0.93em;
+        position: relative;
+        width: 100%;
+        top: -0.1rem;
+        color: #fff;
+        text-align: center;
+    }
+
+    span.kmaps-results-name {
+        display: none;
+    }
+
+    span.badge {
+        vertical-align: top;
+    }
+}

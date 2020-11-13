@@ -13,18 +13,24 @@ body {
     text-rendering: optimizeLegibility;
     background-color: #fafafa;
 }
+
 body.html {
     font-family: $font-family-sans, sans-serif;
 }
+
+.two-columns {
+    display: flex;
+}
+
 .l-site__wrap,
 .l-column__main,
 .l-column__main__wrap,
 .l-content__main,
 .l-content__main__wrap {
-    height: 100vh;
+    //height: 100vh; //causing issues with standalone
 }
 .l-content__main {
-    height: 100vh;
+    //height: 100vh; //causing issues with standalone
     width: 100vw;
     display: flex;
     margin: 1rem 0 0 0;
@@ -35,6 +41,11 @@ body.html {
 .c-content__header__main {
     flex: 1;
 }
+
+.l-content__rightsidebar {
+    flex: 0 0 25.6rem;
+}
+
 a {
     text-decoration: none;
     color: $link-color;
@@ -114,28 +125,19 @@ div.image-wrapper.center figcaption {
 }
 // MAIN Kmaps Column ------- move this
 .c-content__main__kmaps {
-    margin: 0 1rem 0 0;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
     font-size: 1.3rem;
     min-height: 75rem;
+    max-width: 75vw;
 }
 // * Local fix for responsive display - temp
 .c-content__main__kmaps img,
 .c-content__main__kmaps .images.legacy img {
     height: auto !important;
     max-width: 100% !important;
-}
-
-// View mode for content column ---- move this
-.c-buttoneGroup__viewMode {
-    margin-left: 4rem;
-    float: left;
-}
-.c-buttoneGroup__viewMode__wrap {
-    margin-top: 0.8rem;
 }
 
 //---------------------------------------
@@ -325,24 +327,31 @@ div.image-wrapper.center figcaption {
 }
 
 // SEARCH Section ------- move this
+.advanced-search-and-tree {
+    position: relative;
+    & > * {
+        position: absolute;
+        width: 100%;
+    }
+}
 .l-column__search {
     height: 100vh;
-    width: 20vw;
-    max-width: 290px;
-    background: white;
     font-size: 1.3rem;
-    position: absolute;
-    top: 10.5rem;
-    right: 1rem;
     z-index: 1000;
-    border-left: 2px solid #ddd;
 }
 .l-column__search.open {
     z-index: 1000;
-    flex: 1;
-    position: absolute;
-    top: 11rem;
-    right: 1rem;
+}
+.l-column__search.open.standalone {
+    z-index: inherit;
+    flex: inherit;
+    position: relative;
+    top: inherit;
+    right: inherit;
+    width: inherit;
+    max-width: inherit;
+    background: inherit;
+    border-left: none;
 }
 .l-column__search nav:first-child {
     display: none;
@@ -363,7 +372,11 @@ div.image-wrapper.center figcaption {
 }
 
 // gallery display buttons for view options
+// View mode for content column
 .c-buttoneGroup__viewMode {
+    margin: 0.8rem 1.5rem 0rem;
+    padding-right: 1rem;
+    float: right;
 }
 
 .open {
@@ -372,6 +385,270 @@ div.image-wrapper.center figcaption {
 
 .closed {
     display: none;
+}
+
+// View Styles
+.c-view__wrapper {
+    background-color: white;
+}
+
+.c-view {
+    margin: 0 2rem;
+    .c-featurePager__container {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 1rem;
+        padding-left: 3rem;
+        margin: 0rem;
+        border-radius: 0.3rem 0.3rem 0rem 0rem;
+        color: white;
+
+        .icon {
+            color: white;
+        }
+    }
+}
+
+// List View Only
+.sources .list .c-view {
+    margin: 0 2rem 0 0;
+}
+.list .c-view {
+    margin: 0 2rem;
+
+    .card {
+        border: unset;
+        border-top: 1px solid #cde3f7;
+    }
+
+    .u-icon__plus {
+        color: #333;
+        opacity: 0.5;
+        display: inline-block;
+        margin-right: 1rem;
+        font-size: 1.3rem;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        &.openitem {
+            transform: rotate(45deg);
+        }
+    }
+
+    .card .type.icon {
+        font-size: 1.2rem;
+        padding: 0.3rem;
+        border: 3px double #fff;
+
+        &.shanticon-audio-video {
+            background-color: $color-audio-video;
+            color: #fff;
+        }
+        &.shanticon-images {
+            background-color: $color-images;
+            color: #fff;
+        }
+        &.shanticon-sources {
+            background-color: $color-sources;
+            color: #fff;
+        }
+        &.shanticon-texts {
+            background-color: $color-texts;
+            color: #fff;
+        }
+        &.shanticon-visuals {
+            background-color: $color-visuals;
+            color: #fff;
+        }
+        &.shanticon-places {
+            background-color: $color-places;
+            color: #fff;
+        }
+        &.shanticon-subjects {
+            background-color: $color-subjects;
+            color: #fff;
+        }
+        &.shanticon-terms {
+            background-color: $color-terms;
+            color: #fff;
+        }
+    }
+
+    .title {
+        padding-top: 0.5rem;
+    }
+    .meta {
+        font-size: 1.1rem;
+        font-style: italic;
+        text-align: right;
+    }
+
+    .meta > span {
+        display: block;
+    }
+
+    .card-body {
+        max-height: unset;
+        min-height: 3rem;
+        font-size: 1.4rem;
+        min-width: 40vw;
+        overflow: visible;
+
+        span.img {
+            margin: 0 1rem 1rem 0;
+            border: thin solid #aaa;
+            background-color: #ddd;
+            padding: 0.4rem;
+            border-radius: 6px;
+            float: left;
+        }
+
+        img {
+            background-color: #fff;
+            max-width: 150px;
+            padding: 0.3rem;
+            border-radius: 6px;
+        }
+
+        .creator {
+            display: block;
+            margin: 0.3rem 0;
+        }
+        p {
+            max-width: 93%;
+        }
+        .kmaps {
+            clear: both;
+            h5 {
+                text-transform: uppercase;
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            span.icon {
+                display: inline-block;
+                margin-right: 0.5rem;
+            }
+
+            ul {
+                margin-left: 0px;
+                padding-inline-start: 1.5rem;
+            }
+            li {
+                list-style-type: none;
+                font-family: 'EB Garamond', serif;
+                font-size: 1.5rem;
+            }
+        } // Ends kmaps for relateds in accordion
+    } // Ends card-body
+
+    // Kmaps card styles
+    .card.places,
+    .card.subjects,
+    .card.terms {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .title {
+        line-height: 2.25rem;
+    }
+    .title .header {
+        color: #000;
+        font-size: 1.4rem;
+        background: rgba(0, 50, 255, 0.075);
+    }
+    .feature-types span {
+        font-size: 1.1rem;
+        font-style: italic;
+    }
+    .feature-types span::before {
+        width: 0.6rem;
+        height: 0.6rem;
+        content: '';
+        display: inline-block;
+        position: relative;
+        bottom: 0.15rem;
+        margin-right: 0.7rem;
+        margin-left: 0.7rem;
+        background-color: #63a5f4;
+        filter: alpha(opacity=85);
+        opacity: 0.85;
+    }
+
+    // Ancestors for kmaps in list view
+    .ancestors {
+        margin-left: 5.5rem;
+        font-size: 1.3rem;
+        white-space: nowrap;
+
+        span {
+            display: inline-block;
+            margin-left: 0.25rem;
+            margin-right: 0.25rem;
+        }
+
+        span:after {
+            content: '>';
+            margin-left: 0.5rem;
+        }
+
+        span:last-child:after {
+            content: '';
+        }
+
+        a {
+            color: #333;
+            font-style: italic;
+        }
+
+        a:hover {
+            color: #df3d26;
+            text-decoration: underline;
+        }
+    }
+
+    .collapse .info.kmaps,
+    .collapsing .info.kmaps {
+        margin-bottom: -1.5rem;
+        & > * {
+            margin-left: 5.5rem;
+            font-size: 1.4rem;
+            line-height: 2.5rem;
+        }
+        p.caption {
+            margin-bottom: 0;
+            font-style: italic;
+        }
+        div.altnames {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+    }
+} // End list view styles
+
+// Asset Home Pages
+.assethome {
+    & > .desc {
+        font-size: 1.5rem;
+
+        & > * {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }
+
+    &.sources {
+        .c-view {
+            margin: 0 2rem;
+            font-size: 1.45rem;
+        }
+        .card {
+            border: none;
+            margin-left: 3rem !important;
+            text-indent: -3rem;
+        }
+    }
 }
 
 // Not Found Page for Assets
@@ -400,5 +677,13 @@ div.image-wrapper.center figcaption {
         font-size: 1.5rem;
         padding: 0.25rem 1.5rem;
         border-radius: 2rem;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .list .c-view .ancestors {
+        white-space: normal;
+        line-height: 1.5rem;
+        font-size: 1.1altnamesrem;
     }
 }

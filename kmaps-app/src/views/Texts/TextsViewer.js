@@ -10,7 +10,7 @@ import {
     Tab,
 } from 'react-bootstrap';
 import { HtmlWithPopovers, getRandomKey } from '../common/MandalaMarkup';
-import { addBoClass } from '../common/utils';
+import { addBoClass, createAssetCrumbs } from '../common/utils';
 import './TextsViewer.sass';
 import $ from 'jquery';
 
@@ -54,20 +54,30 @@ export function TextsViewer(props) {
 
     // Effect to change banner and title if the viewer is the main component
     useEffect(() => {
-        if (ismain) {
+        if (kmasset && ismain) {
             status.setType('texts');
             const mytitle = kmasset.title ? kmasset.title : 'Loading ...';
             if (mytitle) {
                 status.setHeaderTitle(mytitle);
             }
+
+            // Set Breadcrumbs
+            const bcrumbs = createAssetCrumbs(kmasset);
+            status.setPath(bcrumbs);
         }
     }, [kmasset]);
 
     // Add Custom Body Class for Text component (one time) and timeout to show not found div
     useEffect(() => {
-        // add class "texts" to the main div for CSS styles
-        $('.l-site__wrap').addClass('texts');
+        if (ismain) {
+            status.clear();
+            status.setType('texts');
 
+            // add class "texts" to the main div for CSS styles
+            $('.l-site__wrap').addClass('texts');
+        }
+
+        // TODO: switch to use the <NotFound> component in utils
         // Show not found div if it still exists after 10 seconds.
         setTimeout(function () {
             $('.not-found-msg').removeClass('d-none');
@@ -79,7 +89,7 @@ export function TextsViewer(props) {
     useEffect(() => {
         // Set the text section state var if empty. Only need to do once on load
         if (
-            text_sections.length == 0 &&
+            text_sections.length === 0 &&
             $('#shanti-texts-body .shanti-texts-section').length > 0
         ) {
             // Get all sections in text

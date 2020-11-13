@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from 'react-query';
 import jsonpAdapter from '../logic/axios-jsonp';
 import axios from 'axios';
@@ -29,13 +28,13 @@ const getMandalaAPI = async (_, { query }) => {
 };
 
 /**
- * UseMandala is a hook to call Mandala node data apis in JSON. It was written originally for AV and may need
- * additional code to handle other sites. It takes a solr object returned by the useAsset() hook which queries
- * SOLR for a single asset's record. It uses the useQuery enabled setting to wait for useAsset to return the JSON
- * object from the SOLR qurey. It takes the url_json field from that solr record and uses that to call the
- * API. In AV, the API call ends with `.json`. So it replaces this with `.jsonp?callback=mdldata`. And with that
- * and the useQuery() hook calls the getMandalaAPI() function above. The axios jsonp request assumes the callback
- * parameter name in the url is `callback`.
+ * UseMandala is a hook to call Mandala node data apis in JSON.
+ * It takes a solr object returned by the useAsset() hook which queries SOLR for a single asset's record.
+ * It uses the useQuery enabled setting to wait for useAsset to return the JSON object from the SOLR qurey.
+ * It takes the url_json field from that solr record and uses that to call the API.
+ * In AV, the API call ends with `.json`. So it replaces this with `.jsonp?callback=mdldata`.
+ * And with that and the useQuery() hook calls the getMandalaAPI() function above.
+ * The axios jsonp request assumes the callback parameter name in the url is `callback`.
  *
  * Than Grove, Aug. 26, 2020
  *

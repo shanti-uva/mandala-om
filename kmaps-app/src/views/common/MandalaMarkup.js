@@ -22,7 +22,9 @@ function transform(node, index) {
     if (node.attribs && node.attribs['class'] === 'kmap-tag-group') {
         const kmpdom = node.attribs['data-kmdomain'];
         const kmpid = node.attribs['data-kmid'];
-        return <MandalaPopover domain={kmpdom} kid={kmpid} />;
+        const mykey =
+            kmpdom + '-' + kmpid + '-' + Math.ceil(Math.random() * 10000);
+        return <MandalaPopover domain={kmpdom} kid={kmpid} key={mykey} />;
     }
     // Process popover icon imgs to convert to mandala popovers
     else if (

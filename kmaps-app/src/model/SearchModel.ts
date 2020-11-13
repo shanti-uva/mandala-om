@@ -32,6 +32,7 @@ interface Page {
 }
 
 export interface SearchModel {
+    // DATA SCHEMA
     loadingState: boolean;
     results: Results;
     query: Query;

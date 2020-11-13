@@ -1,8 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { useStoreState } from 'easy-peasy';
 import * as PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Redirect, useHistory } from 'react-router';
+
+const target = document.getElementById('basicSearchPortal');
 
 export function BasicSearch(props) {
     const history = useHistory();
@@ -17,11 +20,16 @@ export function BasicSearch(props) {
         props.search.setSearchText(inputEl.current.value);
         props.onSubmit(inputEl.current.value);
         console.log('BasicSearch handleSubmit: ', inputEl.current.value);
-        history.push('/search');
+        if (process.env.REACT_APP_STANDALONE === 'standalone') {
+            window.location.href = `${process.env.REACT_APP_STANDALONE_PATH}/#/search`;
+        } else {
+            history.push('/search');
+        }
     };
     const clearInput = () => {
         inputEl.current.value = '';
-        handleSubmit();
+        //handleSubmit();
+        props.search.setSearchText(inputEl.current.value);
         props.onSubmit(inputEl.current.value);
         console.log('BasicSearch clearInput: ', inputEl.current.value);
     };
@@ -44,7 +52,7 @@ export function BasicSearch(props) {
         }
     });
 
-    return (
+    const basicSearchPortal = (
         <>
             <div className="sui-search1">
                 <input
@@ -77,6 +85,12 @@ export function BasicSearch(props) {
             </div>
         </>
     );
+
+    if (target) {
+        return ReactDOM.createPortal(basicSearchPortal, target);
+    } else {
+        return basicSearchPortal;
+    }
 }
 
 BasicSearch.propTypes = { onChange: PropTypes.func };

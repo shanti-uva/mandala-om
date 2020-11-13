@@ -132,6 +132,13 @@ function RelatedCount(props) {
     const iconClass =
         'icon u-icon__' + (props.type === 'all' ? 'logo-shanti' : props.type);
 
+    let display = 'deck';
+    if (props.type === 'sources' || props.type === 'texts') {
+        display = 'list';
+    }
+    if (props.type === 'images') {
+        display = 'gallery';
+    }
     // return null if the count doesn't exist or is === 0
     return count ? (
         <Link
@@ -145,7 +152,8 @@ function RelatedCount(props) {
                 props.baseUid +
                 '/related-' +
                 props.type +
-                '/default'
+                '/' +
+                display
             }
         >
             <span className={'u-icon__' + props.type + ' ' + iconClass}></span>

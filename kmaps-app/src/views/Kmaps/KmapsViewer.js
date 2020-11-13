@@ -18,9 +18,11 @@ import MdlAssetContext from '../../context/MdlAssetContext';
 import GenAssetContext from '../../context/GenAssetContext';
 import { TextsViewer } from '../Texts/TextsViewer';
 import { ImagesViewer } from '../Images/ImagesViewer';
-import { SourcesViewer } from '../SourcesViewer';
-import { VisualsViewer } from '../VisualsViewer';
+import { SourcesViewer } from '../Sources/SourcesViewer';
+import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
+import { KmapsRelatedsViewer } from './KmapsRelatedsViewer';
+import { KmapsRelPlacesViewer } from './KmapsRelPlacesViewer';
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);
@@ -30,6 +32,7 @@ export default function KmapsViewer(props) {
     const status = useStatus();
 
     const queryParams = new URLSearchParams(useLocation().search);
+
     function grokAssetType(route, queryParams) {
         // console.log("grokAssetType props = ", props);
         // console.log("grokAssetType route = ", route  );
@@ -177,6 +180,16 @@ export default function KmapsViewer(props) {
                             }
                             to={'/:viewerType/:relId'}
                         />
+
+                        <Route path={'/subjects/:id/related-subjects'}>
+                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <KmapsRelatedsViewer {...props} />
+                        </Route>
+
+                        <Route path={'/subjects/:id/related-places'}>
+                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <KmapsRelPlacesViewer {...props} />
+                        </Route>
 
                         <Route
                             path={

@@ -1,0 +1,208 @@
+/**
+.subjects class added to the "<main>" element (parent of article) in SubjectsInfo.js
+used to override the NameEntry.css style that are quite specific (sticky).
+
+ndg, Nov. 11, 2020)
+ */
+
+@import '../../index-variables';
+
+main.subjects {
+    .c-content__main__kmaps {
+        background-color: #fff;
+        font-size: 1.4rem;
+
+        .featured-image {
+            float: right;
+            padding: 0.5rem;
+            border: 3px inset rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            background-color: #ffffff;
+            margin: -14rem 2rem 1rem 1rem;
+            img {
+                max-height: 40rem;
+                max-width: 35rem !important;
+                border-radius: 5px;
+            }
+        }
+
+        .c-nodeHeader {
+            margin: 3rem 2rem 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #cc4c39;
+            max-width: 70%;
+        }
+
+        .sui-nameEntry__wrapper {
+            margin-left: 2rem;
+        }
+
+        ul.sui-nameEntry.first-entry
+            > li.sui-nameEntry:first-child
+            > span.sui-nameEntry-header:first-child {
+            display: inline-block;
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .sui-nameEntry-meta {
+            display: inline-block;
+            font-style: italic;
+        }
+
+        .c-subject-info > div {
+            margin-left: 2rem;
+            font-size: 1.4rem;
+        }
+
+        .desc > h3 {
+            margin-top: 2rem;
+            margin-bottom: -1rem;
+            margin-left: -1rem;
+            padding: 0.5rem 0.5rem 0.5rem 1rem;
+            border: thin solid #777;
+            width: 75%;
+            border-radius: 0.8rem;
+            color: #ffffff;
+            background-color: $color-subjects; // rgba(204, 76, 57, 0.8);
+            font-weight: bold;
+        }
+
+        .desc .desc-toc {
+            float: right;
+            max-width: 400px;
+            margin: 1rem;
+            padding: 1rem;
+            border: 2px solid #777;
+            border-radius: 0.5rem;
+            background-color: #f7f7f7;
+
+            h3 {
+                font-weight: bold;
+            }
+
+            ul {
+                padding-inline-start: 2rem;
+                line-height: 2.5rem;
+
+                li {
+                    list-style-type: none;
+                }
+            }
+
+            ul > li::before {
+                content: '';
+                color: #999;
+                background-color: transparent;
+                border-radius: 0;
+                opacity: 0.8;
+                display: inline-block;
+                margin-right: 1rem;
+                transform: rotate(45deg);
+                border: 4px double rgb(0, 0, 139);
+                position: relative;
+                top: -0.1rem;
+                margin-left: -2rem;
+                margin-right: 1rem;
+            }
+
+            ul > li > ul > li::before {
+                position: relative;
+                top: -0.15rem;
+                right: 0.2rem;
+                margin-right: 0.6rem;
+                border-radius: 0;
+                border-width: 0.25rem;
+                border-color: rgb(0, 0, 139);
+                margin-left: -1.5rem;
+                border-radius: 0;
+                border-width: 0.1rem;
+                width: 0.7rem;
+                height: 0.7rem;
+            }
+        }
+
+        .kmaps-related-viewer {
+            margin: 0 -1.6rem 0 -2.1rem;
+            a.nav-item {
+                width: 50%;
+                text-align: center;
+                line-height: 2em;
+                text-transform: uppercase;
+                letter-spacing: 0.1rem;
+                background-color: rgba(0, 0, 0, 0.4);
+                color: white;
+
+                &.active {
+                    background-color: transparent;
+                    color: #333;
+                    border-bottom: thin solid #f7f7f7;
+                }
+            }
+            & + .tab-content {
+                padding: 2rem;
+            }
+        }
+
+        .kmap-related h3 {
+            margin-top: 1rem;
+        }
+    } /*  End of c-content__main__kmaps */
+
+    /* Styles from mandala that possible should be global */
+
+    .shanti-texts-section-title {
+        margin: 2rem 0rem 1rem;
+        font-weight: 500;
+        line-height: 2.75rem;
+        color: #555 !important;
+    }
+    .shanti-texts-section-title.text-level-1 {
+        font-size: 1.75em !important;
+    }
+
+    .shanti-texts-section-title.text-level-2 {
+        font-size: 1.68em !important;
+    }
+
+    .shanti-texts-section-title.text-level-3,
+    .shanti-texts-section-title.text-level-4,
+    .shanti-texts-section-title.text-level-5,
+    .shanti-texts-section-title.text-level-6,
+    .shanti-texts-section-title.text-level-7 {
+        font-size: 1.18em;
+        background: #f4f4f4;
+        padding: 1rem;
+        line-height: 1.5em;
+        font-weight: bold;
+        letter-spacing: 0.0375rem;
+        color: #444;
+        border-top: 0.5rem solid white;
+        border-bottom: 0.5rem solid white;
+        box-shadow: inset 0 2px 0.1rem 0 #ddd;
+        box-shadow: inset 0 0 0.1rem 0.1rem #ddd;
+        position: relative;
+    }
+
+    .shanti-texts-section-title::before {
+        border: 8px double #999;
+        position: relative;
+    }
+
+    .shanti-texts-section-title::before {
+        content: '';
+        color: #999;
+        background-color: transparent;
+        border-radius: 0;
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+        display: inline-block;
+        margin-right: 1rem;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+} /* End of main.subjects */
