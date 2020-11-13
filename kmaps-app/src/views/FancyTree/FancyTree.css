@@ -1,6 +1,6 @@
 .suiFancyTree.view-wrap {
-    overflow: auto;
-    padding: 0 1.5rem;
+    overflow-x: scroll;
+    padding: 0 0 0 1.5rem;
 }
 
 ul.fancytree-container {
@@ -11,8 +11,9 @@ ul.fancytree-container {
     font-family: 'Open Sans', 'Segoe UI', Tahoma, sans-serif;
     font-weight: 400;
     letter-spacing: normal;
-    height: 600px;
+    height: 100%;
     overflow-y: scroll;
+    width: 100%;
 }
 
 .fancytree-container ul {
@@ -48,11 +49,11 @@ ul.fancytree-container {
 
 .fancytree-node:not(.fancytree-active):hover,
 .fancytree-node:not(.fancytree-active):active {
-    background-color: #fff !important;
+    background-color: #ddd !important;
 }
 
 .fancytree-node.fancytree-active {
-    background-color: #fff !important;
+    background-color: #ddd !important;
 }
 
 .fancytree-node .ajax-progress {
@@ -72,6 +73,7 @@ ul.fancytree-container {
     line-height: 1.5em;
     margin-left: 3.5rem;
     color: #333 !important;
+    vertical-align: middle !important;
 }
 
 .fancytree-node:hover .fancytree-title {

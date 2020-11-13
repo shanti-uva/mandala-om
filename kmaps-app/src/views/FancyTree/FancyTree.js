@@ -19,26 +19,29 @@ function FancyTree({
     perspective = 'tib.alpha',
     view = 'roman.scholar',
     sortBy = 'position_i+ASC',
+    currentFeatureId = "",
 }) {
     const el = useRef(null);
     let history = useHistory();
     let params = useParams();
+    var featureId = "";
+    if (currentFeatureId && currentFeatureId.startsWith(domain)) {
+      featureId = currentFeatureId;
+    }
 
     useEffect(() => {
         //Setup solr utils
         const ks_opts = {
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
             assetIndex: process.env.REACT_APP_SOLR_KMASSETS,
-            featureId: params.id,
-            domain,
-            perspective,
-            mandalaURL:
+            featureId: featureId,
+            domain: domain,
+            perspective: perspective,
+            view: view,
+            tree: tree,
+            featuresPath: 
                 process.env.REACT_APP_PUBLIC_URL +
                 `/${domain}/${domain}-%%ID%%`,
-            featuresPath:
-                process.env.REACT_APP_PUBLIC_URL +
-                `/${domain}/${domain}-%%ID%%`,
-            tree,
         };
 
         // console.log('FancyTree: tree=', tree, ' kmapSolrUtil opts = ', ks_opts);
@@ -47,24 +50,25 @@ function FancyTree({
 
         const elCopy = $(el.current);
         const tree_opts = {
-            domain,
-            featureId: params.id,
+            domain: domain,
+            featureId: featureId,
             featuresPath:
                 process.env.REACT_APP_PUBLIC_URL +
                 `/${domain}/${domain}-%%ID%%`,
-            perspective,
-            tree,
+            perspective: perspective,
+            tree: tree,
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
-            descendants,
+            assetIndex: process.env.REACT_APP_SOLR_KMASSETS,
+            descendants: descendants,
             descendantsFullDetail: false,
-            directAncestors,
-            displayPopup,
+            directAncestors: directAncestors,
+            displayPopup: displayPopup,
             mandalaURL:
                 process.env.REACT_APP_PUBLIC_URL +
                 `/${domain}/${domain}-%%ID%%`,
             solrUtils: solrUtils,
-            view,
-            sortBy,
+            view: view,
+            sortBy: sortBy,
             initialScrollToActive: true,
             // extraFields: ['associated_subject_ids'],
             // nodeMarkerPredicates: [
@@ -85,9 +89,9 @@ function FancyTree({
         return () => {
             elCopy.fancytree('destroy');
         };
-    }, []);
+    }, []); //useEffect
 
-    return <div className="suiFancyTree view-wrap" ref={el}></div>;
+  return <div className="suiFancyTree view-wrap" ref={el}></div>;
 }
 
 export default FancyTree;
