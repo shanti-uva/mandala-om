@@ -72,6 +72,10 @@ function NodeHeader(props) {
         <span className={'sui-nodeTitle-item latin'}>{nameLatinText}</span>
     ) : null;
 
+    // TODO: Check if this is needed in places (ndg)
+    const label =
+        props.kmasset.asset_type === 'subjects' ? props.kmasset.title : '';
+
     return (
         <div className={'c-nodeHeader'}>
             {back && (
@@ -87,7 +91,7 @@ function NodeHeader(props) {
                 className={`icon u-icon__${props.kmasset?.asset_type}`}
             ></span>
             <span className="sui-termTitle sui-nodeTitle" id="sui-termTitle">
-                {nameTibtElem} {nameLatinElem}
+                {label} {nameTibtElem} {nameLatinElem}
             </span>{' '}
             {subHeader && (
                 <span className={'sui-relatedSubHeader'}>{subHeader}</span>

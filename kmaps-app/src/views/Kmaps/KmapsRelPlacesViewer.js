@@ -123,7 +123,7 @@ export function KmapsRelPlacesViewer(props) {
             <Row>
                 {$.map(chunks, function (chk, n) {
                     return (
-                        <Col md={2}>
+                        <Col md={2} key={`chunk-col-${n}`}>
                             <ul>{chk}</ul>
                         </Col>
                     );

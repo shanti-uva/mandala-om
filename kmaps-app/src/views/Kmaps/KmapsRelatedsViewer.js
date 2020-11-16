@@ -84,7 +84,7 @@ export function KmapsRelatedsViewer(props) {
                         domain={domain}
                         tree={domain}
                         featuresId={kid}
-                        featuresPath={base_path + '/%%ID%%'}
+                        featuresPath={base_path + '/%%ID%%/related-subjects'}
                         descendants={true}
                         directAncestors={true}
                         displayPopup={false}
