@@ -19,6 +19,7 @@ import Tab from 'react-bootstrap/Tab';
 import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router';
 import $ from 'jquery';
+import { useStoreState } from '../model/StoreModel';
 
 const stateDefault = {
     kmasset: {
@@ -77,6 +78,9 @@ export function Main(props) {
         setTimeout(GlobalTibFix, 4000);
     }, []);
 
+    // Using Easy Peasy state:
+    const currentFeatureId = useStoreState((state) => state.kmap.uid);
+
     const searchClasses = stateList.join(' ');
     const main = (
         <Router
@@ -122,6 +126,16 @@ export function Main(props) {
                     </Route>
                 </Switch>
                 {/* Commented this out to get Asset Views to work (ndg) */}
+                <SearchContext>
+                    <SearchAdvanced
+                        advanced={state.advanced}
+                        onStateChange={handleStateChange}
+                    />
+                    <TreeNav
+                        currentFeatureId={currentFeatureId}
+                        tree={state.tree}
+                    />
+                </SearchContext>
                 <Hamburger hamburgerOpen={state.hamburgerOpen} />
             </div>
         </Router>
@@ -147,13 +161,15 @@ export function TreeNav(props) {
                 ></span>
                 <Tabs defaultActiveKey="places" id="kmaps-tab">
                     <Tab eventKey="places" title="Places">
-                        <PlacesTree />
+                        <PlacesTree currentFeatureId={props.currentFeatureId} />
                     </Tab>
                     <Tab eventKey="subjects" title="Subjects">
-                        <SubjectsTree />
+                        <SubjectsTree
+                            currentFeatureId={props.currentFeatureId}
+                        />
                     </Tab>
                     <Tab eventKey="terms" title="Terms">
-                        <TermsTree />
+                        <TermsTree currentFeatureId={props.currentFeatureId} />
                     </Tab>
                 </Tabs>
             </div>
@@ -169,10 +185,11 @@ function PlacesTree(props) {
             tree="places"
             descendants={true}
             directAncestors={false}
-            displayPopup={false}
+            displayPopup={true}
             perspective="pol.admin.hier"
             view="roman.scholar"
-            sortBy="position_i+ASC"
+            sortBy="header_ssort+ASC"
+            currentFeatureId={props.currentFeatureId}
         />
     );
 }
@@ -184,10 +201,11 @@ function TermsTree(props) {
             tree="terms"
             descendants={true}
             directAncestors={false}
-            displayPopup={false}
+            displayPopup={true}
             perspective="tib.alpha"
             view="roman.scholar"
             sortBy="position_i+ASC"
+            currentFeatureId={props.currentFeatureId}
         />
     );
 }
@@ -199,10 +217,11 @@ function SubjectsTree(props) {
             tree="subjects"
             descendants={true}
             directAncestors={false}
-            displayPopup={false}
+            displayPopup={true}
             perspective={'gen'}
-            view="gen"
-            sortBy="position_i+ASC"
+            view="roman.popular"
+            sortBy="header_ssort+ASC"
+            currentFeatureId={props.currentFeatureId}
         />
     );
 }
