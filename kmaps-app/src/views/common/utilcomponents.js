@@ -113,15 +113,39 @@ const backbutton = () => {
  */
 export function NotFoundPage(props) {
     let atype = props.type;
-    if (atype[atype.length - 1] === 's') {
-        atype = atype.substr(0, atype.length - 1);
+    let notFoundMessage = (
+        <div>
+            <p>Sorry, the page you are looking for</p>
+            <p className={'badurl'}>{window.location.href}</p>
+            <p>
+                is not available. It either does not exist or is private. Please
+                try again!
+            </p>
+        </div>
+    );
+
+    if (atype && atype !== '' && props?.id) {
+        if (atype[atype.length - 1] === 's') {
+            atype = atype.substr(0, atype.length - 1);
+        }
+        if ('aeiou'.includes(atype[0])) {
+            atype = 'an ' + atype;
+        } else {
+            atype = 'a ' + atype;
+        }
+        const aid = props.id;
+
+        notFoundMessage = (
+            <p>
+                Sorry, {atype} with ID, {aid}, does not exist.
+                <br />
+                If you followed a link to an item, you may have the wrong item
+                ID,
+                <br />
+                or the item may have been deleted or is private.
+            </p>
+        );
     }
-    if ('aeiou'.includes(atype[0])) {
-        atype = 'an ' + atype;
-    } else {
-        atype = 'a ' + atype;
-    }
-    const aid = props.id;
 
     return (
         <div className={'c-not-found'}>
@@ -134,14 +158,7 @@ export function NotFoundPage(props) {
                             alt={'mandala logo'}
                         />
                         <h1>Page Not Found!</h1>
-                        <p>
-                            Sorry, {atype} with ID, {aid}, does not exist.
-                            <br />
-                            If you followed a link to an item, you may have the
-                            wrong item ID,
-                            <br />
-                            or the item may have been deleted or is private.
-                        </p>
+                        {notFoundMessage}
                         <Button variant="primary" href="#" onClick={backbutton}>
                             Back
                         </Button>

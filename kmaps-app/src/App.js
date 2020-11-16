@@ -6,6 +6,7 @@ import Pages from './legacy/pages';
 
 // import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import { Main } from './main/Main';
+import { NotFoundPage } from './views/common/utilcomponents';
 
 export const ADVANCED_LABEL = 'Advanced';
 export const BASIC_LABEL = 'Basic Search';
@@ -30,12 +31,7 @@ class App extends React.Component {
 }
 
 export function Error404() {
-    return (
-        <div>
-            <h2>OUCH!</h2>
-            Unknown Path: {window.location.pathname}
-        </div>
-    );
+    return <NotFoundPage />;
 }
 
 export default App;
