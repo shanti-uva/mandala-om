@@ -35,7 +35,8 @@ export function SubjectsInfo(props) {
                 const captxt = kmap[dprop]
                     .toString()
                     .replace(/<\/?[^>]+>/g, '');
-                captions.push(captxt + ` (${lang})`);
+                var capnew = $(`<span>${captxt}</span>`).text(); // Convert html entities to text
+                captions.push(`${capnew} (${lang})`);
             }
         }
     }
@@ -80,12 +81,15 @@ export function SubjectsInfo(props) {
 
 function SubjectTextDescription(props) {
     const txtjson = useMandala(props.solrdoc);
+
     const txtmup = txtjson?.full_markup ? (
         <>
-            <div className={'desc-toc'}>
-                <h3>Table of Contents</h3>
-                <HtmlCustom markup={txtjson.toc_links} />
-            </div>
+            {txtjson?.toc_links && txtjson.toc_links.length > 0 && (
+                <div className={'desc-toc'}>
+                    <h3>Table of Contents</h3>
+                    <HtmlCustom markup={txtjson.toc_links} />
+                </div>
+            )}
             <HtmlWithPopovers markup={txtjson?.full_markup} />
         </>
     ) : (
@@ -95,5 +99,6 @@ function SubjectTextDescription(props) {
             </div>
         </>
     );
+
     return txtmup;
 }
