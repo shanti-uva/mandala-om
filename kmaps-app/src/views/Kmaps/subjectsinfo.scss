@@ -70,6 +70,20 @@ main.subjects {
             color: #ffffff;
             background-color: rgba(204, 76, 57, 0.8);
             font-weight: bold;
+
+            .text-id {
+                float: right;
+                font-size: 1.2rem;
+                margin-top: 0.4rem;
+
+                a {
+                    color: #f0f0f0;
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
         }
 
         .desc .desc-toc {

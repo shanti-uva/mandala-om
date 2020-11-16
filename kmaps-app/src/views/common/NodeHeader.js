@@ -73,8 +73,14 @@ function NodeHeader(props) {
     ) : null;
 
     // TODO: Check if this is needed in places (ndg)
-    const label =
-        props.kmasset.asset_type === 'subjects' ? props.kmasset.title : '';
+    let label = '';
+
+    if (
+        props.kmasset.asset_type === 'subjects' &&
+        !nameLatinText.includes(props.kmasset.title)
+    ) {
+        label = props.kmasset.title;
+    }
 
     return (
         <div className={'c-nodeHeader'}>

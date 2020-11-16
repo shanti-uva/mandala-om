@@ -3,6 +3,7 @@ import $ from 'jquery';
 import './subjectsinfo.scss';
 import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
 import useMandala from '../../hooks/useMandala';
+import { Link } from 'react-router-dom';
 
 export function SubjectsInfo(props) {
     const { kmap, kmasset, relateds } = props;
@@ -66,7 +67,16 @@ export function SubjectsInfo(props) {
 
             {relateds?.assets?.texts?.docs?.length > 0 && (
                 <div className={'desc'}>
-                    <h3>Full Description</h3>
+                    <h3>
+                        Full Description{' '}
+                        <span class={'text-id'}>
+                            <Link
+                                to={`/texts/${relateds.assets.texts.docs[0].id}`}
+                            >
+                                {relateds.assets.texts.docs[0].uid}
+                            </Link>
+                        </span>
+                    </h3>
                     <SubjectTextDescription
                         solrdoc={relateds.assets.texts.docs[0]}
                     />

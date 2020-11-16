@@ -680,6 +680,14 @@ div.image-wrapper.center figcaption {
     }
 }
 
+// Tibetan Fix
+.bo {
+    letter-spacing: normal !important;
+    text-rendering: optimizeLegibility !important;
+    font-family: 'Babelstone', 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan',
+        'Tibetan Machine Uni', 'Kailasa', 'Uchen_05', 'Microsoft Himalaya' !important;
+}
+
 @media screen and (max-width: 950px) {
     .list .c-view .ancestors {
         white-space: normal;

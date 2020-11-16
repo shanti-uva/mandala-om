@@ -18,6 +18,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router';
+import $ from 'jquery';
 
 const stateDefault = {
     kmasset: {
@@ -46,6 +47,35 @@ export function Main(props) {
     if (!state.tree && !state.advanced) {
         stateList.push('u-ToggleState--off');
     }
+
+    useEffect(() => {
+        const GlobalTibFix = () => {
+            // List of elements to search for Tibetan
+            var els =
+                'h1, h2, h3, h4, h5, h6, h7, div, p, blockquote, li, span, label, th, td, a, b, strong, i, em, u, s, dd, dl, dt, figure';
+            var repat = /[a-zA-Z0-9\,\.\:\;\-\s]/g; // the regex patter to strip latin and other characters from string
+
+            // Iterate through such elements
+            $(els).each(function () {
+                //var etxt = $.trim($(this).text());  // get the text of the element
+                var etxt = $(this).clone().children().remove().end().text(); // See https://stackoverflow.com/a/8851526/2911874
+                etxt = etxt.replace(repat, ''); // strip of irrelevant characters
+                var cc1 = etxt.charCodeAt(0); // get the first character code
+                // If it is within the Tibetan Unicode Range
+                if (cc1 > 3839 && cc1 < 4096) {
+                    // If it does not already have .bo
+                    if (
+                        !$(this).hasClass('bo') &&
+                        !$(this).parents().hasClass('bo')
+                    ) {
+                        $(this).addClass('bo'); // Add .bo
+                    }
+                }
+            });
+        };
+
+        setTimeout(GlobalTibFix, 4000);
+    }, []);
 
     const searchClasses = stateList.join(' ');
     const main = (
