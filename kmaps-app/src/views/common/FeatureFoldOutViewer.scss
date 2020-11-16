@@ -1,3 +1,25 @@
+// Selected Image in Gallery
+
+.sui-featureGallery-selectedImg {
+    margin-bottom: -1rem;
+
+    img {
+        margin-bottom: -0.3rem !important;
+    }
+}
+
+.sui-featureGallery-selectedImg:after {
+    display: inline-block;
+    width: 1rem;
+    border: 12px solid #555;
+    content: '';
+    margin-left: 45%;
+    border-top: 0px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+}
+
+// The DropDown / FoldOut Area
 #FoldOutViewer {
     background-color: #222;
     padding: 2rem;
