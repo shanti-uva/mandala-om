@@ -127,6 +127,14 @@ export default function KmapContext(props) {
         },
     };
 
+    // Added by ndg, 11/9/20, TODO: check that this doesn't override any other setTypes in kmaps
+    useEffect(() => {
+        if (props.assetType && props.assetType !== '') {
+            status.setType(props.assetType);
+            status.setHeaderTitle('Loading ...');
+        }
+    }, [props.assetType]);
+
     useEffect(() => {
         if (id) {
             setUid(id);
