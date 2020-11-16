@@ -214,6 +214,7 @@ export function TextsViewer(props) {
                             toc={nodejson.toc_links}
                             meta={nodejson.bibl_summary}
                             links={nodejson.views_links}
+                            html={kmasset.url_html}
                             title={title}
                             sections={section_showing}
                             altChange={setAltViewerUrl}
@@ -362,7 +363,22 @@ function TextTabs(props) {
                             <h6>Alternative Formats</h6>
                             <div>
                                 <table className="shanti-texts-record-table table">
-                                    <tbody>{linkscomp}</tbody>
+                                    <tbody>
+                                        {linkscomp}
+                                        <tr className="shanti-texts-field nothing">
+                                            <td
+                                                colSpan="2"
+                                                className="shanti-texts-field-content"
+                                            >
+                                                <a
+                                                    href={props.html}
+                                                    target="_blank"
+                                                >
+                                                    View in Mandala
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </Tab>

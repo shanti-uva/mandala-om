@@ -18,6 +18,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router';
+import $ from 'jquery';
 import { useStoreState } from '../model/StoreModel';
 
 const stateDefault = {
@@ -48,7 +49,36 @@ export function Main(props) {
         stateList.push('u-ToggleState--off');
     }
 
-  // Using Easy Peasy state:
+    useEffect(() => {
+        const GlobalTibFix = () => {
+            // List of elements to search for Tibetan
+            var els =
+                'h1, h2, h3, h4, h5, h6, h7, div, p, blockquote, li, span, label, th, td, a, b, strong, i, em, u, s, dd, dl, dt, figure';
+            var repat = /[a-zA-Z0-9\,\.\:\;\-\s]/g; // the regex patter to strip latin and other characters from string
+
+            // Iterate through such elements
+            $(els).each(function () {
+                //var etxt = $.trim($(this).text());  // get the text of the element
+                var etxt = $(this).clone().children().remove().end().text(); // See https://stackoverflow.com/a/8851526/2911874
+                etxt = etxt.replace(repat, ''); // strip of irrelevant characters
+                var cc1 = etxt.charCodeAt(0); // get the first character code
+                // If it is within the Tibetan Unicode Range
+                if (cc1 > 3839 && cc1 < 4096) {
+                    // If it does not already have .bo
+                    if (
+                        !$(this).hasClass('bo') &&
+                        !$(this).parents().hasClass('bo')
+                    ) {
+                        $(this).addClass('bo'); // Add .bo
+                    }
+                }
+            });
+        };
+
+        setTimeout(GlobalTibFix, 4000);
+    }, []);
+
+    // Using Easy Peasy state:
     const currentFeatureId = useStoreState((state) => state.kmap.uid);
 
     const searchClasses = stateList.join(' ');
@@ -101,7 +131,10 @@ export function Main(props) {
                         advanced={state.advanced}
                         onStateChange={handleStateChange}
                     />
-                    <TreeNav currentFeatureId={currentFeatureId} tree={state.tree} />
+                    <TreeNav
+                        currentFeatureId={currentFeatureId}
+                        tree={state.tree}
+                    />
                 </SearchContext>
                 <Hamburger hamburgerOpen={state.hamburgerOpen} />
             </div>
@@ -128,13 +161,15 @@ export function TreeNav(props) {
                 ></span>
                 <Tabs defaultActiveKey="places" id="kmaps-tab">
                     <Tab eventKey="places" title="Places">
-                        <PlacesTree currentFeatureId={props.currentFeatureId}/>
+                        <PlacesTree currentFeatureId={props.currentFeatureId} />
                     </Tab>
                     <Tab eventKey="subjects" title="Subjects">
-                        <SubjectsTree currentFeatureId={props.currentFeatureId}/>
+                        <SubjectsTree
+                            currentFeatureId={props.currentFeatureId}
+                        />
                     </Tab>
                     <Tab eventKey="terms" title="Terms">
-                        <TermsTree currentFeatureId={props.currentFeatureId}/>
+                        <TermsTree currentFeatureId={props.currentFeatureId} />
                     </Tab>
                 </Tabs>
             </div>

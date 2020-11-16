@@ -3,6 +3,7 @@ import $ from 'jquery';
 import './subjectsinfo.scss';
 import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
 import useMandala from '../../hooks/useMandala';
+import { Link } from 'react-router-dom';
 
 export function SubjectsInfo(props) {
     const { kmap, kmasset, relateds } = props;
@@ -35,7 +36,8 @@ export function SubjectsInfo(props) {
                 const captxt = kmap[dprop]
                     .toString()
                     .replace(/<\/?[^>]+>/g, '');
-                captions.push(captxt + ` (${lang})`);
+                var capnew = $(`<span>${captxt}</span>`).text(); // Convert html entities to text
+                captions.push(`${capnew} (${lang})`);
             }
         }
     }
@@ -65,7 +67,16 @@ export function SubjectsInfo(props) {
 
             {relateds?.assets?.texts?.docs?.length > 0 && (
                 <div className={'desc'}>
-                    <h3>Full Description</h3>
+                    <h3>
+                        Full Description{' '}
+                        <span class={'text-id'}>
+                            <Link
+                                to={`/texts/${relateds.assets.texts.docs[0].id}`}
+                            >
+                                {relateds.assets.texts.docs[0].uid}
+                            </Link>
+                        </span>
+                    </h3>
                     <SubjectTextDescription
                         solrdoc={relateds.assets.texts.docs[0]}
                     />
@@ -80,14 +91,24 @@ export function SubjectsInfo(props) {
 
 function SubjectTextDescription(props) {
     const txtjson = useMandala(props.solrdoc);
+
     const txtmup = txtjson?.full_markup ? (
         <>
-            <div className={'desc-toc'}>
-                <h3>Table of Contents</h3>
-                <HtmlCustom markup={txtjson.toc_links} />
-            </div>
+            {txtjson?.toc_links && txtjson.toc_links.length > 0 && (
+                <div className={'desc-toc'}>
+                    <h3>Table of Contents</h3>
+                    <HtmlCustom markup={txtjson.toc_links} />
+                </div>
+            )}
             <HtmlWithPopovers markup={txtjson?.full_markup} />
         </>
-    ) : null;
+    ) : (
+        <>
+            <div className={'mt-5'}>
+                <h5>Loading ...</h5>
+            </div>
+        </>
+    );
+
     return txtmup;
 }

@@ -19,14 +19,14 @@ function FancyTree({
     perspective = 'tib.alpha',
     view = 'roman.scholar',
     sortBy = 'position_i+ASC',
-    currentFeatureId = "",
+    currentFeatureId = '',
 }) {
     const el = useRef(null);
     let history = useHistory();
     let params = useParams();
-    var featureId = "";
+    var featureId = '';
     if (currentFeatureId && currentFeatureId.startsWith(domain)) {
-      featureId = currentFeatureId;
+        featureId = currentFeatureId;
     }
 
     useEffect(() => {
@@ -39,7 +39,7 @@ function FancyTree({
             perspective: perspective,
             view: view,
             tree: tree,
-            featuresPath: 
+            featuresPath:
                 process.env.REACT_APP_PUBLIC_URL +
                 `/${domain}/${domain}-%%ID%%`,
         };
@@ -91,7 +91,7 @@ function FancyTree({
         };
     }, []); //useEffect
 
-  return <div className="suiFancyTree view-wrap" ref={el}></div>;
+    return <div className="suiFancyTree view-wrap" ref={el}></div>;
 }
 
 export default FancyTree;

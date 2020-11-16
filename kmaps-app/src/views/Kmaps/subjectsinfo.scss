@@ -56,23 +56,40 @@ main.subjects {
             font-size: 1.4rem;
         }
 
+        .summary {
+            max-width: 75%;
+        }
+
         .desc > h3 {
             margin-top: 2rem;
             margin-bottom: -1rem;
             margin-left: -1rem;
             padding: 0.5rem 0.5rem 0.5rem 1rem;
-            border: thin solid #777;
+            border-bottom: thin solid #777;
             width: 75%;
-            border-radius: 0.8rem;
             color: #ffffff;
-            background-color: $color-subjects; // rgba(204, 76, 57, 0.8);
+            background-color: rgba(204, 76, 57, 0.8);
             font-weight: bold;
+
+            .text-id {
+                float: right;
+                font-size: 1.2rem;
+                margin-top: 0.4rem;
+
+                a {
+                    color: #f0f0f0;
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
         }
 
         .desc .desc-toc {
             float: right;
             max-width: 400px;
-            margin: 1rem;
+            margin: 2rem;
             padding: 1rem;
             border: 2px solid #777;
             border-radius: 0.5rem;
@@ -147,6 +164,41 @@ main.subjects {
 
         .kmap-related h3 {
             margin-top: 1rem;
+        }
+
+        .c-relplaces-list.container-fluid {
+            margin: 2rem;
+            .c-featurePager__container.row {
+                padding: 1rem;
+                margin-left: -1.75rem;
+                background-color: #777;
+                color: white;
+                max-width: 1100px;
+
+                .c-featurePager__navButtons .icon {
+                    color: #bcbcbc;
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+            }
+            .c-featurePager__container.row > div {
+                width: 30%;
+                text-align: left;
+            }
+
+            .row > div {
+                padding-left: 0;
+            }
+
+            ul,
+            li {
+                list-style-type: none;
+                padding-inline-start: 0px;
+                margin: 0;
+                padding: 0;
+            }
         }
     } /*  End of c-content__main__kmaps */
 

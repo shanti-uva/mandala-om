@@ -42,6 +42,8 @@ export function MandalaPopover(props) {
         error: kmapError,
     } = useKmap(domain, kid, 'info');
 
+    //console.log("kmap res:  " + domain + "-" + kid, kmapRes);
+
     // Info of Related Kmaps/Assets: relRes
     const {
         isLoading: relIsLoading,
@@ -93,6 +95,7 @@ export function MandalaPopover(props) {
             </>
         );
     }
+
     // JSX
     return (
         <span

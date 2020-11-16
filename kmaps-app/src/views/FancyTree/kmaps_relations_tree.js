@@ -167,21 +167,29 @@ import { MandalaPopover } from '../common/MandalaPopover';
                         }, '');
                     if (plugin.options.displayPopup) {
                         var pop_container = $(
-                            '<span class="popover-kmaps" id="'+key+'" data-app="places" data-id="' +
+                            '<span class="popover-kmaps" id="' +
+                                key +
+                                '" data-app="places" data-id="' +
                                 key +
                                 '"><span class="popover-kmaps-tip"></span><span class="icon shanticon-menu3"></span></span>'
                         );
                         $(elem).append($(pop_container));
-                        if(key.startsWith(plugin.options.domain+"-")){
-                          const myId = key.replace(plugin.options.domain+"-", "");
-                          ReactDOM.render(
-                            <MandalaPopover
-                            domain={plugin.options.domain}
-                            kid={myId} >
-                            <span class="popover-link"><span class="icon u-icon__kmaps-popover"></span></span>
-                            </MandalaPopover>,
-                            elem.lastChild
-                          );
+                        if (key.startsWith(plugin.options.domain + '-')) {
+                            const myId = key.replace(
+                                plugin.options.domain + '-',
+                                ''
+                            );
+                            ReactDOM.render(
+                                <MandalaPopover
+                                    domain={plugin.options.domain}
+                                    kid={myId}
+                                >
+                                    <span class="popover-link">
+                                        <span class="icon u-icon__kmaps-popover"></span>
+                                    </span>
+                                </MandalaPopover>,
+                                elem.lastChild
+                            );
                         }
                     }
                     return data;

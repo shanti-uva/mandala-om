@@ -72,10 +72,10 @@ export function FeaturePager(props) {
     const position = props?.position ? ' ' + props.position : '';
     let maxpg = pager.getMaxPage() + 1;
     maxpg = isNaN(maxpg) ? '...' : maxpg;
-
+    const classname = props.className ? ' ' + props.className : '';
     return (
-        <div className={`c-featurePager__container${position}`}>
-            {props?.docs && (
+        <div className={`c-featurePager__container${position}${classname}`}>
+            {startnum && endnum && numFound && (
                 <div className={'c-featurePager__resultSummary'}>
                     (Displaying <span className={'start'}>{startnum}</span>
                     to <span className={'end'}>{endnum}</span>

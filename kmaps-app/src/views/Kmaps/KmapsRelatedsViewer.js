@@ -72,19 +72,23 @@ export function KmapsRelatedsViewer(props) {
                         {kmtype} related to {kmaphead}
                     </h2>
                     <p>
-                        {kmaphead} has {ancestor_count} superordinate subjects
-                        and {child_count} subordinate subjects. You can browse
-                        these subordinate subjects as well as its superordinate
-                        categories with the tree below. See the RELATED SUBJECTS
-                        tab if you instead prefer to view only its immediately
-                        subordinate subjects grouped together in useful ways, as
-                        well as subjects non-hierarchically related to it.
+                        {kmaphead} has {ancestor_count} superordinate{' '}
+                        {kmtype.toLowerCase()} and {child_count} subordinate{' '}
+                        {kmtype.toLowerCase()}. You can browse these subordinate{' '}
+                        {kmtype.toLowerCase()} as well as its superordinate
+                        categories with the tree below. See the RELATED{' '}
+                        {kmtype.toUpperCase()} tab if you instead prefer to view
+                        only its immediately subordinate {kmtype.toLowerCase()}{' '}
+                        grouped together in useful ways, as well as{' '}
+                        {kmtype.toLowerCase()} non-hierarchically related to it.
                     </p>
                     <FancyTree
                         domain={domain}
                         tree={domain}
                         featuresId={kid}
-                        featuresPath={base_path + '/%%ID%%'}
+                        featuresPath={
+                            base_path + '/%%ID%%/related-subjects/deck'
+                        }
                         descendants={true}
                         directAncestors={true}
                         displayPopup={false}
@@ -116,7 +120,9 @@ export function KmapsRelatedsViewer(props) {
                             <h3>{kmaphead} Is a Part Of These Types</h3>
                             <ul>
                                 {$.map(ispartof, function (pt, pn) {
-                                    return <li>{pt}</li>;
+                                    return (
+                                        <li key={`km-parent-${pn}`}>{pt}</li>
+                                    );
                                 })}
                             </ul>
                         </>
@@ -126,7 +132,7 @@ export function KmapsRelatedsViewer(props) {
                             <h3>{kmaphead} Has These Types</h3>
                             <ul>
                                 {$.map(hasaspart, function (pt, pn) {
-                                    return <li>{pt}</li>;
+                                    return <li key={`km-part-${pn}`}>{pt}</li>;
                                 })}
                             </ul>
                         </>

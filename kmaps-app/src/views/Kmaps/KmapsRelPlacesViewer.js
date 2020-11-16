@@ -1,35 +1,158 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { Tabs, Tab } from 'react-bootstrap';
-import FancyTree from '../FancyTree';
+import { useSolr } from '../../hooks/useSolr';
+import { MandalaPopover } from '../common/MandalaPopover';
+import { Col, Container, Row, Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
 import './subjectsinfo.scss';
-import { MandalaPopover } from '../common/MandalaPopover';
+import { FeaturePager } from '../common/FeaturePager/FeaturePager';
 
 export function KmapsRelPlacesViewer(props) {
     const { kmap, kmasset } = props;
+    const [startRow, setStartRow] = useState(0);
+    const [pageNum, setPageNum] = useState(0);
+    const [pageSize, setPageSize] = useState(100);
+    const [colSize, setColSize] = useState(20);
 
-    const kmaphead = kmap.header;
+    useEffect(() => {
+        $('main.l-column__main').addClass('subjects');
+    }, [kmap]);
+
     const domain = kmap.tree;
-    const kmtype = domain[0].toUpperCase() + domain.substr(1);
     const uid = kmap?.uid;
     const kid = uid?.split('-')[1] * 1;
-    const base_path = window.location.pathname.split(domain)[0] + domain;
+
+    // Construct Solr query and useSolr call
+    // TODO: generalize to do both places and subjects. This is just for related places of subjects now.
+    const q = {
+        index: 'terms',
+        params: {
+            q:
+                '({!parent which=block_type:parent}related_subjects_id_s:' +
+                uid +
+                ' AND tree:places) OR feature_type_id_i:' +
+                kid,
+            fl: 'tree,uid,uid_i,header,origin_uid_s',
+            sort: 'header ASC',
+            rows: pageSize,
+            start: startRow,
+        },
+    };
+    const placedata = useSolr(uid + '-related-places', q);
+
+    const numFound = placedata?.numFound ? placedata?.numFound : 0;
+
+    const pager = {
+        numFound: numFound,
+        getMaxPage: () => {
+            return Math.floor(pager.numFound / pager.getPageSize());
+        },
+        getPage: () => {
+            return pageNum;
+        },
+        setPage: (pg) => {
+            pg = parseInt(pg);
+            if (!isNaN(pg) && pg > -1 && pg <= pager.getMaxPage()) {
+                setPageNum(pg);
+                pager.pgnum = pg;
+            }
+        },
+        setPageSize: (size) => {
+            size = parseInt(size);
+            if (!isNaN(size) && size > 0 && size < 101) {
+                setPageSize(size);
+                pager.pgsize = size;
+            }
+        },
+        getPageSize: () => {
+            return pageSize;
+        },
+        nextPage: () => {
+            pager.setPage(pager.getPage() + 1);
+        },
+        prevPage: () => {
+            pager.setPage(pager.getPage() - 1);
+        },
+        lastPage: () => {
+            pager.setPage(pager.getMaxPage());
+        },
+        firstPage: () => {
+            pager.setPage(0);
+        },
+    };
+
+    useEffect(() => {
+        setStartRow(pageNum * pageSize);
+    }, [pageNum, pageSize]);
+
+    // Process into list items
+    const placeitems = $.map(placedata.docs, function (item, n) {
+        const rndn = Math.ceil(Math.random() * 10000);
+        if (item.uid.includes('_featureType')) {
+            const uid = item.origin_uid_s;
+            const mykey = uid + '-' + rndn;
+            const pts = uid.split('-');
+            if (pts.length === 2) {
+                return (
+                    <li key={mykey}>
+                        <MandalaPopover domain={pts[0]} kid={pts[1]} />
+                    </li>
+                );
+            }
+        } else {
+            const mykey = item.uid + '-' + n + rndn;
+            const kid = Math.floor(item.uid_i / 100); // Remove 01 places suffix
+            return (
+                <li key={mykey}>
+                    <MandalaPopover domain={item.tree} kid={kid} />
+                </li>
+            );
+        }
+    });
+    const chunks = chunkIt(placeitems, colSize);
 
     return (
-        <div className={'related-places'}>
-            <h1>Related Places Tree</h1>
-            <FancyTree
-                domain="places"
-                tree="places"
-                descendants={true}
-                directAncestors={true}
-                displayPopup={false}
-                perspective="pol.admin.hier"
-                view="roman.scholar"
-                sortBy="position_i+ASC"
-                isme={true}
-            />
-        </div>
+        <Container fluid className={'c-relplaces-list'}>
+            <h2 className={'row'}>Related Places </h2>
+            {numFound > pageSize && (
+                <FeaturePager
+                    pager={pager}
+                    position={'top'}
+                    className={'row'}
+                />
+            )}
+            <Row>
+                {$.map(chunks, function (chk, n) {
+                    return (
+                        <Col md={2} key={`chunk-col-${n}`}>
+                            <ul>{chk}</ul>
+                        </Col>
+                    );
+                })}
+            </Row>
+            {numFound > pageSize && (
+                <FeaturePager
+                    pager={pager}
+                    position={'bottom'}
+                    className={'row'}
+                />
+            )}
+        </Container>
     );
+}
+
+function chunkIt(list, size) {
+    if (
+        typeof list === 'undefined' ||
+        list.length < 1 ||
+        typeof size === 'undefined' ||
+        size < 1
+    ) {
+        return list;
+    }
+    const chunks = [];
+    while (list.length) {
+        const chunk = list.splice(0, size);
+        chunks.push(chunk);
+    }
+    return chunks;
 }
