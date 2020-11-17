@@ -42,7 +42,7 @@ export function ContentHeader(props) {
     const cheader = (
         <header
             id="c-content__header__main"
-            className={`c-content__header__main sui-header legacy ${props.siteClass} ${status.type}`}
+            className={`c-content__header__main legacy ${props.siteClass} ${status.type}`}
         >
             <div
                 id="c-content__header__main__wrap"

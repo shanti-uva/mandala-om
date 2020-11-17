@@ -12,6 +12,7 @@ html {
 body {
     text-rendering: optimizeLegibility;
     background-color: #fafafa;
+    font-size: 1.4rem;
 }
 
 body.html {
@@ -129,9 +130,8 @@ div.image-wrapper.center figcaption {
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
-    font-size: 1.3rem;
-    min-height: 75rem;
-    max-width: 75vw;
+    font-size: 1.4rem;
+    height: 100vh;
 }
 // * Local fix for responsive display - temp
 .c-content__main__kmaps img,
@@ -218,7 +218,7 @@ div.image-wrapper.center figcaption {
 
 // --- temp integration process from prototype
 .mandala.all,
-.mandala.sui-header,
+.mandala.c-content__header__main,
 .mandala.collections,
 .u-icon__audio.color-invert,
 .u-icon__collections.color-invert {
@@ -333,6 +333,9 @@ div.image-wrapper.center figcaption {
         position: absolute;
         width: 100%;
     }
+}
+ul.fancytree-container {
+    height: auto !important;
 }
 .l-column__search {
     height: 100vh;
