@@ -189,7 +189,10 @@ export function HistoryBox(props) {
             {/*    {chosenList}*/}
             {/*</div>*/}
             <div
-                className={'sui-advEdit ' + (open ? 'open' : 'closed')}
+                className={
+                    'sui-advEdit c-FacetBox--expander ' +
+                    (open ? 'open' : 'closed')
+                }
                 id={'sui-advEdit-' + props.id}
             >
                 <Navbar>
