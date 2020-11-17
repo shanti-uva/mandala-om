@@ -52,6 +52,13 @@ export function SubjectsInfo(props) {
             </div>
         ) : null;
 
+    let overview_field = false;
+    for (let prp in kmap) {
+        if (prp.includes('homepage_text_')) {
+            overview_field = prp;
+            break;
+        }
+    }
     return (
         <div className={'c-subject-info'}>
             {imgel}
@@ -67,21 +74,17 @@ export function SubjectsInfo(props) {
             )}
             {desc}
 
-            {relateds?.assets?.texts?.docs?.length > 0 && (
+            {overview_field && (
                 <div className={'desc'}>
                     <h3>
                         Overview{' '}
-                        <span class={'text-id d-none'}>
-                            <Link
-                                to={`/texts/${relateds.assets.texts.docs[0].id}`}
-                            >
-                                {relateds.assets.texts.docs[0].uid}
+                        <span className={'text-id d-none'}>
+                            <Link to={`/texts/${overview_field}`}>
+                                text-{overview_field}
                             </Link>
                         </span>
                     </h3>
-                    <SubjectTextDescription
-                        solrdoc={relateds.assets.texts.docs[0]}
-                    />
+                    <SubjectTextDescription textid={overview_field} />
                 </div>
             )}
             {/*
@@ -92,6 +95,7 @@ export function SubjectsInfo(props) {
 }
 
 function SubjectTextDescription(props) {
+    const txtid = props.textid;
     const txtjson = useMandala(props.solrdoc);
     const defkey = 'info';
     const txtmup = txtjson?.full_markup ? (

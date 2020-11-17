@@ -291,6 +291,8 @@ export interface KmapSolrModel {
     ancestor_ids_generic?: number[];
     ancestor_uids_generic?: string[];
     ancestor_id_path?: string;
+    'homepage_text_subjects-570_s'?: string;
+    'homepage_text_subjects-638_s'?: string;
     level_i?: number;
     _version_?: number;
     _timestamp_?: Date;
