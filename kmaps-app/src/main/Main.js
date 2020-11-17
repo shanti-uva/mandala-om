@@ -49,6 +49,7 @@ export function Main(props) {
         stateList.push('u-ToggleState--off');
     }
 
+    // Fix for Tibetan font in pages.
     useEffect(() => {
         const GlobalTibFix = () => {
             // List of elements to search for Tibetan

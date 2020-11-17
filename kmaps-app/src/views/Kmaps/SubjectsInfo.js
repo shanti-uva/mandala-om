@@ -6,6 +6,7 @@ import useMandala from '../../hooks/useMandala';
 import { Link } from 'react-router-dom';
 import useStatus from '../../hooks/useStatus';
 import { Tabs, Tab } from 'react-bootstrap';
+import useAsset from '../../hooks/useAsset';
 
 export function SubjectsInfo(props) {
     const { kmap, kmasset, relateds } = props;
@@ -52,6 +53,13 @@ export function SubjectsInfo(props) {
             </div>
         ) : null;
 
+    let overview_id = false;
+    for (let prp in kmap) {
+        if (prp.includes('homepage_text_')) {
+            overview_id = kmap[prp];
+            break;
+        }
+    }
     return (
         <div className={'c-subject-info'}>
             {imgel}
@@ -67,21 +75,17 @@ export function SubjectsInfo(props) {
             )}
             {desc}
 
-            {relateds?.assets?.texts?.docs?.length > 0 && (
+            {overview_id && (
                 <div className={'desc'}>
                     <h3>
                         Overview{' '}
-                        <span class={'text-id d-none'}>
-                            <Link
-                                to={`/texts/${relateds.assets.texts.docs[0].id}`}
-                            >
-                                {relateds.assets.texts.docs[0].uid}
+                        <span className={'text-id d-none'}>
+                            <Link to={`/texts/${overview_id}`}>
+                                text-{overview_id}
                             </Link>
                         </span>
                     </h3>
-                    <SubjectTextDescription
-                        solrdoc={relateds.assets.texts.docs[0]}
-                    />
+                    <SubjectTextDescription textid={overview_id} />
                 </div>
             )}
             {/*
@@ -92,7 +96,10 @@ export function SubjectsInfo(props) {
 }
 
 function SubjectTextDescription(props) {
-    const txtjson = useMandala(props.solrdoc);
+    const txtid = props.textid;
+    const solrdoc = useAsset('texts', txtid);
+    const txtjson = useMandala(solrdoc);
+
     const defkey = 'info';
     const txtmup = txtjson?.full_markup ? (
         <>
