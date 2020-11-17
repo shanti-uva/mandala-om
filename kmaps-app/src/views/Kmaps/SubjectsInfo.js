@@ -6,6 +6,7 @@ import useMandala from '../../hooks/useMandala';
 import { Link } from 'react-router-dom';
 import useStatus from '../../hooks/useStatus';
 import { Tabs, Tab } from 'react-bootstrap';
+import useAsset from '../../hooks/useAsset';
 
 export function SubjectsInfo(props) {
     const { kmap, kmasset, relateds } = props;
@@ -52,10 +53,10 @@ export function SubjectsInfo(props) {
             </div>
         ) : null;
 
-    let overview_field = false;
+    let overview_id = false;
     for (let prp in kmap) {
         if (prp.includes('homepage_text_')) {
-            overview_field = prp;
+            overview_id = kmap[prp];
             break;
         }
     }
@@ -74,17 +75,17 @@ export function SubjectsInfo(props) {
             )}
             {desc}
 
-            {overview_field && (
+            {overview_id && (
                 <div className={'desc'}>
                     <h3>
                         Overview{' '}
                         <span className={'text-id d-none'}>
-                            <Link to={`/texts/${overview_field}`}>
-                                text-{overview_field}
+                            <Link to={`/texts/${overview_id}`}>
+                                text-{overview_id}
                             </Link>
                         </span>
                     </h3>
-                    <SubjectTextDescription textid={overview_field} />
+                    <SubjectTextDescription textid={overview_id} />
                 </div>
             )}
             {/*
@@ -96,7 +97,9 @@ export function SubjectsInfo(props) {
 
 function SubjectTextDescription(props) {
     const txtid = props.textid;
-    const txtjson = useMandala(props.solrdoc);
+    const solrdoc = useAsset('texts', txtid);
+    const txtjson = useMandala(solrdoc);
+
     const defkey = 'info';
     const txtmup = txtjson?.full_markup ? (
         <>
