@@ -4,6 +4,8 @@ import './subjectsinfo.scss';
 import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
 import useMandala from '../../hooks/useMandala';
 import { Link } from 'react-router-dom';
+import useStatus from '../../hooks/useStatus';
+import { Tabs, Tab } from 'react-bootstrap';
 
 export function SubjectsInfo(props) {
     const { kmap, kmasset, relateds } = props;
@@ -68,8 +70,8 @@ export function SubjectsInfo(props) {
             {relateds?.assets?.texts?.docs?.length > 0 && (
                 <div className={'desc'}>
                     <h3>
-                        Full Description{' '}
-                        <span class={'text-id'}>
+                        Overview{' '}
+                        <span class={'text-id d-none'}>
                             <Link
                                 to={`/texts/${relateds.assets.texts.docs[0].id}`}
                             >
@@ -91,15 +93,30 @@ export function SubjectsInfo(props) {
 
 function SubjectTextDescription(props) {
     const txtjson = useMandala(props.solrdoc);
-
+    const defkey = 'info';
     const txtmup = txtjson?.full_markup ? (
         <>
-            {txtjson?.toc_links && txtjson.toc_links.length > 0 && (
-                <div className={'desc-toc'}>
-                    <h3>Table of Contents</h3>
-                    <HtmlCustom markup={txtjson.toc_links} />
-                </div>
-            )}
+            <div className={'desc-toc'}>
+                <Tabs defaultActiveKey={defkey} id="text-meta-tabs">
+                    <Tab eventKey="info" title="Info">
+                        {txtjson?.bibl_summary && (
+                            <div className={'info'}>
+                                <HtmlWithPopovers
+                                    markup={txtjson?.bibl_summary}
+                                />
+                            </div>
+                        )}
+                    </Tab>
+                    {txtjson?.toc_links && txtjson.toc_links.length > 0 && (
+                        <Tab eventKey="toc" title="Table of Contents">
+                            <div className={'toc'}>
+                                <HtmlCustom markup={txtjson.toc_links} />
+                            </div>
+                        </Tab>
+                    )}
+                </Tabs>
+            </div>
+
             <HtmlWithPopovers markup={txtjson?.full_markup} />
         </>
     ) : (

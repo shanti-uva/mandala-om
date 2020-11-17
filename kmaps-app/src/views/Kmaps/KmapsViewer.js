@@ -281,6 +281,11 @@ function assemblePath(kmap, kmasset) {
         const ids = kmasset.ancestor_ids_is;
         const names = kmasset.ancestors_txt;
 
+        path.push({
+            uid: '/' + t,
+            name: t[0].toUpperCase() + t.substr(1),
+        });
+
         for (let i = 0; i < ids.length; i++) {
             const uid = t + '-' + ids[i];
             const name = names[i];

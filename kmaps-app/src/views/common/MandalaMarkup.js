@@ -105,13 +105,17 @@ function transform(node, index) {
             // if only one part to the path, it's most likely not a resource but a Drupal page/view so must use modal
             // or if a mandala app name is not in domain.
             if (pathparts.length == 1 || !mtch) {
-                return (
-                    <MandalaModal
-                        url={linkurl}
-                        title={mytitle}
-                        text={linkcontents}
-                    />
-                );
+                if (pathparts[0] === '') {
+                    return <>{linkcontents}</>;
+                } else {
+                    return (
+                        <MandalaModal
+                            url={linkurl}
+                            title={mytitle}
+                            text={linkcontents}
+                        />
+                    );
+                }
             }
             //const app = mtch[0];
             const asset_path = pathparts.join('/');
