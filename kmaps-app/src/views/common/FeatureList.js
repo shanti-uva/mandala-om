@@ -3,7 +3,7 @@ import { FeaturePager } from './FeaturePager/FeaturePager';
 import { RelatedsIcons } from '../Kmaps/RelatedViewer/RelatedsIcons';
 import _ from 'lodash';
 import { HtmlCustom } from './MandalaMarkup';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Container, Col, Row, Card, Accordion } from 'react-bootstrap';
 import $ from 'jquery';
 
@@ -14,12 +14,16 @@ export function FeatureList(props) {
             ? props.docs[0].asset_type
             : 'kmaps';*/
     }
+
+    const myloc = useLocation();
+    console.log(myloc);
+
     let LIST = _.map(props.docs, (doc) => {
         const asset_type = doc?.tree ? doc.tree : doc?.asset_type;
         const mid = doc.id;
         const mykey = `${asset_type}-${mid}`;
 
-        if (asset_type === 'sources') {
+        if (asset_type === 'sources' && !myloc.pathname.includes('/search')) {
             const mu = doc.citation_s.replace(/<\/?a[^>]*>/g, '');
             if (mid === '23801') {
                 console.log('the sources', doc);
