@@ -11,7 +11,7 @@ html {
 }
 body {
     text-rendering: optimizeLegibility;
-    background-color: #fafafa;
+    background-color: #eee;
     font-size: 1.4rem;
 }
 
@@ -34,7 +34,7 @@ body.html {
     //height: 100vh; //causing issues with standalone
     width: 100vw;
     display: flex;
-    margin: 1rem 0 0 0;
+    margin: 1rem 1rem 8rem 2rem;
 }
 .l-site__wrap > *,
 .l-content__main,
@@ -47,7 +47,6 @@ body.html {
     flex: 0 0 25.6rem;
 
     flex: 0 0 30rem;
-    background-color: #f5f5f5;
     padding: 1rem;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -126,6 +125,9 @@ div.image-wrapper.center figcaption {
 //---------------------------------------
 .jumbotron {
     background-color: transparent;
+}
+.sui-advFooter {
+    margin-top: 1.5rem;
 }
 .sui-advFooter,
 .l-column__search pre {
@@ -398,7 +400,7 @@ ul.fancytree-container {
 }
 
 .c-view {
-    margin: 0 2rem;
+    margin: 0;
     .c-featurePager__container {
         background: rgba(0, 0, 0, 0.5);
         padding: 1rem;

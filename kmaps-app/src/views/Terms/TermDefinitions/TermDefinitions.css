@@ -49,3 +49,6 @@
 
 .sui-termDefinitions_wrapper .nav-tabs .nav-link:first-child {
 }
+.sui-termDefinitions__content .nav.nav-tabs > a.nav-item svg {
+    display: none;
+}
