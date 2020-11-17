@@ -15,9 +15,10 @@ export function FeatureList(props) {
             : 'kmaps';*/
     }
     let LIST = _.map(props.docs, (doc) => {
-        const asset_type = doc.asset_type;
+        const asset_type = doc?.tree ? doc.tree : doc?.asset_type;
         const mid = doc.id;
         const mykey = `${asset_type}-${mid}`;
+
         if (asset_type === 'sources') {
             const mu = doc.citation_s.replace(/<\/?a[^>]*>/g, '');
             if (mid === '23801') {
@@ -205,8 +206,8 @@ function FeatureListAssetRelateds(props) {
 }
 
 function FeatureKmapCard(props) {
-    const domain = props.asset_type;
     const doc = props.doc;
+    const domain = props.asset_type;
 
     const kmap_url = `/${domain}/${domain}-${doc.id}`;
     const feature_types = (
