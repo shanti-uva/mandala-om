@@ -17,6 +17,7 @@
     border: none;
     border-top: 1px solid hsla(0, 0%, 68%, 1);
     border-radius: 0;
+    padding-left: 2rem;
 }
 .sui-termDefinitions__content .nav.nav-tabs > a.nav-item:active,
 .sui-termDefinitions__content .nav.nav-tabs > a.nav-item:focus {
@@ -33,6 +34,7 @@
     border-top: 1px solid #a2733f;
     border-radius: 0;
     color: #222;
+    padding: 0.7rem 2rem;
 }
 .sui-termDefinitions__extra {
     text-align: right;
@@ -45,5 +47,5 @@
     text-transform: uppercase;
 }
 
-.sui-termDefinitions_wrapper .nav-link {
+.sui-termDefinitions_wrapper .nav-tabs .nav-link:first-child {
 }

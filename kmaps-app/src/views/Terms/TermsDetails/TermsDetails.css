@@ -10,7 +10,7 @@
 }
 .sui-termsDetails__list-item {
     flex: 1 0 100%;
-    line-height: 1;
+    line-height: 2.25rem;
 }
 @media (min-width: 768px) {
     .sui-termsDetails__list-item {
