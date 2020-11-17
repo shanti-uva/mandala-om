@@ -73,10 +73,12 @@ function FeatureAssetCard(props) {
     const asset_type = props.asset_type;
     const doc = props.doc;
     const doc_url = `/${doc.asset_type}/${doc.id}`;
-    const collection = (
+    const collection = doc?.collection_nid ? (
         <Link to={`/${asset_type}/collection/${doc.collection_nid}`}>
             {doc.collection_title}
         </Link>
+    ) : (
+        false
     );
     let summary = doc.summary;
     if (!summary) {
@@ -125,10 +127,12 @@ function FeatureAssetCard(props) {
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
                         <span className={'uid'}>{doc.uid}</span>
-                        <span className={'coll'}>
-                            <span className={'u-icon__collections'}></span>
-                            {collection}
-                        </span>
+                        {collection && (
+                            <span className={'coll'}>
+                                <span className={'u-icon__collections'}></span>
+                                {collection}
+                            </span>
+                        )}
                     </Col>
                     <Accordion.Collapse eventKey="0">
                         <Col className={'info'}>
