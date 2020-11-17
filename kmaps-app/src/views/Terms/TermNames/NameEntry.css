@@ -45,9 +45,8 @@ ul.sui-nameEntry.first-entry
     background: #fff;
     padding: 1rem 1.5rem 1rem 2rem;
     margin: 1rem 1rem 1.5rem 0;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 0.5rem;
-    box-shadow: 0 0 5px #ccc;
 }
 
 .sui-nameEntry-meta {
