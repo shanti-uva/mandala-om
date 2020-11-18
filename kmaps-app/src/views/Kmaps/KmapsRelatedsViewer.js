@@ -85,13 +85,13 @@ export function KmapsRelatedsViewer(props) {
                     <FancyTree
                         domain={domain}
                         tree={domain}
-                        featuresId={kid}
+                        currentFeatureId={`${domain}-${kid}`}
                         featuresPath={
                             base_path + '/%%ID%%/related-subjects/deck'
                         }
                         descendants={true}
                         directAncestors={true}
-                        displayPopup={false}
+                        displayPopup={true}
                         perspective={'gen'}
                         sortBy={'related_subjects_header_s+ASC'}
                     />
