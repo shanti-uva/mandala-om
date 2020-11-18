@@ -558,15 +558,24 @@ ul.fancytree-container {
                 font-size: 1.5rem;
             }
         } // Ends kmaps for relateds in accordion
-    } // Ends card-body
+    } // Ends card-body in List View
 
-    // Kmaps card styles
+    // Kmaps card styles in List View
     .card.places,
     .card.subjects,
     .card.terms {
         margin-top: 0;
         margin-bottom: 0;
     }
+
+    // Sources in List View
+    .sources.card .info {
+        padding-left: 8rem;
+    }
+    .sources.card .info .img {
+        display: none;
+    }
+
     .title {
         line-height: 2.25rem;
     }

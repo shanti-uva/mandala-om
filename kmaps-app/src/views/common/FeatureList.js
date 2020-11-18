@@ -3,7 +3,7 @@ import { FeaturePager } from './FeaturePager/FeaturePager';
 import { RelatedsIcons } from '../Kmaps/RelatedViewer/RelatedsIcons';
 import _ from 'lodash';
 import { HtmlCustom } from './MandalaMarkup';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Container, Col, Row, Card, Accordion } from 'react-bootstrap';
 import $ from 'jquery';
 
@@ -14,12 +14,16 @@ export function FeatureList(props) {
             ? props.docs[0].asset_type
             : 'kmaps';*/
     }
+
+    const myloc = useLocation();
+    console.log(myloc);
+
     let LIST = _.map(props.docs, (doc) => {
         const asset_type = doc?.tree ? doc.tree : doc?.asset_type;
         const mid = doc.id;
         const mykey = `${asset_type}-${mid}`;
 
-        if (asset_type === 'sources') {
+        if (asset_type === 'sources' && !myloc.pathname.includes('/search')) {
             const mu = doc.citation_s.replace(/<\/?a[^>]*>/g, '');
             if (mid === '23801') {
                 console.log('the sources', doc);
@@ -69,10 +73,12 @@ function FeatureAssetCard(props) {
     const asset_type = props.asset_type;
     const doc = props.doc;
     const doc_url = `/${doc.asset_type}/${doc.id}`;
-    const collection = (
+    const collection = doc?.collection_nid ? (
         <Link to={`/${asset_type}/collection/${doc.collection_nid}`}>
             {doc.collection_title}
         </Link>
+    ) : (
+        false
     );
     let summary = doc.summary;
     if (!summary) {
@@ -121,10 +127,12 @@ function FeatureAssetCard(props) {
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
                         <span className={'uid'}>{doc.uid}</span>
-                        <span className={'coll'}>
-                            <span className={'u-icon__collections'}></span>
-                            {collection}
-                        </span>
+                        {collection && (
+                            <span className={'coll'}>
+                                <span className={'u-icon__collections'}></span>
+                                {collection}
+                            </span>
+                        )}
                     </Col>
                     <Accordion.Collapse eventKey="0">
                         <Col className={'info'}>
