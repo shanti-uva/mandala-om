@@ -4,15 +4,22 @@ import './subjectsinfo.scss';
 import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
 import useMandala from '../../hooks/useMandala';
 import { Link } from 'react-router-dom';
-import useStatus from '../../hooks/useStatus';
 import { Tabs, Tab } from 'react-bootstrap';
 import useAsset from '../../hooks/useAsset';
+import useStatus from '../../hooks/useStatus';
 
 export function SubjectsInfo(props) {
     const { kmap, kmasset, relateds } = props;
     // console.log('SubjectsInfo: props = ', props);
     // console.log('SubjectsInfo: kmap = ', kmap);
     // console.log('SubjectsInfo: kmasset = ', kmasset);
+
+    const status = useStatus();
+    useEffect(() => {
+        status.clear();
+        status.setType('subjects');
+        status.setHeaderTitle('Loading ...');
+    }, []);
 
     useEffect(() => {
         $('main.l-column__main').addClass('subjects');

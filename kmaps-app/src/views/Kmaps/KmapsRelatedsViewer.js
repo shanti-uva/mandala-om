@@ -82,6 +82,10 @@ export function KmapsRelatedsViewer(props) {
                         grouped together in useful ways, as well as{' '}
                         {kmtype.toLowerCase()} non-hierarchically related to it.
                     </p>
+                    <p>
+                        {' '}
+                        {domain} {kid}{' '}
+                    </p>
                     <FancyTree
                         domain={domain}
                         tree={domain}

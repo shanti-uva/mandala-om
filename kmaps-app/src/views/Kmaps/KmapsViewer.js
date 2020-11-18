@@ -31,6 +31,11 @@ export default function KmapsViewer(props) {
     const [modalShow, setModalShow] = useState();
     const status = useStatus();
 
+    useEffect(() => {
+        status.clear();
+        status.setHeaderTitle('Loading ...');
+    }, []);
+
     const queryParams = new URLSearchParams(useLocation().search);
 
     function grokAssetType(route, queryParams) {
