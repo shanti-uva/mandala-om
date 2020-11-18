@@ -9,32 +9,28 @@ ndg, Nov. 11, 2020)
 
 main.subjects {
     .c-content__main__kmaps {
-        background-color: #fff;
+        background-color: #fcfcfc;
         font-size: 1.4rem;
 
         .featured-image {
             float: right;
             padding: 0.5rem;
             border: 3px inset rgba(0, 0, 0, 0.4);
-            border-radius: 5px;
+            border-radius: 3px;
             background-color: #ffffff;
-            margin: -14rem 2rem 1rem 1rem;
+            margin: 0 2rem 1rem 1rem;
             img {
-                max-height: 40rem;
-                max-width: 35rem !important;
-                border-radius: 5px;
+                max-height: 28rem;
+                max-width: 25rem !important;
+                border-radius: 3px;
             }
         }
 
         .c-nodeHeader {
-            margin: 3rem 2rem 2rem;
-            padding-bottom: 1rem;
             border-bottom: 1px solid #cc4c39;
-            max-width: 70%;
         }
 
         .sui-nameEntry__wrapper {
-            margin-left: 2rem;
         }
 
         ul.sui-nameEntry.first-entry
@@ -57,7 +53,7 @@ main.subjects {
         }
 
         .summary {
-            max-width: 75%;
+            /*  max-width: 75%;*/
         }
 
         .desc > h3 {
@@ -65,8 +61,6 @@ main.subjects {
             margin-bottom: -1rem;
             margin-left: -1rem;
             padding: 0.5rem 0.5rem 0.5rem 1rem;
-            border-bottom: thin solid #777;
-            width: 75%;
             color: #ffffff;
             background-color: rgba(204, 76, 57, 0.8);
             font-weight: bold;

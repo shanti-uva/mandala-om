@@ -7,17 +7,19 @@
     margin-right: 1.6rem;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark {
-    border-color: #4a5568;
+    border-color: transparent;
+    font-size: 1.5rem;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark:hover {
-    background-color: #4a5568;
+    background-color: transparent;
+    border-color: transparent;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark:hover span.icon {
     color: #f7fafc;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark .icon {
     margin-right: 0.8rem;
-    vertical-align: -5%;
+    /* vertical-align: -5%; ...what is this  */
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark span.btn-text {
     margin-right: 0.4rem;

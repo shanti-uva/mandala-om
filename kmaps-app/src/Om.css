@@ -619,7 +619,8 @@
 .sui-adv-facetlist {
     max-height: 15em;
 }
-
+.sui-adv-facetlist .facetItem {
+}
 .sui-geoLocate {
     background-color: #6faaf1;
     border-radius: 16px;
@@ -1826,6 +1827,11 @@
 
 .sui-showinfo:hover {
     color: #888888;
+}
+.sui-facetList-horiz {
+    top: -2.5rem;
+    left: 3rem;
+    position: relative;
 }
 
 .sui-facetList-horiz div {

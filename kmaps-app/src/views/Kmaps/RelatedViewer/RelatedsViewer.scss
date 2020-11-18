@@ -161,6 +161,7 @@
     border: 1px solid #ddd !important;
     box-shadow: inset 0 0 8px #ddd;
     padding: 0.5rem;
+    font-size: 1.2rem;
     height: auto;
     max-height: 50rem;
     background-color: #fff !important;
@@ -305,4 +306,9 @@
     span.badge {
         vertical-align: top;
     }
+}
+
+.l-column__related .fancytree-node:not(.fancytree-active):hover,
+.l-column__related .fancytree-node:not(.fancytree-active):active {
+    background-color: #ffffff !important;
 }

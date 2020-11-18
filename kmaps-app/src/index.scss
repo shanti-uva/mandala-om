@@ -34,7 +34,7 @@ body.html {
     //height: 100vh; //causing issues with standalone
     width: 100vw;
     display: flex;
-    margin: 1rem 1rem 8rem 2rem;
+    margin: 1rem 0 0 1rem;
 }
 .l-site__wrap > *,
 .l-content__main,
@@ -45,12 +45,12 @@ body.html {
 
 .l-content__rightsidebar {
     flex: 0 0 25.6rem;
-
     flex: 0 0 30rem;
-    padding: 1rem;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
     font-size: 1.4rem;
+
+    /* padding: 1rem;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd; */
 }
 
 a {
@@ -135,7 +135,7 @@ div.image-wrapper.center figcaption {
 }
 // MAIN Kmaps Column ------- move this
 .c-content__main__kmaps {
-    background-color: #f7f7f7;
+    background-color: #fcfcfc;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     padding: 1rem 1.5rem 2rem 2rem;
@@ -271,6 +271,9 @@ div.image-wrapper.center figcaption {
 // * CONTENT SECTION: Node Header -- move this
 // --------------------------------------
 .c-nodeHeader {
+    margin: 0.5rem 2rem;
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
 }
 .c-nodeHeader > .icon {
     margin: 0 1.25rem 0 0;
@@ -397,22 +400,29 @@ ul.fancytree-container {
 // View Styles
 .c-view__wrapper {
     background-color: white;
+    margin-top: -2rem;
+    border: none;
 }
 
 .c-view {
     margin: 0;
     .c-featurePager__container {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 1rem;
-        padding-left: 3rem;
-        margin: 0rem;
+        background: #fff;
+        padding: 2rem 1rem 0;
+        padding-left: 13rem;
+        margin: 0;
         border-radius: 0.3rem 0.3rem 0rem 0rem;
-        color: white;
 
         .icon {
-            color: white;
         }
     }
+}
+
+.c-buttoneGroup__viewMode {
+    display: inline-block;
+    position: relative;
+    top: 4rem;
+    left: 2rem;
 }
 
 // List View Only
