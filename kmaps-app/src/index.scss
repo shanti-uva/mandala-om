@@ -11,7 +11,7 @@ html {
 }
 body {
     text-rendering: optimizeLegibility;
-    background-color: #fafafa;
+    background-color: #eee;
     font-size: 1.4rem;
 }
 
@@ -34,7 +34,7 @@ body.html {
     //height: 100vh; //causing issues with standalone
     width: 100vw;
     display: flex;
-    margin: 1rem 0 0 0;
+    margin: 1rem 1rem 8rem 2rem;
 }
 .l-site__wrap > *,
 .l-content__main,
@@ -45,6 +45,12 @@ body.html {
 
 .l-content__rightsidebar {
     flex: 0 0 25.6rem;
+
+    flex: 0 0 30rem;
+    padding: 1rem;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 1.4rem;
 }
 
 a {
@@ -119,6 +125,9 @@ div.image-wrapper.center figcaption {
 //---------------------------------------
 .jumbotron {
     background-color: transparent;
+}
+.sui-advFooter {
+    margin-top: 1.5rem;
 }
 .sui-advFooter,
 .l-column__search pre {
@@ -329,10 +338,6 @@ div.image-wrapper.center figcaption {
 // SEARCH Section ------- move this
 .advanced-search-and-tree {
     position: relative;
-    & > * {
-        position: absolute;
-        width: 100%;
-    }
 }
 ul.fancytree-container {
     height: auto !important;
@@ -360,7 +365,6 @@ ul.fancytree-container {
     display: none;
 }
 .sui-nameEntry-meta {
-    display: block;
     margin-top: 0.75rem;
 }
 
@@ -376,8 +380,8 @@ ul.fancytree-container {
 
 // gallery display buttons for view options
 // View mode for content column
-.c-buttoneGroup__viewMode {
-    margin: 0.8rem 1.5rem 0rem;
+.c-buttonGroup__viewMode {
+    margin: 0.8rem 1.5rem 0;
     padding-right: 1rem;
     float: right;
 }
@@ -396,7 +400,7 @@ ul.fancytree-container {
 }
 
 .c-view {
-    margin: 0 2rem;
+    margin: 0;
     .c-featurePager__container {
         background: rgba(0, 0, 0, 0.5);
         padding: 1rem;
@@ -697,7 +701,8 @@ ul.fancytree-container {
     letter-spacing: normal !important;
     text-rendering: optimizeLegibility !important;
     font-family: 'Babelstone', 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan',
-        'Tibetan Machine Uni', 'Kailasa', 'Uchen_05', 'Microsoft Himalaya' !important;
+        'Tibetan Machine Uni', 'Kailasa', 'Uchen_05', 'Microsoft Himalaya',
+        sans-serif !important;
 }
 
 @media screen and (max-width: 950px) {
