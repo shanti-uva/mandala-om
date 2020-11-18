@@ -184,8 +184,8 @@ import { MandalaPopover } from '../common/MandalaPopover';
                                     domain={plugin.options.domain}
                                     kid={myId}
                                 >
-                                    <span class="popover-link">
-                                        <span class="icon u-icon__kmaps-popover"></span>
+                                    <span className="popover-link">
+                                        <span className="icon u-icon__kmaps-popover"></span>
                                     </span>
                                 </MandalaPopover>,
                                 elem.lastChild

@@ -82,20 +82,16 @@ export function KmapsRelatedsViewer(props) {
                         grouped together in useful ways, as well as{' '}
                         {kmtype.toLowerCase()} non-hierarchically related to it.
                     </p>
-                    <p>
-                        {' '}
-                        {domain} {kid}{' '}
-                    </p>
                     <FancyTree
                         domain={domain}
                         tree={domain}
-                        featuresId={kid}
+                        currentFeatureId={`${domain}-${kid}`}
                         featuresPath={
                             base_path + '/%%ID%%/related-subjects/deck'
                         }
                         descendants={true}
                         directAncestors={true}
-                        displayPopup={false}
+                        displayPopup={true}
                         perspective={'gen'}
                         sortBy={'related_subjects_header_s+ASC'}
                     />
