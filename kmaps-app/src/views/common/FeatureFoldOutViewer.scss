@@ -23,14 +23,14 @@
 #FoldOutViewer {
     background-color: #222;
     padding: 2rem;
-
+    position: relative;
     // Icons and arrows
     .c-foviewer__close {
         color: #888;
         font-size: 3rem;
-        position: relative;
-        top: -1rem;
-        float: right;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
         cursor: pointer;
         &:hover {
             color: #ccc;
@@ -64,13 +64,11 @@
 
             &.prev {
                 margin-left: -4rem;
-                margin-right: 4rem;
                 border-top-right-radius: 0.5rem;
                 border-bottom-right-radius: 0.5rem;
             }
 
             &.next {
-                margin-left: 4rem;
                 margin-right: -4rem;
                 border-top-left-radius: 0.5rem;
                 border-bottom-left-radius: 0.5rem;
@@ -84,14 +82,13 @@
 
         .c-foviewer__image,
         .c-foviewer__details {
-            /* flex-basis: 48%; */
+            flex-basis: 50%;
         }
 
         .c-foviewer__image img {
             max-width: 100%;
             max-height: 500px;
-            margin-right: 4rem;
-            /* margin: auto; */
+            margin-left: 2rem;
         }
 
         .c-foviewer__details {
@@ -100,7 +97,8 @@
             color: white;
             margin: auto 0;
             padding-left: 2rem;
-            width: 50%;
+            margin-left: 2rem;
+            /*width: 50%;*/
 
             h2 {
                 font-size: 1.6rem;
