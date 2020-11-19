@@ -584,6 +584,16 @@
     margin: 1.25rem 0.5rem;
 }
 
+.sui-advEdit-facet-ctrls-btns {
+    position: relative;
+    top: -0.1rem;
+}
+
+.sui-advEdit-facet-ctrls-btns .btn {
+    padding: 0.4rem 1rem;
+    font-size: 1.25rem;
+}
+
 .sui-advEdit input {
     width: 12rem;
     border: 1px solid #aaa;
