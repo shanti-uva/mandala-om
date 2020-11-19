@@ -44,6 +44,17 @@
                 margin-left: 78%;
             }
         }
+
+        .prev-arrow.disabled,
+        .next-arrow.disabled {
+            color: #333;
+            cursor: default;
+
+            &:before {
+                color: #333;
+                cursor: default;
+            }
+        }
     }
     .c-osdviewer {
         position: relative;

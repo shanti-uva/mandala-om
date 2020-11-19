@@ -76,7 +76,10 @@ export function ImagesViewer(props) {
 
     const arrowClick = function (e) {
         const $this = $(e.target);
-        const curr = $('.thumb.current');
+        const curr =
+            $('.thumb.current').length > 0
+                ? $('.thumb.current')
+                : $('.thumb').eq(0);
         const dir = $this.parent().hasClass('before') ? 'prev' : 'next';
         const newcurr =
             dir === 'prev'
@@ -104,7 +107,7 @@ export function ImagesViewer(props) {
                         <Row className={'c-image__viewer-row'}>
                             <Col className={'page-control before'}>
                                 <span
-                                    className={'u-icon__arrow3-left'}
+                                    className={'u-icon__arrow3-left prev-arrow'}
                                     onClick={arrowClick}
                                 ></span>
                             </Col>
@@ -116,7 +119,9 @@ export function ImagesViewer(props) {
                             </Col>
                             <Col className={'page-control after'}>
                                 <span
-                                    className={'u-icon__arrow3-right'}
+                                    className={
+                                        'u-icon__arrow3-right next-arrow'
+                                    }
                                     onClick={arrowClick}
                                 ></span>
                             </Col>
