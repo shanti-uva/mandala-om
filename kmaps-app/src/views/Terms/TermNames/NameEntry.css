@@ -30,6 +30,14 @@
 ul.sui-nameEntry.first-entry {
     padding-left: 0;
     margin-bottom: 0;
+
+    padding-left: 0;
+    margin-bottom: 0;
+    background: #fff;
+    padding: 1rem 1.5rem 1rem 2rem;
+    margin: 1rem 1rem 1.5rem -1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
 }
 
 ul.sui-nameEntry.first-entry
@@ -42,11 +50,11 @@ ul.sui-nameEntry.first-entry
 }
 
 .sui-nameEntry-meta ~ ul {
-    background: #fff;
+    /*    background: #fff;
     padding: 1rem 1.5rem 1rem 2rem;
     margin: 1rem 1rem 1.5rem 0;
     border: 1px solid #ccc;
-    border-radius: 0.5rem;
+    border-radius: 0.5rem;     */
 }
 
 .sui-nameEntry-meta {

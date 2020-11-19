@@ -26,13 +26,18 @@
 
     // Icons and arrows
     .c-foviewer__close {
-        color: white;
-        font-size: 2rem;
+        color: #888;
+        font-size: 3rem;
         position: relative;
-        left: 98%;
         top: -1rem;
+        float: right;
         cursor: pointer;
-        z-index: 100;
+        &:hover {
+            color: #ccc;
+        }
+        &:active {
+            color: #eee;
+        }
     }
 
     .c-foviewer__inner {
@@ -98,7 +103,10 @@
             h2 {
                 font-size: 1.6rem;
                 margin-left: 2rem;
-                text-indent: -2rem;
+                span {
+                    color: #ddd;
+                    margin-right: 0.75rem;
+                }
             }
             .info,
             .ids,
@@ -124,34 +132,49 @@
             }
 
             .link {
-                color: #aaa;
-                background-color: #292929;
+                color: #eee;
+                background-color: #000;
                 border: 1px solid #888 !important;
                 border-radius: 0.25em;
                 background-clip: padding-box;
                 box-shadow: none;
                 font-weight: 400;
+                font-size: 1.25rem;
+                text-transform: uppercase;
                 letter-spacing: 0.275rem;
-                padding: 1.2rem 1.5rem 1.1rem 2rem;
-                max-width: 13rem;
-                margin: 3rem auto 0 25%;
+                padding: 1rem;
+                text-align: center;
+                margin: 3rem 1rem 0;
 
                 &:hover {
-                    color: #eee;
-                    background-color: #393939;
+                    color: #fff;
+                    background-color: #202020;
+                }
+                &:active {
+                    color: #fff;
+                    background-color: #000;
                 }
             }
 
             .link a {
                 color: inherit;
+                span {
+                    font-size: 1.4rem;
+                    position: relative;
+                    top: 0.2rem;
+                }
             }
             .kmaprow {
                 margin-left: 2rem;
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             .kmaprow > .icon {
                 display: inline-block;
-                margin-right: 1rem;
+            }
+            .icon::before {
+                color: #eee;
+                font-size: 1.6rem;
+                margin-right: 1.3rem;
             }
         } /* end .c-foviewer__details */
     }

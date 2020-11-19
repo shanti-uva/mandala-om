@@ -82,10 +82,10 @@ main.subjects {
 
         .desc .desc-toc {
             float: right;
-            max-width: 400px;
-            margin: 2rem;
+            max-width: 350px;
+            margin: 2rem 0 2rem 1rem;
             padding: 1rem;
-            border: 2px solid #777;
+            border: 1px solid #ccc;
             border-radius: 0.5rem;
             background-color: #f7f7f7;
 
@@ -209,11 +209,11 @@ main.subjects {
         color: #555 !important;
     }
     .shanti-texts-section-title.text-level-1 {
-        font-size: 1.75em !important;
+        font-size: 1.5em !important;
     }
 
     .shanti-texts-section-title.text-level-2 {
-        font-size: 1.68em !important;
+        font-size: 1.44em !important;
     }
 
     .shanti-texts-section-title.text-level-3,
@@ -222,16 +222,16 @@ main.subjects {
     .shanti-texts-section-title.text-level-6,
     .shanti-texts-section-title.text-level-7 {
         font-size: 1.18em;
-        background: #f4f4f4;
+        /*  background: #f4f4f4;  */
         padding: 1rem;
         line-height: 1.5em;
         font-weight: bold;
         letter-spacing: 0.0375rem;
         color: #444;
-        border-top: 0.5rem solid white;
-        border-bottom: 0.5rem solid white;
-        box-shadow: inset 0 2px 0.1rem 0 #ddd;
-        box-shadow: inset 0 0 0.1rem 0.1rem #ddd;
+        /*  border-top: 0.5rem solid white;  */
+        /*  border-bottom: 0.5rem solid white;  */
+        /*  box-shadow: inset 0 2px 0.1rem 0 #ddd;  */
+        /*  box-shadow: inset 0 0 0.1rem 0.1rem #ddd;  */
     }
 
     .shanti-texts-section-title::before {

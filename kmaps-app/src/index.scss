@@ -21,6 +21,7 @@ body.html {
 
 .two-columns {
     display: flex;
+    padding-right: 0.75rem;
 }
 
 .l-site__wrap,
@@ -272,7 +273,7 @@ div.image-wrapper.center figcaption {
 // --------------------------------------
 .c-nodeHeader {
     margin: 0.5rem 2rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0;
     padding-left: 0.5rem;
 }
 .c-nodeHeader > .icon {
@@ -402,6 +403,8 @@ ul.fancytree-container {
     background-color: white;
     margin-top: -2rem;
     border: none;
+    border: 1px solid #e0e0e0;
+    padding: 0 1.5rem 3rem;
 }
 
 .c-view {
@@ -421,8 +424,8 @@ ul.fancytree-container {
 .c-buttoneGroup__viewMode {
     display: inline-block;
     position: relative;
-    top: 4rem;
-    left: 2rem;
+    top: 4.5rem;
+    left: 4.5rem;
 }
 
 // List View Only
