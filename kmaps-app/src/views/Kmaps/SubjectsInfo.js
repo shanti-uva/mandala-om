@@ -38,20 +38,6 @@ export function SubjectsInfo(props) {
         </div>
     ) : null;
 
-    let captions = [];
-    for (const dprop in kmap) {
-        if (dprop.includes('caption_')) {
-            const lang = dprop.replace('caption_', '');
-            if (!lang.includes('_')) {
-                const captxt = kmap[dprop]
-                    .toString()
-                    .replace(/<\/?[^>]+>/g, '');
-                var capnew = $(`<span>${captxt}</span>`).text(); // Convert html entities to text
-                captions.push(`${capnew} (${lang})`);
-            }
-        }
-    }
-
     const desc =
         kmap?.summary_eng?.length > 0 ? (
             <div className={'summary'}>
@@ -70,16 +56,6 @@ export function SubjectsInfo(props) {
     return (
         <div className={'c-subject-info'}>
             {imgel}
-            {captions.length > 0 && (
-                <div className={'captions'}>
-                    <h3>Captions</h3>
-                    <ul>
-                        {$.map(captions, function (item, n) {
-                            return <li key={'sub-cap-' + n}>{item}</li>;
-                        })}
-                    </ul>
-                </div>
-            )}
             {desc}
 
             {overview_id && (

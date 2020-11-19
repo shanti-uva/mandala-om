@@ -57,11 +57,21 @@ export function FeatureCollection(props) {
             break;
     }
 
+    let inclGallery = viewMode === 'gallery' ? true : false;
+    if (props?.docs && props.docs.length > 0) {
+        const atype = props.docs[0]?.asset_type;
+        if (atype && 'audio-video|images'.includes(atype)) {
+            inclGallery = true;
+        }
+    }
     return (
         <div className={'c-buttoneGroup__viewMode__wrap'}>
             <div className={'c-buttoneGroup__viewMode'}>
                 {/* View Mode:{' '} */}
-                <FeatureCollectionViewModeSelector viewMode={viewMode} />
+                <FeatureCollectionViewModeSelector
+                    viewMode={viewMode}
+                    inclGallery={inclGallery}
+                />
                 {props.loadingState && (
                     <Spinner animation="border" role="status">
                         <span className="sr-only">Loading...</span>
@@ -78,7 +88,7 @@ export function FeatureCollection(props) {
 function FeatureCollectionViewModeSelector(props) {
     const history = useHistory();
     const qs = useLocation().search;
-    const { viewMode } = props;
+    const { viewMode, inclGallery } = props;
     const deck = { active: `viewMode === "deck"` };
     const gallery = { active: `viewMode === "gallery"` };
     const list = { active: `viewMode === "list"` };
@@ -106,14 +116,16 @@ function FeatureCollectionViewModeSelector(props) {
             >
                 {deckLabel}
             </ToggleButton>
-            <ToggleButton
-                name={'viewMode'}
-                value={'gallery'}
-                type={'radio'}
-                title={'View Mode: Gallery'}
-            >
-                {galleryLabel}
-            </ToggleButton>
+            {inclGallery && (
+                <ToggleButton
+                    name={'viewMode'}
+                    value={'gallery'}
+                    type={'radio'}
+                    title={'View Mode: Gallery'}
+                >
+                    {galleryLabel}
+                </ToggleButton>
+            )}
             <ToggleButton
                 name={'viewMode'}
                 value={'list'}

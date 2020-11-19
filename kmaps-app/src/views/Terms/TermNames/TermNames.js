@@ -1,5 +1,6 @@
 import { buildNestedDocs } from '../../common/utils';
 import React from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import _ from 'lodash';
 import './NameEntry.css';
 
@@ -47,6 +48,9 @@ export function NameEntry(props) {
                     <span className="sui-nameEntry-writing-system">
                         {entry.related_names_writing_system_s}
                     </span>
+                </span>
+                <span className="sui-nameEntry-etymology">
+                    {ReactHtmlParser(entry.related_names_etymology_s)}
                 </span>
                 {!_.isEmpty(entry._nested_) && (
                     <ul>

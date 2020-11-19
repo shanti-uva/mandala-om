@@ -12,7 +12,8 @@ export function ImageCarousel(props) {
         params: {
             q: `asset_type:${atype} AND collection_nid:${coll_id}`,
             fl: ['id', 'title', 'url_thumb'],
-            rows: 10000,
+            sort: 'title_sort_s asc',
+            rows: 1000,
         },
     };
 
@@ -33,9 +34,33 @@ export function ImageCarousel(props) {
     };
     useEffect(() => {
         if ($('#image-carousel').length > 0) {
-            setTimeout(function () {
+            if (window.mndlImgCarouselTimeout) {
+                clearTimeout(window.mndlImgCarouselTimeout);
+            }
+            window.mndlImgCarouselTimeout = setTimeout(function () {
                 centerCarousel();
-            }, 1000);
+            }, 3500);
+        }
+
+        if ($('.thumb.current').length > 0) {
+            if ($('.thumb.current').prev('div').length === 0) {
+                $('.page-control .prev-arrow')
+                    .addClass('disabled')
+                    .attr('title', 'No Previous Image');
+            } else {
+                $('.page-control .prev-arrow')
+                    .removeClass('disabled')
+                    .attr('title', 'Previous Image');
+            }
+            if ($('.thumb.current').next('div').length === 0) {
+                $('.page-control .next-arrow')
+                    .addClass('disabled')
+                    .attr('title', 'No Next Image');
+            } else {
+                $('.page-control .next-arrow')
+                    .removeClass('disabled')
+                    .attr('title', 'Next Image');
+            }
         }
     }, [$('#image-carousel')]);
 
