@@ -39,6 +39,7 @@ export function SubjectsInfo(props) {
     ) : null;
 
     let captions = [];
+
     for (const dprop in kmap) {
         if (dprop.includes('caption_')) {
             const lang = dprop.replace('caption_', '');
