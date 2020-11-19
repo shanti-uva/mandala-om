@@ -31,12 +31,14 @@ function TermAudioPlayer(props) {
             >
                 <span className="icon u-icon__audio"></span>
             </button>
-            <select
-                className="c-audioPlayer__select"
-                onChange={(e) => handleSelect(e)}
-            >
-                {option_list}
-            </select>
+            <div class={'c-audioPlayer__select--wrapper'}>
+                <select
+                    className="c-audioPlayer__select"
+                    onChange={(e) => handleSelect(e)}
+                >
+                    {option_list}
+                </select>
+            </div>
         </>
     ) : (
         'No Audio Available'
