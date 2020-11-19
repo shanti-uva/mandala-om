@@ -561,15 +561,24 @@
     color: #555;
     margin-right: 0.4rem;
 }
-.sui-advTerm div .icon:first-child::before {
-    color: #999;
-    font-size: 1.4rem;
-    position: relative;
-    top: 0.3rem;
-}
+
 .sui-advTerm:empty {
     display: none;
 }
+
+.sui-advTerm div .icon:first-child::before {
+    color: #999;
+    font-size: 1.35rem;
+    position: relative;
+    top: 0.3rem;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 4px;
+}
+.sui-advTerm div .icon:first-child:hover::before {
+    color: red;
+}
+
 .sui-advEdit {
     display: none;
     background-color: #fafafa;
@@ -651,7 +660,7 @@
 
 .sui-advEditLine {
     cursor: pointer;
-    padding: 0.2rem 1rem;
+    padding: 0 1rem;
     border-bottom: 0.2rem solid #fafafa;
 }
 
@@ -688,10 +697,11 @@
 .sui-adv-facetlist {
     max-height: 15rem;
     padding-top: 0.25rem;
-    border-radius: 1.5rem;
-    overflow: scroll !important;
+    border-radius: 1.25rem;
 }
 .sui-adv-facetlist .facetItem {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
 }
 .sui-geoLocate {
     background-color: #6faaf1;
