@@ -586,7 +586,8 @@
 
 .sui-advEdit-facet-ctrls-btns {
     position: relative;
-    top: -0.1rem;
+    top: 0.4rem;
+    float: right;
 }
 
 .sui-advEdit-facet-ctrls-btns .btn {
