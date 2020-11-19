@@ -50,6 +50,10 @@ body.html {
     font-size: 1.4rem;
 }
 
+.texts .l-content__main {
+    display: block;
+}
+
 a {
     text-decoration: none;
     color: $link-color;
@@ -413,6 +417,10 @@ ul.fancytree-container {
         border-radius: 0.3rem 0.3rem 0rem 0rem;
 
         .icon {
+        }
+
+        &.top {
+            margin-bottom: 1.75rem;
         }
     }
 }
