@@ -501,6 +501,24 @@
     top: -0.4rem;
     left: -0.25rem;
 }
+.sui-advHeader .badge {
+    position: relative;
+    bottom: 0.2rem;
+    right: 0.5rem;
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    border-radius: 0.3rem;
+    color: #fff;
+}
+
+.sui-advHeader .badge.badge-secondary {
+    color: #fff;
+    padding-right: 1rem;
+}
+
+.sui-advHeader .badge-secondary ~ .u-icon__plus,
+.sui-advHeader .badge-secondary ~ .u-icon__minus {
+    visibility: hidden;
+}
 
 .sui-advHeader .u-icon__plus,
 .sui-advHeader .u-icon__minus {
@@ -515,14 +533,6 @@
     flex: 1;
 }
 
-.sui-advHeader .badge {
-    position: relative;
-    bottom: 0.2rem;
-    right: 0.5rem;
-    padding: 0.5rem 3.5rem 0.5rem 1rem;
-    border-radius: 0.3rem;
-    color: #fff;
-}
 /*.sui-advTermRem {*/
 /*    display: inline-block;*/
 /*    cursor: pointer;*/
@@ -542,8 +552,11 @@
     color: #555;
     margin-right: 0.4rem;
 }
-.sui-advTerm .icon:first-child::before {
-    color: #ccc;
+.sui-advTerm div .icon:first-child::before {
+    color: #999;
+    font-size: 1.4rem;
+    position: relative;
+    top: 0.3rem;
 }
 .sui-advTerm:empty {
     display: none;
