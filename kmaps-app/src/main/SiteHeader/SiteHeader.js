@@ -24,7 +24,7 @@ export function SiteHeader(props) {
                     : 'c-site__header-standalone'
             }
         >
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg bg-light">
                 <Link to={'/home'} className={'navbar-brand'}>
                     <img
                         src={process.env.PUBLIC_URL + '/img/bhutanleft.gif'}

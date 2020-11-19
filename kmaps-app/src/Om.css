@@ -51,6 +51,9 @@
 
 /* SEARCH BOX */
 
+.sui-nameEntry-header:first-child {
+}
+
 .sui-search1 {
     /*  float: left;
     background-color: #fafafa;

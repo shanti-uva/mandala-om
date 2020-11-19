@@ -33,9 +33,9 @@ body.html {
 }
 .l-content__main {
     //height: 100vh; //causing issues with standalone
-    width: 100vw;
+    /*  width: 100vw; */
     display: flex;
-    margin: 1rem 0 0 1rem;
+    margin: 1rem 0 10rem 1rem;
 }
 .l-site__wrap > *,
 .l-content__main,
