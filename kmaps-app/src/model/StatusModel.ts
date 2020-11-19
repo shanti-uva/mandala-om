@@ -63,6 +63,25 @@ export const statusModel: StatusModel = {
     }),
     setType: action((state, type) => {
         state.type = type;
+        // Code to add class to #l-site__wrap indicating type of asset/kmap
+        const wrapper = document?.getElementById('l-site__wrap');
+        if (typeof wrapper === 'undefined') {
+            return;
+        }
+        const alltypes = [
+            'audio-video',
+            'collections',
+            'images',
+            'places',
+            'sources',
+            'subjects',
+            'terms',
+            'texts',
+        ];
+        for (var n in alltypes) {
+            wrapper?.classList.remove(alltypes[n]);
+        }
+        wrapper?.classList.add(type);
     }),
     setStatus: action((state, status) => {
         state = { ...status };
