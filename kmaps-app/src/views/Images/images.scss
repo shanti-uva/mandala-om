@@ -58,14 +58,14 @@
     }
     .c-osdviewer {
         position: relative;
-        width: 950px;
+        /*  width: 950px; */
         height: 500px;
     }
     .react-iiif-viewer,
     .c-osdviewer {
         .fullscreen {
             position: absolute;
-            left: 47%;
+            /*  left: 47%; */
             top: -40px;
         }
         button {
