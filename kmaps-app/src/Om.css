@@ -469,11 +469,13 @@
 }
 
 .sui-advBox {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
+    border-bottom-color: #ccc;
     margin: 0 5px;
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 1rem 0;
     border-radius: 2px;
     background-color: #fff;
+    min-height: 4.5rem;
 }
 
 .sui-advBox-asset_type {
@@ -488,10 +490,25 @@
     cursor: pointer;
     text-transform: uppercase;
     display: flex;
+    height: 1.5rem;
+    font-size: 1.35rem;
 }
 
 .sui-advHeader > .icon {
-    margin: 0 0.5rem;
+    margin: 0 1rem 0 0.5rem;
+    font-size: 1.7rem;
+    position: relative;
+    top: -0.4rem;
+    left: -0.25rem;
+}
+
+.sui-advHeader .u-icon__plus,
+.sui-advHeader .u-icon__minus {
+    position: absolute;
+    right: 2.8rem;
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    color: #eee;
 }
 
 .sui-advHeader > .app-name {
@@ -502,6 +519,9 @@
     position: relative;
     bottom: 0.2rem;
     right: 0.5rem;
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    border-radius: 0.3rem;
+    color: #fff;
 }
 /*.sui-advTermRem {*/
 /*    display: inline-block;*/
@@ -514,29 +534,41 @@
 }
 
 .sui-advTerm {
-    margin: 2px 0 2px 24px;
-    font-size: 11px;
+    margin: 0.5rem 0 0 0.6rem;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
 }
-
+.sui-advTerm .icon::before {
+    color: #555;
+    margin-right: 0.4rem;
+}
+.sui-advTerm .icon:first-child::before {
+    color: #ccc;
+}
+.sui-advTerm:empty {
+    display: none;
+}
 .sui-advEdit {
     display: none;
-    border: 1px solid #ccc;
-    /* width: calc(100% - 18px); */
-    background-color: #fff;
+    background-color: #fafafa;
     text-align: left;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 12px;
-    color: #666;
-    margin: 6px 0 6px 0;
+    border: 0.1rem solid #ddd;
+    border-top-color: #aaa;
+    border-bottom-width: 0.3rem;
+    border-radius: 0 0 2rem 2rem;
+    padding: 0.8rem 0.8rem 0.3rem;
+    font-size: 1.25rem;
+    color: #333;
+    margin: 1.25rem 0;
 }
 
 .sui-advEdit input {
-    width: 90px;
-    border: 1px solid #999;
-    border-radius: 12px;
-    font-size: 11px;
-    padding-left: 6px;
+    width: 12rem;
+    border: 1px solid #aaa;
+    border-radius: 0.2rem;
+    font-size: 1.25rem;
+    padding: 0.3rem 1.25rem;
+    margin: 0.5rem 1.5rem 0.5rem 1rem;
 }
 
 .sui-advPlus {
@@ -586,8 +618,8 @@
 
 .sui-advEditLine {
     cursor: pointer;
-    padding: 2px;
-    border-radius: 5px;
+    padding: 0.2rem 1rem;
+    border-bottom: 0.2rem solid #fafafa;
 }
 
 .sui-advEditLine:hover {
@@ -595,7 +627,11 @@
 }
 
 .sui-advEditLine.chosen {
-    background-color: #dcdcdc;
+    background-color: #dee7f1;
+}
+
+.sui-advEdit-facet-ctrls {
+    margin-bottom: 0.5rem;
 }
 
 .sui-advViewListPage {
@@ -617,7 +653,10 @@
 }
 
 .sui-adv-facetlist {
-    max-height: 15em;
+    max-height: 15rem;
+    padding-top: 0.25rem;
+    border-radius: 1.5rem;
+    overflow: scroll !important;
 }
 .sui-adv-facetlist .facetItem {
 }
@@ -872,7 +911,7 @@
     border-bottom: 10px solid #b49c59;
     user-select: none;
     margin: -12px -12px 0 -12px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.5rem;
     font-size: 12px;
     line-height: 22px;
 }

@@ -4,7 +4,7 @@
     width: 20rem;
     max-width: 20rem;
     height: 100vh;
-    margin: 0 0 0 -19rem;
+    margin: 0 0 0 -20rem;
     padding: 0;
     transition: margin, 300ms;
     //   flex: 1;
@@ -28,7 +28,7 @@
 
 @media (min-width: 992px) {
     .l-column__related {
-        margin-left: 0;
+        margin-left: -1rem;
     }
 }
 

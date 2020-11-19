@@ -361,7 +361,7 @@ div#meta-details p strong:after {
     text-rendering: optimizeLegibility !important;
     font-family: 'Babelstone', 'Jomolhari-ID', 'Jomolhari', 'Noto Sans Tibetan',
         'Tibetan Machine Uni', 'Kailasa', 'Uchen_05', 'Microsoft Himalaya' !important;
-    font-size: 150%;
+    font-size: 130%;
     line-height: 140%;
     vertical-align: middle;
 }

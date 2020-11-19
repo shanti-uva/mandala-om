@@ -439,20 +439,21 @@
     color: #668eec;
 }
 .sui-advTerm {
-    margin: 2px 0 2px 24px;
-    font-size: 11px;
+    margin: 0.5rem 0 -1rem 1rem;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.5rem 0 1.5rem;
 }
 .sui-advEdit {
     display: none;
-    border: 1px solid #ccc;
-    width: calc(100% - 18px);
-    background-color: #fff;
+    background-color: #fafafa;
     text-align: left;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 1.2rem;
-    color: #666;
-    margin: 6px 0 6px 0;
+    border: 0.1rem solid #eee;
+    border-bottom-width: 0.2rem;
+    border-radius: 0 0 2rem 2rem;
+    padding: 0.8rem 0.8rem 0.3rem;
+    font-size: 1.25rem;
+    color: #000;
+    margin: 1.5rem 0 0;
 }
 .sui-advEditBut {
     display: inline-block;
@@ -490,8 +491,8 @@
 }
 .sui-advEditLine {
     cursor: pointer;
-    padding: 2px;
-    border-radius: 5px;
+    padding: 0.2rem 1rem;
+    border-bottom: 2px solid #fafafa;
 }
 .sui-advEditLine:hover {
     background-color: #dee7f1;
