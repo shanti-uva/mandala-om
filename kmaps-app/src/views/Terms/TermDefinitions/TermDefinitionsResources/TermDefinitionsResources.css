@@ -9,8 +9,10 @@
 .sui-termDefResource__content > button.btn.btn-outline-dark {
     border-color: transparent;
     font-size: 1.5rem;
+    border: none;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark:hover {
+    background-color: #91693e;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark:hover span.icon {
     color: #f7fafc;
