@@ -1,7 +1,6 @@
 .sui-nameEntry__wrapper {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    padding-left: 2rem;
 }
 
 .sui-nameEntry {
@@ -28,14 +27,9 @@
 }
 
 ul.sui-nameEntry.first-entry {
-    padding-left: 0;
-    margin-bottom: 0;
-
-    padding-left: 0;
-    margin-bottom: 0;
     background: #fff;
     padding: 1rem 1.5rem 1rem 2rem;
-    margin: 1rem 1rem 1.5rem -1rem;
+    margin: 1rem 1rem 1.5rem 1rem;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
 }

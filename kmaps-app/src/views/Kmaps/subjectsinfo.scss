@@ -15,13 +15,13 @@ main.subjects {
         .featured-image {
             float: right;
             padding: 0.5rem;
-            border: 3px inset rgba(0, 0, 0, 0.4);
-            border-radius: 3px;
+            /*  border: 3px inset rgba(0, 0, 0, 0.4);
+            border-radius: 3px; */
             background-color: #ffffff;
             margin: 0 2rem 1rem 1rem;
             img {
-                max-height: 28rem;
-                max-width: 25rem !important;
+                max-height: 21rem;
+                max-width: 23rem !important;
                 border-radius: 3px;
             }
         }
@@ -48,8 +48,8 @@ main.subjects {
         }
 
         .c-subject-info > div {
-            margin-left: 2rem;
-            font-size: 1.4rem;
+            margin-left: 1.5rem;
+            min-height: 17.5rem;
         }
 
         .summary {
