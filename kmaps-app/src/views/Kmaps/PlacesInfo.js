@@ -17,7 +17,7 @@ export function PlacesInfo(props) {
     }, [kmasset]);
 
     return (
-        <Tabs defaultActiveKey="map" id="place-kmap-tabs">
+        <Tabs defaultActiveKey="names" id="place-kmap-tabs">
             <Tab eventKey="map" title="Map">
                 <KmapMap {...props} />
             </Tab>
@@ -29,7 +29,6 @@ export function PlacesInfo(props) {
                             const [label, uid] = x.split('|');
                             //console.log('label = ', label);
                             //console.log('uid = ', uid);
-
                             return (
                                 <li>
                                     <KmapLink
@@ -44,7 +43,7 @@ export function PlacesInfo(props) {
             </Tab>
             <Tab eventKey="location" title="Location">
                 <div>
-                    <p>Dunno what location is...</p>
+                    <p>TBD...</p>
                 </div>
             </Tab>
         </Tabs>
