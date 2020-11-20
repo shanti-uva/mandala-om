@@ -150,7 +150,7 @@
                 font-size: 1.25rem;
                 text-transform: uppercase;
                 letter-spacing: 0.275rem;
-                padding: 1rem;
+                padding: 0;
                 text-align: center;
                 margin: 3rem 3rem 0;
                 max-width: 25rem;
@@ -166,6 +166,8 @@
 
             .link a {
                 color: inherit;
+                display: block;
+                padding: 1rem;
                 span {
                     font-size: 1.4rem;
                     position: relative;
