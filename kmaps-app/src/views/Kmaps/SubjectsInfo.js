@@ -82,12 +82,19 @@ function SubjectTextDescription(props) {
     const txtid = props.textid;
     const solrdoc = useAsset('texts', txtid);
     const txtjson = useMandala(solrdoc);
-
-    const defkey = 'info';
+    const isToc = txtjson?.toc_links && txtjson.toc_links.length > 0;
+    const defkey = isToc ? 'toc' : 'info';
     const txtmup = txtjson?.full_markup ? (
         <>
             <div className={'desc-toc'}>
                 <Tabs defaultActiveKey={defkey} id="text-meta-tabs">
+                    {isToc && (
+                        <Tab eventKey="toc" title="Table of Contents">
+                            <div className={'toc'}>
+                                <HtmlCustom markup={txtjson.toc_links} />
+                            </div>
+                        </Tab>
+                    )}
                     <Tab eventKey="info" title="Info">
                         {txtjson?.bibl_summary && (
                             <div className={'info'}>
@@ -97,13 +104,6 @@ function SubjectTextDescription(props) {
                             </div>
                         )}
                     </Tab>
-                    {txtjson?.toc_links && txtjson.toc_links.length > 0 && (
-                        <Tab eventKey="toc" title="Table of Contents">
-                            <div className={'toc'}>
-                                <HtmlCustom markup={txtjson.toc_links} />
-                            </div>
-                        </Tab>
-                    )}
                 </Tabs>
             </div>
 
