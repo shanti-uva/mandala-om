@@ -608,12 +608,12 @@
 }
 
 .sui-advEdit input {
-    width: 15rem;
+    width: 13rem;
     border: 1px solid #aaa;
     border-radius: 0.35rem;
     font-size: 1.25rem;
     padding: 0.5rem 1.25rem 0.25rem;
-    margin: 0.5rem 1.5rem 0.5rem 1rem;
+    margin: 0.5rem 0 0.5rem 1rem;
 }
 
 .sui-advPlus {
