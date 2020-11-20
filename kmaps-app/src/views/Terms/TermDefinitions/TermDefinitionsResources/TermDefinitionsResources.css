@@ -11,8 +11,8 @@
     font-size: 1.5rem;
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark:hover {
-    /*  background-color: transparent;
-    border-color: transparent;*/
+    background-color: transparent;
+    /*    border-color: transparent;*/
 }
 .sui-termDefResource__content > button.btn.btn-outline-dark:hover span.icon {
     color: #f7fafc;

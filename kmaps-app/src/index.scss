@@ -410,25 +410,30 @@ ul.fancytree-container {
     margin: 0;
     .c-featurePager__container {
         background: #fff;
-        padding: 2rem 1rem 0;
+        padding: 1rem 1rem 1.3rem;
         padding-left: 13rem;
         margin: 0;
-        border-radius: 0.3rem 0.3rem 0rem 0rem;
+        border-radius: 0.3rem 0.3rem 0 0;
 
         .icon {
         }
 
         &.top {
             margin-bottom: 1.75rem;
+            margin-bottom: 1.3rem;
         }
     }
+}
+
+.c-view > .c-featurePager__container:last-of-type {
+    margin-top: 3rem !important;
 }
 
 .c-buttoneGroup__viewMode {
     display: inline-block;
     position: relative;
-    top: 4.5rem;
-    left: 4.5rem;
+    top: 3.6rem;
+    left: 3rem;
 }
 
 // List View Only
