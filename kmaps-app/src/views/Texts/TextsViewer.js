@@ -42,8 +42,8 @@ export function TextsViewer(props) {
     const kmasset = props.mdlasset ? props.mdlasset : '';
     const tid = nodejson ? nodejson.nid : '';
     const title = nodejson ? nodejson.title : '';
-    const ismain = props.ismain ? props.ismain : false;
-
+    const ismain = props?.ismain || false;
+    const inline = props?.inline || false;
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
@@ -76,12 +76,6 @@ export function TextsViewer(props) {
             // add class "texts" to the main div for CSS styles
             $('.l-site__wrap').addClass('texts');
         }
-
-        // TODO: switch to use the <NotFound> component in utils
-        // Show not found div if it still exists after 10 seconds.
-        setTimeout(function () {
-            $('.not-found-msg').removeClass('d-none');
-        }, 10000);
     }, []);
 
     // Setting text_sections variable with array of sections in text for TOC highlighting on scrolling and

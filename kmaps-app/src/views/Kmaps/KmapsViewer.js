@@ -153,12 +153,9 @@ export default function KmapsViewer(props) {
                                 relatedType={'sources'}
                                 back={'true'}
                             />
-                            <MdlAssetContext
-                                assettype={'sources'}
-                                inline={true}
-                            >
-                                <SourcesViewer />
-                            </MdlAssetContext>
+                            <GenAssetContext assetType={'sources'}>
+                                <SourcesViewer inline={true} />
+                            </GenAssetContext>
                         </Route>
 
                         <Route
@@ -170,12 +167,12 @@ export default function KmapsViewer(props) {
                                 relatedType={'all'}
                                 back={'true'}
                             />
-                            <MdlAssetContext
-                                assettype={declaredType}
+                            <GenAssetContext
+                                assetType={declaredType}
                                 inline={true}
                             >
                                 {declaredViewer}
-                            </MdlAssetContext>
+                            </GenAssetContext>
                         </Route>
 
                         {/* Catch relatedType routes that are not specified above */}
