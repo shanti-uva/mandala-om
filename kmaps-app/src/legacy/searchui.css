@@ -430,22 +430,28 @@
 .sui-advHeader {
     cursor: pointer;
 }
-.sui-advTermRem {
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 4px;
-}
-.sui-advValueRem:hover {
-    color: #668eec;
-}
-.sui-advTermRem.u-icon__cancel-circle {
-    cursor: pointer;
-}
+
 .sui-advTerm {
     margin: 0.5rem 0 -1rem 1rem;
     font-size: 1.1rem;
     padding: 0.5rem 0.5rem 0 1.5rem;
 }
+.sui-advTerm .facetItem::before {
+}
+.sui-advTermRem {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.sui-advValueRem:hover {
+    color: #668eec;
+}
+
+.sui-advTermRem.u-icon__cancel-circle {
+    cursor: pointer;
+}
+
 .sui-advEdit {
     display: none;
     background-color: #fafafa;

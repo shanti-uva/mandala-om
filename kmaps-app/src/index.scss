@@ -49,6 +49,10 @@ body.html {
     font-size: 1.4rem;
 }
 
+.terms .l-content__main__wrap {
+    max-width: 90rem;
+}
+
 .texts .l-content__main {
     display: block;
 }
@@ -432,8 +436,8 @@ ul.fancytree-container {
 .c-buttoneGroup__viewMode {
     display: inline-block;
     position: relative;
-    top: 3.6rem;
-    left: 3rem;
+    top: 1.25rem;
+    left: 4rem;
 }
 
 // List View Only
