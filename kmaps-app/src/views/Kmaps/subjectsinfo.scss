@@ -15,10 +15,8 @@ main.subjects {
         .featured-image {
             float: right;
             padding: 0.5rem;
-            /*  border: 3px inset rgba(0, 0, 0, 0.4);
-            border-radius: 3px; */
             background-color: #ffffff;
-            margin: 0 2rem 1rem 1rem;
+            margin: 0 1rem 1rem 1rem;
             img {
                 max-height: 21rem;
                 max-width: 23rem !important;
@@ -50,7 +48,7 @@ main.subjects {
         }
 
         .c-subject-info > div {
-            margin-left: 1.5rem;
+            margin-left: 0.5rem;
             min-height: 19rem;
         }
 
@@ -59,9 +57,7 @@ main.subjects {
         }
 
         .desc > h3 {
-            margin-top: 2rem;
-            margin-bottom: -1rem;
-            margin-left: -1rem;
+            margin-left: -0.5rem;
             padding: 0.5rem 0.5rem 0.5rem 1rem;
             color: #ffffff;
             background-color: rgba(204, 76, 57, 0.8);

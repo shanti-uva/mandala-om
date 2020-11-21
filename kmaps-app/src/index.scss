@@ -143,7 +143,7 @@ div.image-wrapper.center figcaption {
     background-color: #fcfcfc;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
-    padding: 1rem 1.5rem 2rem 2rem;
+    padding: 1rem 1.5rem 10rem;
     font-size: 1.4rem;
     /* height: 100vh;*/
 }
@@ -276,7 +276,7 @@ div.image-wrapper.center figcaption {
 // * CONTENT SECTION: Node Header -- move this
 // --------------------------------------
 .c-nodeHeader {
-    margin: 0.5rem 2rem;
+    margin: 0 1rem 0.5rem;
     padding-bottom: 0;
     padding-left: 0.5rem;
 }
@@ -735,4 +735,19 @@ ul.fancytree-container {
         line-height: 1.5rem;
         font-size: 1.1rem;
     }
+}
+
+// Dumping this for now here -
+main.subjects .shanti-texts-section-title.text-level-3,
+main.subjects .shanti-texts-section-title.text-level-4,
+main.subjects .shanti-texts-section-title.text-level-5,
+main.subjects .shanti-texts-section-title.text-level-6,
+main.subjects .shanti-texts-section-title.text-level-7 {
+    font-weight: 400 !important;
+    padding: 0 !important;
+    color: #333 !important;
+}
+
+.shanti-texts-section-content h1 {
+    margin-top: 3rem;
 }
