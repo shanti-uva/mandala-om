@@ -8,15 +8,8 @@ import { Container, Col, Row, Card, Accordion } from 'react-bootstrap';
 import $ from 'jquery';
 
 export function FeatureList(props) {
-    {
-        /*const asset_type =
-        props?.docs && props.docs.length > 0 && props.docs[0]?.asset_type
-            ? props.docs[0].asset_type
-            : 'kmaps';*/
-    }
-
     const myloc = useLocation();
-    console.log(myloc);
+    const inline = props?.inline ? props.inline : false;
 
     let LIST = _.map(props.docs, (doc) => {
         const asset_type = doc?.tree ? doc.tree : doc?.asset_type;
@@ -25,12 +18,13 @@ export function FeatureList(props) {
 
         if (asset_type === 'sources' && !myloc.pathname.includes('/search')) {
             const mu = doc.citation_s.replace(/<\/?a[^>]*>/g, '');
-            if (mid === '23801') {
-                console.log('the sources', doc);
-            }
+            const doc_url = inline
+                ? `./view/${doc.uid}?asset_type=${doc.asset_type}`
+                : `/${doc.asset_type}/${doc.id}`;
+
             return (
                 <Card className={`p-0 m-1 ${asset_type}`} key={mykey}>
-                    <Link to={`/sources/${mid}`}>
+                    <Link to={doc_url}>
                         <HtmlCustom markup={mu} />
                     </Link>
                 </Card>
@@ -40,19 +34,21 @@ export function FeatureList(props) {
         // FeatureKmapCard for kmaps
         if (['places', 'subjects', 'terms', 'kmaps'].indexOf(asset_type) > -1) {
             return (
-                <FeatureKmapCard
+                <FeatureKmapListItem
                     asset_type={asset_type}
                     doc={doc}
                     key={mykey}
+                    inline={inline}
                 />
             );
         } else {
             // FeatureAssetCard for assets
             return (
-                <FeatureAssetCard
+                <FeatureAssetListItem
                     asset_type={asset_type}
                     doc={doc}
                     key={mykey}
+                    inline={inline}
                 />
             );
         }
@@ -69,10 +65,14 @@ export function FeatureList(props) {
     return <div className={'c-view__wrapper list'}>{output}</div>;
 }
 
-function FeatureAssetCard(props) {
+function FeatureAssetListItem(props) {
     const asset_type = props.asset_type;
     const doc = props.doc;
-    const doc_url = `/${doc.asset_type}/${doc.id}`;
+    const inline = props?.inline || false;
+    const doc_url = inline
+        ? `./view/${doc.uid}?asset_type=${doc.asset_type}`
+        : `/${doc.asset_type}/${doc.id}`;
+
     const collection = doc?.collection_nid ? (
         <Link to={`/${asset_type}/collection/${doc.collection_nid}`}>
             {doc.collection_title}
@@ -213,7 +213,7 @@ function FeatureListAssetRelateds(props) {
     }
 }
 
-function FeatureKmapCard(props) {
+function FeatureKmapListItem(props) {
     const doc = props.doc;
     const domain = props.asset_type;
 

@@ -46,6 +46,7 @@ export default function GenAssetContext(props) {
     const solrdata = useAsset(asset_type, nid);
     const nodejson = useMandala(solrdata);
 
+    // console.log(`Use asset solrdata for ${asset_type}-${nid}`, solrdata);
     useEffect(() => {
         if (solrdata?.docs && solrdata.docs.length > 0) {
             setMdlAsset(solrdata.docs[0]);
@@ -55,9 +56,14 @@ export default function GenAssetContext(props) {
     }, [solrdata]);
 
     if (notfound) {
-        let header = asset_type;
-        header = header[0].toUpperCase() + header.substr(1).replace('-v', '-V');
-        status.setHeaderTitle(header);
+        let header = 'Not found';
+        if (asset_type && typeof asset_type === 'string') {
+            header = asset_type;
+            header =
+                header.charAt(0).toUpperCase() +
+                header.substr(1).replace('-v', '-V');
+            status.setHeaderTitle(header);
+        }
         return <NotFoundPage type={asset_type} id={nid} />;
     } else {
         return React.Children.map(props.children, (child) => {

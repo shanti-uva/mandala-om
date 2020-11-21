@@ -22,6 +22,7 @@ export function SourcesViewer(props) {
         if (ismain) {
             status.clear();
             status.setType('sources');
+            status.setHeaderTitle('Loading ...');
         }
     }, []);
 
@@ -46,7 +47,6 @@ export function SourcesViewer(props) {
     }, [solrdoc]);
 
     if (!solrdoc) {
-        status.setHeaderTitle('Loading Source Record ...');
         return (
             <Container fluid className={'c-source__container'}>
                 <Col className={'c-source'}>
@@ -56,7 +56,7 @@ export function SourcesViewer(props) {
         );
     }
 
-    // console.log(nodejson);
+    // console.log("nodejson", nodejson);
     const data_col_width = solrdoc?.url_thumb?.length > 0 ? 8 : 12;
 
     /* This is the bulk of the component here */
