@@ -543,7 +543,7 @@
 .sui-advHeader .u-icon__plus,
 .sui-advHeader .u-icon__minus {
     position: absolute;
-    right: 2rem;
+    right: 0.5rem;
     margin-top: 0.4rem;
     font-size: 0.85rem;
     color: #eee;
@@ -632,6 +632,7 @@
 
 .sui-advPlus {
     float: right;
+    position: relative;
 }
 
 .sui-advEditBut {
