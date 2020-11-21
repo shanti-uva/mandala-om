@@ -485,6 +485,10 @@
     display: none;
 }
 
+.sui-advBox .app-name {
+    line-height: 2.2rem;
+}
+
 .sui-advBox-asset_type {
     text-transform: capitalize;
 }
@@ -515,13 +519,13 @@
 }
 .sui-advHeader .badge {
     position: relative;
-    bottom: 0.2rem;
-    right: 0.5rem;
+    bottom: 0;
+    right: -0.25rem;
     padding: 0.5rem 3.5rem 0.5rem 1rem;
     border-radius: 0.3rem;
     color: #fff;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .sui-advHeader .badge.badge-secondary {
@@ -539,8 +543,8 @@
 .sui-advHeader .u-icon__plus,
 .sui-advHeader .u-icon__minus {
     position: absolute;
-    right: 2.75rem;
-    margin-top: 0.2rem;
+    right: 2rem;
+    margin-top: 0.4rem;
     font-size: 0.85rem;
     color: #eee;
     cursor: pointer;
