@@ -481,20 +481,24 @@
     min-height: 4.75rem;
 }
 
+.sui-advBox.sui-advBox-associated.subjects {
+    display: none;
+}
+
 .sui-advBox-asset_type {
     text-transform: capitalize;
 }
-
+/*
 .sui-advHeader:hover {
     color: #668eec;
 }
-
+*/
 .sui-advHeader {
     cursor: pointer;
     text-transform: uppercase;
     display: flex;
     height: 1.5rem;
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     cursor: default;
 }
 
@@ -517,6 +521,7 @@
     border-radius: 0.3rem;
     color: #fff;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 .sui-advHeader .badge.badge-secondary {
@@ -534,9 +539,9 @@
 .sui-advHeader .u-icon__plus,
 .sui-advHeader .u-icon__minus {
     position: absolute;
-    right: 2.8rem;
-    margin-top: 0.3rem;
-    font-size: 0.8rem;
+    right: 2.75rem;
+    margin-top: 0.2rem;
+    font-size: 0.85rem;
     color: #eee;
     cursor: pointer;
 }
@@ -569,17 +574,22 @@
     display: none;
 }
 
-.sui-advTerm div .icon:first-child::before {
+.sui-advTerm div > span:first-child::before {
     color: #999;
     font-size: 1.35rem;
     position: relative;
-    top: 0.3rem;
+    top: 0.2rem;
     display: inline-block;
     cursor: pointer;
     margin-right: 4px;
 }
-.sui-advTerm div .icon:first-child:hover::before {
+.sui-advTerm div > span:first-child:hover::before {
     color: red;
+}
+
+.sui-advTerm div .facetItem,
+.sui-advTerm div > span:last-child::before {
+    display: none;
 }
 
 .sui-advEdit {
@@ -608,7 +618,7 @@
 }
 
 .sui-advEdit input {
-    width: 13rem;
+    width: 11.25rem;
     border: 1px solid #aaa;
     border-radius: 0.35rem;
     font-size: 1.25rem;
@@ -1946,4 +1956,13 @@
 .item-exit-active {
     opacity: 0;
     transition: opacity 300ms ease-in;
+}
+
+/*
+ *
+ * Collections
+ */
+.texts .c-buttoneGroup__viewMode__wrap,
+.sources .c-buttoneGroup__viewMode__wrap {
+    display: none;
 }
