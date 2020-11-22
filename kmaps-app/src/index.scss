@@ -45,7 +45,10 @@ body.html {
 }
 
 .l-content__rightsidebar {
-    flex: 0 0 28rem;
+    /*  flex: 0 0 28rem;*/
+    width: 25%;
+    max-width: 35rem;
+    min-width: 15rem;
     font-size: 1.4rem;
 }
 .terms .l-content__main__wrap,
@@ -143,7 +146,7 @@ div.image-wrapper.center figcaption {
     background-color: #fcfcfc;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
-    padding: 1rem 1.5rem 10rem;
+    padding: 1rem 1.5rem 6rem;
     font-size: 1.4rem;
     /* height: 100vh;*/
 }
@@ -345,7 +348,7 @@ div.image-wrapper.center figcaption {
 
 // SEARCH Section ------- move this
 .advanced-search-and-tree {
-    position: relative;
+    /*  position: relative; */
 }
 ul.fancytree-container {
     height: auto !important;
@@ -415,9 +418,9 @@ ul.fancytree-container {
     margin: 0;
     .c-featurePager__container {
         background: #fff;
-        padding: 1rem 1rem 1.3rem 15rem; /* extra padding to make room for display buttons on far left of row */
+        padding: 1rem 1rem 0 15rem; /* extra padding to make room for display buttons on far left of row */
         border-radius: 0.3rem 0.3rem 0 0;
-        margin: 0 auto;
+        margin: 1rem auto 0;
         text-align: center;
         .icon {
         }
@@ -435,7 +438,7 @@ ul.fancytree-container {
 .c-buttoneGroup__viewMode {
     display: inline-block;
     position: relative;
-    top: 1.25rem;
+    top: 4.3rem;
     left: 4.5rem;
 }
 
@@ -524,7 +527,7 @@ ul.fancytree-container {
         max-height: unset;
         min-height: 3rem;
         font-size: 1.4rem;
-        min-width: 40vw;
+        /*  min-width: 40vw;*/
         overflow: visible;
 
         span.img {

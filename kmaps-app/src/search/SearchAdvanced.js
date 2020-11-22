@@ -112,7 +112,7 @@ export function SearchAdvanced(props) {
     const advanced = (
         <aside
             id="l-column__search"
-            className={`l-column__search ${openclass} overflow-auto`}
+            className={`l-column__search ${openclass}`}
         >
             {typeof props.onStateChange === 'function' && (
                 <Navbar className={'justify-content-end'}>

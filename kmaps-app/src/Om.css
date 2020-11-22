@@ -554,6 +554,27 @@
     flex: 1;
 }
 
+.sui-advBox-recent .c-HistoryViewer {
+    font-size: 1.25rem;
+    color: #000;
+    padding: 0.5rem;
+    max-height: 12rem;
+    position: relative;
+    box-shadow: none;
+    border: none;
+    background: transparent !important;
+}
+
+.sui-advBox-recent .c-HistoryViewer__relatedRecentItem {
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 95%;
+    cursor: pointer;
+    padding-left: 0.4rem;
+}
+
 /*.sui-advTermRem {*/
 /*    display: inline-block;*/
 /*    cursor: pointer;*/
@@ -617,8 +638,29 @@
 }
 
 .sui-advEdit-facet-ctrls-btns .btn {
-    padding: 0.4rem 1rem;
-    font-size: 1.25rem;
+    padding: 0.2rem 1rem;
+    background-color: #f9f9f9;
+    border-color: #ccc;
+    color: #444;
+    font-size: 1.45rem;
+}
+.sui-advEdit-facet-ctrls-btns .btn:hover,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: #fff;
+    border-color: #888;
+    color: #222;
+}
+.sui-advEdit-facet-ctrls-btns .btn:focus,
+.sui-advEdit-facet-ctrls-btns .btn:active {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.sui-advEdit-facet-ctrls-btns .btn:first-of-type {
+    font-size: 1.5rem;
 }
 
 .sui-advEdit input {
@@ -627,7 +669,7 @@
     border-radius: 0.35rem;
     font-size: 1.25rem;
     padding: 0.5rem 1.25rem 0.25rem;
-    margin: 0.5rem 0 0.5rem 0.5rem;
+    margin: 0.5rem 0 0.5rem 0;
 }
 
 .sui-advPlus {
@@ -714,13 +756,20 @@
 
 .sui-adv-facetlist {
     max-height: 15rem;
-    padding-top: 0.25rem;
+    padding: 0.25rem 0;
     border-radius: 1.25rem;
 }
-.sui-adv-facetlist .facetItem {
-    margin-right: 0.5rem;
+.sui-adv-facetlist .facetItem,
+.sui-advBox-asset_type .sui-advEditLine .icon {
     font-size: 1.5rem;
+    position: relative;
+    left: -0.5rem;
+    top: 0.15rem;
 }
+.sui-advBox-asset_type .sui-adv-facetlist .facetItem {
+    display: none;
+}
+
 .sui-geoLocate {
     background-color: #6faaf1;
     border-radius: 16px;

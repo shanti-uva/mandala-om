@@ -1,5 +1,8 @@
 .c-image {
     border-top: 2px solid #eee;
+
+    margin-top: -1rem;
+    margin-left: -1rem;
 }
 .c-image__context {
     padding-left: 0;
@@ -97,20 +100,24 @@
         margin-top: 0px;
         color: white;
         letter-spacing: 0.15rem;
+        font-size: 1.5rem;
         span {
-            color: white;
+            color: #c0c0c0;
             padding-right: 1rem;
             vertical-align: sub;
+            font-size: 2rem;
         }
+    }
+    .c-image__byline {
+        font-size: 1.25rem;
     }
     .c-image__byline span {
         margin: 0 6px;
     }
     .c-image__carousel {
-        width: calc(85vw - 50px);
         overflow-x: auto;
         overflow-y: hidden;
-        white-space: nowrap;
+        /*white-space: nowrap;*/
         margin: 20px 12px 0 12px;
         .thumb {
             display: inline-block;
@@ -139,7 +146,7 @@
 
 .c-image__metadata {
     font-size: 1.25rem;
-    max-width: 1000px;
+    max-width: 120rem;
     margin: 8px auto 9rem;
     hr {
         border-top: 2px solid #dddddd;
@@ -157,7 +164,7 @@
         font-size: 1.32em;
         letter-spacing: 0.0475rem;
         text-transform: uppercase;
-        margin-top: 2rem;
+        margin-top: 0.75rem;
     }
     .u-data.row {
         line-height: 3rem;
@@ -242,10 +249,10 @@
 
 @media only screen and (max-width: 1490px) {
     .c-image__context {
-        max-width: 80vw;
+        /*  max-width: 80vw;*/
     }
 
     .c-image__viewer .c-image__carousel {
-        width: calc(80vw - 50px);
+        /* width: calc(80vw - 50px);*/
     }
 }

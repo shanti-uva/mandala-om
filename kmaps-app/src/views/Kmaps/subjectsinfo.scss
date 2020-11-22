@@ -60,7 +60,7 @@ main.subjects {
             margin-left: -0.5rem;
             padding: 0.5rem 0.5rem 0.5rem 1rem;
             color: #ffffff;
-            background-color: rgba(204, 76, 57, 0.8);
+            background-color: #cc4c39;
             font-weight: bold;
 
             .text-id {
@@ -137,7 +137,6 @@ main.subjects {
         }
 
         .kmaps-related-viewer {
-            margin: 0 -1.6rem 0 -2.1rem;
             a.nav-item {
                 width: 50%;
                 text-align: center;
@@ -253,3 +252,7 @@ main.subjects {
         transform: rotate(45deg);
     }
 } /* End of main.subjects */
+
+main.subjects .shanti-texts-section-title::before {
+    border-color: #cc4c34;
+}
