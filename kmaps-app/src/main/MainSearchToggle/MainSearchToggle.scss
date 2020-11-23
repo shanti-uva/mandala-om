@@ -6,6 +6,7 @@
     top: 5rem;
 }
 .c-MainSearchToggle--group label {
+    opacity: 0.6;
 }
 .c-MainSearchToggle--group svg {
     font-size: 1.75rem !important;
@@ -17,13 +18,12 @@
 }
 
 .c-MainSearchToggle--button.active {
-    color: white;
-    background-color: green;
+    opacity: 1;
 }
 
 .c-MainSearchToggle--button:hover {
-    color: inherit;
-    background-color: #a4baec;
+    color: #fff;
+    opacity: 1;
 }
 
 .c-MainSearchToggle--button.active:hover {
