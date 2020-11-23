@@ -211,7 +211,7 @@ export function CollectionsViewer(props) {
     return (
         <Container fluid className={'c-collection__container ' + asset_type}>
             <Row className={'c-collection'}>
-                <Col lg={8} md={9} sm={10} className={'c-collection__items'}>
+                <Col lg={9} md={8} sm={7} className={'c-collection__items'}>
                     {(collsolr?.url_thumb?.length > 0 ||
                         $.trim(collsolr?.summary).length > 0) && (
                         <p className={'colldesc clearfix'}>
@@ -230,7 +230,7 @@ export function CollectionsViewer(props) {
                         inline={false}
                     />
                 </Col>
-                <Col md={2} sm={3} className={'c-collection__metadata'}>
+                <Col md={2} sm={4} className={'c-collection__metadata'}>
                     {parentcoll && (
                         <>
                             <h3>Parent Collection</h3>

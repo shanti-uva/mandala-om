@@ -3,7 +3,7 @@
         .c-collection__items {
             height: fit-content;
             margin: 6px 0 8px 12px;
-            padding: 2rem 4rem;
+            padding: 2rem 1rem;
             border: thin solid #aaa;
             border-radius: 0.6rem;
             border: none;
@@ -28,6 +28,9 @@
 
             .c-view__wrapper {
                 border: none;
+                .react-photo-gallery--gallery {
+                    margin-top: 3rem;
+                }
             }
 
             .card.sources {
