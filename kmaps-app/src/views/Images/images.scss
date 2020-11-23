@@ -7,7 +7,7 @@
 .c-image__context {
     padding-left: 0;
     padding-right: 0;
-    border-top: 10px solid #b49c59;
+    border-top: 0.3rem solid #b49c59;
     max-width: 83vw;
 }
 .c-image {
@@ -61,7 +61,7 @@
     }
     .c-osdviewer {
         position: relative;
-        height: 60rem;
+        height: 50rem;
         margin: 3rem auto 1rem;
         text-align: center;
         min-width: 50vw;
@@ -253,12 +253,22 @@
     line-height: 2.2rem;
 }
 
-@media only screen and (max-width: 1490px) {
+@media only screen and (max-width: 1400px) {
     .c-image__context {
         max-width: 77vw;
     }
 
     .c-image__viewer .c-image__carousel {
         width: calc(77vw - 100px);
+    }
+}
+@media only screen and (max-width: 1140px) {
+    .c-image__context {
+        max-width: 75vw;
+    }
+}
+@media only screen and (min-width: 2000px) {
+    .c-image__context {
+        max-width: 86vw;
     }
 }
