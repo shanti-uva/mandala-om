@@ -52,6 +52,7 @@
 .c-HistoryViewer__title .icon {
     margin-right: 0.25rem;
     font-size: 120%;
+    left: 0.25rem;
 }
 .c-HistoryViewer__relatedTitle {
     font-style: italic;
@@ -60,4 +61,6 @@
 .c-HistoryViewer__filterIcons .facetItem:not(:last-child):after,
 .c-HistoryViewer__filterIcons:not(:empty):before {
     content: '+';
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
 }

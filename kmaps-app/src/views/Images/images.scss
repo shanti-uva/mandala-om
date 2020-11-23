@@ -8,7 +8,7 @@
     padding-left: 0;
     padding-right: 0;
     border-top: 10px solid #b49c59;
-    max-width: 85vw;
+    max-width: 83vw;
 }
 .c-image {
     //  background-color: #fafafa;
@@ -19,8 +19,8 @@
     width: 100%;
 
     .c-image__viewer-row {
-        padding-top: 35px;
-        margin-bottom: 10px;
+        /*  padding-top: 35px;*/
+        margin-bottom: 0;
         // text-align: center;
         .page-control span {
             display: inline-block;
@@ -61,8 +61,10 @@
     }
     .c-osdviewer {
         position: relative;
-        /*  width: 950px; */
-        height: 500px;
+        height: 60rem;
+        margin: 3rem auto 1rem;
+        text-align: center;
+        min-width: 50vw;
     }
     .react-iiif-viewer,
     .c-osdviewer {
@@ -117,8 +119,9 @@
     .c-image__carousel {
         overflow-x: auto;
         overflow-y: hidden;
-        /*white-space: nowrap;*/
-        margin: 20px 12px 0 12px;
+        white-space: nowrap;
+        margin: 2rem 0 0 3rem;
+        max-width: 81vw;
         .thumb {
             display: inline-block;
             height: 100px;
@@ -152,7 +155,10 @@
         border-top: 2px solid #dddddd;
     }
     .l-top.row .l-first.col {
-        //  padding-left: 5rem;
+        padding-left: 2rem;
+    }
+    .l-top.row .l-first.col {
+        padding-left: 5rem;
     }
     .l-top.row span[class*='u-icon']:not(.u-icon__kmaps-popover) {
         font-size: 1.32em;
@@ -187,7 +193,7 @@
     }
     .l-meta.row {
         min-height: 400px;
-        margin-top: 2rem;
+        margin: 2rem 1rem 0;
         border: 1px solid #ddd;
         border-top: 4px solid #b49c59;
         color: #000000;
@@ -249,10 +255,10 @@
 
 @media only screen and (max-width: 1490px) {
     .c-image__context {
-        /*  max-width: 80vw;*/
+        max-width: 77vw;
     }
 
     .c-image__viewer .c-image__carousel {
-        /* width: calc(80vw - 50px);*/
+        width: calc(77vw - 100px);
     }
 }

@@ -357,6 +357,7 @@ ul.fancytree-container {
     height: 100vh;
     font-size: 1.3rem;
     z-index: 1000;
+    max-width: 35rem;
 }
 .l-column__search.open {
     z-index: 1000;
@@ -438,7 +439,7 @@ ul.fancytree-container {
 .c-buttoneGroup__viewMode {
     display: inline-block;
     position: relative;
-    top: 4.3rem;
+    top: 3.5rem;
     left: 4.5rem;
 }
 
