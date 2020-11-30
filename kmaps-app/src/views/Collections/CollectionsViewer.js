@@ -240,11 +240,7 @@ export function CollectionsViewer(props) {
 
                     {subcolls && (
                         <>
-                            <h3>Subcollections</h3>
-                            <p>
-                                This collection has {subcolls.length}{' '}
-                                subcollections.
-                            </p>
+                            <h3>Subcollections ({subcolls.length})</h3>
                             <ul>{subcolls}</ul>
                         </>
                     )}
