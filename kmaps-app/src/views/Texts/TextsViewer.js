@@ -42,8 +42,11 @@ export function TextsViewer(props) {
     const kmasset = props.mdlasset ? props.mdlasset : '';
     const tid = nodejson ? nodejson.nid : '';
     const title = nodejson ? nodejson.title : '';
-    const ismain = props?.ismain || false;
+    let ismain = props?.ismain || false;
     const inline = props?.inline || false;
+    if (ismain && inline) {
+        ismain = false;
+    }
     const [text_sections, setSections] = useState([]);
     const [section_showing, setSectionShowing] = useState([
         'shanti-texts-' + tid,
@@ -51,6 +54,11 @@ export function TextsViewer(props) {
     const [alt_viewer_url, setAltViewerUrl] = useState(''); // alt_viewer has url for alt view to show if showing or empty string is hidden
 
     const status = useStatus();
+
+    if (ismain) {
+        status.clear();
+        status.setType('texts');
+    }
 
     // Effect to change banner and title if the viewer is the main component
     useEffect(() => {
@@ -64,19 +72,11 @@ export function TextsViewer(props) {
             // Set Breadcrumbs
             const bcrumbs = createAssetCrumbs(kmasset);
             status.setPath(bcrumbs);
-        }
-    }, [kmasset]);
-
-    // Add Custom Body Class for Text component (one time) and timeout to show not found div
-    useEffect(() => {
-        if (ismain) {
-            status.clear();
-            status.setType('texts');
 
             // add class "texts" to the main div for CSS styles
             $('.l-site__wrap').addClass('texts');
         }
-    }, []);
+    }, [kmasset]);
 
     // Setting text_sections variable with array of sections in text for TOC highlighting on scrolling and
     // also highlights first TOC link
