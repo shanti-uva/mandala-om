@@ -55,17 +55,18 @@ export function AudioVideoViewer(props) {
     // Effect to Draw AV player once kmasset and nodejson return
     useEffect(() => {
         if (kmasset) {
-            status.setType('audio-video');
-            // Set the Title
-            const mytitle =
-                kmasset.title && kmasset.title.length > 0
-                    ? kmasset.title[0]
-                    : '';
-            status.setHeaderTitle(mytitle);
+            if (ismain) {
+                // Set the Title
+                const mytitle =
+                    kmasset.title && kmasset.title.length > 0
+                        ? kmasset.title[0]
+                        : '';
+                status.setHeaderTitle(mytitle);
 
-            // Set the Breadcrumbs (Not needed here while SUI is still setting breadcurmbs )
-            const bcrumbs = createAssetCrumbs(kmasset);
-            status.setPath(bcrumbs);
+                // Set the Breadcrumbs (Not needed here while SUI is still setting breadcurmbs )
+                const bcrumbs = createAssetCrumbs(kmasset);
+                status.setPath(bcrumbs);
+            }
             if (nodejson) {
                 // Should only redraw if kmasset and nodejson change but redrawns on some clicks
                 // So created a state variable playerDrawn so it doesn't redraw the player
