@@ -14,6 +14,7 @@ const TermDefinitions = (props) => {
     //Get Resources keyed by definition-id
 
     // console.log("TermDefinitions: props = ", props);
+
     const relatedDocs = props.kmRelated.assets?.all?.docs || [];
     const uid = props.kmRelated.uid;
     const re = new RegExp(`${uid}_definitions-\\d+`);

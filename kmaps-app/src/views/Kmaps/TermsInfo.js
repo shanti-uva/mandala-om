@@ -4,7 +4,7 @@ import TermDefinitions from '../Terms/TermDefinitions';
 import TermDictionaries from '../Terms/TermDictionaries';
 import _ from 'lodash';
 import * as PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import TermNames from '../Terms/TermNames/TermNames';
 import TermsDetails from '../Terms/TermsDetails';
 import { Route } from 'react-router-dom';
@@ -12,18 +12,6 @@ import Spinner from 'react-bootstrap/Spinner';
 
 export function TermsInfo(props) {
     console.log('TermsInfo props = ', props);
-
-    // Deal with selected Def
-    const defnum = props?.defnum;
-    useEffect(() => {
-        if (defnum) {
-            const defid = props.kmap.id + '_definitions-' + defnum;
-            const defel = document.getElementById(defid);
-            if (defel) {
-                defel.classList.add('highlight');
-            }
-        }
-    });
 
     //Get all related Definitions
     const definitions = _(props.kmap?._childDocuments_)

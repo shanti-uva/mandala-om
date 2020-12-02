@@ -52,12 +52,3 @@
 .sui-termDefinitions__content .nav.nav-tabs > a.nav-item svg {
     display: none;
 }
-
-.sui-termDefinitions_wrapper div.highlight {
-    background-color: #faeef0;
-}
-
-.sui-termDefinitions_wrapper div.highlight .nav-tabs .active {
-    background-color: #faeef0 !important;
-    font-weight: bold;
-}
