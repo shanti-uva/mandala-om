@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { KmapLink } from '../common/KmapLink';
 import { Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
+import KmapsMap from '../KmapsMap/KmapsMap';
 
 export function PlacesInfo(props) {
     const { kmap, kmasset } = props;
@@ -44,6 +45,7 @@ export function PlacesInfo(props) {
             <Tab eventKey="location" title="Location">
                 <div>
                     <p>TBD...</p>
+                    <KmapsMap fid={kmasset.id} languageLayer='simple_chinese'/>
                 </div>
             </Tab>
         </Tabs>
