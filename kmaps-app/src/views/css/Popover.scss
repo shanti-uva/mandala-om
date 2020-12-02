@@ -16,6 +16,23 @@
     vertical-align: super;
 }
 
+.kmap-tag-group .definitions a:after,
+.react-popover-body .deflinks a:after {
+    display: inline-block;
+    content: ',';
+    margin-right: 0.2rem;
+}
+
+.kmap-tag-group .definitions a:last-child:after,
+.react-popover-body .deflinks a:last-child:after {
+    content: '';
+    margin-right: 0;
+}
+
+.react-popover-body .deflinks a:first-child {
+    margin-left: 0.5rem;
+}
+
 // icon button for hover-over -- Kmaps Popover
 .popover-link {
     position: relative;

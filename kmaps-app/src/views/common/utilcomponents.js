@@ -36,9 +36,6 @@ export function CollectionField(props) {
 export function KmapsFields(props) {
     const nodejson = props.nodejson;
     const definitions = props?.definitions; // For terms
-    if (definitions) {
-        console.log('defs', definitions);
-    }
     if (!nodejson || typeof nodejson === 'undefined') {
         return null;
     }
