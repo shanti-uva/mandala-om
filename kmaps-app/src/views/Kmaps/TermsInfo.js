@@ -19,7 +19,6 @@ export function TermsInfo(props) {
         if (defnum) {
             const defid = props.kmap.id + '_definitions-' + defnum;
             const defel = document.getElementById(defid);
-            console.log('in term info use effect: ' + defid, defel);
             if (defel) {
                 defel.classList.add('highlight');
             }
