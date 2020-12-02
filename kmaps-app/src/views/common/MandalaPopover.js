@@ -33,7 +33,14 @@ export function MandalaPopover(props) {
     const kid = props.kid;
     const placement = props.placement ? props.placement : 'bottom';
     const kmkey = props.mykey;
-    const defs = props?.defs;
+    const kmapid = props?.kmapid; // an asset solrdoc's kmapids from a tagged asset to add definitions for terms
+    let defs = false;
+    if (domain === 'terms' && kmapid && kmapid.length > 0) {
+        defs = kmapid.filter((kmid) => kmid.includes(`-${kid}_definitions`));
+        defs = defs.map((kmid) => {
+            return kmid.split('_definitions-')[1];
+        });
+    }
 
     // Query Custom Hooks (see hooks/useKmaps.js)
     // Info for Kmap Itself: kmapRes
