@@ -34,6 +34,9 @@ const IMAGE_FIELDS = [
 
 export function ImageMetadata(props) {
     const solrdoc = props.solrdoc;
+    const definitions = solrdoc.kmapid.filter((kid) =>
+        kid.includes('_definitions')
+    );
     const nodejson = props.nodejson;
     const sizestr = props.sizestr ? props.sizestr : '';
     const title = nodejson?.title;
@@ -62,7 +65,10 @@ export function ImageMetadata(props) {
                 <Col className={'col-sm-12 col-md-6'}>
                     <h5 className={'c-image__colhead'}>Classifications</h5>
                     <div className={'c-kmaps-list'}>
-                        <KmapsFields nodejson={nodejson} />
+                        <KmapsFields
+                            nodejson={nodejson}
+                            definitions={definitions}
+                        />
                     </div>
                 </Col>
             </Row>

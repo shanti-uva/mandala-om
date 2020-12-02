@@ -35,6 +35,10 @@ export function CollectionField(props) {
  */
 export function KmapsFields(props) {
     const nodejson = props.nodejson;
+    const definitions = props?.definitions; // For terms
+    if (definitions) {
+        console.log('defs', definitions);
+    }
     if (!nodejson || typeof nodejson === 'undefined') {
         return null;
     }
@@ -67,8 +71,18 @@ export function KmapsFields(props) {
         : nodejson.field_kmap_terms;
     let terms = termsorig?.und?.map((item, n) => {
         const mykey = 'kmterm-' + item.domain + '-' + item.id + '-' + n;
+        const mydefs = definitions
+            .filter((kid) => kid.includes(`-${item.id}_definitions`))
+            .map((kid) => {
+                return kid.split('_definitions-')[1];
+            });
         return (
-            <MandalaPopover key={mykey} domain={item.domain} kid={item.id} />
+            <MandalaPopover
+                key={mykey}
+                domain={item.domain}
+                kid={item.id}
+                defs={mydefs}
+            />
         );
     });
     const kcollclass = !kcolls || kcolls.length === 0 ? ' d-none' : '';
