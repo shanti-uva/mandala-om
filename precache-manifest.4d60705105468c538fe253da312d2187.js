@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "075f693277d8047bf976e08dff919d75",
+    "revision": "67495fac7145b32f8c9ede2c25828aa0",
     "url": "/mandala-om/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mandala-om/static/css/2.c61feb1d.chunk.css"
   },
   {
-    "revision": "7d24e2fd44f0188e28ba",
+    "revision": "48048ee3635d7a02e560",
     "url": "/mandala-om/static/css/main.646a39ff.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mandala-om/static/js/2.ea6b281e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7d24e2fd44f0188e28ba",
-    "url": "/mandala-om/static/js/main.bc6898b5.chunk.js"
+    "revision": "48048ee3635d7a02e560",
+    "url": "/mandala-om/static/js/main.a9475acb.chunk.js"
   },
   {
     "revision": "766b2e71f7b6a3e46927",
