@@ -223,6 +223,7 @@ export default function KmapsViewer(props) {
                                         kmasset={props.kmasset}
                                         kmap={props.kmap}
                                         kmRelated={props.relateds}
+                                        defnum={queryParams.get('def')}
                                     />
                                 </Route>
                             </Switch>

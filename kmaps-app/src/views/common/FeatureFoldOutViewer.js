@@ -59,7 +59,9 @@ export function FeatureFoldOutViewer(props) {
                     <KmapsRow domain={'places'} data={currimg.places} />
                     <KmapsRow domain={'terms'} data={currimg.terms} />
                     <div className={'link'}>
-                        <Link to={`/${currimg.asset_type}/${currimg.id}`}>
+                        <Link
+                            to={`./view/${currimg.id}?asset_type=${currimg.asset_type}`}
+                        >
                             Details{' '}
                             <span
                                 className={'u-icon__angle-double-right'}
@@ -67,9 +69,11 @@ export function FeatureFoldOutViewer(props) {
                         </Link>
                     </div>
                 </div>
+                {/*
                 <div className={'d-none'}>
                     <pre>focus = {JSON.stringify(currimg, undefined, 2)}</pre>
                 </div>
+                */}
                 <div id="nextimg" className="next arrow">
                     <span className="u-icon__arrow3-right"></span>
                 </div>

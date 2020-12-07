@@ -35,6 +35,8 @@ export function CollectionField(props) {
  */
 export function KmapsFields(props) {
     const nodejson = props.nodejson;
+    const kmapid = props?.kmapid;
+
     if (!nodejson || typeof nodejson === 'undefined') {
         return null;
     }
@@ -65,10 +67,17 @@ export function KmapsFields(props) {
     const termsorig = nodejson.field_terms
         ? nodejson.field_terms
         : nodejson.field_kmap_terms;
+
     let terms = termsorig?.und?.map((item, n) => {
         const mykey = 'kmterm-' + item.domain + '-' + item.id + '-' + n;
+        console.log('kmapid just before moved: ', kmapid);
         return (
-            <MandalaPopover key={mykey} domain={item.domain} kid={item.id} />
+            <MandalaPopover
+                key={mykey}
+                domain={item.domain}
+                kid={item.id}
+                kmapid={kmapid}
+            />
         );
     });
     const kcollclass = !kcolls || kcolls.length === 0 ? ' d-none' : '';

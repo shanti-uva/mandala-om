@@ -21,6 +21,7 @@ export function SubjectsHome(props) {
             q: 'asset_type:subjects',
             rows: pageSize,
             start: startRow,
+            sort: 'title_latin_sort ASC',
         },
     };
 

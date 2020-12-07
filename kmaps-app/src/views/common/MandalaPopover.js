@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useKmap } from '../../hooks/useKmap';
 // import { ReactQueryDevtools } from 'react-query-devtools';
 import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 /**
  * Mandala popover is component that displays a kmap term with the popover icon that shows the popover on hover.
@@ -32,6 +33,14 @@ export function MandalaPopover(props) {
     const kid = props.kid;
     const placement = props.placement ? props.placement : 'bottom';
     const kmkey = props.mykey;
+    const kmapid = props?.kmapid; // an asset solrdoc's kmapids from a tagged asset to add definitions for terms
+    let defs = false;
+    if (domain === 'terms' && kmapid && kmapid.length > 0) {
+        defs = kmapid.filter((kmid) => kmid.includes(`-${kid}_definitions`));
+        defs = defs.map((kmid) => {
+            return kmid.split('_definitions-')[1];
+        });
+    }
 
     // Query Custom Hooks (see hooks/useKmaps.js)
     // Info for Kmap Itself: kmapRes
@@ -69,6 +78,26 @@ export function MandalaPopover(props) {
     const isTib = kmapdata.tree == 'terms' && kmapdata.name_tibt;
     const myhead = isTib ? kmapdata.name_tibt[0] : kmapdata.header;
     let popoverLabel = '';
+    let defspan = '';
+    if (defs && defs.length > 0) {
+        defspan = (
+            <span className={'definitions'}>
+                (
+                {defs.map((defn) => {
+                    return (
+                        <Link
+                            to={`/${domain}/${domain}-${kid}?def=${defn}`}
+                            title={`Definition ${defn}`}
+                        >
+                            {defn}
+                        </Link>
+                    );
+                })}
+                )
+            </span>
+        );
+    }
+
     if (props.children) {
         popoverLabel = (
             <span
@@ -84,6 +113,7 @@ export function MandalaPopover(props) {
         popoverLabel = (
             <>
                 <span className={isTib ? 'u-bo' : ''}>{myhead}</span>
+                {defspan}
                 <span
                     className="popover-link"
                     ref={target}
@@ -119,6 +149,7 @@ export function MandalaPopover(props) {
                         <MandalaPopoverBody
                             domain={domain}
                             kid={kid}
+                            defs={defs}
                             info={kmapdata}
                             related={related}
                         />
@@ -133,6 +164,7 @@ function MandalaPopoverBody(props) {
     const kminfo = props.info;
     //console.log(kminfo);
     const related = props.related;
+    const defs = props?.defs;
     // Sort related by Asset/Kmap type (groupValue)
     related.sort((a, b) => {
         const alabel = a.groupValue;
@@ -271,7 +303,26 @@ function MandalaPopoverBody(props) {
             })}
         </>
     );
-
+    let defdiv = '';
+    if (defs) {
+        defdiv = (
+            <div className="defs">
+                <strong>Definitions</strong>
+                <span className="deflinks">
+                    {defs.map((defn) => {
+                        return (
+                            <Link
+                                to={`/${domain}/${domain}-${kid}?def=${defn}`}
+                                title={`Definition ${defn}`}
+                            >
+                                {defn}
+                            </Link>
+                        );
+                    })}
+                </span>
+            </div>
+        );
+    }
     // Return JSX Markup for popover body
     return (
         <div className={'react-popover-body'}>
@@ -283,6 +334,7 @@ function MandalaPopoverBody(props) {
                     {caption}
                     For more information about this term, see Full Entry below.
                 </div>
+                {defdiv}
                 {featuretypes}
                 {ancestors}
             </div>
