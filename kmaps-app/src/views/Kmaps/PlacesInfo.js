@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import KmapsMap from '../KmapsMap/KmapsMap';
 import { KmapLink } from '../common/KmapLink';
-import { Tabs, Tab } from 'react-bootstrap';
+import { useSolr } from '../../hooks/useSolr';
+import { HtmlCustom } from '../common/MandalaMarkup';
+import { Tabs, Tab, Row, Col } from 'react-bootstrap';
 import $ from 'jquery';
 import './placesinfo.scss';
 
@@ -20,7 +22,7 @@ export function PlacesInfo(props) {
     }, [kmasset]);
 
     return (
-        <Tabs defaultActiveKey="map" id="place-kmap-tabs">
+        <Tabs defaultActiveKey="names" id="place-kmap-tabs">
             <Tab eventKey="map" title="Map">
                 {/*
                 <KmapsMap
@@ -30,7 +32,6 @@ export function PlacesInfo(props) {
                     width={1200}
                 />
                 */}
-                {/* <p>Google Map is being configured with API.</p> */}
             </Tab>
             <Tab eventKey="names" title="Names">
                 <PlacesNames {...props} />
@@ -63,10 +64,72 @@ export function PlacesInfo(props) {
 }
 
 export function PlacesNames(props) {
+    // Code for query from searchui.js function GetChildNamesFromID()
+    // Code for processing results from places.js line 446ff
+    const query = {
+        index: 'terms',
+        params: {
+            fl: `uid,[child childFilter=id:${props.id}_names-* parentFilter=block_type:parent]`,
+            q: `uid:${props.id}`,
+            wt: 'json',
+            rows: 300,
+        },
+    };
+    const namedoc = useSolr(`place-${props.id}-names`, query);
+    let childlist = [];
+    if (namedoc?.numFound && namedoc.numFound > 0) {
+        childlist = namedoc.docs[0]._childDocuments_;
+        childlist = childlist.map((o, ind) => {
+            // console.log('o', o);
+            return {
+                label: o.related_names_header_s, // Label
+                lang: o.related_names_language_s, // Language
+                rel: o.related_names_relationship_s, // Relationship
+                write: o.related_names_writing_system_s, // Writing system
+                ety: o.related_names_etymology_s, // Etymology
+                path: o.related_names_path_s, // Path
+                tab: o.related_names_level_i - 1,
+            };
+        });
+        childlist.sort(function (a, b) {
+            // Sort by path
+            if (a.path > b.path) return 1;
+            // Higher
+            else if (a.path < b.path) return -1;
+            // Lower
+            else return 0; // The same
+        });
+    }
+    // console.log("Child list before display", childlist);
     return (
-        <div class={'c-place-names'}>
-            <p>Place names will go here!</p>
-        </div>
+        <Row className={'c-place-names'}>
+            <Col>
+                <h1>Names</h1>
+                {childlist.map((l, i) => {
+                    return (
+                        <div key={`place-name-${i}`} className={`lv-${l.tab}`}>
+                            <strong>{l.label} </strong>&nbsp; ({l.lang},{' '}
+                            {l.write}, {l.rel})
+                        </div>
+                    );
+                })}
+            </Col>
+            <Col>
+                <h1>Etymology</h1>
+                {childlist.map((l, i) => {
+                    if (l.ety) {
+                        return (
+                            <div key={`place-etymology-${i}`}>
+                                <strong>{l.label} </strong>:
+                                <HtmlCustom
+                                    markup={l.ety.replace(/<p\/?>/g, ' ')}
+                                />
+                            </div>
+                        );
+                    }
+                })}
+            </Col>
+        </Row>
     );
 }
 
