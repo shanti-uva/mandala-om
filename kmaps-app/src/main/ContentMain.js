@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ContentHeader } from './ContentHeader/ContentHeader';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideo/AudioVideoViewer';
