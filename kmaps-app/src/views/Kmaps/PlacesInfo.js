@@ -80,6 +80,7 @@ export function PlacesNames(props) {
     let etymologies = [];
     if (namedoc?.numFound && namedoc.numFound > 0) {
         childlist = namedoc.docs[0]._childDocuments_;
+        console.log('childlist', childlist);
         childlist = childlist.map((o, ind) => {
             // console.log('o', o);
             return {
@@ -103,13 +104,12 @@ export function PlacesNames(props) {
         etymologies = childlist.filter((c, i) => {
             return c.ety && c.ety.length > 0;
         });
-        console.log('childlist', childlist);
     }
 
     const altchild = props?.kmap?._childDocuments_.filter((c, i) => {
         return c.id.includes('altitude');
     });
-    console.log('New child', altchild);
+    console.log('alt child', altchild);
 
     return (
         <Row className={'c-place-names'}>
