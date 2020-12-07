@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-// import { loadModules } from 'esri-loader';
+import KmapsMap from '../KmapsMap/KmapsMap';
 import { KmapLink } from '../common/KmapLink';
 import { Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
@@ -17,9 +17,14 @@ export function PlacesInfo(props) {
     }, [kmasset]);
 
     return (
-        <Tabs defaultActiveKey="names" id="place-kmap-tabs">
+        <Tabs defaultActiveKey="map" id="place-kmap-tabs">
             <Tab eventKey="map" title="Map">
-                <KmapMap {...props} />
+                <KmapsMap
+                    fid={kmasset.id}
+                    languageLayer="roman_popular"
+                    height={700}
+                    width={1200}
+                />
             </Tab>
             <Tab eventKey="names" title="Names">
                 <h3>Feature Types</h3>
@@ -48,45 +53,4 @@ export function PlacesInfo(props) {
             </Tab>
         </Tabs>
     );
-}
-
-export function KmapMap(props) {
-    const { kmap } = props;
-    {
-        /*
-    console.log("places info (kmap map):", kmap);
-
-    const mapRef = useRef(null);
-
-    useEffect(() => {
-            const geojsonstr = kmap?.shapes_centroid_grptgeom[0];
-            if (geojsonstr) {
-                const geojson = JSON.parse(geojsonstr);
-                var coords = geojson?.features[0].geometry.coordinates;
-                if (coords) {
-                    // lazy load the required ArcGIS API for JavaScript modules and CSS
-                    loadModules(['esri/Map', 'esri/views/MapView'], { css: true })
-                        .then(([ArcGISMap, MapView]) => {
-                            const map = new ArcGISMap({
-                                basemap: 'topo-vector'
-                            });
-
-                            // load the map view at the ref's DOM node
-                            const view = new MapView({
-                                container: mapRef.current,
-                                map: map,
-                                center: [91.1359083974058,29.6430462172591], // [-118, 34],
-                                zoom: 10
-                            });
-                        });
-                }
-            }
-        }, [kmap]);
-
-console.log("Returning webmap", mapRef);
-
-    return (<div className="webmap" ref={mapRef} />);
-    */
-    }
-    return <div>Couldn't get Map to work</div>;
 }
