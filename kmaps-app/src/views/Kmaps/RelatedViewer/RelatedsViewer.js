@@ -5,7 +5,7 @@ import HistoryViewer from '../../History/HistoryViewer';
 import './RelatedsViewer.scss';
 
 export function RelatedsViewer(props) {
-    // console.log('Relateds props = ', props);
+    console.log('Relateds props = ', props);
 
     const match = useRouteMatch([
         '/:baseType/:baseUid/related-:type',
@@ -25,6 +25,7 @@ export function RelatedsViewer(props) {
     if (!props.id && !baseArgs.baseUid) {
         return null;
     }
+    const current_domain = props?.kmap?.tree ? props.kmap.tree : 'subjects';
 
     return (
         <aside className={'l-column__related'}>
