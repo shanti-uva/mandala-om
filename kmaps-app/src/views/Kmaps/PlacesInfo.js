@@ -9,7 +9,6 @@ import './placesinfo.scss';
 
 export function PlacesInfo(props) {
     const { kmap, kmasset } = props;
-
     useEffect(() => {
         // Move the Name wrapper into the Names tab for places
         if ($('.sui-nameEntry__wrapper').length > 0) {
@@ -66,6 +65,7 @@ export function PlacesInfo(props) {
 export function PlacesNames(props) {
     // Code for query from searchui.js function GetChildNamesFromID()
     // Code for processing results from places.js line 446ff
+
     const query = {
         index: 'terms',
         params: {
@@ -77,6 +77,7 @@ export function PlacesNames(props) {
     };
     const namedoc = useSolr(`place-${props.id}-names`, query);
     let childlist = [];
+    let etymologies = [];
     if (namedoc?.numFound && namedoc.numFound > 0) {
         childlist = namedoc.docs[0]._childDocuments_;
         childlist = childlist.map((o, ind) => {
@@ -99,8 +100,17 @@ export function PlacesNames(props) {
             // Lower
             else return 0; // The same
         });
+        etymologies = childlist.filter((c, i) => {
+            return c.ety && c.ety.length > 0;
+        });
+        console.log('childlist', childlist);
     }
-    // console.log("Child list before display", childlist);
+
+    const altchild = props?.kmap?._childDocuments_.filter((c, i) => {
+        return c.id.includes('altitude');
+    });
+    console.log('New child', altchild);
+
     return (
         <Row className={'c-place-names'}>
             <Col>
@@ -114,29 +124,50 @@ export function PlacesNames(props) {
                     );
                 })}
             </Col>
-            <Col>
-                <h1>Etymology</h1>
-                {childlist.map((l, i) => {
-                    if (l.ety) {
-                        return (
-                            <div key={`place-etymology-${i}`}>
-                                <strong>{l.label} </strong>:
-                                <HtmlCustom
-                                    markup={l.ety.replace(/<p\/?>/g, ' ')}
-                                />
-                            </div>
-                        );
-                    }
-                })}
-            </Col>
+            {etymologies && etymologies.length > 0 && (
+                <Col>
+                    <h1>Etymology</h1>
+                    {etymologies.map((l, i) => {
+                        if (l.ety) {
+                            return (
+                                <div key={`place-etymology-${i}`}>
+                                    <strong>{l.label} </strong>:
+                                    <HtmlCustom
+                                        markup={l.ety.replace(/<p\/?>/g, ' ')}
+                                    />
+                                </div>
+                            );
+                        }
+                    })}
+                </Col>
+            )}
         </Row>
     );
 }
 
 export function PlacesLocation(props) {
+    const data_s = props?.kmap?.shapes_centroid_grptgeom;
+    const data = data_s ? JSON.parse(data_s) : false;
+    let coords = false;
+    if (
+        data &&
+        data?.features &&
+        data.features.length > 0 &&
+        data.features[0].coordinates
+    ) {
+        coords = `${data.features[0].coordinates[1]}, ${data.features[0].coordinates[0]}`;
+    }
+    console.log('pkamp', props.kmap);
+    // To do Altitude, need to make query for: altituds i terms doc places-637_altitude_38202
+    // kmap has all _childDocuments_
     return (
         <div class={'c-place-location'}>
             <p>Place location goes here!</p>
+            {coords && (
+                <div>
+                    <label>Lat/Long</label> {coords}
+                </div>
+            )}
         </div>
     );
 }
