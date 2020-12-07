@@ -5,7 +5,7 @@ import HistoryViewer from '../../History/HistoryViewer';
 import './RelatedsViewer.scss';
 
 export function RelatedsViewer(props) {
-    console.log('Relateds props = ', props);
+    // console.log('Relateds props = ', props);
 
     const match = useRouteMatch([
         '/:baseType/:baseUid/related-:type',
@@ -107,17 +107,51 @@ export function RelatedsViewer(props) {
                 </section>
 
                 <section className="l-terms__tree__wrap">
-                    <div className="u-related__list__header">Browse Terms</div>
-                    <FancyTree
-                        domain="terms"
-                        tree="terms"
-                        descendants={true}
-                        directAncestors={false}
-                        displayPopup={false}
-                        perspective="tib.alpha"
-                        view="roman.scholar"
-                        sortBy="position_i+ASC"
-                    />
+                    <div className="u-related__list__header">
+                        Browse{' '}
+                        <span className={'text-capitalize'}>
+                            {current_domain}
+                        </span>
+                    </div>
+
+                    {current_domain === 'places' && (
+                        <FancyTree
+                            domain="places"
+                            tree="places"
+                            descendants={true}
+                            directAncestors={false}
+                            displayPopup={true}
+                            perspective="pol.admin.hier"
+                            view="roman.scholar"
+                            sortBy="header_ssort+ASC"
+                        />
+                    )}
+
+                    {current_domain === 'subjects' && (
+                        <FancyTree
+                            domain="subjects"
+                            tree="subjects"
+                            descendants={true}
+                            directAncestors={false}
+                            displayPopup={true}
+                            perspective={'gen'}
+                            view="roman.popular"
+                            sortBy="header_ssort+ASC"
+                        />
+                    )}
+
+                    {current_domain === 'terms' && (
+                        <FancyTree
+                            domain="terms"
+                            tree="terms"
+                            descendants={true}
+                            directAncestors={false}
+                            displayPopup={false}
+                            perspective="tib.alpha"
+                            view="roman.scholar"
+                            sortBy="position_i+ASC"
+                        />
+                    )}
                 </section>
             </div>
         </aside>
