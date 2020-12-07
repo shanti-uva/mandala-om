@@ -25,7 +25,54 @@ export function RelatedsViewer(props) {
     if (!props.id && !baseArgs.baseUid) {
         return null;
     }
+
+    // Determine which tree (browse_tree) to display in the relateds sidebar
     const current_domain = props?.kmap?.tree ? props.kmap.tree : 'subjects';
+    let browse_tree = (
+        <FancyTree
+            domain="places"
+            tree="places"
+            descendants={true}
+            directAncestors={false}
+            displayPopup={true}
+            perspective="pol.admin.hier"
+            view="roman.scholar"
+            sortBy="header_ssort+ASC"
+            currentFeatureId={props.id}
+        />
+    );
+
+    if (current_domain === 'subjects') {
+        browse_tree = (
+            <FancyTree
+                domain="subjects"
+                tree="subjects"
+                descendants={true}
+                directAncestors={false}
+                displayPopup={true}
+                perspective={'gen'}
+                view="roman.popular"
+                sortBy="header_ssort+ASC"
+                currentFeatureId={props.id}
+            />
+        );
+    }
+
+    if (current_domain === 'terms') {
+        browse_tree = (
+            <FancyTree
+                domain="terms"
+                tree="terms"
+                descendants={true}
+                directAncestors={false}
+                displayPopup={true}
+                perspective="tib.alpha"
+                view="roman.scholar"
+                sortBy="position_i+ASC"
+                currentFeatureId={props.id}
+            />
+        );
+    }
 
     return (
         <aside className={'l-column__related'}>
@@ -114,44 +161,7 @@ export function RelatedsViewer(props) {
                         </span>
                     </div>
 
-                    {current_domain === 'places' && (
-                        <FancyTree
-                            domain="places"
-                            tree="places"
-                            descendants={true}
-                            directAncestors={false}
-                            displayPopup={true}
-                            perspective="pol.admin.hier"
-                            view="roman.scholar"
-                            sortBy="header_ssort+ASC"
-                        />
-                    )}
-
-                    {current_domain === 'subjects' && (
-                        <FancyTree
-                            domain="subjects"
-                            tree="subjects"
-                            descendants={true}
-                            directAncestors={false}
-                            displayPopup={true}
-                            perspective={'gen'}
-                            view="roman.popular"
-                            sortBy="header_ssort+ASC"
-                        />
-                    )}
-
-                    {current_domain === 'terms' && (
-                        <FancyTree
-                            domain="terms"
-                            tree="terms"
-                            descendants={true}
-                            directAncestors={false}
-                            displayPopup={false}
-                            perspective="tib.alpha"
-                            view="roman.scholar"
-                            sortBy="position_i+ASC"
-                        />
-                    )}
+                    {browse_tree}
                 </section>
             </div>
         </aside>
