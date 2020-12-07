@@ -19,12 +19,14 @@ export function PlacesInfo(props) {
     return (
         <Tabs defaultActiveKey="map" id="place-kmap-tabs">
             <Tab eventKey="map" title="Map">
+                {/*}
                 <KmapsMap
                     fid={kmasset.id}
                     languageLayer="roman_popular"
                     height={700}
                     width={1200}
-                />
+                />*/}
+                <p>Google Map is being configured with API.</p>
             </Tab>
             <Tab eventKey="names" title="Names">
                 <h3>Feature Types</h3>
