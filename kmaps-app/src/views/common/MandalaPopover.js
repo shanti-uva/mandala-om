@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom';
 
 /**
  * Mandala popover is component that displays a kmap term with the popover icon that shows the popover on hover.
- * It takes three properties:
- *      domain: The kmap domain--subjects, places, terms
- *      kid: The numberic kmaps id for the item in that domain
+ * It takes two or three properties:
+ *      uid: the full kmaps uid of domain dash id, e.g. places-637
+ *              OR
+ *      domain: The kmap domain--subjects, places, terms (if uid is provided this will be overridden)
+ *      kid: The numberic kmaps id for the item in that domain (if uid is provided this will be overridden)
+ *
  *      placement: (optional) where to place the popover relative to the icon, defaults to 'below'.
  *                 Other values are: 'top', 'right', and 'left'.
  *
@@ -29,8 +32,10 @@ export function MandalaPopover(props) {
     const target = useRef(null);
 
     // Props
-    const domain = props.domain;
-    const kid = props.kid;
+
+    const uid = props?.uid;
+    const domain = uid ? uid.split('-').shift() : props.domain;
+    const kid = uid ? uid.split('-').pop() : props.kid;
     const placement = props.placement ? props.placement : 'bottom';
     const kmkey = props.mykey;
     const kmapid = props?.kmapid; // an asset solrdoc's kmapids from a tagged asset to add definitions for terms

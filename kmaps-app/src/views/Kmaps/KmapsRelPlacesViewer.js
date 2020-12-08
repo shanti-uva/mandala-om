@@ -5,8 +5,11 @@ import { Col, Container, Row, Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
 import './subjectsinfo.scss';
 import { FeaturePager } from '../common/FeaturePager/FeaturePager';
+import FancyTree from '../FancyTree';
+import KmapsMap from '../KmapsMap/KmapsMap';
+import { KmapLink } from '../common/KmapLink';
 
-export function KmapsRelPlacesViewer(props) {
+export function SubjectsRelPlacesViewer(props) {
     const { kmap, kmasset } = props;
     const [startRow, setStartRow] = useState(0);
     const [pageNum, setPageNum] = useState(0);
@@ -111,7 +114,7 @@ export function KmapsRelPlacesViewer(props) {
     const chunks = chunkIt(placeitems, colSize);
 
     return (
-        <Container fluid className={'c-relplaces-list'}>
+        <Container fluid className={'c-relplaces-list subjects'}>
             <h2 className={'row'}>Related Places </h2>
             {numFound > pageSize && (
                 <FeaturePager
@@ -137,6 +140,145 @@ export function KmapsRelPlacesViewer(props) {
                 />
             )}
         </Container>
+    );
+}
+
+export function PlacesRelPlacesViewer(props) {
+    const { kmap, kmasset } = props;
+    const uid = kmap?.uid;
+    const kmapkids = kmap._childDocuments_; // Child documents of this kmaps
+
+    // Get Ancestors for count
+    const ancestors = kmap?.ancestor_id_path.split('/');
+    ancestors.pop(); // remove self.
+
+    // Process Children into Different List for Counts
+    const adminkids = kmapkids.filter((cd, ci) => {
+        return cd.related_places_relation_code_s === 'administers';
+    });
+    const locatedkids = kmapkids.filter((cd, ci) => {
+        return (
+            cd.related_places_relation_code_s ===
+            'has.entirely.located.within.it'
+        );
+    });
+
+    // Get Unique Feature Types of Children
+    let child_ftypes = kmapkids.map((cd, ci) => {
+        if (cd.block_child_type === 'related_places') {
+            return cd.related_places_feature_type_s;
+        }
+    });
+    child_ftypes = [...new Set(child_ftypes)];
+    child_ftypes.sort(); // Sort feature types
+
+    // Group Children by Feature Type
+    const children_by_ftype = child_ftypes.map((cft, cfti) => {
+        return {
+            label: cft,
+            children: kmapkids.filter((kmk, kmki) => {
+                return kmk.related_places_feature_type_s === cft;
+            }),
+        };
+    });
+
+    useEffect(() => {
+        $('main.l-column__main').addClass('places');
+    }, [kmap]);
+
+    return (
+        <Tabs defaultActiveKey="context" id="place-kmap-tabs">
+            <Tab eventKey="context" title="Place Context">
+                <Container fluid className={'c-relplaces-list places'}>
+                    <h2 className={'row'}>
+                        Hierarchy of Places Related to {kmap.header}
+                    </h2>
+                    <Row>
+                        <p>
+                            {kmap.header} has {ancestors.length} superordinate{' '}
+                            places and {adminkids.length + locatedkids.length}{' '}
+                            subordinate places. It administers{' '}
+                            {adminkids.length}, while {locatedkids.length} of
+                            the places are simply located in {kmap.header}.
+                        </p>
+                        <p>
+                            One can browse these subordinate places as well as
+                            its superordinate categories with the tree below.
+                        </p>
+                    </Row>
+                    <Row>
+                        <FancyTree
+                            domain="places"
+                            tree="places"
+                            descendants={true}
+                            directAncestors={true}
+                            displayPopup={true}
+                            perspective="pol.admin.hier"
+                            view="roman.scholar"
+                            sortBy="header_ssort+ASC"
+                            currentFeatureId={uid}
+                        />
+                    </Row>
+                </Container>
+            </Tab>
+            <Tab eventKey="related" title="Related Places">
+                <Container fluid className={'c-relplaces-list places'}>
+                    <h2 className={'row'}>
+                        Places Related to {kmap.header} by Feature Type
+                    </h2>
+                    <Row>
+                        <Col>
+                            <p>
+                                These are the list of related places by feature
+                                type.
+                            </p>
+                            <p>
+                                One can browse these subordinate places as well
+                                as its superordinate categories with the tree
+                                below.
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {children_by_ftype.map((cd, cdi) => {
+                                const clist = cd.children;
+                                clist.sort(function (a, b) {
+                                    if (a.header === b.header) {
+                                        return 0;
+                                    }
+                                    return a.header > b.header ? 1 : -1;
+                                });
+                                return (
+                                    <div>
+                                        <h3>{cd.label}</h3>
+                                        <ul>
+                                            {clist.map((clitem, cli) => {
+                                                if (
+                                                    clitem?.related_uid_s?.includes(
+                                                        '-'
+                                                    )
+                                                ) {
+                                                    return (
+                                                        <li>
+                                                            <MandalaPopover
+                                                                uid={
+                                                                    clitem.related_uid_s
+                                                                }
+                                                            />
+                                                        </li>
+                                                    );
+                                                }
+                                            })}
+                                        </ul>
+                                    </div>
+                                );
+                            })}
+                        </Col>
+                    </Row>
+                </Container>
+            </Tab>
+        </Tabs>
     );
 }
 
