@@ -1,3 +1,7 @@
+#place-kmap-tabs-tabpane-map {
+    min-height: 75vh;
+}
+
 .c-place-names {
     .col:first-child {
         border-right: thin solid #aaa;
@@ -35,5 +39,23 @@
 
     .lv-3 {
         margin-left: 6rem;
+    }
+}
+
+.c-place-location {
+    p {
+        margin: 1rem 0.5rem;
+    }
+
+    p:first-child {
+        margin-top: 2rem;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    label:after {
+        content: ':';
     }
 }

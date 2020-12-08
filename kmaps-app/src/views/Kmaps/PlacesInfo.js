@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import KmapsMap from '../KmapsMap/KmapsMap';
 import { KmapLink } from '../common/KmapLink';
 import { useSolr } from '../../hooks/useSolr';
@@ -9,28 +9,35 @@ import './placesinfo.scss';
 
 export function PlacesInfo(props) {
     const { kmap, kmasset } = props;
+    const [dimension, setDimensions] = useState({
+        height: 0,
+        width: 0,
+    });
+
     useEffect(() => {
         // Move the Name wrapper into the Names tab for places
         if ($('.sui-nameEntry__wrapper').length > 0) {
-            $('.sui-nameEntry__wrapper').detach();
-            /*
-            $('#place-kmap-tabs-tabpane-names').prepend(
-                $('.sui-nameEntry__wrapper').detach()
-            );*/
+            $('.sui-nameEntry__wrapper').detach(); // remove the name div, which is replaced by PlacesNames below
         }
+        // useEffect as onLoad, get dimensions of map container and use to initialize the map
+        setDimensions({
+            height: $('#place-kmap-tabs-tabpane-map').height(),
+            width: $('#place-kmap-tabs-tabpane-map').width(),
+        });
     }, [kmasset]);
 
     return (
-        <Tabs defaultActiveKey="names" id="place-kmap-tabs">
+        <Tabs defaultActiveKey="map" id="place-kmap-tabs">
             <Tab eventKey="map" title="Map">
-                {/*
-                <KmapsMap
-                    fid={kmasset.id}
-                    languageLayer="roman_popular"
-                    height={700}
-                    width={1200}
-                />
-                */}
+                {/* Don't call the KmapsMap until the div is fully loaded and has dimension */}
+                {dimension.height > 0 && (
+                    <KmapsMap
+                        fid={kmasset.id}
+                        languageLayer="roman_popular"
+                        height={dimension.height}
+                        width={dimension.width}
+                    />
+                )}
             </Tab>
             <Tab eventKey="names" title="Names">
                 <PlacesNames {...props} />
@@ -63,7 +70,8 @@ export function PlacesInfo(props) {
 }
 
 export function PlacesNames(props) {
-    // Code for query from searchui.js function GetChildNamesFromID()
+    // Places Name tab content. Displays main name, alternative names and etymologies
+    // Code for query from Bill's code, searchui.js function GetChildNamesFromID()
     // Code for processing results from places.js line 446ff
 
     const query = {
@@ -74,13 +82,12 @@ export function PlacesNames(props) {
             wt: 'json',
             rows: 300,
         },
-    };
+    }; // Need to make new query because _childDocuments_ does not contain all name children returned by this query
     const namedoc = useSolr(`place-${props.id}-names`, query);
     let childlist = [];
     let etymologies = [];
     if (namedoc?.numFound && namedoc.numFound > 0) {
         childlist = namedoc.docs[0]._childDocuments_;
-        console.log('childlist', childlist);
         childlist = childlist.map((o, ind) => {
             // console.log('o', o);
             return {
@@ -141,9 +148,10 @@ export function PlacesNames(props) {
 }
 
 export function PlacesLocation(props) {
+    // Places "Location" tab contents
+    // Uses centroid for lat long and child altitude for altitude and displays these is they exist
     const data_s = props?.kmap?.shapes_centroid_grptgeom;
     const data = data_s ? JSON.parse(data_s) : false;
-    console.log(data_s, data);
     let coords = false;
     if (
         data &&
@@ -152,23 +160,31 @@ export function PlacesLocation(props) {
         data.features[0].geometry?.coordinates
     ) {
         let codata = data.features[0].geometry.coordinates;
-        coords = `${codata[1]}, ${codata[0]}`;
+        let lat = Math.round(codata[1] * 100000) / 100000;
+        let lng = Math.round(codata[0] * 100000) / 100000;
+        coords = `${lat}º N, ${lng}º E`;
     }
 
     const altchild = props?.kmap?._childDocuments_.filter((c, i) => {
         return c.id.includes('altitude');
     });
-    console.log('alt child', altchild);
-    console.log('pkamp', props.kmap);
-    // To do Altitude, need to make query for: altituds i terms doc places-637_altitude_38202
-    // kmap has all _childDocuments_
+
     return (
         <div className={'c-place-location'}>
-            <p>Place location goes here!</p>
             {coords && (
-                <div>
+                <p>
+                    <span className={'icon shanticon-places'}> </span>{' '}
                     <label>Lat/Long</label> {coords}
-                </div>
+                </p>
+            )}
+            {altchild && (
+                <p>
+                    <span className={'altitude'}>↑ </span> <label>Alt</label>{' '}
+                    {altchild[0].estimate_s}
+                </p>
+            )}
+            {!coords && altchild.length === 0 && (
+                <p>There is no location information for {props.kmap.header}</p>
             )}
         </div>
     );
