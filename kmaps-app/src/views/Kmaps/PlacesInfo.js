@@ -106,11 +106,6 @@ export function PlacesNames(props) {
         });
     }
 
-    const altchild = props?.kmap?._childDocuments_.filter((c, i) => {
-        return c.id.includes('altitude');
-    });
-    console.log('alt child', altchild);
-
     return (
         <Row className={'c-place-names'}>
             <Col>
@@ -148,20 +143,27 @@ export function PlacesNames(props) {
 export function PlacesLocation(props) {
     const data_s = props?.kmap?.shapes_centroid_grptgeom;
     const data = data_s ? JSON.parse(data_s) : false;
+    console.log(data_s, data);
     let coords = false;
     if (
         data &&
         data?.features &&
         data.features.length > 0 &&
-        data.features[0].coordinates
+        data.features[0].geometry?.coordinates
     ) {
-        coords = `${data.features[0].coordinates[1]}, ${data.features[0].coordinates[0]}`;
+        let codata = data.features[0].geometry.coordinates;
+        coords = `${codata[1]}, ${codata[0]}`;
     }
+
+    const altchild = props?.kmap?._childDocuments_.filter((c, i) => {
+        return c.id.includes('altitude');
+    });
+    console.log('alt child', altchild);
     console.log('pkamp', props.kmap);
     // To do Altitude, need to make query for: altituds i terms doc places-637_altitude_38202
     // kmap has all _childDocuments_
     return (
-        <div class={'c-place-location'}>
+        <div className={'c-place-location'}>
             <p>Place location goes here!</p>
             {coords && (
                 <div>
