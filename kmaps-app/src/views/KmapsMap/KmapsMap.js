@@ -54,6 +54,7 @@ class KmapsMap extends React.Component {
             width: props.width || 400,
             fid: props.fid,
             language_layer: props.languageLayer || 'roman_popular',
+            zoom: props.zoom || 7,
         };
     }
 
@@ -61,7 +62,7 @@ class KmapsMap extends React.Component {
         //const h = window.innerWidth >= 992 ? window.innerHeight : 400;
         const h = this.state.element.clientHeight;
         const w = this.state.element.clientWidth;
-        console.log('update dimensions', h, w);
+        // console.log('update dimensions', h, w);
         this.setState({ height: h, width: w });
     }
 
@@ -117,7 +118,7 @@ class KmapsMap extends React.Component {
             ]),
             view: new View({
                 projection: 'EPSG:900913',
-                zoom: 2,
+                zoom: this.state.zoom,
             }),
         });
         var olGM = new OLGoogleMaps({ map: map }); // map is the ol.Map instance

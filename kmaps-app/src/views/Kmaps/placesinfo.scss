@@ -1,0 +1,61 @@
+#place-kmap-tabs-tabpane-map {
+    min-height: 75vh;
+}
+
+.c-place-names {
+    .col:first-child {
+        border-right: thin solid #aaa;
+        margin-top: 2rem;
+
+        h1 {
+            margin-top: -1rem;
+        }
+    }
+    h1 {
+        margin: 1rem 0 0.5rem;
+        color: #6faaf1;
+        font-weight: bold;
+        font-size: 1.6rem;
+        text-transform: capitalize;
+    }
+
+    div[class^='lv-']:before {
+        display: inline-block;
+        content: '•';
+        margin-right: 0.5rem;
+    }
+
+    .lv-0 {
+        margin-left: 0rem;
+    }
+
+    .lv-1 {
+        margin-left: 2rem;
+    }
+
+    .lv-2 {
+        margin-left: 4rem;
+    }
+
+    .lv-3 {
+        margin-left: 6rem;
+    }
+}
+
+.c-place-location {
+    p {
+        margin: 1rem 0.5rem;
+    }
+
+    p:first-child {
+        margin-top: 2rem;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    label:after {
+        content: ':';
+    }
+}
