@@ -46,7 +46,8 @@ export function MandalaPopover(props) {
             return kmid.split('_definitions-')[1];
         });
     }
-
+    return <span>km loading...</span>;
+    /*
     // Query Custom Hooks (see hooks/useKmaps.js)
     // Info for Kmap Itself: kmapRes
     const {
@@ -163,6 +164,8 @@ export function MandalaPopover(props) {
             </Overlay>
         </span>
     );
+
+ */
 }
 
 function MandalaPopoverBody(props) {

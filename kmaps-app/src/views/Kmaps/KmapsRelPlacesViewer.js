@@ -243,12 +243,14 @@ export function PlacesRelPlacesViewer(props) {
                         <Col>
                             {children_by_ftype.map((cd, cdi) => {
                                 const clist = cd.children;
+                                /*
                                 clist.sort(function (a, b) {
-                                    if (a.header === b.header) {
+                                    if (a.related_places_header_s === b.related_places_header_s) {
                                         return 0;
                                     }
-                                    return a.header > b.header ? 1 : -1;
+                                    return a.related_places_header_s > b.related_places_header_s ? 1 : -1;
                                 });
+                                */
                                 return (
                                     <div>
                                         <h3>{cd.label}</h3>
