@@ -3,6 +3,7 @@ import { useSolr } from '../../hooks/useSolr';
 import { MandalaPopover } from '../common/MandalaPopover';
 import { Col, Container, Row, Tabs, Tab } from 'react-bootstrap';
 import $ from 'jquery';
+import './placesinfo.scss';
 import './subjectsinfo.scss';
 import { FeaturePager } from '../common/FeaturePager/FeaturePager';
 import FancyTree from '../FancyTree';
@@ -240,48 +241,46 @@ export function PlacesRelPlacesViewer(props) {
                         </Col>
                     </Row>
                     <Row>
-                        <Col>
-                            {children_by_ftype.map((cd, cdi) => {
-                                const clist = cd.children;
-                                /*
-                                clist.sort(function (a, b) {
-                                    if (a.related_places_header_s === b.related_places_header_s) {
-                                        return 0;
-                                    }
-                                    return a.related_places_header_s > b.related_places_header_s ? 1 : -1;
-                                });
-                                */
-                                return (
-                                    <div>
-                                        <h3>{cd.label}</h3>
-                                        <ul>
-                                            {clist.map((clitem, cli) => {
-                                                if (
-                                                    clitem?.related_uid_s?.includes(
-                                                        '-'
-                                                    )
-                                                ) {
-                                                    return (
-                                                        <li>
-                                                            <MandalaPopover
-                                                                uid={
-                                                                    clitem.related_uid_s
-                                                                }
-                                                            />
-                                                        </li>
-                                                    );
-                                                }
-                                            })}
-                                        </ul>
-                                    </div>
-                                );
-                            })}
-                        </Col>
+                        <PlaceRelPlaceFtColumns children={children_by_ftype} />
                     </Row>
                 </Container>
             </Tab>
         </Tabs>
     );
+}
+
+function PlaceRelPlaceFtColumns(props) {
+    const childs = props?.children;
+    const chchunks = chunkIt(childs, 25);
+
+    const chcols = chchunks.map((chchunk, chki) => {
+        return (
+            <Col>
+                {chchunk.map((feattype, cdi) => {
+                    return (
+                        <div>
+                            <h3>{feattype.label}</h3>
+                            <ul>
+                                {feattype.children.map((clitem, cli) => {
+                                    if (clitem?.related_uid_s?.includes('-')) {
+                                        return (
+                                            <li>
+                                                <MandalaPopover
+                                                    uid={clitem.related_uid_s}
+                                                />
+                                            </li>
+                                        );
+                                    }
+                                })}
+                            </ul>
+                        </div>
+                    );
+                })}
+            </Col>
+        );
+    });
+
+    return <>{chcols}</>;
 }
 
 function chunkIt(list, size) {

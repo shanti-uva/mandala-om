@@ -165,7 +165,7 @@ export function MandalaPopover(props) {
         </span>
     );
 
- */
+*/
 }
 
 function MandalaPopoverBody(props) {
