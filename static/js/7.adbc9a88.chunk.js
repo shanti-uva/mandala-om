@@ -1,0 +1,2 @@
+(this["webpackJsonpkmaps-app"]=this["webpackJsonpkmaps-app"]||[]).push([[7],{704:function(e,t,r){"use strict";r.r(t);var n=r(0),s=r.n(n),a=s.a.lazy((function(){return Promise.resolve().then(r.bind(null,144))}));t.default=function(e){return s.a.createElement(a,{domain:"terms",tree:"terms",descendants:!0,directAncestors:!1,displayPopup:!0,perspective:"tib.alpha",view:"roman.scholar",sortBy:"position_i+ASC",currentFeatureId:e.currentFeatureId})}}}]);
+//# sourceMappingURL=7.adbc9a88.chunk.js.map
