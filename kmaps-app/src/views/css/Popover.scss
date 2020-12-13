@@ -2,6 +2,7 @@
     CSS rules for MandalaPopovers, included on all pages by call in App.js
  */
 .kmap-tag-group {
+    position: relative;
     display: inline-block;
     white-space: nowrap;
 }

@@ -101,7 +101,7 @@ export function getAssetSearchPromise(search) {
     // TODO: parameterize the use of facets
     // TODO: parameterize constructTextQuery
 
-    //console.log("UNPACKING search: ", search);
+    //console.log('UNPACKING search: ', search);
     const { page, query } = search;
 
     //console.log("UNPACKING page: ", page);
@@ -349,7 +349,7 @@ export function getAssetDataPromise(kmapid) {
             return;
         }
 
-        //console.log("getAssetDataPromise(): Calling axios:");
+        //console.log('getAssetDataPromise(): Calling axios:');
         axios
             .request(request)
             .then((res) => {
@@ -373,7 +373,7 @@ export function getFullKmapDataPromise(kmapid) {
     const startRec = 0;
     const rowsRec = 1;
 
-    // console.log( "getFullKmapDataPromise: kmapid = ", kmapid );
+    //console.log('getFullKmapDataPromise: kmapid = ', kmapid);
 
     const request = {
         adapter: jsonpAdapter,
@@ -431,7 +431,7 @@ function cleanKmapData(data) {
 }
 
 export function getRelatedAssetsPromise(kmapid, type, start, rows) {
-    //console.log("getRelatedAssetsPromise() Promising: ", arguments);
+    //console.log('getRelatedAssetsPromise() Promising: ', arguments);
     const host = 'ss251856-us-east-1-aws.measuredsearch.com';
     const index = 'kmassets_dev';
     const selectUrl = 'https://' + host + '/solr/' + index + '/select';

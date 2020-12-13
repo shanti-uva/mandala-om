@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import FancyTree from '../../FancyTree';
+//import FancyTree from '../../FancyTree';
 import HistoryViewer from '../../History/HistoryViewer';
 import './RelatedsViewer.scss';
 
@@ -104,8 +104,8 @@ export function RelatedsViewer(props) {
                     </div>
                     <HistoryViewer />
                 </section>
-
-                <section className="l-terms__tree__wrap">
+                {/*gk3k: TODO: Removing this for now. Can add later if needed. */}
+                {/* <section className="l-terms__tree__wrap">
                     <div className="u-related__list__header">Browse Terms</div>
                     <FancyTree
                         domain="terms"
@@ -117,7 +117,7 @@ export function RelatedsViewer(props) {
                         view="roman.scholar"
                         sortBy="position_i+ASC"
                     />
-                </section>
+                </section> */}
             </div>
         </aside>
     );
