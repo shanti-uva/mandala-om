@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-//import FancyTree from '../../FancyTree';
+import FancyTree from '../../FancyTree';
 import HistoryViewer from '../../History/HistoryViewer';
 import './RelatedsViewer.scss';
 
