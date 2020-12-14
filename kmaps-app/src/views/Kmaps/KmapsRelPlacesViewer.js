@@ -251,14 +251,19 @@ export function PlacesRelPlacesViewer(props) {
 
 function PlaceRelPlaceFtColumns(props) {
     const childs = props?.children;
-    const chchunks = chunkIt(childs, 25);
+    const chchunks = chunkIt(childs, 4);
     const chcols = chchunks.map((chchunk, chki) => {
         return (
             <Col>
                 {chchunk.map((feattype, cdi) => {
+                    if (!feattype?.label || feattype.label === '') {
+                        return null;
+                    }
                     return (
                         <div>
-                            <h3>{feattype.label}</h3>
+                            <h3 className={'text-capitalize'}>
+                                {feattype.label}
+                            </h3>
                             <ul>
                                 {feattype.children.map((clitem, cli) => {
                                     if (clitem?.related_uid_s?.includes('-')) {
@@ -284,16 +289,18 @@ function PlaceRelPlaceFtColumns(props) {
     return <>{chcols}</>;
 }
 
-function chunkIt(list, size) {
+function chunkIt(list, num_of_chunks) {
     if (
         typeof list === 'undefined' ||
         list.length < 1 ||
-        typeof size === 'undefined' ||
-        size < 1
+        typeof num_of_chunks === 'undefined' ||
+        isNaN(num_of_chunks) ||
+        num_of_chunks < 1
     ) {
         return list;
     }
     const chunks = [];
+    const size = 25;
     while (list.length) {
         const chunk = list.splice(0, size);
         chunks.push(chunk);
