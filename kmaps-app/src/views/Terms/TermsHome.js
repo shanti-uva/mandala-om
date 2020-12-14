@@ -7,7 +7,7 @@ export function TermsHome(props) {
     useEffect(() => {
         status.clear();
         status.setHeaderTitle('Terms Home');
-    });
+    }, [status]);
 
     return <> Terms Home: Not much here yet.. </>;
 }

@@ -11,6 +11,7 @@ import {
 import { search } from '../logic/searchapi';
 import { StoreModel } from './StoreModel';
 import localForage from 'localforage';
+import _ from 'lodash';
 
 interface Results {
     numFound: number | number;
@@ -194,25 +195,35 @@ export const searchModel: SearchModel = {
     update: thunk(async (actions, payload, helpers) => {
         const searchState = helpers.getStoreState().search;
 
-        searchState.loadingState = true;
-        //         console.log('SEARCH START');
-        performance.mark('SearchModelSearchUpdateThunkStart');
-        const results = await search(searchState);
-        //         console.log('SEARCH DONE');
-        performance.mark('SearchModelSearchUpdateThunkEnd');
-        performance.measure(
-            'SearchModelSearchUpdate',
-            'SearchModelSearchUpdateThunkStart',
-            'SearchModelSearchUpdateThunkEnd'
-        );
+        //TODO: gk3k. If this is true, the search call happens multiple times.
+        //We need to fix this and prevent the multiple calls.
+        if (!_.isEmpty(searchState.query.searchText)) {
+            //console.log('SearchState', searchState);
+            //console.log('SearchStateActions', actions);
 
-        const perf = performance.getEntriesByName('SearchModelSearchUpdate');
-        perf.forEach((x) => {
-            // console.log('SearchModelSearchUpdate duration: ' + x.duration);
-        });
-        performance.clearMeasures();
+            searchState.loadingState = true;
+            //         console.log('SEARCH START');
+            performance.mark('SearchModelSearchUpdateThunkStart');
+            const results = await search(searchState);
+            console.log('SearchStateResults', results);
+            //         console.log('SEARCH DONE');
+            performance.mark('SearchModelSearchUpdateThunkEnd');
+            performance.measure(
+                'SearchModelSearchUpdate',
+                'SearchModelSearchUpdateThunkStart',
+                'SearchModelSearchUpdateThunkEnd'
+            );
 
-        actions.receiveResults(results);
+            const perf = performance.getEntriesByName(
+                'SearchModelSearchUpdate'
+            );
+            perf.forEach((x) => {
+                // console.log('SearchModelSearchUpdate duration: ' + x.duration);
+            });
+            performance.clearMeasures();
+
+            actions.receiveResults(results);
+        }
     }),
 
     receiveResults: action((state, results) => {

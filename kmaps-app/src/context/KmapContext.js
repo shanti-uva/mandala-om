@@ -128,12 +128,13 @@ export default function KmapContext(props) {
     };
 
     // Added by ndg, 11/9/20, TODO: check that this doesn't override any other setTypes in kmaps
-    useEffect(() => {
-        if (props.assetType && props.assetType !== '') {
-            status.setType(props.assetType);
-            status.setHeaderTitle('Loading ...');
-        }
-    }, [props.assetType]);
+    // gk3k 12/11/2020, Optimizing and removing items that cause re-renders.
+    // useEffect(() => {
+    //     if (props.assetType && props.assetType !== '') {
+    //         status.setType(props.assetType);
+    //         status.setHeaderTitle('Loading ...');
+    //     }
+    // }, [props.assetType, status]);
 
     useEffect(() => {
         if (id) {
@@ -144,7 +145,14 @@ export default function KmapContext(props) {
                 pageSize: relatedPageSize,
             });
         }
-    }, [id, relatedType, relatedPage, relatedPageSize]);
+    }, [
+        id,
+        relatedType,
+        relatedPage,
+        relatedPageSize,
+        setUid,
+        setRelatedsPage,
+    ]);
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {
@@ -160,5 +168,6 @@ export default function KmapContext(props) {
             return child;
         }
     });
+    //console.log('TermsAudioPlayerCtx', ret_children);
     return ret_children;
 }

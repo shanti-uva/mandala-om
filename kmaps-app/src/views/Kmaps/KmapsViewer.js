@@ -37,7 +37,7 @@ export default function KmapsViewer(props) {
     useEffect(() => {
         status.clear();
         status.setHeaderTitle('Loading ...');
-    }, []);
+    }, [status]);
 
     const queryParams = new URLSearchParams(useLocation().search);
 
@@ -70,6 +70,9 @@ export default function KmapsViewer(props) {
             case 'terms':
             case 'places':
                 viewer = <KmapsViewer />;
+                break;
+            default:
+                viewer = <span>No defined viewer</span>;
                 break;
         }
 

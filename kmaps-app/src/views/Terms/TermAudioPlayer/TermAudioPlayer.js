@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useRef, useState } from 'react';
 import './TermAudioPlayer.css';
 
-function TermAudioPlayer(props) {
+const TermAudioPlayer = React.memo(function (props) {
     const audioRefs = _.filter(props.kmap?._childDocuments_, (x) => {
         return x.block_child_type === 'terms_recording';
     });
@@ -46,7 +46,11 @@ function TermAudioPlayer(props) {
 
     return (
         <div className="c-audioPlayer">
-            <audio src={audioUrl} ref={(ref) => (player.current = ref)} />
+            <audio
+                preload="none"
+                src={audioUrl}
+                ref={(ref) => (player.current = ref)}
+            />
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -57,6 +61,6 @@ function TermAudioPlayer(props) {
             </form>
         </div>
     );
-}
+});
 
 export default TermAudioPlayer;
