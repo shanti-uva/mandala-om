@@ -1,174 +1,129 @@
-import React, { useRef, useState } from 'react';
-import { useKmap } from '../../hooks/useKmap';
-// import { ReactQueryDevtools } from 'react-query-devtools';
-import { Overlay, Popover, Container, Col, Row } from 'react-bootstrap';
+import React, { useState, useRef } from 'react';
+import { Overlay, Popover } from 'react-bootstrap';
+import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
+import { useKmap } from '../../hooks/useKmap';
 
-/**
- * Mandala popover is component that displays a kmap term with the popover icon that shows the popover on hover.
- * It takes two or three properties:
- *      uid: the full kmaps uid of domain dash id, e.g. places-637
- *              OR
- *      domain: The kmap domain--subjects, places, terms (if uid is provided this will be overridden)
- *      kid: The numberic kmaps id for the item in that domain (if uid is provided this will be overridden)
- *
- *      placement: (optional) where to place the popover relative to the icon, defaults to 'below'.
- *                 Other values are: 'top', 'right', and 'left'.
- *
- *      Example:   <MandalaPopover
- *                      domain="subjects"
- *                      kid="8260"
- *                  />
- *
- *  Styling instructions for Popovers are in: ./views/css/Popover.scss which is included by call in App.js
- * @param props
- * @returns {*}
- * @constructor
- */
-export function MandalaPopover(props) {
-    //console.log("mandala popover props", props);
-    // Basic Hooks
+const MandalaPopover = ({ domain, kid, placement, kmapid, children }) => {
     const [show, setShow] = useState(false);
-    const target = useRef(null);
+    const [byPass, setByPass] = useState(true);
 
-    // Props
-
-    const uid = props?.uid;
-    const domain = uid ? uid.split('-').shift() : props.domain;
-    const kid = uid ? uid.split('-').pop() : props.kid;
-    const placement = props.placement ? props.placement : 'bottom';
-    const kmkey = props.mykey;
-    const kmapid = props?.kmapid; // an asset solrdoc's kmapids from a tagged asset to add definitions for terms
-    let defs = false;
-    if (domain === 'terms' && kmapid && kmapid.length > 0) {
-        defs = kmapid.filter((kmid) => kmid.includes(`-${kid}_definitions`));
-        defs = defs.map((kmid) => {
-            return kmid.split('_definitions-')[1];
-        });
-    }
-    return <span>km loading...</span>;
-    /*
-    // Query Custom Hooks (see hooks/useKmaps.js)
     // Info for Kmap Itself: kmapRes
-    const {
-        isLoading: kmapIsLoading,
-        isError: kmapIsError,
-        data: kmapRes,
-        error: kmapError,
-    } = useKmap(domain, kid, 'info');
-
-    //console.log("kmap res:  " + domain + "-" + kid, kmapRes);
-
+    const { isError: kmapIsError, data: kmapRes, error: kmapError } = useKmap(
+        domain,
+        kid,
+        'info',
+        byPass
+    );
     // Info of Related Kmaps/Assets: relRes
-    const {
-        isLoading: relIsLoading,
-        isError: relIsError,
-        data: relRes,
-        error: relError,
-    } = useKmap(domain, kid, 'related');
-
-    if (kmapIsLoading || relIsLoading) {
-        return <span>Loading ....</span>;
-    }
-    if (kmapIsError || relIsError) {
-        console.error(kmapIsError ? kmapError : relError);
-        return <span className={'red'}>Error occurred ....</span>;
-    }
-    //console.log('kmapdata', kmapRes);
-    const kmapdata = kmapRes;
-    const related = relRes;
-
-    if (!kmapdata || !related) {
-        return <>No data!</>;
-    }
-    const isTib = kmapdata.tree == 'terms' && kmapdata.name_tibt;
-    const myhead = isTib ? kmapdata.name_tibt[0] : kmapdata.header;
-    let popoverLabel = '';
-    let defspan = '';
-    if (defs && defs.length > 0) {
-        defspan = (
-            <span className={'definitions'}>
-                (
-                {defs.map((defn) => {
-                    return (
-                        <Link
-                            to={`/${domain}/${domain}-${kid}?def=${defn}`}
-                            title={`Definition ${defn}`}
-                        >
-                            {defn}
-                        </Link>
-                    );
-                })}
-                )
-            </span>
-        );
-    }
-
-    if (props.children) {
-        popoverLabel = (
-            <span
-                className="popover-link-custom"
-                ref={target}
-                onMouseOver={() => setShow(true)}
-                onMouseOut={() => setShow(false)}
-            >
-                {props.children}
-            </span>
-        );
-    } else {
-        popoverLabel = (
-            <>
-                <span className={isTib ? 'u-bo' : ''}>{myhead}</span>
-                {defspan}
-                <span
-                    className="popover-link"
-                    ref={target}
-                    onMouseOver={() => setShow(true)}
-                    onMouseOut={() => setShow(false)}
-                >
-                    <span className="icon u-icon__kmaps-popover" />
-                </span>
-            </>
-        );
-    }
-
-    // JSX
-    return (
-        <span
-            key={kmkey}
-            className="kmap-tag-group processed"
-            data-kmdomain={domain}
-            data-kmid={kid}
-        >
-            {popoverLabel}
-            <Overlay target={target.current} show={show} placement={placement}>
-                <Popover
-                    data-kmid={kid}
-                    className={'related-resources-popover processed'}
-                    onMouseOver={() => setShow(true)}
-                    onMouseOut={() => setShow(false)}
-                >
-                    <Popover.Title as="h5" className={isTib ? 'bo' : ''}>
-                        {myhead} <span className={'kmid'}>{kid}</span>
-                    </Popover.Title>
-                    <Popover.Content>
-                        <MandalaPopoverBody
-                            domain={domain}
-                            kid={kid}
-                            defs={defs}
-                            info={kmapdata}
-                            related={related}
-                        />
-                    </Popover.Content>
-                </Popover>
-            </Overlay>
-        </span>
+    const { isError: relIsError, data: relRes, error: relError } = useKmap(
+        domain,
+        kid,
+        'related',
+        byPass
     );
 
-*/
-}
+    const target = useRef(null);
+    placement = placement ?? 'bottom';
+    let isTib = false;
+
+    const showPop = (event) => {
+        setByPass(false);
+        setShow(true);
+    };
+
+    let title = <Skeleton />;
+
+    let content = (
+        <div style={{ width: '100%' }}>
+            <p style={{ fontSize: 16, lineHeight: 1.2 }}>
+                <Skeleton count={8} />
+            </p>
+        </div>
+    );
+
+    if (kmapRes && relRes) {
+        let defs = false;
+        if (domain === 'terms' && kmapid && kmapid.length > 0) {
+            defs = kmapid.filter((kmid) =>
+                kmid.includes(`-${kid}_definitions`)
+            );
+            defs = defs.map((kmid) => {
+                return kmid.split('_definitions-')[1];
+            });
+        }
+
+        isTib = kmapRes.tree === 'terms' ? !!kmapRes.name_tibt : false;
+        title = isTib ? kmapRes.name_tibt[0] : kmapRes.header;
+        content = (
+            <MandalaPopoverBody
+                domain={domain}
+                kid={kid}
+                defs={defs}
+                info={kmapRes}
+                related={relRes}
+                kmapIsError={kmapIsError}
+                relIsError={relIsError}
+            />
+        );
+    }
+
+    if (kmapIsError || relIsError) {
+        title = <span>Error occurred</span>;
+        let error1 = '';
+        let error2 = '';
+        if (kmapIsError) {
+            error1 = <div>Error: {kmapError.message}</div>;
+        }
+        if (relIsError) {
+            error2 = <div>Error: {relError.message}</div>;
+        }
+        content = (
+            <span>
+                {error1}
+                {error2}
+            </span>
+        );
+    }
+
+    return (
+        <>
+            <span
+                data-kmdomain={domain}
+                data-kmid={kid}
+                className="d-inline-flex align-items-center kmap-tag-group"
+            >
+                {children}
+            </span>
+            <span onMouseEnter={showPop} onMouseLeave={() => setShow(false)}>
+                <span ref={target} className="popover-link">
+                    <span className="icon u-icon__kmaps-popover" />
+                </span>
+                <Overlay
+                    target={target.current}
+                    placement={placement}
+                    show={show}
+                >
+                    <Popover
+                        id="popover-contained"
+                        className="related-resources-popover processed"
+                    >
+                        <Popover.Title as="h5" className={isTib ? 'bo' : ''}>
+                            {title} <span className={'kmid'}>{kid}</span>
+                        </Popover.Title>
+                        <Popover.Content>{content}</Popover.Content>
+                    </Popover>
+                </Overlay>
+            </span>
+        </>
+    );
+};
 
 function MandalaPopoverBody(props) {
+    if (props.kmapIsError || props.relIsError) {
+        console.error(props.kmapIsError ? props.kmapError : props.relError);
+        return <span className={'red'}>Error occurred ....</span>;
+    }
     const kminfo = props.info;
     //console.log(kminfo);
     const related = props.related;
@@ -221,11 +176,11 @@ function MandalaPopoverBody(props) {
     // Ancestors
     let ancestors = '';
     const ancestor_ids =
-        kminfo.tree == 'terms' && kminfo['ancestor_ids_tib.alpha']
+        kminfo.tree === 'terms' && kminfo['ancestor_ids_tib.alpha']
             ? kminfo['ancestor_ids_tib.alpha']
             : kminfo.ancestor_ids_generic;
     const ancestor_labels =
-        kminfo.tree == 'terms' && kminfo['ancestors_tib.alpha']
+        kminfo.tree === 'terms' && kminfo['ancestors_tib.alpha']
             ? kminfo['ancestors_tib.alpha']
             : kminfo.ancestors;
     if (ancestor_ids && ancestor_ids.length > 1) {
@@ -235,7 +190,7 @@ function MandalaPopoverBody(props) {
                 <p>
                     <strong>{anclabel}</strong>&nbsp;
                     {ancestor_ids.map((aid, index) => {
-                        if (index == ancestor_ids.length - 1) {
+                        if (index === ancestor_ids.length - 1) {
                             return;
                         } // Don't show self in ancestry list
                         const aurl =
@@ -261,7 +216,7 @@ function MandalaPopoverBody(props) {
 
     // Term Information
     let term_info = '';
-    if (kminfo.tree == 'terms' && kminfo.associated_subject_ids) {
+    if (kminfo.tree === 'terms' && kminfo.associated_subject_ids) {
         term_info = (
             <>
                 <div className="other">
@@ -288,10 +243,10 @@ function MandalaPopoverBody(props) {
         <>
             {related.map((item, index) => {
                 const assettype = item.groupValue;
-                if (assettype == 'picture') {
+                if (assettype === 'picture') {
                     return;
                 }
-                if (assettype == 'texts:pages') {
+                if (assettype === 'texts:pages') {
                     return;
                 }
                 const myurl =
@@ -361,193 +316,4 @@ function MandalaPopoverBody(props) {
     );
 }
 
-/**
- * A test function returned from the path in ContentMain.js. Path is: /poptest/{domain}/{kid}
- *
- * @param props
- * @returns {*}
- * @constructor
- */
-export function MandalaPopoverTest(props) {
-    const domain = props.match.params.dom;
-    const kid = props.match.params.kid;
-    const kdata = useKmap(domain, kid, 'info');
-    const kmapdata = JSON.stringify(kdata, null, 4);
-    const placement = props.placement ? props.placement : 'bottom';
-    const testdivstyle = {
-        margin: '20px',
-        border: 'thin dashed green',
-        padding: '15px',
-        backgroundColor: '#e1eff3',
-        maxWidth: '98vw',
-    };
-    const base_url = process.env.PUBLIC_URL + '/poptest/{}';
-    return (
-        <>
-            <Container fluid id={'mptestdiv'} style={testdivstyle}>
-                <Row>
-                    <h1 style={{ marginLeft: '10px' }}>
-                        Mandala Popover React Test
-                    </h1>
-                </Row>
-                <Row>
-                    <Col md={'4'}>
-                        <p>
-                            We’re rolling along in the text, when we cite a kamp
-                            term,
-                            <MandalaPopover
-                                domain={domain}
-                                kid={kid}
-                                placement={placement}
-                            />{' '}
-                            Magnis turpis inceptos nostrud malesuada, faucibus
-                            excepteur modi laboriosam, commodi suscipit viverra?
-                        </p>
-                        <p>
-                            Now this is the mandala inline popover test:{' '}
-                            <MandalaPopover
-                                domain={'subjects'}
-                                kid={'442'}
-                                placement={placement}
-                            >
-                                <PopTestComp label={'Bologna'} type={'fire'} />
-                            </MandalaPopover>{' '}
-                            The whale has no famous author, and whaling no
-                            famous chronicler, you will say.{' '}
-                            <MandalaPopover
-                                domain={'subjects'}
-                                kid={'4481'}
-                                placement={'top'}
-                            >
-                                <PopTestComp
-                                    label={'housewife'}
-                                    type={'zelda'}
-                                />
-                            </MandalaPopover>{' '}
-                            The Pequod had now swept so nigh to the stranger,
-                            that Stubb vowed he recognised his cutting
-                            spade-pole entangled in the lines that were knotted
-                            round the tail of one of these whales.{' '}
-                            <MandalaPopover
-                                domain={'subjects'}
-                                kid={'2191'}
-                                placement={'right'}
-                            >
-                                <PopTestComp
-                                    label={'what’s right?'}
-                                    type={'tree'}
-                                />
-                            </MandalaPopover>{' '}
-                        </p>
-                        <p>
-                            Faucibus excepteur modi laboriosam, commodi suscipit
-                            viverra?
-                            <MandalaPopover
-                                domain={'terms'}
-                                kid={'85193'}
-                                placement={'top'}
-                            />{' '}
-                            Duis amet. Suspendisse numquam? Incididunt mollitia,
-                            perspiciatis penatibus.
-                        </p>
-                        <p>Other well-known kmaps:</p>
-                        <ul>
-                            <li>
-                                <a href={base_url.replace('{}', 'places/637')}>
-                                    Lhasa
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href={base_url.replace(
-                                        '{}',
-                                        'subjects/8260'
-                                    )}
-                                >
-                                    Bhutan Cultural Library
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href={base_url.replace('{}', 'terms/85193')}
-                                    className={'bo'}
-                                >
-                                    ཐོད་རྒལ་
-                                </a>
-                            </li>
-                        </ul>
-                    </Col>
-                    <Col md={'8'}>
-                        <button
-                            id="showbutt"
-                            onClick={() => {
-                                const me = document.getElementById('showbutt');
-                                const prel = document.getElementById('precode');
-                                if (prel.style.display == 'none') {
-                                    prel.style.display = 'block';
-                                    me.innerText = 'Hide Kmaps Data';
-                                } else {
-                                    prel.style.display = 'none';
-                                    me.innerText = 'Show Kmaps Data';
-                                }
-                            }}
-                        >
-                            Show Kmaps Data
-                        </button>
-                        <pre
-                            id="precode"
-                            style={{
-                                display: 'none',
-                                border: 'thick outset lightblue',
-                                padding: '10px',
-                                backgroundColor: 'white',
-                                fontFamily: 'verdana',
-                                fontSize: '10pt',
-                            }}
-                        >
-                            {kmapdata}
-                        </pre>
-                    </Col>
-                </Row>
-            </Container>
-            {/* <ReactQueryDevtools initialIsOpen />*/}
-        </>
-    );
-}
-
-function PopTestComp(props) {
-    const label = props.label;
-    const imgs = {
-        rose: 'https://www.gstatic.com/webp/gallery3/1.sm.png',
-        fire: 'https://www.gstatic.com/webp/gallery/5.sm.jpg',
-        valley: 'https://www.gstatic.com/webp/gallery/1.sm.jpg',
-        rapids: 'https://www.gstatic.com/webp/gallery/2.sm.jpg',
-        peppers: 'https://homepages.cae.wisc.edu/~ece533/images/peppers.png',
-        zelda: 'https://homepages.cae.wisc.edu/~ece533/images/zelda.png',
-        tree: 'https://www.gstatic.com/webp/gallery/4.sm.jpg',
-        error:
-            'https://cdn.freshdesignweb.com/wp-content/uploads/site/Free-404-Error-Page-Responsive-website-Template.jpg',
-    };
-    const imgtype = props.type in imgs ? props.type : 'error';
-
-    return (
-        <div className={'inline'}>
-            <span
-                style={{
-                    fontStyle: 'italic',
-                    color: 'blue',
-                    paddingRight: '2px',
-                }}
-            >
-                {label}
-            </span>
-            <img
-                src={imgs[imgtype]}
-                style={{
-                    height: '80px',
-                    display: 'inline',
-                }}
-            />
-        </div>
-    );
-}
+export { MandalaPopover };
