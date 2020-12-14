@@ -22,7 +22,10 @@ import { SourcesViewer } from '../Sources/SourcesViewer';
 import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
 import { KmapsRelatedsViewer } from './KmapsRelatedsViewer';
-import { KmapsRelPlacesViewer } from './KmapsRelPlacesViewer';
+import {
+    SubjectsRelPlacesViewer,
+    PlacesRelPlacesViewer,
+} from './KmapsRelPlacesViewer';
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);
@@ -193,7 +196,16 @@ export default function KmapsViewer(props) {
 
                         <Route path={'/subjects/:id/related-places'}>
                             <NodeHeader {...props} kmasset={props.kmasset} />
-                            <KmapsRelPlacesViewer {...props} />
+                            <SubjectsRelPlacesViewer {...props} />
+                        </Route>
+
+                        <Redirect
+                            from={'/places/:id/related-places/:view'}
+                            to={'/places/:id/related-places'}
+                        />
+                        <Route path={'/places/:id/related-places'}>
+                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <PlacesRelPlacesViewer {...props} />
                         </Route>
 
                         <Route

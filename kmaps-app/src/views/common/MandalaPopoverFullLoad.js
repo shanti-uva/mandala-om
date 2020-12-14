@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
  * @returns {*}
  * @constructor
  */
-export function MandalaPopover(props) {
+export function MandalaPopoverFullLoad(props) {
     //console.log("mandala popover props", props);
     // Basic Hooks
     const [show, setShow] = useState(false);
@@ -161,7 +161,7 @@ export function MandalaPopover(props) {
                         {myhead} <span className={'kmid'}>{kid}</span>
                     </Popover.Title>
                     <Popover.Content>
-                        <MandalaPopoverBody
+                        <MandalaPopoverFullLoadBody
                             domain={domain}
                             kid={kid}
                             defs={defs}
@@ -177,7 +177,7 @@ export function MandalaPopover(props) {
     );
 }
 
-function MandalaPopoverBody(props) {
+function MandalaPopoverFullLoadBody(props) {
     if (props.kmapIsError || props.relIsError) {
         console.error(props.kmapIsError ? props.kmapError : props.relError);
         return <span className={'red'}>Error occurred ....</span>;
@@ -370,197 +370,6 @@ function MandalaPopoverBody(props) {
                 </div>
                 {related_tabs}
             </div>
-        </div>
-    );
-}
-
-/**
- * A test function returned from the path in ContentMain.js. Path is: /poptest/{domain}/{kid}
- *
- * @param props
- * @returns {*}
- * @constructor
- */
-export function MandalaPopoverTest(props) {
-    const domain = props.match.params.dom;
-    const kid = props.match.params.kid;
-    const kdata = useKmap(domain, kid, 'info');
-    const kmapdata = JSON.stringify(kdata, null, 4);
-    const placement = props.placement ? props.placement : 'bottom';
-    const testdivstyle = {
-        margin: '20px',
-        border: 'thin dashed green',
-        padding: '15px',
-        backgroundColor: '#e1eff3',
-        maxWidth: '98vw',
-    };
-    const base_url = process.env.PUBLIC_URL + '/poptest/{}';
-    return (
-        <>
-            <Container fluid id={'mptestdiv'} style={testdivstyle}>
-                <Row>
-                    <h1 style={{ marginLeft: '10px' }}>
-                        Mandala Popover React Test
-                    </h1>
-                </Row>
-                <Row>
-                    <Col md={'4'}>
-                        <p>
-                            We’re rolling along in the text, when we cite a kamp
-                            term,
-                            <MandalaPopover
-                                domain={domain}
-                                kid={kid}
-                                placement={placement}
-                            />{' '}
-                            Magnis turpis inceptos nostrud malesuada, faucibus
-                            excepteur modi laboriosam, commodi suscipit viverra?
-                        </p>
-                        <p>
-                            Now this is the mandala inline popover test:{' '}
-                            <MandalaPopover
-                                domain={'subjects'}
-                                kid={'442'}
-                                placement={placement}
-                            >
-                                <PopTestComp label={'Bologna'} type={'fire'} />
-                            </MandalaPopover>{' '}
-                            The whale has no famous author, and whaling no
-                            famous chronicler, you will say.{' '}
-                            <MandalaPopover
-                                domain={'subjects'}
-                                kid={'4481'}
-                                placement={'top'}
-                            >
-                                <PopTestComp
-                                    label={'housewife'}
-                                    type={'zelda'}
-                                />
-                            </MandalaPopover>{' '}
-                            The Pequod had now swept so nigh to the stranger,
-                            that Stubb vowed he recognised his cutting
-                            spade-pole entangled in the lines that were knotted
-                            round the tail of one of these whales.{' '}
-                            <MandalaPopover
-                                domain={'subjects'}
-                                kid={'2191'}
-                                placement={'right'}
-                            >
-                                <PopTestComp
-                                    label={'what’s right?'}
-                                    type={'tree'}
-                                />
-                            </MandalaPopover>{' '}
-                        </p>
-                        <p>
-                            Faucibus excepteur modi laboriosam, commodi suscipit
-                            viverra?
-                            <MandalaPopover
-                                domain={'terms'}
-                                kid={'85193'}
-                                placement={'top'}
-                            />{' '}
-                            Duis amet. Suspendisse numquam? Incididunt mollitia,
-                            perspiciatis penatibus.
-                        </p>
-                        <p>Other well-known kmaps:</p>
-                        <ul>
-                            <li>
-                                <a href={base_url.replace('{}', 'places/637')}>
-                                    Lhasa
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href={base_url.replace(
-                                        '{}',
-                                        'subjects/8260'
-                                    )}
-                                >
-                                    Bhutan Cultural Library
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href={base_url.replace('{}', 'terms/85193')}
-                                    className={'bo'}
-                                >
-                                    ཐོད་རྒལ་
-                                </a>
-                            </li>
-                        </ul>
-                    </Col>
-                    <Col md={'8'}>
-                        <button
-                            id="showbutt"
-                            onClick={() => {
-                                const me = document.getElementById('showbutt');
-                                const prel = document.getElementById('precode');
-                                if (prel.style.display == 'none') {
-                                    prel.style.display = 'block';
-                                    me.innerText = 'Hide Kmaps Data';
-                                } else {
-                                    prel.style.display = 'none';
-                                    me.innerText = 'Show Kmaps Data';
-                                }
-                            }}
-                        >
-                            Show Kmaps Data
-                        </button>
-                        <pre
-                            id="precode"
-                            style={{
-                                display: 'none',
-                                border: 'thick outset lightblue',
-                                padding: '10px',
-                                backgroundColor: 'white',
-                                fontFamily: 'verdana',
-                                fontSize: '10pt',
-                            }}
-                        >
-                            {kmapdata}
-                        </pre>
-                    </Col>
-                </Row>
-            </Container>
-            {/* <ReactQueryDevtools initialIsOpen />*/}
-        </>
-    );
-}
-
-function PopTestComp(props) {
-    const label = props.label;
-    const imgs = {
-        rose: 'https://www.gstatic.com/webp/gallery3/1.sm.png',
-        fire: 'https://www.gstatic.com/webp/gallery/5.sm.jpg',
-        valley: 'https://www.gstatic.com/webp/gallery/1.sm.jpg',
-        rapids: 'https://www.gstatic.com/webp/gallery/2.sm.jpg',
-        peppers: 'https://homepages.cae.wisc.edu/~ece533/images/peppers.png',
-        zelda: 'https://homepages.cae.wisc.edu/~ece533/images/zelda.png',
-        tree: 'https://www.gstatic.com/webp/gallery/4.sm.jpg',
-        error:
-            'https://cdn.freshdesignweb.com/wp-content/uploads/site/Free-404-Error-Page-Responsive-website-Template.jpg',
-    };
-    const imgtype = props.type in imgs ? props.type : 'error';
-
-    return (
-        <div className={'inline'}>
-            <span
-                style={{
-                    fontStyle: 'italic',
-                    color: 'blue',
-                    paddingRight: '2px',
-                }}
-            >
-                {label}
-            </span>
-            <img
-                src={imgs[imgtype]}
-                style={{
-                    height: '80px',
-                    display: 'inline',
-                }}
-            />
         </div>
     );
 }

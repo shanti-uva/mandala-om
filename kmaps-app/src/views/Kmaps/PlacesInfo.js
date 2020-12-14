@@ -180,10 +180,12 @@ export function PlacesLocation(props) {
             {altchild && altchild?.length > 0 && altchild[0]?.estimate_s && (
                 <p>
                     <span className={'altitude'}>↑ </span> <label>Alt</label>{' '}
-                    {altchild[0].estimate_s}
+                    {altchild &&
+                        altchild?.length > 0 &&
+                        altchild[0]?.estimate_s}
                 </p>
             )}
-            {!coords && altchild.length === 0 && (
+            {!coords && altchild && altchild?.length === 0 && (
                 <p>There is no location information for {props.kmap.header}</p>
             )}
         </div>
