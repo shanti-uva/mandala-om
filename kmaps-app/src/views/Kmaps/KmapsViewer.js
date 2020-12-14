@@ -199,6 +199,10 @@ export default function KmapsViewer(props) {
                             <SubjectsRelPlacesViewer {...props} />
                         </Route>
 
+                        <Redirect
+                            from={'/places/:id/related-places/:view'}
+                            to={'/places/:id/related-places'}
+                        />
                         <Route path={'/places/:id/related-places'}>
                             <NodeHeader {...props} kmasset={props.kmasset} />
                             <PlacesRelPlacesViewer {...props} />

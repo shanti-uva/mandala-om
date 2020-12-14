@@ -252,7 +252,6 @@ export function PlacesRelPlacesViewer(props) {
 function PlaceRelPlaceFtColumns(props) {
     const childs = props?.children;
     const chchunks = chunkIt(childs, 25);
-
     const chcols = chchunks.map((chchunk, chki) => {
         return (
             <Col>
@@ -265,6 +264,8 @@ function PlaceRelPlaceFtColumns(props) {
                                     if (clitem?.related_uid_s?.includes('-')) {
                                         return (
                                             <li>
+                                                {' '}
+                                                {clitem.related_places_header_s}
                                                 <MandalaPopover
                                                     uid={clitem.related_uid_s}
                                                 />
