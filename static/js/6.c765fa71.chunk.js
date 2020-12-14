@@ -1,0 +1,2 @@
+(this["webpackJsonpkmaps-app"]=this["webpackJsonpkmaps-app"]||[]).push([[6],{705:function(e,t,r){"use strict";r.r(t);var s=r(0),n=r.n(s),a=n.a.lazy((function(){return Promise.resolve().then(r.bind(null,117))}));t.default=function(e){return n.a.createElement(a,{domain:"subjects",tree:"subjects",descendants:!0,directAncestors:!1,displayPopup:!0,perspective:"gen",view:"roman.popular",sortBy:"header_ssort+ASC",currentFeatureId:e.currentFeatureId})}}}]);
+//# sourceMappingURL=6.c765fa71.chunk.js.map
