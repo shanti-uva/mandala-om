@@ -177,7 +177,7 @@ export function PlacesLocation(props) {
                     <label>Lat/Long</label> {coords}
                 </p>
             )}
-            {altchild && (
+            {altchild && altchild?.length > 0 && altchild[0].estimate_s && (
                 <p>
                     <span className={'altitude'}>↑ </span> <label>Alt</label>{' '}
                     {altchild[0].estimate_s}
