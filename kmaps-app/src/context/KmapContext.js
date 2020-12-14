@@ -136,23 +136,23 @@ export default function KmapContext(props) {
     //     }
     // }, [props.assetType, status]);
 
-    // useEffect(() => {
-    //     if (id) {
-    //         setUid(id);
-    //         setRelatedsPage({
-    //             related_type: relatedType,
-    //             page: relatedPage,
-    //             pageSize: relatedPageSize,
-    //         });
-    //     }
-    // }, [
-    //     id,
-    //     relatedType,
-    //     relatedPage,
-    //     relatedPageSize,
-    //     setUid,
-    //     setRelatedsPage,
-    // ]);
+    useEffect(() => {
+        if (id) {
+            setUid(id);
+            setRelatedsPage({
+                related_type: relatedType,
+                page: relatedPage,
+                pageSize: relatedPageSize,
+            });
+        }
+    }, [
+        id,
+        relatedType,
+        relatedPage,
+        relatedPageSize,
+        setUid,
+        setRelatedsPage,
+    ]);
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {

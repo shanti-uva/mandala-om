@@ -93,6 +93,7 @@ export default function KmapsViewer(props) {
     }, [props.kmasset?.uid, route]);
 
     let output = <div className="l-content__main__wrap">Loading...</div>;
+    console.log('props', props);
     if (props.kmasset && props.kmasset.asset_type) {
         output = (
             <section className="l-content__main__wrap">
