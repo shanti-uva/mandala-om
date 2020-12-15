@@ -98,7 +98,11 @@ export function SubjectsRelPlacesViewer(props) {
             if (pts.length === 2) {
                 return (
                     <li key={mykey}>
-                        <MandalaPopover domain={pts[0]} kid={pts[1]} />
+                        <MandalaPopover
+                            domain={pts[0]}
+                            kid={pts[1]}
+                            children={[item.header]}
+                        />
                     </li>
                 );
             }
@@ -107,7 +111,11 @@ export function SubjectsRelPlacesViewer(props) {
             const kid = Math.floor(item.uid_i / 100); // Remove 01 places suffix
             return (
                 <li key={mykey}>
-                    <MandalaPopover domain={item.tree} kid={kid} />
+                    <MandalaPopover
+                        domain={item.tree}
+                        kid={kid}
+                        children={[item.header]}
+                    />
                 </li>
             );
         }
