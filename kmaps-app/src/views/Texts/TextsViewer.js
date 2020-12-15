@@ -55,11 +55,6 @@ export function TextsViewer(props) {
 
     const status = useStatus();
 
-    if (ismain) {
-        status.clear();
-        status.setType('texts');
-    }
-
     // Effect to change banner and title if the viewer is the main component
     useEffect(() => {
         if (kmasset && ismain) {

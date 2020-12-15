@@ -135,7 +135,7 @@ export function SubjectsRelPlacesViewer(props) {
             <Row>
                 {$.map(chunks, function (chk, n) {
                     return (
-                        <Col md={2} key={`chunk-col-${n}`}>
+                        <Col md={3} key={`chunk-col-${n}`}>
                             <ul>{chk}</ul>
                         </Col>
                     );
