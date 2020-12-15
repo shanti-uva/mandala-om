@@ -6,6 +6,7 @@ const TermAudioPlayer = React.memo(function (props) {
     const audioRefs = _.filter(props.kmap?._childDocuments_, (x) => {
         return x.block_child_type === 'terms_recording';
     });
+    console.log('GerardKetumaAudio', audioRefs);
 
     const player = useRef();
     const defRecordingUrl = audioRefs[0]?.recording_url;
@@ -21,7 +22,7 @@ const TermAudioPlayer = React.memo(function (props) {
         setAudioUrl(e.target.value);
     };
 
-    const playButton = audioUrl ? (
+    const playButton = !_.isEmpty(audioUrl) ? (
         <>
             <button
                 className="c-audioPlayer__button"
@@ -40,9 +41,7 @@ const TermAudioPlayer = React.memo(function (props) {
                 </select>
             </div>
         </>
-    ) : (
-        'No Audio Available'
-    );
+    ) : null;
 
     return (
         <div className="c-audioPlayer">
