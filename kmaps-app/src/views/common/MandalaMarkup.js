@@ -24,9 +24,17 @@ function transform(node, index) {
         const kmpid = node.attribs['data-kmid'];
         const mykey =
             kmpdom + '-' + kmpid + '-' + Math.ceil(Math.random() * 10000);
-        return <MandalaPopover domain={kmpdom} kid={kmpid} key={mykey} />;
+        console.log('kmap node to get label', node);
+        return (
+            <MandalaPopover
+                domain={kmpdom}
+                kid={kmpid}
+                key={mykey}
+                children={[node.prev.data]}
+            />
+        );
     }
-    // Process popover icon imgs to convert to mandala popovers
+    // Process popover icon imgs to convert to mandala popovers (e.g., in AV record)
     else if (
         node.name === 'img' &&
         node.attribs &&
@@ -38,8 +46,13 @@ function transform(node, index) {
             /(places|subjects|terms)\-(\d+)/
         );
         if (mtchs) {
-            node.prev.data = '';
-            return <MandalaPopover domain={mtchs[1]} kid={mtchs[2]} />;
+            return (
+                <MandalaPopover
+                    domain={mtchs[1]}
+                    kid={mtchs[2]}
+                    children={[node.prev.data]}
+                />
+            );
         } else {
             return null;
         }
