@@ -154,7 +154,6 @@ export function RelatedsViewer(props) {
                 </section>
 
                 <section className="l-terms__tree__wrap">
-<<<<<<< Updated upstream
                     <div className="u-related__list__header">
                         Browse{' '}
                         <span className={'text-capitalize'}>
@@ -163,9 +162,6 @@ export function RelatedsViewer(props) {
                     </div>
 
                     {browse_tree}
-=======
-                    <div className="u-related__list__header">Browse Terms</div>
->>>>>>> Stashed changes
                 </section>
             </div>
         </aside>
