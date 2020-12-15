@@ -262,13 +262,13 @@ function PlaceRelPlaceFtColumns(props) {
     const chchunks = chunkIt(childs, 4);
     const chcols = chchunks.map((chchunk, chki) => {
         return (
-            <Col>
+            <Col key={`col-${chki}`}>
                 {chchunk.map((feattype, cdi) => {
                     if (!feattype?.label || feattype.label === '') {
                         return null;
                     }
                     return (
-                        <div>
+                        <div key={`col-${chki}-cat-${cdi}`}>
                             <h3 className={'text-capitalize'}>
                                 {feattype.label}
                             </h3>
@@ -276,7 +276,7 @@ function PlaceRelPlaceFtColumns(props) {
                                 {feattype.children.map((clitem, cli) => {
                                     if (clitem?.related_uid_s?.includes('-')) {
                                         return (
-                                            <li>
+                                            <li key={`clitem-${cli}`}>
                                                 {' '}
                                                 {clitem.related_places_header_s}
                                                 <MandalaPopover
