@@ -24,13 +24,23 @@ function transform(node, index) {
         const kmpid = node.attribs['data-kmid'];
         const mykey =
             kmpdom + '-' + kmpid + '-' + Math.ceil(Math.random() * 10000);
-        console.log('kmap node to get label', node);
+        let label = 'Loading ...';
+        if (
+            node?.children?.length > 0 &&
+            node.children[0]?.children.length > 0 &&
+            node.children[0].children[0]?.data
+        ) {
+            label = node.children[0].children[0].data;
+        } else {
+            label = 'Loading...';
+            console.log('Could not find label from popover node:', node);
+        }
         return (
             <MandalaPopover
                 domain={kmpdom}
                 kid={kmpid}
                 key={mykey}
-                children={[node.prev.data]}
+                children={[label]}
             />
         );
     }
@@ -46,6 +56,11 @@ function transform(node, index) {
             /(places|subjects|terms)\-(\d+)/
         );
         if (mtchs) {
+            let label = node?.prev?.data ? node.prev.data : false;
+            if (!label) {
+                label = 'Loading ...';
+                console.log('Could not find label from popover node:', node);
+            }
             return (
                 <MandalaPopover
                     domain={mtchs[1]}
