@@ -131,11 +131,10 @@ function FacetIcons(props) {
         filterIcons.push(selectedIcon);
     }
 
+    const altval =
+        state?.searchString?.length > 0 ? state.searchString : 'Facet Icon';
     return (
-        <span
-            className={'c-HistoryViewer__filterIcons'}
-            alt={'hooligans of virtue'}
-        >
+        <span className={'c-HistoryViewer__filterIcons'} alt={altval}>
             {filterIcons}
         </span>
     );

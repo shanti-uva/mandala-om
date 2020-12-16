@@ -153,41 +153,113 @@ export function fitDimensions(maxHeight, maxWidth, imgHeight, imgWidth) {
 }
 
 export function selectIcon(type) {
+    const mykey = `${type}-${Math.ceil(Math.random() * 10000)}`;
     const ICON_MAP = {
         'audio-video': (
-            <span className={'facetItem icon u-icon__audio-video'} />
+            <span
+                className={'facetItem icon u-icon__audio-video'}
+                key={`av-${mykey}`}
+            />
         ),
-        texts: <span className={'facetItem icon u-icon__texts'} />,
-        'texts:pages': <span className={'facetItem icon u-icon__texts'} />,
-        images: <span className={'facetItem icon u-icon__images'} />,
-        sources: <span className={'facetItem icon u-icon__sources'} />,
-        visuals: <span className={'facetItem icon u-icon__visuals'} />,
-        places: <span className={'facetItem icon u-icon__places'} />,
-        subjects: <span className={'facetItem icon u-icon__subjects'} />,
-        terms: <span className={'facetItem icon u-icon__terms'} />,
+        texts: (
+            <span
+                className={'facetItem icon u-icon__texts'}
+                key={`texts-${mykey}`}
+            />
+        ),
+        'texts:pages': (
+            <span
+                className={'facetItem icon u-icon__texts'}
+                key={`texts-pages-${mykey}`}
+            />
+        ),
+        images: (
+            <span
+                className={'facetItem icon u-icon__images'}
+                key={`images-${mykey}`}
+            />
+        ),
+        sources: (
+            <span
+                className={'facetItem icon u-icon__sources'}
+                key={`sources-${mykey}`}
+            />
+        ),
+        visuals: (
+            <span
+                className={'facetItem icon u-icon__visuals'}
+                key={`visuals-${mykey}`}
+            />
+        ),
+        places: (
+            <span
+                className={'facetItem icon u-icon__places'}
+                key={`places-${mykey}`}
+            />
+        ),
+        subjects: (
+            <span
+                className={'facetItem icon u-icon__subjects'}
+                key={`subjects-${mykey}`}
+            />
+        ),
+        terms: (
+            <span
+                className={'facetItem icon u-icon__terms'}
+                key={`terms-${mykey}`}
+            />
+        ),
         collections: (
-            <span className={'facetItem'}>
+            <span className={'facetItem'} key={`facetitem-${mykey}`}>
                 <ImStack />
             </span>
         ),
         asset_type: (
-            <span className={'facetItem'}>
+            <span className={'facetItem'} key={`facetitem2-${mykey}`}>
                 <BsCheckCircle />
             </span>
         ),
-        users: <span className={'facetItem icon u-icon__community'} />,
-        creator: <span className={'facetItem icon u-icon__agents'} />,
-        languages: <span className={'facetItem icon u-icon__comments-o'} />,
+        users: (
+            <span
+                className={'facetItem icon u-icon__community'}
+                key={`community-${mykey}`}
+            />
+        ),
+        creator: (
+            <span
+                className={'facetItem icon u-icon__agents'}
+                key={`agents-${mykey}`}
+            />
+        ),
+        languages: (
+            <span
+                className={'facetItem icon u-icon__comments-o'}
+                key={`comments-${mykey}`}
+            />
+        ),
         feature_types: (
-            <span className={'facetItem'}>
+            <span className={'facetItem'} key={`feattypes-${mykey}`}>
                 <BsMap />
             </span>
         ),
         associated_subjects: (
-            <span className={'facetItem icon u-icon__essays'} />
+            <span
+                className={'facetItem icon u-icon__essays'}
+                key={`essays-${mykey}`}
+            />
         ),
-        perspective: <span className={'facetItem icon u-icon__file-picture'} />,
-        search: <span className={'facetItem icon u-icon__search'} />,
+        perspective: (
+            <span
+                className={'facetItem icon u-icon__file-picture'}
+                key={`picture-${mykey}`}
+            />
+        ),
+        search: (
+            <span
+                className={'facetItem icon u-icon__search'}
+                key={`search-${mykey}`}
+            />
+        ),
     };
 
     return ICON_MAP[type];
