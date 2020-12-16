@@ -17,7 +17,7 @@ export function PlacesInfo(props) {
     useEffect(() => {
         // Move the Name wrapper into the Names tab for places
         if ($('.sui-nameEntry__wrapper').length > 0) {
-            $('.sui-nameEntry__wrapper').detach(); // remove the name div, which is replaced by PlacesNames below
+            $('.sui-nameEntry__wrapper').hide(); // hide the old name div
         }
         // useEffect as onLoad, get dimensions of map container and use to initialize the map
         setDimensions({
@@ -41,7 +41,7 @@ export function PlacesInfo(props) {
             </Tab>
             <Tab eventKey="names" title="Names">
                 <PlacesNames {...props} />
-                {/*  This probably goes in related subjects??
+                {/*  This probably goes in related subjects?? */}
                 <h3>Feature Types</h3>
                 <ul>
                     {kmasset?.feature_types_idfacet &&
@@ -60,7 +60,6 @@ export function PlacesInfo(props) {
                             );
                         })}
                 </ul>
-                */}
             </Tab>
             <Tab eventKey="location" title="Location">
                 <PlacesLocation {...props} />
