@@ -35,6 +35,9 @@ export function FeatureFoldOutViewer(props) {
     ) : (
         ''
     );
+    const itemlink = props?.inline
+        ? `./view/${currimg.id}?asset_type=${currimg.asset_type}`
+        : `/${currimg.asset_type}/${currimg.id}`;
     return (
         <>
             <span id={'fov-close'} className={'c-foviewer__close'}>
@@ -59,9 +62,7 @@ export function FeatureFoldOutViewer(props) {
                     <KmapsRow domain={'places'} data={currimg.places} />
                     <KmapsRow domain={'terms'} data={currimg.terms} />
                     <div className={'link'}>
-                        <Link
-                            to={`./view/${currimg.id}?asset_type=${currimg.asset_type}`}
-                        >
+                        <Link to={itemlink}>
                             Details{' '}
                             <span
                                 className={'u-icon__angle-double-right'}
@@ -110,13 +111,24 @@ function KmapsRow(props) {
 
     const kmaplinks = data.map((km, n) => {
         const pts = km.split('|');
-        const pts2 = pts && pts.length > 1 ? pts[1].split('-') : false;
-        const kid = pts2 && pts2.length > 1 ? pts2[1] : false;
-        if (!kid) {
-            return null;
+        if (pts.length > 1) {
+            const label = pts[0];
+            const pts2 = pts[1].split('-');
+            const kid = pts2.length > 1 ? pts2[1] : false;
+            if (kid) {
+                const mykey =
+                    domain + '-' + kid + Math.ceil(Math.random() * 10000);
+                return (
+                    <MandalaPopover
+                        domain={domain}
+                        kid={kid}
+                        children={[label]}
+                        key={mykey}
+                    />
+                );
+            }
         }
-        const mykey = domain + '-' + kid + Math.ceil(Math.random() * 10000);
-        return <MandalaPopover domain={domain} kid={kid} key={mykey} />;
+        return null;
     });
 
     return (

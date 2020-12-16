@@ -111,7 +111,6 @@ export function FeatureGallery(props) {
 
     // console.log('FeatureGallery');
     const docs = props.docs;
-
     let DEBUG_PRE = [];
     let LIST = [];
 
@@ -254,7 +253,10 @@ export function FeatureGallery(props) {
                 portalRootId={VIEWER_ID}
                 focus={focusedFeature?.photo}
             >
-                <FeatureFoldOutViewer focus={focusedFeature?.photo} />
+                <FeatureFoldOutViewer
+                    focus={focusedFeature?.photo}
+                    inline={props?.inline}
+                />
             </FeatureFoldOutPortal>
         </>
     );
