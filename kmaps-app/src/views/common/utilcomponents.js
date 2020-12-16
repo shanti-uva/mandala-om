@@ -85,7 +85,6 @@ export function KmapsFields(props) {
 
     let terms = termsorig?.und?.map((item, n) => {
         const mykey = 'kmterm-' + item.domain + '-' + item.id + '-' + n;
-        console.log('kmapid just before moved: ', kmapid);
         return (
             <MandalaPopover
                 key={mykey}
