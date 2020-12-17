@@ -151,23 +151,25 @@ export default function KmapContext(props) {
     // }, [props.assetType, status]);
 
     //gk3k: TODO: this is causing multiple re-renders. Disabling for now
-    // useEffect(() => {
-    //     if (id) {
-    //         setUid(id);
-    //         setRelatedsPage({
-    //             related_type: relatedType,
-    //             page: relatedPage,
-    //             pageSize: relatedPageSize,
-    //         });
-    //     }
-    // }, [
-    //     id,
-    //     relatedType,
-    //     relatedPage,
-    //     relatedPageSize,
-    //     setUid,
-    //     setRelatedsPage,
-    // ]);
+    // ndg8f: Gerard, setUid() is what causes the change of state for kmaps. CANNOT comment out. Or kmap pages do not load.
+    // TODO: Figure out how to reduce number of re-renders while still keeping this effect.
+    useEffect(() => {
+        if (id) {
+            setUid(id);
+            setRelatedsPage({
+                related_type: relatedType,
+                page: relatedPage,
+                pageSize: relatedPageSize,
+            });
+        }
+    }, [
+        id,
+        relatedType,
+        relatedPage,
+        relatedPageSize,
+        // setUid,  // ndg8f: Leaving this out at it seems circular and unnecessary
+        setRelatedsPage,
+    ]);
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {
