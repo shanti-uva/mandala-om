@@ -36,13 +36,11 @@ export function ContentMain(props) {
     const left = (
         <main className="l-column__main">
             <article id="l-column__main__wrap" className="l-column__main__wrap">
-                <KmapContext>
-                    <ContentHeader
-                        siteClass={siteClass}
-                        title={title}
-                        sui={props.sui}
-                    />
-                </KmapContext>
+                <ContentHeader
+                    siteClass={siteClass}
+                    title={title}
+                    sui={props.sui}
+                />
                 <div className="two-columns">
                     <section id="l-content__main" className="l-content__main">
                         <Switch>

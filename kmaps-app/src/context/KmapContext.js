@@ -62,7 +62,7 @@ export default function KmapContext(props) {
     }
 
     // Handle cases where the id is "full" or numeric  e.g "places-637" vs. "637"
-    const { id: requestId, relatedType } = useParams();
+    const { id: requestId, relatedType, definitionID } = useParams();
     let prefix = '';
     if (requestId && !requestId.match(/[a-z]\-\d+/)) {
         // console.log('KmapContext: requestId=', requestId);
@@ -76,6 +76,20 @@ export default function KmapContext(props) {
         getMaxPage: () => {
             if (!relateds.assets || !relateds.assets[relatedType]) {
                 return 1;
+            } else if (definitionID) {
+                // Filter docs to only show those that have the definitionID specified
+                //const defID = definitionID ?? 'any';
+                const docs = relateds.assets[relatedType];
+                let filteredDocs = docs;
+                if (definitionID !== 'any') {
+                    filteredDocs = docs.filter((doc) =>
+                        doc.kmapid.includes(definitionID)
+                    );
+                }
+                // Set counts
+                const maxCount = filteredDocs.count;
+                const maxPage = Math.floor((maxCount - 1) / relatedPageSize);
+                return maxPage;
             } else {
                 const maxCount = relateds.assets[relatedType].count;
                 const maxPage = Math.floor((maxCount - 1) / relatedPageSize);
@@ -136,23 +150,24 @@ export default function KmapContext(props) {
     //     }
     // }, [props.assetType, status]);
 
-    useEffect(() => {
-        if (id) {
-            setUid(id);
-            setRelatedsPage({
-                related_type: relatedType,
-                page: relatedPage,
-                pageSize: relatedPageSize,
-            });
-        }
-    }, [
-        id,
-        relatedType,
-        relatedPage,
-        relatedPageSize,
-        setUid,
-        setRelatedsPage,
-    ]);
+    //gk3k: TODO: this is causing multiple re-renders. Disabling for now
+    // useEffect(() => {
+    //     if (id) {
+    //         setUid(id);
+    //         setRelatedsPage({
+    //             related_type: relatedType,
+    //             page: relatedPage,
+    //             pageSize: relatedPageSize,
+    //         });
+    //     }
+    // }, [
+    //     id,
+    //     relatedType,
+    //     relatedPage,
+    //     relatedPageSize,
+    //     setUid,
+    //     setRelatedsPage,
+    // ]);
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {

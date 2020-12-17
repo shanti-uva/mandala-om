@@ -26,6 +26,7 @@ import {
     SubjectsRelPlacesViewer,
     PlacesRelPlacesViewer,
 } from './KmapsRelPlacesViewer';
+import TermsDefinitionsFilter from '../Terms/TermsDefinitionsFilter';
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);
@@ -93,7 +94,7 @@ export default function KmapsViewer(props) {
             status.setPath(superPath);
             status.setId(props.kmasset?.uid);
         }
-    }, [props.kmasset?.uid, route]);
+    }, [route, props.kmap, props.kmasset, status]);
 
     let output = <div className="l-content__main__wrap">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
@@ -209,11 +210,13 @@ export default function KmapsViewer(props) {
                         </Route>
 
                         <Route
-                            path={
-                                '/:viewerType/:id/related-:relatedType/:viewMode'
-                            }
+                            path={[
+                                `/:viewerType/:id/related-:relatedType/:definitionID/:viewMode`,
+                                `/:viewerType/:id/related-:relatedType/:viewMode`,
+                            ]}
                         >
-                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <NodeHeader {...props} />
+                            <TermsDefinitionsFilter {...props} />
                             <RelatedsGallery {...props} />
                         </Route>
 

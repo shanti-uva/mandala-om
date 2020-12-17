@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
-import { useHistory, useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import useAsset from '../../hooks/useAsset';
 import { grokId } from './utils';
