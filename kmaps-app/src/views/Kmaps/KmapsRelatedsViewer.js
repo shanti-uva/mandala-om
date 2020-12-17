@@ -38,6 +38,7 @@ export function KmapsRelatedsViewer(props) {
     const ispartof = [];
     const hasaspart = [];
     $.each(kmap?._childDocuments_, function (cdn, cd) {
+        // console.log("cd",cd);
         const relsub = cd?.related_uid_s?.split('-');
         if (!relsub || relsub.length !== 2) {
             return;
@@ -45,12 +46,20 @@ export function KmapsRelatedsViewer(props) {
         const relcode = cd?.related_subjects_relation_code_s;
         if (relcode === 'is.part.of') {
             ispartof.push(
-                <MandalaPopover domain={relsub[0]} kid={relsub[1]} />
+                <MandalaPopover
+                    domain={relsub[0]}
+                    kid={relsub[1]}
+                    children={[cd.related_subjects_header_s]}
+                />
             );
         }
         if (relcode === 'has.as.a.part') {
             hasaspart.push(
-                <MandalaPopover domain={relsub[0]} kid={relsub[1]} />
+                <MandalaPopover
+                    domain={relsub[0]}
+                    kid={relsub[1]}
+                    children={[cd.related_subjects_header_s]}
+                />
             );
         }
     });

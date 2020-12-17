@@ -29,7 +29,8 @@ export function SmartPath(props) {
             }
             break;
         case 'subjects':
-            smartPath = <>{doc.ancestors_txt.slice(1, 2).join('/')}</>;
+            // was: smartPath = <>{doc.ancestors_txt.slice(1, 2).join('/')}</>; // ndg8f (2020-12-17)
+            smartPath = <>{doc.ancestors_txt[doc.ancestors_txt.length - 2]}</>;
             break;
         case 'terms':
             // NO PATH for terms.
