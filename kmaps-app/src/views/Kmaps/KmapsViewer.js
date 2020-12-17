@@ -103,6 +103,7 @@ export default function KmapsViewer(props) {
                 <div className="c-content__main__kmaps">
                     {/*<NodeHeader kmasset={props.kmasset} />*/}
                     <Switch>
+                        {/* Related AV */}
                         <Route
                             path={
                                 '/:viewerType/:nid/related-audio-video/view/:relId'
@@ -119,6 +120,7 @@ export default function KmapsViewer(props) {
                             </GenAssetContext>
                         </Route>
 
+                        {/* Related Texts */}
                         <Route
                             path={'/:viewerType/:nid/related-texts/view/:relId'}
                         >
@@ -133,6 +135,7 @@ export default function KmapsViewer(props) {
                             </GenAssetContext>
                         </Route>
 
+                        {/* Related Images */}
                         <Route
                             path={
                                 '/:viewerType/:nid/related-images/view/:relId'
@@ -149,6 +152,7 @@ export default function KmapsViewer(props) {
                             </GenAssetContext>
                         </Route>
 
+                        {/* Related Sources */}
                         <Route
                             path={
                                 '/:viewerType/:nid/related-sources/view/:relId'
@@ -162,6 +166,23 @@ export default function KmapsViewer(props) {
                             />
                             <GenAssetContext assetType={'sources'}>
                                 <SourcesViewer inline={true} />
+                            </GenAssetContext>
+                        </Route>
+
+                        {/* Related Visuals */}
+                        <Route
+                            path={
+                                '/:viewerType/:nid/related-visuals/view/:relId'
+                            }
+                        >
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'visuals'}
+                                back={'true'}
+                            />
+                            <GenAssetContext assetType={'visuals'}>
+                                <VisualsViewer inline={true} />
                             </GenAssetContext>
                         </Route>
 
