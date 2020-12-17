@@ -62,9 +62,10 @@ function NodeHeader(props) {
     const nameTibtText = props.kmasset?.name_tibt
         ? props.kmasset.name_tibt[0]
         : null;
-    const nameLatinText = props.kmasset?.name_latin
-        ? props.kmasset.name_latin[0]
-        : props.kmasset.title[0];
+    const nameLatinText =
+        props.kmasset?.title?.length > 0
+            ? props.kmasset.title[0]
+            : props.kmasset.name_latin[0];
     const nameTibtElem = nameTibtText ? (
         <span className={'sui-nodeTitle-item tibt'}>{nameTibtText} </span>
     ) : null;
