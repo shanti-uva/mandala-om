@@ -23,7 +23,7 @@ export function RelatedsGallery(props) {
         <FeatureCollection
             docs={filteredDocs}
             pager={props.pager}
-            numFound={filteredDocs.length}
+            numFound={filteredDocs?.length ?? 0}
             title={title}
             viewMode={'gallery'}
             inline={true}

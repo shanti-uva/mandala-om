@@ -7,6 +7,7 @@ import './TermsDefinitionsFilter.css';
 const TermsDefinitionsFilter = (props) => {
     const params = useParams();
     let { relatedType, definitionID } = params;
+    console.log(props.relateds);
 
     const relatedDocs =
         props?.relateds?.assets[relatedType.toLowerCase()]?.docs ?? [];
