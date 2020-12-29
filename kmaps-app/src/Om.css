@@ -567,7 +567,7 @@
 }
 
 .sui-advBox-recent .c-HistoryViewer__relatedRecentItem {
-    line-height: 1.5;
+    line-height: 1.25;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

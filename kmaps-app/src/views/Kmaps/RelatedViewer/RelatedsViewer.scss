@@ -17,13 +17,22 @@
     position: relative;
     top: 0.125rem;
     color: #555;
+    font-size: 1.6rem;
 }
 .l-related__list__wrap .u-icon__logo-shanti {
-    /* font-size: 135%;*/
+    font-size: 1.75rem;
 }
 .l-related__list__wrap .u-icon__overview {
-    font-size: 90%;
     margin-left: 0.1rem;
+}
+
+.l-column__list__wrap .l-terms__tree__wrap .fancytree-title {
+    color: #000 !important;
+}
+
+.l-column__list__wrap .l-terms__tree__wrap .popover-link {
+    margin-left: 0.15rem;
+    top: 0.5rem;
 }
 
 @media (min-width: 992px) {
@@ -85,7 +94,6 @@
   */
 
 .c-relatedViewer {
-    font-size: 1.5rem;
     padding: 0;
     margin-right: 1rem;
     margin-left: 1rem;
@@ -95,7 +103,7 @@
 }
 .c-related__item {
     display: block;
-    line-height: 1.75;
+    line-height: 1.5;
     padding: 0 0 0.4rem 0.75rem;
     color: #555;
     font-weight: bold;
@@ -106,12 +114,12 @@
     border-color: #ddd;
 }
 .c-relatedViewer #sui-rln-places {
-    font-size: 1.08rem;
+    font-size: 1.15rem;
 }
 .c-relatedViewer #sui-rln-places::before {
     content: '(';
     position: relative;
-    left: -0.1rem;
+    left: -0.15rem;
     font-size: 120%;
     color: #999;
     font-weight: normal;
@@ -119,7 +127,7 @@
 .c-relatedViewer #sui-rln-places::after {
     content: ')';
     position: relative;
-    right: -0.1rem;
+    right: -0.15rem;
     font-size: 120%;
     color: #999;
     font-weight: normal;
@@ -173,20 +181,24 @@
     padding-top: 0;
     padding-bottom: 0;
 }
+.l-terms__tree__wrap .fancytree-exp-nl .fancytree-title::before,
 .l-terms__tree__wrap .fancytree-exp-n .fancytree-title::before {
-    content: '– ';
+    content: '–' !important;
+    margin-right: 0.75rem !important;
+    font-weight: bold !important;
 }
+.l-terms__tree__wrap .fancytree-exp-nl:hover .fancytree-title::before,
 .l-terms__tree__wrap .fancytree-exp-n:hover .fancytree-title::before {
-    background: transparent;
+    background: transparent !important;
 }
-.l-terms__tree__wrap span[role='button'] {
-    transform: scale(1.15);
-    margin-right: 0.75rem;
+.l-terms__tree__wrap .fancytree-expander {
+    transform: scale(1.35);
+    margin-right: 0.9rem;
     color: $color-terms !important;
 }
 
 /*
-.sui-relatedRecent {
+.sui-relatedRecent {q
     font-size: 12px;
     color: #222;
     padding: 0;

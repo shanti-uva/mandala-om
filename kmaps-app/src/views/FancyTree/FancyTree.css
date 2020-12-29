@@ -111,6 +111,7 @@ ul.fancytree-container {
 .fancytree-has-children > span.fancytree-title {
     padding-left: 0;
     margin-left: -2.45rem;
+    font-weight: 600;
 }
 
 .fancytree-has-children span.fancytree-title::before {

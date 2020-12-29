@@ -8,7 +8,7 @@
     color: #fff;
     letter-spacing: 0.1rem;
     display: block;
-    background: #a2733f;
+    background: #91693e;
     padding: 0.8rem 1.6rem;
 }
 .sui-termDicts__content {
@@ -21,12 +21,12 @@
 ul.sui-termDicts__dict-wrapper {
     margin-top: 1rem;
     margin-bottom: 2.4rem;
-    border-bottom: 1px solid #a2733f;
+    border-bottom: 1px solid #91693e;
     list-style: none;
 }
 .sui-termDicts__dict-extra {
     text-align: right;
-    color: #a2733f;
+    color: #91693e;
     margin-top: 0.4rem;
     font-size: smaller;
 }

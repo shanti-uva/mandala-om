@@ -3,8 +3,8 @@
     padding-left: 3rem;
 }
 .c-audioPlayer__button {
-    width: 2.5em;
-    height: 2.5em;
+    width: 3rem;
+    height: 3rem;
     border: 0.3rem double #fff;
     border-radius: 50%;
     color: white;
@@ -12,8 +12,8 @@
     text-align: center;
     margin: 0;
     opacity: 0.85;
-    transform: scale(1.175);
-    transition: all 0.15s ease-in-out;
+    transform: all (1.175);
+    transition: scale 0.15s ease-in-out;
     background: #91693c;
     padding: inherit;
 }

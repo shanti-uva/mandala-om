@@ -36,6 +36,10 @@
     color: #222;
     padding: 0.7rem 2rem;
 }
+.sui-termDefinitions__content .nav.nav-tabs > a.nav-item.disabled {
+    background-color: inherit;
+    opacity: 0.5;
+}
 .sui-termDefinitions__extra {
     text-align: right;
     color: #a2733f;
