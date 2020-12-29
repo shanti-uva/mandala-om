@@ -22,7 +22,11 @@ import { SourcesViewer } from '../Sources/SourcesViewer';
 import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
 import { KmapsRelatedsViewer } from './KmapsRelatedsViewer';
-import { KmapsRelPlacesViewer } from './KmapsRelPlacesViewer';
+import {
+    SubjectsRelPlacesViewer,
+    PlacesRelPlacesViewer,
+} from './KmapsRelPlacesViewer';
+import TermsDefinitionsFilter from '../Terms/TermsDefinitionsFilter';
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);
@@ -34,7 +38,7 @@ export default function KmapsViewer(props) {
     useEffect(() => {
         status.clear();
         status.setHeaderTitle('Loading ...');
-    }, []);
+    }, [status]);
 
     const queryParams = new URLSearchParams(useLocation().search);
 
@@ -68,6 +72,9 @@ export default function KmapsViewer(props) {
             case 'places':
                 viewer = <KmapsViewer />;
                 break;
+            default:
+                viewer = <span>No defined viewer</span>;
+                break;
         }
 
         return {
@@ -87,7 +94,7 @@ export default function KmapsViewer(props) {
             status.setPath(superPath);
             status.setId(props.kmasset?.uid);
         }
-    }, [props.kmasset?.uid, route]);
+    }, [route, props.kmap, props.kmasset, status]);
 
     let output = <div className="l-content__main__wrap">Loading...</div>;
     if (props.kmasset && props.kmasset.asset_type) {
@@ -96,6 +103,7 @@ export default function KmapsViewer(props) {
                 <div className="c-content__main__kmaps">
                     {/*<NodeHeader kmasset={props.kmasset} />*/}
                     <Switch>
+                        {/* Related AV */}
                         <Route
                             path={
                                 '/:viewerType/:nid/related-audio-video/view/:relId'
@@ -112,6 +120,7 @@ export default function KmapsViewer(props) {
                             </GenAssetContext>
                         </Route>
 
+                        {/* Related Texts */}
                         <Route
                             path={'/:viewerType/:nid/related-texts/view/:relId'}
                         >
@@ -126,6 +135,7 @@ export default function KmapsViewer(props) {
                             </GenAssetContext>
                         </Route>
 
+                        {/* Related Images */}
                         <Route
                             path={
                                 '/:viewerType/:nid/related-images/view/:relId'
@@ -142,6 +152,7 @@ export default function KmapsViewer(props) {
                             </GenAssetContext>
                         </Route>
 
+                        {/* Related Sources */}
                         <Route
                             path={
                                 '/:viewerType/:nid/related-sources/view/:relId'
@@ -155,6 +166,23 @@ export default function KmapsViewer(props) {
                             />
                             <GenAssetContext assetType={'sources'}>
                                 <SourcesViewer inline={true} />
+                            </GenAssetContext>
+                        </Route>
+
+                        {/* Related Visuals */}
+                        <Route
+                            path={
+                                '/:viewerType/:nid/related-visuals/view/:relId'
+                            }
+                        >
+                            <NodeHeader
+                                {...props}
+                                kmasset={props.kmasset}
+                                relatedType={'visuals'}
+                                back={'true'}
+                            />
+                            <GenAssetContext assetType={'visuals'}>
+                                <VisualsViewer inline={true} />
                             </GenAssetContext>
                         </Route>
 
@@ -190,15 +218,26 @@ export default function KmapsViewer(props) {
 
                         <Route path={'/subjects/:id/related-places'}>
                             <NodeHeader {...props} kmasset={props.kmasset} />
-                            <KmapsRelPlacesViewer {...props} />
+                            <SubjectsRelPlacesViewer {...props} />
+                        </Route>
+
+                        <Redirect
+                            from={'/places/:id/related-places/:view'}
+                            to={'/places/:id/related-places'}
+                        />
+                        <Route path={'/places/:id/related-places'}>
+                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <PlacesRelPlacesViewer {...props} />
                         </Route>
 
                         <Route
-                            path={
-                                '/:viewerType/:id/related-:relatedType/:viewMode'
-                            }
+                            path={[
+                                `/:viewerType/:id/related-:relatedType/:definitionID/:viewMode`,
+                                `/:viewerType/:id/related-:relatedType/:viewMode`,
+                            ]}
                         >
-                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <NodeHeader {...props} />
+                            <TermsDefinitionsFilter {...props} />
                             <RelatedsGallery {...props} />
                         </Route>
 
@@ -223,6 +262,7 @@ export default function KmapsViewer(props) {
                                         kmasset={props.kmasset}
                                         kmap={props.kmap}
                                         kmRelated={props.relateds}
+                                        defnum={queryParams.get('def')}
                                     />
                                 </Route>
                             </Switch>

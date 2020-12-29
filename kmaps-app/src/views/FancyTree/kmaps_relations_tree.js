@@ -183,11 +183,7 @@ import { MandalaPopover } from '../common/MandalaPopover';
                                 <MandalaPopover
                                     domain={plugin.options.domain}
                                     kid={myId}
-                                >
-                                    <span className="popover-link">
-                                        <span className="icon u-icon__kmaps-popover"></span>
-                                    </span>
-                                </MandalaPopover>,
+                                ></MandalaPopover>,
                                 elem.lastChild
                             );
                         }

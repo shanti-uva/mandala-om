@@ -10,10 +10,38 @@ import TermDefinitionsPassages from './TermDefinitionsPassages';
 import TermDefinitionsResources from './TermDefinitionsResources';
 import './TermDefinitions.css';
 
+//Function to aggregate TermDetails data
+const aggregateDetails = _.memoize((def) => {
+    return _.reduce(
+        def,
+        (accum, value, key) => {
+            const matches = key.match(
+                /^related_definitions_branch_subjects-(\d+)_(\w+)/
+            );
+            if (matches?.length > 0) {
+                accum[matches[1]] = accum[matches[1]] || {};
+                switch (matches[2]) {
+                    case 'header_s':
+                        accum[matches[1]]['header_title'] = value;
+                        break;
+                    case 'subjects_headers_t':
+                        accum[matches[1]]['header_text'] = value;
+                        break;
+                    case 'subjects_uids_t':
+                        accum[matches[1]]['header_uids'] = value;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return accum;
+        },
+        {}
+    );
+});
+
 const TermDefinitions = (props) => {
     //Get Resources keyed by definition-id
-
-    // console.log("TermDefinitions: props = ", props);
 
     const relatedDocs = props.kmRelated.assets?.all?.docs || [];
     const uid = props.kmRelated.uid;
@@ -101,8 +129,11 @@ const TermDefinitions = (props) => {
                                         </IconContext.Provider>
                                     </>
                                 }
+                                disabled={_.isEmpty(aggregateDetails(def))}
                             >
-                                <TermDefinitionsDetails def={def} />
+                                <TermDefinitionsDetails
+                                    details={aggregateDetails(def)}
+                                />
                             </Tab>
                             <Tab
                                 eventKey="passages"
@@ -122,6 +153,7 @@ const TermDefinitions = (props) => {
                                         </IconContext.Provider>
                                     </>
                                 }
+                                disabled
                             >
                                 <TermDefinitionsPassages />
                             </Tab>
@@ -143,6 +175,10 @@ const TermDefinitions = (props) => {
                                             <TiArrowUnsorted />
                                         </IconContext.Provider>
                                     </>
+                                }
+                                disabled={
+                                    parseInt(resourceCounts[def.id]?.all || 0) <
+                                    1
                                 }
                             >
                                 <TermDefinitionsResources

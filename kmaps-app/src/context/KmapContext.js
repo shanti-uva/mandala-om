@@ -62,7 +62,7 @@ export default function KmapContext(props) {
     }
 
     // Handle cases where the id is "full" or numeric  e.g "places-637" vs. "637"
-    const { id: requestId, relatedType } = useParams();
+    const { id: requestId, relatedType, definitionID } = useParams();
     let prefix = '';
     if (requestId && !requestId.match(/[a-z]\-\d+/)) {
         // console.log('KmapContext: requestId=', requestId);
@@ -76,6 +76,20 @@ export default function KmapContext(props) {
         getMaxPage: () => {
             if (!relateds.assets || !relateds.assets[relatedType]) {
                 return 1;
+            } else if (definitionID) {
+                // Filter docs to only show those that have the definitionID specified
+                //const defID = definitionID ?? 'any';
+                const docs = relateds.assets[relatedType];
+                let filteredDocs = docs;
+                if (definitionID !== 'any') {
+                    filteredDocs = docs.filter((doc) =>
+                        doc.kmapid.includes(definitionID)
+                    );
+                }
+                // Set counts
+                const maxCount = filteredDocs.count;
+                const maxPage = Math.floor((maxCount - 1) / relatedPageSize);
+                return maxPage;
             } else {
                 const maxCount = relateds.assets[relatedType].count;
                 const maxPage = Math.floor((maxCount - 1) / relatedPageSize);
@@ -128,13 +142,17 @@ export default function KmapContext(props) {
     };
 
     // Added by ndg, 11/9/20, TODO: check that this doesn't override any other setTypes in kmaps
-    useEffect(() => {
-        if (props.assetType && props.assetType !== '') {
-            status.setType(props.assetType);
-            status.setHeaderTitle('Loading ...');
-        }
-    }, [props.assetType]);
+    // gk3k 12/11/2020, Optimizing and removing items that cause re-renders.
+    // useEffect(() => {
+    //     if (props.assetType && props.assetType !== '') {
+    //         status.setType(props.assetType);
+    //         status.setHeaderTitle('Loading ...');
+    //     }
+    // }, [props.assetType, status]);
 
+    //gk3k: TODO: this is causing multiple re-renders. Disabling for now
+    // ndg8f: Gerard, setUid() is what causes the change of state for kmaps. CANNOT comment out. Or kmap pages do not load.
+    // TODO: Figure out how to reduce number of re-renders while still keeping this effect.
     useEffect(() => {
         if (id) {
             setUid(id);
@@ -144,7 +162,14 @@ export default function KmapContext(props) {
                 pageSize: relatedPageSize,
             });
         }
-    }, [id, relatedType, relatedPage, relatedPageSize]);
+    }, [
+        id,
+        relatedType,
+        relatedPage,
+        relatedPageSize,
+        // setUid,  // ndg8f: Leaving this out at it seems circular and unnecessary
+        setRelatedsPage,
+    ]);
 
     const ret_children = React.Children.map(props.children, (child) => {
         if (child.type) {
@@ -160,5 +185,6 @@ export default function KmapContext(props) {
             return child;
         }
     });
+    //console.log('TermsAudioPlayerCtx', ret_children);
     return ret_children;
 }

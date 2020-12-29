@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import SearchContext from '../context/SearchContext';
 import { AdvancedToggle } from './MainSearchToggle/AdvancedToggle';
 import { SearchAdvanced } from '../search/SearchAdvanced';
-import { TreeNav } from './Main';
+const TreeNav = React.lazy(() => import('./TreeNav'));
 
 const target = document.getElementById('advancedSearchPortal');
 
-export function RightSideBar(props) {
+export default function RightSideBar(props) {
     const [viewMode, setViewMode] = useState('advanced');
     const [state, setState] = useState({});
     const handleStateChange = (new_state) => {
@@ -34,13 +34,19 @@ export function RightSideBar(props) {
                     />
                 </SearchContext>
                 <div className="advanced-search-and-tree">
-                    <SearchContext>
-                        <SearchAdvanced
-                            advanced={state.advanced}
-                            onStateChange={props.onStateChange}
-                        />
-                        <TreeNav tree={state.tree} />
-                    </SearchContext>
+                    {viewMode === 'advanced' && (
+                        <SearchContext>
+                            <SearchAdvanced
+                                advanced={state.advanced}
+                                onStateChange={props.onStateChange}
+                            />
+                        </SearchContext>
+                    )}
+                    {viewMode === 'tree' && (
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <TreeNav tree={state.tree} />
+                        </Suspense>
+                    )}
                 </div>
             </section>
         </>

@@ -1,0 +1,118 @@
+.custSelect__component {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1.8rem;
+}
+.custSelect__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.custSelect__header .custSelect__header-title {
+    font-weight: bold;
+}
+.custSelect__wrapper {
+    position: relative;
+    user-select: none;
+    width: 100%;
+}
+.custSelect__main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-width: 0 1px 0 1px;
+    border-style: solid;
+    border-color: #ccc;
+    background: white;
+}
+.custSelect__main.cs_open .custSelect__options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+.custSelect__trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 45px 16px 22px;
+    font-size: 14px;
+    color: #3b3b3b;
+    cursor: pointer;
+    border-width: 1px 0 1px 0;
+    border-style: solid;
+    border-color: #ccc;
+}
+.custSelect__trigger .custSelect__arrow {
+    position: relative;
+    height: 15px;
+    width: 15px;
+    left: 2rem;
+}
+.custSelect__trigger .custSelect__arrow::before,
+.custSelect__trigger .custSelect__arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    width: 0.15rem;
+    height: 100%;
+    transition: all 0.5s;
+}
+.custSelect__trigger .custSelect__arrow::before {
+    left: -5px;
+    transform: rotate(-45deg);
+    background-color: #394a6d;
+}
+.custSelect__trigger .custSelect__arrow::after {
+    left: 5px;
+    transform: rotate(45deg);
+    background-color: #394a6d;
+}
+.custSelect__main.cs_open .custSelect__arrow::before {
+    left: -5px;
+    transform: rotate(45deg);
+}
+.custSelect__main.cs_open .custSelect__arrow::after {
+    left: 5px;
+    transform: rotate(-45deg);
+}
+.custSelect__options {
+    position: absolute;
+    display: block;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    border-bottom: 5px double #ccc;
+    border-top: 0;
+    background: #fff;
+    transition: opacity 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 2;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.custSelect__options > * + * {
+    border-top: 1px solid #d8d8d8;
+}
+.custSelect__option {
+    position: relative;
+    display: block;
+    padding: 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.custSelect__option:hover {
+    cursor: pointer;
+    background-color: #f9f9f9;
+    color: #000;
+}
+.custSelect__option.cs_selected {
+    color: #ffffff;
+    background-color: #305c91;
+    border: 1px solid #fff;
+}

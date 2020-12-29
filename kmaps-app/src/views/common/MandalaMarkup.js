@@ -24,9 +24,27 @@ function transform(node, index) {
         const kmpid = node.attribs['data-kmid'];
         const mykey =
             kmpdom + '-' + kmpid + '-' + Math.ceil(Math.random() * 10000);
-        return <MandalaPopover domain={kmpdom} kid={kmpid} key={mykey} />;
+        let label = 'Loading ...';
+        if (
+            node?.children?.length > 0 &&
+            node.children[0]?.children.length > 0 &&
+            node.children[0].children[0]?.data
+        ) {
+            label = node.children[0].children[0].data;
+        } else {
+            label = 'Loading...';
+            console.log('Could not find label from popover node:', node);
+        }
+        return (
+            <MandalaPopover
+                domain={kmpdom}
+                kid={kmpid}
+                key={mykey}
+                children={[label]}
+            />
+        );
     }
-    // Process popover icon imgs to convert to mandala popovers
+    // Process popover icon imgs to convert to mandala popovers (e.g., in AV record)
     else if (
         node.name === 'img' &&
         node.attribs &&
@@ -38,8 +56,18 @@ function transform(node, index) {
             /(places|subjects|terms)\-(\d+)/
         );
         if (mtchs) {
-            node.prev.data = '';
-            return <MandalaPopover domain={mtchs[1]} kid={mtchs[2]} />;
+            let label = node?.prev?.data ? node.prev.data : false;
+            if (!label) {
+                label = 'Loading ...';
+                console.log('Could not find label from popover node:', node);
+            }
+            return (
+                <MandalaPopover
+                    domain={mtchs[1]}
+                    kid={mtchs[2]}
+                    children={[node.prev.data]}
+                />
+            );
         } else {
             return null;
         }

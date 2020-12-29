@@ -26,6 +26,54 @@ export function RelatedsViewer(props) {
         return null;
     }
 
+    // Determine which tree (browse_tree) to display in the relateds sidebar
+    const current_domain = props?.kmap?.tree ? props.kmap.tree : 'subjects';
+    let browse_tree = (
+        <FancyTree
+            domain="places"
+            tree="places"
+            descendants={true}
+            directAncestors={false}
+            displayPopup={true}
+            perspective="pol.admin.hier"
+            view="roman.scholar"
+            sortBy="header_ssort+ASC"
+            currentFeatureId={props.id}
+        />
+    );
+
+    if (current_domain === 'subjects') {
+        browse_tree = (
+            <FancyTree
+                domain="subjects"
+                tree="subjects"
+                descendants={true}
+                directAncestors={false}
+                displayPopup={true}
+                perspective={'gen'}
+                view="roman.popular"
+                sortBy="header_ssort+ASC"
+                currentFeatureId={props.id}
+            />
+        );
+    }
+
+    if (current_domain === 'terms') {
+        browse_tree = (
+            <FancyTree
+                domain="terms"
+                tree="terms"
+                descendants={true}
+                directAncestors={false}
+                displayPopup={true}
+                perspective="tib.alpha"
+                view="roman.scholar"
+                sortBy="position_i+ASC"
+                currentFeatureId={props.id}
+            />
+        );
+    }
+
     return (
         <aside className={'l-column__related'}>
             <div className="l-column__related__wrap">
@@ -106,17 +154,14 @@ export function RelatedsViewer(props) {
                 </section>
 
                 <section className="l-terms__tree__wrap">
-                    <div className="u-related__list__header">Browse Terms</div>
-                    <FancyTree
-                        domain="terms"
-                        tree="terms"
-                        descendants={true}
-                        directAncestors={false}
-                        displayPopup={false}
-                        perspective="tib.alpha"
-                        view="roman.scholar"
-                        sortBy="position_i+ASC"
-                    />
+                    <div className="u-related__list__header">
+                        Browse{' '}
+                        <span className={'text-capitalize'}>
+                            {current_domain}
+                        </span>
+                    </div>
+
+                    {browse_tree}
                 </section>
             </div>
         </aside>

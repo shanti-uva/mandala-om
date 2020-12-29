@@ -62,7 +62,10 @@ export function ImageMetadata(props) {
                 <Col className={'col-sm-12 col-md-6'}>
                     <h5 className={'c-image__colhead'}>Classifications</h5>
                     <div className={'c-kmaps-list'}>
-                        <KmapsFields nodejson={nodejson} />
+                        <KmapsFields
+                            nodejson={nodejson}
+                            kmapid={solrdoc?.kmapid}
+                        />
                     </div>
                 </Col>
             </Row>

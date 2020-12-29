@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ContentHeader } from './ContentHeader/ContentHeader';
 import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
 import { AudioVideoViewer } from '../views/AudioVideo/AudioVideoViewer';
@@ -20,13 +20,13 @@ import { Error404 } from '../App';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
 import GenAssetContext from '../context/GenAssetContext';
-import { MandalaPopoverTest } from '../views/common/MandalaPopover';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
 import PlacesHome from '../views/PlacesHome';
 import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
 import { CollectionsRedirect } from '../views/Collections/CollectionsRedirect';
-import { RightSideBar } from './RightSideBar';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+const RightSideBar = React.lazy(() => import('./RightSideBar'));
 
 export function ContentMain(props) {
     let { path } = useRouteMatch();
@@ -36,13 +36,11 @@ export function ContentMain(props) {
     const left = (
         <main className="l-column__main">
             <article id="l-column__main__wrap" className="l-column__main__wrap">
-                <KmapContext>
-                    <ContentHeader
-                        siteClass={siteClass}
-                        title={title}
-                        sui={props.sui}
-                    />
-                </KmapContext>
+                <ContentHeader
+                    siteClass={siteClass}
+                    title={title}
+                    sui={props.sui}
+                />
                 <div className="two-columns">
                     <section id="l-content__main" className="l-content__main">
                         <Switch>
@@ -213,19 +211,38 @@ export function ContentMain(props) {
                                 />
                             </Route>
 
-                            {/*  POPOVER TEST */}
-                            <Route
-                                path={`${path}poptest/:dom/:kid`}
-                                component={MandalaPopoverTest}
-                            />
-
                             {/* CATCHALL => 404 */}
                             <Route path="*">
                                 <Error404 />
                             </Route>
                         </Switch>
                     </section>
-                    <RightSideBar onStateChange={props.onStateChange} />
+                    <React.Suspense
+                        fallback={
+                            <div
+                                style={{
+                                    maxWidth: '35rem',
+                                    minWidth: '15rem',
+                                    fontSize: '1.4rem',
+                                    width: '25%',
+                                    padding: '1.6rem',
+                                }}
+                            >
+                                <SkeletonTheme
+                                    color="#d0d0d0"
+                                    highlightColor="#a5a5a5"
+                                >
+                                    <Skeleton
+                                        duration={0.5}
+                                        count={10}
+                                        height={47.5}
+                                    />
+                                </SkeletonTheme>
+                            </div>
+                        }
+                    >
+                        <RightSideBar onStateChange={props.onStateChange} />
+                    </React.Suspense>
                 </div>
             </article>
         </main>

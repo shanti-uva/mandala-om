@@ -13,7 +13,7 @@ function Definitions(props) {
         props.kmap._childDocuments_,
         'related_definitions'
     );
-    console.log('Definition: nested doc = ', definitionsTree);
+    //console.log('Definition: nested doc = ', definitionsTree);
     let output = (
         <Card>
             <Card.Body>

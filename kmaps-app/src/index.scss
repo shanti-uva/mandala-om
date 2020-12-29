@@ -391,11 +391,25 @@ ul.fancytree-container {
 }
 
 // gallery display buttons for view options
+.c-buttonGroup__viewMode__wrap {
+    background: #fff;
+    padding: 0 1.6rem;
+    border: 1px solid #e0e0e0;
+}
 // View mode for content column
 .c-buttonGroup__viewMode {
-    margin: 0.8rem 1.5rem 0;
-    padding-right: 1rem;
-    float: right;
+    // margin: 0.8rem 1.5rem 0;
+    // padding-right: 1rem;
+    // float: right;
+    margin: 1.6rem 0;
+    text-align: right;
+}
+
+.c-buttonGroup__viewMode-header {
+    font-size: 1.2rem;
+    margin-right: 0.8rem;
+    white-space: nowrap;
+    font-style: italic;
 }
 
 .open {
@@ -408,21 +422,23 @@ ul.fancytree-container {
 
 // View Styles
 .c-view__wrapper {
-    background-color: white;
-    margin-top: -2rem;
+    // background-color: white;
+    // margin-top: -2rem;
+    // border: none;
+    // border: 1px solid #e0e0e0;
+    // padding: 0 1.5rem 3rem;
     border: none;
-    border: 1px solid #e0e0e0;
-    padding: 0 1.5rem 3rem;
 }
 
 .c-view {
     margin: 0;
     .c-featurePager__container {
-        background: #fff;
-        padding: 1rem 1rem 0 15rem; /* extra padding to make room for display buttons on far left of row */
-        border-radius: 0.3rem 0.3rem 0 0;
-        margin: 1rem auto 0;
+        // background: #fff;
+        // padding: 1rem 1rem 0 15rem; /* extra padding to make room for display buttons on far left of row */
+        // border-radius: 0.3rem 0.3rem 0 0;
+        // margin: 1rem auto 0;
         text-align: center;
+        margin-bottom: 0.8rem;
         .icon {
         }
 
@@ -433,7 +449,7 @@ ul.fancytree-container {
 }
 
 .c-view > .c-featurePager__container:last-of-type {
-    margin-top: 3rem !important;
+    margin-top: 0.8rem !important;
 }
 
 .c-buttoneGroup__viewMode {

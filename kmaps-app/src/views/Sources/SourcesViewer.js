@@ -218,8 +218,11 @@ function SourcesAgents(props) {
         }
     };
     const agents = props?.agents?.map((agnt) => {
+        const mykey = `${agnt.firstname}-${agnt.lastname}-${Math.ceil(
+            Math.random() * 10000
+        )}`;
         return (
-            <span className={'agent'}>
+            <span className={'agent'} key={mykey}>
                 {agnt.firstname} {agnt.lastname} ({getAgentType(agnt.auth_type)}
                 )
             </span>
@@ -267,8 +270,19 @@ function SourcesKmap(props) {
     if (!kmfield || !kmfield?.und || kmfield.und.length == 0) {
         return null;
     }
+
     const kmchildren = kmfield.und.map((kmitem) => {
-        return <MandalaPopover domain={kmitem.domain} kid={kmitem.id} />;
+        const mykey = `${kmitem.domain}-${kmitem.id}-${Math.ceil(
+            Math.random() * 10000
+        )}`;
+        return (
+            <MandalaPopover
+                domain={kmitem.domain}
+                kid={kmitem.id}
+                children={[kmitem.header]}
+                key={mykey}
+            />
+        );
     });
     return <SourcesRow label={props.label} value={kmchildren} />;
 }

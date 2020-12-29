@@ -8,6 +8,9 @@ ndg, Nov. 11, 2020)
 @import '../../index-variables';
 
 main.subjects {
+    .l-content__main__wrap {
+        max-width: unset;
+    }
     .c-content__main__kmaps {
         background-color: #fcfcfc;
         font-size: 1.4rem;

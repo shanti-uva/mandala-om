@@ -19,6 +19,9 @@
     border-radius: 0;
     padding-left: 2rem;
 }
+.sui-termDefinitions__content .nav.nav-tabs > a.nav-item.disabled {
+    background-color: #c5c5c5;
+}
 .sui-termDefinitions__content .nav.nav-tabs > a.nav-item:active,
 .sui-termDefinitions__content .nav.nav-tabs > a.nav-item:focus {
     outline: 0;

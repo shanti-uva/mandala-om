@@ -89,12 +89,13 @@ const getKmapData = async (_, { qtype, domain, kid }) => {
  * @param query_type
  * @returns {any}
  */
-export function useKmap(domain, kid, query_type) {
+export function useKmap(domain, kid, query_type, byPass = false) {
     // console.log("useKmap: domain = ", domain, " kid = ", kid, " query_type = ",  query_type );
     query_type = typeof query_type === 'undefined' ? 'info' : query_type;
     return useQuery(
         ['kmap', { qtype: query_type, domain: domain, kid: kid }],
-        getKmapData
+        getKmapData,
+        { enabled: !byPass }
     );
 }
 

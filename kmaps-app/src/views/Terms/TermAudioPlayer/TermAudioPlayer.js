@@ -2,10 +2,11 @@ import _ from 'lodash';
 import React, { useRef, useState } from 'react';
 import './TermAudioPlayer.css';
 
-function TermAudioPlayer(props) {
+const TermAudioPlayer = React.memo(function (props) {
     const audioRefs = _.filter(props.kmap?._childDocuments_, (x) => {
         return x.block_child_type === 'terms_recording';
     });
+    console.log('GerardKetumaAudio', audioRefs);
 
     const player = useRef();
     const defRecordingUrl = audioRefs[0]?.recording_url;
@@ -21,7 +22,7 @@ function TermAudioPlayer(props) {
         setAudioUrl(e.target.value);
     };
 
-    const playButton = audioUrl ? (
+    const playButton = !_.isEmpty(audioUrl) ? (
         <>
             <button
                 className="c-audioPlayer__button"
@@ -40,13 +41,15 @@ function TermAudioPlayer(props) {
                 </select>
             </div>
         </>
-    ) : (
-        'No Audio Available'
-    );
+    ) : null;
 
     return (
         <div className="c-audioPlayer">
-            <audio src={audioUrl} ref={(ref) => (player.current = ref)} />
+            <audio
+                preload="none"
+                src={audioUrl}
+                ref={(ref) => (player.current = ref)}
+            />
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -57,6 +60,6 @@ function TermAudioPlayer(props) {
             </form>
         </div>
     );
-}
+});
 
 export default TermAudioPlayer;
