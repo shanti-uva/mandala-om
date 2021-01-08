@@ -3,7 +3,7 @@ import KmapsMap from '../KmapsMap/KmapsMap';
 import { KmapLink } from '../common/KmapLink';
 import { useSolr } from '../../hooks/useSolr';
 import { HtmlCustom } from '../common/MandalaMarkup';
-import { Tabs, Tab, Row, Col } from 'react-bootstrap';
+import { Tabs, Tab, Row, Col, Container } from 'react-bootstrap';
 import $ from 'jquery';
 import './placesinfo.scss';
 

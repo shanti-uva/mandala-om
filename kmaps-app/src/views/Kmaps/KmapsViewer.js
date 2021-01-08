@@ -247,7 +247,10 @@ export default function KmapsViewer(props) {
 
                         {/* Default or "Home" path */}
                         <Route>
-                            <NodeHeader kmasset={props.kmasset} />
+                            <NodeHeader
+                                kmasset={props.kmasset}
+                                kmap={props.kmap}
+                            />
                             <TermNames kmap={props.kmap} />
                             <Switch>
                                 {/*    Asset Specific SubViewers*/}

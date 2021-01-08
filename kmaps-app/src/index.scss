@@ -346,6 +346,27 @@ div.image-wrapper.center figcaption {
     color: #fff;
 }
 
+.c-nodeHeader-itemSummary {
+    margin: 1rem 0rem;
+}
+
+.c-nodeHeader-itemSummary .featured {
+    border: 2px solid #777;
+    margin: 0;
+    padding: 0.3rem;
+    /* background-color: #efefef;*/
+}
+
+.c-nodeHeader-itemSummary .featureTypes label {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &:after {
+        content: ':';
+        margin-right: 1rem;
+    }
+}
 // SEARCH Section ------- move this
 .advanced-search-and-tree {
     /*  position: relative; */
