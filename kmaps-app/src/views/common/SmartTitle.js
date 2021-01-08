@@ -9,31 +9,31 @@ import LinesEllipsis from 'react-lines-ellipsis';
  * @returns rendered title
  */
 export function SmartTitle(props) {
+    const doc = props.doc;
     let smartTitle =
-        Array.isArray(props.doc.title) && props.doc.title.length > 0
-            ? props.doc.title[0]
-            : props.doc.title; // default
-
+        Array.isArray(doc.title) && doc.title.length > 0
+            ? doc.title[0]
+            : doc.title; // default
+    if (doc.asset_type === 'texts' && doc.asset_subtype === 'page') {
+        smartTitle = doc.book_title_s;
+    }
     function findIn(arr, value) {
         return _.findIndex(arr, (x) => x === value);
     }
 
     // TODO: abstract logic into composable functions
-    switch (props.doc.asset_type) {
+    switch (doc.asset_type) {
         case 'places':
             // UNITED STATES NAMING RULES
             // TODO: what about state abbreviations?
-            const n = findIn(
-                props.doc.ancestors_txt,
-                'United States of America'
-            );
+            const n = findIn(doc.ancestors_txt, 'United States of America');
             if (n > 1) {
-                let state = props.doc.ancestors_txt[n + 1];
-                if (findIn(props.doc.feature_types_ss, 'County') > -1) {
+                let state = doc.ancestors_txt[n + 1];
+                if (findIn(doc.feature_types_ss, 'County') > -1) {
                     smartTitle += ' County';
                 }
 
-                if (findIn(props.doc.feature_types_ss, 'State') === -1) {
+                if (findIn(doc.feature_types_ss, 'State') === -1) {
                     smartTitle += ', ' + state;
                 }
             }
@@ -53,8 +53,8 @@ export function SmartTitle(props) {
         case 'images':
             break;
         case 'collections':
-            if (props.doc.asset_subtype) {
-                smartTitle += ' (' + props.doc.asset_subtype + ')';
+            if (doc.asset_subtype) {
+                smartTitle += ' (' + doc.asset_subtype + ')';
             }
             break;
     }

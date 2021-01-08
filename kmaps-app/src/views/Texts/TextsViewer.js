@@ -13,6 +13,7 @@ import { HtmlWithPopovers, getRandomKey } from '../common/MandalaMarkup';
 import { addBoClass, createAssetCrumbs } from '../common/utils';
 import './TextsViewer.sass';
 import $ from 'jquery';
+import { Redirect } from 'react-router-dom';
 
 /**
  * Text Viewer Component: The parent component for viewing a text. Gets sent the asset information as a prop
@@ -155,6 +156,14 @@ export function TextsViewer(props) {
         });
         setSectionShowing(vissect);
     };
+
+    // For links directly to a text page, redirect to book url with hash for page section
+    if (kmasset?.asset_type === 'texts' && kmasset?.asset_subtype === 'page') {
+        if (ismain) {
+            const redurl = `/texts/${kmasset.book_nid_i}#shanti-texts-${kmasset.id}`;
+            return <Redirect to={redurl} />;
+        }
+    }
 
     // Declare output variable with loading markup (Not used because overwritten
     let output = (

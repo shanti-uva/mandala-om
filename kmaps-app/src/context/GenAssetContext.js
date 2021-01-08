@@ -42,7 +42,6 @@ export default function GenAssetContext(props) {
 
     const status = useStatus();
     //status.setType(asset_type);
-
     const solrdata = useAsset(asset_type, nid);
     const nodejson = useMandala(solrdata);
 

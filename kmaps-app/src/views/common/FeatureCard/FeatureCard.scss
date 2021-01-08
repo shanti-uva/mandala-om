@@ -112,6 +112,12 @@
     width: 100%;
 }
 
+.card-title .subtitle {
+    display: block;
+    margin-top: 0.5rem;
+    color: grey;
+}
+
 .card-body .list-group {
     border-top: 1px solid rgba(205, 169, 66, 1);
     padding: 0.5rem 0;

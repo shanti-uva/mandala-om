@@ -32,28 +32,29 @@ export function FeatureCard(props) {
 
     const [modalShow, setModalShow] = React.useState(false);
 
-    const subTypeGlyph =
-        typeGlyphMap[props.doc.asset_type + '/' + props.doc.asset_subtype];
-    const typeGlyph = props.doc.uid ? (
+    const doc = props.doc;
+
+    const subTypeGlyph = typeGlyphMap[doc.asset_type + '/' + doc.asset_subtype];
+    const typeGlyph = doc.uid ? (
         subTypeGlyph ? (
             subTypeGlyph
         ) : (
             <span
-                className={'icon color-invert u-icon__' + props.doc.asset_type}
+                className={'icon color-invert u-icon__' + doc.asset_type}
             ></span>
         )
     ) : null;
 
     const assetGlyph =
-        props.doc.uid &&
-        props.doc.asset_type !== 'images' &&
-        props.doc.asset_type !== 'audio-video' ? (
-            <span className={'icon u-icon__' + props.doc.asset_type}></span>
+        doc.uid &&
+        doc.asset_type !== 'images' &&
+        doc.asset_type !== 'audio-video' ? (
+            <span className={'icon u-icon__' + doc.asset_type}></span>
         ) : null;
 
-    const viewer = props.doc.asset_type;
+    const viewer = doc.asset_type;
 
-    const related_places = props.doc.kmapid_places_idfacet?.map((x, i) => {
+    const related_places = doc.kmapid_places_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
             <div key={i} className="c-card__content-field shanti-field-place">
@@ -64,7 +65,7 @@ export function FeatureCard(props) {
         );
     });
 
-    const related_subjects = props.doc.kmapid_subjects_idfacet?.map((x, i) => {
+    const related_subjects = doc.kmapid_subjects_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
             <div key={i} className="c-card__content-field shanti-field-subject">
@@ -75,7 +76,7 @@ export function FeatureCard(props) {
         );
     });
 
-    const feature_types = props.doc.feature_types_idfacet?.map((x, i) => {
+    const feature_types = doc.feature_types_idfacet?.map((x, i) => {
         const [name, id] = x.split('|');
         return (
             <div
@@ -89,47 +90,42 @@ export function FeatureCard(props) {
         );
     });
 
-    let date = props.doc.node_created
-        ? props.doc.node_created
-        : props.doc.timestamp;
+    let date = doc.node_created ? doc.node_created : doc.timestamp;
     date = date?.split('T')[0];
 
     let creator =
-        props.doc.creator?.length > 0
-            ? props.doc.creator.join(', ')
-            : props.doc.node_user;
-    if (props.doc.creator?.length > 3) {
-        creator = props.doc.creator.slice(0, 3).join(', ') + '…';
+        doc.creator?.length > 0 ? doc.creator.join(', ') : doc.node_user;
+    if (doc.creator?.length > 3) {
+        creator = doc.creator.slice(0, 3).join(', ') + '…';
     }
 
     if (creator) {
         creator = creator.replace(/\&amp\;/g, '&');
     }
 
-    let footer_coll_link = props.doc?.collection_uid_path_ss;
+    let footer_coll_link = doc?.collection_uid_path_ss;
     if (footer_coll_link && footer_coll_link.length > 0) {
         footer_coll_link = footer_coll_link[footer_coll_link.length - 1];
         footer_coll_link =
             '/' + footer_coll_link.replace('-collection-', '/collection/');
     }
-    const footer_text = props.doc.collection_title ? (
+    const footer_text = doc.collection_title ? (
         <Link to={footer_coll_link}>
             <span className={'icon u-icon__collections'}>
                 {' '}
-                {props.doc.collection_title}{' '}
+                {doc.collection_title}{' '}
             </span>
         </Link>
     ) : (
         <span>
-            {props.doc.ancestors_txt && props.doc.asset_type !== 'terms' && (
+            {doc.ancestors_txt && doc.asset_type !== 'terms' && (
                 <div className="info shanti-field-path">
                     <span
                         className={
-                            'shanti-field-content u-icon__' +
-                            props.doc.asset_type
+                            'shanti-field-content u-icon__' + doc.asset_type
                         }
                     >
-                        <SmartPath doc={props.doc} />
+                        <SmartPath doc={doc} />
                     </span>
                 </div>
             )}
@@ -138,25 +134,36 @@ export function FeatureCard(props) {
 
     let relateds = null;
 
-    if (props.doc.asset_type === 'places') {
+    if (doc.asset_type === 'places') {
         // relateds = related_subjects;
         relateds = feature_types;
-    } else if (props.doc.asset_type === 'subjects') {
+    } else if (doc.asset_type === 'subjects') {
         relateds = related_places;
-    } else if (props.doc.asset_type === 'terms') {
+    } else if (doc.asset_type === 'terms') {
         relateds = related_subjects;
     }
 
-    // console.log("FOOTERING: ", props.doc);
+    // console.log("FOOTERING: ", doc);
+    let avuid = doc.uid;
+    let avid = doc.id;
+    // Pages need to link to their parent text
+    if (doc.asset_type === 'texts' && doc.asset_subtype === 'page') {
+        avuid = doc.service + '_' + doc.book_nid_i;
+        avid = doc.book_nid_i + '#shanti-texts-' + doc.id;
+    }
     const asset_view = inline
-        ? `./view/${props.doc.uid}?asset_type=${props.doc.asset_type}`
-        : `/${viewer}/${props.doc.id}`;
+        ? `./view/${avuid}?asset_type=${doc.asset_type}`
+        : `/${viewer}/${avid}`;
+
+    const subtitle =
+        doc.asset_type === 'texts' ? (
+            <span className={'subtitle'}>{doc.title}</span>
+        ) : (
+            ''
+        );
 
     return (
-        <Card
-            key={props.doc.uid}
-            className={'c-card__grid--' + props.doc.asset_type}
-        >
+        <Card key={doc.uid} className={'c-card__grid--' + doc.asset_type}>
             <Link
                 to={asset_view}
                 className={'c-card__link--asset c-card__wrap--image'}
@@ -164,7 +171,7 @@ export function FeatureCard(props) {
                 <Card.Img
                     className={'c-card__grid__image--top'}
                     variant="top"
-                    src={props.doc.url_thumb}
+                    src={doc.url_thumb}
                 />
                 <div className={'c-card__grid__glyph--type color-invert'}>
                     {typeGlyph}
@@ -175,13 +182,14 @@ export function FeatureCard(props) {
             <Card.Body>
                 <Card.Title>
                     <Link to={asset_view} className={'c-card__link--asset'}>
-                        <SmartTitle doc={props.doc} />
+                        <SmartTitle doc={doc} />
+                        {subtitle}
                     </Link>
                 </Card.Title>
 
                 <ListGroup>
                     <ListGroup.Item className={'c-card__listItem--creator'}>
-                        {props.doc.creator && (
+                        {doc.creator && (
                             <div className="info shanti-field-creator">
                                 <span className="icon shanti-field-content">
                                     {creator}
@@ -190,10 +198,10 @@ export function FeatureCard(props) {
                         )}
                     </ListGroup.Item>
                     <ListGroup.Item className={'c-card__listItem--duration'}>
-                        {props.doc.duration_s && (
+                        {doc.duration_s && (
                             <div className="info shanti-field-duration">
                                 <span className="icon shanti-field-content">
-                                    {props.doc.duration_s}
+                                    {doc.duration_s}
                                 </span>
                             </div>
                         )}
@@ -224,16 +232,14 @@ export function FeatureCard(props) {
                     <DetailModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                        data={props.doc}
+                        data={doc}
                         scrollable={true}
                     />
                 </div>
             </Card.Body>
 
             <Card.Footer
-                className={
-                    'c-card__footer c-card__footer--' + props.doc.asset_type
-                }
+                className={'c-card__footer c-card__footer--' + doc.asset_type}
             >
                 {footer_text}
             </Card.Footer>

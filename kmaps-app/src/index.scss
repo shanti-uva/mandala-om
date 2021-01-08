@@ -529,7 +529,17 @@ ul.fancytree-container {
 
     .title {
         padding-top: 0.5rem;
+        .header .subtitle {
+            display: inline-block;
+            margin-left: 0.5rem;
+
+            &:before {
+                content: '>';
+                margin-right: 0.5rem;
+            }
+        }
     }
+
     .meta {
         font-size: 1.1rem;
         font-style: italic;

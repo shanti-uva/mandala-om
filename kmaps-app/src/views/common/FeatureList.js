@@ -122,7 +122,20 @@ function FeatureAssetListItem(props) {
                             className={`shanticon-${doc.asset_type} type icon`}
                         />{' '}
                         <Link className={'header'} to={doc_url}>
-                            {doc.title}
+                            {doc.asset_type !== 'texts' && doc.title}
+                            {doc.asset_type === 'texts' && (
+                                <>
+                                    <span title={'Text Title'}>
+                                        {doc.book_title_s}
+                                    </span>
+                                    <span
+                                        class={'subtitle'}
+                                        title={'Section Title'}
+                                    >
+                                        {doc.title}
+                                    </span>
+                                </>
+                            )}
                         </Link>
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
