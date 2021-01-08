@@ -5,6 +5,7 @@
     position: absolute;
     bottom: 0.5rem;
     right: 1.35rem;
+    width: 90%;
 }
 
 // Grid Card
@@ -184,6 +185,12 @@
     text-overflow: ellipsis;
     width: 98%;
     display: block;
+    margin: 0.2em;
+}
+.c-card__grid--places .c-card__footer .shanti-field-path,
+.c-card__grid--subjects .c-card__footer .shanti-field-path,
+.c-card__grid--terms .c-card__footer .shanti-field-path {
+    margin: 0.5em 0 0 0.5em;
 }
 .c-card__footer .shanti-field-path .shanti-field-content:empty {
     display: none;
@@ -293,6 +300,8 @@
 .shanti-field-registrar,
 .shanti-field-languages,
 .shanti-field-duration,
+.shanti-field-caption,
+.shanti-field-uid,
 .shanti-field-created,
 .shanti-field-place,
 .shanti-field-subject {
@@ -301,6 +310,18 @@
     font-weight: 400;
     line-height: 1.62em;
 }
+
+.shanti-field-caption {
+    line-height: 1.3em;
+    margin-bottom: 1.5em;
+}
+
+.shanti-field-uid span {
+    display: inline-block;
+    margin-top: 0.2em;
+    font-style: italic;
+}
+
 .c-smartRelateds__limited > div {
     line-height: 1.38em;
 }
@@ -313,6 +334,8 @@
 .shanti-field-registrar > span::before,
 .shanti-field-languages span::before,
 .shanti-field-duration span::before,
+.shanti-field-caption span::before,
+.shanti-field-uid span::before,
 .shanti-field-created span::before,
 .shanti-field-place > span::before,
 .shanti-field-subject > span::before {

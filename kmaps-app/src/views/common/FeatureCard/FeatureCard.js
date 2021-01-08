@@ -162,6 +162,11 @@ export function FeatureCard(props) {
             ''
         );
 
+    const myuid = `${doc.asset_type
+        .charAt(0)
+        .toUpperCase()}${doc.asset_type.substr(1)}-${doc.id}`;
+    const mycaption = doc?.caption?.length > 0 ? doc.caption : null;
+
     return (
         <Card key={doc.uid} className={'c-card__grid--' + doc.asset_type}>
             <Link
@@ -213,13 +218,16 @@ export function FeatureCard(props) {
                             </span>
                         </div>
                     </ListGroup.Item>
-                    <ListGroup.Item className={'c-card__listItem--created'}>
-                        <div className="info shanti-field-uid">
-                            <span className="shanti-field-content">
-                                {doc.uid}
-                            </span>
-                        </div>
-                    </ListGroup.Item>
+                    {mycaption && (
+                        <ListGroup.Item className={'c-card__listItem--caption'}>
+                            <div className="shanti-field-caption">
+                                <span className="info shanti-field-content">
+                                    {mycaption}
+                                </span>
+                            </div>
+                        </ListGroup.Item>
+                    )}
+                    {/*
                     <ListGroup.Item className={'c-card__listItem--created'}>
                         {date && (
                             <div className="shanti-field-created">
@@ -229,9 +237,16 @@ export function FeatureCard(props) {
                             </div>
                         )}
                     </ListGroup.Item>
+                    */}
                 </ListGroup>
 
                 <div className={'c-button__json'}>
+                    <div className="shanti-field-uid float-left">
+                        <span className="info shanti-field-content">
+                            {myuid}
+                        </span>
+                    </div>
+
                     <span
                         className={'sui-showinfo u-icon__info float-right'}
                         onClick={() => setModalShow(true)}
