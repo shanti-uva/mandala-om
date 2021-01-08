@@ -351,13 +351,17 @@ div.image-wrapper.center figcaption {
 }
 
 .c-nodeHeader-itemSummary .featured {
-    border: 2px solid #777;
-    margin: 0;
-    padding: 0.3rem;
+    margin: 0 0.2rem 0 -1rem;
 
     & > img {
-        width: inherit;
+        padding: 0.3rem;
+        border: 2px solid #777;
+        min-width: 130px;
     }
+}
+
+.c-nodeHeader-itemSummary .featureTypes {
+    margin-top: -0.8rem;
 }
 
 .c-nodeHeader-itemSummary .featureTypes label {
