@@ -80,6 +80,12 @@ function FeatureAssetListItem(props) {
     ) : (
         false
     );
+
+    const caption =
+        doc.caption?.length > 0 ? (
+            <div className={'caption'}>{doc.caption}</div>
+        ) : null;
+
     let summary = doc.summary;
     if (!summary) {
         summary = '';
@@ -137,6 +143,7 @@ function FeatureAssetListItem(props) {
                                 </>
                             )}
                         </Link>
+                        {caption}
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
                         <span className={'uid'}>{doc.uid}</span>
@@ -229,7 +236,6 @@ function FeatureListAssetRelateds(props) {
 function FeatureKmapListItem(props) {
     const doc = props.doc;
     const domain = props.asset_type;
-
     const kmap_url = `/${domain}/${domain}-${doc.id}`;
     const feature_types = (
         <span className={'feature-types'}>
@@ -266,6 +272,12 @@ function FeatureKmapListItem(props) {
             );
         }
     }
+
+    const caption =
+        doc.caption?.length > 0 ? (
+            <div className={'caption'}>{doc.caption}</div>
+        ) : null;
+
     return (
         <Card className={`p-0 ${domain}`} key={`${doc.asset_type}-${doc.id}`}>
             <Accordion>
@@ -290,6 +302,7 @@ function FeatureKmapListItem(props) {
                             {doc.title}
                         </Link>
                         {feature_types}
+                        {caption}
                         {ancestors && ancestors.length > 0 && (
                             <div className={'ancestors'}>{ancestors}</div>
                         )}

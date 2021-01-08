@@ -675,8 +675,9 @@ ul.fancytree-container {
         opacity: 0.85;
     }
 
-    // Ancestors for kmaps in list view
-    .ancestors {
+    // Ancestors (and captions) for kmaps in list view
+    .ancestors,
+    .caption {
         margin-left: 5.5rem;
         font-size: 1.3rem;
         white-space: nowrap;
@@ -686,7 +687,9 @@ ul.fancytree-container {
             margin-left: 0.25rem;
             margin-right: 0.25rem;
         }
-
+        span:first-child {
+            margin-left: 0;
+        }
         span:after {
             content: '>';
             margin-left: 0.5rem;
