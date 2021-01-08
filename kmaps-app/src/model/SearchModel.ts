@@ -205,7 +205,7 @@ export const searchModel: SearchModel = {
             //         console.log('SEARCH START');
             performance.mark('SearchModelSearchUpdateThunkStart');
             const results = await search(searchState);
-            console.log('SearchStateResults', results);
+            // console.log('SearchStateResults', results);
             //         console.log('SEARCH DONE');
             performance.mark('SearchModelSearchUpdateThunkEnd');
             performance.measure(
