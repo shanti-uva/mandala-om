@@ -238,15 +238,14 @@ function FeatureKmapListItem(props) {
             })}
         </span>
     );
-    let ancestors = _.map(doc[`kmapid_${domain}_idfacet`], (idf) => {
-        const pts = idf.split('|');
-        if (pts.length > 1) {
-            return (
-                <span key={idf}>
-                    <Link to={`/${domain}/${pts[1]}`}>{pts[0]}</Link>
-                </span>
-            );
-        }
+    let ancestors = _.map(doc['ancestor_ids_is'], (idval, idn) => {
+        return (
+            <span key={`${doc.id}-anc-${idval}`}>
+                <Link to={`/${domain}/${idval}`}>
+                    {doc['ancestors_txt'][idn]}
+                </Link>
+            </span>
+        );
     });
     if (
         domain === 'places' &&
