@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mandala-om/static/css/main.bcef8073.chunk.css",
-    "main.js": "/mandala-om/static/js/main.fa89a735.chunk.js",
-    "main.js.map": "/mandala-om/static/js/main.fa89a735.chunk.js.map",
-    "runtime-main.js": "/mandala-om/static/js/runtime-main.bc3fa9af.js",
-    "runtime-main.js.map": "/mandala-om/static/js/runtime-main.bc3fa9af.js.map",
+    "main.css": "/mandala-om/static/css/main.ce7568a6.chunk.css",
+    "main.js": "/mandala-om/static/js/main.89fd5af1.chunk.js",
+    "main.js.map": "/mandala-om/static/js/main.89fd5af1.chunk.js.map",
+    "runtime-main.js": "/mandala-om/static/js/runtime-main.603b7009.js",
+    "runtime-main.js.map": "/mandala-om/static/js/runtime-main.603b7009.js.map",
     "static/css/2.c61feb1d.chunk.css": "/mandala-om/static/css/2.c61feb1d.chunk.css",
-    "static/js/2.4c5b431c.chunk.js": "/mandala-om/static/js/2.4c5b431c.chunk.js",
-    "static/js/2.4c5b431c.chunk.js.map": "/mandala-om/static/js/2.4c5b431c.chunk.js.map",
-    "static/js/3.baaa8e22.chunk.js": "/mandala-om/static/js/3.baaa8e22.chunk.js",
-    "static/js/3.baaa8e22.chunk.js.map": "/mandala-om/static/js/3.baaa8e22.chunk.js.map",
+    "static/js/2.f7a7d5f5.chunk.js": "/mandala-om/static/js/2.f7a7d5f5.chunk.js",
+    "static/js/2.f7a7d5f5.chunk.js.map": "/mandala-om/static/js/2.f7a7d5f5.chunk.js.map",
+    "static/js/3.a2abb6e9.chunk.js": "/mandala-om/static/js/3.a2abb6e9.chunk.js",
+    "static/js/3.a2abb6e9.chunk.js.map": "/mandala-om/static/js/3.a2abb6e9.chunk.js.map",
     "static/css/4.8e294e3b.chunk.css": "/mandala-om/static/css/4.8e294e3b.chunk.css",
     "static/js/4.29a19c92.chunk.js": "/mandala-om/static/js/4.29a19c92.chunk.js",
     "static/js/4.29a19c92.chunk.js.map": "/mandala-om/static/js/4.29a19c92.chunk.js.map",
@@ -22,20 +22,20 @@
     "static/js/8.4c0e11f0.chunk.js": "/mandala-om/static/js/8.4c0e11f0.chunk.js",
     "static/js/8.4c0e11f0.chunk.js.map": "/mandala-om/static/js/8.4c0e11f0.chunk.js.map",
     "index.html": "/mandala-om/index.html",
-    "precache-manifest.6a0f4509ba97b54051f6160a3e466aae.js": "/mandala-om/precache-manifest.6a0f4509ba97b54051f6160a3e466aae.js",
+    "precache-manifest.87024cdf91e96e8afec6494107f684a8.js": "/mandala-om/precache-manifest.87024cdf91e96e8afec6494107f684a8.js",
     "service-worker.js": "/mandala-om/service-worker.js",
     "static/css/2.c61feb1d.chunk.css.map": "/mandala-om/static/css/2.c61feb1d.chunk.css.map",
     "static/css/4.8e294e3b.chunk.css.map": "/mandala-om/static/css/4.8e294e3b.chunk.css.map",
-    "static/css/main.bcef8073.chunk.css.map": "/mandala-om/static/css/main.bcef8073.chunk.css.map",
-    "static/js/2.4c5b431c.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.4c5b431c.chunk.js.LICENSE.txt",
+    "static/css/main.ce7568a6.chunk.css.map": "/mandala-om/static/css/main.ce7568a6.chunk.css.map",
+    "static/js/2.f7a7d5f5.chunk.js.LICENSE.txt": "/mandala-om/static/js/2.f7a7d5f5.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/mandala-om/static/media/shanticon.be531d81.ttf",
     "static/media/Om.css": "/mandala-om/static/media/treebuts.bcb9b6f1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.bc3fa9af.js",
+    "static/js/runtime-main.603b7009.js",
     "static/css/2.c61feb1d.chunk.css",
-    "static/js/2.4c5b431c.chunk.js",
-    "static/css/main.bcef8073.chunk.css",
-    "static/js/main.fa89a735.chunk.js"
+    "static/js/2.f7a7d5f5.chunk.js",
+    "static/css/main.ce7568a6.chunk.css",
+    "static/js/main.89fd5af1.chunk.js"
   ]
 }
