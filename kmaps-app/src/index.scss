@@ -354,7 +354,10 @@ div.image-wrapper.center figcaption {
     border: 2px solid #777;
     margin: 0;
     padding: 0.3rem;
-    /* background-color: #efefef;*/
+
+    & > img {
+        width: inherit;
+    }
 }
 
 .c-nodeHeader-itemSummary .featureTypes label {
@@ -367,6 +370,7 @@ div.image-wrapper.center figcaption {
         margin-right: 1rem;
     }
 }
+
 // SEARCH Section ------- move this
 .advanced-search-and-tree {
     /*  position: relative; */

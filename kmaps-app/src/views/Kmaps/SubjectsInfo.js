@@ -25,27 +25,6 @@ export function SubjectsInfo(props) {
         $('main.l-column__main').addClass('subjects');
     }, [kmap]);
 
-    let imgurl =
-        kmap?.illustration_external_url?.length > 0
-            ? kmap.illustration_external_url[0].replace('!1000', '!500')
-            : false;
-    if (!imgurl && kmap?.illustration_mms_url?.length > 0) {
-        imgurl = kmap.illustration_mms_url[0].replace('essay', 'large');
-    }
-    const imgel = imgurl ? (
-        <div id="ftimage" className="featured-image">
-            <img src={imgurl} />
-        </div>
-    ) : null;
-
-    const desc =
-        kmap?.summary_eng?.length > 0 ? (
-            <div className={'summary'}>
-                <h3>Summary</h3>
-                <HtmlCustom markup={kmap.summary_eng[0]} />
-            </div>
-        ) : null;
-
     let overview_id = false;
     for (let prp in kmap) {
         if (prp.includes('homepage_text_')) {
@@ -55,9 +34,6 @@ export function SubjectsInfo(props) {
     }
     return (
         <div className={'c-subject-info'}>
-            {imgel}
-            {desc}
-
             {overview_id && (
                 <div className={'desc'}>
                     <h3>
