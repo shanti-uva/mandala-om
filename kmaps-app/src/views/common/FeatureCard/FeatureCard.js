@@ -214,6 +214,13 @@ export function FeatureCard(props) {
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item className={'c-card__listItem--created'}>
+                        <div className="info shanti-field-uid">
+                            <span className="shanti-field-content">
+                                {doc.uid}
+                            </span>
+                        </div>
+                    </ListGroup.Item>
+                    <ListGroup.Item className={'c-card__listItem--created'}>
                         {date && (
                             <div className="shanti-field-created">
                                 <span className="icon shanti-field-content">
