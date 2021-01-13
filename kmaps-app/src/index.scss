@@ -561,12 +561,12 @@ ul.fancytree-container {
         .header .subtitle {
             display: inline-block;
             margin-left: 0.5rem;
-
-            &:before {
-                content: '>';
-                margin-right: 0.5rem;
-            }
         }
+    }
+
+    .title span + .subtitle:before {
+        content: '>';
+        margin-right: 0.5rem;
     }
 
     .meta {

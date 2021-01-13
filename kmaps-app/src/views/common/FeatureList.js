@@ -131,9 +131,12 @@ function FeatureAssetListItem(props) {
                             {doc.asset_type !== 'texts' && doc.title}
                             {doc.asset_type === 'texts' && (
                                 <>
-                                    <span title={'Text Title'}>
-                                        {doc.book_title_s}
-                                    </span>
+                                    {doc.book_title_s &&
+                                        doc.book_title_s.length > 0 && (
+                                            <span title={'Text Title'}>
+                                                {doc.book_title_s}
+                                            </span>
+                                        )}
                                     <span
                                         class={'subtitle'}
                                         title={'Section Title'}
