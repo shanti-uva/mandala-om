@@ -9,7 +9,22 @@
 .kmap-tag-group .deflinks {
     vertical-align: super;
     font-size: 1.3rem;
+    margin-top: -1rem;
 }
+
+.kmap-tag-group .deflinks a:first-child:before {
+    content: '(';
+    margin-left: 0.3rem;
+}
+
+.kmap-tag-group .deflinks a:after {
+    content: ', ';
+}
+
+.kmap-tag-group .deflinks a:last-child::after {
+    content: ')';
+}
+
 .kmap-tag-group .definitions {
     display: inline-block;
     margin-left: 0.2rem;

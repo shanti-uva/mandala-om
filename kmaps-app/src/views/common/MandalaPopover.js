@@ -3,6 +3,7 @@ import { Overlay, Popover } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { useKmap } from '../../hooks/useKmap';
+import _ from 'lodash';
 
 const MandalaPopover = ({ domain, kid, placement, kmapid, children }) => {
     const [show, setShow] = useState(false);
@@ -42,24 +43,25 @@ const MandalaPopover = ({ domain, kid, placement, kmapid, children }) => {
         </div>
     );
 
-    if (kmapRes && relRes) {
-        let defs = false;
-        if (domain === 'terms' && kmapid && kmapid.length > 0) {
-            defs = kmapid.filter((kmid) =>
-                kmid.includes(`-${kid}_definitions`)
-            );
-            defs = defs.map((kmid) => {
-                return kmid.split('_definitions-')[1];
-            });
-        }
+    // Definitions for Terms
+    let termdefs = false;
+    if (domain === 'terms') {
+        termdefs = [];
+        _.map(kmapid, (kidi) => {
+            if (kidi.includes(`terms-${kid}_definitions`)) {
+                termdefs.push(kidi.split('-').pop());
+            }
+        });
+    }
 
+    if (kmapRes && relRes) {
         isTib = kmapRes.tree === 'terms' ? !!kmapRes.name_tibt : false;
         title = isTib ? kmapRes.name_tibt[0] : kmapRes.header;
         content = (
             <MandalaPopoverBody
                 domain={domain}
                 kid={kid}
-                defs={defs}
+                defs={termdefs}
                 info={kmapRes}
                 related={relRes}
                 kmapIsError={kmapIsError}
@@ -94,6 +96,20 @@ const MandalaPopover = ({ domain, kid, placement, kmapid, children }) => {
                 className="d-inline-flex align-items-center kmap-tag-group"
             >
                 {children}
+                {termdefs && (
+                    <span className="deflinks">
+                        {termdefs.map((defn) => {
+                            return (
+                                <Link
+                                    to={`/${domain}/${domain}-${kid}#def-${defn}`}
+                                    title={`Definition ${defn}`}
+                                >
+                                    {defn}
+                                </Link>
+                            );
+                        })}
+                    </span>
+                )}
             </span>
             <span onMouseEnter={showPop} onMouseLeave={() => setShow(false)}>
                 <span ref={target} className="popover-link">
@@ -125,9 +141,10 @@ function MandalaPopoverBody(props) {
         return <span className={'red'}>Error occurred ....</span>;
     }
     const kminfo = props.info;
-    //console.log(kminfo);
+
     const related = props.related;
     const defs = props?.defs;
+
     // Sort related by Asset/Kmap type (groupValue)
     related.sort((a, b) => {
         const alabel = a.groupValue;
@@ -275,7 +292,7 @@ function MandalaPopoverBody(props) {
                     {defs.map((defn) => {
                         return (
                             <Link
-                                to={`/${domain}/${domain}-${kid}?def=${defn}`}
+                                to={`/${domain}/${domain}-${kid}#def-${defn}`}
                                 title={`Definition ${defn}`}
                             >
                                 {defn}

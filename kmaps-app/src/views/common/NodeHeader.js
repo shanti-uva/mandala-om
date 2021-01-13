@@ -58,7 +58,7 @@ function NodeHeader(props) {
 
     // Kmaps Summary (Mainly for Places)
     let itemSummary = null;
-    console.log('props', props);
+    // console.log('props', props);
     if (
         props?.kmap?.illustration_mms_url?.length > 0 ||
         props?.kmap?.summary_eng?.length > 0

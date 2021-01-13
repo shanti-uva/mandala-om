@@ -43,6 +43,11 @@
     background-color: inherit;
     opacity: 0.5;
 }
+
+.sui-termDefinitions__content .definition.selected .tab-content {
+    background-color: #ffedba;
+}
+
 .sui-termDefinitions__extra {
     text-align: right;
     color: #a2733f;
