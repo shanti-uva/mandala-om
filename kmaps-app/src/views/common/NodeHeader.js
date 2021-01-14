@@ -67,7 +67,7 @@ function NodeHeader(props) {
             <Row className={'c-nodeHeader-itemSummary'}>
                 {/* Add column with illustration if exists */}
                 {props?.kmap?.illustration_mms_url?.length > 0 && (
-                    <Col md={2} className={'img featured'}>
+                    <Col md={3} className={'img featured'}>
                         <img src={props.kmap.illustration_mms_url[0]} />
                     </Col>
                 )}

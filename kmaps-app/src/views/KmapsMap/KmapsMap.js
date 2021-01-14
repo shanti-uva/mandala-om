@@ -60,19 +60,42 @@ class KmapsMap extends React.Component {
     }
 
     updateDimensions() {
-        const h = this.state.element.clientHeight;
-        const w = this.state.element.clientWidth;
+        // When shrinking window, grandparent doesn't shrink because map element has width/height set in style.
+        if (
+            window.pastInnerWidth &&
+            window.innerWidth < window.pastInnerWidth
+        ) {
+            // Reset element width and height when shrinking
+            this.state.element.setAttribute(
+                'style',
+                'width: inherit; height: 600px; background-color: rgb(204, 204, 204);'
+            );
+            window.pastInnerWidth = window.innerWidth;
+        } else {
+            window.pastInnerWidth = window.innerWidth;
+        }
+
+        // Get grandparent container (if available) to calculate new height and width for map.
+        const mapdiv = this.state.element.parentNode.parentNode
+            ? this.state.element.parentNode.parentNode
+            : this.state.element;
+        const h = mapdiv.clientHeight;
+        const w = mapdiv.clientWidth;
         this.setState({ height: h, width: w });
     }
 
     componentDidUpdate(nextProps) {
-      const { fid } = this.props;
-      if (this.state.fid !== fid) {
-        this.state.map.setTarget(null);
-        this.setState({ fid: nextProps.fid, width: nextProps.width, height: nextProps.height });
-        var map = this.buildMap(nextProps.fid);
-        this.zoomToFeature(map,nextProps.fid);
-      }
+        const { fid } = this.props;
+        if (this.state.fid !== fid) {
+            this.state.map.setTarget(null);
+            this.setState({
+                fid: nextProps.fid,
+                width: nextProps.width,
+                height: nextProps.height,
+            });
+            var map = this.buildMap(nextProps.fid);
+            this.zoomToFeature(map, nextProps.fid);
+        }
     }
 
     componentWillMount() {
@@ -96,7 +119,7 @@ class KmapsMap extends React.Component {
             mapTypeId: 'satellite',
         });
         const layer_name = this.state.language_layer;
-        const fid = forcedId == null ?  this.state.fid : forcedId;
+        const fid = forcedId == null ? this.state.fid : forcedId;
         const geoserverUrl = process.env.REACT_APP_GOSERVER_URL;
         const featureLayer = new TileLayer({
             source: new TileWMSSource({
@@ -119,7 +142,7 @@ class KmapsMap extends React.Component {
         });
         var map = this.state.map;
         if (this.state.map != null) {
-            this.refs.inset_map.innerHTML ="";
+            this.refs.inset_map.innerHTML = '';
         }
         map = new Map({
             interactions: DefaultInteractions().extend([
@@ -138,12 +161,12 @@ class KmapsMap extends React.Component {
         });
         var olGM = new OLGoogleMaps({ map: map }); // map is the ol.Map instance
         olGM.activate();
-        this.setState({map: map});
+        this.setState({ map: map });
         return map;
     }
 
     zoomToFeature(map, forcedId = null) {
-        const fid = forcedId == null ?  this.state.fid : forcedId;
+        const fid = forcedId == null ? this.state.fid : forcedId;
         const cql_filter = `fid=${fid}`;
         const geoserverUrl = process.env.REACT_APP_GOSERVER_URL;
         const serverUrl =
