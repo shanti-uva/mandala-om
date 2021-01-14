@@ -13,6 +13,7 @@ export function PlacesInfo(props) {
         height: 0,
         width: 0,
     });
+    const [fid, setFid] = useState(kmasset.id);
 
     useEffect(() => {
         // Move the Name wrapper into the Names tab for places
@@ -24,19 +25,20 @@ export function PlacesInfo(props) {
             height: $('#place-kmap-tabs-tabpane-map').height(),
             width: $('#place-kmap-tabs-tabpane-map').width(),
         });
+      setFid(kmasset.id);
     }, [kmasset]);
-
+    
     return (
         <Tabs defaultActiveKey="map" id="place-kmap-tabs">
-            <Tab eventKey="map" title="Map">
+          <Tab eventKey="map" title="Map">
                 {/* Don't call the KmapsMap until the div is fully loaded and has dimension */}
                 {dimension.height > 0 && (
-                    <KmapsMap
-                        fid={kmasset.id}
-                        languageLayer="roman_popular"
-                        height={dimension.height}
-                        width={dimension.width}
-                    />
+                  <KmapsMap
+                      fid={fid}
+                      languageLayer="roman_popular"
+                      height={dimension.height}
+                      width={dimension.width}
+                  />
                 )}
             </Tab>
             <Tab eventKey="names" title="Names">

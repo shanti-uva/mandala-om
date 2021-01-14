@@ -55,37 +55,48 @@ class KmapsMap extends React.Component {
             fid: props.fid,
             language_layer: props.languageLayer || 'roman_popular',
             zoom: props.zoom || 7,
+            map: null,
         };
     }
 
     updateDimensions() {
-        //const h = window.innerWidth >= 992 ? window.innerHeight : 400;
         const h = this.state.element.clientHeight;
         const w = this.state.element.clientWidth;
-        // console.log('update dimensions', h, w);
         this.setState({ height: h, width: w });
+    }
+
+    componentDidUpdate(nextProps) {
+      const { fid } = this.props;
+      if (this.state.fid !== fid) {
+        this.state.map.setTarget(null);
+        this.setState({ fid: nextProps.fid, width: nextProps.width, height: nextProps.height });
+        var map = this.buildMap(nextProps.fid);
+        this.zoomToFeature(map,nextProps.fid);
+      }
     }
 
     componentWillMount() {
         window.addEventListener('resize', this.updateDimensions);
-        //this.updateDimensions();
+    }
+
+    buildMap(forcedId = null) {
+        this.setState({ element: this.refs.inset_map });
+        const geoserverUrl = process.env.REACT_APP_GOSERVER_URL;
+        var map = this.createMap(forcedId);
+        return map;
     }
 
     componentDidMount() {
-        this.setState({ element: this.refs.inset_map });
-        const geoserverUrl = process.env.REACT_APP_GOSERVER_URL;
-        var map = this.createMap();
-        map.once('postrender', (event) => {
-            this.zoomToFeature(map);
-        });
+        var map = this.buildMap();
+        this.zoomToFeature(map);
     }
 
-    createMap() {
+    createMap(forcedId = null) {
         const googleLayer = new GoogleLayer({
             mapTypeId: 'satellite',
         });
         const layer_name = this.state.language_layer;
-        const fid = this.state.fid;
+        const fid = forcedId == null ?  this.state.fid : forcedId;
         const geoserverUrl = process.env.REACT_APP_GOSERVER_URL;
         const featureLayer = new TileLayer({
             source: new TileWMSSource({
@@ -106,7 +117,11 @@ class KmapsMap extends React.Component {
                 projection: 'EPSG:900913',
             }),
         });
-        const map = new Map({
+        var map = this.state.map;
+        if (this.state.map != null) {
+            this.refs.inset_map.innerHTML ="";
+        }
+        map = new Map({
             interactions: DefaultInteractions().extend([
                 new DragRotateAndZoom(),
             ]),
@@ -123,11 +138,13 @@ class KmapsMap extends React.Component {
         });
         var olGM = new OLGoogleMaps({ map: map }); // map is the ol.Map instance
         olGM.activate();
+        this.setState({map: map});
         return map;
     }
 
-    zoomToFeature(map) {
-        const cql_filter = `fid=${this.state.fid}`;
+    zoomToFeature(map, forcedId = null) {
+        const fid = forcedId == null ?  this.state.fid : forcedId;
+        const cql_filter = `fid=${fid}`;
         const geoserverUrl = process.env.REACT_APP_GOSERVER_URL;
         const serverUrl =
             geoserverUrl +
