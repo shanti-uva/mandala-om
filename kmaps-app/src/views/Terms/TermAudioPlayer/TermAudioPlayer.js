@@ -1,17 +1,20 @@
 import _ from 'lodash';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './TermAudioPlayer.css';
 
 const TermAudioPlayer = React.memo(function (props) {
     const audioRefs = _.filter(props.kmap?._childDocuments_, (x) => {
         return x.block_child_type === 'terms_recording';
     });
-    console.log('GerardKetumaAudio', audioRefs);
 
     const player = useRef();
-    const defRecordingUrl = audioRefs[0]?.recording_url;
+    let defRecordingUrl = audioRefs[0]?.recording_url;
 
     const [audioUrl, setAudioUrl] = useState(defRecordingUrl);
+
+    useEffect(() => {
+        setAudioUrl(defRecordingUrl);
+    }, [defRecordingUrl]);
 
     const option_list = _.map(audioRefs, (x, i) => (
         <option key={i} value={x.recording_url}>
