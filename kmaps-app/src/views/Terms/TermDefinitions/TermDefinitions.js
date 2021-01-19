@@ -127,89 +127,98 @@ const TermDefinitions = (props) => {
                                                 </div>
                                             )}
                                     </Tab>
-                                    <Tab
-                                        eventKey="details"
-                                        title={
-                                            <>
-                                                <span className="sui-termDefinitions__tabHeading">
-                                                    Details{' '}
-                                                </span>
-                                                <IconContext.Provider
-                                                    value={{
-                                                        style: {
-                                                            verticalAlign:
-                                                                'middle',
-                                                        },
-                                                    }}
-                                                >
-                                                    <TiArrowUnsorted />
-                                                </IconContext.Provider>
-                                            </>
-                                        }
-                                        disabled={_.isEmpty(
-                                            aggregateDetails(def)
-                                        )}
-                                    >
-                                        <TermDefinitionsDetails
-                                            details={aggregateDetails(def)}
-                                        />
-                                    </Tab>
-                                    <Tab
-                                        eventKey="passages"
-                                        title={
-                                            <>
-                                                <span className="sui-termDefinitions__tabHeading">
-                                                    Passages (0){' '}
-                                                </span>
-                                                <IconContext.Provider
-                                                    value={{
-                                                        style: {
-                                                            verticalAlign:
-                                                                'middle',
-                                                        },
-                                                    }}
-                                                >
-                                                    <TiArrowUnsorted />
-                                                </IconContext.Provider>
-                                            </>
-                                        }
-                                        disabled
-                                    >
-                                        <TermDefinitionsPassages />
-                                    </Tab>
-                                    <Tab
-                                        eventKey="resources"
-                                        title={
-                                            <>
-                                                <span className="sui-termDefinitions__tabHeading">
-                                                    Resources (
-                                                    {resourceCounts[def.id]
-                                                        ?.all || 0}
-                                                    ){' '}
-                                                </span>
-                                                <IconContext.Provider
-                                                    value={{
-                                                        style: {
-                                                            verticalAlign:
-                                                                'middle',
-                                                        },
-                                                    }}
-                                                >
-                                                    <TiArrowUnsorted />
-                                                </IconContext.Provider>
-                                            </>
-                                        }
-                                        disabled={
-                                            parseInt(
-                                                resourceCounts[def.id]?.all || 0
-                                            ) < 1
-                                        }
-                                    >
-                                        <TermDefinitionsResources
-                                            defID={def.id}
-                                            resCounts={resourceCounts}
-                                        />
-                                    </Tab>
+                                    {!_.isEmpty(aggregateDetails(def)) && (
+                                        <Tab
+                                            eventKey="details"
+                                            title={
+                                                <>
+                                                    <span className="sui-termDefinitions__tabHeading">
+                                                        Details{' '}
+                                                    </span>
+                                                    <IconContext.Provider
+                                                        value={{
+                                                            style: {
+                                                                verticalAlign:
+                                                                    'middle',
+                                                            },
+                                                        }}
+                                                    >
+                                                        <TiArrowUnsorted />
+                                                    </IconContext.Provider>
+                                                </>
+                                            }
+                                            disabled={_.isEmpty(
+                                                aggregateDetails(def)
+                                            )}
+                                        >
+                                            <TermDefinitionsDetails
+                                                details={aggregateDetails(def)}
+                                            />
+                                        </Tab>
+                                    )}
+                                    {false && (
+                                        <Tab
+                                            eventKey="passages"
+                                            title={
+                                                <>
+                                                    <span className="sui-termDefinitions__tabHeading">
+                                                        Passages (0){' '}
+                                                    </span>
+                                                    <IconContext.Provider
+                                                        value={{
+                                                            style: {
+                                                                verticalAlign:
+                                                                    'middle',
+                                                            },
+                                                        }}
+                                                    >
+                                                        <TiArrowUnsorted />
+                                                    </IconContext.Provider>
+                                                </>
+                                            }
+                                            disabled
+                                        >
+                                            <TermDefinitionsPassages />
+                                        </Tab>
+                                    )}
+                                    {parseInt(
+                                        resourceCounts[def.id]?.all || 0
+                                    ) > 0 && (
+                                        <Tab
+                                            eventKey="resources"
+                                            title={
+                                                <>
+                                                    <span className="sui-termDefinitions__tabHeading">
+                                                        Resources (
+                                                        {resourceCounts[def.id]
+                                                            ?.all || 0}
+                                                        ){' '}
+                                                    </span>
+                                                    <IconContext.Provider
+                                                        value={{
+                                                            style: {
+                                                                verticalAlign:
+                                                                    'middle',
+                                                            },
+                                                        }}
+                                                    >
+                                                        <TiArrowUnsorted />
+                                                    </IconContext.Provider>
+                                                </>
+                                            }
+                                            disabled={
+                                                parseInt(
+                                                    resourceCounts[def.id]
+                                                        ?.all || 0
+                                                ) < 1
+                                            }
+                                        >
+                                            <TermDefinitionsResources
+                                                defID={def.id}
+                                                resCounts={resourceCounts}
+                                            />
+                                        </Tab>
+                                    )}
                                 </Tabs>
                             </div>
                         );
