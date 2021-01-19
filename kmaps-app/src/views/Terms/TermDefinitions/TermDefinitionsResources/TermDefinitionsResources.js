@@ -8,7 +8,6 @@ const TermDefinitionsResources = ({ defID, resCounts }) => {
     let location = useLocation();
 
     const resources = resCounts[defID];
-    console.log('GerardKetuma-DefID', defID);
     if (!resources) {
         return (
             <div className="sui-termDefResource__wrapper">
