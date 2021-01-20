@@ -1,0 +1,2 @@
+(this["webpackJsonpkmaps-app"]=this["webpackJsonpkmaps-app"]||[]).push([[5],{706:function(e,r,t){"use strict";t.r(r);var a=t(0),n=t.n(a),s=n.a.lazy((function(){return Promise.resolve().then(t.bind(null,128))}));r.default=function(e){return n.a.createElement(s,{domain:"places",tree:"places",descendants:!0,directAncestors:!1,displayPopup:!0,perspective:"pol.admin.hier",view:"roman.scholar",sortBy:"header_ssort+ASC",currentFeatureId:e.currentFeatureId})}}}]);
+//# sourceMappingURL=5.5cd6f9d5.chunk.js.map
