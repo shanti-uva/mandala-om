@@ -73,7 +73,6 @@ export function RelatedsViewer(props) {
             />
         );
     }
-
     return (
         <aside className={'l-column__related'}>
             <div className="l-column__related__wrap">

@@ -146,7 +146,7 @@ function FeatureAssetListItem(props) {
                                 </>
                             )}
                         </Link>
-                        {caption}
+                        {doc.caption != doc.title && caption}
                     </Col>
                     <Col className={'meta'} md={4} sm={5}>
                         <span className={'uid'}>{doc.uid}</span>

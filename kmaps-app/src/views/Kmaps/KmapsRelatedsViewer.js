@@ -343,7 +343,7 @@ export function PlacesRelPlacesViewer(props) {
         <Tabs defaultActiveKey="context" id="place-kmap-tabs">
             <Tab eventKey="context" title="Place Context">
                 <Container fluid className={'c-relplaces-list places'}>
-                    <h2 className={'row'}>
+                    <h2 className={'row head-related'}>
                         Hierarchy of Places Related to {kmap.header}
                     </h2>
                     <Row>
@@ -376,7 +376,7 @@ export function PlacesRelPlacesViewer(props) {
             </Tab>
             <Tab eventKey="related" title="Related Places">
                 <Container fluid className={'c-relplaces-list places'}>
-                    <h2 className={'row'}>
+                    <h2 className={'row head-related'}>
                         Places Related to {kmap.header} by Feature Type
                     </h2>
                     <Row>
@@ -468,9 +468,6 @@ export function PlacesRelSubjectsViewer(props) {
         return child.id.includes('_relatedSubject_');
     });
 
-    if (kmapkids.length > 0) {
-        console.log(relsubjs);
-    }
     useEffect(() => {
         $('main.l-column__main').addClass('places');
     }, [kmap]);
@@ -490,11 +487,15 @@ export function PlacesRelSubjectsViewer(props) {
                         <ul>
                             {kmap.feature_type_ids.map((kid, cind) => {
                                 return (
-                                    <MandalaPopover
-                                        domain={'subject'}
-                                        kid={kid}
-                                        children={[kmap.feature_types[cind]]}
-                                    />
+                                    <li>
+                                        <MandalaPopover
+                                            domain={'subject'}
+                                            kid={kid}
+                                            children={[
+                                                kmap.feature_types[cind],
+                                            ]}
+                                        />
+                                    </li>
                                 );
                             })}
                         </ul>
