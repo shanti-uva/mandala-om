@@ -45,25 +45,6 @@ export function PlacesInfo(props) {
             </Tab>
             <Tab eventKey="names" title="Names">
                 <PlacesNames {...props} />
-                {/*  This probably goes in related subjects?? */}
-                <h3>Feature Types</h3>
-                <ul>
-                    {kmasset?.feature_types_idfacet &&
-                        kmasset.feature_types_idfacet.map((x, i) => {
-                            const [label, uid] = x.split('|');
-                            //console.log('label = ', label);
-                            //console.log('uid = ', uid);
-                            return (
-                                <li>
-                                    <KmapLink
-                                        key={uid}
-                                        uid={uid}
-                                        label={label}
-                                    />
-                                </li>
-                            );
-                        })}
-                </ul>
             </Tab>
             <Tab eventKey="location" title="Location">
                 <PlacesLocation {...props} />
