@@ -21,11 +21,12 @@ import { ImagesViewer } from '../Images/ImagesViewer';
 import { SourcesViewer } from '../Sources/SourcesViewer';
 import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
-import { KmapsRelatedsViewer } from './KmapsRelatedsViewer';
 import {
+    KmapsRelatedsViewer,
     SubjectsRelPlacesViewer,
     PlacesRelPlacesViewer,
-} from './KmapsRelPlacesViewer';
+    PlacesRelSubjectsViewer,
+} from './KmapsRelatedsViewer';
 import TermsDefinitionsFilter from '../Terms/TermsDefinitionsFilter';
 
 export default function KmapsViewer(props) {
@@ -228,6 +229,15 @@ export default function KmapsViewer(props) {
                         <Route path={'/places/:id/related-places'}>
                             <NodeHeader {...props} kmasset={props.kmasset} />
                             <PlacesRelPlacesViewer {...props} />
+                        </Route>
+
+                        <Redirect
+                            from={'/places/:id/related-subjects/:view'}
+                            to={'/places/:id/related-subjects'}
+                        />
+                        <Route path={'/places/:id/related-subjects'}>
+                            <NodeHeader {...props} kmasset={props.kmasset} />
+                            <PlacesRelSubjectsViewer {...props} />
                         </Route>
 
                         <Route

@@ -1,3 +1,5 @@
+@import '../../_index-variables.scss';
+
 #place-kmap-tabs-tabpane-map {
     min-height: 75vh;
 }
@@ -69,4 +71,20 @@
         color: #777;
         text-transform: uppercase;
     }
+}
+
+.head-related {
+    width: 100%;
+    margin: 1rem;
+    padding: 0.4rem 1rem;
+    color: white;
+    font-weight: bold;
+}
+
+.places .head-related {
+    background-color: $color-places;
+}
+
+.subjects .head-related {
+    background-color: $color-subjects;
 }

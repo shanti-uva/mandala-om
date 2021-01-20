@@ -1,0 +1,11 @@
+import React, { useState, useEffect } from 'react';
+import { useSolr } from '../../hooks/useSolr';
+import { MandalaPopover } from '../common/MandalaPopover';
+import { Col, Container, Row, Tabs, Tab } from 'react-bootstrap';
+import $ from 'jquery';
+import './placesinfo.scss';
+import './subjectsinfo.scss';
+import { FeaturePager } from '../common/FeaturePager/FeaturePager';
+import FancyTree from '../FancyTree';
+import KmapsMap from '../KmapsMap/KmapsMap';
+import { KmapLink } from '../common/KmapLink';
