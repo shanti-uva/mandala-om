@@ -2,11 +2,12 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import './FeatureFoldOutViewer.scss';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { MandalaPopover } from './MandalaPopover';
 import $ from 'jquery';
 
 export function FeatureFoldOutViewer(props) {
+    let location = useLocation();
     const [uid, setUid] = useState();
     const imgUid = props.focus?.alt;
 
@@ -36,7 +37,7 @@ export function FeatureFoldOutViewer(props) {
         ''
     );
     const itemlink = props?.inline
-        ? `./view/${currimg.id}?asset_type=${currimg.asset_type}`
+        ? createAssetViewURL(currimg.id, currimg.asset_type, location)
         : `/${currimg.asset_type}/${currimg.id}`;
     return (
         <>
@@ -137,4 +138,14 @@ function KmapsRow(props) {
             {kmaplinks}
         </div>
     );
+}
+
+function createAssetViewURL(avuid, asset_type, location) {
+    if (location.pathname.includes('_definitions-')) {
+        let path = location.pathname.split('/');
+        const relatedIndex = path.findIndex((el) => el.includes('related'));
+        path.splice(relatedIndex + 1);
+        return `${path.join('/')}/view/${avuid}?asset_type=${asset_type}`;
+    }
+    return `./view/${avuid}?asset_type=${asset_type}`;
 }

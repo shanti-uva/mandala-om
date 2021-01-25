@@ -119,7 +119,7 @@ function FacetIcons(props) {
     const state = props.state;
     // console.log('Statey = ', state);
 
-    if (!state) {
+    if (!state || !state.filters) {
         return null;
     }
 
