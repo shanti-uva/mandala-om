@@ -424,7 +424,11 @@ function PlaceRelPlaceFtColumns(props) {
                                                 {' '}
                                                 {clitem.related_places_header_s}
                                                 <MandalaPopover
-                                                    uid={clitem.related_uid_s}
+                                                    domain={'places'}
+                                                    kid={clitem.related_places_id_s.replace(
+                                                        'places-',
+                                                        ''
+                                                    )}
                                                 />
                                             </li>
                                         );
@@ -489,7 +493,7 @@ export function PlacesRelSubjectsViewer(props) {
                                 return (
                                     <li>
                                         <MandalaPopover
-                                            domain={'subject'}
+                                            domain={'subjects'}
                                             kid={kid}
                                             children={[
                                                 kmap.feature_types[cind],
