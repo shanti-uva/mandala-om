@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 // import Accordion from "react-bootstrap/Accordion";
 // import Button from "react-bootstrap/Button";
 import * as PropTypes from 'prop-types';
@@ -26,6 +26,7 @@ const typeGlyphMap = {
 };
 
 export function FeatureCard(props) {
+    let location = useLocation();
     // console.log('FeatureCard: doc = ', props.doc.uid);
     // console.log('FeatureCard: inline = ', props.inline);
     const inline = props.inline || false;
@@ -151,8 +152,9 @@ export function FeatureCard(props) {
         avuid = doc.service + '_' + doc.book_nid_i;
         avid = doc.book_nid_i + '#shanti-texts-' + doc.id;
     }
+
     const asset_view = inline
-        ? `./view/${avuid}?asset_type=${doc.asset_type}`
+        ? createAssetViewURL(avuid, doc.asset_type, location)
         : `/${viewer}/${avid}`;
 
     const subtitle =
@@ -292,4 +294,14 @@ function DetailModal(props) {
             </Modal.Footer>
         </Modal>
     );
+}
+
+function createAssetViewURL(avuid, asset_type, location) {
+    if (location.pathname.includes('_definitions-')) {
+        let path = location.pathname.split('/');
+        const relatedIndex = path.findIndex((el) => el.includes('related'));
+        path.splice(relatedIndex + 1);
+        return `${path.join('/')}/view/${avuid}?asset_type=${asset_type}`;
+    }
+    return `./view/${avuid}?asset_type=${asset_type}`;
 }
