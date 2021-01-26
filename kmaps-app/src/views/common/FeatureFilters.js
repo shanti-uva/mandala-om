@@ -33,6 +33,7 @@ export function FeatureFilters(props) {
                     {/*>*/}
                     <FacetChoice
                         mode={'remove'}
+                        operator={'AND'}
                         key={`Remove ${entry.id}`}
                         className={removeIconClass}
                         value={entry.id}

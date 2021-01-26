@@ -662,12 +662,12 @@ function constructFilters(filters) {
 
         facetData.forEach((f) => {
             if (f.operator === 'NOT') {
-                not_list.push(f.match);
+                not_list.push('(*:* AND -'+ fieldName+':("' + f.match + '"))');
             } else if (f.operator === 'AND') {
-                and_list.push(f.match);
+                and_list.push('(*:* AND '+ fieldName+':("' + f.match + '"))');
             } else {
                 /* OR default case */
-                or_list.push('"' + f.match + '"');
+                or_list.push('(*:* OR '+ fieldName+':("' + f.match + '"))');
             }
         });
 

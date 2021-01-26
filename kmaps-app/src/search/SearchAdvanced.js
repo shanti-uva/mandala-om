@@ -20,6 +20,8 @@ export function SearchAdvanced(props) {
     const searchView = useRouteMatch(SEARCH_PATH);
 
     // console.log("SearchAdvance searchView = ", searchView);
+    let [booleanControls, setBooleanControls] = useState(true);
+    const handleBooleanControlClick = () => setBooleanControls(!booleanControls)
 
     function gotoSearchPage() {
         if (!searchView) {
@@ -173,6 +175,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('asset_type')}
+                    booleanControls={booleanControls}
                 />
                 <FacetBox
                     id="subjects"
@@ -183,6 +186,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('subjects')}
+                    booleanControls={booleanControls}
                 />
                 <FacetBox
                     id="places"
@@ -193,6 +197,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('places')}
+                    booleanControls={booleanControls}
                 />
                 <FacetBox
                     id="terms"
@@ -203,6 +208,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('terms')}
+                    booleanControls={booleanControls}
                 />
                 <FacetBox
                     id="feature_types"
@@ -213,6 +219,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('feature_types')}
+                    booleanControls={booleanControls}
                 />
 
                 <FacetBox
@@ -224,6 +231,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('collections')}
+                    booleanControls={booleanControls}
                 />
                 <FacetBox
                     id="languages"
@@ -234,6 +242,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('languages')}
+                    booleanControls={booleanControls}
                 />
                 <FacetBox
                     id="users"
@@ -244,6 +253,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('users')}
+                    booleanControls={booleanControls}
                 />
 
                 <FacetBox
@@ -255,6 +265,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('creator')}
+                    booleanControls={booleanControls}
                 />
 
                 <FacetBox
@@ -266,6 +277,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('perspective')}
+                    booleanControls={booleanControls}
                 />
 
                 <FacetBox
@@ -277,6 +289,7 @@ export function SearchAdvanced(props) {
                     onFacetClick={handleFacetChange}
                     onNarrowFilters={handleNarrowFilters}
                     chosenFacets={getChosenFacets('associated_subjects')}
+                    booleanControls={booleanControls}
                 />
 
                 <HistoryBox
@@ -290,8 +303,9 @@ export function SearchAdvanced(props) {
                 Show Boolean Controls? &nbsp;
                 <input
                     type="checkbox"
+                    onChange={handleBooleanControlClick}
+                    checked={booleanControls}
                     id="sui-showBool"
-                    defaultChecked={'checked'}
                 ></input>
             </div>
         </aside>

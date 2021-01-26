@@ -212,12 +212,14 @@ export function FacetBox(props) {
                 count={count}
                 facetType={facetType}
                 chosen={isChosen(id)}
+                operator={'AND'}
                 onFacetClick={(msg) => {
                     props.onFacetClick({
                         ...msg,
                         action: isChosen(id) ? 'remove' : 'add',
                     });
                 }}
+                booleanControls={props.booleanControls}
             />
         );
     });
@@ -228,6 +230,7 @@ export function FacetBox(props) {
         return (
             <FacetChoice
                 mode={'remove'}
+                operator={'AND'}
                 key={`Remove ${entry.match} ${label} ${facetType}`}
                 className={removeIconClass}
                 value={entry.match}
@@ -237,6 +240,8 @@ export function FacetBox(props) {
                 onFacetClick={(msg) => {
                     props.onFacetClick({ ...msg, action: 'remove' });
                 }}
+                onOperatorClick={props.onFacetClick}
+                booleanControls={props.booleanControls}
             />
         );
     });
