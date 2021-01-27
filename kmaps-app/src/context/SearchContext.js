@@ -18,7 +18,7 @@ import { useParams } from 'react-router';
  *
  * */
 
-export default function SearchContext(props) {
+const SearchContext = React.memo((props) => {
     const params = useParams();
     const show_debug = false;
     if (show_debug) console.log('SearchContext params = ', params);
@@ -175,4 +175,6 @@ export default function SearchContext(props) {
         }
     });
     return ret_children;
-}
+});
+
+export default SearchContext;

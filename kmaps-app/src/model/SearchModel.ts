@@ -197,10 +197,7 @@ export const searchModel: SearchModel = {
 
         //TODO: gk3k. If this is true, the search call happens multiple times.
         //We need to fix this and prevent the multiple calls.
-        if (!_.isEmpty(searchState.query.searchText)) {
-            //console.log('SearchState', searchState);
-            //console.log('SearchStateActions', actions);
-
+        if (true) {
             searchState.loadingState = true;
             //         console.log('SEARCH START');
             performance.mark('SearchModelSearchUpdateThunkStart');

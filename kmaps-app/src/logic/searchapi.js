@@ -265,7 +265,7 @@ export function getAssetSearchPromise(search) {
 
     const searchPromise = new Promise((resolve, reject) => {
         const cached = getCached(request);
-        if (false && cached) {
+        if (cached) {
             // console.log('Returning cached data: ', cached);
             resolve(cached);
             return;
@@ -662,12 +662,16 @@ function constructFilters(filters) {
 
         facetData.forEach((f) => {
             if (f.operator === 'NOT') {
-                not_list.push('(*:* AND -'+ fieldName+':("' + f.match + '"))');
+                not_list.push(
+                    '(*:* AND -' + fieldName + ':("' + f.match + '"))'
+                );
             } else if (f.operator === 'AND') {
-                and_list.push('(*:* AND '+ fieldName+':("' + f.match + '"))');
+                and_list.push(
+                    '(*:* AND ' + fieldName + ':("' + f.match + '"))'
+                );
             } else {
                 /* OR default case */
-                or_list.push('(*:* OR '+ fieldName+':("' + f.match + '"))');
+                or_list.push('(*:* OR ' + fieldName + ':("' + f.match + '"))');
             }
         });
 

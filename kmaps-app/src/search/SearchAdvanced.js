@@ -9,7 +9,7 @@ import { useStoreState } from 'easy-peasy';
 
 const SEARCH_PATH = '/search';
 
-export function SearchAdvanced(props) {
+function SearchAdvancedSimple(props) {
     const history = useHistory();
     let openclass = props.advanced ? 'open' : 'closed';
     let [reset, setReset] = useState(0);
@@ -21,7 +21,8 @@ export function SearchAdvanced(props) {
 
     // console.log("SearchAdvance searchView = ", searchView);
     let [booleanControls, setBooleanControls] = useState(true);
-    const handleBooleanControlClick = () => setBooleanControls(!booleanControls)
+    const handleBooleanControlClick = () =>
+        setBooleanControls(!booleanControls);
 
     function gotoSearchPage() {
         if (!searchView) {
@@ -313,3 +314,5 @@ export function SearchAdvanced(props) {
 
     return advanced;
 }
+
+export const SearchAdvanced = React.memo(SearchAdvancedSimple);
