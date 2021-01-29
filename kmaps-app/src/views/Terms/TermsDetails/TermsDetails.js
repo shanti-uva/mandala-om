@@ -3,6 +3,10 @@ import { MandalaPopover } from '../../common/MandalaPopover';
 import './TermsDetails.css';
 
 const TermsDetails = (props) => {
+    console.log(
+        'GerardKetuma|TermsDetailsList',
+        props.kmAsset?.associated_subject_map_idfacet
+    );
     return (
         <div className="sui-termsDetails__wrapper">
             <ul className="sui-termsDetails__list">
