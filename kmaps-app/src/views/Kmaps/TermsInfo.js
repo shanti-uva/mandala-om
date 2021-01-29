@@ -17,6 +17,8 @@ const TermsInfo = React.memo(function (props) {
             return _.get(val, 'related_definitions_source_s', 'main_defs');
         })
         .value();
+    const otherDefinitions = _.omit(definitions, ['main_defs']);
+
     if (props.kmap) {
         return (
             <>
@@ -29,9 +31,9 @@ const TermsInfo = React.memo(function (props) {
                     mainDefs={definitions['main_defs']}
                     kmRelated={props.kmRelated}
                 />
-                <TermDictionaries
-                    definitions={_.omit(definitions, ['main_defs'])}
-                />
+                {!_.isEmpty(otherDefinitions) && (
+                    <TermDictionaries definitions={otherDefinitions} />
+                )}
             </>
         );
     } else {

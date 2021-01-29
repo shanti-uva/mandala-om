@@ -265,7 +265,7 @@ export function getAssetSearchPromise(search) {
 
     const searchPromise = new Promise((resolve, reject) => {
         const cached = getCached(request);
-        if (cached) {
+        if (false && cached) {
             // console.log('Returning cached data: ', cached);
             resolve(cached);
             return;
