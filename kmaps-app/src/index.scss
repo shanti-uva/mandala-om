@@ -47,9 +47,13 @@ body.html {
 .l-content__rightsidebar {
     /*  flex: 0 0 28rem;*/
     width: 25%;
+    margin: 1rem 0 0 1.5rem;
     max-width: 35rem;
     min-width: 15rem;
     font-size: 1.4rem;
+    background-color: #fff;
+    /* border: 1px solid #ccc;
+    border-top: transparent; */
 }
 .terms .l-content__main__wrap,
 .subjects .l-content__main__wrap {
@@ -375,9 +379,39 @@ div.image-wrapper.center figcaption {
 }
 
 // SEARCH Section ------- move this
-.advanced-search-and-tree {
-    /*  position: relative; */
+.advanced-search-and-tree .nav-tabs {
+    padding: 0 1rem 0.5rem;
+    margin: 1rem 2rem 0;
+    border-bottom: 1px solid #e0e0e0;
 }
+.advanced-search-and-tree .nav-tabs .nav-link {
+    padding: 0 0.3rem;
+    margin: 0.5rem 0 0.2rem;
+    width: 33%;
+    text-align: center;
+    border: none;
+    border-right: 1px solid #aaa;
+    font-size: 1.54rem;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 0.0475rem;
+}
+.advanced-search-and-tree .nav-tabs .nav-link:last-of-type {
+    border-right: none;
+}
+.advanced-search-and-tree .nav-tabs .nav-link.active {
+    background-color: transparent;
+}
+.advanced-search-and-tree .nav-tabs .nav-link.active#kmaps-tab-tab-places {
+    color: $color-places !important;
+}
+.advanced-search-and-tree .nav-tabs .nav-link.active#kmaps-tab-tab-subjects {
+    color: $color-subjects !important;
+}
+.advanced-search-and-tree .nav-tabs .nav-link.active#kmaps-tab-tab-terms {
+    color: $color-terms !important;
+}
+
 ul.fancytree-container {
     height: auto !important;
 }
@@ -400,6 +434,9 @@ ul.fancytree-container {
     max-width: inherit;
     background: inherit;
     border-left: none;
+}
+.l-column__search .navbar-expand {
+    padding: 0.5rem 2rem 0;
 }
 .l-column__search nav:first-child {
     display: none;

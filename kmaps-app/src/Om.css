@@ -442,7 +442,9 @@
 }
 
 /* ADVANCED SEARCH */
-
+.l-column__search .navbar-expand .badge-secondary {
+    margin-left: 0.5rem;
+}
 .l-column__search {
     /*   position: absolute;
     z-index: 10;
@@ -675,7 +677,7 @@
 .sui-advEdit-facet-ctrls-btns .btn {
     padding: 0.2rem 1rem;
     background-color: #f9f9f9;
-    border-color: #ccc;
+    border-color: #ccc !important;
     color: #444;
     font-size: 1.45rem;
 }
@@ -684,12 +686,13 @@
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
     background-color: #fff;
-    border-color: #888;
+    border-color: #ccc !important;
     color: #222;
+    border-bottom-color: transparent;
 }
 .sui-advEdit-facet-ctrls-btns .btn:focus,
 .sui-advEdit-facet-ctrls-btns .btn:active {
-    border-color: transparent;
+    border-color: #ddd !important;
     box-shadow: none;
     outline: none;
 }
@@ -700,7 +703,7 @@
 
 .sui-advEdit input {
     width: 11.25rem;
-    border: 1px solid #aaa;
+    border: 1px solid #ccc;
     border-radius: 0.35rem;
     font-size: 1.25rem;
     padding: 0.5rem 1.25rem 0.25rem;
@@ -1626,10 +1629,6 @@
 
 .shanticon-terms:before {
     content: '\e635';
-}
-
-.l-column__search .nav-link {
-    padding: 0.3rem 0.3rem;
 }
 
 .sui-definitionEntry {
