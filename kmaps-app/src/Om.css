@@ -474,11 +474,9 @@
 }
 
 .sui-advBox {
-    border: 1px solid #ddd;
-    border-bottom-color: #ccc;
-    margin: 0 5px;
+    border-bottom: 1px solid #ddd;
+    margin: 0 0.75rem;
     padding: 1.25rem 1rem 0;
-    border-radius: 2px;
     background-color: #fff;
     min-height: 4.75rem;
 }

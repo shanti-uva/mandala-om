@@ -23,7 +23,7 @@ ul.fancytree-container {
 
 .fancytree-container li {
     padding: 0;
-    line-height: 1.5em;
+    line-height: 1.25em;
     overflow: hidden;
     position: relative;
 }
@@ -175,6 +175,7 @@ ul.fancytree-container {
 span.fancytree-node {
     margin-top: 0;
     border-radius: 0.4rem 0 0 0.4rem;
+    padding-left: 0.75rem;
 }
 
 ul.fancytree-container:focus,
@@ -273,6 +274,13 @@ span.fancytree-expander {
     .icon::before {
     border-color: #fff !important;
     color: #fff;
+}
+
+.fancytree-node.fancytree-active .fancytree-expander,
+.fancytree-container.fancytree-treefocus
+    span.fancytree-node.fancytree-active
+    .fancytree-expander {
+    color: #fff !important;
 }
 /**
 *** END treeview */
