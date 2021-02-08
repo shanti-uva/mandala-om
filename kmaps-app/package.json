@@ -41,7 +41,7 @@
         "react-loading-skeleton": "^2.1.1",
         "react-numeric-input": "^2.2.3",
         "react-photo-gallery": "^8.0.0",
-        "react-query": "^2.5.14",
+        "react-query": "^3.0.0",
         "react-query-devtools": "^2.4.2",
         "react-redux": "^7.2.1",
         "react-router-dom": "^5.2.0",

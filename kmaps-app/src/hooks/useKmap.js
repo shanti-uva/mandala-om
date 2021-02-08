@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import jsonpAdapter from '../logic/axios-jsonp';
 
-const solr_urls = getSolrUrls(process.env.NODE_ENV);
+const solr_urls = getSolrUrls();
 
 /**
  *  "queries" object lists different queries by their key. Each query is an object defining:
@@ -17,7 +17,27 @@ const queries = {
         url: solr_urls.terms,
         params: {
             q: 'uid:_DOMAIN_-_KID_',
+            fl: '*,[child parentFilter=block_type:parent limit=1000]',
+            echoParams: 'explicit',
+            indent: 'true',
+            start: 0,
+            rows: 1,
+        },
+        dataFilter: function (data) {
+            return data.response && data.response.numFound > 0
+                ? data.response.docs[0]
+                : false;
+        },
+    },
+    asset: {
+        url: solr_urls.assets,
+        params: {
+            q: 'uid:_DOMAIN_-_KID_',
             fl: '*',
+            echoParams: 'explicit',
+            indent: 'true',
+            start: 0,
+            rows: 1,
         },
         dataFilter: function (data) {
             return data.response && data.response.numFound > 0
@@ -44,7 +64,7 @@ const queries = {
     },
 };
 
-const getKmapData = async (_, { qtype, domain, kid }) => {
+const getKmapData = async (domain, kid, qtype) => {
     // console.log("getKmapData ", _, qtype, domain, kid);
 
     // ys2n:
@@ -86,15 +106,15 @@ const getKmapData = async (_, { qtype, domain, kid }) => {
  *
  * @param domain
  * @param kid
- * @param query_type
+ * @param query_type (info|related)
  * @returns {any}
  */
 export function useKmap(domain, kid, query_type, byPass = false) {
     // console.log("useKmap: domain = ", domain, " kid = ", kid, " query_type = ",  query_type );
     query_type = typeof query_type === 'undefined' ? 'info' : query_type;
     return useQuery(
-        ['kmap', { qtype: query_type, domain: domain, kid: kid }],
-        getKmapData,
+        ['kmap', domain, kid, query_type],
+        () => getKmapData(domain, kid, query_type),
         { enabled: !byPass }
     );
 }
@@ -103,10 +123,9 @@ export function useKmap(domain, kid, query_type, byPass = false) {
  * A function to get the proper Solr base URL for the current environment.
  * Returns an object with both an assets and a terms property that contains the base url to that index
  * for the given environment. Uses environment variables set by .env files for each environment
- * @param env
  * @returns {{assets: string, terms: string}}
  */
-function getSolrUrls(env) {
+function getSolrUrls() {
     return {
         assets: process.env.REACT_APP_SOLR_KMASSETS + '/select',
         terms: process.env.REACT_APP_SOLR_KMTERMS + '/select',

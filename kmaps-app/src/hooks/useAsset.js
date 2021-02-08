@@ -21,8 +21,7 @@ const useAsset = (asset_type, nid) => {
     };
     const query_key = QUERY_BASE + '-' + asset_type + '-' + nid;
 
-    const resource = useSolr(query_key, querySpecs);
-    return resource;
+    return useSolr(query_key, querySpecs);
 };
 
 export default useAsset;

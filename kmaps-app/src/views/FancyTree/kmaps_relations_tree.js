@@ -1,7 +1,10 @@
 import jQuery from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { MandalaPopover } from '../common/MandalaPopover';
+
+const queryClient = new QueryClient();
 /*
  *  Project: UVa KMaps
  *  Description: Plugin to handle the fancyTree implementation with Solr
@@ -180,10 +183,12 @@ import { MandalaPopover } from '../common/MandalaPopover';
                                 ''
                             );
                             ReactDOM.render(
-                                <MandalaPopover
-                                    domain={plugin.options.domain}
-                                    kid={myId}
-                                ></MandalaPopover>,
+                                <QueryClientProvider client={queryClient}>
+                                    <MandalaPopover
+                                        domain={plugin.options.domain}
+                                        kid={myId}
+                                    />
+                                </QueryClientProvider>,
                                 elem.lastChild
                             );
                         }

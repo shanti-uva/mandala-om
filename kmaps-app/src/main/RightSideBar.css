@@ -1,0 +1,436 @@
+/* ADVANCED SEARCH */
+
+.l-column__search {
+    /*   position: absolute;
+  z-index: 10;
+  left: calc(100% - 361px);
+  top: 43px;
+  height: calc(100% - 75px);
+  width: 344px;
+  background-color: #eee;
+  display: block;
+  border-left: 1px solid #aaa;
+  padding: 16px 16px 0 0;
+  color: #333;
+  border-bottom: 1px solid #aaa;
+  border-bottom-left-radius: 5px;
+  font-size: 15px;
+  overflow: hidden;*/
+}
+
+.sui-advTop {
+    text-align: center;
+    color: #fff;
+    background-color: #888;
+    padding: 16px 8px 0 0;
+    margin: -16px 0 0 -16px;
+    width: calc(100% + 24px);
+    height: 36px;
+}
+
+.sui-advBox {
+    border: 1px solid #ddd;
+    border-bottom-color: #ccc;
+    margin: 0 5px;
+    padding: 1.25rem 1rem 0;
+    border-radius: 2px;
+    background-color: #fff;
+    min-height: 4.75rem;
+}
+
+.sui-advBox.sui-advBox-associated.subjects {
+    display: none;
+}
+
+.sui-advBox .app-name {
+    line-height: 2.2rem;
+}
+
+.sui-advBox-asset_type {
+    text-transform: capitalize;
+}
+/*
+.sui-advHeader:hover {
+  color: #668eec;
+}
+*/
+.sui-advHeader {
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    height: 1.5rem;
+    font-size: 1.25rem;
+    cursor: default;
+}
+
+.sui-advHeader:hover {
+    color: #222;
+}
+
+.sui-advHeader > .icon {
+    margin: 0 1rem 0 0.5rem;
+    font-size: 1.7rem;
+    position: relative;
+    top: -0.4rem;
+    left: -0.25rem;
+}
+.sui-advHeader .badge {
+    position: relative;
+    bottom: 0;
+    right: -0.25rem;
+    padding: 0.5rem 3.5rem 0.5rem 1rem;
+    border-radius: 0.3rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.sui-advHeader .badge.badge-secondary {
+    color: #fff;
+    padding-right: 1rem;
+    cursor: default;
+}
+
+.sui-advHeader .badge-secondary ~ .u-icon__plus,
+.sui-advHeader .badge-secondary ~ .u-icon__minus {
+    visibility: hidden;
+    cursor: default;
+}
+
+.sui-advHeader .u-icon__plus,
+.sui-advHeader .u-icon__minus {
+    position: absolute;
+    right: 0.5rem;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: #eee;
+    cursor: pointer;
+}
+
+.sui-advHeader > .app-name {
+    flex: 1;
+}
+
+.sui-advBox-recent .c-HistoryViewer {
+    font-size: 1.25rem;
+    color: #000;
+    padding: 0.5rem;
+    max-height: 12rem;
+    position: relative;
+    box-shadow: none;
+    border: none;
+    background: transparent !important;
+    margin: 0;
+}
+
+.sui-advBox-recent .c-HistoryViewer__relatedRecentItem {
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 95%;
+    cursor: pointer;
+    padding-left: 0.4rem;
+    padding-bottom: 0.25rem;
+}
+
+.sui-advBox-recent .c-HistoryViewer__relatedRecentItem:hover {
+    background-color: #dee7f1;
+}
+
+.sui-advBox-recent .c-HistoryViewer__removeItem {
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: transparent;
+    margin-top: 0.35rem;
+    position: absolute;
+    right: 0.5rem;
+    transition: color 250ms ease-in;
+}
+
+.sui-advBox-recent
+    .c-HistoryViewer__relatedRecentItem:hover
+    .c-HistoryViewer__removeItem {
+    color: #aaa;
+}
+
+.sui-advBox-recent .c-HistoryViewer__removeItem:hover::before {
+    color: #df3d26;
+}
+
+.sui-advBox-recent .c-HistoryViewer__removeItem:active::before {
+    color: #aaa;
+}
+
+.sui-advBox-recent .sui-advEdit {
+    padding-right: 0;
+    padding-left: 0.5rem;
+}
+
+/*.sui-advTermRem {*/
+/*    display: inline-block;*/
+/*    cursor: pointer;*/
+/*    margin-right: 4px;*/
+/*}*/
+
+.sui-advValueRem:hover {
+    color: #668eec;
+}
+
+.sui-advTerm {
+    margin: 0.5rem 0 0 0.6rem;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.5rem 0.75rem 2.5rem;
+}
+.sui-advTerm .icon::before {
+    color: #555;
+    margin-right: 0.4rem;
+}
+
+.sui-advTerm:empty {
+    display: none;
+}
+
+.sui-advTerm div > span:first-child::before {
+    color: #999;
+    font-size: 1.35rem;
+    position: relative;
+    top: 0.2rem;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 4px;
+}
+.sui-advTerm div > span:first-child:hover::before {
+    color: red;
+}
+
+.sui-advTerm div .facetItem,
+.sui-advTerm div > span:last-child::before {
+    display: none;
+}
+
+.sui-advEdit {
+    display: none;
+    background-color: #fafafa;
+    text-align: left;
+    border: 0.1rem solid #ddd;
+    border-top-color: #aaa;
+    border-bottom-width: 0.3rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+    padding: 0.8rem 0.8rem 0.3rem;
+    font-size: 1.25rem;
+    color: #333;
+    margin: 1.25rem 0;
+}
+
+.sui-advEdit-facet-ctrls-btns {
+    position: relative;
+    top: 0.4rem;
+    float: right;
+}
+
+.sui-advEdit-facet-ctrls-btns .btn {
+    padding: 0.2rem 1rem;
+    background-color: #f9f9f9;
+    border-color: #ccc;
+    color: #444;
+    font-size: 1.45rem;
+}
+.sui-advEdit-facet-ctrls-btns .btn:hover,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: #fff;
+    border-color: #888;
+    color: #222;
+}
+.sui-advEdit-facet-ctrls-btns .btn:focus,
+.sui-advEdit-facet-ctrls-btns .btn:active {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.sui-advEdit-facet-ctrls-btns .btn:first-of-type {
+    font-size: 1.5rem;
+}
+
+.sui-advEdit input {
+    width: 11.25rem;
+    border: 1px solid #aaa;
+    border-radius: 0.35rem;
+    font-size: 1.25rem;
+    padding: 0.5rem 1.25rem 0.25rem;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.sui-advPlus {
+    float: right;
+    position: relative;
+}
+
+.sui-advEditBut {
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: -2px;
+    color: #999;
+}
+
+.sui-advEditBut:hover {
+    color: #a4baec;
+}
+
+.sui-advEditNums {
+    float: right;
+    font-size: 9px;
+    padding-top: 5px;
+}
+
+.sui-advEditBool {
+    display: inline-block;
+    cursor: pointer;
+    color: #668eec;
+    border: 0.5px solid #999;
+    border-radius: 2px;
+    padding: 0 0 1px 3px;
+    margin: 2px 0;
+}
+
+.sui-boolItem {
+    display: inline-block;
+    color: #999;
+}
+
+.sui-boolItem:hover {
+    color: #668eec;
+}
+
+.sui-advEditList {
+    overflow-x: hidden;
+    max-height: 360px;
+}
+
+.sui-advEditLine {
+    cursor: pointer;
+    padding: 0 1rem 0.25rem;
+    border-bottom: 0.2rem solid #fafafa;
+}
+
+.sui-advEditLine:hover {
+    background-color: #dee7f1;
+}
+
+.sui-advEditLine.chosen {
+    background-color: #dee7f1;
+}
+
+.sui-advEdit-facet-ctrls {
+    margin-bottom: 0.5rem;
+}
+
+.sui-advViewListPage {
+    display: inline-block;
+}
+
+.sui-advViewListPage:hover {
+    color: #668eec;
+}
+
+.sui-advViewTreePage {
+    display: inline-block;
+    padding: 0 4px;
+    color: #777;
+}
+
+.sui-advViewTreePage:hover {
+    color: #a4baec;
+}
+
+.sui-adv-facetlist {
+    max-height: 15rem;
+    padding: 0.25rem 0;
+    border-radius: 1.25rem;
+}
+.sui-adv-facetlist .facetItem,
+.sui-advBox-asset_type .sui-advEditLine .icon {
+    font-size: 1.5rem;
+    position: relative;
+    left: -0.5rem;
+    top: 0.15rem;
+}
+.sui-advBox-asset_type .sui-adv-facetlist .facetItem {
+    display: none;
+}
+
+.sui-geoLocate {
+    background-color: #6faaf1;
+    border-radius: 16px;
+    margin-top: 4px;
+    padding: 0 12px;
+    border: 1px solid #999;
+    cursor: pointer;
+    text-align: center;
+    float: right;
+    color: #fff;
+}
+
+/* TREE */
+.sui-tree {
+    user-select: none;
+    overflow-x: hidden;
+    max-height: 360px;
+    padding-left: 6px;
+    font-size: 12px;
+}
+
+.sui-tree ul {
+    list-style: none outside none;
+    padding: 0;
+    margin: 0;
+}
+
+.sui-tree li a {
+    line-height: 19px;
+    cursor: pointer;
+}
+
+.sui-tree > ul > li > a {
+    color: #3b4c56;
+    display: block;
+    font-weight: normal;
+    position: relative;
+    text-decoration: none;
+}
+
+.sui-tree li.parent > a {
+    padding: 0 0 2px 20px;
+}
+
+.sui-tree li.parent > a:before {
+    background-image: url('treebuts.png');
+    content: '';
+    display: block;
+    height: 15px;
+    left: 0;
+
+    position: ABSOLUTE;
+
+    top: 2px;
+    width: 15px;
+    background-position: 0;
+}
+
+.sui-tree ul li.active > a:before {
+    background-position: 30px;
+}
+
+.sui-tree ul li ul {
+    border-left: 1px solid #a4baec;
+    display: none;
+    margin: 0 0 0 7px;
+    padding: 0 0 0 12px;
+}
+
+.sui-tree ul li ul li {
+    position: relative;
+}

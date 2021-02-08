@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import SearchUI from './legacy/searchui';
 import Pages from './legacy/pages';
 
@@ -11,27 +12,22 @@ import { NotFoundPage } from './views/common/utilcomponents';
 export const ADVANCED_LABEL = 'Advanced';
 export const BASIC_LABEL = 'Basic Search';
 
-class App extends React.Component {
-    constructor(props) {
-        super();
+const queryClient = new QueryClient();
 
-        if (!window.sui) {
-            window.sui = new SearchUI();
-        }
-        this.sui = window.sui;
-
-        if (!window.sui.pages) {
-            this.sui.pages = window.sui.pages = new Pages(this.sui);
-        }
+export default function App() {
+    if (!window.sui) {
+        window.sui = new SearchUI();
     }
 
-    render() {
-        return <Main sui={this.sui} />;
+    let sui = window.sui;
+
+    if (!window.sui.pages) {
+        sui.pages = window.sui.pages = new Pages(sui);
     }
-}
 
-export function Error404() {
-    return <NotFoundPage />;
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Main sui={sui} />
+        </QueryClientProvider>
+    );
 }
-
-export default App;

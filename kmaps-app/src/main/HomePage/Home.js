@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../../Om.css';
 
-export function Home(props) {
+export default function Home(props) {
     return (
         <Container>
             <Row>

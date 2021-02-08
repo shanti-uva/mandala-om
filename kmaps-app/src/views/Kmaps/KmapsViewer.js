@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
-import TermNames from '../Terms/TermNames';
 import 'rc-input-number/assets/index.css';
 import NodeHeader from '../common/NodeHeader';
 import { RelatedsGallery } from '../common/RelatedsGallery';
 import '../Terms/TermsViewer.css';
-import { TermsInfo } from './TermsInfo';
+import { TermsInfo } from '../Terms/TermsInfo';
 import { PlacesInfo } from './PlacesInfo';
 import { SubjectsInfo } from './SubjectsInfo';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import useStatus from '../../hooks/useStatus';
-import { AudioVideoViewer } from '../AudioVideo/AudioVideoViewer';
 import MdlAssetContext from '../../context/MdlAssetContext';
 import GenAssetContext from '../../context/GenAssetContext';
-import { TextsViewer } from '../Texts/TextsViewer';
 import { ImagesViewer } from '../Images/ImagesViewer';
 import { SourcesViewer } from '../Sources/SourcesViewer';
 import { VisualsViewer } from '../Visuals/VisualsViewer';
@@ -28,6 +25,10 @@ import {
     PlacesRelSubjectsViewer,
 } from './KmapsRelatedsViewer';
 import TermsDefinitionsFilter from '../Terms/TermsDefinitionsFilter';
+const AudioVideoViewer = React.lazy(() =>
+    import('../AudioVideo/AudioVideoViewer')
+);
+const TextsViewer = React.lazy(() => import('../Texts/TextsViewer'));
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);
@@ -103,184 +104,196 @@ export default function KmapsViewer(props) {
             <section className="l-content__main__wrap">
                 <div className="c-content__main__kmaps">
                     {/*<NodeHeader kmasset={props.kmasset} />*/}
-                    <Switch>
-                        {/* Related AV */}
-                        <Route
-                            path={
-                                '/:viewerType/:nid/related-audio-video/view/:relId'
-                            }
-                        >
-                            <NodeHeader
-                                {...props}
-                                kmasset={props.kmasset}
-                                relatedType={'audio-video'}
-                                back={'true'}
-                            />
-                            <GenAssetContext assetType={'audio-video'}>
-                                <AudioVideoViewer sui={window.sui} />
-                            </GenAssetContext>
-                        </Route>
-
-                        {/* Related Texts */}
-                        <Route
-                            path={'/:viewerType/:nid/related-texts/view/:relId'}
-                        >
-                            <NodeHeader
-                                {...props}
-                                kmasset={props.kmasset}
-                                relatedType={'texts'}
-                                back={'true'}
-                            />
-                            <GenAssetContext assetType={'texts'}>
-                                <TextsViewer inline={true} />
-                            </GenAssetContext>
-                        </Route>
-
-                        {/* Related Images */}
-                        <Route
-                            path={
-                                '/:viewerType/:nid/related-images/view/:relId'
-                            }
-                        >
-                            <NodeHeader
-                                {...props}
-                                kmasset={props.kmasset}
-                                relatedType={'images'}
-                                back={'true'}
-                            />
-                            <GenAssetContext assetType={'images'}>
-                                <ImagesViewer inline={true} />
-                            </GenAssetContext>
-                        </Route>
-
-                        {/* Related Sources */}
-                        <Route
-                            path={
-                                '/:viewerType/:nid/related-sources/view/:relId'
-                            }
-                        >
-                            <NodeHeader
-                                {...props}
-                                kmasset={props.kmasset}
-                                relatedType={'sources'}
-                                back={'true'}
-                            />
-                            <GenAssetContext assetType={'sources'}>
-                                <SourcesViewer inline={true} />
-                            </GenAssetContext>
-                        </Route>
-
-                        {/* Related Visuals */}
-                        <Route
-                            path={
-                                '/:viewerType/:nid/related-visuals/view/:relId'
-                            }
-                        >
-                            <NodeHeader
-                                {...props}
-                                kmasset={props.kmasset}
-                                relatedType={'visuals'}
-                                back={'true'}
-                            />
-                            <GenAssetContext assetType={'visuals'}>
-                                <VisualsViewer inline={true} />
-                            </GenAssetContext>
-                        </Route>
-
-                        <Route
-                            path={'/:viewerType/:nid/related-all/view/:relId'}
-                        >
-                            <NodeHeader
-                                {...props}
-                                kmasset={props.kmasset}
-                                relatedType={'all'}
-                                back={'true'}
-                            />
-                            <GenAssetContext
-                                assetType={declaredType}
-                                inline={true}
+                    {/** TODO:gk3k -> Change loading to skeletons. See if we can remove this file entirely. */}
+                    <React.Suspense fallback={<div>Loading...</div>}>
+                        <Switch>
+                            {/* Related AV */}
+                            <Route
+                                path={
+                                    '/:viewerType/:nid/related-audio-video/view/:relId'
+                                }
                             >
-                                {declaredViewer}
-                            </GenAssetContext>
-                        </Route>
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                    relatedType={'audio-video'}
+                                    back={'true'}
+                                />
+                                <GenAssetContext assetType={'audio-video'}>
+                                    <AudioVideoViewer sui={window.sui} />
+                                </GenAssetContext>
+                            </Route>
 
-                        {/* Catch relatedType routes that are not specified above */}
-                        <Redirect
-                            from={
-                                '/:viewerType/:id/related-:relatedType/view/:relId'
-                            }
-                            to={'/:viewerType/:relId'}
-                        />
+                            {/* Related Texts */}
+                            <Route
+                                path={
+                                    '/:viewerType/:nid/related-texts/view/:relId'
+                                }
+                            >
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                    relatedType={'texts'}
+                                    back={'true'}
+                                />
+                                <GenAssetContext assetType={'texts'}>
+                                    <TextsViewer inline={true} />
+                                </GenAssetContext>
+                            </Route>
 
-                        <Route path={'/subjects/:id/related-subjects'}>
-                            <NodeHeader {...props} kmasset={props.kmasset} />
-                            <KmapsRelatedsViewer {...props} />
-                        </Route>
+                            {/* Related Images */}
+                            <Route
+                                path={
+                                    '/:viewerType/:nid/related-images/view/:relId'
+                                }
+                            >
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                    relatedType={'images'}
+                                    back={'true'}
+                                />
+                                <GenAssetContext assetType={'images'}>
+                                    <ImagesViewer inline={true} />
+                                </GenAssetContext>
+                            </Route>
 
-                        <Route path={'/subjects/:id/related-places'}>
-                            <NodeHeader {...props} kmasset={props.kmasset} />
-                            <SubjectsRelPlacesViewer {...props} />
-                        </Route>
+                            {/* Related Sources */}
+                            <Route
+                                path={
+                                    '/:viewerType/:nid/related-sources/view/:relId'
+                                }
+                            >
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                    relatedType={'sources'}
+                                    back={'true'}
+                                />
+                                <GenAssetContext assetType={'sources'}>
+                                    <SourcesViewer inline={true} />
+                                </GenAssetContext>
+                            </Route>
 
-                        <Redirect
-                            from={'/places/:id/related-places/:view'}
-                            to={'/places/:id/related-places'}
-                        />
-                        <Route path={'/places/:id/related-places'}>
-                            <NodeHeader {...props} kmasset={props.kmasset} />
-                            <PlacesRelPlacesViewer {...props} />
-                        </Route>
+                            {/* Related Visuals */}
+                            <Route
+                                path={
+                                    '/:viewerType/:nid/related-visuals/view/:relId'
+                                }
+                            >
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                    relatedType={'visuals'}
+                                    back={'true'}
+                                />
+                                <GenAssetContext assetType={'visuals'}>
+                                    <VisualsViewer inline={true} />
+                                </GenAssetContext>
+                            </Route>
 
-                        <Redirect
-                            from={'/places/:id/related-subjects/:view'}
-                            to={'/places/:id/related-subjects'}
-                        />
-                        <Route path={'/places/:id/related-subjects'}>
-                            <NodeHeader {...props} kmasset={props.kmasset} />
-                            <PlacesRelSubjectsViewer {...props} />
-                        </Route>
+                            <Route
+                                path={
+                                    '/:viewerType/:nid/related-all/view/:relId'
+                                }
+                            >
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                    relatedType={'all'}
+                                    back={'true'}
+                                />
+                                <GenAssetContext
+                                    assetType={declaredType}
+                                    inline={true}
+                                >
+                                    {declaredViewer}
+                                </GenAssetContext>
+                            </Route>
 
-                        <Route
-                            path={[
-                                `/:viewerType/:id/related-:relatedType/:definitionID/:viewMode`,
-                                `/:viewerType/:id/related-:relatedType/:viewMode`,
-                            ]}
-                        >
-                            <NodeHeader {...props} />
-                            <TermsDefinitionsFilter {...props} />
-                            <RelatedsGallery {...props} />
-                        </Route>
+                            {/* Catch relatedType routes that are not specified above */}
+                            <Route path={'/subjects/:id/related-subjects'}>
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                />
+                                <KmapsRelatedsViewer {...props} />
+                            </Route>
 
-                        <Route path={'/:viewerType/:id/related-:relatedType'}>
-                            <Redirect to={'./all'} />
-                        </Route>
+                            <Route path={'/subjects/:id/related-places'}>
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                />
+                                <SubjectsRelPlacesViewer {...props} />
+                            </Route>
 
-                        {/* Default or "Home" path */}
-                        <Route>
-                            <NodeHeader
-                                kmasset={props.kmasset}
-                                kmap={props.kmap}
+                            <Redirect
+                                from={'/places/:id/related-places/:view'}
+                                to={'/places/:id/related-places'}
                             />
-                            <TermNames kmap={props.kmap} />
-                            <Switch>
-                                {/*    Asset Specific SubViewers*/}
-                                <Route path={'/subjects'}>
-                                    <SubjectsInfo {...props} />
-                                </Route>
-                                <Route path={'/places'}>
-                                    <PlacesInfo {...props} />
-                                </Route>
-                                <Route path={'/terms'}>
-                                    <TermsInfo
-                                        kmasset={props.kmasset}
-                                        kmap={props.kmap}
-                                        kmRelated={props.relateds}
-                                        defnum={queryParams.get('def')}
-                                    />
-                                </Route>
-                            </Switch>
-                        </Route>
-                    </Switch>
+                            <Route path={'/places/:id/related-places'}>
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                />
+                                <PlacesRelPlacesViewer {...props} />
+                            </Route>
+
+                            <Redirect
+                                from={'/places/:id/related-subjects/:view'}
+                                to={'/places/:id/related-subjects'}
+                            />
+                            <Route path={'/places/:id/related-subjects'}>
+                                <NodeHeader
+                                    {...props}
+                                    kmasset={props.kmasset}
+                                />
+                                <PlacesRelSubjectsViewer {...props} />
+                            </Route>
+
+                            <Route
+                                path={[
+                                    `/:viewerType/:id/related-:relatedType/:definitionID/:viewMode`,
+                                    `/:viewerType/:id/related-:relatedType/:viewMode`,
+                                ]}
+                            >
+                                <NodeHeader {...props} />
+                                <TermsDefinitionsFilter {...props} />
+                                <RelatedsGallery {...props} />
+                            </Route>
+
+                            <Route
+                                path={'/:viewerType/:id/related-:relatedType'}
+                            >
+                                <Redirect to={'./all'} />
+                            </Route>
+
+                            {/* Default or "Home" path */}
+                            {/*<Route>
+                                <NodeHeader
+                                    kmasset={props.kmasset}
+                                    kmap={props.kmap}
+                                />
+                                <Switch>
+                                    <Route path={'/subjects'}>
+                                        <SubjectsInfo {...props} />
+                                    </Route>
+                                    <Route path={'/places'}>
+                                        <PlacesInfo {...props} />
+                                    </Route>
+                                    <Route path={'/terms'}>
+                                        <TermsInfo
+                                            kmasset={props.kmasset}
+                                            kmap={props.kmap}
+                                            kmRelated={props.relateds}
+                                            defnum={queryParams.get('def')}
+                                        />
+                                    </Route>
+                                </Switch>
+                            </Route> */}
+                        </Switch>
+                    </React.Suspense>
                 </div>
 
                 <span

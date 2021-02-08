@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, queryCache } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import jsonpAdapter from '../logic/axios-jsonp';
 // import { ReactQueryDevtools } from 'react-query-devtools';
@@ -19,7 +19,7 @@ const solrurls = {
  * @param query
  * @returns {Promise<any>}
  */
-const getSolrData = async (_, { query }) => {
+const getSolrData = async (query) => {
     if (!(query.index in solrurls) || !query.params) {
         console.warn(
             'The query object sent to useSolr() did not have proper index or params values: ',
@@ -57,15 +57,8 @@ const getSolrData = async (_, { query }) => {
  */
 export function useSolr(qkey, queryobj) {
     // console.log("useSolr: qkey = ", qkey, " queryobj = ", queryobj);
-    const res = useQuery([qkey, { query: queryobj }], getSolrData);
-    // console.log("useSolr: res = ", res);
-    if (res) {
-        if (res.data) {
-            res.data['status'] = res.status; // Add the result status ('loading', 'success') to the data object returned. Used in GenAssetContext
-            return res.data;
-        }
-    }
-    return false;
+    // split qkey by '-' and pass array as key
+    return useQuery(qkey.split('-'), () => getSolrData(queryobj));
 }
 
 /**
@@ -77,7 +70,7 @@ export function useSolr(qkey, queryobj) {
  * @returns {any}
  */
 export function useSolrEnabled(qkey, queryobj, depvar) {
-    const res = useQuery([qkey, { query: queryobj }], getSolrData, {
+    const res = useQuery(qkey.split('-'), () => getSolrData(queryobj), {
         enabled: depvar,
     });
     if (res && res.data) {

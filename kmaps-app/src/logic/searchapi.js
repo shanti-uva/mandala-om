@@ -337,7 +337,7 @@ export function getAssetDataPromise(kmapid) {
             start: startRec,
             rows: rowsRec,
             // eslint-disable-next-line
-            q: 'uid:${kmapid}',
+            q: `uid:${kmapid}`,
             kmapid: kmapid,
         },
     };
@@ -387,7 +387,7 @@ export function getFullKmapDataPromise(kmapid) {
             start: startRec,
             rows: rowsRec,
             // eslint-disable-next-line
-            q: 'uid:${kmapid}',
+            q: `uid:${kmapid}`,
             kmapid: kmapid,
         },
     };
@@ -483,9 +483,9 @@ export function getRelatedAssetsPromise(kmapid, type, start, rows) {
         rows: rowsRec,
         'json.facet': facetJson,
         // eslint-disable-next-line
-        q: '(uid:${kmapid}^100+kmapid:${kmapid})',
+        q: `(uid:${kmapid}^100+kmapid:${kmapid})`,
         kmapid: kmapid,
-        fq: '{!tag=ast}asset_type:( ' + asset_types.join(' ') + ')',
+        fq: '{!tag=ast}asset_type:(' + asset_types.join(' ') + ')',
     };
 
     const request = {

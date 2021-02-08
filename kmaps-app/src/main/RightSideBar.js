@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchContext from '../context/SearchContext';
 import { AdvancedToggle } from './MainSearchToggle/AdvancedToggle';
 import { SearchAdvanced } from '../search/SearchAdvanced';
+import './RightSideBar.css';
 const TreeNav = React.lazy(() => import('./TreeNav'));
 
 const target = document.getElementById('advancedSearchPortal');

@@ -11,7 +11,7 @@ const QUERY_KEY = 'mndlapi';
  * @param query
  * @returns {Promise<boolean|*>}
  */
-const getMandalaAPI = async (_, { query }) => {
+const getMandalaAPI = async (query) => {
     if (query === '') {
         return false;
     }
@@ -42,20 +42,23 @@ const getMandalaAPI = async (_, { query }) => {
  * @returns {unknown}
  */
 const useMandala = (solrobj) => {
-    let json_url = '';
-    if (solrobj) {
-        if (solrobj.url_json) {
-            json_url = solrobj.url_json;
-        } else if (solrobj.docs && solrobj.docs.length > 0) {
-            json_url = solrobj.docs[0].url_json;
+    const obj = solrobj?.docs[0];
+    const json_url = obj.url_json;
+
+    return useQuery(
+        [QUERY_KEY, obj.id, obj.asset_type],
+        () => getMandalaAPI(json_url),
+        {
+            enabled: !!obj.id,
         }
-    }
-    json_url = json_url.replace(/\.json$/, '.jsonp?callback=mdldata');
-    const res = useQuery([QUERY_KEY, { query: json_url }], getMandalaAPI, {
-        enabled: json_url,
-    });
-    //console.log("use mandala error", error);
-    return res && res.data ? res.data : false;
+    );
+    // if (solrobj) {
+    //     if (solrobj.url_json) {
+    //         json_url = solrobj.url_json;
+    //     } else if (solrobj.docs && solrobj.docs.length > 0) {
+    //         json_url = solrobj.docs[0].url_json;
+    //     }
+    // }
 };
 
 export default useMandala;

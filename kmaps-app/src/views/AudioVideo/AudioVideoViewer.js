@@ -26,7 +26,7 @@ import { createAssetCrumbs } from '../common/utils';
  * @constructor
  * @author ndg8f
  */
-export function AudioVideoViewer(props) {
+export default function AudioVideoViewer(props) {
     const id = props.id;
     const kmasset = props.mdlasset;
     const nodejson = props.nodejson;
