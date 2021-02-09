@@ -441,6 +441,48 @@ ul.fancytree-container {
 .l-column__search nav:first-child {
     display: none;
 }
+.l-column__search nav:last-of-type > a {
+    position: absolute;
+    left: 0;
+    top: 3.5rem;
+    width: 90%;
+    height: 3rem;
+    margin: 2% 5%;
+    padding: 0.5rem 1rem;
+    border: 0.15rem solid #aa9;
+    border-radius: 1.25rem;
+    margin: 2% 10%;
+    width: 80%;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.15rem;
+    text-align: center;
+}
+.l-column__search nav:last-of-type > div {
+    display: inline-block !important;
+}
+.l-column__search nav:last-of-type > div .navbar-text {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #777;
+}
+.l-column__search nav:last-of-type > div a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+}
+.l-column__search nav:last-of-type > a .badge {
+    margin: 0 0 0 0.75rem;
+    background: transparent;
+    color: #000;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.0475rem;
+}
+
+.l-column__search > section {
+    margin-top: 4rem;
+}
+
 .sui-nameEntry-meta {
     margin-top: 0.75rem;
 }
