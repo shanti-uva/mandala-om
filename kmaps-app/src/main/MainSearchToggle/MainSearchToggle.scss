@@ -11,6 +11,12 @@
     border-radius: 0;
     border: none;
 }
+.c-MainSearchToggle--group label,
+.c-MainSearchToggle--group label input:focus {
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
 .c-MainSearchToggle--group svg {
     font-size: 1.75rem !important;
     font-size: 2rem !important;

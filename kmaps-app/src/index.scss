@@ -457,6 +457,11 @@ ul.fancytree-container {
     font-weight: 600;
     font-size: 1.15rem;
     text-align: center;
+    letter-spacing: 0.05rem;
+}
+.l-column__search nav:last-of-type > a:hover {
+    /* background-color:#ddd; */
+    border-color: $color-mandala;
 }
 .l-column__search nav:last-of-type > div {
     display: inline-block !important;
@@ -464,19 +469,28 @@ ul.fancytree-container {
 .l-column__search nav:last-of-type > div .navbar-text {
     text-transform: uppercase;
     font-weight: 600;
-    color: #777;
+    color: #707070;
+    letter-spacing: 0.0575rem;
 }
 .l-column__search nav:last-of-type > div a {
     display: inline-block;
     padding: 0.5rem 1rem;
+    font-weight: 600;
+    letter-spacing: 0.0375rem;
+}
+.l-column__search nav:last-of-type > div a:hover {
+    border-color: #14479c;
 }
 .l-column__search nav:last-of-type > a .badge {
     margin: 0 0 0 0.75rem;
     background: transparent;
-    color: #000;
-    font-size: 1.25rem;
-    font-weight: 400;
-    letter-spacing: 0.0475rem;
+    color: #14479c;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.0575rem;
+}
+.l-column__search nav:last-of-type > a:hover .badge {
+    color: #df3d23;
 }
 
 .l-column__search > section {
