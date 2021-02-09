@@ -687,7 +687,12 @@
     border-color: #ccc !important;
     color: #222;
     border-bottom-color: transparent;
+    /*border-top: 2px solid #999;*/
 }
+.btn-primary:not(:disabled):not(.disabled).active {
+    cursor: default;
+}
+
 .sui-advEdit-facet-ctrls-btns .btn:focus,
 .sui-advEdit-facet-ctrls-btns .btn:active {
     border-color: #ddd !important;

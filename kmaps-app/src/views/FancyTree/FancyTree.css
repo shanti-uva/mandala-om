@@ -1,6 +1,6 @@
 .suiFancyTree.view-wrap {
     overflow-x: scroll;
-    padding: 1rem 0 0 2.5rem;
+    padding: 1rem 0 0 1.5rem;
 }
 
 ul.fancytree-container {
@@ -216,20 +216,17 @@ span.fancytree-expander {
 }
 
 .fancytree-title::before {
-    color: transparent;
-    font-size: 1em;
-    float: left;
     display: inline-block;
     font-family: 'shanticon';
-    content: '\e625';
-    width: 1.6rem;
-    height: 0.175rem;
+    content: '';
+    width: 1.5rem;
+    height: 0.1rem;
     border-radius: 0;
     box-shadow: none;
     border: none;
-    background-color: #ccc;
+    background-color: #888;
     position: relative;
-    top: 0.68em;
+    top: -0.5rem;
     left: 0.4rem;
     margin-right: 1.6rem;
 }

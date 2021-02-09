@@ -181,12 +181,14 @@
     margin-top: 0;
     padding-top: 0;
     padding-bottom: 0;
+    outline: none;
 }
 .l-terms__tree__wrap .fancytree-exp-nl .fancytree-title::before,
 .l-terms__tree__wrap .fancytree-exp-n .fancytree-title::before {
     content: '–' !important;
     margin-right: 0.75rem !important;
     font-weight: bold !important;
+    background-color: transparent;
 }
 .l-terms__tree__wrap .fancytree-exp-nl:hover .fancytree-title::before,
 .l-terms__tree__wrap .fancytree-exp-n:hover .fancytree-title::before {
