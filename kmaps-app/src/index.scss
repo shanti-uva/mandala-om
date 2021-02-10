@@ -380,20 +380,23 @@ div.image-wrapper.center figcaption {
 
 // SEARCH Section ------- move this
 .advanced-search-and-tree .nav-tabs {
-    padding: 0 1rem 0.5rem;
-    margin: 1rem 2rem 0;
+    padding: 0 0 0.5rem;
+    margin: 1rem 1rem 0;
 }
 .advanced-search-and-tree .nav-tabs .nav-link {
     padding: 0 0.3rem;
     margin: 0.5rem 0 0.2rem;
-    width: 33%;
+    width: 30%;
     text-align: center;
     border: none;
     border-right: 1px solid #aaa;
-    font-size: 1.54rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: #888;
-    letter-spacing: 0.0475rem;
+    letter-spacing: 0.0375rem;
+}
+.advanced-search-and-tree .nav-tabs .nav-link:nth-of-type(2) {
+    width: 39%;
 }
 .advanced-search-and-tree .nav-tabs .nav-link:last-of-type {
     border-right: none;
