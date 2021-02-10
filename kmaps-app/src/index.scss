@@ -414,6 +414,12 @@ div.image-wrapper.center figcaption {
 ul.fancytree-container {
     height: auto !important;
 }
+
+/* targeting search results page to close the margin created for Show Results button */
+.mandala.null ~ .two-columns .l-column__search > section {
+    margin-top: 0.5rem;
+}
+
 .l-column__search {
     height: 100vh;
     font-size: 1.3rem;
