@@ -61,7 +61,7 @@ export function MandalaPopoverFullLoad(props) {
         isError: kmapIsError,
         data: kmapRes,
         error: kmapError,
-    } = useKmap(domain, kid, 'info', byPass);
+    } = useKmap(`${domain}-${kid}`, 'info', byPass);
 
     //console.log("kmap res:  " + domain + "-" + kid, kmapRes);
 
@@ -72,7 +72,7 @@ export function MandalaPopoverFullLoad(props) {
         isError: relIsError,
         data: relRes,
         error: relError,
-    } = useKmap(domain, kid, 'related', byPass);
+    } = useKmap(`${domain}-${kid}`, 'related', byPass);
 
     let isTib = '';
     let myhead = '';

@@ -11,15 +11,13 @@ const MandalaPopover = ({ domain, kid, placement, kmapid, children }) => {
 
     // Info for Kmap Itself: kmapRes
     const { isError: kmapIsError, data: kmapRes, error: kmapError } = useKmap(
-        domain,
-        kid,
+        `${domain}-${kid}`,
         'info',
         byPass
     );
     // Info of Related Kmaps/Assets: relRes
     const { isError: relIsError, data: relRes, error: relError } = useKmap(
-        domain,
-        kid,
+        `${domain}-${kid}`,
         'related',
         byPass
     );

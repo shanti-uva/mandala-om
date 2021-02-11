@@ -47,6 +47,7 @@ const TermDefinitions = (props) => {
     const uid = props.kmRelated.uid;
     const re = new RegExp(`${uid}_definitions-\\d+`);
     const resourceCounts = {};
+    console.log('GerardKetuma|RelatedDocs', relatedDocs);
     for (const doc of relatedDocs) {
         for (const kmapid of doc.kmapid) {
             if (re.test(kmapid)) {

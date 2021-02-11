@@ -2,45 +2,96 @@ import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import FancyTree from '../../FancyTree';
 import HistoryViewer from '../../History/HistoryViewer';
+import { useKmapRelated } from '../../../hooks/useKmapRelated';
+import { useUnPackedMemoized } from '../../../hooks/utils';
 import './RelatedsViewer.scss';
 
 export function RelatedsViewer(props) {
-    // console.log('Relateds props = ', props);
-
     const match = useRouteMatch([
         '/:baseType/:baseUid/related-:type',
         '/:baseType/:baseUid',
     ]);
-    // console.log('Relateds match = ', match);
 
     const loc = match?.params.type || 'home';
     let locMatch = {};
     locMatch[loc] = 'selected';
 
-    const baseArgs = {
-        baseType: match?.params.baseType || props.kmap?.tree || 'assets',
-        baseUid: props.id || match?.params.baseUid,
-        relateds: props.relateds,
+    let baseArgs = {
+        baseType: match?.params.baseType,
+        baseUid: match?.params.baseUid,
     };
-    if (!props.id && !baseArgs.baseUid) {
+
+    const {
+        isLoading: isRelatedLoading,
+        data: relatedData,
+        isError: isRelatedError,
+        error: relatedError,
+    } = useKmapRelated(baseArgs.baseUid, 'all', 0, 100);
+
+    //Unpack related data using memoized function
+    const kmapsRelated = useUnPackedMemoized(
+        relatedData,
+        baseArgs.baseUid,
+        'all',
+        0,
+        100
+    );
+
+    if (!baseArgs.baseUid || !baseArgs.baseType) {
         return null;
     }
 
+    if (isRelatedLoading) {
+        return (
+            <aside className="l-column__related">
+                <div className="l-column__related__wrap">
+                    <section className="l-related__list__wrap">
+                        <span>
+                            Related Sidebar
+                            <br />
+                            Loading Skeleton
+                        </span>
+                    </section>
+                </div>
+            </aside>
+        );
+    }
+
+    if (isRelatedError) {
+        return (
+            <aside className="l-column__related">
+                <div className="l-column__related__wrap">
+                    <section className="l-related__list__wrap">
+                        <span>Error: {relatedError.message}</span>
+                    </section>
+                </div>
+            </aside>
+        );
+    }
+
+    //Set relateds data to baseArgs
+    baseArgs.relateds = kmapsRelated;
+
     // Determine which tree (browse_tree) to display in the relateds sidebar
-    const current_domain = props?.kmap?.tree ? props.kmap.tree : 'subjects';
-    let browse_tree = (
-        <FancyTree
-            domain="places"
-            tree="places"
-            descendants={true}
-            directAncestors={false}
-            displayPopup={true}
-            perspective="pol.admin.hier"
-            view="roman.scholar"
-            sortBy="header_ssort+ASC"
-            currentFeatureId={props.id}
-        />
-    );
+    const current_domain = baseArgs.baseType;
+
+    let browse_tree = null;
+
+    if (current_domain === 'places') {
+        browse_tree = (
+            <FancyTree
+                domain="places"
+                tree="places"
+                descendants={true}
+                directAncestors={false}
+                displayPopup={true}
+                perspective="pol.admin.hier"
+                view="roman.scholar"
+                sortBy="header_ssort+ASC"
+                currentFeatureId={props.id}
+            />
+        );
+    }
 
     if (current_domain === 'subjects') {
         browse_tree = (
@@ -152,16 +203,18 @@ export function RelatedsViewer(props) {
                     <HistoryViewer />
                 </section>
 
-                <section className="l-terms__tree__wrap">
-                    <div className="u-related__list__header">
-                        Browse{' '}
-                        <span className={'text-capitalize'}>
-                            {current_domain}
-                        </span>
-                    </div>
+                {browse_tree && (
+                    <section className="l-terms__tree__wrap">
+                        <div className="u-related__list__header">
+                            Browse{' '}
+                            <span className={'text-capitalize'}>
+                                {current_domain}
+                            </span>
+                        </div>
 
-                    {browse_tree}
-                </section>
+                        {browse_tree}
+                    </section>
+                )}
             </div>
         </aside>
     );

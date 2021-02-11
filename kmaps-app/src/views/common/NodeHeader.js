@@ -10,7 +10,6 @@ import _ from 'lodash';
 import { MandalaPopover } from './MandalaPopover';
 
 function NodeHeader(props) {
-    const history = useHistory();
     const match = useRouteMatch();
     const back = props.back || false;
 

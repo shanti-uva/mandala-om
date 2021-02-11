@@ -22,6 +22,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function KmapContext(props) {
     // console.log('KmapContext: props=', props);
+    console.log('GerardKetuma|KmapContextHit');
 
     const status = useStatus();
 

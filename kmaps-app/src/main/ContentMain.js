@@ -23,6 +23,7 @@ import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
 import { CollectionsRedirect } from '../views/Collections/CollectionsRedirect';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+const TermsInfo = React.lazy(() => import('../views/Terms/TermsInfo'));
 const RightSideBar = React.lazy(() => import('./RightSideBar'));
 const NotFoundPage = React.lazy(() => import('../views/common/NotFoundPage'));
 const AudioVideoViewer = React.lazy(() =>
@@ -179,6 +180,15 @@ export default function ContentMain(props) {
                                         />{' '}
                                     </KmapContext>
                                 </Route> */}
+
+                                <Route path={`/terms/:id`}>
+                                    <RelatedsViewer />
+                                    <section className="l-content__main__wrap">
+                                        <div className="c-content__main__kmaps">
+                                            <TermsInfo />
+                                        </div>
+                                    </section>
+                                </Route>
                                 <Route path={`/terms`}>
                                     <TermsHome />
                                 </Route>
