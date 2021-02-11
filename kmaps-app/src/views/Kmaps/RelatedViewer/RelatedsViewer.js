@@ -6,7 +6,7 @@ import { useKmapRelated } from '../../../hooks/useKmapRelated';
 import { useUnPackedMemoized } from '../../../hooks/utils';
 import './RelatedsViewer.scss';
 
-export function RelatedsViewer(props) {
+export function RelatedsViewer() {
     const match = useRouteMatch([
         '/:baseType/:baseUid/related-:type',
         '/:baseType/:baseUid',
@@ -88,7 +88,7 @@ export function RelatedsViewer(props) {
                 perspective="pol.admin.hier"
                 view="roman.scholar"
                 sortBy="header_ssort+ASC"
-                currentFeatureId={props.id}
+                currentFeatureId={baseArgs.baseUid}
             />
         );
     }
@@ -104,7 +104,7 @@ export function RelatedsViewer(props) {
                 perspective={'gen'}
                 view="roman.popular"
                 sortBy="header_ssort+ASC"
-                currentFeatureId={props.id}
+                currentFeatureId={baseArgs.baseUid}
             />
         );
     }
@@ -120,7 +120,7 @@ export function RelatedsViewer(props) {
                 perspective="tib.alpha"
                 view="roman.scholar"
                 sortBy="position_i+ASC"
-                currentFeatureId={props.id}
+                currentFeatureId={baseArgs.baseUid}
             />
         );
     }
