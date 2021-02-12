@@ -468,8 +468,14 @@ ul.fancytree-container {
     letter-spacing: 0.05rem;
 }
 .l-column__search nav:nth-of-type(2) > a:hover {
-    /* background-color:#ddd; */
+    background-color: $color-mandala;
     border-color: $color-mandala;
+    color: #fff;
+}
+.l-column__search nav:nth-of-type(2) > a:active {
+    background-color: #fff;
+    border-color: $color-mandala;
+    color: $color-mandala;
 }
 .l-column__search nav:nth-of-type(2) > div {
     display: inline-block !important;
@@ -498,7 +504,10 @@ ul.fancytree-container {
     letter-spacing: 0.0575rem;
 }
 .l-column__search nav:nth-of-type(2) > a:hover .badge {
-    color: #df3d23;
+    color: #fff;
+}
+.l-column__search nav:nth-of-type(2) > a:active .badge {
+    color: #4d59ca;
 }
 
 .l-column__search > section {

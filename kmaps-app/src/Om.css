@@ -623,7 +623,7 @@
 .sui-advTerm {
     margin: 0.5rem 0 0 0.6rem;
     font-size: 1.1rem;
-    padding: 0.5rem 0.5rem 0.75rem 2.5rem;
+    padding: 0.5rem 0.5rem 0.75rem 0;
 }
 .sui-advTerm .icon::before {
     color: #555;
