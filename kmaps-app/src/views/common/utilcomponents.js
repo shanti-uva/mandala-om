@@ -4,11 +4,11 @@ import { MandalaPopover } from './MandalaPopover';
 import { Col, Container, Row, Button } from 'react-bootstrap';
 
 export function CollectionField(props) {
-    const solrdoc = props.solrdoc;
-    const assettype = solrdoc.asset_type;
-    if (typeof solrdoc === 'undefined') {
-        return;
+    const solrdoc = props?.solrdoc;
+    if (!solrdoc) {
+        return <div>Loading Field ...</div>;
     }
+    const assettype = solrdoc.asset_type;
     const collurl =
         assettype && solrdoc
             ? '/' + assettype + '/collection/' + solrdoc.collection_nid

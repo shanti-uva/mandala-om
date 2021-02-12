@@ -113,7 +113,7 @@ export function ImagesViewer(props) {
     };
 
     // JSX Markup for the ImagesViewer component
-    if (kmasset) {
+    if (kmasset && nodejson) {
         const creator = Array.isArray(kmasset.creator)
             ? kmasset.creator.join(', ')
             : kmasset.creator;
