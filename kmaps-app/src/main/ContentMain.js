@@ -65,13 +65,13 @@ export default function ContentMain(props) {
 
                                 {/* AUDIO-VIDEO */}
                                 <Route path={`/audio-video/:id`}>
-                                    <GenAssetContext assetType={'audio-video'}>
-                                        <AudioVideoViewer
-                                            sui={props.sui}
-                                            ismain={true}
-                                            /*onStateChange={props.onStateChange}*/
-                                        />
-                                    </GenAssetContext>
+                                    {/*<GenAssetContext assetType={'audio-video'}>*/}
+                                    <AudioVideoViewer
+                                        sui={props.sui}
+                                        ismain={true}
+                                        /*onStateChange={props.onStateChange}*/
+                                    />
+                                    {/*</GenAssetContext>*/}
                                 </Route>
                                 <Route path={`/audio-video`}>
                                     <AudioVideoHome />

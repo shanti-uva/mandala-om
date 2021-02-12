@@ -9,6 +9,9 @@ import { FeatureDeck } from '../common/FeatureDeck';
 import { convertNodeToElement } from 'react-html-parser';
 import { HtmlWithPopovers, HtmlCustom } from '../common/MandalaMarkup';
 import { createAssetCrumbs } from '../common/utils';
+import { useKmap } from '../../hooks/useKmap';
+import { useParams } from 'react-router-dom';
+import useMandala from '../../hooks/useMandala';
 
 /**
  * AudioVideoViewer is called from ContentMain.js and is wrapped in a MdlAssetContext that supplies it with a SOLR
@@ -27,21 +30,38 @@ import { createAssetCrumbs } from '../common/utils';
  * @author ndg8f
  */
 export default function AudioVideoViewer(props) {
-    const id = props.id;
-    const kmasset = props.mdlasset;
-    const nodejson = props.nodejson;
+    const { id } = useParams();
+    // Build query string based on uid use asterisk for env. Ultimately uids will be audio-video-1234 across all apps
+    //    but currently e.g., audio-video-dev_shanti_virginia_edu-13066, so audio-video*-13066 will find that
+    const querystr = `audio-video*-${id}`;
+    // Get record from kmasset index
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(querystr, 'asset');
+
+    // Get Node's JSON From AV app endpoint using url_json field in solr record
+    const {
+        isLoading: isNodeLoading,
+        data: nodejson,
+        isError: isNodeError,
+        error: nodeError,
+    } = useMandala(kmasset);
+
+    // Bill's old SUI object is sent in the props
     const sui = props.sui;
+    // ismain prop is set to true if it is an AV main page, but if it is a related AV on a kmap page, it is not set and so false
     const ismain = props.ismain ? props.ismain : false; // set to true when the av viewer is the main component on the page
 
+    // Add setPlayerDrawn state to only draw the AV player from Bill's SUI once
     const [playerDrawn, setPlayerDrawn] = useState(false);
-    const status = useStatus();
+    const status = useStatus(); // For setting page title, breadcrumbs, etc.
 
-    // Do Status Stuff (Title and Breadcrumbs)
-
-    // TODO: is this necessary? Are there situations where it's better to hide the extra content? Need to hide if there is no extra content.
+    // UseEffect: run once if main av page: no dependencies, runs before asset solr doc loads
     useEffect(() => {
         if (ismain) {
-            status.clear();
             status.setType('audio-video');
             $('body').on('click', 'a.sui-avMore2', function () {
                 $('#sui-avlang').toggle();
@@ -52,7 +72,7 @@ export default function AudioVideoViewer(props) {
         }
     }, []);
 
-    // Effect to Draw AV player once kmasset and nodejson return
+    // UseEffect: depends on kmasset and nodejson: Sets title, Draws AV player
     useEffect(() => {
         if (kmasset) {
             if (ismain) {
