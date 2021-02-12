@@ -88,8 +88,8 @@ export function ImageMetadata(props) {
                         cls={'u-data'}
                         icon={'agents'}
                         label={'Data Entry'}
-                        value={solrdoc.node_user_full_s}
-                        date={processDate(nodejson.created, 'ts')}
+                        value={solrdoc?.node_user_full_s}
+                        date={processDate(nodejson?.created, 'ts')}
                     />
                     <ImageRow
                         key={'ir-image-type'}

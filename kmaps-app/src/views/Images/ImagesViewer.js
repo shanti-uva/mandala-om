@@ -8,6 +8,9 @@ import $ from 'jquery';
 import './images.scss';
 import { ImagesOSDViewer } from './ImagesOSDViewer';
 import { createAssetCrumbs } from '../common/utils';
+import { useParams } from 'react-router-dom';
+import { useKmap } from '../../hooks/useKmap';
+import useMandala from '../../hooks/useMandala';
 
 /**
  * Compontent that creates the Image Viewer page, including:
@@ -23,13 +26,32 @@ import { createAssetCrumbs } from '../common/utils';
  */
 export function ImagesViewer(props) {
     //console.log(props);
-    const solrdoc = props.mdlasset;
-    const nodejson = props.nodejson;
+    const { id } = useParams();
+    // Build query string based on uid use asterisk for env. Ultimately uids will be images-1234 across all apps
+    //    but currently e.g., images-dev_shanti_virginia_edu-13066, so images*-13066 will find that
+    const querystr = `images*-${id}`;
+    // Get record from kmasset index
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(querystr, 'asset');
+    console.log('kmasset', kmasset);
+    // Get Node's JSON From AV app endpoint using url_json field in solr record
+    const {
+        isLoading: isNodeLoading,
+        data: nodejson,
+        isError: isNodeError,
+        error: nodeError,
+    } = useMandala(kmasset);
+    console.log('nodejson', nodejson);
+
     const ismain = props.ismain;
 
     const status = useStatus();
 
-    const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
+    const nid = props?.id || kmasset?.id || nodejson?.nid || false;
 
     useEffect(() => {
         if (ismain) {
@@ -41,11 +63,11 @@ export function ImagesViewer(props) {
     // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
     useEffect(() => {
         // Setting title in header and other status options
-        if (solrdoc && ismain) {
+        if (kmasset && ismain) {
             status.setHeaderTitle(
-                solrdoc?.title || solrdoc?.caption || 'ImageViewer'
+                kmasset?.title || kmasset?.caption || 'ImageViewer'
             );
-            const bcrumbs = createAssetCrumbs(solrdoc);
+            const bcrumbs = createAssetCrumbs(kmasset);
             status.setPath(bcrumbs);
         }
         // Updating button controls for fullscreen and zoom
@@ -72,7 +94,7 @@ export function ImagesViewer(props) {
                 }
             }
         }
-    }, [solrdoc]);
+    }, [kmasset]);
 
     const arrowClick = function (e) {
         const $this = $(e.target);
@@ -91,11 +113,11 @@ export function ImagesViewer(props) {
     };
 
     // JSX Markup for the ImagesViewer component
-    if (solrdoc) {
-        const creator = Array.isArray(solrdoc.creator)
-            ? solrdoc.creator.join(', ')
-            : solrdoc.creator;
-        const sizestr = solrdoc.img_width_s + ' x ' + solrdoc.img_height_s;
+    if (kmasset) {
+        const creator = Array.isArray(kmasset.creator)
+            ? kmasset.creator.join(', ')
+            : kmasset.creator;
+        const sizestr = kmasset.img_width_s + ' x ' + kmasset.img_height_s;
         const rotation = nodejson?.field_image_rotation?.und[0]
             ? nodejson.field_image_rotation.und[0].value
             : false;
@@ -113,7 +135,7 @@ export function ImagesViewer(props) {
                             </Col>
                             <Col>
                                 <ImagesOSDViewer
-                                    manifest={solrdoc.url_iiif_s}
+                                    manifest={kmasset.url_iiif_s}
                                     rotation={rotation}
                                 />
                             </Col>
@@ -129,20 +151,19 @@ export function ImagesViewer(props) {
                         <div className={'c-image__caption'}>
                             <h1 className={'c-image__title'}>
                                 <span className={'u-icon__images'}></span>
-                                {solrdoc.title}
+                                {kmasset.title}
                             </h1>
                             <div className={'c-image__byline'}>
                                 <span className={'author'}>{creator}</span>|
                                 <span className={'size'}>{sizestr}</span>
                             </div>
                         </div>
-                        <ImageCarousel solrdoc={solrdoc} />
+                        <ImageCarousel kmasset={kmasset} />
                     </Col>
                 </Container>
                 <Container className={'c-image__metadata'}>
                     <ImageMetadata
-                        q
-                        solrdoc={solrdoc}
+                        kmasset={kmasset}
                         nodejson={nodejson}
                         sizestr={sizestr}
                     />

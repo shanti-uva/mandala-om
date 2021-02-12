@@ -76,12 +76,10 @@ export default function ContentMain(props) {
 
                                 {/* IMAGES */}
                                 <Route path={`/images/:id`}>
-                                    <GenAssetContext assetType={'images'}>
-                                        <ImagesViewer
-                                            ismain={true}
-                                            sui={props.sui}
-                                        />
-                                    </GenAssetContext>
+                                    <ImagesViewer
+                                        ismain={true}
+                                        sui={props.sui}
+                                    />
                                 </Route>
                                 <Route path={`/images`}>
                                     <ImagesHome />
