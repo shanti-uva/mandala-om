@@ -179,7 +179,7 @@ export default function ContentMain(props) {
                                     </KmapContext>
                                 </Route> */}
 
-                                <Route path={`/terms/:id`}>
+                                <Route path={`/:baseType/:id`}>
                                     <RelatedsViewer />
                                     <section className="l-content__main__wrap">
                                         <div className="c-content__main__kmaps">

@@ -6,6 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import _ from 'lodash';
 import { MandalaPopover } from './MandalaPopover';
+import { queryID } from './utils';
 import '../css/NodeHeader.css';
 
 function NodeHeader() {
@@ -23,14 +24,14 @@ function NodeHeader() {
     let itemHeader = null;
 
     const back = relId ? true : false;
-    const nid = relId ? relId : id;
+    const nid = relId ? relId : queryID(baseType, id);
 
     const {
         isLoading: isKmapLoading,
         data: kmapData,
         isError: isKmapError,
         error: kmapError,
-    } = useKmap(id, 'info');
+    } = useKmap(queryID(baseType, id), 'info');
     const {
         isLoading: isAssetLoading,
         data: assetData,
@@ -42,7 +43,7 @@ function NodeHeader() {
         data: kmAssetData,
         isError: isKmAssetError,
         error: kmAssetError,
-    } = useKmap(id, 'asset');
+    } = useKmap(queryID(baseType, id), 'asset');
 
     if (isKmapLoading || isAssetLoading || isKmAssetLoading) {
         return (

@@ -4,12 +4,13 @@ import FancyTree from '../../FancyTree';
 import HistoryViewer from '../../History/HistoryViewer';
 import { useKmapRelated } from '../../../hooks/useKmapRelated';
 import { useUnPackedMemoized } from '../../../hooks/utils';
+import { queryID } from '../../../views/common/utils';
 import './RelatedsViewer.scss';
 
 export function RelatedsViewer() {
     const match = useRouteMatch([
-        '/:baseType/:baseUid/related-:type',
-        '/:baseType/:baseUid',
+        '/:baseType/:id/related-:type',
+        '/:baseType/:id',
     ]);
 
     const loc = match?.params.type || 'home';
@@ -18,7 +19,7 @@ export function RelatedsViewer() {
 
     let baseArgs = {
         baseType: match?.params.baseType,
-        baseUid: match?.params.baseUid,
+        id: match?.params.id,
     };
 
     const {
@@ -26,18 +27,18 @@ export function RelatedsViewer() {
         data: relatedData,
         isError: isRelatedError,
         error: relatedError,
-    } = useKmapRelated(baseArgs.baseUid, 'all', 0, 100);
+    } = useKmapRelated(queryID(baseArgs.baseType, baseArgs.id), 'all', 0, 100);
 
     //Unpack related data using memoized function
     const kmapsRelated = useUnPackedMemoized(
         relatedData,
-        baseArgs.baseUid,
+        baseArgs.id,
         'all',
         0,
         100
     );
 
-    if (!baseArgs.baseUid || !baseArgs.baseType) {
+    if (!baseArgs.id || !baseArgs.baseType) {
         return null;
     }
 
@@ -88,7 +89,7 @@ export function RelatedsViewer() {
                 perspective="pol.admin.hier"
                 view="roman.scholar"
                 sortBy="header_ssort+ASC"
-                currentFeatureId={baseArgs.baseUid}
+                currentFeatureId={queryID(baseArgs.baseType, baseArgs.id)}
             />
         );
     }
@@ -104,7 +105,7 @@ export function RelatedsViewer() {
                 perspective={'gen'}
                 view="roman.popular"
                 sortBy="header_ssort+ASC"
-                currentFeatureId={baseArgs.baseUid}
+                currentFeatureId={queryID(baseArgs.baseType, baseArgs.id)}
             />
         );
     }
@@ -120,7 +121,7 @@ export function RelatedsViewer() {
                 perspective="tib.alpha"
                 view="roman.scholar"
                 sortBy="position_i+ASC"
-                currentFeatureId={baseArgs.baseUid}
+                currentFeatureId={queryID(baseArgs.baseType, baseArgs.id)}
             />
         );
     }
@@ -134,9 +135,7 @@ export function RelatedsViewer() {
                     <div className="c-relatedViewer">
                         <Link
                             id="sui-rl-Home"
-                            to={
-                                '/' + baseArgs.baseType + '/' + baseArgs.baseUid
-                            }
+                            to={'/' + baseArgs.baseType + '/' + baseArgs.id}
                             className={`c-related__link--home c-related__item ${locMatch['home']}`}
                         >
                             <span className={'icon u-icon__overview'}></span>{' '}
@@ -246,7 +245,7 @@ function RelatedCount(props) {
                 '/' +
                 props.baseType +
                 '/' +
-                props.baseUid +
+                props.id +
                 '/related-' +
                 props.type +
                 '/' +

@@ -10,35 +10,42 @@ import TermDictionaries from './TermDictionaries';
 import TermNames from './TermNames';
 import _ from 'lodash';
 import TermsDetails from './TermsDetails';
+import { queryID } from '../../views/common/utils';
 
 const TermsInfo = (props) => {
     // id is of format: asset_type-kid (ex. terms-81593)
     let { path, url } = useRouteMatch();
-    let { id } = useParams();
+    let { baseType, id } = useParams();
     const {
         isLoading: isKmapLoading,
         data: kmapData,
         isError: isKmapError,
         error: kmapError,
-    } = useKmap(id, 'info');
+    } = useKmap(queryID(baseType, id), 'info');
     const {
         isLoading: isAssetLoading,
         data: assetData,
         isError: isAssetError,
         error: assetError,
-    } = useKmap(id, 'asset');
+    } = useKmap(queryID(baseType, id), 'asset');
     const {
         isLoading: isRelatedLoading,
         data: relatedData,
         isError: isRelatedError,
         error: relatedError,
-    } = useKmapRelated(id, 'all', 0, 100);
+    } = useKmapRelated(queryID(baseType, id), 'all', 0, 100);
 
     //Unpack related data using memoized function
     console.log('GerardKetuma|kmapData', kmapData);
     console.log('GerardKetuma|assetData', assetData);
     console.log('GerardKetuma|kmapsRelated', relatedData);
-    const kmapsRelated = useUnPackedMemoized(relatedData, id, 'all', 0, 100);
+    const kmapsRelated = useUnPackedMemoized(
+        relatedData,
+        queryID(baseType, id),
+        'all',
+        0,
+        100
+    );
 
     if (isKmapLoading || isAssetLoading || isRelatedLoading) {
         return <span>Terms Loading Skeleton</span>;
