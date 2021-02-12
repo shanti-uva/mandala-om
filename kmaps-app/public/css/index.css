@@ -1,2 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,500%7COpen+Sans:400,400i,600&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext');
-@font-face { font-family: 'shanticon'; src: url('shanticon.ttf?ueun15') format('truetype'); font-weight: normal; font-style: normal; }
+@font-face {
+    font-family: 'shanticon';
+    src: url('shanticon.ttf?ueun15') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

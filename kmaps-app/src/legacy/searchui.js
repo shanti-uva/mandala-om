@@ -115,7 +115,7 @@ export default class SearchUI {
         $('<link/>', {
             rel: 'stylesheet',
             type: 'text/css',
-            href: 'searchui.css',
+            href: process.env.PUBLIC_URL + '/css/searchui.css',
         }).appendTo('head'); // Load CSS
 
         this.solrId = useProdIndex ? '_prod' : '_dev'; // Set solrId

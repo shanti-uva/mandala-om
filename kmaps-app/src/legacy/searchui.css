@@ -1,3 +1,8 @@
+/**
+    NOTE: This file is most likely not used. Line 118 of searchui.js has been changed to:
+                href: process.env.PUBLIC_URL + '/searchui.css',
+          This uses a copy of this file that resides at {root}/public/css/searchui.css
+ */
 .sui-main {
     /*    all: initial;
     position: absolute;
