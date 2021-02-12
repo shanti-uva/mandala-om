@@ -1,8 +1,8 @@
 import React from 'react';
+import { Switch, Route, useRouteMatch, useParams } from 'react-router-dom';
 import { useKmap } from '../../hooks/useKmap';
 import { useKmapRelated } from '../../hooks/useKmapRelated';
 import { useUnPackedMemoized } from '../../hooks/utils';
-import { useParams } from 'react-router-dom';
 import TermAudioPlayer from './TermAudioPlayer';
 import TermEtymology from './TermEtymology';
 import TermDefinitions from './TermDefinitions';
@@ -13,6 +13,7 @@ import TermsDetails from './TermsDetails';
 
 const TermsInfo = (props) => {
     // id is of format: asset_type-kid (ex. terms-81593)
+    let { path, url } = useRouteMatch();
     let { id } = useParams();
     const {
         isLoading: isKmapLoading,
@@ -67,19 +68,26 @@ const TermsInfo = (props) => {
     const otherDefinitions = _.omit(definitions, ['main_defs']);
 
     return (
-        <>
-            <TermNames kmap={kmapData} />
-            <TermsDetails kmAsset={assetData} />
-            <TermAudioPlayer kmap={kmapData} />
-            {kmapData.etymologies_ss && <TermEtymology kmap={kmapData} />}
-            <TermDefinitions
-                mainDefs={definitions['main_defs']}
-                kmRelated={kmapsRelated}
-            />
-            {!_.isEmpty(otherDefinitions) && (
-                <TermDictionaries definitions={otherDefinitions} />
-            )}
-        </>
+        <Switch>
+            <Route exact path={path}>
+                <>
+                    <TermNames kmap={kmapData} />
+                    <TermsDetails kmAsset={assetData} />
+                    <TermAudioPlayer kmap={kmapData} />
+                    {kmapData.etymologies_ss && (
+                        <TermEtymology kmap={kmapData} />
+                    )}
+                    <TermDefinitions
+                        mainDefs={definitions['main_defs']}
+                        kmRelated={kmapsRelated}
+                    />
+                    {!_.isEmpty(otherDefinitions) && (
+                        <TermDictionaries definitions={otherDefinitions} />
+                    )}
+                </>
+            </Route>
+            <Route path={[`${path}/related-:relatedType/:viewMode`]}></Route>
+        </Switch>
     );
 };
 

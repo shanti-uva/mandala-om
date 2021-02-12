@@ -26,6 +26,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 const TermsInfo = React.lazy(() => import('../views/Terms/TermsInfo'));
 const RightSideBar = React.lazy(() => import('./RightSideBar'));
 const NotFoundPage = React.lazy(() => import('../views/common/NotFoundPage'));
+const NodeHeader = React.lazy(() => import('../views/common/NodeHeader'));
 const AudioVideoViewer = React.lazy(() =>
     import('../views/AudioVideo/AudioVideoViewer')
 );
@@ -185,6 +186,7 @@ export default function ContentMain(props) {
                                     <RelatedsViewer />
                                     <section className="l-content__main__wrap">
                                         <div className="c-content__main__kmaps">
+                                            <NodeHeader />
                                             <TermsInfo />
                                         </div>
                                     </section>
@@ -224,32 +226,34 @@ export default function ContentMain(props) {
                             </Switch>
                         </React.Suspense>
                     </section>
-                    <React.Suspense
-                        fallback={
-                            <div
-                                style={{
-                                    maxWidth: '35rem',
-                                    minWidth: '15rem',
-                                    fontSize: '1.4rem',
-                                    width: '25%',
-                                    padding: '1.6rem',
-                                }}
-                            >
-                                <SkeletonTheme
-                                    color="#d0d0d0"
-                                    highlightColor="#a5a5a5"
+                    {false && (
+                        <React.Suspense
+                            fallback={
+                                <div
+                                    style={{
+                                        maxWidth: '35rem',
+                                        minWidth: '15rem',
+                                        fontSize: '1.4rem',
+                                        width: '25%',
+                                        padding: '1.6rem',
+                                    }}
                                 >
-                                    <Skeleton
-                                        duration={0.5}
-                                        count={10}
-                                        height={47.5}
-                                    />
-                                </SkeletonTheme>
-                            </div>
-                        }
-                    >
-                        <RightSideBar onStateChange={props.onStateChange} />
-                    </React.Suspense>
+                                    <SkeletonTheme
+                                        color="#d0d0d0"
+                                        highlightColor="#a5a5a5"
+                                    >
+                                        <Skeleton
+                                            duration={0.5}
+                                            count={10}
+                                            height={47.5}
+                                        />
+                                    </SkeletonTheme>
+                                </div>
+                            }
+                        >
+                            <RightSideBar onStateChange={props.onStateChange} />
+                        </React.Suspense>
+                    )}
                 </div>
             </article>
         </main>
