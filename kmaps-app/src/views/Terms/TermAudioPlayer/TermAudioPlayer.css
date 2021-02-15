@@ -1,5 +1,6 @@
 .c-audioPlayer {
     margin-bottom: 1.5rem;
+    margin-left: 2rem;
 }
 .c-audioPlayer__button {
     width: 3.175rem;
@@ -49,7 +50,7 @@
     padding: 0;
 }
 .c-audioPlayer__select--wrapper {
-    margin-left: 1.6rem;
+    margin-left: 0.8rem;
     padding: 0.8rem 1.6rem 0.8rem 1.45rem;
     border: 1px solid #ccc;
     border-radius: 4px;

@@ -23,7 +23,7 @@ ul.fancytree-container {
 
 .fancytree-container li {
     padding: 0;
-    line-height: 1.25em;
+    line-height: 1;
     overflow: hidden;
     position: relative;
 }
@@ -65,9 +65,8 @@ ul.fancytree-container {
 }
 
 .fancytree-title {
-    height: 1.62em;
-    font-size: 1.06em;
-    line-height: 1.5em;
+    font-size: 1.25rem;
+    line-height: 1;
     margin-left: 3.5rem;
     color: #000 !important;
     vertical-align: middle !important;
@@ -226,7 +225,7 @@ span.fancytree-expander {
     border: none;
     background-color: #888;
     position: relative;
-    top: -0.5rem;
+    top: -0.2rem;
     left: 0.4rem;
     margin-right: 1.6rem;
 }

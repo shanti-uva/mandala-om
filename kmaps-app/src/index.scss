@@ -150,7 +150,7 @@ div.image-wrapper.center figcaption {
     background-color: #fcfcfc;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
-    padding: 1rem 1.5rem 6rem;
+    padding: 1rem 2rem 6rem;
     font-size: 1.4rem;
     /* height: 100vh;*/
 }
@@ -320,13 +320,14 @@ div.image-wrapper.center figcaption {
     top: 0.1rem;
 }
 .c-nodeHeader-itemHeader {
-    background-color: $color-amber;
+    background-color: $color-terms;
     color: #fff;
-    padding: 0.1rem 1rem 0.75rem 1.5rem;
+    padding: 0 1rem 0.5rem 1.5rem;
     margin-top: 0.5rem;
+    margin-bottom: 1.75rem;
     margin-left: -0.75rem;
     font-size: 1.44rem;
-    line-height: 1.3;
+    line-height: 1.8;
     border-radius: 0.5rem 0.5rem 0 0;
 }
 .av .c-nodeHeader-itemHeader {

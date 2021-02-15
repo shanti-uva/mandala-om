@@ -627,7 +627,6 @@
 }
 .sui-advTerm .icon::before {
     color: #555;
-    margin-right: 0.4rem;
 }
 
 .sui-advTerm:empty {
@@ -742,7 +741,7 @@
     border: 0.5px solid #999;
     border-radius: 2px;
     padding: 0 0 1px 3px;
-    margin: 2px 0;
+    margin: 0.25rem;
 }
 
 .sui-boolItem {
