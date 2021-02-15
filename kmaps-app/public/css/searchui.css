@@ -37,7 +37,7 @@
 }
 
 /* SEARCH BOX */
-
+/* messes up after refactoring, commenting out for not (ndg, 2021-02-15)
 .sui-search1 {
     float: left;
     background-color: #fafafa;
@@ -103,6 +103,7 @@
 .sui-search5:hover {
     color: #668eec;
 }
+(Commented out after refactoring, ndg, 2021-02-15)  */
 
 /* HAMBURGER MENU
 

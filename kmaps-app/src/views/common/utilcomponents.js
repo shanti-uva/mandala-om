@@ -5,6 +5,7 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 
 export function CollectionField(props) {
     const solrdoc = props?.solrdoc;
+    // console.log("Collection Field props", props);
     if (!solrdoc) {
         return <div>Loading Field ...</div>;
     }
@@ -16,7 +17,7 @@ export function CollectionField(props) {
     const colltitle = solrdoc.collection_title;
     return (
         <>
-            <span className="u-icon__collections"></span>
+            <span className="u-icon__collections"> </span>
             <Link to={collurl}>{colltitle}</Link>
             <span className="u-visibility">Public</span>
         </>

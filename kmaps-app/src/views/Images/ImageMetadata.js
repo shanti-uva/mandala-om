@@ -33,7 +33,7 @@ const IMAGE_FIELDS = [
 ];
 
 export function ImageMetadata(props) {
-    const solrdoc = props.solrdoc;
+    const solrdoc = props.kmasset;
     const nodejson = props.nodejson;
     const sizestr = props.sizestr ? props.sizestr : '';
     const title = nodejson?.title;

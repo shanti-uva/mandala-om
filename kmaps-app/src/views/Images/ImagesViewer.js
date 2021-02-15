@@ -37,7 +37,7 @@ export function ImagesViewer(props) {
         isError: isAssetError,
         error: assetError,
     } = useKmap(querystr, 'asset');
-    console.log('kmasset', kmasset);
+    // console.log('kmasset', kmasset);
     // Get Node's JSON From AV app endpoint using url_json field in solr record
     const {
         isLoading: isNodeLoading,
@@ -45,13 +45,13 @@ export function ImagesViewer(props) {
         isError: isNodeError,
         error: nodeError,
     } = useMandala(kmasset);
-    console.log('nodejson', nodejson);
+    // console.log('nodejson', nodejson);
 
     const ismain = props.ismain;
 
     const status = useStatus();
 
-    const nid = props?.id || kmasset?.id || nodejson?.nid || false;
+    // const nid = props?.id || kmasset?.id || nodejson?.nid || false;
 
     useEffect(() => {
         if (ismain) {
@@ -131,7 +131,9 @@ export function ImagesViewer(props) {
                                 <span
                                     className={'u-icon__arrow3-left prev-arrow'}
                                     onClick={arrowClick}
-                                ></span>
+                                >
+                                    {' '}
+                                </span>
                             </Col>
                             <Col>
                                 <ImagesOSDViewer
@@ -145,12 +147,14 @@ export function ImagesViewer(props) {
                                         'u-icon__arrow3-right next-arrow'
                                     }
                                     onClick={arrowClick}
-                                ></span>
+                                >
+                                    {' '}
+                                </span>
                             </Col>
                         </Row>
                         <div className={'c-image__caption'}>
                             <h1 className={'c-image__title'}>
-                                <span className={'u-icon__images'}></span>
+                                <span className={'u-icon__images'}> </span>
                                 {kmasset.title}
                             </h1>
                             <div className={'c-image__byline'}>
