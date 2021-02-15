@@ -9,29 +9,46 @@ import { FeatureCollection } from '../common/FeatureCollection';
 import useCollection from '../../hooks/useCollection';
 import $ from 'jquery';
 import { NotFoundPage } from '../common/utilcomponents';
+import { useKmap } from '../../hooks/useKmap';
 
+/**
+ * Component to return a collection page showing a gallery or list of items in the collection
+ * with pager and list mode
+ *
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function CollectionsViewer(props) {
     const status = useStatus();
-    const params = useParams();
-    const view_mode = params?.view_mode;
-    const asset_type = params?.asset_type;
-    const asset_id = params?.id;
+    const { asset_type, id: asset_id, view_mode } = useParams(); // retrieve parameters from route. (See ContentMain.js)
 
+    // Set Asset Type with status etc.
     status.setType(asset_type);
-
     const atypeLabel = <span className={'text-capitalize'}>{asset_type}</span>;
-    const collsolr = useCollection(asset_type, asset_id);
 
+    // Get Collection data. See hooks/useCollection
+    const {
+        isLoading: isCollLoading,
+        data: colldata,
+        isError: isCollError,
+        error: collError,
+    } = useCollection(asset_type, asset_id);
+    const collsolr = colldata?.numFound === 1 ? colldata.docs[0] : false;
+
+    // Set up state variables for pager
     const [startRow, setStartRow] = useState(0);
     const [pageNum, setPageNum] = useState(0);
     const [pageSize, setPageSize] = useState(100);
     const [numFound, setNumFound] = useState(0);
 
+    // On Load One time Use Effect to clear previous page and set type
     useEffect(() => {
         status.clear();
         status.setType('collections');
     }, []);
 
+    // Make Solr Query to find assets in Collection
     const query = {
         index: 'assets',
         params: {
@@ -42,12 +59,21 @@ export function CollectionsViewer(props) {
             rows: pageSize,
         },
     };
-
     const qkey = 'collection-' + asset_type + '-' + asset_id;
-    const solrq = useSolr(qkey, query);
+    const {
+        isLoading: isItemsLoading,
+        data: items,
+        isError: isItemsError,
+        error: itemsError,
+    } = useSolr(qkey, query);
 
+    // console.log(items);
+
+    const solrq = items?.docs ? items.docs : [];
+    //if (items?.numFound && !isNaN(items?.numFound)) { setNumFound(items.numFound); }
     //console.log("collections solr doc", solrq);
 
+    // Create the Pager
     const pager = {
         numFound: numFound,
         getMaxPage: () => {
@@ -87,22 +113,25 @@ export function CollectionsViewer(props) {
         },
     };
 
+    // Use Effect for when page num or size change
     useEffect(() => {
         setStartRow(pageNum * pageSize);
     }, [pageNum, pageSize]);
 
+    // Use effect when a number of items in collection is found. Sets numFound
     useEffect(() => {
-        setNumFound(solrq.numFound);
-    }, [solrq?.numFound]);
+        setNumFound(items?.numFound);
+    }, [items?.numFound]);
 
     // console.log(solrq);
-    // Get the collnid list from the first record. Use in useEffect below
+    // Get Coll Nids in Collection Path for Breadcrumbs
     const collnids =
         solrq?.docs && solrq.docs?.length > 0
             ? solrq.docs[0].collection_nid_path_is
             : [];
     let coll_paths = [];
 
+    // Set page Info (header and breadcrumbs) based on collsolr returned
     useEffect(() => {
         if (props.ismain) {
             if (collsolr) {
@@ -134,16 +163,20 @@ export function CollectionsViewer(props) {
                     name: collsolr.title,
                 });
                 status.setPath(coll_paths);
-                status.setType(asset_type);
             }
         }
     }, [collsolr]);
 
-    // Do Owner
+    //console.log('collsolr', collsolr);
+
+    // Get and display Owner from collsolr
     const owner = collsolr?.node_user_full_s
         ? collsolr.node_user_full_s
         : collsolr.node_user;
-    // Do Parent collection
+
+    // TODO: Need to display members (Probably need to index first)
+
+    // Get and Display Parent collection
     let parentcoll = collsolr?.collection_nid;
     if (parentcoll) {
         parentcoll = (
@@ -155,7 +188,7 @@ export function CollectionsViewer(props) {
         );
     }
 
-    // Do subcollections
+    // Get and Display Subcollections
     const subcollids = collsolr?.subcollection_id_is;
     const subcolltitles = collsolr?.subcollection_name_ss;
     let subcolldata = subcollids?.map(function (item, n) {
@@ -175,6 +208,7 @@ export function CollectionsViewer(props) {
         );
     });
 
+    // Get and display (if exists) thumbnail image
     let thumburl = $.trim(collsolr?.url_thumb);
     if (thumburl && thumburl.length > 0) {
         thumburl = (
@@ -185,11 +219,14 @@ export function CollectionsViewer(props) {
             />
         );
     }
+
+    // Set Summary Variable
     let summary = $.trim(collsolr?.summary);
     if (summary && summary.length == 0) {
         summary = false;
     }
 
+    // Do Not Found if not Solr Doc found (collsolr)
     if (collsolr?.numFound === 0) {
         coll_paths = [
             {
@@ -208,6 +245,9 @@ export function CollectionsViewer(props) {
         return <NotFoundPage type={asset_type + ' collection'} id={asset_id} />;
     }
 
+    //console.log('solrq', solrq);
+
+    // Return the Container with the Collection page
     return (
         <Container fluid className={'c-collection__container ' + asset_type}>
             <Row className={'c-collection'}>
@@ -223,8 +263,8 @@ export function CollectionsViewer(props) {
                         {atypeLabel} Items in This Collection
                     </h3>
                     <FeatureCollection
-                        docs={solrq?.docs}
-                        numFound={solrq?.numFound}
+                        docs={solrq}
+                        numFound={numFound}
                         pager={pager}
                         viewMode={view_mode}
                         inline={false}
