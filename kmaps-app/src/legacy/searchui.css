@@ -424,15 +424,16 @@
     padding: 4px 8px 2px 8px;
     border-radius: 6px;
 }
-.sui-advHeader:hover {
-    color: #668eec;
-}
+
 .sui-advHeader {
     cursor: pointer;
 }
+.sui-advHeader:hover {
+    color: #668eec;
+}
 
 .sui-advTerm {
-    margin: 0.5rem 0 -1rem 1rem;
+    margin: 0.5rem 0 -1rem 3rem;
     font-size: 1.1rem;
     padding: 0.5rem 0.5rem 0 1.5rem;
 }

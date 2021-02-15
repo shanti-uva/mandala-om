@@ -42,7 +42,7 @@ ul.fancytree-container {
     border: 1px solid transparent !important;
     display: block;
     cursor: pointer;
-    padding: 0.2rem;
+    padding: 0 0.2rem 0.4rem;
     border-radius: 4px;
 }
 
@@ -70,6 +70,7 @@ ul.fancytree-container {
     margin-left: 3.5rem;
     color: #000 !important;
     vertical-align: middle !important;
+    padding: 0 0.3rem 0.25rem 0.3rem;
 }
 
 .fancytree-node:hover .fancytree-title {

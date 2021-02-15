@@ -38,7 +38,7 @@
 
 @media (min-width: 992px) {
     .l-column__related {
-        margin-left: 0m;
+        margin-left: -1rem;
     }
 }
 
@@ -180,12 +180,11 @@
 .l-terms__tree__wrap .fancytree-node {
     margin-top: 0;
     padding-top: 0;
-    padding-bottom: 0;
     outline: none;
 }
 .l-terms__tree__wrap .fancytree-exp-nl .fancytree-title::before,
 .l-terms__tree__wrap .fancytree-exp-n .fancytree-title::before {
-    content: '–' !important;
+    /*content: '–' !important;*/
     margin-right: 0.75rem !important;
     font-weight: bold !important;
     background-color: transparent;
@@ -199,6 +198,22 @@
     color: $color-terms !important;
 }
 
+.l-column__related .fancytree-exp-nl .fancytree-title::before,
+.l-column__related .fancytree-exp-n .fancytree-title::before {
+    background-color: #333;
+    width: 0.75rem;
+    position: relative;
+    top: -0.3rem;
+    left: -0.1rem;
+}
+.l-column__related .fancytree-exp-nl:hover .fancytree-title::before,
+.l-column__related .fancytree-exp-n:hover .fancytree-title::before {
+    background-color: #000 !important;
+}
+
+.l-column__related .fancytree-active:hover .fancytree-title::before {
+    background-color: #fff !important;
+}
 /*
 .sui-relatedRecent {q
     font-size: 12px;
