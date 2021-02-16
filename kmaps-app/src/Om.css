@@ -624,7 +624,7 @@
 }
 
 .sui-advTerm {
-    margin: 0.5rem 0 0 0.6rem;
+    margin: 0.5rem 0 0 3.75rem;
     font-size: 1.1rem;
     padding: 0.15rem 0.5rem 0.15rem 0;
 }
@@ -659,6 +659,7 @@
     background-color: #fafafa;
     text-align: left;
     border: 0.1rem solid #ddd;
+    border-top: 0.3rem solid #ccc;
     border-radius: 0 0 1.5rem 1.5rem;
     padding: 0.8rem 0.8rem 0.3rem;
     font-size: 1.25rem;
