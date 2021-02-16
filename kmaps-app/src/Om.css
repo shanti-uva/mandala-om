@@ -475,8 +475,8 @@
 
 .sui-advBox {
     border-bottom: 1px solid #ddd;
-    margin: 0 0.75rem;
-    padding: 1.25rem 1rem 0;
+    margin: 0 0 0 0.75rem;
+    padding: 1.25rem 1rem 0 0.25rem;
     background-color: #fff;
     min-height: 4.75rem;
 }
@@ -506,6 +506,7 @@
     cursor: default;
     color: #000;
     letter-spacing: 0.0375rem;
+    margin-left: 1rem;
 }
 
 .sui-advHeader:hover {
@@ -625,7 +626,7 @@
 .sui-advTerm {
     margin: 0.5rem 0 0 0.6rem;
     font-size: 1.1rem;
-    padding: 0.5rem 0.5rem 0.75rem 0;
+    padding: 0.15rem 0.5rem 0.15rem 0;
 }
 .sui-advTerm .icon::before {
     color: #555;
@@ -658,13 +659,12 @@
     background-color: #fafafa;
     text-align: left;
     border: 0.1rem solid #ddd;
-    border-top-color: #aaa;
-    border-bottom-width: 0.3rem;
     border-radius: 0 0 1.5rem 1.5rem;
     padding: 0.8rem 0.8rem 0.3rem;
     font-size: 1.25rem;
-    color: #333;
-    margin: 1.25rem 0;
+    color: #000;
+    margin: 1.7rem 0;
+    box-shadow: inset 0.25rem 0.25rem 0.8rem #ddd;
 }
 
 .sui-advEdit-facet-ctrls-btns {
@@ -798,8 +798,8 @@
 }
 
 .sui-adv-facetlist {
-    max-height: 15rem;
-    padding: 0.25rem 0;
+    max-height: 18rem;
+    padding: 0.25rem 0 0 0.5rem;
     border-radius: 1.25rem;
 }
 .sui-adv-facetlist .facetItem,
