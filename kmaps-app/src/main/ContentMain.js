@@ -179,7 +179,7 @@ export default function ContentMain(props) {
                                     </KmapContext>
                                 </Route> */}
 
-                                <Route path={`/:baseType/:id`}>
+                                <Route path={`/terms/:id`}>
                                     <RelatedsViewer />
                                     <section className="l-content__main__wrap">
                                         <div className="c-content__main__kmaps">
@@ -190,11 +190,6 @@ export default function ContentMain(props) {
                                 </Route>
                                 <Route path={`/terms`}>
                                     <TermsHome />
-                                </Route>
-
-                                {/* do we need this route? */}
-                                <Route path={`/terms/:id/related-:relatedType`}>
-                                    <Redirect to={'./default'} />
                                 </Route>
 
                                 <Route path={`/search/:viewMode`}>

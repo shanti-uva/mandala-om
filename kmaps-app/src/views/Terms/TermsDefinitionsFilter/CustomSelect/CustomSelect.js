@@ -11,6 +11,9 @@ const CustomSelect = (props) => {
     const history = useHistory();
     let params = useParams();
 
+    // Add baseType to params
+    params['baseType'] = 'terms';
+
     const options = props.definitions;
 
     // Find the object that matches the selectedOption.
@@ -24,7 +27,7 @@ const CustomSelect = (props) => {
         setSelectedID(clickedSelID);
         const newParams = { ...params, definitionID: clickedSelID };
         const path = generatePath(
-            `/:viewerType/:id/related-:relatedType/:definitionID/:viewMode`,
+            `/:baseType/:id/related-:relatedType/:definitionID/:viewMode`,
             newParams
         );
         history.push(path);

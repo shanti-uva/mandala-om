@@ -36,12 +36,17 @@ function unPackRelatedData(res, kmapid, type, start, rows) {
         asset_counts[x.asset_type].docs.push(y);
     });
 
+    //Add a hasMore boolean which checks if there is more data to fetch
+    const hasMore =
+        asset_counts[type]?.count <= start * rows + rows ? false : true;
+
     return {
         uid: kmapid,
         start: start,
         rows: rows,
         type: type,
         stateKey: [kmapid, type, start, rows].join('/'),
+        hasMore,
         assets: asset_counts,
     };
 }

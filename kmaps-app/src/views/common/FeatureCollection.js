@@ -55,6 +55,9 @@ export function FeatureCollection(props) {
         case 'list':
             viewer = <FeatureList {...props} />;
             break;
+        default:
+            viewer = <FeatureGallery {...props} />;
+            break;
     }
 
     let inclGallery = viewMode === 'gallery' ? true : false;

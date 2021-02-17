@@ -1,32 +1,59 @@
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import React from 'react';
-import { FeatureGallery } from './FeatureGallery';
 import { FeatureCollection } from './FeatureCollection';
+import { useKmapRelated } from '../../hooks/useKmapRelated';
+import { useUnPackedMemoized } from '../../hooks/utils';
+import { queryID } from '../../views/common/utils';
 
 // Special case of the FeatureGallery
 export function RelatedsGallery(props) {
-    const { relatedType: type, definitionID } = useParams(); // USES PARAMS from React Router  Refactor?
-    const allAssets = props.relateds?.assets;
+    let { id, relatedType: type, definitionID } = useParams(); // USES PARAMS from React Router  Refactor?
+    definitionID = definitionID ?? 'noDefID';
+
+    const [perPage, setPerPage] = useState(100);
+    const [page, setPage] = useState(0); // Start will always be page * perPage
+    const {
+        isLoading: isRelatedLoading,
+        data: relatedData,
+        isError: isRelatedError,
+        error: relatedError,
+        isPreviousData,
+    } = useKmapRelated(queryID('terms', id), type, page, perPage, definitionID);
+    const kmapsRelated = useUnPackedMemoized(
+        relatedData,
+        queryID('terms', id),
+        type,
+        page,
+        perPage
+    );
+
+    if (isRelatedLoading) {
+        return <span>Relateds Gallery Skeleton</span>;
+    }
+
+    if (isRelatedError) {
+        return <span>Relateds Gallery Error: {relatedError.message}</span>;
+    }
+
+    const allAssets = kmapsRelated?.assets;
     const assets = allAssets ? allAssets[type] : null;
     const docs = assets?.docs;
-
-    // Filter docs to only show those that have the definitionID specified
-    const defID = definitionID ?? 'any';
-    let filteredDocs = docs;
-    if (defID !== 'any') {
-        filteredDocs = docs.filter((doc) => doc.kmapid.includes(defID));
-    }
 
     // Give a nice title.
     const title = type !== 'all' ? `Related ${type}` : 'All Related Items';
     return (
         <FeatureCollection
-            docs={filteredDocs}
-            pager={props.pager}
-            numFound={filteredDocs?.length ?? 0}
+            docs={docs}
             title={title}
             viewMode={'gallery'}
             inline={true}
+            page={page}
+            setPage={setPage}
+            perPage={perPage}
+            setPerPage={setPerPage}
+            isPreviousData={isPreviousData}
+            hasMore={kmapsRelated.hasMore}
+            assetCount={assets.count}
         />
     );
 }

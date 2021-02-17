@@ -34,16 +34,42 @@ const facetJson = JSON.stringify({
  * @param rows
  * @returns {any}
  */
-export function useKmapRelated(kmapid, type = 'all', start = 0, rows = 100) {
+export function useKmapRelated(
+    kmapid,
+    type = 'all',
+    start = 0,
+    rows = 100,
+    definitionID = 'noDefID'
+) {
     const asset_types = type === 'all' ? ALL : [type];
 
     return useQuery(
-        ['kmapRelated', kmapid, asset_types.join('-'), start, rows],
-        () => getKmapRelatedData(kmapid, asset_types, start, rows)
+        [
+            'kmapRelated',
+            kmapid,
+            asset_types.join('-'),
+            start,
+            rows,
+            definitionID,
+        ],
+        () =>
+            getKmapRelatedData(kmapid, asset_types, start, rows, definitionID),
+        { keepPreviousData: true }
     );
 }
 
-const getKmapRelatedData = async (kmapid, asset_types, start, rows) => {
+const getKmapRelatedData = async (
+    kmapid,
+    asset_types,
+    start,
+    rows,
+    definitionID
+) => {
+    const defID =
+        definitionID === 'noDefID' || String(definitionID) === 'any'
+            ? kmapid
+            : definitionID;
+
     let params = {
         fl: '*',
         wt: 'json',
@@ -51,7 +77,7 @@ const getKmapRelatedData = async (kmapid, asset_types, start, rows) => {
         rows: rows,
         'json.facet': facetJson,
         // eslint-disable-next-line
-        q: `(uid:${kmapid}^100+kmapid:${kmapid})`,
+        q: `(uid:${kmapid}^100+kmapid:${defID})`,
         kmapid: kmapid,
         fq: '{!tag=ast}asset_type:(' + asset_types.join(' ') + ')',
     };

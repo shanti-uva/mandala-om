@@ -1,17 +1,9 @@
-import InputNumber from 'rc-input-number';
-import * as PropTypes from 'prop-types';
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import NumericInput from 'react-numeric-input';
-
 import './FeaturePager.scss';
 
 export function FeaturePager(props) {
-    // const [pg, setPg] = useState(0);
-    const pageInput = useRef(null);
-
-    if (props.pager === undefined) {
-        return null;
-    }
+    const maxPage = Math.ceil(props.assetCount / props.perPage);
 
     const pager = props.pager;
 
@@ -19,110 +11,75 @@ export function FeaturePager(props) {
         <NumericInput
             aria-label="Goto page"
             min={1}
-            max={pager.getMaxPage() + 1}
+            max={maxPage}
             size={5}
-            value={pager.getPage() + 1}
+            value={props.page + 1}
             onChange={(pg) => {
-                if (window?.fppgwait) {
-                    clearTimeout(window?.fppgwait);
+                pg = parseInt(pg, 10);
+                pg = pg - 1;
+                if (pg < 0) {
+                    pg = 0;
                 }
-                window.fppgwait = setTimeout(function () {
-                    pager.setPage(pg - 1);
-                }, 800);
+                if (pg >= maxPage) {
+                    pg = maxPage - 1;
+                }
+                props.setPage(pg);
             }}
             mobile={false}
             noStyle={true}
-            ref={pageInput}
         />
     );
 
-    function firstPage() {
-        pager.firstPage();
-        pageInput.current.refsInput.setValue(pager.getPage() + 1);
-    }
-
-    function nextPage() {
-        pager.nextPage();
-        pageInput.current.refsInput.setValue(pager.getPage() + 1);
-    }
-
-    function prevPage() {
-        pager.prevPage();
-        pageInput.current.refsInput.setValue(pager.getPage() + 1);
-    }
-
-    function lastPage() {
-        pager.lastPage();
-        pageInput.current.refsInput.setValue(pager.getPage() + 1);
-    }
-    /*
-    if (pager.getMaxPage() < pager.getPage()) {
-        pager.setPage(pager.getMaxPage());
-    }
-    */
-    let numFound = props?.numFound ? props.numFound : pager?.numFound;
-    if (!numFound) {
-        numFound = pager.getPageSize();
-    }
-    const startnum = pager.getPage() * pager.getPageSize() + 1;
-    let endnum = startnum + pager.getPageSize() - 1;
-    if (numFound < endnum) {
-        endnum = numFound;
-    }
     const position = props?.position ? ' ' + props.position : '';
-    let maxpg = pager.getMaxPage() + 1;
-    maxpg = isNaN(maxpg) ? '...' : maxpg;
     const classname = props.className ? ' ' + props.className : '';
     return (
         <div className={`c-featurePager__container${position}${classname}`}>
-            {startnum && endnum && numFound && (
-                <div className={'c-featurePager__resultSummary'}>
-                    (Displaying <span className={'start'}>{startnum}</span>
-                    to <span className={'end'}>{endnum}</span>
-                    of <span className={'total'}>{numFound}</span>)
-                </div>
-            )}
-            <div className={'c-featurePager__navButtons'}>
+            <div className="c-featurePager__resultSummary">
+                (Displaying{' '}
+                <span className="start">{props.page * props.perPage + 1}</span>
+                to{' '}
+                <span className="end">
+                    {props.page * props.perPage + props.perPage}
+                </span>
+                of <span className="total">{props.assetCount}</span>)
+            </div>
+            <div className="c-featurePager__navButtons">
                 <span
-                    onClick={firstPage}
-                    className={
-                        'icon u-icon__arrow-end-left c-pagerIcon__buttonFirst'
-                    }
+                    onClick={() => props.setPage(0)}
+                    className="icon u-icon__arrow-end-left c-pagerIcon__buttonFirst"
                 >
                     {' '}
                 </span>
                 <span
-                    onClick={prevPage}
-                    className={
-                        'icon u-icon__arrow3-left c-pagerIcon__buttonPrev'
-                    }
+                    onClick={() => props.setPage((old) => Math.max(old - 1, 0))}
+                    className="icon u-icon__arrow3-left c-pagerIcon__buttonPrev"
                 >
                     {' '}
                 </span>
-                <span className={'c-pager__counterWrapper'}>
-                    <span className={'c-pager__counter-1'}>{wingo}</span>
+                <span className="c-pager__counterWrapper">
+                    <span className="c-pager__counter-1">{wingo}</span>
                     of
-                    <span className={'c-pager__counterMax'}>{maxpg}</span>
+                    <span className="c-pager__counterMax">{maxPage}</span>
                 </span>
                 <span
-                    onClick={nextPage}
-                    className={
-                        'icon u-icon__arrow3-right c-pagerIcon__buttonNext'
-                    }
+                    onClick={() => {
+                        if (!props.isPreviousData && props.hasMore) {
+                            props.setPage((old) => old + 1);
+                        }
+                    }}
+                    className="icon u-icon__arrow3-right c-pagerIcon__buttonNext"
                 >
                     {' '}
                 </span>
                 <span
-                    onClick={lastPage}
-                    className={
-                        'icon u-icon__arrow-end-right c-pagerIcon__buttonLast'
-                    }
+                    onClick={() => props.setPage(maxPage - 1)}
+                    className="icon u-icon__arrow-end-right c-pagerIcon__buttonLast"
                 >
                     {' '}
                 </span>
             </div>
             {props.loadingState ? <span> loading...</span> : <span></span>}
-            <div className={'c-featurePager__itemCount'}>
+            <div className="c-featurePager__itemCount">
                 <span>Items per page:</span>
                 <NumericInput
                     aria-label="Set number of items per page"
@@ -131,9 +88,9 @@ export function FeaturePager(props) {
                     size={3}
                     step={10}
                     // style={{width: "4em"}}
-                    value={pager.getPageSize()}
+                    value={props.perPage}
                     onChange={(ps) => {
-                        pager.setPageSize(ps);
+                        props.setPerPage(ps);
                     }}
                     mobile={false}
                     style={{
@@ -147,13 +104,3 @@ export function FeaturePager(props) {
         </div>
     );
 }
-
-FeaturePager.propTypes = {
-    pager: PropTypes.shape({
-        getPageSize: PropTypes.func,
-        getMaxPage: PropTypes.func,
-        getPage: PropTypes.func,
-        setPageSize: PropTypes.func,
-        setPage: PropTypes.func,
-    }),
-};

@@ -249,6 +249,7 @@ function RelatedCount(props) {
                 '/related-' +
                 props.type +
                 '/' +
+                (props.baseType === 'terms' ? 'any/' : '') +
                 display
             }
         >

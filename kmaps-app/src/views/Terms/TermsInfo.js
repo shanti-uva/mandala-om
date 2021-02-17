@@ -11,11 +11,17 @@ import TermNames from './TermNames';
 import _ from 'lodash';
 import TermsDetails from './TermsDetails';
 import { queryID } from '../../views/common/utils';
+import { RelatedsGallery } from '../../views/common/RelatedsGallery';
+const TermsDefinitionsFilter = React.lazy(() =>
+    import('./TermsDefinitionsFilter')
+);
 
 const TermsInfo = (props) => {
     // id is of format: asset_type-kid (ex. terms-81593)
     let { path, url } = useRouteMatch();
-    let { baseType, id } = useParams();
+    let { id } = useParams();
+    const baseType = 'terms';
+
     const {
         isLoading: isKmapLoading,
         data: kmapData,
@@ -36,9 +42,6 @@ const TermsInfo = (props) => {
     } = useKmapRelated(queryID(baseType, id), 'all', 0, 100);
 
     //Unpack related data using memoized function
-    console.log('GerardKetuma|kmapData', kmapData);
-    console.log('GerardKetuma|assetData', assetData);
-    console.log('GerardKetuma|kmapsRelated', relatedData);
     const kmapsRelated = useUnPackedMemoized(
         relatedData,
         queryID(baseType, id),
@@ -93,7 +96,19 @@ const TermsInfo = (props) => {
                     )}
                 </>
             </Route>
-            <Route path={[`${path}/related-:relatedType/:viewMode`]}></Route>
+            <Route
+                path={[
+                    `${path}/related-:relatedType/:definitionID/:viewMode`,
+                    `${path}/related-:relatedType/:viewMode`,
+                    `${path}/related-:relatedType`,
+                ]}
+            >
+                <TermsDefinitionsFilter
+                    relateds={kmapsRelated}
+                    kmap={kmapData}
+                />
+                <RelatedsGallery relateds={kmapsRelated} />
+            </Route>
         </Switch>
     );
 };
