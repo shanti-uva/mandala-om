@@ -659,7 +659,7 @@
 }
 
 .sui-advTerm.sui-advTerm__results-length-message {
-    margin-left: 0.8rem;
+    margin: 0 0 0 0.8rem;
 }
 
 .sui-advEdit {
@@ -684,7 +684,7 @@
 
 .sui-advEdit-facet-ctrls-btns .btn {
     padding: 0.2rem 1rem;
-    background-color: #f9f9f9;
+    background-color: #d0d0d0;
     border-color: #ccc !important;
     color: #444;
     font-size: 1.45rem;
@@ -698,6 +698,10 @@
     color: #222;
     border-bottom-color: transparent;
     /*border-top: 2px solid #999;*/
+}
+.sui-advEdit-facet-ctrls-btns .btn:hover {
+    background-color: #888;
+    color: #fff;
 }
 .btn-primary:not(:disabled):not(.disabled).active {
     cursor: default;

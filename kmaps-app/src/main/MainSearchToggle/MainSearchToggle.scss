@@ -26,33 +26,26 @@
 }
 .c-MainSearchToggle--group .btn.active svg {
     font-size: 2.25rem !important;
-    top: 0.4rem;
 }
 .c-MainSearchToggle--button {
     color: black;
     border-color: #ddd !important;
     border-bottom-color: #aaa !important;
-}
-
-.c-MainSearchToggle--button.active {
     opacity: 1;
 }
-
 .c-MainSearchToggle--button:hover {
-    color: #fff;
+    color: #fff !important;
+    background-color: #4d59ca !important;
     opacity: 1;
 }
-
-.c-MainSearchToggle--button.active:hover {
-    color: white;
-    background-color: inherit;
+.c-MainSearchToggle--button.focus,
+.c-MainSearchToggle--button.active,
+.c-MainSearchToggle--button.active:hover,
+.c-MainSearchToggle--button.active:focus {
+    color: #555 !important;
+    background-color: white !important;
+    opacity: 1;
 }
-
-.c-MainSearchToggle--button.focus {
-    color: black;
-    background-color: white;
-}
-
 .c-MainSearchToggle--button .btn {
-    border: 0px;
+    border: none;
 }
