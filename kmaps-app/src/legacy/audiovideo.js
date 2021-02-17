@@ -967,6 +967,7 @@ export default class AudioVideo {
                 <div id='sui-transTab3' class='sui-transTab col' title='Same line'>&#xe632</div>
                 <div id='sui-transTab4' class='sui-transTab col' title='Next line'>&#xe604</div>
                 <div id='sui-transTab5' class='sui-transTab col' style='border:none' title='Search transcript'>&#xe623</div>
+                <div id='sui-transOps' class='sui-transOps'></div>
                 <div id='sui-transSrc' class='sui-transSrc'>
                     <div class="transSrcWrap ${browser}">
                         <div class="navigator">
@@ -990,7 +991,7 @@ export default class AudioVideo {
                             </div>
                         </div>-->
                     </div>
-                <div id='sui-transOps' class='sui-transOps'></div>
+               <!-- <div id='sui-transOps' class='sui-transOps'></div> -->
             </div>
             <div id='sui-trans' class='sui-trans row'></div>
 		</div>`;
@@ -1101,8 +1102,8 @@ export default class AudioVideo {
 		<div class='sui-transRow' id='sui-transRevR'>- Reversed<span id='sui-transRev' class='sui-transCheck'>&#xe60e</span></div>
 		<div class='sui-transLab'>DOWNLOADS</div>
 		<div class='sui-transRow' id='sui-transStr'->- SRT file<span class='sui-transCheck' style='color:#58aab4'>&#xe616</span></div>`;
+        //console.log("adding str to transops", $('#sui-transOps'), str);
         $('#sui-transOps').html(str.replace(/\t|\n|\r/g, ''));
-
         $('#sui-transStr').on('click', () => {
             this.SaveStrFile();
         }); // ON SAVE SRT FILE
@@ -1142,6 +1143,7 @@ export default class AudioVideo {
         });
 
         $('#sui-transTab0').on('click', () => {
+            console.log('options button clicked!');
             $('#sui-transOps').slideToggle('fast');
         }); // ON OPTIONS MENU CLICK
 

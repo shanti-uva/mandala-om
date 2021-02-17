@@ -876,6 +876,8 @@
     display: none;
     width: 180px;
     font-size: 13px;
+    z-index: 1000;
+    top: 50px;
 }
 .sui-transSrc {
     background-color: #999;
