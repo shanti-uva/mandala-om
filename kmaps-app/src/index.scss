@@ -577,7 +577,7 @@ ul.fancytree-container {
         // border-radius: 0.3rem 0.3rem 0 0;
         // margin: 1rem auto 0;
         text-align: center;
-        margin-bottom: 0.8rem;
+        margin-bottom: 1.25rem;
         .icon {
         }
 
@@ -587,8 +587,8 @@ ul.fancytree-container {
     }
 }
 
-.c-view > .c-featurePager__container:last-of-type {
-    margin-top: 0.8rem !important;
+.c-view .c-featurePager__container:last-of-type {
+    margin: 2rem !important;
 }
 
 .c-buttoneGroup__viewMode {
