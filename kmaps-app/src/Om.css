@@ -624,12 +624,16 @@
 }
 
 .sui-advTerm {
-    margin: 0.5rem 0 0 3.75rem;
+    margin: 0.5rem 0 0.3rem 3.75rem;
     font-size: 1.1rem;
     padding: 0.15rem 0.5rem 0.15rem 0;
 }
 .sui-advTerm .icon::before {
     color: #555;
+}
+
+.u-icon__cancel-circle {
+    cursor: pointer;
 }
 
 .sui-advTerm:empty {
@@ -652,6 +656,10 @@
 .sui-advTerm div .facetItem,
 .sui-advTerm div > span:last-child::before {
     display: none;
+}
+
+.sui-advTerm.sui-advTerm__results-length-message {
+    margin-left: 0.8rem;
 }
 
 .sui-advEdit {
