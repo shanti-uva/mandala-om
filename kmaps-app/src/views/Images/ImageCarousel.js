@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export function ImageCarousel(props) {
-    const solrdoc = props.solrdoc;
+    const solrdoc = props.kmasset;
     const atype = solrdoc?.asset_type;
     const coll_id = solrdoc?.collection_nid;
     const querySpecs = {
@@ -32,6 +32,7 @@ export function ImageCarousel(props) {
             $('#image-carousel').scrollLeft(scrollval);
         }, 10);
     };
+
     useEffect(() => {
         if ($('#image-carousel').length > 0) {
             if (window.mndlImgCarouselTimeout) {
@@ -64,14 +65,11 @@ export function ImageCarousel(props) {
         }
     }, [$('#image-carousel')]);
 
-    if (
-        typeof solrdoc === 'undefined' ||
-        typeof resource.docs === 'undefined'
-    ) {
+    if (!solrdoc || !resource?.data?.docs || resource.data.docs.length == 0) {
         return null;
     }
 
-    let carouseldivs = resource.docs;
+    let carouseldivs = resource.data.docs;
     carouseldivs.sort(function (a, b) {
         if (a.id === b.id) {
             return 0;
