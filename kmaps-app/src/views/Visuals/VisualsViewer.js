@@ -1,48 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import useStatus from '../../hooks/useStatus';
+import { useKmap } from '../../hooks/useKmap';
+import useMandala from '../../hooks/useMandala';
+import { useParams } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
-import $ from 'jquery';
-import _ from 'lodash';
 import './visuals.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
-import { createAssetCrumbs } from '../common/utils';
 
 export function VisualsViewer(props) {
-    const solrdoc = props.mdlasset;
-    const nodejson = props.nodejson;
-    const ismain = props.ismain;
+    const baseType = `visuals`;
+    const { id } = useParams();
+    const queryID = `${baseType}*-${id}`;
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(queryID, 'asset');
+    const {
+        isLoading: isNodeLoading,
+        data: nodeData,
+        isError: isNodeError,
+        error: nodeError,
+    } = useMandala(kmasset);
+
+    const solrdoc = kmasset;
+    const nodejson = nodeData;
 
     const [mycoll, setMyColl] = useState({});
     const [snjson, setSnJson] = useState({});
-    const status = useStatus();
-
-    const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
-
-    useEffect(() => {
-        if (ismain) {
-            status.clear();
-            status.setType('visuals');
-        }
-    }, []);
-
-    // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
-    useEffect(() => {
-        // Setting title in header and other status options
-        if (solrdoc && ismain) {
-            // Set Page title
-            let pgtitle = solrdoc?.title || solrdoc?.caption;
-            pgtitle = pgtitle === '' ? 'Visuals Viewer' : pgtitle;
-            status.setHeaderTitle(pgtitle);
-
-            // Add Asset specific clss to main for styling
-            $('main.l-column__main').addClass('visuals');
-
-            // Set Breadcrumbs with Collections
-            const bcrumbs = createAssetCrumbs(solrdoc);
-            status.setPath(bcrumbs);
-        }
-    }, [solrdoc]);
 
     useEffect(() => {
         if (nodejson) {
@@ -51,17 +37,37 @@ export function VisualsViewer(props) {
         }
     }, [nodejson]);
 
-    // If no solr doc, return loading message
-    if (!solrdoc) {
-        status.setHeaderTitle('Loading Visuals Record ...');
+    if (isAssetLoading || isNodeLoading) {
         return (
-            <Container fluid className={'c-visual__container'}>
-                <Col className={'c-visual'}>
-                    <div className={'loading'}>Loading ...</div>
+            <Container fluid className="c-visual__container">
+                <Col className="c-visual">
+                    <div className="loading">Visuals Loading Skeleton ...</div>
                 </Col>
             </Container>
         );
     }
+
+    if (isAssetError || isNodeError) {
+        if (isAssetError) {
+            return (
+                <Container fluid className="c-visual__container">
+                    <Col className="c-visual">
+                        <div className="error">Error: {assetError.message}</div>
+                    </Col>
+                </Container>
+            );
+        }
+        if (isNodeError) {
+            return (
+                <Container fluid className="c-visual__container">
+                    <Col className="c-visual">
+                        <div className="error">Error: {nodeError.message}</div>
+                    </Col>
+                </Container>
+            );
+        }
+    }
+
     const mydate = new Date(solrdoc?.node_created);
     const mytype = snjson && snjson.shivaGroup ? snjson.shivaGroup : '';
     const has_sheet =

@@ -94,19 +94,6 @@ export default function ContentMain(props) {
                                     <TextsHome />
                                 </Route>
 
-                                {/* VISUALS */}
-                                <Route path={`/visuals/:id`}>
-                                    <GenAssetContext assetType={'visuals'}>
-                                        <VisualsViewer
-                                            ismain={true}
-                                            onStateChange={props.onStateChange}
-                                        />
-                                    </GenAssetContext>
-                                </Route>
-                                <Route path={`/visuals`}>
-                                    <VisualsHome />
-                                </Route>
-
                                 {/* PLACES */}
                                 <Route
                                     path={[
@@ -183,6 +170,14 @@ export default function ContentMain(props) {
                                 </Route>
                                 <Route path={`/sources`}>
                                     <SourcesHome />
+                                </Route>
+
+                                {/* VISUALS */}
+                                <Route path={`/visuals/:id`}>
+                                    <VisualsViewer />
+                                </Route>
+                                <Route path={`/visuals`}>
+                                    <VisualsHome />
                                 </Route>
 
                                 <Route path={`/search/:viewMode`}>
