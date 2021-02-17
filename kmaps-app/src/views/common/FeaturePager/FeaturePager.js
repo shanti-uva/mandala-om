@@ -3,9 +3,11 @@ import NumericInput from 'react-numeric-input';
 import './FeaturePager.scss';
 
 export function FeaturePager(props) {
-    const maxPage = Math.ceil(props.assetCount / props.perPage);
+    if (!props.page) {
+        return null;
+    }
 
-    const pager = props.pager;
+    const maxPage = Math.ceil(props.assetCount / props.perPage);
 
     let wingo = (
         <NumericInput

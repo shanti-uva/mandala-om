@@ -1,60 +1,62 @@
-import React, { useEffect } from 'react';
-import useStatus from '../../hooks/useStatus';
+import React from 'react';
 import { Col, Container, Row, Image } from 'react-bootstrap';
-import $ from 'jquery';
-import _ from 'lodash';
 import './sources.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
-import { Link } from 'react-router-dom';
-import { createAssetCrumbs } from '../common/utils';
+import { Link, useParams } from 'react-router-dom';
+import { useKmap } from '../../hooks/useKmap';
+import useMandala from '../../hooks/useMandala';
 
 export function SourcesViewer(props) {
-    const solrdoc = props.mdlasset;
-    const nodejson = props.nodejson;
-    const ismain = props.ismain;
+    const baseType = `sources`;
+    const { id } = useParams();
+    const queryID = `${baseType}*-${id}`;
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(queryID, 'asset');
+    const {
+        isLoading: isNodeLoading,
+        data: nodeData,
+        isError: isNodeError,
+        error: nodeError,
+    } = useMandala(kmasset);
 
-    const status = useStatus();
-
-    const nid = props?.id || solrdoc?.id || nodejson?.nid || false;
-
-    useEffect(() => {
-        if (ismain) {
-            status.clear();
-            status.setType('sources');
-            status.setHeaderTitle('Loading ...');
-        }
-    }, []);
-
-    // usEffect Sets the title in the header and reformats the Seadragon viewer buttons for fullscreen and zoom
-    useEffect(() => {
-        // Setting title in header and other status options
-        if (solrdoc && ismain) {
-            status.clear(); // Clear previous status
-
-            // Set Page title
-            let pgtitle = solrdoc?.title || solrdoc?.caption;
-            pgtitle = pgtitle === '' ? 'Sources Viewer' : pgtitle;
-            status.setHeaderTitle(pgtitle);
-
-            // Add Asset specific clss to main for styling
-            $('main.l-column__main').addClass('sources');
-
-            // Set Breadcrumbs
-            const bcrumbs = createAssetCrumbs(solrdoc);
-            status.setPath(bcrumbs);
-        }
-    }, [solrdoc]);
-
-    if (!solrdoc) {
+    if (isAssetLoading || isNodeLoading) {
         return (
-            <Container fluid className={'c-source__container'}>
-                <Col className={'c-source'}>
-                    <div className={'loading'}>Loading ...</div>
+            <Container fluid className="c-source__container">
+                <Col className="c-source">
+                    <div className="loading">Sources Loading Skeleton ...</div>
                 </Col>
             </Container>
         );
     }
+
+    if (isAssetError || isNodeError) {
+        if (isAssetError) {
+            return (
+                <Container fluid className="c-source__container">
+                    <Col className="c-source">
+                        <div className="error">Error: {assetError.message}</div>
+                    </Col>
+                </Container>
+            );
+        }
+        if (isNodeError) {
+            return (
+                <Container fluid className="c-source__container">
+                    <Col className="c-source">
+                        <div className="error">Error: {nodeError.message}</div>
+                    </Col>
+                </Container>
+            );
+        }
+    }
+
+    const solrdoc = kmasset;
+    const nodejson = nodeData;
 
     // console.log("nodejson", nodejson);
     const data_col_width = solrdoc?.url_thumb?.length > 0 ? 8 : 12;
