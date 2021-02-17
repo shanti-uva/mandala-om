@@ -39,7 +39,10 @@ export function FeaturePager(props) {
                 <span className="start">{props.page * props.perPage + 1}</span>
                 to{' '}
                 <span className="end">
-                    {props.page * props.perPage + props.perPage}
+                    {Math.min(
+                        props.page * props.perPage + props.perPage,
+                        props.assetCount
+                    )}
                 </span>
                 of <span className="total">{props.assetCount}</span>)
             </div>
