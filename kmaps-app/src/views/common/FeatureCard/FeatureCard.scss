@@ -185,7 +185,9 @@
     text-overflow: ellipsis;
     width: 98%;
     display: block;
-    margin: 0.2em;
+    position: relative;
+    right: 0.2rem !important;
+    color: white;
 }
 .c-card__grid--places .c-card__footer .shanti-field-path,
 .c-card__grid--subjects .c-card__footer .shanti-field-path,

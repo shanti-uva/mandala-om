@@ -130,7 +130,8 @@ function SearchAdvancedSimple(props) {
                 {!searchView &&
                     process.env.REACT_APP_STANDALONE !== 'standalone' && (
                         <Link to={SEARCH_PATH}>
-                            {'<<'} Show Results{' '}
+                            {' '}
+                            Show Results{' '}
                             <Badge pill variant={'secondary'}>
                                 {props?.pager?.numFound}
                             </Badge>

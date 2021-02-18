@@ -1,8 +1,9 @@
 .c-audioPlayer {
     margin-bottom: 1.5rem;
+    margin-left: 2rem;
 }
 .c-audioPlayer__button {
-    width: 3rem;
+    width: 3.175rem;
     height: 3rem;
     border: 0.3rem double #fff;
     border-radius: 50%;
@@ -10,22 +11,21 @@
     cursor: pointer;
     text-align: center;
     margin: 0;
-    opacity: 0.85;
+    opacity: 1;
     transform: all (1.175);
-    transition: scale 0.15s ease-in-out;
-    background: #91693c;
+    transition: scale 0.125s ease-in-out;
+    background: #4d59ca;
     padding: inherit;
 }
 .c-audioPlayer__button:hover {
-    opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 .c-audioPlayer__button:focus {
     outline: 0;
 }
 .c-audioPlayer__button:focus,
 .c-audioPlayer__button:active {
-    transform: scale(1.15);
+    transform: scale(1.125);
 }
 .c-audioPlayer__button .u-icon__audio {
     position: relative;
@@ -50,7 +50,7 @@
     padding: 0;
 }
 .c-audioPlayer__select--wrapper {
-    margin-left: 1.6rem;
+    margin-left: 0.8rem;
     padding: 0.8rem 1.6rem 0.8rem 1.45rem;
     border: 1px solid #ccc;
     border-radius: 4px;

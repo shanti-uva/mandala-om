@@ -264,6 +264,7 @@ export function FacetBox(props) {
             }
         }
     };
+    const maxFacetResult = 500;
 
     const facetBox = (
         <div className={'sui-advBox sui-advBox-' + props.id}>
@@ -295,6 +296,13 @@ export function FacetBox(props) {
                 }
                 id={'sui-advEdit-' + props.id}
             >
+                <div className="sui-advTerm sui-advTerm__results-length-message">
+                    <span>
+                        {facetList.length >= maxFacetResult
+                            ? `The results are limited to ${maxFacetResult} records, add more filters to narrow your search.`
+                            : ''}
+                    </span>
+                </div>
                 <div className={'sui-advEdit-facet-ctrls'}>
                     <input
                         type={'text'}
