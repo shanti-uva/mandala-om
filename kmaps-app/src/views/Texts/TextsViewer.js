@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useStatus from '../../hooks/useStatus';
 import useAsset from '../../hooks/useAsset';
+import { useKmap } from '../../hooks/useKmap';
 import useMandala from '../../hooks/useMandala';
 import {
     Container,
@@ -41,22 +42,23 @@ import { useParams, Redirect } from 'react-router-dom';
  * @constructor
  */
 export default function TextsViewer(props) {
-    const params = useParams();
-    let nid = params.relId || params.id || params.nid; // When ID param is just a number
-    if (nid.indexOf('-') > 1) {
-        // When ID param is something like "texts-1234".
-        nid = nid.split('-').pop();
-    }
+    const baseType = `texts`;
+    const { id } = useParams();
+    const queryID = `${baseType}*-${id}`;
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(queryID, 'asset');
+    const {
+        isLoading: isNodeLoading,
+        data: nodeData,
+        isError: isNodeError,
+        error: nodeError,
+    } = useMandala(kmasset);
 
-    const { data: textsData } = useAsset('texts', nid);
-    const { isIdle, data: outputData, isLoading, error } = useMandala(
-        textsData
-    );
-    console.log('GerardKetuma|outputData', outputData);
-    console.log('GerardKetuma|textsData', textsData);
-
-    const nodejson = outputData;
-    const kmasset = textsData.docs[0];
+    const nodejson = nodeData;
     const tid = nodejson ? nodejson.nid : '';
     const title = nodejson ? nodejson.title : '';
     let ismain = props?.ismain || false;
@@ -183,7 +185,7 @@ export default function TextsViewer(props) {
 
     let output = null;
 
-    if (isIdle || isLoading) {
+    if (isAssetLoading || isNodeLoading) {
         return (
             <Container className={'astviewer texts'} fluid>
                 <Row id={'shanti-texts-container'}>
@@ -195,17 +197,42 @@ export default function TextsViewer(props) {
                             role="status"
                             aria-hidden="true"
                         ></Spinner>
-                        Loading text...
-                    </div>
-                    <div className={'not-found-msg d-none'}>
-                        <h1>Text Not Found!</h1>
-                        <p className={'error'}>
-                            Could not find the requested text: {props.id}
-                        </p>
+                        Texts Loading Skeleton ...
                     </div>
                 </Row>
             </Container>
         );
+    }
+
+    if (isAssetError || isNodeError) {
+        if (isAssetError) {
+            return (
+                <Container className={'astviewer texts'} fluid>
+                    <Row id={'shanti-texts-container'}>
+                        <div className={'not-found-msg d-none'}>
+                            <h1>Text Not Found!</h1>
+                            <p className={'error'}>
+                                Error: {assetError.message}
+                            </p>
+                        </div>
+                    </Row>
+                </Container>
+            );
+        }
+        if (isNodeError) {
+            return (
+                <Container className={'astviewer texts'} fluid>
+                    <Row id={'shanti-texts-container'}>
+                        <div className={'not-found-msg d-none'}>
+                            <h1>Text Not Found!</h1>
+                            <p className={'error'}>
+                                Error: {nodeError.message}
+                            </p>
+                        </div>
+                    </Row>
+                </Container>
+            );
+        }
     }
 
     // Set output to return. If there's an asset, then output with text BS Container with one BS Row

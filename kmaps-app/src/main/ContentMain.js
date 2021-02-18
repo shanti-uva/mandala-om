@@ -5,9 +5,7 @@ import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
 import { ImagesViewer } from '../views/Images/ImagesViewer';
 import { ImagesHome } from '../views/Images/ImagesHome';
 import { TextsHome } from '../views/Texts/TextsHome';
-import { SourcesViewer } from '../views/Sources/SourcesViewer';
 import { SourcesHome } from '../views/Sources/SourcesHome';
-import { VisualsViewer } from '../views/Visuals/VisualsViewer';
 import { VisualsHome } from '../views/Visuals/VisualsHome';
 import { RelatedsViewer } from '../views/Kmaps/RelatedViewer/RelatedsViewer';
 import LegacyViewer from '../views/LegacyViewer';
@@ -16,7 +14,6 @@ import { CollectionsViewer } from '../views/Collections/CollectionsViewer';
 import { CollectionsHome } from '../views/Collections/CollectionsHome';
 import KmapContext from '../context/KmapContext';
 import SearchContext from '../context/SearchContext';
-import GenAssetContext from '../context/GenAssetContext';
 import KmapsViewer from '../views/Kmaps/KmapsViewer';
 import PlacesHome from '../views/PlacesHome';
 import SubjectsHome from '../views/SubjectsHome';
@@ -31,6 +28,12 @@ const AudioVideoViewer = React.lazy(() =>
     import('../views/AudioVideo/AudioVideoViewer')
 );
 const TextsViewer = React.lazy(() => import('../views/Texts/TextsViewer'));
+const SourcesViewer = React.lazy(() =>
+    import('../views/Sources/SourcesViewer')
+);
+const VisualsViewer = React.lazy(() =>
+    import('../views/Visuals/VisualsViewer')
+);
 
 export default function ContentMain(props) {
     const title = props.title || 'Untitled';
@@ -84,16 +87,6 @@ export default function ContentMain(props) {
                                 <Route path={`/images`}>
                                     <ImagesHome />
                                 </Route>
-                                <Route path={`/texts/:id`}>
-                                    <TextsViewer
-                                        ismain={true}
-                                        onStateChange={props.onStateChange}
-                                    />
-                                </Route>
-                                <Route path={`/texts`}>
-                                    <TextsHome />
-                                </Route>
-
                                 {/* PLACES */}
                                 <Route
                                     path={[
@@ -178,6 +171,13 @@ export default function ContentMain(props) {
                                 </Route>
                                 <Route path={`/visuals`}>
                                     <VisualsHome />
+                                </Route>
+
+                                <Route path={`/texts/:id`}>
+                                    <TextsViewer ismain={true} />
+                                </Route>
+                                <Route path={`/texts`}>
+                                    <TextsHome />
                                 </Route>
 
                                 <Route path={`/search/:viewMode`}>
