@@ -30,12 +30,12 @@ import useMandala from '../../hooks/useMandala';
  * @author ndg8f
  */
 export default function AudioVideoViewer(props) {
-    const { id } = useParams();
+    const { id, relID } = useParams();
     // const basepath = process.env.PUBLIC_URL;
     // console.log(basepath);
     // Build query string based on uid use asterisk for env. Ultimately uids will be audio-video-1234 across all apps
     //    but currently e.g., audio-video-dev_shanti_virginia_edu-13066, so audio-video*-13066 will find that
-    const querystr = `audio-video*-${id}`;
+    const querystr = relID ? relID : `audio-video*-${id}`;
     // Get record from kmasset index
     const {
         isLoading: isAssetLoading,

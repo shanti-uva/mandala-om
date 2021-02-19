@@ -3,7 +3,6 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 import 'rc-input-number/assets/index.css';
 import NodeHeader from '../common/NodeHeader';
-import { RelatedsGallery } from '../common/RelatedsGallery';
 import '../Terms/TermsViewer.css';
 import { TermsInfo } from '../Terms/TermsInfo';
 import { PlacesInfo } from './PlacesInfo';
@@ -14,9 +13,6 @@ import Card from 'react-bootstrap/Card';
 import useStatus from '../../hooks/useStatus';
 import MdlAssetContext from '../../context/MdlAssetContext';
 import GenAssetContext from '../../context/GenAssetContext';
-import { ImagesViewer } from '../Images/ImagesViewer';
-import { SourcesViewer } from '../Sources/SourcesViewer';
-import { VisualsViewer } from '../Visuals/VisualsViewer';
 import { useLocation } from 'react-router';
 import {
     KmapsRelatedsViewer,
@@ -29,6 +25,10 @@ const AudioVideoViewer = React.lazy(() =>
     import('../AudioVideo/AudioVideoViewer')
 );
 const TextsViewer = React.lazy(() => import('../Texts/TextsViewer'));
+const RelatedsGallery = React.lazy(() => import('../common/RelatedsGallery'));
+const ImagesViewer = React.lazy(() => import('../Images/ImagesViewer'));
+const SourcesViewer = React.lazy(() => import('../Sources/SourcesViewer'));
+const VisualsViewer = React.lazy(() => import('../Visuals/VisualsViewer'));
 
 export default function KmapsViewer(props) {
     // console.log('KmapsViewer props = ', props);

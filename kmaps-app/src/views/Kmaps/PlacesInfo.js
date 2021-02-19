@@ -1,55 +1,144 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useRouteMatch, useParams, Switch, Route } from 'react-router-dom';
+import useDimensions from 'react-use-dimensions';
 import KmapsMap from '../KmapsMap/KmapsMap';
-import { KmapLink } from '../common/KmapLink';
 import { useSolr } from '../../hooks/useSolr';
+import { useKmap } from '../../hooks/useKmap';
+import { queryID } from '../../views/common/utils';
+import { MandalaPopover } from '../../views/common/MandalaPopover';
 import { HtmlCustom } from '../common/MandalaMarkup';
-import { Tabs, Tab, Row, Col, Container } from 'react-bootstrap';
-import $ from 'jquery';
+import { Tabs, Tab, Row, Col } from 'react-bootstrap';
 import './placesinfo.scss';
+const RelatedsGallery = React.lazy(() =>
+    import('../../views/common/RelatedsGallery')
+);
+export default function PlacesInfo(props) {
+    let { path } = useRouteMatch();
+    let { id } = useParams();
+    const baseType = 'places';
 
-export function PlacesInfo(props) {
-    const { kmap, kmasset } = props;
-    const [dimension, setDimensions] = useState({
-        height: 0,
-        width: 0,
-    });
-    const [fid, setFid] = useState(kmasset.id);
+    const {
+        isLoading: isKmapLoading,
+        data: kmapData,
+        isError: isKmapError,
+        error: kmapError,
+    } = useKmap(queryID(baseType, id), 'info');
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(queryID(baseType, id), 'asset');
 
-    useEffect(() => {
-        const newh = $('#place-kmap-tabs-tabpane-map').height();
-        const neww = $('#place-kmap-tabs-tabpane-map').width();
-        setDimensions({
-            height: newh,
-            width: neww,
-        });
+    const [mapRef, mapSize] = useDimensions();
 
-        // Hide old the Name wrapper div
-        if ($('.sui-nameEntry__wrapper').length > 0) {
-            $('.sui-nameEntry__wrapper').hide(); // hide the old name div
+    const fid = kmasset?.id;
+
+    if (isKmapLoading || isAssetLoading) {
+        return <div id="place-kmap-tabs">Places Loading Skeleton ...</div>;
+    }
+
+    if (isKmapError || isAssetError) {
+        if (isKmapError) {
+            return <div id="place-kmap-tabs">Error: {kmapError.message}</div>;
         }
-        setFid(kmasset.id);
-    }, [kmasset]);
+        if (isAssetError) {
+            return <div id="place-kmap-tabs">Error: {assetError.message}</div>;
+        }
+    }
+
+    // Kmaps Summary (Mainly for Places)
+    let itemSummary = null;
+    if (
+        kmapData?.illustration_mms_url?.length > 0 ||
+        kmapData?.summary_eng?.length > 0
+    ) {
+        itemSummary = (
+            <Row className={'c-nodeHeader-itemSummary'}>
+                {/* Add column with illustration if exists */}
+                {kmapData?.illustration_mms_url?.length > 0 && (
+                    <Col md={3} className={'img featured'}>
+                        <img
+                            src={kmapData.illustration_mms_url[0]}
+                            alt={kmapData.header}
+                        />
+                    </Col>
+                )}
+
+                {/* Add column with summary if exists */}
+                {(kmapData?.summary_eng?.length > 0 ||
+                    kmapData?.feature_type_ids?.length > 0) && (
+                    <Col>
+                        {/* Feature type list if exists */}
+                        {kmapData?.feature_type_ids?.length > 0 && (
+                            <p className={'featureTypes'}>
+                                <label>Feature Types</label>
+                                {kmapData.feature_type_ids.map((ftid, ftn) => {
+                                    return (
+                                        <MandalaPopover
+                                            domain={'subjects'}
+                                            kid={ftid}
+                                            children={
+                                                kmapData.feature_types[ftn]
+                                            }
+                                        />
+                                    );
+                                })}
+                            </p>
+                        )}
+                        {/* Custom Html summary if exists */}
+                        {/* TODO: account for other language summaries */}
+                        {kmapData?.summary_eng?.length > 0 && (
+                            <HtmlCustom markup={kmapData.summary_eng[0]} />
+                        )}
+                    </Col>
+                )}
+            </Row>
+        );
+    }
 
     return (
-        <Tabs defaultActiveKey="map" id="place-kmap-tabs">
-            <Tab eventKey="map" title="Map">
-                {/* Don't call the KmapsMap until the div is fully loaded and has dimension */}
-                {dimension.height > 0 && (
-                    <KmapsMap
-                        fid={fid}
-                        languageLayer="roman_popular"
-                        height={dimension.height}
-                        width={dimension.width}
-                    />
-                )}
-            </Tab>
-            <Tab eventKey="names" title="Names">
-                <PlacesNames {...props} />
-            </Tab>
-            <Tab eventKey="location" title="Location">
-                <PlacesLocation {...props} />
-            </Tab>
-        </Tabs>
+        <>
+            {itemSummary}
+            <React.Suspense fallback={<span>Places Route Skeleton ...</span>}>
+                <Switch>
+                    <Route exact path={path}>
+                        <div ref={mapRef}>
+                            <Tabs
+                                defaultActiveKey="map"
+                                id="place-kmap-tabs"
+                                mountOnEnter={true}
+                            >
+                                <Tab eventKey="map" title="Map">
+                                    {mapSize.width && (
+                                        <KmapsMap
+                                            fid={fid}
+                                            languageLayer="roman_popular"
+                                            height={mapSize.height}
+                                            width={mapSize.width}
+                                        />
+                                    )}
+                                </Tab>
+                                <Tab eventKey="names" title="Names">
+                                    <PlacesNames id={queryID(baseType, id)} />
+                                </Tab>
+                                <Tab eventKey="location" title="Location">
+                                    <PlacesLocation kmap={kmapData} />
+                                </Tab>
+                            </Tabs>
+                        </div>
+                    </Route>
+                    <Route
+                        path={[
+                            `${path}/related-:relatedType/:viewMode`,
+                            `${path}/related-:relatedType`,
+                        ]}
+                    >
+                        <RelatedsGallery baseType="places" />
+                    </Route>
+                </Switch>
+            </React.Suspense>
+        </>
     );
 }
 
@@ -70,8 +159,8 @@ export function PlacesNames(props) {
     const namedoc = useSolr(`place-${props.id}-names`, query);
     let childlist = [];
     let etymologies = [];
-    if (namedoc?.numFound && namedoc.numFound > 0) {
-        childlist = namedoc.docs[0]._childDocuments_;
+    if (namedoc?.data?.numFound && namedoc.data.numFound > 0) {
+        childlist = namedoc.data.docs[0]._childDocuments_;
         childlist = childlist.map((o, ind) => {
             // console.log('o', o);
             return {

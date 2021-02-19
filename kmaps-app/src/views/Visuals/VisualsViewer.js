@@ -7,10 +7,10 @@ import './visuals.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
 
-export function VisualsViewer(props) {
+export default function VisualsViewer(props) {
     const baseType = `visuals`;
-    const { id } = useParams();
-    const queryID = `${baseType}*-${id}`;
+    const { id, relID } = useParams();
+    const queryID = relID ? relID : `${baseType}*-${id}`;
     const {
         isLoading: isAssetLoading,
         data: kmasset,

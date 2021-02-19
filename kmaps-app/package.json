@@ -48,6 +48,7 @@
         "react-scripts": "^3.4.3",
         "react-select": "^3.1.0",
         "react-transition-group": "^4.4.1",
+        "react-use-dimensions": "^1.2.1",
         "spex": "^3.0.2",
         "typescript": "^3.9.7"
     },

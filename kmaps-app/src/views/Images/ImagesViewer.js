@@ -24,12 +24,12 @@ import useMandala from '../../hooks/useMandala';
  * @constructor
  * @author ndg8f (2020-09-02)
  */
-export function ImagesViewer(props) {
+export default function ImagesViewer(props) {
     //console.log(props);
-    const { id } = useParams();
+    const { id, relID } = useParams();
     // Build query string based on uid use asterisk for env. Ultimately uids will be images-1234 across all apps
     //    but currently e.g., images-dev_shanti_virginia_edu-13066, so images*-13066 will find that
-    const querystr = `images*-${id}`;
+    const querystr = `images*-${relID ? relID : id}`;
     // Get record from kmasset index
     const {
         isLoading: isAssetLoading,

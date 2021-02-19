@@ -2,17 +2,13 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useKmap } from '../../hooks/useKmap';
-import { Col, Row } from 'react-bootstrap';
-import { HtmlCustom } from '../common/MandalaMarkup';
-import _ from 'lodash';
-import { MandalaPopover } from './MandalaPopover';
 import { queryID } from './utils';
 import '../css/NodeHeader.css';
 
 function NodeHeader() {
     //const match = useRouteMatch();
     const match = useRouteMatch([
-        '/:baseType/:id/related-:relatedType/view/:relId',
+        '/:baseType/:id/related-:relatedType/:definitionID/view/:relId',
         '/:baseType/:id/related-:relatedType/:definitionID/:viewMode',
         '/:baseType/:id/related-:relatedType/:viewMode',
         '/:baseType/:id/related-:relatedType',
@@ -27,12 +23,6 @@ function NodeHeader() {
     const nid = relId ? relId : queryID(baseType, id);
 
     const {
-        isLoading: isKmapLoading,
-        data: kmapData,
-        isError: isKmapError,
-        error: kmapError,
-    } = useKmap(queryID(baseType, id), 'info');
-    const {
         isLoading: isAssetLoading,
         data: assetData,
         isError: isAssetError,
@@ -45,7 +35,7 @@ function NodeHeader() {
         error: kmAssetError,
     } = useKmap(queryID(baseType, id), 'asset');
 
-    if (isKmapLoading || isAssetLoading || isKmAssetLoading) {
+    if (isAssetLoading || isKmAssetLoading) {
         return (
             <div className="c-nodeHeader">
                 <span>NodeHeader Loading ...</span>
@@ -53,14 +43,7 @@ function NodeHeader() {
         );
     }
 
-    if (isKmapError || isAssetError || isKmAssetError) {
-        if (isKmapError) {
-            return (
-                <div className="c-nodeHeader">
-                    <span>Error: {kmapError.message}</span>
-                </div>
-            );
-        }
+    if (isAssetError || isKmAssetError) {
         if (isAssetError) {
             return (
                 <div className="c-nodeHeader">
@@ -79,7 +62,7 @@ function NodeHeader() {
 
     if (relId && relatedType) {
         const doc = assetData;
-        let caption = doc.caption.trim() || doc.title ? doc.title[0] : null;
+        let caption = doc?.caption?.trim() || doc.title ? doc.title[0] : null;
 
         itemHeader = (
             <h5 className={'c-nodeHeader-itemHeader'}>
@@ -91,59 +74,6 @@ function NodeHeader() {
                     {caption}
                 </span>
             </h5>
-        );
-    }
-
-    // Kmaps Summary (Mainly for Places)
-    let itemSummary = null;
-    if (
-        kmapData?.illustration_mms_url?.length > 0 ||
-        kmapData?.summary_eng?.length > 0
-    ) {
-        itemSummary = (
-            <Row className={'c-nodeHeader-itemSummary'}>
-                {/* Add column with illustration if exists */}
-                {kmapData?.illustration_mms_url?.length > 0 && (
-                    <Col md={3} className={'img featured'}>
-                        <img
-                            src={kmapData.illustration_mms_url[0]}
-                            alt={kmapData.header}
-                        />
-                    </Col>
-                )}
-
-                {/* Add column with summary if exists */}
-                {(kmapData?.summary_eng?.length > 0 ||
-                    kmapData?.feature_type_ids?.length > 0) && (
-                    <Col>
-                        {/* Feature type list if exists */}
-                        {kmapData?.feature_type_ids?.length > 0 && (
-                            <p className={'featureTypes'}>
-                                <label>Feature Types</label>
-                                {_.map(
-                                    kmapData.feature_type_ids,
-                                    (ftid, ftn) => {
-                                        return (
-                                            <MandalaPopover
-                                                domain={'subjects'}
-                                                kid={ftid}
-                                                children={
-                                                    kmapData.feature_types[ftn]
-                                                }
-                                            />
-                                        );
-                                    }
-                                )}
-                            </p>
-                        )}
-                        {/* Custom Html summary if exists */}
-                        {/* TODO: account for other language summaries */}
-                        {kmapData?.summary_eng?.length > 0 && (
-                            <HtmlCustom markup={kmapData.summary_eng[0]} />
-                        )}
-                    </Col>
-                )}
-            </Row>
         );
     }
 
@@ -196,7 +126,6 @@ function NodeHeader() {
                 <span className="sui-relatedSubHeader">{subHeader}</span>
             )}
             {itemHeader}
-            {itemSummary}
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 /**
  * A function to get the proper Solr base URL for the current environment.
  * Returns an object with both an assets and a terms property that contains the base url to that index
@@ -105,4 +106,10 @@ function deriveImageUrl(url_thumb, size) {
         .replace('200,200', size + ',' + size);
     //console.log("deriveImageUrl: large = ", url_large);
     return url_large;
+}
+
+/**
+A custom hook that builds on useLocation to parse the query string. */
+export function useQuery() {
+    return new URLSearchParams(useLocation().search);
 }

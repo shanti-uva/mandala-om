@@ -9,6 +9,8 @@ import './RelatedsViewer.scss';
 
 export function RelatedsViewer() {
     const match = useRouteMatch([
+        '/:baseType/:id/related-:type/:definitionID/view/:relID',
+        '/:baseType/:id/related-:type/:definitionID/:viewMode',
         '/:baseType/:id/related-:type',
         '/:baseType/:id',
     ]);

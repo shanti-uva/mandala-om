@@ -6,7 +6,7 @@ import { useUnPackedMemoized } from '../../hooks/utils';
 import { queryID } from '../../views/common/utils';
 
 // Special case of the FeatureGallery
-export function RelatedsGallery(props) {
+export default function RelatedsGallery({ baseType }) {
     let { id, relatedType: type, definitionID } = useParams(); // USES PARAMS from React Router  Refactor?
     definitionID = definitionID ?? 'noDefID';
 
@@ -18,10 +18,16 @@ export function RelatedsGallery(props) {
         isError: isRelatedError,
         error: relatedError,
         isPreviousData,
-    } = useKmapRelated(queryID('terms', id), type, page, perPage, definitionID);
+    } = useKmapRelated(
+        queryID(baseType, id),
+        type,
+        page,
+        perPage,
+        definitionID
+    );
     const kmapsRelated = useUnPackedMemoized(
         relatedData,
-        queryID('terms', id),
+        queryID(baseType, id),
         type,
         page,
         perPage
@@ -54,6 +60,7 @@ export function RelatedsGallery(props) {
             isPreviousData={isPreviousData}
             hasMore={kmapsRelated.hasMore}
             assetCount={assets.count}
+            relateds={kmapsRelated}
         />
     );
 }

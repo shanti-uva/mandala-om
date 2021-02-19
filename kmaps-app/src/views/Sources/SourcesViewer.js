@@ -7,10 +7,10 @@ import { Link, useParams } from 'react-router-dom';
 import { useKmap } from '../../hooks/useKmap';
 import useMandala from '../../hooks/useMandala';
 
-export function SourcesViewer(props) {
+export default function SourcesViewer(props) {
     const baseType = `sources`;
-    const { id } = useParams();
-    const queryID = `${baseType}*-${id}`;
+    const { id, relID } = useParams();
+    const queryID = relID ? relID : `${baseType}*-${id}`;
     const {
         isLoading: isAssetLoading,
         data: kmasset,

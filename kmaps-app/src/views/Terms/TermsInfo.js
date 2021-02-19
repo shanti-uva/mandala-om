@@ -8,17 +8,21 @@ import TermEtymology from './TermEtymology';
 import TermDefinitions from './TermDefinitions';
 import TermDictionaries from './TermDictionaries';
 import TermNames from './TermNames';
-import _ from 'lodash';
+import _, { divide } from 'lodash';
 import TermsDetails from './TermsDetails';
 import { queryID } from '../../views/common/utils';
-import { RelatedsGallery } from '../../views/common/RelatedsGallery';
+const RelatedsGallery = React.lazy(() =>
+    import('../../views/common/RelatedsGallery')
+);
 const TermsDefinitionsFilter = React.lazy(() =>
     import('./TermsDefinitionsFilter')
 );
 
+const TermsRelatedNodes = React.lazy(() => import('./TermsRelatedNodes'));
+
 const TermsInfo = (props) => {
     // id is of format: asset_type-kid (ex. terms-81593)
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     let { id } = useParams();
     const baseType = 'terms';
 
@@ -78,38 +82,47 @@ const TermsInfo = (props) => {
     const otherDefinitions = _.omit(definitions, ['main_defs']);
 
     return (
-        <Switch>
-            <Route exact path={path}>
-                <>
-                    <TermNames kmap={kmapData} />
-                    <TermsDetails kmAsset={assetData} />
-                    <TermAudioPlayer kmap={kmapData} />
-                    {kmapData.etymologies_ss && (
-                        <TermEtymology kmap={kmapData} />
-                    )}
-                    <TermDefinitions
-                        mainDefs={definitions['main_defs']}
-                        kmRelated={kmapsRelated}
+        <React.Suspense
+            fallback={<div>Loading Suspense Terms Skeleton ...</div>}
+        >
+            <Switch>
+                <Route exact path={path}>
+                    <>
+                        <TermNames kmap={kmapData} />
+                        <TermsDetails kmAsset={assetData} />
+                        <TermAudioPlayer kmap={kmapData} />
+                        {kmapData.etymologies_ss && (
+                            <TermEtymology kmap={kmapData} />
+                        )}
+                        <TermDefinitions
+                            mainDefs={definitions['main_defs']}
+                            kmRelated={kmapsRelated}
+                        />
+                        {!_.isEmpty(otherDefinitions) && (
+                            <TermDictionaries definitions={otherDefinitions} />
+                        )}
+                    </>
+                </Route>
+                <Route
+                    path={`${path}/related-:relatedType/:definitionID/view/:relID`}
+                >
+                    <TermsRelatedNodes />
+                </Route>
+                <Route
+                    path={[
+                        `${path}/related-:relatedType/:definitionID/:viewMode`,
+                        `${path}/related-:relatedType/:viewMode`,
+                        `${path}/related-:relatedType`,
+                    ]}
+                >
+                    <TermsDefinitionsFilter
+                        relateds={kmapsRelated}
+                        kmap={kmapData}
                     />
-                    {!_.isEmpty(otherDefinitions) && (
-                        <TermDictionaries definitions={otherDefinitions} />
-                    )}
-                </>
-            </Route>
-            <Route
-                path={[
-                    `${path}/related-:relatedType/:definitionID/:viewMode`,
-                    `${path}/related-:relatedType/:viewMode`,
-                    `${path}/related-:relatedType`,
-                ]}
-            >
-                <TermsDefinitionsFilter
-                    relateds={kmapsRelated}
-                    kmap={kmapData}
-                />
-                <RelatedsGallery relateds={kmapsRelated} />
-            </Route>
-        </Switch>
+                    <RelatedsGallery baseType="terms" />
+                </Route>
+            </Switch>
+        </React.Suspense>
     );
 };
 

@@ -43,8 +43,8 @@ import { useParams, Redirect } from 'react-router-dom';
  */
 export default function TextsViewer(props) {
     const baseType = `texts`;
-    const { id } = useParams();
-    const queryID = `${baseType}*-${id}`;
+    const { id, relID } = useParams();
+    const queryID = relID ? relID : `${baseType}*-${id}`;
     const {
         isLoading: isAssetLoading,
         data: kmasset,

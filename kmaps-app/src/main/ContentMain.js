@@ -2,7 +2,6 @@ import React from 'react';
 import { ContentHeader } from './ContentHeader/ContentHeader';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
-import { ImagesViewer } from '../views/Images/ImagesViewer';
 import { ImagesHome } from '../views/Images/ImagesHome';
 import { TextsHome } from '../views/Texts/TextsHome';
 import { SourcesHome } from '../views/Sources/SourcesHome';
@@ -20,6 +19,7 @@ import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
 import { CollectionsRedirect } from '../views/Collections/CollectionsRedirect';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+const PlacesInfo = React.lazy(() => import('../views/Kmaps/PlacesInfo'));
 const TermsInfo = React.lazy(() => import('../views/Terms/TermsInfo'));
 const RightSideBar = React.lazy(() => import('./RightSideBar'));
 const NotFoundPage = React.lazy(() => import('../views/common/NotFoundPage'));
@@ -34,10 +34,11 @@ const SourcesViewer = React.lazy(() =>
 const VisualsViewer = React.lazy(() =>
     import('../views/Visuals/VisualsViewer')
 );
+const ImagesViewer = React.lazy(() => import('../views/Images/ImagesViewer'));
 
 export default function ContentMain(props) {
     const title = props.title || 'Untitled';
-    const siteClass = props.site || 'defauit';
+    const siteClass = props.site || 'default';
     const left = (
         <main className="l-column__main">
             <article id="l-column__main__wrap" className="l-column__main__wrap">
@@ -49,7 +50,11 @@ export default function ContentMain(props) {
                 <div className="two-columns">
                     <section id="l-content__main" className="l-content__main">
                         {/** TODO:gk3k -> Create loading component with skeletons. */}
-                        <React.Suspense fallback={<div>Loading...</div>}>
+                        <React.Suspense
+                            fallback={
+                                <div>Loading ContentMain Skeleton ...</div>
+                            }
+                        >
                             <Switch>
                                 {/* COLLECTIONS */}
                                 <Route path={`/collections`}>
@@ -86,25 +91,6 @@ export default function ContentMain(props) {
                                 </Route>
                                 <Route path={`/images`}>
                                     <ImagesHome />
-                                </Route>
-                                {/* PLACES */}
-                                <Route
-                                    path={[
-                                        `/places/:id/related-:relatedType/:viewMode`,
-                                        `/places/:id`,
-                                    ]}
-                                >
-                                    <KmapContext assetType="places">
-                                        <RelatedsViewer />
-                                        <KmapsViewer
-                                            id={props.id}
-                                            sui={props.sui}
-                                            onStateChange={props.onStateChange}
-                                        />
-                                    </KmapContext>
-                                </Route>
-                                <Route path={`/places`}>
-                                    <PlacesHome />
                                 </Route>
 
                                 {/* SUBJECTS */}
@@ -143,6 +129,19 @@ export default function ContentMain(props) {
                                         />{' '}
                                     </KmapContext>
                                 </Route> */}
+                                {/* PLACES */}
+                                <Route path={`/places/:id`}>
+                                    <RelatedsViewer />
+                                    <section className="l-content__main__wrap">
+                                        <div className="c-content__main__kmaps">
+                                            <NodeHeader />
+                                            <PlacesInfo />
+                                        </div>
+                                    </section>
+                                </Route>
+                                <Route path={`/places`}>
+                                    <PlacesHome />
+                                </Route>
 
                                 <Route path={`/terms/:id`}>
                                     <RelatedsViewer />
