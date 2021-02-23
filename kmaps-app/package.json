@@ -54,6 +54,9 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "stagestart": "sh -ac '. .env.test; react-scripts start'",
+        "prodstart": "sh -ac '. .env.production; react-scripts start'",
+        "prodbuild": "sh -ac '. .env.production; react-scripts build'",
         "standalone": "REACT_APP_STANDALONE=standalone react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
