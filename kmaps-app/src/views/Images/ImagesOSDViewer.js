@@ -14,7 +14,7 @@ export function ImagesOSDViewer(props) {
             const viewer = OpenSeadragon({
                 id: 'osdviewer',
                 prefixUrl:
-                    process.env.REACT_APP_PUBLIC_PATH + '/seadragon/images/',
+                    process.env.REACT_APP_PUBLIC_PATH + 'seadragon/images/',
                 tileSources: manifest,
                 //showNavigator: true,
                 degrees: rotation,

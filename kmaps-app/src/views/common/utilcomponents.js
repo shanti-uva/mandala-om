@@ -180,7 +180,7 @@ export function NotFoundPage(props) {
                             className={'logo'}
                             src={
                                 process.env.REACT_APP_PUBLIC_PATH +
-                                '/img/logo-shanti.png'
+                                'img/logo-shanti.png'
                             }
                             alt={'mandala logo'}
                         />
