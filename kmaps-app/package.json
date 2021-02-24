@@ -2,7 +2,7 @@
     "name": "kmaps-app",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://mandala.kmaps.virginia.edu/",
+    "homepage": "https://dev-standalone.kmaps.virginia.edu/",
     "dependencies": {
         "@emotion/styled": "^10.0.27",
         "@react-google-maps/api": "^1.13.0",
@@ -54,9 +54,9 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "localbuild": "sh -ac '. .env.development; react-scripts build; rsync -ra ./build/ ../../nginx/src/mandala/'",
         "stagestart": "sh -ac '. .env.test; react-scripts start'",
         "prodstart": "sh -ac '. .env.production; react-scripts start'",
-        "prodbuild": "sh -ac '. .env.production; react-scripts build'",
         "standalone": "REACT_APP_STANDALONE=standalone react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
