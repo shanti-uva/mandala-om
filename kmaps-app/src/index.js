@@ -5,19 +5,13 @@ import App from './App';
 // import store from './app/store';
 // import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import { storeModel } from './model/StoreModel';
-import localForage from 'localforage';
-import { createStore, StoreProvider, persist } from 'easy-peasy';
-const store = createStore(persist(storeModel, { storage: localForage }));
 
 const target = document.getElementById('root');
 
 if (target) {
     ReactDOM.render(
         <React.StrictMode>
-            <StoreProvider store={store}>
-                <App />
-            </StoreProvider>
+            <App />
         </React.StrictMode>,
         target
     );

@@ -1,20 +1,16 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { useStoreState } from 'easy-peasy';
 import * as PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Redirect, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 
 const target = document.getElementById('basicSearchPortal');
 
 export function BasicSearch(props) {
     const history = useHistory();
     const inputEl = useRef(null);
-    const state = useStoreState((state) => state);
-    const show_debug = false;
-    if (show_debug) console.debug('BasicSearch: state = ', state);
 
-    const currText = state.search.query?.searchText;
+    const currText = '';
     // const [state, setState] = useState({searchString: {currText}});
     const handleSubmit = () => {
         props.search.setSearchText(inputEl.current.value);
@@ -45,12 +41,6 @@ export function BasicSearch(props) {
             handleSubmit();
         }
     };
-
-    useLayoutEffect(() => {
-        if (inputEl.current.value !== props.search.query.searchText) {
-            inputEl.current.value = props.search.query.searchText;
-        }
-    });
 
     const basicSearchPortal = (
         <>

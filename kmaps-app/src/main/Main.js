@@ -63,7 +63,7 @@ export function Main(props) {
                 <SiteHeader />
                 <Hamburger hamburgerOpen={false} />
                 {/** TODO:gk3k -> Need to set a proper loading component with Skeletons */}
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<div>Loading from Main...</div>}>
                     <Switch>
                         <Route path={'/home'}>
                             <Home />

@@ -12,7 +12,6 @@ import HistoryViewer from '../views/History/HistoryViewer';
 import { BsArrowCounterclockwise } from 'react-icons/bs';
 import * as PropTypes from 'prop-types';
 import _ from 'lodash';
-import { useStoreState, useStoreActions } from 'easy-peasy';
 import { Type } from '../model/HistoryModel';
 
 function countSearchItems(historyStack) {
@@ -33,10 +32,6 @@ export function HistoryBox(props) {
     const facetType = props.facetType;
     const facets = props.facets;
     const chosenFacets = props.chosenFacets || [];
-
-    const loadingState = useStoreState((state) => state.search.loadingState);
-    const historyStack = useStoreState((state) => state.history.historyStack);
-    const { removeType } = useStoreActions((actions) => actions.history);
 
     // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
     // useEffect(() => {
@@ -154,14 +149,13 @@ export function HistoryBox(props) {
         return uid;
     }
 
-    const historyLength = countSearchItems(historyStack);
+    const historyLength = 1; // TODO: Dummy data. Need to fix.
 
     const historyList = <HistoryViewer mode={'search'} />;
 
     const name = 'sort_' + props.id;
     const handleResetHistory = () => {
         console.log('HistoryBox:  RESET HISTORY');
-        removeType(Type.search);
     };
     const historyBox = (
         <div className={'sui-advBox sui-advBox-' + props.id}>

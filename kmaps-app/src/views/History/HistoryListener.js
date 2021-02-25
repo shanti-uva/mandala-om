@@ -11,10 +11,11 @@ export default function HistoryListener() {
     // const history = useHistory();
     // const historyStack = useStoreState((state) => state.history.historyStack);
     // const searchState = useStoreState((state) => state.search);
-    const { setSearchState } = useStoreActions((actions) => actions.search);
-    const { addLocation, clear } = useStoreActions(
-        (actions) => actions.history
-    );
+
+    // const { setSearchState } = useStoreActions((actions) => actions.search);
+    // const { addLocation, clear } = useStoreActions(
+    //     (actions) => actions.history
+    // );
     const HISTORY_LENGTH = 25;
     const location = useLocation();
     const match = useRouteMatch([
@@ -94,84 +95,84 @@ export default function HistoryListener() {
 
     // HERE'S WHERE WE SHORT-CIRCUIT REDIRECT LOOPING BY NOT REDIRECTING WHEN internal=true
     // SearchViewer sets that flag when trying to set the url according the search state
-    useEffect(() => {
-        const searchParams = qs.parse(location.search);
-        if (searchParams.internal !== 'true') {
-            if (location.search?.length) {
-                setSearchState(ss);
-            }
-        }
-    }, [location.search]);
+    // useEffect(() => {
+    //     const searchParams = qs.parse(location.search);
+    //     if (searchParams.internal !== 'true') {
+    //         if (location.search?.length) {
+    //             setSearchState(ss);
+    //         }
+    //     }
+    // }, [location.search]);
 
-    useEffect(() => {
-        // console.log('HISTORY LISTENER useEffect(): 3');
+    // useEffect(() => {
+    //     // console.log('HISTORY LISTENER useEffect(): 3');
 
-        if (searchMatch && ss) {
-            // console.log('HISTORY LISTENER useEffect(): 4');
+    //     if (searchMatch && ss) {
+    //         // console.log('HISTORY LISTENER useEffect(): 4');
 
-            let filterNote = '';
-            if (ss.filters?.length > 0) {
-                const plural = ss.filters.length === 1 ? '' : 's';
-                filterNote = ` (+${ss.filters.length} filter${plural})`;
-            }
+    //         let filterNote = '';
+    //         if (ss.filters?.length > 0) {
+    //             const plural = ss.filters.length === 1 ? '' : 's';
+    //             filterNote = ` (+${ss.filters.length} filter${plural})`;
+    //         }
 
-            const searchLocation = {
-                ...location,
-                name: '"' + ss.searchString + '"',
-                pathname: match.url,
-                state: ss,
-            };
+    //         const searchLocation = {
+    //             ...location,
+    //             name: '"' + ss.searchString + '"',
+    //             pathname: match.url,
+    //             state: ss,
+    //         };
 
-            // console.log(
-            //     'HISTORY LISTENER addLocation search = ',
-            //     searchLocation
-            // );
+    //         // console.log(
+    //         //     'HISTORY LISTENER addLocation search = ',
+    //         //     searchLocation
+    //         // );
 
-            if (ss.searchString !== '' || ss.filters?.length !== 0) {
-                addLocation(searchLocation);
-            }
-        }
-    }, [location.search]);
+    //         // if (ss.searchString !== '' || ss.filters?.length !== 0) {
+    //         //     addLocation(searchLocation);
+    //         // }
+    //     }
+    // }, [location.search]);
 
     const matchUrl = match?.url || '';
     const relDocs = relAsset?.docs || [];
 
-    useEffect(() => {
-        // console.log('HISTORY LISTENER useEffect(): 1', location.search);
-        if (kmasset) {
-            if (kmasset.numFound > 0) {
-                // console.log('HISTORY LISTENER: kmasset = ', kmasset);
+    // useEffect(() => {
+    //     // console.log('HISTORY LISTENER useEffect(): 1', location.search);
+    //     if (kmasset) {
+    //         if (kmasset.numFound > 0) {
+    //             // console.log('HISTORY LISTENER: kmasset = ', kmasset);
 
-                // console.log('HISTORY LISTENER useEffect(): 2');
+    //             // console.log('HISTORY LISTENER useEffect(): 2');
 
-                // Clean up title and related
-                const title = fixTitle(kmasset.docs);
-                const relLabel = fixTitle(relAsset.docs);
+    //             // Clean up title and related
+    //             const title = fixTitle(kmasset.docs);
+    //             const relLabel = fixTitle(relAsset.docs);
 
-                const relTitle = relatedType ? relLabel : null;
+    //             const relTitle = relatedType ? relLabel : null;
 
-                // Create base location
-                const baseLocation = {
-                    ...location,
-                    name: title,
-                    relTitle: relTitle,
-                    pathname: match.url,
-                    asset_type: kmasset?.docs[0].asset_type,
-                    kmasset: kmasset?.docs[0],
-                };
+    //             // Create base location
+    //             const baseLocation = {
+    //                 ...location,
+    //                 name: title,
+    //                 relTitle: relTitle,
+    //                 pathname: match.url,
+    //                 asset_type: kmasset?.docs[0].asset_type,
+    //                 kmasset: kmasset?.docs[0],
+    //             };
 
-                // console.log(
-                //     'Making history: location = ',
-                //     location,
-                //     ' kmasset = ',
-                //     kmasset,
-                //     ' match.url = ',
-                //     match.url
-                // );
-                addLocation(baseLocation);
-            }
-        }
-    }, [addLocation, kmasset, location, matchUrl, relDocs, relatedType]);
+    //             // console.log(
+    //             //     'Making history: location = ',
+    //             //     location,
+    //             //     ' kmasset = ',
+    //             //     kmasset,
+    //             //     ' match.url = ',
+    //             //     match.url
+    //             // );
+    //             addLocation(baseLocation);
+    //         }
+    //     }
+    // }, [addLocation, kmasset, location, matchUrl, relDocs, relatedType]);
 
     // useEffect(() => {
     //     return history.listen((location) => {

@@ -4,7 +4,6 @@ import _ from 'lodash';
 import * as PropTypes from 'prop-types';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { useStoreState } from 'easy-peasy';
 import Spinner from 'react-bootstrap/Spinner';
 import { FacetChoice } from './FacetChoice';
 
@@ -72,8 +71,6 @@ export function FacetBox(props) {
     const facetType = props.facetType;
     const facets = props.facets;
     const chosenFacets = props.chosenFacets || [];
-
-    const loadingState = useStoreState((state) => state.search.loadingState);
 
     // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
     useEffect(() => {
@@ -315,7 +312,6 @@ export function FacetBox(props) {
                         name={name}
                         value={sortField}
                         onClick={handleSortClick}
-                        loadingState={loadingState}
                     />
                 </div>
 
@@ -327,10 +323,3 @@ export function FacetBox(props) {
     );
     return facetBox;
 }
-
-FacetBox.propTypes = {
-    label: PropTypes.string,
-    chosenIcon: PropTypes.string,
-    facetType: PropTypes.string,
-    filters: PropTypes.array,
-};
