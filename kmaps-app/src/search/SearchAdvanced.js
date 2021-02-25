@@ -5,15 +5,14 @@ import Nav from 'react-bootstrap/Nav';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import { HistoryBox } from './HistoryBox';
+import { useSearch } from '../hooks/useSearch';
 import { useStoreState } from 'easy-peasy';
 
 const SEARCH_PATH = '/search';
 
-function SearchAdvancedSimple(props) {
+export default function SearchAdvanced(props) {
     const history = useHistory();
-    let openclass = props.advanced ? 'open' : 'closed';
     let [reset, setReset] = useState(0);
-    const historyStack = useStoreState((state) => state.history.historyStack);
 
     // This tells us whether we are viewing the search results
     // so that we can give a link to go there (or not).
@@ -21,6 +20,41 @@ function SearchAdvancedSimple(props) {
 
     // console.log("SearchAdvance searchView = ", searchView);
     let [booleanControls, setBooleanControls] = useState(true);
+    const {
+        isLoading: isSearchLoading,
+        data: searchData,
+        isError: isSearchError,
+        error: searchError,
+    } = useSearch('', 0, 0);
+
+    let openclass = props.advanced ? 'open' : 'closed';
+    //const historyStack = useStoreState((state) => state.history.historyStack);
+    const historyStack = {};
+
+    if (isSearchLoading) {
+        return (
+            <aside
+                id="l-column__search"
+                className={`l-column__search ${openclass}`}
+            >
+                <span>Search Loading Skeleton</span>
+            </aside>
+        );
+    }
+
+    if (isSearchError) {
+        return (
+            <aside
+                id="l-column__search"
+                className={`l-column__search ${openclass}`}
+            >
+                <span>Error: {searchError.message}</span>
+            </aside>
+        );
+    }
+
+    console.log('GerardKetuma|SearchData', searchData);
+
     const handleBooleanControlClick = () =>
         setBooleanControls(!booleanControls);
 
@@ -112,7 +146,7 @@ function SearchAdvancedSimple(props) {
     }
 
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components as they are now.
-    const advanced = (
+    return (
         <aside
             id="l-column__search"
             className={`l-column__search ${openclass}`}
@@ -133,7 +167,7 @@ function SearchAdvancedSimple(props) {
                             {' '}
                             Show Results{' '}
                             <Badge pill variant={'secondary'}>
-                                {props?.pager?.numFound}
+                                {searchData.response?.numFound}
                             </Badge>
                         </Link>
                     )}
@@ -144,7 +178,7 @@ function SearchAdvancedSimple(props) {
                         >
                             {'<<'} Show Results{' '}
                             <Badge pill variant={'secondary'}>
-                                {props?.pager?.numFound}
+                                {searchData.response?.numFound}
                             </Badge>
                         </a>
                     )}
@@ -171,7 +205,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="asset_type"
                     label="item type"
-                    facets={props.facets?.asset_count}
+                    facets={searchData.facets?.asset_count?.numBuckets}
                     facetType={'asset_type'}
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -182,7 +216,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="subjects"
                     label="related subjects"
-                    facets={props.facets?.related_subjects}
+                    facets={searchData.facets?.related_subjects?.numBuckets}
                     facetType="subjects"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -193,7 +227,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="places"
                     label="related places"
-                    facets={props.facets?.related_places}
+                    facets={searchData.facets?.related_places?.numBuckets}
                     facetType="places"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -204,7 +238,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="terms"
                     label="related terms"
-                    facets={props.facets?.related_terms}
+                    facets={searchData.facets?.related_terms?.numBuckets}
                     facetType="terms"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -215,7 +249,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="feature_types"
                     label="feature types"
-                    facets={props.facets?.feature_types}
+                    facets={searchData.facets?.feature_types?.numBuckets}
                     facetType="feature_types"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -227,7 +261,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="collections"
                     label="collections"
-                    facets={props.facets?.collections}
+                    facets={searchData.facets?.collections?.numBuckets}
                     facetType="collections"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -238,7 +272,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="languages"
                     label="languages"
-                    facets={props.facets?.languages}
+                    facets={searchData.facets?.languages?.numBuckets}
                     facetType="languages"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -249,7 +283,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="users"
                     label="users"
-                    facets={props.facets?.node_user}
+                    facets={searchData.facets?.node_user?.numBuckets}
                     facetType="users"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -261,7 +295,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="creator"
                     label="creator"
-                    facets={props.facets?.creator}
+                    facets={searchData.facets?.creator?.numBuckets}
                     facetType="creator"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -273,7 +307,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="perspective"
                     label="perspective"
-                    facets={props.facets?.perspective}
+                    facets={searchData.facets?.perspective?.numBuckets}
                     facetType="perspective"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -285,7 +319,7 @@ function SearchAdvancedSimple(props) {
                 <FacetBox
                     id="associated subjects"
                     label="Associated Subjects"
-                    facets={props.facets?.associated_subjects}
+                    facets={searchData.facets?.associated_subjects?.numBuckets}
                     facetType="associated_subjects"
                     resetFlag={reset}
                     onFacetClick={handleFacetChange}
@@ -312,8 +346,4 @@ function SearchAdvancedSimple(props) {
             </div>
         </aside>
     );
-
-    return advanced;
 }
-
-export const SearchAdvanced = React.memo(SearchAdvancedSimple);

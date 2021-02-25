@@ -130,68 +130,77 @@ export function getAssetSearchPromise(search) {
         asset_count: {
             type: 'terms',
             field: 'asset_type',
-            limit: ff['asset_type']?.limit || 20,
+            limit: 0,
             offset: ff['asset_type']?.offset || 0,
-            sort: ff['asset_type']?.sort || 'count desc',
+            //sort: ff['asset_type']?.sort || 'count desc',
             domain: { excludeTags: 'asset_type' },
+            numBuckets: true,
         },
         related_subjects: {
             type: 'terms',
             field: 'kmapid_subjects_idfacet',
-            limit: ff['subjects']?.limit || 500,
+            limit: 0,
             offset: ff['subjects']?.offset || 0,
-            sort: ff['subjects']?.sort || 'count desc',
+            //sort: ff['subjects']?.sort || 'count desc',
+            numBuckets: true,
         },
         related_places: {
             type: 'terms',
             field: 'kmapid_places_idfacet',
-            limit: ff['places']?.limit || 500,
+            limit: 0,
             offset: ff['places']?.offset || 0,
-            sort: ff['places']?.sort || 'count desc',
+            //sort: ff['places']?.sort || 'count desc',
+            numBuckets: true,
         },
         related_terms: {
             type: 'terms',
             field: 'kmapid_terms_idfacet',
-            limit: ff['terms']?.limit || 500,
+            limit: 0,
             offset: ff['terms']?.offset || 0,
-            sort: ff['terms']?.sort || 'count desc',
+            //sort: ff['terms']?.sort || 'count desc',
+            numBuckets: true,
         },
         feature_types: {
             type: 'terms',
             field: 'feature_types_idfacet',
-            limit: ff['feature_types']?.limit || 500,
+            limit: 0,
             offset: ff['feature_types']?.offset || 0,
-            sort: ff['feature_types']?.sort || 'count desc',
+            //sort: ff['feature_types']?.sort || 'count desc',
+            numBuckets: true,
         },
         languages: {
             type: 'terms',
             field: 'node_lang',
-            limit: ff['languages']?.limit || 500,
+            limit: 0,
             offset: ff['languages']?.offset || 0,
-            sort: ff['languages']?.sort || 'count desc',
+            //sort: ff['languages']?.sort || 'count desc',
+            numBuckets: true,
         },
         collections: {
             type: 'terms',
             field: 'collection_idfacet',
-            limit: ff['collections']?.limit || 500,
+            limit: 0,
             offset: ff['collections']?.offset || 0,
-            sort: ff['collections']?.sort || 'count desc',
+            //sort: ff['collections']?.sort || 'count desc',
+            numBuckets: true,
         },
 
         collection_nid: {
             type: 'terms',
             field: 'collection_nid',
-            limit: ff['collection_nid']?.limit || 500,
+            limit: 0,
             offset: ff['collection_nid']?.offset || 0,
-            sort: ff['collection_nid']?.sort || 'count desc',
+            //sort: ff['collection_nid']?.sort || 'count desc',
+            numBuckets: true,
         },
 
         collection_uid: {
             type: 'terms',
             field: 'collection_uid_s',
-            limit: ff['collection_uid']?.limit || 500,
+            limit: 0,
             offset: ff['collection_uid']?.offset || 0,
-            sort: ff['collection_uid']?.sort || 'count desc',
+            //sort: ff['collection_uid']?.sort || 'count desc',
+            numBuckets: true,
         },
         asset_subtype: {
             type: 'terms',
@@ -203,37 +212,42 @@ export function getAssetSearchPromise(search) {
                     field: 'asset_type',
                 },
             },
-            limit: ff['asset_subtype']?.limit || 500,
+            limit: 0,
             offset: ff['asset_subtype']?.offset || 0,
-            sort: ff['asset_subtype']?.sort || 'count desc',
+            //sort: ff['asset_subtype']?.sort || 'count desc',
+            numBuckets: true,
         },
         node_user: {
             type: 'terms',
             field: 'node_user_full_s',
-            limit: ff['user']?.limit || 500,
+            limit: 0,
             offset: ff['user']?.offset || 0,
-            sort: ff['user']?.sort || 'count desc',
+            //sort: ff['user']?.sort || 'count desc',
+            numBuckets: true,
         },
         creator: {
             type: 'terms',
             field: 'creator',
-            limit: ff['creator']?.limit || 500,
+            limit: 0,
             offset: ff['creator']?.offset || 0,
-            sort: ff['creator']?.sort || 'count desc',
+            //sort: ff['creator']?.sort || 'count desc',
+            numBuckets: true,
         },
         perspective: {
             type: 'terms',
             field: 'perspectives_ss',
-            limit: ff['perspective']?.limit || 50,
+            limit: 0,
             offset: ff['perspective']?.offset || 0,
-            sort: ff['perspective']?.sort || 'count desc',
+            //sort: ff['perspective']?.sort || 'count desc',
+            numBuckets: true,
         },
         associated_subjects: {
             type: 'terms',
             field: 'associated_subject_map_idfacet',
-            limit: ff['associated_subjects']?.limit || 50,
+            limit: 0,
             offset: ff['associated_subjects']?.offset || 0,
-            sort: ff['associated_subjects']?.sort || 'count desc',
+            //sort: ff['associated_subjects']?.sort || 'count desc',
+            numBuckets: true,
         },
     };
 
@@ -245,7 +259,7 @@ export function getAssetSearchPromise(search) {
         echoParams: 'explicit',
         indent: 'true',
         start: startRec,
-        rows: rowsRec,
+        rows: 0,
         // eslint-disable-next-line
         // 'q': 'text:${text}',
         // 'text': search.query.searchText,
@@ -606,19 +620,7 @@ function constructTextQuery(searchString) {
 
     var basic_req = {
         // search: tweak for scoping later
-        q:
-            '(' +
-            ' title:${xact}^100' +
-            ' title:${slashy}^100' +
-            // " title:${search}^10" +
-            ' title:${starts}^80' +
-            ' names_txt:${xact}^90' +
-            ' names_txt:${starts}^70' +
-            // " names_txt:${search}" +
-            // " caption:${search}" +
-            // " summary:${search}" +
-            ')',
-
+        q: '*:*',
         // search strings
         xact: searchstring,
         starts: starts,
@@ -630,6 +632,13 @@ function constructTextQuery(searchString) {
 }
 
 function constructFilters(filters) {
+    // If no filters are passed then we return the all the assets.
+    if (_.isEmpty(filters)) {
+        return {
+            fq:
+                'asset_type:(audio-video images texts visuals sources subjects places terms)',
+        };
+    }
     function arrayToHash(array, keyField) {
         // console.log('received: ', array);
         if (!array) {

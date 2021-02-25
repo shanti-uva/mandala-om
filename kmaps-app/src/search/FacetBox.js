@@ -276,11 +276,8 @@ export function FacetBox(props) {
                 <span className={'icon'}>{icon}</span>
                 <span className="app-name">{label}</span>
                 <span id={'sui-advPlus-' + props.id} className={'sui-advPlus'}>
-                    <Badge
-                        pill
-                        variant={facetList.length ? 'primary' : 'secondary'}
-                    >
-                        {facetList.length}
+                    <Badge pill variant={facets ? 'primary' : 'secondary'}>
+                        {facets}
                     </Badge>{' '}
                     {open ? minus : plus}
                 </span>

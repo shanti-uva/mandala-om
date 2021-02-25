@@ -205,34 +205,32 @@ export default function ContentMain(props) {
                             </Switch>
                         </React.Suspense>
                     </section>
-                    {false && (
-                        <React.Suspense
-                            fallback={
-                                <div
-                                    style={{
-                                        maxWidth: '35rem',
-                                        minWidth: '15rem',
-                                        fontSize: '1.4rem',
-                                        width: '25%',
-                                        padding: '1.6rem',
-                                    }}
+                    <React.Suspense
+                        fallback={
+                            <div
+                                style={{
+                                    maxWidth: '35rem',
+                                    minWidth: '15rem',
+                                    fontSize: '1.4rem',
+                                    width: '25%',
+                                    padding: '1.6rem',
+                                }}
+                            >
+                                <SkeletonTheme
+                                    color="#d0d0d0"
+                                    highlightColor="#a5a5a5"
                                 >
-                                    <SkeletonTheme
-                                        color="#d0d0d0"
-                                        highlightColor="#a5a5a5"
-                                    >
-                                        <Skeleton
-                                            duration={0.5}
-                                            count={10}
-                                            height={47.5}
-                                        />
-                                    </SkeletonTheme>
-                                </div>
-                            }
-                        >
-                            <RightSideBar onStateChange={props.onStateChange} />
-                        </React.Suspense>
-                    )}
+                                    <Skeleton
+                                        duration={0.5}
+                                        count={10}
+                                        height={47.5}
+                                    />
+                                </SkeletonTheme>
+                            </div>
+                        }
+                    >
+                        <RightSideBar onStateChange={props.onStateChange} />
+                    </React.Suspense>
                 </div>
             </article>
         </main>
