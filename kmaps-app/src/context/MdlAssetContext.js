@@ -23,7 +23,7 @@ import useStatus from '../hooks/useStatus';
  *    This is evoked within the ContentMain.js and should wrap the component of the Mandala App in question
  *    As for instance was done for texts:
  *           <MdlAssetContext assettype={'texts'}>
- *               <TextsViewer onStateChange={props.onStateChange}/>
+ *               <TextsViewer />
  *           </MdlAssetContext>
  *
  * */
@@ -93,17 +93,9 @@ export default function MdlAssetContext(props) {
                             }
                         }
                     }
-                } else if (call_status == 'rejected') {
+                } else if (call_status === 'rejected') {
                     setMdlAsset(false);
                     changed = true;
-                }
-
-                if (changed && props.onStateChange) {
-                    props.onStateChange({
-                        id: id,
-                        asset_type: asset_type,
-                        mdlasset: mdlasset,
-                    });
                 }
             })
             .catch((e) => {

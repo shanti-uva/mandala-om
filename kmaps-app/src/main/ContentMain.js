@@ -105,7 +105,6 @@ export default function ContentMain(props) {
                                         <KmapsViewer
                                             id={props.id}
                                             sui={props.sui}
-                                            onStateChange={props.onStateChange}
                                         />
                                     </KmapContext>
                                 </Route>
@@ -125,7 +124,6 @@ export default function ContentMain(props) {
                                         <KmapsViewer
                                             id={props.id}
                                             sui={props.sui}
-                                            onStateChange={props.onStateChange}
                                         />{' '}
                                     </KmapContext>
                                 </Route> */}
@@ -180,9 +178,7 @@ export default function ContentMain(props) {
                                 </Route>
 
                                 <Route path={`/search/:viewMode`}>
-                                    <SearchContext>
-                                        <SearchViewer />
-                                    </SearchContext>
+                                    <SearchViewer />
                                 </Route>
                                 <Route exact path={`/search`}>
                                     <Redirect to={`/search/default`} />
@@ -194,7 +190,6 @@ export default function ContentMain(props) {
                                     <LegacyViewer
                                         id={props.id}
                                         sui={props.sui}
-                                        onStateChange={props.onStateChange}
                                     />
                                 </Route>
 
@@ -229,7 +224,7 @@ export default function ContentMain(props) {
                             </div>
                         }
                     >
-                        <RightSideBar onStateChange={props.onStateChange} />
+                        <RightSideBar />
                     </React.Suspense>
                 </div>
             </article>

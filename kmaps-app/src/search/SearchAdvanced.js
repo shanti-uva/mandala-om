@@ -135,15 +135,7 @@ export default function SearchAdvanced(props) {
     }
 
     // console.log ("SEARCHY ", props );
-    function closeAdvanced() {
-        if (typeof props.onStateChange === 'function') {
-            props.onStateChange({ advanced: false });
-        } else {
-            console.error(
-                'SearchAdvanced: No onStateChange() function passed in properties!'
-            );
-        }
-    }
+    function closeAdvanced() {}
 
     // TODO: review whether the FacetBoxes should be a configured list rather than hand-managed components as they are now.
     return (
@@ -151,13 +143,11 @@ export default function SearchAdvanced(props) {
             id="l-column__search"
             className={`l-column__search ${openclass}`}
         >
-            {typeof props.onStateChange === 'function' && (
-                <Navbar className={'justify-content-end'}>
-                    <Nav.Link onClick={closeAdvanced}>
-                        <span className={'icon shanticon-cancel'}></span>
-                    </Nav.Link>
-                </Navbar>
-            )}
+            <Navbar className={'justify-content-end'}>
+                <Nav.Link onClick={closeAdvanced}>
+                    <span className={'icon shanticon-cancel'}></span>
+                </Nav.Link>
+            </Navbar>
             <Navbar>
                 {/*<Navbar.Brand href="#home">Navbar with text</Navbar.Brand>*/}
                 <Navbar.Toggle />

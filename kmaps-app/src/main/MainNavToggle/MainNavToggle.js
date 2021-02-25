@@ -9,10 +9,7 @@ export class MainNavToggle extends React.Component {
         this.setHamburgerOpen = this.setHamburgerOpen.bind(this);
     }
 
-    setHamburgerOpen(hamOpen) {
-        // send state change message
-        this.props.onStateChange({ hamburgerOpen: hamOpen });
-    }
+    setHamburgerOpen(hamOpen) {}
 
     toggleHamburger() {
         this.setHamburgerOpen(!this.props.hamburgerOpen);

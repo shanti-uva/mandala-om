@@ -35,10 +35,7 @@ export default function RightSideBar(props) {
                 />
                 <div className="advanced-search-and-tree">
                     {viewMode === 'advanced' && (
-                        <SearchAdvanced
-                            advanced={state.advanced}
-                            onStateChange={props.onStateChange}
-                        />
+                        <SearchAdvanced advanced={state.advanced} />
                     )}
                     {viewMode === 'tree' && (
                         <Suspense fallback={<div>Loading...</div>}>

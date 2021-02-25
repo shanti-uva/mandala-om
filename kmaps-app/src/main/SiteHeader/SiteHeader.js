@@ -58,11 +58,7 @@ export function SiteHeader(props) {
                     </ul>
                 </div>
 
-                <SearchBar
-                    advanced={props.advanced}
-                    tree={props.tree}
-                    onStateChange={props.onStateChange}
-                />
+                <SearchBar advanced={props.advanced} tree={props.tree} />
 
                 <button
                     className="navbar-toggler"

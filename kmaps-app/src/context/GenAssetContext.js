@@ -25,7 +25,7 @@ import { useParams } from 'react-router';
  *    This is evoked within the ContentMain.js and should wrap the component of the Mandala App in question
  *    As for instance was done for texts:
  *           <MdlAssetContext assetType={'texts'}>
- *               <TextsViewer onStateChange={props.onStateChange}/>
+ *               <TextsViewer />
  *           </MdlAssetContext>
  *
  * */

@@ -5,10 +5,7 @@ import { SiteHeader } from './SiteHeader/SiteHeader';
 import { Hamburger } from './MainNavToggle/Hamburger';
 //import { SearchAdvanced } from '../search/SearchAdvanced';
 //import SearchContext from '../context/SearchContext';
-import { useStoreRehydrated } from 'easy-peasy';
 import HistoryListener from '../views/History/HistoryListener';
-import $ from 'jquery';
-import { useStoreState } from '../model/StoreModel';
 //const TreeNav = lazy(() => import('./TreeNav'));
 
 const Home = lazy(() => import('./HomePage/Home'));
@@ -24,25 +21,6 @@ const stateDefault = {
 };
 
 export function Main(props) {
-    const [state, setState] = useState(stateDefault);
-    const handleStateChange = (new_state) => {
-        setState({ ...state, ...new_state });
-    };
-    // const storeReady = true;
-    const storeReady = useStoreRehydrated();
-    const loading = <div className={'loading-msg'}>Loading...</div>;
-
-    let stateList = [];
-    if (state.advanced) {
-        stateList.push('u-ToggleState--advanced');
-    }
-    if (state.tree) {
-        stateList.push('u-ToggleState--tree');
-    }
-    if (!state.tree && !state.advanced) {
-        stateList.push('u-ToggleState--off');
-    }
-
     // Fix for Tibetan font in pages.
     //gk3k: TODO: We need to do this another way. It is blocking main UI thread
     // useEffect(() => {
@@ -74,27 +52,16 @@ export function Main(props) {
     //     setTimeout(GlobalTibFix, 4000);
     // }, []);
 
-    // Using Easy Peasy state:
-    const currentFeatureId = useStoreState((state) => state.kmap.uid);
-
-    const searchClasses = stateList.join(' ');
-    const main = (
+    return (
         <Router
             {...(process.env.REACT_APP_STANDALONE !== 'standalone'
                 ? { basename: '/mandala-om' }
                 : {})}
         >
-            <div
-                id={'l-site__wrap'}
-                className={`l-site__wrap  ${searchClasses}`}
-            >
+            <div id={'l-site__wrap'} className={`l-site__wrap`}>
                 <HistoryListener />
-                <SiteHeader
-                    advanced={state.advanced}
-                    tree={state.tree}
-                    onStateChange={handleStateChange}
-                />
-                <Hamburger hamburgerOpen={state.hamburgerOpen} />
+                <SiteHeader />
+                <Hamburger hamburgerOpen={false} />
                 {/** TODO:gk3k -> Need to set a proper loading component with Skeletons */}
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
@@ -112,9 +79,6 @@ export function Main(props) {
                                 mode={'development'}
                                 title={'Mandala'}
                                 sui={props.sui}
-                                kmasset={state.kmasset}
-                                kmap={state.kmap}
-                                onStateChange={handleStateChange}
                             />
                         </Route>
                         <Route path={'*'}>
@@ -128,18 +92,14 @@ export function Main(props) {
                 {/* <SearchContext>
                     <SearchAdvanced
                         advanced={state.advanced}
-                        onStateChange={handleStateChange}
                     />
                     <TreeNav
                         currentFeatureId={currentFeatureId}
                         tree={state.tree}
                     />
                 </SearchContext> */}
-                <Hamburger hamburgerOpen={state.hamburgerOpen} />
+                <Hamburger hamburgerOpen={false} />
             </div>
         </Router>
     );
-
-    const ret = storeReady ? main : loading;
-    return ret;
 }
