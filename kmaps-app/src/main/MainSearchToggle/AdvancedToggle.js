@@ -8,16 +8,6 @@ import './MainSearchToggle.scss';
 export function AdvancedToggle(props) {
     const [mode, setMode] = useState(props.viewMode || 'off'); // "search" | "tree" | "off"
 
-    const chooseViewMode =
-        props.chooseViewMode ||
-        (() => {
-            alert('No chooseViewMode handler:  mode = ' + mode);
-        });
-
-    useEffect(() => {
-        chooseViewMode(mode);
-    }, [mode]);
-
     return (
         <ToggleButtonGroup
             name="Georgie"

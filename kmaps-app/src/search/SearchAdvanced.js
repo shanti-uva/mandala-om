@@ -6,7 +6,6 @@ import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import { HistoryBox } from './HistoryBox';
 import { useSearch } from '../hooks/useSearch';
-import { useStoreState } from 'easy-peasy';
 
 const SEARCH_PATH = '/search';
 
@@ -31,6 +30,8 @@ export default function SearchAdvanced(props) {
     //const historyStack = useStoreState((state) => state.history.historyStack);
     const historyStack = {};
 
+    console.log('GerardKetuma|SearchData', searchData);
+
     if (isSearchLoading) {
         return (
             <aside
@@ -52,8 +53,6 @@ export default function SearchAdvanced(props) {
             </aside>
         );
     }
-
-    console.log('GerardKetuma|SearchData', searchData);
 
     const handleBooleanControlClick = () =>
         setBooleanControls(!booleanControls);

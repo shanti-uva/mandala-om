@@ -1,17 +1,15 @@
 import React, { useState, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-//import SearchContext from '../context/SearchContext';
 import { AdvancedToggle } from './MainSearchToggle/AdvancedToggle';
-//import { SearchAdvanced } from '../search/SearchAdvanced';
 import './RightSideBar.css';
 const TreeNav = React.lazy(() => import('./TreeNav'));
 const SearchAdvanced = React.lazy(() => import('../search/SearchAdvanced'));
 
 const target = document.getElementById('advancedSearchPortal');
 
-export default function RightSideBar(props) {
+export default function RightSideBar() {
     const [viewMode, setViewMode] = useState('advanced');
-    const [state, setState] = useState({});
+    const [state, setState] = useState({ advanced: true, tree: false });
     const handleStateChange = (new_state) => {
         setState({ ...state, ...new_state });
     };
@@ -27,24 +25,22 @@ export default function RightSideBar(props) {
         }
     }
     const advancedSearchPortal = (
-        <>
-            <section className="l-content__rightsidebar">
-                <AdvancedToggle
-                    chooseViewMode={chooseViewMode}
-                    viewMode={viewMode}
-                />
-                <div className="advanced-search-and-tree">
-                    {viewMode === 'advanced' && (
-                        <SearchAdvanced advanced={state.advanced} />
-                    )}
-                    {viewMode === 'tree' && (
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <TreeNav tree={state.tree} />
-                        </Suspense>
-                    )}
-                </div>
-            </section>
-        </>
+        <section className="l-content__rightsidebar">
+            <AdvancedToggle
+                chooseViewMode={chooseViewMode}
+                viewMode={'advanced'}
+            />
+            <div className="advanced-search-and-tree">
+                {viewMode === 'advanced' && (
+                    <SearchAdvanced advanced={state.advanced} />
+                )}
+                {viewMode === 'tree' && (
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <TreeNav tree={state.tree} />
+                    </Suspense>
+                )}
+            </div>
+        </section>
     );
 
     if (target) {

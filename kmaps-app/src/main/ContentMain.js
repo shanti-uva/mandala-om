@@ -11,9 +11,6 @@ import LegacyViewer from '../views/LegacyViewer';
 import { SearchViewer } from '../views/SearchViewer';
 import { CollectionsViewer } from '../views/Collections/CollectionsViewer';
 import { CollectionsHome } from '../views/Collections/CollectionsHome';
-import KmapContext from '../context/KmapContext';
-import SearchContext from '../context/SearchContext';
-import KmapsViewer from '../views/Kmaps/KmapsViewer';
 import PlacesHome from '../views/PlacesHome';
 import SubjectsHome from '../views/SubjectsHome';
 import TermsHome from '../views/Terms/TermsHome';
@@ -93,21 +90,6 @@ export default function ContentMain(props) {
                                     <ImagesHome />
                                 </Route>
 
-                                {/* SUBJECTS */}
-                                <Route
-                                    path={[
-                                        `/subjects/:id/related-:relatedType/:viewMode`,
-                                        `/subjects/:id`,
-                                    ]}
-                                >
-                                    <KmapContext assetType="subjects">
-                                        <RelatedsViewer />
-                                        <KmapsViewer
-                                            id={props.id}
-                                            sui={props.sui}
-                                        />
-                                    </KmapContext>
-                                </Route>
                                 <Route path={`/subjects`}>
                                     <SubjectsHome />
                                 </Route>
