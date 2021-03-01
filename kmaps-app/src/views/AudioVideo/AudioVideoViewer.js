@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useStatus from '../../hooks/useStatus';
 import axios from 'axios';
 import jsonpAdapter from '../../logic/axios-jsonp';
@@ -12,6 +12,7 @@ import { createAssetCrumbs } from '../common/utils';
 import { useKmap } from '../../hooks/useKmap';
 import { useParams } from 'react-router-dom';
 import useMandala from '../../hooks/useMandala';
+import { HistoryContext } from '../../HistoryContext';
 
 /**
  * AudioVideoViewer is called from ContentMain.js and is wrapped in a MdlAssetContext that supplies it with a SOLR
@@ -31,6 +32,7 @@ import useMandala from '../../hooks/useMandala';
  */
 export default function AudioVideoViewer(props) {
     const { id, relID } = useParams();
+    const history = useContext(HistoryContext);
     // const basepath = process.env.PUBLIC_URL;
     // console.log(basepath);
     // Build query string based on uid use asterisk for env. Ultimately uids will be audio-video-1234 across all apps
@@ -59,12 +61,12 @@ export default function AudioVideoViewer(props) {
 
     // Add setPlayerDrawn state to only draw the AV player from Bill's SUI once
     const [playerDrawn, setPlayerDrawn] = useState(false);
-    const status = useStatus(); // For setting page title, breadcrumbs, etc.
+    //const status = useStatus(); // For setting page title, breadcrumbs, etc.
 
     // UseEffect: run once if main av page: no dependencies, runs before asset solr doc loads
     useEffect(() => {
         if (ismain) {
-            status.setType('audio-video');
+            //status.setType('audio-video');
             $('body').on('click', 'a.sui-avMore2', function () {
                 $('#sui-avlang').toggle();
                 this.text =
@@ -83,11 +85,13 @@ export default function AudioVideoViewer(props) {
                     kmasset.title && kmasset.title.length > 0
                         ? kmasset.title[0]
                         : '';
-                status.setHeaderTitle(mytitle);
+
+                history.addPage(mytitle + '::' + window.location.pathname);
+                //status.setHeaderTitle(mytitle);
 
                 // Set the Breadcrumbs (Not needed here while SUI is still setting breadcurmbs )
-                const bcrumbs = createAssetCrumbs(kmasset);
-                status.setPath(bcrumbs);
+                //const bcrumbs = createAssetCrumbs(kmasset);
+                //status.setPath(bcrumbs);
             }
             if (nodejson) {
                 // Should only redraw if kmasset and nodejson change but redrawns on some clicks

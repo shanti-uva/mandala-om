@@ -2,7 +2,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import SearchUI from './legacy/searchui';
 import Pages from './legacy/pages';
-
+import { HistoryContext, history } from './HistoryContext';
 // import './Om.css';
 
 // import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
@@ -27,7 +27,9 @@ export default function App() {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <Main sui={sui} />
+            <HistoryContext.Provider value={history}>
+                <Main sui={sui} />
+            </HistoryContext.Provider>
         </QueryClientProvider>
     );
 }

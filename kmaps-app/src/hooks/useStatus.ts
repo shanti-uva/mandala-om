@@ -31,9 +31,22 @@ Currently these are the Actions that are passed:
  */
 
 function useStatus() {
+    // Temporary Status Actions to get Site to work
+    const newStatusActions = {
+        setType: function (s: string): void {},
+        setHeaderTitle: function (s: string): void {},
+        setId: function (s: string): void {},
+        setPath: function (s: string): void {},
+        setSubTitle: function (s: string): void {},
+        setStatus: function (s: string): void {},
+        clear: function (): void {},
+    };
+    return newStatusActions;
+    /*
     const statusActions = <StatusModel>(
         useStoreActions((actions) => actions.status)
     );
     return statusActions;
+     */
 }
 export default useStatus;

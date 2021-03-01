@@ -1,8 +1,10 @@
 // HISTORY!
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useStoreState } from 'easy-peasy';
 import { useStoreActions } from '../../model/StoreModel';
+import { HistoryContext } from '../../HistoryContext';
 import useAsset from '../../hooks/useAsset';
 import { useLocation, useRouteMatch } from 'react-router';
 import * as qs from 'qs';
@@ -16,8 +18,14 @@ export default function HistoryListener() {
     // const { addLocation, clear } = useStoreActions(
     //     (actions) => actions.history
     // );
+
     const HISTORY_LENGTH = 25;
     const location = useLocation();
+
+    const history = useContext(HistoryContext);
+    //history.pages.add(location.pathname);
+    // console.log("updated history", history);
+
     const match = useRouteMatch([
         '/:type/:id/related-:relType/view/:relId',
         '/:type/:id',
@@ -27,7 +35,7 @@ export default function HistoryListener() {
     const relatedType = match?.params?.relType;
     const relatedId = match?.params?.relId;
 
-    // console.log("Location: ", location);
+    //console.log("Location: ", location);
 
     function fixId(theId) {
         if (!theId) {

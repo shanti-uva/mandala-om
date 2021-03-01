@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useStatus from '../../hooks/useStatus';
 import { useParams } from 'react-router';
 import { useSolr } from '../../hooks/useSolr';
@@ -10,6 +10,7 @@ import useCollection from '../../hooks/useCollection';
 import $ from 'jquery';
 import { NotFoundPage } from '../common/utilcomponents';
 import { useKmap } from '../../hooks/useKmap';
+import { HistoryContext } from '../../HistoryContext';
 
 /**
  * Component to return a collection page showing a gallery or list of items in the collection
@@ -20,11 +21,11 @@ import { useKmap } from '../../hooks/useKmap';
  * @constructor
  */
 export function CollectionsViewer(props) {
-    const status = useStatus();
+    //const status = useStatus();
     const { asset_type, id: asset_id, view_mode } = useParams(); // retrieve parameters from route. (See ContentMain.js)
-
+    const history = useContext(HistoryContext);
     // Set Asset Type with status etc.
-    status.setType(asset_type);
+    //status.setType(asset_type);
     const atypeLabel = <span className={'text-capitalize'}>{asset_type}</span>;
 
     // Get Collection data. See hooks/useCollection
@@ -43,10 +44,10 @@ export function CollectionsViewer(props) {
     const [numFound, setNumFound] = useState(0);
 
     // On Load One time Use Effect to clear previous page and set type
-    useEffect(() => {
+    /*useEffect(() => {
         status.clear();
         status.setType('collections');
-    }, []);
+    }, []);*/
 
     // Make Solr Query to find assets in Collection
     const query = {
@@ -136,7 +137,7 @@ export function CollectionsViewer(props) {
         if (props.ismain) {
             if (collsolr) {
                 // console.log('Coll solr!', collsolr);
-                status.setHeaderTitle(collsolr.title);
+                //status.setHeaderTitle(collsolr.title);
                 coll_paths = [
                     {
                         uid: '/' + asset_type,
@@ -162,7 +163,10 @@ export function CollectionsViewer(props) {
                     uid: '/' + asset_type + '/collection/' + collsolr.id,
                     name: collsolr.title,
                 });
-                status.setPath(coll_paths);
+                //status.setPath(coll_paths);
+                history.addPage(
+                    collsolr.title + '::' + window.location.pathname
+                );
             }
         }
     }, [collsolr]);
@@ -173,8 +177,6 @@ export function CollectionsViewer(props) {
     const owner = collsolr?.node_user_full_s
         ? collsolr.node_user_full_s
         : collsolr.node_user;
-
-    // TODO: Need to display members (Probably need to index first)
 
     // Get and Display Parent collection
     let parentcoll = collsolr?.collection_nid;
@@ -238,10 +240,10 @@ export function CollectionsViewer(props) {
             uid: '#',
             name: 'Not Found',
         });
-        status.setHeaderTitle(
+        /*status.setHeaderTitle(
             asset_type[0].toUpperCase() + asset_type.substr(1)
         );
-        status.setPath(coll_paths);
+        status.setPath(coll_paths);*/
         return <NotFoundPage type={asset_type + ' collection'} id={asset_id} />;
     }
 

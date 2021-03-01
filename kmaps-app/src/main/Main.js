@@ -1,9 +1,10 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useContext } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import Router from './RouterSelect';
 import { SiteHeader } from './SiteHeader/SiteHeader';
 import { Hamburger } from './MainNavToggle/Hamburger';
 import HistoryListener from '../views/History/HistoryListener';
+import { HistoryContext } from '../App';
 //const TreeNav = lazy(() => import('./TreeNav'));
 
 const Home = lazy(() => import('./HomePage/Home'));
