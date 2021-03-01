@@ -3,8 +3,9 @@ import React from 'react';
 export const history = {
     pages: new Set(),
     searches: new Set(),
-    addPage: function (newpage) {
+    addPage: function (pageicon, pgpath, pgtitle) {
         // Add page function makes sure latest page is at the top in 0 position
+        const newpage = `${pageicon}::${pgpath}::${pgtitle}`;
         const pgs = this.pages;
         if (newpage in pgs) {
             pgs.delete(newpage);
