@@ -165,7 +165,9 @@ export function CollectionsViewer(props) {
                 });
                 //status.setPath(coll_paths);
                 history.addPage(
-                    collsolr.title + '::' + window.location.pathname
+                    asset_type,
+                    collsolr.title,
+                    window.location.pathname
                 );
             }
         }

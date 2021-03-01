@@ -86,7 +86,11 @@ export default function AudioVideoViewer(props) {
                         ? kmasset.title[0]
                         : '';
 
-                history.addPage(mytitle + '::' + window.location.pathname);
+                history.addPage(
+                    'audio-video',
+                    mytitle,
+                    window.location.pathname
+                );
                 //status.setHeaderTitle(mytitle);
 
                 // Set the Breadcrumbs (Not needed here while SUI is still setting breadcurmbs )

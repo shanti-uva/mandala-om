@@ -68,7 +68,7 @@ export default function ImagesViewer(props) {
     useEffect(() => {
         // Setting title in header and other status options
         if (kmasset && ismain) {
-            history.addPage(kmasset.title + '::' + window.location.pathname);
+            history.addPage('images', kmasset.title, window.location.pathname);
             /*
             status.setHeaderTitle(
                 kmasset?.title || kmasset?.caption || 'ImageViewer'

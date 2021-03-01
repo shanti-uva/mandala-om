@@ -18,17 +18,17 @@ export default function Home(props) {
                         <h4>Terms</h4>
                         <ul>
                             <li>
-                                <Link to={'/terms/terms-12434'}>
+                                <Link to={'/terms/12434'}>
                                     /terms/terms-12434
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/terms/terms-45057'}>
+                                <Link to={'/terms/45057'}>
                                     'gro ba/ (terms-45057)
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/terms/terms-85193'}>
+                                <Link to={'/terms/85193'}>
                                     thod rgal/: (terms-85193)
                                 </Link>
                             </li>
@@ -36,21 +36,19 @@ export default function Home(props) {
                         <h4>Places</h4>
                         <ul>
                             <li>
-                                <Link to={'/places/places-16408'}>
+                                <Link to={'/places/16408'}>
                                     Potala Palace: (places-16408)
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/places/places-637'}>
+                                <Link to={'/places/637'}>
                                     Lhasa: (places-637)
                                 </Link>
                             </li>
                             <ul>
                                 <li>
                                     <Link
-                                        to={
-                                            '/places/places-637/related-images/deck'
-                                        }
+                                        to={'/places/637/related-images/deck'}
                                     >
                                         Related Images
                                     </Link>
@@ -58,7 +56,7 @@ export default function Home(props) {
                                 <li>
                                     <Link
                                         to={
-                                            '/places/places-637/related-audio-video/deck'
+                                            '/places/637/related-audio-video/deck'
                                         }
                                     >
                                         Related Audio-Video
@@ -66,16 +64,14 @@ export default function Home(props) {
                                 </li>
                             </ul>
                             <li>
-                                <Link to={'/places/places-427'}>
+                                <Link to={'/places/427'}>
                                     Bhutan: (places-427)
                                 </Link>
                             </li>
                             <ul>
                                 <li>
                                     <Link
-                                        to={
-                                            '/places/places-427/related-images/deck'
-                                        }
+                                        to={'/places/427/related-images/deck'}
                                     >
                                         Related Images
                                     </Link>
@@ -83,7 +79,7 @@ export default function Home(props) {
                                 <li>
                                     <Link
                                         to={
-                                            '/places/places-427/related-audio-video/deck'
+                                            '/places/427/related-audio-video/deck'
                                         }
                                     >
                                         Related Audio-Video
@@ -94,22 +90,22 @@ export default function Home(props) {
                         <h4>Subjects</h4>
                         <ul>
                             <li>
-                                <Link to={'/subjects/subjects-20'}>
+                                <Link to={'/subjects/20'}>
                                     Geographical Features: (subjects-20)
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/subjects/subjects-8260'}>
+                                <Link to={'/subjects/8260'}>
                                     Bhutan Cultural Library: (subjects-8260)
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/subjects/subjects-3719'}>
+                                <Link to={'/subjects/3719'}>
                                     Whaling Station Test: (subjects-3719)
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/subjects/subjects-4102'}>
+                                <Link to={'/subjects/4102'}>
                                     Tibetan Contemporaneous Art: (subjects-4102)
                                 </Link>
                             </li>
