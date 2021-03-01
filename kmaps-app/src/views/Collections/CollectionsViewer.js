@@ -164,6 +164,7 @@ export function CollectionsViewer(props) {
                     name: collsolr.title,
                 });
                 //status.setPath(coll_paths);
+
                 history.addPage(
                     asset_type,
                     collsolr.title,

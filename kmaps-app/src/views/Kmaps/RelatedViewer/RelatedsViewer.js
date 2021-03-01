@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import FancyTree from '../../FancyTree';
 import HistoryViewer from '../../History/HistoryViewer';
@@ -6,8 +6,10 @@ import { useKmapRelated } from '../../../hooks/useKmapRelated';
 import { useUnPackedMemoized } from '../../../hooks/utils';
 import { queryID } from '../../../views/common/utils';
 import './RelatedsViewer.scss';
+import { HistoryContext } from '../../../HistoryContext';
 
 export function RelatedsViewer() {
+    const history = useContext(HistoryContext);
     const match = useRouteMatch([
         '/:baseType/:id/related-:type/:definitionID/view/:relID',
         '/:baseType/:id/related-:type/:definitionID/:viewMode',
@@ -197,12 +199,14 @@ export function RelatedsViewer() {
                     </div>
                 </section>
 
-                <section className="l-history__list__wrap">
-                    <div className="u-related__list__header">
-                        Recently Viewed
-                    </div>
-                    <HistoryViewer />
-                </section>
+                {history.pages.size > 0 && (
+                    <section className="l-history__list__wrap">
+                        <div className="u-related__list__header">
+                            Recently Viewed
+                        </div>
+                        <HistoryViewer />
+                    </section>
+                )}
 
                 {browse_tree && (
                     <section className="l-terms__tree__wrap">
