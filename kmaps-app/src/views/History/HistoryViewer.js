@@ -38,6 +38,9 @@ export function HistoryViewer(props) {
                         asset_type = pgicon.split('-')[1];
                         pgicon = 'collections';
                     }
+                    if (typeof pgtitle === 'undefined') {
+                        return;
+                    }
                     return (
                         <div
                             className="c-HistoryViewer__relatedRecentItem"

@@ -7,6 +7,9 @@ export const history = {
     searches: new Set(),
     addPage: function (pageicon, pgtitle, pgpath) {
         // Add page function makes sure latest page is at the top in 0 position and list doesn't get too long
+        if (!pgtitle || typeof pgtitle == 'undefined' || !pgpath) {
+            return;
+        }
         const newpage = `${pageicon}::${pgtitle}::${pgpath}`;
         const pgs = this.pages;
         if (newpage in pgs) {
