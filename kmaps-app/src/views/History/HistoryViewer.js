@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import './HistoryViewer.css';
 //import { HistoryLocation } from './HistoryLocation';
 
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from './HistoryContext';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 export function HistoryViewer(props) {
@@ -32,7 +32,12 @@ export function HistoryViewer(props) {
         <div className="c-HistoryViewer">
             {pages &&
                 pages?.map((pgdata, pdi) => {
-                    const [pgicon, pgtitle, pgpath] = pgdata.split('::');
+                    let [pgicon, pgtitle, pgpath] = pgdata.split('::');
+                    let asset_type = ';';
+                    if (pgicon.includes('collections-')) {
+                        asset_type = pgicon.split('-')[1];
+                        pgicon = 'collections';
+                    }
                     return (
                         <div
                             className="c-HistoryViewer__relatedRecentItem"
@@ -44,6 +49,7 @@ export function HistoryViewer(props) {
                                     className={
                                         'facetItem icon u-icon__' + pgicon
                                     }
+                                    title={asset_type}
                                 >
                                     {' '}
                                 </span>

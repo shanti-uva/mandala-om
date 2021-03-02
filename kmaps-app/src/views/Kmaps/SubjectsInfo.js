@@ -7,7 +7,7 @@ import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { Tabs, Tab } from 'react-bootstrap';
 import useAsset from '../../hooks/useAsset';
 import useStatus from '../../hooks/useStatus';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from '../History/HistoryContext';
 import { useKmap } from '../../hooks/useKmap';
 import { queryID } from '../common/utils';
 import useDimensions from 'react-use-dimensions';

@@ -11,7 +11,7 @@ import TermNames from './TermNames';
 import _, { divide } from 'lodash';
 import TermsDetails from './TermsDetails';
 import { queryID } from '../../views/common/utils';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from '../History/HistoryContext';
 const RelatedsGallery = React.lazy(() =>
     import('../../views/common/RelatedsGallery')
 );

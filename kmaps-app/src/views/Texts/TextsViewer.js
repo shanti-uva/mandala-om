@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useStatus from '../../hooks/useStatus';
 import useAsset from '../../hooks/useAsset';
 import { useKmap } from '../../hooks/useKmap';
@@ -17,6 +17,7 @@ import { addBoClass, createAssetCrumbs } from '../common/utils';
 import './TextsViewer.sass';
 import $ from 'jquery';
 import { useParams, Redirect } from 'react-router-dom';
+import { HistoryContext } from '../History/HistoryContext';
 
 /**
  * Text Viewer Component: The parent component for viewing a text. Gets sent the asset information as a prop
@@ -43,6 +44,7 @@ import { useParams, Redirect } from 'react-router-dom';
  */
 export default function TextsViewer(props) {
     const baseType = `texts`;
+    const history = useContext(HistoryContext);
     const { id, relID } = useParams();
     const queryID = relID ? relID : `${baseType}*-${id}`;
     const {
@@ -57,6 +59,10 @@ export default function TextsViewer(props) {
         isError: isNodeError,
         error: nodeError,
     } = useMandala(kmasset);
+
+    if (!isAssetLoading && !isAssetError) {
+        history.addPage(baseType, kmasset.title, window.location.pathname);
+    }
 
     const nodejson = nodeData;
     const tid = nodejson ? nodejson.nid : '';

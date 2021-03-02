@@ -11,7 +11,7 @@ import { createAssetCrumbs } from '../common/utils';
 import { useParams } from 'react-router-dom';
 import { useKmap } from '../../hooks/useKmap';
 import useMandala from '../../hooks/useMandala';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from '../History/HistoryContext';
 
 /**
  * Compontent that creates the Image Viewer page, including:

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Row, Image } from 'react-bootstrap';
 import './sources.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
@@ -6,9 +6,11 @@ import { MandalaPopover } from '../common/MandalaPopover';
 import { Link, useParams } from 'react-router-dom';
 import { useKmap } from '../../hooks/useKmap';
 import useMandala from '../../hooks/useMandala';
+import { HistoryContext } from '../History/HistoryContext';
 
 export default function SourcesViewer(props) {
     const baseType = `sources`;
+    const history = useContext(HistoryContext);
     const { id, relID } = useParams();
     const queryID = relID ? relID : `${baseType}*-${id}`;
     const {
@@ -24,6 +26,9 @@ export default function SourcesViewer(props) {
         error: nodeError,
     } = useMandala(kmasset);
 
+    if (!isAssetLoading && !isAssetError) {
+        history.addPage(baseType, kmasset.title, window.location.pathname);
+    }
     if (isAssetLoading || isNodeLoading) {
         return (
             <Container fluid className="c-source__container">

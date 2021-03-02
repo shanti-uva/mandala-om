@@ -9,7 +9,7 @@ import { MandalaPopover } from '../../views/common/MandalaPopover';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { Tabs, Tab, Row, Col } from 'react-bootstrap';
 import './placesinfo.scss';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from '../History/HistoryContext';
 const RelatedsGallery = React.lazy(() =>
     import('../../views/common/RelatedsGallery')
 );

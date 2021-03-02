@@ -10,7 +10,7 @@ import useCollection from '../../hooks/useCollection';
 import $ from 'jquery';
 import { NotFoundPage } from '../common/utilcomponents';
 import { useKmap } from '../../hooks/useKmap';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from '../History/HistoryContext';
 
 /**
  * Component to return a collection page showing a gallery or list of items in the collection
@@ -69,6 +69,14 @@ export function CollectionsViewer(props) {
     } = useSolr(qkey, query);
 
     // console.log(items);
+
+    if (!isCollLoading && !isCollError) {
+        history.addPage(
+            'collections-' + asset_type,
+            collsolr.title,
+            window.location.pathname
+        );
+    }
 
     const solrq = items?.docs ? items.docs : [];
     //if (items?.numFound && !isNaN(items?.numFound)) { setNumFound(items.numFound); }
@@ -164,12 +172,6 @@ export function CollectionsViewer(props) {
                     name: collsolr.title,
                 });
                 //status.setPath(coll_paths);
-
-                history.addPage(
-                    asset_type,
-                    collsolr.title,
-                    window.location.pathname
-                );
             }
         }
     }, [collsolr]);

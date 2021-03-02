@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useStoreState } from 'easy-peasy';
 import { useStoreActions } from '../../model/StoreModel';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from './HistoryContext';
 import useAsset from '../../hooks/useAsset';
 import { useLocation, useRouteMatch } from 'react-router';
 import * as qs from 'qs';

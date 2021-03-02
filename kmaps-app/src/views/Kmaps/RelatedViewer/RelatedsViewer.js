@@ -6,7 +6,7 @@ import { useKmapRelated } from '../../../hooks/useKmapRelated';
 import { useUnPackedMemoized } from '../../../hooks/utils';
 import { queryID } from '../../../views/common/utils';
 import './RelatedsViewer.scss';
-import { HistoryContext } from '../../../HistoryContext';
+import { HistoryContext } from '../../History/HistoryContext';
 
 export function RelatedsViewer() {
     const history = useContext(HistoryContext);

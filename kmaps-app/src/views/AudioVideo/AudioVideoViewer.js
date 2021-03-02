@@ -12,7 +12,7 @@ import { createAssetCrumbs } from '../common/utils';
 import { useKmap } from '../../hooks/useKmap';
 import { useParams } from 'react-router-dom';
 import useMandala from '../../hooks/useMandala';
-import { HistoryContext } from '../../HistoryContext';
+import { HistoryContext } from '../History/HistoryContext';
 
 /**
  * AudioVideoViewer is called from ContentMain.js and is wrapped in a MdlAssetContext that supplies it with a SOLR

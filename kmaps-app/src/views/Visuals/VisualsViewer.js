@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useKmap } from '../../hooks/useKmap';
 import useMandala from '../../hooks/useMandala';
 import { useParams } from 'react-router-dom';
@@ -6,10 +6,12 @@ import { Col, Container, Row } from 'react-bootstrap';
 import './visuals.scss';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { MandalaPopover } from '../common/MandalaPopover';
+import { HistoryContext } from '../History/HistoryContext';
 
 export default function VisualsViewer(props) {
     const baseType = `visuals`;
     const { id, relID } = useParams();
+    const history = useContext(HistoryContext);
     const queryID = relID ? relID : `${baseType}*-${id}`;
     const {
         isLoading: isAssetLoading,
@@ -68,6 +70,9 @@ export default function VisualsViewer(props) {
         }
     }
 
+    if (!isAssetLoading && !isAssetError) {
+        history.addPage(baseType, kmasset.title, window.location.pathname);
+    }
     const mydate = new Date(solrdoc?.node_created);
     const mytype = snjson && snjson.shivaGroup ? snjson.shivaGroup : '';
     const has_sheet =
