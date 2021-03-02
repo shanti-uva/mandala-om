@@ -298,7 +298,10 @@ export function CollectionsViewer(props) {
                     <h3>Members</h3>
                     <ul>
                         {collsolr?.members_name_ss?.map(function (member, n) {
-                            const mykey = `member-item-$n`;
+                            const mykey = `member-item-${member}-${n}`.replace(
+                                /\s+/g,
+                                '_'
+                            );
                             // const uid = collsolr.members_uid_ss[n]; // if needed add  data-uid={uid} to li
                             return (
                                 <li key={mykey} className={'text-nowrap'}>

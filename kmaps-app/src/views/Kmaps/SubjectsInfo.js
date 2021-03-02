@@ -51,7 +51,6 @@ export default function SubjectsInfo(props) {
         return <div id="place-kmap-tabs">Error: {kmapError.message}</div>;
     }
 
-    console.log('HERE in subjects', kmapData);
     let sbjimg = null;
     if (kmapData?.illustration_mms_url?.length > 0) {
         sbjimg = kmapData?.illustration_mms_url[0];
@@ -68,25 +67,6 @@ export default function SubjectsInfo(props) {
             </div>
         </div>
     );
-    {
-        /* old return (
-        <div className={'c-subject-info'}>
-            {overview_id && (
-                <div className={'desc'}>
-                    <h3>
-                        Overview{' '}
-                        <span className={'text-id d-none'}>
-                            <Link to={`/texts/${overview_id}`}>
-                                text-{overview_id}
-                            </Link>
-                        </span>
-                    </h3>
-                    <SubjectTextDescription textid={overview_id} />
-                </div>
-            )}
-        </div>
-    );*/
-    }
 }
 
 function SubjectTextDescription({ kmapData }) {
@@ -99,6 +79,15 @@ function SubjectTextDescription({ kmapData }) {
     }
     const solrdoc = useAsset('texts', txtid);
     const txtjson = useMandala(solrdoc);
+
+    if (
+        !txtid &&
+        'summary_eng' in kmapData &&
+        kmapData['summary_eng'].length > 0
+    ) {
+        return <HtmlCustom markup={kmapData['summary_eng'][0]} />;
+    }
+
     const isToc = txtjson?.toc_links && txtjson.toc_links.length > 0;
     const defkey = isToc ? 'toc' : 'info';
     const txtmup = txtjson?.full_markup ? (
