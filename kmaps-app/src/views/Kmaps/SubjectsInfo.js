@@ -51,15 +51,25 @@ export default function SubjectsInfo(props) {
         return <div id="place-kmap-tabs">Error: {kmapError.message}</div>;
     }
 
-    let overview_id = false;
-    for (let prp in kmapData) {
-        if (prp.includes('homepage_text_')) {
-            overview_id = kmapData[prp];
-            break;
-        }
-    }
     console.log('HERE in subjects', kmapData);
+    let sbjimg = null;
+    if (kmapData?.illustration_mms_url?.length > 0) {
+        sbjimg = kmapData?.illustration_mms_url[0];
+    }
     return (
+        <div className={'c-subject-info'}>
+            <div className="c-nodeHeader-itemSummary row">
+                <div className="img featured col-md-3">
+                    <img src={sbjimg} />
+                </div>
+                <div className="col">
+                    <SubjectTextDescription kmapData={kmapData} />
+                </div>
+            </div>
+        </div>
+    );
+    {
+        /* old return (
         <div className={'c-subject-info'}>
             {overview_id && (
                 <div className={'desc'}>
@@ -74,15 +84,19 @@ export default function SubjectsInfo(props) {
                     <SubjectTextDescription textid={overview_id} />
                 </div>
             )}
-            {/*
-                <pre>{JSON.stringify({ ...props, sui: null }, undefined, 2)}</pre>
-                */}
         </div>
-    );
+    );*/
+    }
 }
 
-function SubjectTextDescription(props) {
-    const txtid = props.textid;
+function SubjectTextDescription({ kmapData }) {
+    let txtid = false;
+    for (let prp in kmapData) {
+        if (prp.includes('homepage_text_')) {
+            txtid = kmapData[prp];
+            break;
+        }
+    }
     const solrdoc = useAsset('texts', txtid);
     const txtjson = useMandala(solrdoc);
     const isToc = txtjson?.toc_links && txtjson.toc_links.length > 0;
