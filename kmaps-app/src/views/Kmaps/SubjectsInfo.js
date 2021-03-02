@@ -1,37 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import $ from 'jquery';
 import './subjectsinfo.scss';
 import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
 import useMandala from '../../hooks/useMandala';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { Tabs, Tab } from 'react-bootstrap';
 import useAsset from '../../hooks/useAsset';
 import useStatus from '../../hooks/useStatus';
+import { HistoryContext } from '../../HistoryContext';
+import { useKmap } from '../../hooks/useKmap';
+import { queryID } from '../common/utils';
+import useDimensions from 'react-use-dimensions';
 
-export function SubjectsInfo(props) {
-    const { kmap, kmasset, relateds } = props;
-    // console.log('SubjectsInfo: props = ', props);
-    // console.log('SubjectsInfo: kmap = ', kmap);
-    // console.log('SubjectsInfo: kmasset = ', kmasset);
+export default function SubjectsInfo(props) {
+    // let { path } = useRouteMatch();
+    let { id } = useParams();
+    const baseType = 'subjects';
+    const history = useContext(HistoryContext);
+    // console.log("in subject", history);
+    const {
+        isLoading: isKmapLoading,
+        data: kmapData,
+        isError: isKmapError,
+        error: kmapError,
+    } = useKmap(queryID(baseType, id), 'info');
+    const {
+        isLoading: isAssetLoading,
+        data: kmasset,
+        isError: isAssetError,
+        error: assetError,
+    } = useKmap(queryID(baseType, id), 'asset');
 
-    const status = useStatus();
-    useEffect(() => {
-        status.clear();
-        status.setType('subjects');
-        status.setHeaderTitle('Loading ...');
-    }, []);
+    const [mapRef, mapSize] = useDimensions();
+    const fid = kmasset?.id;
 
     useEffect(() => {
         $('main.l-column__main').addClass('subjects');
-    }, [kmap]);
+    }, [kmapData]);
+
+    if (isKmapLoading) {
+        return <div id="place-kmap-tabs">Subjects Loading Skeleton ...</div>;
+    }
+
+    if (!isKmapLoading && !isKmapError) {
+        //console.log("kmap (places)", kmapData);
+        history.addPage('places', kmapData.header, window.location.pathname);
+    }
+
+    if (isKmapError) {
+        return <div id="place-kmap-tabs">Error: {kmapError.message}</div>;
+    }
 
     let overview_id = false;
-    for (let prp in kmap) {
+    for (let prp in kmapData) {
         if (prp.includes('homepage_text_')) {
-            overview_id = kmap[prp];
+            overview_id = kmapData[prp];
             break;
         }
     }
+    console.log('HERE in subjects', kmapData);
     return (
         <div className={'c-subject-info'}>
             {overview_id && (

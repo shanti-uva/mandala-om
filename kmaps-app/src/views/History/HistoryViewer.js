@@ -31,12 +31,13 @@ export function HistoryViewer(props) {
     return (
         <div className="c-HistoryViewer">
             {pages &&
-                pages?.map((pgdata) => {
+                pages?.map((pgdata, pdi) => {
                     const [pgicon, pgtitle, pgpath] = pgdata.split('::');
                     return (
                         <div
                             className="c-HistoryViewer__relatedRecentItem"
                             data-path={pgpath}
+                            key={pdi + pgpath.replace(/\//g, '-')}
                         >
                             <span className="c-HistoryViewer__title">
                                 <span

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouteMatch, useParams, Switch, Route } from 'react-router-dom';
 import useDimensions from 'react-use-dimensions';
 import KmapsMap from '../KmapsMap/KmapsMap';
@@ -9,6 +9,7 @@ import { MandalaPopover } from '../../views/common/MandalaPopover';
 import { HtmlCustom } from '../common/MandalaMarkup';
 import { Tabs, Tab, Row, Col } from 'react-bootstrap';
 import './placesinfo.scss';
+import { HistoryContext } from '../../HistoryContext';
 const RelatedsGallery = React.lazy(() =>
     import('../../views/common/RelatedsGallery')
 );
@@ -16,7 +17,7 @@ export default function PlacesInfo(props) {
     let { path } = useRouteMatch();
     let { id } = useParams();
     const baseType = 'places';
-
+    const history = useContext(HistoryContext);
     const {
         isLoading: isKmapLoading,
         data: kmapData,
@@ -36,6 +37,11 @@ export default function PlacesInfo(props) {
 
     if (isKmapLoading || isAssetLoading) {
         return <div id="place-kmap-tabs">Places Loading Skeleton ...</div>;
+    }
+
+    if (!isKmapLoading && !isKmapError) {
+        //console.log("kmap (places)", kmapData);
+        history.addPage('places', kmapData.header, window.location.pathname);
     }
 
     if (isKmapError || isAssetError) {

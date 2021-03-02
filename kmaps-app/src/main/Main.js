@@ -58,7 +58,7 @@ export function Main(props) {
                 : {})}
         >
             <div id={'l-site__wrap'} className={`l-site__wrap`}>
-                <HistoryListener />
+                {/* <HistoryListener /> */}
                 <SiteHeader />
                 <Hamburger hamburgerOpen={false} />
                 {/** TODO:gk3k -> Need to set a proper loading component with Skeletons */}

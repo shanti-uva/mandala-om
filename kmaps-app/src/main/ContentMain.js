@@ -17,6 +17,7 @@ import TermsHome from '../views/Terms/TermsHome';
 import { CollectionsRedirect } from '../views/Collections/CollectionsRedirect';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 const PlacesInfo = React.lazy(() => import('../views/Kmaps/PlacesInfo'));
+const SubjectsInfo = React.lazy(() => import('../views/Kmaps/SubjectsInfo'));
 const TermsInfo = React.lazy(() => import('../views/Terms/TermsInfo'));
 const RightSideBar = React.lazy(() => import('./RightSideBar'));
 const NotFoundPage = React.lazy(() => import('../views/common/NotFoundPage'));
@@ -90,25 +91,6 @@ export default function ContentMain(props) {
                                     <ImagesHome />
                                 </Route>
 
-                                <Route path={`/subjects`}>
-                                    <SubjectsHome />
-                                </Route>
-
-                                {/* TERMS */}
-                                {/*<Route
-                                    path={[
-                                        `/terms/:id/related-:relatedType/:viewMode`,
-                                        `/terms/:id`,
-                                    ]}
-                                >
-                                    <KmapContext assetType="terms">
-                                        <RelatedsViewer />
-                                        <KmapsViewer
-                                            id={props.id}
-                                            sui={props.sui}
-                                        />{' '}
-                                    </KmapContext>
-                                </Route> */}
                                 {/* PLACES */}
                                 <Route path={`/places/:id`}>
                                     <RelatedsViewer />
@@ -123,6 +105,21 @@ export default function ContentMain(props) {
                                     <PlacesHome />
                                 </Route>
 
+                                {/* SUBJECTS */}
+                                <Route path={`/subjects/:id`}>
+                                    <RelatedsViewer />
+                                    <section className="l-content__main__wrap">
+                                        <div className="c-content__main__kmaps">
+                                            <NodeHeader />
+                                            <SubjectsInfo />
+                                        </div>
+                                    </section>
+                                </Route>
+                                <Route path={`/subjects`}>
+                                    <SubjectsHome />
+                                </Route>
+
+                                {/* TERMS */}
                                 <Route path={`/terms/:id`}>
                                     <RelatedsViewer />
                                     <section className="l-content__main__wrap">
