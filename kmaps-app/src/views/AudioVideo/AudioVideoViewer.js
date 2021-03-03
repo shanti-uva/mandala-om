@@ -91,11 +91,6 @@ export default function AudioVideoViewer(props) {
                     mytitle,
                     window.location.pathname
                 );
-                //status.setHeaderTitle(mytitle);
-
-                // Set the Breadcrumbs (Not needed here while SUI is still setting breadcurmbs )
-                //const bcrumbs = createAssetCrumbs(kmasset);
-                //status.setPath(bcrumbs);
             }
             if (nodejson) {
                 // Should only redraw if kmasset and nodejson change but redrawns on some clicks

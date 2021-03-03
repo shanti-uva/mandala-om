@@ -45,6 +45,7 @@ export default class AudioVideo {
 
     // Added by Ndg8f: Separated out from Draw in order to make player into its own component
     DrawPlayer(o, d) {
+        console.log('o in player', o);
         const sui = this.sui;
         let i,
             f,
@@ -101,8 +102,8 @@ export default class AudioVideo {
             if (o.collection_title) {
                 const collpath =
                     sui.pages.GetPublicUrlPath('audio-video') +
-                    'audio-video-collection/' +
-                    o.id;
+                    'audio-video/collection/' +
+                    o.collection_nid;
                 str += `&#xe633&nbsp;&nbsp;&nbsp;
                 <a title='Collection' id='sui-avCol' href='${collpath}'>${o.collection_title}</a>`;
             }
