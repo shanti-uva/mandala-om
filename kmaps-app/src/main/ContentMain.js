@@ -1,6 +1,6 @@
 import React from 'react';
 import { ContentHeader } from './ContentHeader/ContentHeader';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { AudioVideoHome } from '../views/AudioVideo/AudioVideoHome';
 import { ImagesHome } from '../views/Images/ImagesHome';
 import { TextsHome } from '../views/Texts/TextsHome';
@@ -37,13 +37,14 @@ const ImagesViewer = React.lazy(() => import('../views/Images/ImagesViewer'));
 export default function ContentMain(props) {
     const title = props.title || 'Untitled';
     const siteClass = props.site || 'default';
+    const myLocation = useLocation();
     const left = (
         <main className="l-column__main">
             <article id="l-column__main__wrap" className="l-column__main__wrap">
                 <ContentHeader
                     siteClass={siteClass}
                     title={title}
-                    sui={props.sui}
+                    location={myLocation}
                 />
                 <div className="two-columns">
                     <section id="l-content__main" className="l-content__main">

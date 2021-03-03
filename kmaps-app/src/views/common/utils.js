@@ -304,6 +304,9 @@ export function createAssetCrumbs(kmasset) {
 }
 
 export function capitalAsset(asn) {
+    if (typeof asn !== 'string' || asn.length === 0) {
+        return '';
+    }
     return asn[0].toUpperCase() + asn.substr(1).replace('-v', '-V');
 }
 
