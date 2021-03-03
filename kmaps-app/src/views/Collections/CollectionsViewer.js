@@ -78,6 +78,8 @@ export function CollectionsViewer(props) {
         );
     }
 
+    const loadingState = isCollLoading || isItemsLoading;
+
     const solrq = items?.docs ? items.docs : [];
     //if (items?.numFound && !isNaN(items?.numFound)) { setNumFound(items.numFound); }
     //console.log("collections solr doc", solrq);
@@ -275,6 +277,7 @@ export function CollectionsViewer(props) {
                         pager={pager}
                         viewMode={view_mode}
                         inline={false}
+                        loadingState={loadingState}
                     />
                 </Col>
                 <Col md={2} sm={4} className={'c-collection__metadata'}>

@@ -31,7 +31,6 @@ export default function SubjectsInfo(props) {
         error: assetError,
     } = useKmap(queryID(baseType, id), 'asset');
 
-    const [mapRef, mapSize] = useDimensions();
     const fid = kmasset?.id;
 
     useEffect(() => {
@@ -43,7 +42,7 @@ export default function SubjectsInfo(props) {
     }
 
     if (!isKmapLoading && !isKmapError) {
-        //console.log("kmap (places)", kmapData);
+        console.log('kmap (subjects)', kmapData);
         history.addPage('places', kmapData.header, window.location.pathname);
     }
 

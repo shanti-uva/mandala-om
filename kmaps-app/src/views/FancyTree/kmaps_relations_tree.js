@@ -207,15 +207,21 @@ const queryClient = new QueryClient();
         },
         scrollToActiveNode: async function () {
             var plugin = this;
-            var tree = $(plugin.element).fancytree('getTree');
-            var active = tree.getActiveNode();
-            if (active) {
-                active.makeVisible().then(function () {
-                    var totalOffset =
-                        $(active.li).offset().top -
-                        $(active.li).closest('.view-wrap').offset().top;
-                    $(active.li).closest('.view-wrap').scrollTop(totalOffset);
-                });
+            try {
+                var tree = $(plugin.element).fancytree('getTree');
+                var active = tree.getActiveNode();
+                if (active) {
+                    active.makeVisible().then(function () {
+                        var totalOffset =
+                            $(active.li).offset().top -
+                            $(active.li).closest('.view-wrap').offset().top;
+                        $(active.li)
+                            .closest('.view-wrap')
+                            .scrollTop(totalOffset);
+                    });
+                }
+            } catch (e) {
+                console.log('Fancy tree initialization error', e);
             }
         },
         getAncestorPath: function () {

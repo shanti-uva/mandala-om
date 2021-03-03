@@ -77,7 +77,6 @@ const getKmapData = async (id, qtype) => {
     if (!('wt' in myparams)) {
         myparams['wt'] = 'json';
     }
-
     const request = {
         adapter: jsonpAdapter,
         callbackParamName: 'json.wrf',
@@ -104,7 +103,6 @@ const getKmapData = async (id, qtype) => {
  * @returns {any}
  */
 export function useKmap(id, query_type, byPass = false) {
-    // console.log("useKmap: domain = ", domain, " kid = ", kid, " query_type = ",  query_type );
     query_type = typeof query_type === 'undefined' ? 'info' : query_type;
     return useQuery(
         ['kmap', id, query_type],
