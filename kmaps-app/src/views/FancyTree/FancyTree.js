@@ -40,8 +40,7 @@ function FancyTree({
             view: view,
             tree: tree,
             featuresPath:
-                process.env.REACT_APP_PUBLIC_URL +
-                `/${domain}/${domain}-%%ID%%`,
+                process.env.REACT_APP_PUBLIC_URL + `/${domain}/%%ID%%`,
         };
 
         // console.log('FancyTree: tree=', tree, ' kmapSolrUtil opts = ', ks_opts);
@@ -53,8 +52,7 @@ function FancyTree({
             domain: domain,
             featureId: featureId,
             featuresPath:
-                process.env.REACT_APP_PUBLIC_URL +
-                `/${domain}/${domain}-%%ID%%`,
+                process.env.REACT_APP_PUBLIC_URL + `/${domain}/%%ID%%`,
             perspective: perspective,
             tree: tree,
             termIndex: process.env.REACT_APP_SOLR_KMTERMS,
@@ -63,9 +61,7 @@ function FancyTree({
             descendantsFullDetail: false,
             directAncestors: directAncestors,
             displayPopup: displayPopup,
-            mandalaURL:
-                process.env.REACT_APP_PUBLIC_URL +
-                `/${domain}/${domain}-%%ID%%`,
+            mandalaURL: process.env.REACT_APP_PUBLIC_URL + `/${domain}/%%ID%%`,
             solrUtils: solrUtils,
             view: view,
             sortBy: sortBy,
