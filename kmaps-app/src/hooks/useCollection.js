@@ -10,7 +10,7 @@ const useCollection = (asset_type, nid) => {
             rows: 1,
         },
     };
-    // console.log(querySpecs)
+    console.log(querySpecs);
     const query_key = QUERY_BASE + '-' + asset_type + '-' + nid;
 
     return useSolr(query_key, querySpecs);
