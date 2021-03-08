@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const history = {
-    maxpages: 10,
-    maxsearches: 10,
+    maxpages: 20,
+    maxsearches: 20,
     pages: new Set(),
     searches: new Set(),
     addPage: function (pageicon, pgtitle, pgpath) {

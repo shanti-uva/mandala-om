@@ -7,21 +7,12 @@ import { useKmap } from '../../hooks/useKmap';
 import { capitalAsset, queryID } from '../../views/common/utils';
 
 export function ContentHeader({ siteClass, title, location }) {
-    // const status = useStoreState((state) => state.status);
-    // console.error("ContentHeader status = " , status);
-    // console.log(" ContentHeader path = ", status.path)
-    const sep = '>';
-    console.log(location);
-    const appath =
-        process.env.REACT_APP_PUBLIC_URL.split(window.location.host)[1] + '/';
     const pgpath = location.pathname.substr(1);
-    console.log(pgpath);
     const [first, mid, last] = pgpath?.split('/');
     const itemType = first;
     const queryType = itemType + '*';
     const isCollection = mid === 'collection';
     const itemId = isCollection ? last : mid;
-    // console.log(itemType, itemId, isCollection);
     const {
         isLoading: isItemLoading,
         data: itemData,
@@ -29,9 +20,8 @@ export function ContentHeader({ siteClass, title, location }) {
         error: itemError,
     } = useKmap(queryID(queryType, itemId), 'asset');
 
-    console.log('kmap data', itemData);
     let convertedPath = '... > ';
-    let mytitle = itemData?.title ? itemData.title : '...';
+    let mytitle = itemData?.title ? itemData.title : 'Loading';
     if (!isItemLoading) {
         if (!isItemError) {
             mytitle = itemData?.title;
@@ -75,21 +65,24 @@ export function ContentHeader({ siteClass, title, location }) {
 }
 
 function ContentHeaderBreadcrumbs({ itemData, itemTitle, itemType }) {
-    let breadcrumbs = null;
+    let breadcrumbs = [];
     switch (itemType) {
         case 'places':
+        case 'subjects':
+        case 'terms':
+            const tree = itemData.tree;
             breadcrumbs = itemData?.ancestor_ids_is?.map((aid, idn) => {
                 const label = itemData.ancestors_txt[idn];
                 return (
-                    <Link to={`/places/${aid}`} className="breadcrumb-item">
+                    <Link to={`/${tree}/${aid}`} className="breadcrumb-item">
                         {label}
                     </Link>
                 );
             });
-            console.log('places bc', breadcrumbs);
             break;
 
         default:
+            // Asset Breadcrumbs
             breadcrumbs = itemData?.collection_uid_path_ss?.map((cup, cind) => {
                 const cplabel = itemData?.collection_title_path_ss[cind];
                 const url =
