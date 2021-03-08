@@ -3,7 +3,13 @@ import $ from 'jquery';
 import './subjectsinfo.scss';
 import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
 import useMandala from '../../hooks/useMandala';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
+import {
+    Link,
+    Route,
+    Switch,
+    useParams,
+    useRouteMatch,
+} from 'react-router-dom';
 import { Tabs, Tab } from 'react-bootstrap';
 import useAsset from '../../hooks/useAsset';
 import useStatus from '../../hooks/useStatus';
@@ -11,9 +17,10 @@ import { HistoryContext } from '../History/HistoryContext';
 import { useKmap } from '../../hooks/useKmap';
 import { queryID } from '../common/utils';
 import useDimensions from 'react-use-dimensions';
+import RelatedsGallery from '../common/RelatedsGallery';
 
 export default function SubjectsInfo(props) {
-    // let { path } = useRouteMatch();
+    let { path } = useRouteMatch();
     let { id } = useParams();
     const baseType = 'subjects';
     const history = useContext(HistoryContext);
@@ -54,21 +61,7 @@ export default function SubjectsInfo(props) {
     if (kmapData?.illustration_mms_url?.length > 0) {
         sbjimg = kmapData?.illustration_mms_url[0];
     }
-    return (
-        <div className={'c-subject-info'}>
-            <div className="c-nodeHeader-itemSummary row">
-                <div className="img featured col-md-3">
-                    <img src={sbjimg} />
-                </div>
-                <div className="col">
-                    <SubjectTextDescription kmapData={kmapData} />
-                </div>
-            </div>
-        </div>
-    );
-}
 
-function SubjectTextDescription({ kmapData }) {
     let txtid = false;
     for (let prp in kmapData) {
         if (prp.includes('homepage_text_')) {
@@ -76,16 +69,84 @@ function SubjectTextDescription({ kmapData }) {
             break;
         }
     }
+
+    return (
+        <>
+            <div className={'c-subject-info'}>
+                <div className="c-nodeHeader-itemSummary row">
+                    {sbjimg && (
+                        <div className="img featured col-md-3">
+                            <img src={sbjimg} />
+                        </div>
+                    )}
+                    <div className="col">
+                        {!txtid &&
+                            'summary_eng' in kmapData &&
+                            kmapData['summary_eng'].length > 0 && (
+                                <HtmlCustom
+                                    markup={kmapData['summary_eng'][0]}
+                                />
+                            )}
+                        <SubjectsDetails kmapData={kmapData} />
+                    </div>
+                </div>
+            </div>
+            {txtid && (
+                <div className={'c-subject-essay'}>
+                    <SubjectTextDescription txtid={txtid} />
+                </div>
+            )}
+            <React.Suspense fallback={<span>Subjects Route Skeleton ...</span>}>
+                <Switch>
+                    <Route
+                        path={[
+                            `${path}/related-:relatedType/:viewMode`,
+                            `${path}/related-:relatedType`,
+                        ]}
+                    >
+                        <RelatedsGallery baseType="subjects" />
+                    </Route>
+                </Switch>
+            </React.Suspense>
+        </>
+    );
+}
+
+function SubjectsDetails({ kmapData }) {
+    const kid = kmapData.id;
+    const sbjnames = kmapData._childDocuments_.filter((cd) => {
+        return cd.id.includes(kid + '_name');
+    });
+    return (
+        <>
+            <div>
+                <label className={'font-weight-bold'}>ID:</label>{' '}
+                <span className={'kmapid'}>{kid}</span>
+            </div>
+            {sbjnames.length > 0 && (
+                <div>
+                    <label className={'font-weight-bold'}>Names:</label>
+                    <ul>
+                        {sbjnames.map((nmo) => {
+                            return (
+                                <li>
+                                    {nmo.related_names_header_s} (
+                                    {nmo.related_names_language_s},{' '}
+                                    {nmo.related_names_writing_system_s},{' '}
+                                    {nmo.related_names_relationship_s})
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )}
+        </>
+    );
+}
+
+function SubjectTextDescription({ txtid }) {
     const solrdoc = useAsset('texts', txtid);
     const txtjson = useMandala(solrdoc);
-
-    if (
-        !txtid &&
-        'summary_eng' in kmapData &&
-        kmapData['summary_eng'].length > 0
-    ) {
-        return <HtmlCustom markup={kmapData['summary_eng'][0]} />;
-    }
 
     const isToc = txtjson?.toc_links && txtjson.toc_links.length > 0;
     const defkey = isToc ? 'toc' : 'info';
