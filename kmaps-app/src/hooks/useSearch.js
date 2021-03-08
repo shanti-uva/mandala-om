@@ -7,15 +7,49 @@ import { getSolrUrls } from './utils';
 
 const solr_urls = getSolrUrls();
 
-export function useSearch(searchText = '', start, rows) {
+export function useSearch(
+    searchText = '',
+    start = 0,
+    rows = 0,
+    facetType = 'all',
+    facetOffset = 0,
+    facetLimit = 0,
+    facetBuckets = false
+) {
     return useQuery(
-        ['search', start, rows, slugify(searchText)],
-        () => getSearchData(searchText, start, rows),
+        [
+            'search',
+            start,
+            rows,
+            facetType,
+            facetOffset,
+            facetLimit,
+            facetBuckets,
+            slugify(searchText),
+        ],
+        () =>
+            getSearchData(
+                searchText,
+                start,
+                rows,
+                facetType,
+                facetOffset,
+                facetLimit,
+                facetBuckets
+            ),
         { keepPreviousData: true }
     );
 }
 
-async function getSearchData(searchText, start, rows) {
+async function getSearchData(
+    searchText,
+    start,
+    rows,
+    facetType,
+    facetOffset,
+    facetLimit,
+    facetBuckets
+) {
     let params = {
         fl: '*',
         wt: 'json',
@@ -23,7 +57,9 @@ async function getSearchData(searchText, start, rows) {
         indent: 'true',
         start: start,
         rows: rows,
-        'json.facet': JSON.stringify(getJsonFacet()),
+        'json.facet': JSON.stringify(
+            getJsonFacet(facetType, facetOffset, facetLimit, facetBuckets)
+        ),
     };
     const queryParams = constructTextQuery(searchText);
     const filterParams = constructFilters([]); // TODO: gk3k -> Need to implement filters.
@@ -42,98 +78,119 @@ async function getSearchData(searchText, start, rows) {
     return data;
 }
 
-function getJsonFacet() {
+function getJsonFacet(facetType, offset, limit, buckets) {
     return {
-        asset_count: {
-            type: 'terms',
-            field: 'asset_type',
-            limit: 0,
-            offset: 0,
-            //sort: ff['asset_type']?.sort || 'count desc',
-            domain: { excludeTags: 'asset_type' },
-            numBuckets: true,
-        },
-        related_subjects: {
-            type: 'terms',
-            field: 'kmapid_subjects_idfacet',
-            limit: 0,
-            offset: 0,
-            //sort: ff['subjects']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        related_places: {
-            type: 'terms',
-            field: 'kmapid_places_idfacet',
-            limit: 0,
-            offset: 0,
-            //sort: ff['places']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        related_terms: {
-            type: 'terms',
-            field: 'kmapid_terms_idfacet',
-            limit: 0,
-            offset: 0,
-            //sort: ff['terms']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        feature_types: {
-            type: 'terms',
-            field: 'feature_types_idfacet',
-            limit: 0,
-            offset: 0,
-            //sort: ff['feature_types']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        languages: {
-            type: 'terms',
-            field: 'node_lang',
-            limit: 0,
-            offset: 0,
-            //sort: ff['languages']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        collections: {
-            type: 'terms',
-            field: 'collection_idfacet',
-            limit: 0,
-            offset: 0,
-            //sort: ff['collections']?.sort || 'count desc',
-            numBuckets: true,
-        },
-
-        node_user: {
-            type: 'terms',
-            field: 'node_user_full_s',
-            limit: 0,
-            offset: 0,
-            //sort: ff['user']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        creator: {
-            type: 'terms',
-            field: 'creator',
-            limit: 0,
-            offset: 0,
-            //sort: ff['creator']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        perspective: {
-            type: 'terms',
-            field: 'perspectives_ss',
-            limit: 0,
-            offset: 0,
-            //sort: ff['perspective']?.sort || 'count desc',
-            numBuckets: true,
-        },
-        associated_subjects: {
-            type: 'terms',
-            field: 'associated_subject_map_idfacet',
-            limit: 0,
-            offset: 0,
-            //sort: ff['associated_subjects']?.sort || 'count desc',
-            numBuckets: true,
-        },
+        ...((facetType === 'all' || facetType === 'asset_count') && {
+            asset_count: {
+                type: 'terms',
+                field: 'asset_type',
+                limit,
+                offset,
+                //sort: ff['asset_type']?.sort || 'count desc',
+                domain: { excludeTags: 'asset_type' },
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'related_subjects') && {
+            related_subjects: {
+                type: 'terms',
+                field: 'kmapid_subjects_idfacet',
+                limit,
+                offset,
+                //sort: ff['subjects']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'related_places') && {
+            related_places: {
+                type: 'terms',
+                field: 'kmapid_places_idfacet',
+                limit,
+                offset,
+                //sort: ff['places']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'related_terms') && {
+            related_terms: {
+                type: 'terms',
+                field: 'kmapid_terms_idfacet',
+                limit,
+                offset,
+                //sort: ff['terms']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'feature_types') && {
+            feature_types: {
+                type: 'terms',
+                field: 'feature_types_idfacet',
+                limit,
+                offset,
+                //sort: ff['feature_types']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'languages') && {
+            languages: {
+                type: 'terms',
+                field: 'node_lang',
+                limit,
+                offset,
+                //sort: ff['languages']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'collections') && {
+            collections: {
+                type: 'terms',
+                field: 'collection_idfacet',
+                limit,
+                offset,
+                //sort: ff['collections']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'node_user') && {
+            node_user: {
+                type: 'terms',
+                field: 'node_user_full_s',
+                limit,
+                offset,
+                //sort: ff['user']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'creator') && {
+            creator: {
+                type: 'terms',
+                field: 'creator',
+                limit,
+                offset,
+                //sort: ff['creator']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'perspective') && {
+            perspective: {
+                type: 'terms',
+                field: 'perspectives_ss',
+                limit,
+                offset,
+                //sort: ff['perspective']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
+        ...((facetType === 'all' || facetType === 'associated_subjects') && {
+            associated_subjects: {
+                type: 'terms',
+                field: 'associated_subject_map_idfacet',
+                limit,
+                offset,
+                //sort: ff['associated_subjects']?.sort || 'count desc',
+                numBuckets: buckets,
+            },
+        }),
     };
 }
 

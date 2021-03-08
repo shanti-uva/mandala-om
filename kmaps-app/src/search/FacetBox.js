@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import _ from 'lodash';
 import * as PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import Spinner from 'react-bootstrap/Spinner';
 import { FacetChoice } from './FacetChoice';
-
+import { useSearch } from '../hooks/useSearch';
 import { BsCheckCircle, BsMap } from 'react-icons/bs';
 import { ImStack } from 'react-icons/im';
 
@@ -64,22 +64,37 @@ export function FacetBox(props) {
     const [sortField, setSortField] = useState('count');
     const sortDirectionEl = useRef(null);
     const [sortDirection, setSortDirection] = useState('desc');
-
     const [open, setOpen] = useState(false);
+
+    const {
+        isLoading: isSearchLoading,
+        data: searchData,
+        isError: isSearchError,
+        error: searchError,
+    } = useSearch('', 0, 0);
+
+    console.log('GerardKetuma|SearchData', searchData);
+
+    if (isSearchLoading) {
+        return (
+            <div className={`sui-advBox sui-advBox-${props.id}`}>
+                <span>Facets Loading Skeleton</span>
+            </div>
+        );
+    }
+
+    if (isSearchError) {
+        return (
+            <div className={`sui-advBox sui-advBox-${props.id}`}>
+                <span>Error: {searchError.message}</span>
+            </div>
+        );
+    }
 
     let chosen_icon = props.icon;
     const facetType = props.facetType;
     const facets = props.facets;
     const chosenFacets = props.chosenFacets || [];
-
-    // if the sortField or sortDirection change make sure the send handleNarrowFilter messages
-    useEffect(() => {
-        handleNarrowFilters();
-    }, [sortField, sortDirection]);
-
-    useEffect(() => {
-        inputEl.current.value = '';
-    }, [props.resetFlag]);
 
     // console.log("FacetBox: props = ", props);
 

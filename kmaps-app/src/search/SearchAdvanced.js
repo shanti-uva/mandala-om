@@ -24,7 +24,7 @@ export default function SearchAdvanced(props) {
         data: searchData,
         isError: isSearchError,
         error: searchError,
-    } = useSearch('', 0, 0);
+    } = useSearch('', 0, 0, 'all', 0, 0, true);
 
     let openclass = props.advanced ? 'open' : 'closed';
     //const historyStack = useStoreState((state) => state.history.historyStack);
@@ -192,7 +192,7 @@ export default function SearchAdvanced(props) {
 
             <section>
                 <FacetBox
-                    id="asset_type"
+                    id="asset_count"
                     label="item type"
                     facets={searchData.facets?.asset_count?.numBuckets}
                     facetType={'asset_type'}
@@ -203,7 +203,7 @@ export default function SearchAdvanced(props) {
                     booleanControls={booleanControls}
                 />
                 <FacetBox
-                    id="subjects"
+                    id="related_subjects"
                     label="related subjects"
                     facets={searchData.facets?.related_subjects?.numBuckets}
                     facetType="subjects"
@@ -214,7 +214,7 @@ export default function SearchAdvanced(props) {
                     booleanControls={booleanControls}
                 />
                 <FacetBox
-                    id="places"
+                    id="related_places"
                     label="related places"
                     facets={searchData.facets?.related_places?.numBuckets}
                     facetType="places"
@@ -225,7 +225,7 @@ export default function SearchAdvanced(props) {
                     booleanControls={booleanControls}
                 />
                 <FacetBox
-                    id="terms"
+                    id="related_terms"
                     label="related terms"
                     facets={searchData.facets?.related_terms?.numBuckets}
                     facetType="terms"
@@ -270,7 +270,7 @@ export default function SearchAdvanced(props) {
                     booleanControls={booleanControls}
                 />
                 <FacetBox
-                    id="users"
+                    id="node_user"
                     label="users"
                     facets={searchData.facets?.node_user?.numBuckets}
                     facetType="users"
@@ -306,7 +306,7 @@ export default function SearchAdvanced(props) {
                 />
 
                 <FacetBox
-                    id="associated subjects"
+                    id="associated_subjects"
                     label="Associated Subjects"
                     facets={searchData.facets?.associated_subjects?.numBuckets}
                     facetType="associated_subjects"
