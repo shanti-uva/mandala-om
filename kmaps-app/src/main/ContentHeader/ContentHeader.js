@@ -97,6 +97,9 @@ function ContentHeaderBreadcrumbs({ itemData, itemTitle, itemType }) {
                     </Link>
                 );
             });
+            if (typeof breadcrumbs === 'undefined') {
+                breadcrumbs = [];
+            }
             breadcrumbs.push(
                 <Link to="#" className="breadcrumb-item">
                     {itemTitle}

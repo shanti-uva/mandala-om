@@ -40,7 +40,7 @@ export default function SubjectsInfo(props) {
 
     if (!isKmapLoading && !isKmapError) {
         //console.log('kmap (subjects)', kmapData);
-        history.addPage('places', kmapData.header, window.location.pathname);
+        history.addPage('subjects', kmapData.header, window.location.pathname);
     }
 
     if (isKmapError) {
