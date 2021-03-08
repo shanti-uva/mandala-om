@@ -10,6 +10,10 @@ export const history = {
         if (!pgtitle || typeof pgtitle == 'undefined' || !pgpath) {
             return;
         }
+        const related = pgpath.match(/\d+\/related/);
+        if (related) {
+            pgpath = pgpath.split('/related')[0];
+        }
         const newpage = `${pageicon}::${pgtitle}::${pgpath}`;
         const pgs = this.pages;
         if (newpage in pgs) {

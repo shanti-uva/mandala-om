@@ -1,23 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import $ from 'jquery';
 import './subjectsinfo.scss';
-import { HtmlCustom, HtmlWithPopovers } from '../common/MandalaMarkup';
-import useMandala from '../../hooks/useMandala';
-import {
-    Link,
-    Route,
-    Switch,
-    useParams,
-    useRouteMatch,
-} from 'react-router-dom';
-import { Tabs, Tab } from 'react-bootstrap';
-import useAsset from '../../hooks/useAsset';
-import useStatus from '../../hooks/useStatus';
+import { HtmlCustom } from '../common/MandalaMarkup';
+import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
 import { HistoryContext } from '../History/HistoryContext';
 import { useKmap } from '../../hooks/useKmap';
 import { queryID } from '../common/utils';
-import useDimensions from 'react-use-dimensions';
 import RelatedsGallery from '../common/RelatedsGallery';
+import KmapsDescText from './KmapsDescText';
 
 export default function SubjectsInfo(props) {
     let { path } = useRouteMatch();
@@ -49,7 +39,7 @@ export default function SubjectsInfo(props) {
     }
 
     if (!isKmapLoading && !isKmapError) {
-        console.log('kmap (subjects)', kmapData);
+        //console.log('kmap (subjects)', kmapData);
         history.addPage('places', kmapData.header, window.location.pathname);
     }
 
@@ -92,8 +82,8 @@ export default function SubjectsInfo(props) {
                 </div>
             </div>
             {txtid && (
-                <div className={'c-subject-essay'}>
-                    <SubjectTextDescription txtid={txtid} />
+                <div className={'c-subject-essay desc'}>
+                    <KmapsDescText txtid={txtid} />
                 </div>
             )}
             <React.Suspense fallback={<span>Subjects Route Skeleton ...</span>}>
@@ -113,9 +103,9 @@ export default function SubjectsInfo(props) {
 }
 
 function SubjectsDetails({ kmapData }) {
-    const kid = kmapData.id;
-    const sbjnames = kmapData._childDocuments_.filter((cd) => {
-        return cd.id.includes(kid + '_name');
+    const kid = kmapData?.id;
+    const sbjnames = kmapData?._childDocuments_?.filter((cd) => {
+        return cd?.id.includes(kid + '_name');
     });
     return (
         <>
@@ -123,7 +113,7 @@ function SubjectsDetails({ kmapData }) {
                 <label className={'font-weight-bold'}>ID:</label>{' '}
                 <span className={'kmapid'}>{kid}</span>
             </div>
-            {sbjnames.length > 0 && (
+            {sbjnames?.length > 0 && (
                 <div>
                     <label className={'font-weight-bold'}>Names:</label>
                     <ul>
@@ -142,46 +132,4 @@ function SubjectsDetails({ kmapData }) {
             )}
         </>
     );
-}
-
-function SubjectTextDescription({ txtid }) {
-    const solrdoc = useAsset('texts', txtid);
-    const txtjson = useMandala(solrdoc);
-
-    const isToc = txtjson?.toc_links && txtjson.toc_links.length > 0;
-    const defkey = isToc ? 'toc' : 'info';
-    const txtmup = txtjson?.full_markup ? (
-        <>
-            <div className={'desc-toc'}>
-                <Tabs defaultActiveKey={defkey} id="text-meta-tabs">
-                    {isToc && (
-                        <Tab eventKey="toc" title="Table of Contents">
-                            <div className={'toc'}>
-                                <HtmlCustom markup={txtjson.toc_links} />
-                            </div>
-                        </Tab>
-                    )}
-                    <Tab eventKey="info" title="Info">
-                        {txtjson?.bibl_summary && (
-                            <div className={'info'}>
-                                <HtmlWithPopovers
-                                    markup={txtjson?.bibl_summary}
-                                />
-                            </div>
-                        )}
-                    </Tab>
-                </Tabs>
-            </div>
-
-            <HtmlWithPopovers markup={txtjson?.full_markup} />
-        </>
-    ) : (
-        <>
-            <div className={'mt-5'}>
-                <h5>Loading ...</h5>
-            </div>
-        </>
-    );
-
-    return txtmup;
 }
