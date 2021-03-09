@@ -1,46 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import './HistoryViewer.css';
-//import { HistoryLocation } from './HistoryLocation';
 
 import { HistoryContext } from './HistoryContext';
-import _ from 'lodash';
 import { Link } from 'react-router-dom';
-export function HistoryViewer(props) {
-    /*
-    const kmasset = useStoreState((state) => state.kmap.asset);
-*/
-    // const historyStack = useStoreState((state) => state.history.historyStack);
+import { capitalAsset } from '../common/utils';
 
-    // let historyList = [];
-    // historyStack.forEach((location, mykey) => {
-    //     const isSearch = location.search?.length ? true : false;
-    //     // console.log("HISTORY VIEWER: location = ", location);
-    //     if (
-    //         (isSearch && props.mode === 'search') ||
-    //         (!isSearch && props.mode !== 'search')
-    //     ) {
-    //         historyList.unshift(
-    //             <HistoryLocation key={mykey} location={location} />
-    //         );
-    //     }
-    // });
+export function HistoryViewer(props) {
     const history = useContext(HistoryContext);
-    const pages = Array.from(history.pages);
+    const [pages, setPages] = useState(Array.from(history.pages));
 
     return (
         <div className="c-HistoryViewer">
             {pages &&
                 pages?.map((pgdata, pdi) => {
                     let [pgicon, pgtitle, pgpath] = pgdata.split('::');
-                    let asset_type = ';';
-                    if (pgicon.includes('collections-')) {
+                    let asset_type = '';
+                    const isCollection = pgicon.includes('collections-');
+                    if (isCollection) {
                         asset_type = pgicon.split('-')[1];
                         pgicon = 'collections';
+                    } else {
+                        asset_type = pgicon;
                     }
                     if (typeof pgtitle === 'undefined') {
                         return;
                     }
+                    const linkTitle = isCollection
+                        ? capitalAsset(asset_type) + ' Collection'
+                        : capitalAsset(asset_type);
                     return (
                         <div
                             className="c-HistoryViewer__relatedRecentItem"
@@ -52,16 +40,30 @@ export function HistoryViewer(props) {
                                     className={
                                         'facetItem icon u-icon__' + pgicon
                                     }
-                                    title={asset_type}
+                                    title={linkTitle}
                                 >
                                     {' '}
                                 </span>
-                                <Link to={pgpath}>{pgtitle}</Link>
+                                <Link to={pgpath} title={linkTitle}>
+                                    {pgtitle}
+                                </Link>
                             </span>
                             <span
                                 className="c-HistoryViewer__removeItem u-icon__cancel-circle icon"
                                 alt="Remove from list"
                                 aria-label="Remove from list"
+                                data-listid={pdi}
+                                onClick={(event) => {
+                                    console.log('delete:', event.target);
+                                    console.log(
+                                        event.target.getAttribute('data-path')
+                                    );
+                                    history.removePage(
+                                        event.target.getAttribute('data-listid')
+                                    );
+                                    setPages(Array.from(history.pages));
+                                    event.stopPropagation();
+                                }}
                             >
                                 {' '}
                             </span>

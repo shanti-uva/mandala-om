@@ -32,7 +32,7 @@ export function CollectionsViewer(props) {
         error: collError,
     } = useCollection(asset_type, asset_id);
     const collsolr = colldata?.numFound === 1 ? colldata.docs[0] : false;
-    console.log(asset_type, asset_id, colldata);
+
     // Set up state variables for pager
     const [startRow, setStartRow] = useState(0);
     const [pageNum, setPageNum] = useState(0);
