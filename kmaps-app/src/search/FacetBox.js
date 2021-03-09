@@ -11,6 +11,7 @@ import { BsCheckCircle, BsMap } from 'react-icons/bs';
 import { ImStack } from 'react-icons/im';
 
 import './FacetBox.scss';
+import { search } from '../logic/searchapi';
 
 function FacetControls(props) {
     return (
@@ -60,20 +61,20 @@ FacetControls.propTypes = {
 
 export function FacetBox(props) {
     const inputEl = useRef(null);
-    const sortFieldEl = useRef(null);
     const [sortField, setSortField] = useState('count');
-    const sortDirectionEl = useRef(null);
     const [sortDirection, setSortDirection] = useState('desc');
     const [open, setOpen] = useState(false);
+    const [facetOffset, setFacetOffset] = useState(0);
+    const [facetLimit, setFacetLimit] = useState(100);
 
     const {
         isLoading: isSearchLoading,
         data: searchData,
         isError: isSearchError,
         error: searchError,
-    } = useSearch('', 0, 0);
+    } = useSearch('', 0, 0, props.id, facetOffset, facetLimit, false, open);
 
-    console.log('GerardKetuma|SearchData', searchData);
+    console.log('GerardKetuma|SearchFacetBoxData', searchData);
 
     if (isSearchLoading) {
         return (
@@ -94,6 +95,7 @@ export function FacetBox(props) {
     let chosen_icon = props.icon;
     const facetType = props.facetType;
     const facets = props.facets;
+    const facetNodes = searchData?.facets[props.id];
     const chosenFacets = props.chosenFacets || [];
 
     // console.log("FacetBox: props = ", props);
@@ -207,7 +209,7 @@ export function FacetBox(props) {
         return uid;
     }
 
-    const facetList = _.map(facets?.buckets, (entry) => {
+    const facetList = _.map(facetNodes?.buckets, (entry) => {
         // Adjust
         const iconClass = chooseIconClass(entry);
         const { label, fullLabel, value } = parseEntry(entry, false);
