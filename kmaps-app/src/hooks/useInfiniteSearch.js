@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 import slugify from 'slugify';
 import _ from 'lodash';
@@ -7,50 +7,58 @@ import { getSolrUrls } from './utils';
 
 const solr_urls = getSolrUrls();
 
-export function useSearch(
+export function useInfiniteSearch(
     searchText = '',
     start = 0,
     rows = 0,
     facetType = 'all',
-    facetOffset = 0,
     facetLimit = 0,
     facetBuckets = false,
     enabled = true
 ) {
-    return useQuery(
+    return useInfiniteQuery(
         [
             'search',
-            start,
-            rows,
-            facetType,
-            facetOffset,
-            facetLimit,
-            facetBuckets,
-            slugify(searchText),
-        ],
-        () =>
-            getSearchData(
-                searchText,
+            {
                 start,
                 rows,
                 facetType,
-                facetOffset,
                 facetLimit,
-                facetBuckets
-            ),
-        { keepPreviousData: true, enabled }
+                facetBuckets,
+                searchText: slugify(searchText),
+            },
+        ],
+        getSearchData,
+        {
+            enabled,
+            getNextPageParam: (lastPage) => {
+                // Get last Offset.
+                const lastOffset = JSON.parse(
+                    lastPage.responseHeader.params['json.facet']
+                )[facetType].offset;
+
+                // Get number of buckets for this facetType
+                const numBuckets = lastPage.facets[facetType].numBuckets;
+
+                // Set next offset
+                let nextOffset = lastOffset + 100;
+                if (nextOffset >= numBuckets) {
+                    nextOffset = false;
+                }
+
+                return nextOffset;
+            },
+        }
     );
 }
 
-async function getSearchData(
-    searchText,
-    start,
-    rows,
-    facetType,
-    facetOffset,
-    facetLimit,
-    facetBuckets
-) {
+async function getSearchData({ queryKey, pageParam = 0 }) {
+    const [
+        // eslint-disable-next-line no-unused-vars
+        _key,
+        { start, rows, facetType, facetLimit, facetBuckets, searchText },
+    ] = queryKey;
+
     let params = {
         fl: '*',
         wt: 'json',
@@ -59,7 +67,7 @@ async function getSearchData(
         start: start,
         rows: rows,
         'json.facet': JSON.stringify(
-            getJsonFacet(facetType, facetOffset, facetLimit, facetBuckets)
+            getJsonFacet(facetType, pageParam, facetLimit, facetBuckets)
         ),
     };
     const queryParams = constructTextQuery(searchText);
