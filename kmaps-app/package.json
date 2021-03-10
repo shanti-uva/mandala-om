@@ -51,7 +51,8 @@
         "react-use-dimensions": "^1.2.1",
         "slugify": "^1.4.7",
         "spex": "^3.0.2",
-        "typescript": "^3.9.7"
+        "typescript": "^3.9.7",
+        "zustand": "^3.3.3"
     },
     "scripts": {
         "start": "react-scripts start",
