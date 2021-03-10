@@ -100,7 +100,7 @@ export default function SourcesViewer(props) {
                         {/* Publication Info */}
                         <SourcesRow
                             label={'Format'}
-                            value={nodejson.biblio_type_name}
+                            value={nodejson?.biblio_type_name}
                         />
 
                         {nodejson?.biblio_year?.length > 0 && (
@@ -131,24 +131,24 @@ export default function SourcesViewer(props) {
                         )}
                         <SourcesRow
                             label={'Source ID'}
-                            value={'sources-' + nodejson.nid}
+                            value={'sources-' + nodejson?.nid}
                         />
 
                         <SourcesKmap
                             label={'Language'}
-                            field={nodejson.field_language_kmaps}
+                            field={nodejson?.field_language_kmaps}
                         />
                         <SourcesKmap
                             label={'Places'}
-                            field={nodejson.field_kmaps_places}
+                            field={nodejson?.field_kmaps_places}
                         />
                         <SourcesKmap
                             label={'Subjects'}
-                            field={nodejson.field_kmaps_subjects}
+                            field={nodejson?.field_kmaps_subjects}
                         />
                         <SourcesKmap
                             label={'Terms'}
-                            field={nodejson.field_kmaps_terms}
+                            field={nodejson?.field_kmaps_terms}
                         />
 
                         {/* Abstract, Link, Etc. */}
